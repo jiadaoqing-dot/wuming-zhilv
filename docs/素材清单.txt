@@ -1,239 +1,243 @@
 assets/ 素材清单(tools/assets_index.py 自动生成,build.py 每次构建时更新;不要手改)
 格式:文件  大小  源码引用(行号 所在函数/对象.键)  ← 生成脚本  [音频:用到的原始素材]
 
-== 图片 PNG(@@A:)  108 个 ==
-ars_ar1.png  4KB  L4991 PXA.ar1  ← 无脚本:Hero spritesheets - Ars Notoria(Balmer,CC0)换色分层,旧主角选项,见源码 PXA 注释
-ars_ar2.png  4KB  L4992 PXA.ar2  ← 无脚本:Hero spritesheets - Ars Notoria(Balmer,CC0)换色分层,旧主角选项,见源码 PXA 注释
-ars_ar3.png  4KB  L4993 PXA.ar3  ← 无脚本:Hero spritesheets - Ars Notoria(Balmer,CC0)换色分层,旧主角选项,见源码 PXA 注释
-ars_ar4.png  4KB  L4994 PXA.ar4  ← 无脚本:Hero spritesheets - Ars Notoria(Balmer,CC0)换色分层,旧主角选项,见源码 PXA 注释
-ars_ar5.png  4KB  L4995 PXA.ar5  ← 无脚本:Hero spritesheets - Ars Notoria(Balmer,CC0)换色分层,旧主角选项,见源码 PXA 注释
-ars_ar6.png  4KB  L4996 PXA.ar6  ← 无脚本:Hero spritesheets - Ars Notoria(Balmer,CC0)换色分层,旧主角选项,见源码 PXA 注释
-ars_ar7.png  3KB  L4997 PXA.ar7  ← 无脚本:Hero spritesheets - Ars Notoria(Balmer,CC0)换色分层,旧主角选项,见源码 PXA 注释
-ars_ar8.png  3KB  L4998 PXA.ar8  ← 无脚本:Hero spritesheets - Ars Notoria(Balmer,CC0)换色分层,旧主角选项,见源码 PXA 注释
+== 图片 PNG(@@A:)  112 个 ==
+ars_ar1.png  4KB  L4992 PXA.ar1  ← 无脚本:Hero spritesheets - Ars Notoria(Balmer,CC0)换色分层,旧主角选项,见源码 PXA 注释
+ars_ar2.png  4KB  L4993 PXA.ar2  ← 无脚本:Hero spritesheets - Ars Notoria(Balmer,CC0)换色分层,旧主角选项,见源码 PXA 注释
+ars_ar3.png  4KB  L4994 PXA.ar3  ← 无脚本:Hero spritesheets - Ars Notoria(Balmer,CC0)换色分层,旧主角选项,见源码 PXA 注释
+ars_ar4.png  4KB  L4995 PXA.ar4  ← 无脚本:Hero spritesheets - Ars Notoria(Balmer,CC0)换色分层,旧主角选项,见源码 PXA 注释
+ars_ar5.png  4KB  L4996 PXA.ar5  ← 无脚本:Hero spritesheets - Ars Notoria(Balmer,CC0)换色分层,旧主角选项,见源码 PXA 注释
+ars_ar6.png  4KB  L4997 PXA.ar6  ← 无脚本:Hero spritesheets - Ars Notoria(Balmer,CC0)换色分层,旧主角选项,见源码 PXA 注释
+ars_ar7.png  3KB  L4998 PXA.ar7  ← 无脚本:Hero spritesheets - Ars Notoria(Balmer,CC0)换色分层,旧主角选项,见源码 PXA 注释
+ars_ar8.png  3KB  L4999 PXA.ar8  ← 无脚本:Hero spritesheets - Ars Notoria(Balmer,CC0)换色分层,旧主角选项,见源码 PXA 注释
 ars_atlas.png  106KB  L2134 ARS.D  ← art_src/boss/build_ars.py
-ars_bk1.png  3KB  L5031 PXA.bk1  ← 无脚本:Hero spritesheets - Ars Notoria(Balmer,CC0)换色分层,旧主角选项,见源码 PXA 注释
-ars_bk2.png  2KB  L5032 PXA.bk2  ← 无脚本:Hero spritesheets - Ars Notoria(Balmer,CC0)换色分层,旧主角选项,见源码 PXA 注释
-ars_bk3.png  3KB  L5033 PXA.bk3  ← 无脚本:Hero spritesheets - Ars Notoria(Balmer,CC0)换色分层,旧主角选项,见源码 PXA 注释
-ars_bk4.png  2KB  L5034 PXA.bk4  ← 无脚本:Hero spritesheets - Ars Notoria(Balmer,CC0)换色分层,旧主角选项,见源码 PXA 注释
-ars_bk5.png  2KB  L5035 PXA.bk5  ← 无脚本:Hero spritesheets - Ars Notoria(Balmer,CC0)换色分层,旧主角选项,见源码 PXA 注释
-ars_bk6.png  2KB  L5036 PXA.bk6  ← 无脚本:Hero spritesheets - Ars Notoria(Balmer,CC0)换色分层,旧主角选项,见源码 PXA 注释
-ars_bk7.png  2KB  L5037 PXA.bk7  ← 无脚本:Hero spritesheets - Ars Notoria(Balmer,CC0)换色分层,旧主角选项,见源码 PXA 注释
-ars_bk8.png  2KB  L5038 PXA.bk8  ← 无脚本:Hero spritesheets - Ars Notoria(Balmer,CC0)换色分层,旧主角选项,见源码 PXA 注释
-ars_ha1.png  2KB  L5015 PXA.ha1  ← 无脚本:Hero spritesheets - Ars Notoria(Balmer,CC0)换色分层,旧主角选项,见源码 PXA 注释
-ars_ha2.png  2KB  L5016 PXA.ha2  ← 无脚本:Hero spritesheets - Ars Notoria(Balmer,CC0)换色分层,旧主角选项,见源码 PXA 注释
-ars_ha3.png  2KB  L5017 PXA.ha3  ← 无脚本:Hero spritesheets - Ars Notoria(Balmer,CC0)换色分层,旧主角选项,见源码 PXA 注释
-ars_ha4.png  2KB  L5018 PXA.ha4  ← 无脚本:Hero spritesheets - Ars Notoria(Balmer,CC0)换色分层,旧主角选项,见源码 PXA 注释
-ars_ha5.png  2KB  L5019 PXA.ha5  ← 无脚本:Hero spritesheets - Ars Notoria(Balmer,CC0)换色分层,旧主角选项,见源码 PXA 注释
-ars_ha6.png  2KB  L5020 PXA.ha6  ← 无脚本:Hero spritesheets - Ars Notoria(Balmer,CC0)换色分层,旧主角选项,见源码 PXA 注释
-ars_ha7.png  2KB  L5021 PXA.ha7  ← 无脚本:Hero spritesheets - Ars Notoria(Balmer,CC0)换色分层,旧主角选项,见源码 PXA 注释
-ars_ha8.png  1KB  L5022 PXA.ha8  ← 无脚本:Hero spritesheets - Ars Notoria(Balmer,CC0)换色分层,旧主角选项,见源码 PXA 注释
-ars_he1.png  2KB  L5007 PXA.he1  ← 无脚本:Hero spritesheets - Ars Notoria(Balmer,CC0)换色分层,旧主角选项,见源码 PXA 注释
-ars_he2.png  2KB  L5008 PXA.he2  ← 无脚本:Hero spritesheets - Ars Notoria(Balmer,CC0)换色分层,旧主角选项,见源码 PXA 注释
-ars_he3.png  2KB  L5009 PXA.he3  ← 无脚本:Hero spritesheets - Ars Notoria(Balmer,CC0)换色分层,旧主角选项,见源码 PXA 注释
-ars_he4.png  2KB  L5010 PXA.he4  ← 无脚本:Hero spritesheets - Ars Notoria(Balmer,CC0)换色分层,旧主角选项,见源码 PXA 注释
-ars_he5.png  3KB  L5011 PXA.he5  ← 无脚本:Hero spritesheets - Ars Notoria(Balmer,CC0)换色分层,旧主角选项,见源码 PXA 注释
-ars_he6.png  2KB  L5012 PXA.he6  ← 无脚本:Hero spritesheets - Ars Notoria(Balmer,CC0)换色分层,旧主角选项,见源码 PXA 注释
-ars_he7.png  2KB  L5013 PXA.he7  ← 无脚本:Hero spritesheets - Ars Notoria(Balmer,CC0)换色分层,旧主角选项,见源码 PXA 注释
-ars_he8.png  2KB  L5014 PXA.he8  ← 无脚本:Hero spritesheets - Ars Notoria(Balmer,CC0)换色分层,旧主角选项,见源码 PXA 注释
-ars_pl.png  11KB  L4990 PXA.pl  ← 无脚本:Hero spritesheets - Ars Notoria(Balmer,CC0)换色分层,旧主角选项,见源码 PXA 注释
-ars_ro1.png  8KB  L4999 PXA.ro1  ← 无脚本:Hero spritesheets - Ars Notoria(Balmer,CC0)换色分层,旧主角选项,见源码 PXA 注释
-ars_ro2.png  8KB  L5000 PXA.ro2  ← 无脚本:Hero spritesheets - Ars Notoria(Balmer,CC0)换色分层,旧主角选项,见源码 PXA 注释
-ars_ro3.png  9KB  L5001 PXA.ro3  ← 无脚本:Hero spritesheets - Ars Notoria(Balmer,CC0)换色分层,旧主角选项,见源码 PXA 注释
-ars_ro4.png  8KB  L5002 PXA.ro4  ← 无脚本:Hero spritesheets - Ars Notoria(Balmer,CC0)换色分层,旧主角选项,见源码 PXA 注释
-ars_ro5.png  8KB  L5003 PXA.ro5  ← 无脚本:Hero spritesheets - Ars Notoria(Balmer,CC0)换色分层,旧主角选项,见源码 PXA 注释
-ars_ro6.png  8KB  L5004 PXA.ro6  ← 无脚本:Hero spritesheets - Ars Notoria(Balmer,CC0)换色分层,旧主角选项,见源码 PXA 注释
-ars_ro7.png  9KB  L5005 PXA.ro7  ← 无脚本:Hero spritesheets - Ars Notoria(Balmer,CC0)换色分层,旧主角选项,见源码 PXA 注释
-ars_ro8.png  6KB  L5006 PXA.ro8  ← 无脚本:Hero spritesheets - Ars Notoria(Balmer,CC0)换色分层,旧主角选项,见源码 PXA 注释
-ars_sh1.png  3KB  L5023 PXA.sh1  ← 无脚本:Hero spritesheets - Ars Notoria(Balmer,CC0)换色分层,旧主角选项,见源码 PXA 注释
-ars_sh2.png  3KB  L5024 PXA.sh2  ← 无脚本:Hero spritesheets - Ars Notoria(Balmer,CC0)换色分层,旧主角选项,见源码 PXA 注释
-ars_sh3.png  3KB  L5025 PXA.sh3  ← 无脚本:Hero spritesheets - Ars Notoria(Balmer,CC0)换色分层,旧主角选项,见源码 PXA 注释
-ars_sh4.png  3KB  L5026 PXA.sh4  ← 无脚本:Hero spritesheets - Ars Notoria(Balmer,CC0)换色分层,旧主角选项,见源码 PXA 注释
-ars_sh5.png  3KB  L5027 PXA.sh5  ← 无脚本:Hero spritesheets - Ars Notoria(Balmer,CC0)换色分层,旧主角选项,见源码 PXA 注释
-ars_sh6.png  4KB  L5028 PXA.sh6  ← 无脚本:Hero spritesheets - Ars Notoria(Balmer,CC0)换色分层,旧主角选项,见源码 PXA 注释
-ars_sh7.png  4KB  L5029 PXA.sh7  ← 无脚本:Hero spritesheets - Ars Notoria(Balmer,CC0)换色分层,旧主角选项,见源码 PXA 注释
-ars_sh8.png  5KB  L5030 PXA.sh8  ← 无脚本:Hero spritesheets - Ars Notoria(Balmer,CC0)换色分层,旧主角选项,见源码 PXA 注释
-bfx2_atlas.png  58KB  L5501 BFX2.D  ← art_src/bfx/build_bfx2.py
-bfx_atlas.png  27KB  L5483 BFX.D  ← art_src/bfx/build_bfx.py
+ars_bk1.png  3KB  L5032 PXA.bk1  ← 无脚本:Hero spritesheets - Ars Notoria(Balmer,CC0)换色分层,旧主角选项,见源码 PXA 注释
+ars_bk2.png  2KB  L5033 PXA.bk2  ← 无脚本:Hero spritesheets - Ars Notoria(Balmer,CC0)换色分层,旧主角选项,见源码 PXA 注释
+ars_bk3.png  3KB  L5034 PXA.bk3  ← 无脚本:Hero spritesheets - Ars Notoria(Balmer,CC0)换色分层,旧主角选项,见源码 PXA 注释
+ars_bk4.png  2KB  L5035 PXA.bk4  ← 无脚本:Hero spritesheets - Ars Notoria(Balmer,CC0)换色分层,旧主角选项,见源码 PXA 注释
+ars_bk5.png  2KB  L5036 PXA.bk5  ← 无脚本:Hero spritesheets - Ars Notoria(Balmer,CC0)换色分层,旧主角选项,见源码 PXA 注释
+ars_bk6.png  2KB  L5037 PXA.bk6  ← 无脚本:Hero spritesheets - Ars Notoria(Balmer,CC0)换色分层,旧主角选项,见源码 PXA 注释
+ars_bk7.png  2KB  L5038 PXA.bk7  ← 无脚本:Hero spritesheets - Ars Notoria(Balmer,CC0)换色分层,旧主角选项,见源码 PXA 注释
+ars_bk8.png  2KB  L5039 PXA.bk8  ← 无脚本:Hero spritesheets - Ars Notoria(Balmer,CC0)换色分层,旧主角选项,见源码 PXA 注释
+ars_ha1.png  2KB  L5016 PXA.ha1  ← 无脚本:Hero spritesheets - Ars Notoria(Balmer,CC0)换色分层,旧主角选项,见源码 PXA 注释
+ars_ha2.png  2KB  L5017 PXA.ha2  ← 无脚本:Hero spritesheets - Ars Notoria(Balmer,CC0)换色分层,旧主角选项,见源码 PXA 注释
+ars_ha3.png  2KB  L5018 PXA.ha3  ← 无脚本:Hero spritesheets - Ars Notoria(Balmer,CC0)换色分层,旧主角选项,见源码 PXA 注释
+ars_ha4.png  2KB  L5019 PXA.ha4  ← 无脚本:Hero spritesheets - Ars Notoria(Balmer,CC0)换色分层,旧主角选项,见源码 PXA 注释
+ars_ha5.png  2KB  L5020 PXA.ha5  ← 无脚本:Hero spritesheets - Ars Notoria(Balmer,CC0)换色分层,旧主角选项,见源码 PXA 注释
+ars_ha6.png  2KB  L5021 PXA.ha6  ← 无脚本:Hero spritesheets - Ars Notoria(Balmer,CC0)换色分层,旧主角选项,见源码 PXA 注释
+ars_ha7.png  2KB  L5022 PXA.ha7  ← 无脚本:Hero spritesheets - Ars Notoria(Balmer,CC0)换色分层,旧主角选项,见源码 PXA 注释
+ars_ha8.png  1KB  L5023 PXA.ha8  ← 无脚本:Hero spritesheets - Ars Notoria(Balmer,CC0)换色分层,旧主角选项,见源码 PXA 注释
+ars_he1.png  2KB  L5008 PXA.he1  ← 无脚本:Hero spritesheets - Ars Notoria(Balmer,CC0)换色分层,旧主角选项,见源码 PXA 注释
+ars_he2.png  2KB  L5009 PXA.he2  ← 无脚本:Hero spritesheets - Ars Notoria(Balmer,CC0)换色分层,旧主角选项,见源码 PXA 注释
+ars_he3.png  2KB  L5010 PXA.he3  ← 无脚本:Hero spritesheets - Ars Notoria(Balmer,CC0)换色分层,旧主角选项,见源码 PXA 注释
+ars_he4.png  2KB  L5011 PXA.he4  ← 无脚本:Hero spritesheets - Ars Notoria(Balmer,CC0)换色分层,旧主角选项,见源码 PXA 注释
+ars_he5.png  3KB  L5012 PXA.he5  ← 无脚本:Hero spritesheets - Ars Notoria(Balmer,CC0)换色分层,旧主角选项,见源码 PXA 注释
+ars_he6.png  2KB  L5013 PXA.he6  ← 无脚本:Hero spritesheets - Ars Notoria(Balmer,CC0)换色分层,旧主角选项,见源码 PXA 注释
+ars_he7.png  2KB  L5014 PXA.he7  ← 无脚本:Hero spritesheets - Ars Notoria(Balmer,CC0)换色分层,旧主角选项,见源码 PXA 注释
+ars_he8.png  2KB  L5015 PXA.he8  ← 无脚本:Hero spritesheets - Ars Notoria(Balmer,CC0)换色分层,旧主角选项,见源码 PXA 注释
+ars_pl.png  11KB  L4991 PXA.pl  ← 无脚本:Hero spritesheets - Ars Notoria(Balmer,CC0)换色分层,旧主角选项,见源码 PXA 注释
+ars_ro1.png  8KB  L5000 PXA.ro1  ← 无脚本:Hero spritesheets - Ars Notoria(Balmer,CC0)换色分层,旧主角选项,见源码 PXA 注释
+ars_ro2.png  8KB  L5001 PXA.ro2  ← 无脚本:Hero spritesheets - Ars Notoria(Balmer,CC0)换色分层,旧主角选项,见源码 PXA 注释
+ars_ro3.png  9KB  L5002 PXA.ro3  ← 无脚本:Hero spritesheets - Ars Notoria(Balmer,CC0)换色分层,旧主角选项,见源码 PXA 注释
+ars_ro4.png  8KB  L5003 PXA.ro4  ← 无脚本:Hero spritesheets - Ars Notoria(Balmer,CC0)换色分层,旧主角选项,见源码 PXA 注释
+ars_ro5.png  8KB  L5004 PXA.ro5  ← 无脚本:Hero spritesheets - Ars Notoria(Balmer,CC0)换色分层,旧主角选项,见源码 PXA 注释
+ars_ro6.png  8KB  L5005 PXA.ro6  ← 无脚本:Hero spritesheets - Ars Notoria(Balmer,CC0)换色分层,旧主角选项,见源码 PXA 注释
+ars_ro7.png  9KB  L5006 PXA.ro7  ← 无脚本:Hero spritesheets - Ars Notoria(Balmer,CC0)换色分层,旧主角选项,见源码 PXA 注释
+ars_ro8.png  6KB  L5007 PXA.ro8  ← 无脚本:Hero spritesheets - Ars Notoria(Balmer,CC0)换色分层,旧主角选项,见源码 PXA 注释
+ars_sh1.png  3KB  L5024 PXA.sh1  ← 无脚本:Hero spritesheets - Ars Notoria(Balmer,CC0)换色分层,旧主角选项,见源码 PXA 注释
+ars_sh2.png  3KB  L5025 PXA.sh2  ← 无脚本:Hero spritesheets - Ars Notoria(Balmer,CC0)换色分层,旧主角选项,见源码 PXA 注释
+ars_sh3.png  3KB  L5026 PXA.sh3  ← 无脚本:Hero spritesheets - Ars Notoria(Balmer,CC0)换色分层,旧主角选项,见源码 PXA 注释
+ars_sh4.png  3KB  L5027 PXA.sh4  ← 无脚本:Hero spritesheets - Ars Notoria(Balmer,CC0)换色分层,旧主角选项,见源码 PXA 注释
+ars_sh5.png  3KB  L5028 PXA.sh5  ← 无脚本:Hero spritesheets - Ars Notoria(Balmer,CC0)换色分层,旧主角选项,见源码 PXA 注释
+ars_sh6.png  4KB  L5029 PXA.sh6  ← 无脚本:Hero spritesheets - Ars Notoria(Balmer,CC0)换色分层,旧主角选项,见源码 PXA 注释
+ars_sh7.png  4KB  L5030 PXA.sh7  ← 无脚本:Hero spritesheets - Ars Notoria(Balmer,CC0)换色分层,旧主角选项,见源码 PXA 注释
+ars_sh8.png  5KB  L5031 PXA.sh8  ← 无脚本:Hero spritesheets - Ars Notoria(Balmer,CC0)换色分层,旧主角选项,见源码 PXA 注释
+bfx2_atlas.png  58KB  L5502 BFX2.D  ← art_src/bfx/build_bfx2.py
+bfx_atlas.png  27KB  L5484 BFX.D  ← art_src/bfx/build_bfx.py
 city8_atlas.png  128KB  L2652 CITY8.D  ← art_src/city/build_city8.py
-eq_atlas.png  12KB  L4317 EQPX.D  ← art_src/eqicon/build_eqicon.py
+eq_atlas.png  12KB  L4318 EQPX.D  ← art_src/eqicon/build_eqicon.py
 gh8_atlas.png  13KB  L2687 GH8.D  ← art_src/city/build_gh8.py
 gsword.png  11KB  L1812 GSW.D  ← art_src/skfx/build_gsword.py
-hsw_atlas.png  3KB  L4260 HSW.D  ← art_src/lpc/build_hsw.py
-ice6_atlas.png  2KB  L4808 ICE6P.D  ← art_src/lv/build_ice6.py
-kb_atlas.png  16KB  L5446 KB.D  ← art_src/boss/build_kb.py
-lair_atlas.png  85KB  L4922 LAIR.D  ← art_src/lv/build_lair.py
-lbg_atlas.png  138KB  L4844 LBG.D  ← art_src/lbg/build_lbg.py
-lpc_atlas.png  316KB  L5150 LPC.AD  ← art_src/lpc/build_lpc.py
-ltl1.png  19KB  L4865 LTL.D  ← art_src/lv/build_ltl.py
-ltl2.png  19KB  L4866 LTL.D  ← art_src/lv/build_ltl.py
-ltl3.png  19KB  L4867 LTL.D  ← art_src/lv/build_ltl.py
-ltl4.png  18KB  L4868 LTL.D  ← art_src/lv/build_ltl.py
-ltl5.png  10KB  L4869 LTL.D  ← art_src/lv/build_ltl.py
-ltl6.png  3KB  L4870 LTL.D  ← art_src/lv/build_ltl.py
-ltl7.png  3KB  L4871 LTL.D  ← art_src/lv/build_ltl.py
-mage_atlas.png  14KB  L5425 BOS.MD  ← art_src/boss/build_mage.py
-meni_atlas.png  12KB  L171 ; L176 ; L445 MENI.D  ← art_src/ui/build_ui.py
-mfx_atlas.png  23KB  L5356 MFXD  ← art_src/mob/build_mfx.py
-mnt_atlas.png  43KB  L5407 MNT.D  ← art_src/boss/build_mnt.py
-mob_atlas.png  230KB  L5357 MOB.D  ← art_src/boss/build_bos.py, art_src/mob/build_dog2.py, art_src/mob/build_pen.py, art_src/mob/fix_dog2.py
+home_bg.png  24KB  L189   ← art_src/home/build_home.py
+home_btn.png  0KB  L198 ; L203   ← art_src/home/build_home.py
+home_div.png  0KB  L193   ← art_src/home/build_home.py
+home_frame.png  0KB  L191   ← art_src/home/build_home.py
+hsw_atlas.png  3KB  L4261 HSW.D  ← art_src/lpc/build_hsw.py
+ice6_atlas.png  2KB  L4809 ICE6P.D  ← art_src/lv/build_ice6.py
+kb_atlas.png  16KB  L5447 KB.D  ← art_src/boss/build_kb.py
+lair_atlas.png  85KB  L4923 LAIR.D  ← art_src/lv/build_lair.py
+lbg_atlas.png  138KB  L4845 LBG.D  ← art_src/lbg/build_lbg.py
+lpc_atlas.png  316KB  L5151 LPC.AD  ← art_src/lpc/build_lpc.py
+ltl1.png  19KB  L4866 LTL.D  ← art_src/lv/build_ltl.py
+ltl2.png  19KB  L4867 LTL.D  ← art_src/lv/build_ltl.py
+ltl3.png  19KB  L4868 LTL.D  ← art_src/lv/build_ltl.py
+ltl4.png  18KB  L4869 LTL.D  ← art_src/lv/build_ltl.py
+ltl5.png  10KB  L4870 LTL.D  ← art_src/lv/build_ltl.py
+ltl6.png  3KB  L4871 LTL.D  ← art_src/lv/build_ltl.py
+ltl7.png  3KB  L4872 LTL.D  ← art_src/lv/build_ltl.py
+mage_atlas.png  14KB  L5426 BOS.MD  ← art_src/boss/build_mage.py
+meni_atlas.png  12KB  L171 ; L176 ; L444 MENI.D  ← art_src/ui/build_ui.py
+mfx_atlas.png  23KB  L5357 MFXD  ← art_src/mob/build_mfx.py
+mnt_atlas.png  43KB  L5408 MNT.D  ← art_src/boss/build_mnt.py
+mob_atlas.png  230KB  L5358 MOB.D  ← art_src/boss/build_bos.py, art_src/mob/build_dog2.py, art_src/mob/build_pen.py, art_src/mob/fix_dog2.py
 myst_atlas.png  87KB  L3302 MYST.D  ← art_src/myst/build_myst.py
-npc_chief.png  2KB  L4987 PXA  ← 无脚本:PXA 早期 NPC 像素图(来源见源码 PXA 注释)
-npc_erin.png  2KB  L4983 PXA  ← 无脚本:PXA 早期 NPC 像素图(来源见源码 PXA 注释)
-npc_jin.png  2KB  L4986 PXA  ← 无脚本:PXA 早期 NPC 像素图(来源见源码 PXA 注释)
-npc_kui.png  2KB  L4984 PXA  ← 无脚本:PXA 早期 NPC 像素图(来源见源码 PXA 注释)
-npc_lpc.png  19KB  L5336 LNPC.D  ← art_src/lpc_npc/build_npc_lpc.py
-npc_tie.png  2KB  L4985 PXA  ← 无脚本:PXA 早期 NPC 像素图(来源见源码 PXA 注释)
-pend.png  1KB  L5330 PEND.D  ← art_src/pend/build_pend.py
-pot_atlas.png  1KB  L415 POTI.D  ← art_src/potion/build_pot.py
-pui_atlas.png  17KB  L3947 PUI.D  ← art_src/ui/build_pui.py
-scob_atlas.png  8KB  L5425 BOS.SD  ← art_src/boss/build_scob.py
+npc_chief.png  2KB  L4988 PXA  ← 无脚本:PXA 早期 NPC 像素图(来源见源码 PXA 注释)
+npc_erin.png  2KB  L4984 PXA  ← 无脚本:PXA 早期 NPC 像素图(来源见源码 PXA 注释)
+npc_jin.png  2KB  L4987 PXA  ← 无脚本:PXA 早期 NPC 像素图(来源见源码 PXA 注释)
+npc_kui.png  2KB  L4985 PXA  ← 无脚本:PXA 早期 NPC 像素图(来源见源码 PXA 注释)
+npc_lpc.png  19KB  L5337 LNPC.D  ← art_src/lpc_npc/build_npc_lpc.py
+npc_tie.png  2KB  L4986 PXA  ← 无脚本:PXA 早期 NPC 像素图(来源见源码 PXA 注释)
+pend.png  1KB  L5331 PEND.D  ← art_src/pend/build_pend.py
+pot_atlas.png  1KB  L414 POTI.D  ← art_src/potion/build_pot.py
+pui_atlas.png  17KB  L3948 PUI.D  ← art_src/ui/build_pui.py
+scob_atlas.png  8KB  L5426 BOS.SD  ← art_src/boss/build_scob.py
 ship10_atlas.png  84KB  L3035 SHIP10.D  ← art_src/ship/build_ship10.py
-skfx_atlas.png  305KB  L5506 SKFX.D  ← art_src/skfx/build_skfx.py
-smn_atlas.png  16KB  L4542 SMN.D  ← art_src/summon/build_smn.py
-stn_atlas.png  1KB  L508 STNI.D  ← art_src/stone/build_stone.py
-town2_back.png  24KB  L4956 TWN.back  ← art_src/town/build_town2.py
-town2_far.png  11KB  L4956 TWN.far  ← art_src/town/build_town2.py
-town2_fg.png  12KB  L4956 TWN.fg  ← art_src/town/build_town2.py
-town2_forge.png  4KB  L4956 TWN.forge  ← art_src/town/build_town2.py
-town2_hill.png  5KB  L4956 TWN.hill  ← art_src/town/build_town2.py
-town2_main.png  60KB  L4956 TWN.main  ← art_src/town/build_town2.py
-tpx_atlas.png  14KB  L4960 TPX.D  ← art_src/town/build_tpx.py
-ui_btn.png  0KB  L165 ; L168 ; L170  …  ← art_src/ui/build_ui.py
-ui_btn_on.png  0KB  L166 ; L204   ← art_src/ui/build_ui.py
+skfx_atlas.png  305KB  L5507 SKFX.D  ← art_src/skfx/build_skfx.py
+smn_atlas.png  16KB  L4543 SMN.D  ← art_src/summon/build_smn.py
+stn_atlas.png  1KB  L507 STNI.D  ← art_src/stone/build_stone.py
+town2_back.png  24KB  L4957 TWN.back  ← art_src/town/build_town2.py
+town2_far.png  11KB  L4957 TWN.far  ← art_src/town/build_town2.py
+town2_fg.png  12KB  L4957 TWN.fg  ← art_src/town/build_town2.py
+town2_forge.png  4KB  L4957 TWN.forge  ← art_src/town/build_town2.py
+town2_hill.png  5KB  L4957 TWN.hill  ← art_src/town/build_town2.py
+town2_main.png  60KB  L4957 TWN.main  ← art_src/town/build_town2.py
+tpx_atlas.png  14KB  L4961 TPX.D  ← art_src/town/build_tpx.py
+ui_btn.png  0KB  L165 ; L168 ; L170   ← art_src/ui/build_ui.py
+ui_btn_on.png  0KB  L166   ← art_src/ui/build_ui.py
 ui_card.png  0KB  L178   ← art_src/ui/build_ui.py
 ui_head.png  0KB  L164   ← art_src/ui/build_ui.py
-ui_panel.png  0KB  L163 ; L202   ← art_src/ui/build_ui.py
+ui_panel.png  0KB  L163   ← art_src/ui/build_ui.py
 ui_slot.png  0KB  L181   ← art_src/ui/build_ui.py
 ui_tab.png  0KB  L167 ; L177   ← art_src/ui/build_ui.py
 ui_tip.png  0KB  L184   ← art_src/ui/build_ui.py
-vfx_atlas.png  174KB  L5379 VFX.D  ← art_src/vfx/build_vfx.py
+vfx_atlas.png  174KB  L5380 VFX.D  ← art_src/vfx/build_vfx.py
 vol9_atlas.png  157KB  L2863 VOL9.D  ← art_src/volcano/build_vol9.py
-wing_fly.png  6KB  L5043 PXA.WGD  ← art_src/build_wing.py
-wpn_atlas.png  16KB  L5041 PXA.WPD  ← art_src/build_wpn.py
+wing_fly.png  6KB  L5044 PXA.WGD  ← art_src/build_wing.py
+wpn_atlas.png  16KB  L5042 PXA.WPD  ← art_src/build_wpn.py
 
 == 图片 JPEG(@@J:)  1 个 ==
-map_bg.jpg  110KB  L5673 MAPI.D  ← art_src/map/build_map.py
+map_bg.jpg  110KB  L5674 MAPI.D  ← art_src/map/build_map.py
 
 == 字体(@@F:)  2 个 ==
 fpx12.woff2  64KB  L9   ← art_src/font/build_font.py
 fpx8.woff2  40KB  L10   ← art_src/font/build_font.py
 
 == 音频 OGG(@@O:)  115 个 ==
-au_b_axe.ogg  6KB  L246 AUD.b_axe  ← art_src/audio/build_audio.py  [bfh1_metal_hit_02.ogg, explosion.ogg, swish-7.wav]
-au_b_gallop.ogg  7KB  L246 AUD.b_gallop  ← art_src/audio/build_audio.py  [slam_0%d.ogg, wind]
-au_b_imp1.ogg  6KB  L246 AUD.b_imp1  ← art_src/audio/build_audio.py  [impactwood11.mp3.flac, hit_02.ogg]
-au_b_imp2.ogg  6KB  L246 AUD.b_imp2  ← art_src/audio/build_audio.py  [melee sound.wav, slam_02.ogg]
-au_b_imp3.ogg  6KB  L246 AUD.b_imp3  ← art_src/audio/build_audio.py  [bfh1_rock_hit_01.ogg, impactwood14.mp3.flac]
-au_b_moo.ogg  9KB  L246 AUD.b_moo  ← art_src/audio/build_audio.py  [moo-notification.wav, ogre2.wav]
-au_b_ram.ogg  10KB  L246 AUD.b_ram  ← art_src/audio/build_audio.py  [crack04.mp3.flac, explosion.ogg, moo-death.wav]
-au_b_stomp.ogg  6KB  L246 AUD.b_stomp  ← art_src/audio/build_audio.py  [explosion.ogg, slam_05.ogg]
-au_b_throw.ogg  5KB  L246 AUD.b_throw  ← art_src/audio/build_audio.py
-au_bgm0.ogg  556KB  L248 AUD.bgm0  ← art_src/audio/build_audio.py
-au_bgm1.ogg  303KB  L248 AUD.bgm1  ← art_src/audio/build_audio.py
-au_bgm10.ogg  730KB  L251 AUD.bgm10  ← art_src/audio/build_audio.py  [thunderchild.ogg, Blackmoor Tides.mp3]
-au_bgm10b.ogg  785KB  L251 AUD.bgm10b  ← art_src/audio/build_audio.py
-au_bgm11.ogg  187KB  L252 AUD.bgm11  ← art_src/audio/build_audio.py  [song21_mysterious.mp3, hard_dungeon_bpm140.ogg]
-au_bgm11b.ogg  805KB  L252 AUD.bgm11b  ← art_src/audio/build_audio.py
-au_bgm1b.ogg  613KB  L248 AUD.bgm1b  ← art_src/audio/build_audio.py
-au_bgm2.ogg  325KB  L248 AUD.bgm2  ← art_src/audio/build_audio.py
-au_bgm2b.ogg  789KB  L248 AUD.bgm2b  ← art_src/audio/build_audio.py
-au_bgm3.ogg  511KB  L248 AUD.bgm3  ← art_src/audio/build_audio.py  [Forest Whisper.ogg, final_hour.ogg, tribal.mp3, fight_looped.ogg]
-au_bgm3b.ogg  884KB  L248 AUD.bgm3b  ← art_src/audio/build_audio.py
-au_bgm4.ogg  807KB  L248 AUD.bgm4  ← art_src/audio/build_audio.py
-au_bgm4b.ogg  175KB  L248 AUD.bgm4b  ← art_src/audio/build_audio.py
-au_bgm5.ogg  603KB  L249 AUD.bgm5  ← art_src/audio/build_audio.py  [caravan.ogg, battleThemeB.mp3, snow.ogg, determined_pursuit.wav, rising_moon.mp3, epic_boss.wav]
-au_bgm5b.ogg  416KB  L249 AUD.bgm5b  ← art_src/audio/build_audio.py
-au_bgm6.ogg  349KB  L249 AUD.bgm6  ← art_src/audio/build_audio.py
-au_bgm6b.ogg  682KB  L249 AUD.bgm6b  ← art_src/audio/build_audio.py
-au_bgm7.ogg  677KB  L249 AUD.bgm7  ← art_src/audio/build_audio.py
-au_bgm7b.ogg  823KB  L249 AUD.bgm7b  ← art_src/audio/build_audio.py
-au_bgm8.ogg  454KB  L249 AUD.bgm8  ← art_src/audio/build_audio.py  [EmptyCity.ogg, Dark Rooms and Scary Things - isaiah658_1.ogg]
-au_bgm8b.ogg  793KB  L249 AUD.bgm8b  ← art_src/audio/build_audio.py
-au_bgm9.ogg  705KB  L251 AUD.bgm9  ← art_src/audio/build_audio.py  [LavaLand - One Loop.ogg, heavy_boss_battle_2_bpm110.ogg]
-au_bgm9b.ogg  806KB  L251 AUD.bgm9b  ← art_src/audio/build_audio.py
-au_blink.ogg  7KB  L244 AUD.blink  ← art_src/audio/build_audio.py
-au_boom.ogg  5KB  L244 AUD.boom  ← art_src/audio/build_audio.py
-au_br_bliz.ogg  15KB  L247 AUD.br_bliz  ← art_src/audio/build_audio.py  [wind, hiss]
-au_br_crash.ogg  8KB  L247 AUD.br_crash  ← art_src/audio/build_audio.py  [explosion.ogg, giant4.wav]
-au_br_growl.ogg  7KB  L247 AUD.br_growl  ← art_src/audio/build_audio.py  [giant2.wav]
-au_br_ice.ogg  7KB  L247 AUD.br_ice  ← art_src/audio/build_audio.py  [bfh1_rock_breaking_02.ogg]
-au_br_paw.ogg  6KB  L247 AUD.br_paw  ← art_src/audio/build_audio.py  [swish-7.wav, bfh1_hit_03.ogg, slam_01.ogg]
-au_br_roar.ogg  11KB  L247 AUD.br_roar  ← art_src/audio/build_audio.py  [roar_01.ogg]
-au_br_skate.ogg  11KB  L247 AUD.br_skate  ← art_src/audio/build_audio.py  [rumble]
-au_br_slam.ogg  6KB  L247 AUD.br_slam  ← art_src/audio/build_audio.py  [explosion.ogg, slam_03.ogg]
-au_br_throw.ogg  8KB  L247 AUD.br_throw  ← art_src/audio/build_audio.py  [bfh1_falling_02.ogg]
-au_breath.ogg  7KB  L245 AUD.breath  ← art_src/audio/build_audio.py
-au_buff.ogg  11KB  L244 AUD.buff  ← art_src/audio/build_audio.py
-au_dash.ogg  4KB  L244 AUD.dash  ← art_src/audio/build_audio.py
-au_eatk.ogg  6KB  L245 AUD.eatk  ← art_src/audio/build_audio.py  [grunt_03.ogg, bite-small.wav, spit_02.ogg, roar_02.ogg]
-au_fuse.ogg  5KB  L244 AUD.fuse  ← art_src/audio/build_audio.py
-au_g10_flap.ogg  7KB  L251 AUD.g10_flap  ← art_src/audio/build_audio.py  [swish-%d.wav, wind]
-au_g10_laugh.ogg  10KB  L251 AUD.g10_laugh  ← art_src/audio/build_audio.py  [shade12.wav]
-au_g10_orb.ogg  8KB  L251 AUD.g10_orb  ← art_src/audio/build_audio.py  [spell_01.ogg]
-au_g10_shriek.ogg  10KB  L251 AUD.g10_shriek  ← art_src/audio/build_audio.py  [shade5.wav, shade9.wav, hiss]
-au_g10_tele.ogg  8KB  L251 AUD.g10_tele  ← art_src/audio/build_audio.py  [magic1.wav, shade2.wav]
-au_g10_wind.ogg  13KB  L251 AUD.g10_wind  ← art_src/audio/build_audio.py  [wind, hiss]
-au_h_angry.ogg  7KB  L252 AUD.h_angry  ← art_src/audio/build_audio.py  [creature_hurt_01.ogg]
-au_h_clap.ogg  6KB  L252 AUD.h_clap  ← art_src/audio/build_audio.py  [impactwood11.mp3.flac, impactwood14.mp3.flac, slam_02.ogg]
-au_h_eat.ogg  11KB  L252 AUD.h_eat  ← art_src/audio/build_audio.py  [bite-small%s.wav, eat_02.ogg]
-au_h_shell.ogg  8KB  L252 AUD.h_shell  ← art_src/audio/build_audio.py  [crack02.mp3.flac, crack05.mp3.flac]
-au_h_squeak.ogg  6KB  L252 AUD.h_squeak  ← art_src/audio/build_audio.py  [creature_misc_03.ogg]
-au_h_throw.ogg  5KB  L252 AUD.h_throw  ← art_src/audio/build_audio.py  [swish-3.wav]
-au_howl.ogg  6KB  L245 AUD.howl  ← art_src/audio/build_audio.py  [howl.ogg, breath.ogg]
-au_k_bite.ogg  8KB  L247 AUD.k_bite  ← art_src/audio/build_audio.py  [bite-small2.wav, eat_02.ogg, hiss]
-au_k_buff.ogg  10KB  L247 AUD.k_buff  ← art_src/audio/build_audio.py  [rattle, hiss]
-au_k_bump.ogg  6KB  L247 AUD.k_bump  ← art_src/audio/build_audio.py  [slam_02.ogg, bfh1_hit_05.ogg, hiss]
-au_k_rattle.ogg  17KB  L247 AUD.k_rattle  ← art_src/audio/build_audio.py  [rattle]
-au_k_spit.ogg  8KB  L247 AUD.k_spit  ← art_src/audio/build_audio.py  [spit_01.ogg, slime3.wav, hiss]
-au_l9_chain.ogg  8KB  L251 AUD.l9_chain  ← art_src/audio/build_audio.py  [chain_01.ogg, chain_03.ogg, spell_fire_01.ogg]
-au_l9_erupt.ogg  15KB  L251 AUD.l9_erupt  ← art_src/audio/build_audio.py  [explosion.ogg, spell_fire_06.ogg, bfh1_rock_falling_04.ogg, rumble]
-au_l9_fire.ogg  10KB  L251 AUD.l9_fire  ← art_src/audio/build_audio.py  [spell_fire_03.ogg]
-au_l9_growl.ogg  8KB  L251 AUD.l9_growl  ← art_src/audio/build_audio.py  [breath.ogg]
-au_l9_laugh.ogg  9KB  L251 AUD.l9_laugh  ← art_src/audio/build_audio.py
-au_l9_punch.ogg  7KB  L251 AUD.l9_punch  ← art_src/audio/build_audio.py  [explosion.ogg, slam_02.ogg, spell_fire_05.ogg]
-au_l9_roar.ogg  12KB  L251 AUD.l9_roar  ← art_src/audio/build_audio.py  [rumble]
-au_lz_climb.ogg  8KB  L247 AUD.lz_climb  ← art_src/audio/build_audio.py  [scrape]
-au_lz_dig.ogg  11KB  L247 AUD.lz_dig  ← art_src/audio/build_audio.py  [bfh1_rock_falling_05.ogg, rumble, hiss]
-au_lz_growl.ogg  9KB  L247 AUD.lz_growl  ← art_src/audio/build_audio.py  [hiss]
-au_lz_land.ogg  6KB  L247 AUD.lz_land  ← art_src/audio/build_audio.py  [explosion.ogg, bfh1_rock_falling_02.ogg]
-au_lz_rock.ogg  6KB  L247 AUD.lz_rock  ← art_src/audio/build_audio.py  [bfh1_rock_breaking_01.ogg, slam_04.ogg]
-au_lz_spray.ogg  11KB  L247 AUD.lz_spray  ← art_src/audio/build_audio.py  [breath.ogg, bfh1_rock_falling_03.ogg, hiss]
-au_lz_storm.ogg  13KB  L247 AUD.lz_storm  ← art_src/audio/build_audio.py  [wind, hiss, rumble]
-au_lz_tail.ogg  6KB  L247 AUD.lz_tail  ← art_src/audio/build_audio.py  [swish-7.wav, slam_05.ogg, bfh1_rock_falling_01.ogg]
-au_lz_tongue.ogg  6KB  L247 AUD.lz_tongue  ← art_src/audio/build_audio.py  [weird_03.ogg, swish-3.wav, slime6.wav]
-au_peck.ogg  6KB  L245 AUD.peck  ← art_src/audio/build_audio.py, art_src/town/build_tpx.py
-au_proj.ogg  7KB  L245 AUD.proj  ← art_src/audio/build_audio.py
-au_roar.ogg  7KB  L245 AUD.roar  ← art_src/audio/build_audio.py
-au_sand.ogg  8KB  L245 AUD.sand  ← art_src/audio/build_audio.py
-au_sc_buff.ogg  8KB  L247 AUD.sc_buff  ← art_src/audio/build_audio.py  [bug_04.ogg, metal-ringing.wav]
-au_sc_chit.ogg  7KB  L247 AUD.sc_chit  ← art_src/audio/build_audio.py  [bug_01.ogg, bug_03.ogg]
-au_sc_claw.ogg  8KB  L247 AUD.sc_claw  ← art_src/audio/build_audio.py  [bug_02.ogg, metal_03.ogg, bite-small.wav, metal_05.ogg]
-au_sc_sting.ogg  7KB  L247 AUD.sc_sting  ← art_src/audio/build_audio.py  [blade_03.ogg, spit_02.ogg, hiss]
-au_sc_tail.ogg  5KB  L247 AUD.sc_tail  ← art_src/audio/build_audio.py  [swish-7.wav, bfh1_rock_hit_01.ogg, metal_02.ogg]
-au_slam.ogg  6KB  L244 AUD.slam  ← art_src/audio/build_audio.py  [slam_03.ogg, explosion.ogg, metal-ringing.wav, Footstep_Dirt_00.wav]
-au_step.ogg  5KB  L244 AUD.step  ← art_src/audio/build_audio.py
-au_storm.ogg  14KB  L245 AUD.storm  ← art_src/audio/build_audio.py
-au_swing.ogg  4KB  L244 AUD.swing  ← art_src/audio/build_audio.py  [swing.wav, swish-9.wav, Spell_01.wav, magic1.wav, spell.wav]
-au_tongue.ogg  5KB  L245 AUD.tongue  ← art_src/audio/build_audio.py  [weird_03.ogg, bfh1_rock_falling_01.ogg, Ambience_Cave_00.wav]
-au_v_shade.ogg  8KB  L246 AUD.v_shade  ← art_src/audio/build_audio.py  [shade11.wav]
-au_w_bite.ogg  6KB  L247 AUD.w_bite  ← art_src/audio/build_audio.py  [barking_01.ogg, bite-small3.wav]
-au_w_claw.ogg  5KB  L247 AUD.w_claw  ← art_src/audio/build_audio.py  [swish-11.wav, blade_01.ogg, bfh1_hit_08.ogg]
-au_w_growl.ogg  6KB  L247 AUD.w_growl  ← art_src/audio/build_audio.py  [monster_03.ogg, wolfman.wav]
-au_w_howl.ogg  11KB  L247 AUD.w_howl  ← art_src/audio/build_audio.py  [howl.ogg, wolfman.wav]
-au_w_land.ogg  6KB  L247 AUD.w_land  ← art_src/audio/build_audio.py  [explosion.ogg, slam_06.ogg, bfh1_falling_04.ogg]
-au_w_lunge.ogg  6KB  L247 AUD.w_lunge  ← art_src/audio/build_audio.py  [wolfman.wav, wind]
-au_w_snarl.ogg  6KB  L247 AUD.w_snarl  ← art_src/audio/build_audio.py  [wolfman.wav, barking_02.ogg]
-au_y_claw.ogg  8KB  L250 AUD.y_claw  ← art_src/audio/build_audio.py  [monster_05.ogg, wind, scrape]
-au_y_cradle.ogg  9KB  L250 AUD.y_cradle  ← art_src/audio/build_audio.py  [crack07.mp3.flac, crack09.mp3.flac]
-au_y_crawl.ogg  16KB  L250 AUD.y_crawl  ← art_src/audio/build_audio.py  [breath.ogg, scrape, rumble]
-au_y_cry.ogg  17KB  L250 AUD.y_cry  ← art_src/audio/build_audio.py
-au_y_cryl.ogg  23KB  L250 AUD.y_cryl  ← art_src/audio/build_audio.py
-au_y_hand.ogg  7KB  L250 AUD.y_hand  ← art_src/audio/build_audio.py  [bfh1_rock_breaking_02.ogg, crack02.mp3.flac, breath.ogg]
-au_y_laugh.ogg  9KB  L250 AUD.y_laugh  ← art_src/audio/build_audio.py
-au_y_sum.ogg  11KB  L250 AUD.y_sum  ← art_src/audio/build_audio.py  [ooh.ogg]
-au_y_tp.ogg  8KB  L250 AUD.y_tp  ← art_src/audio/build_audio.py  [swish-9.wav]
-au_y_ult.ogg  24KB  L250 AUD.y_ult  ← art_src/audio/build_audio.py  [rumble]
-au_zap.ogg  9KB  L244 AUD.zap  ← art_src/audio/build_audio.py
+au_b_axe.ogg  6KB  L245 AUD.b_axe  ← art_src/audio/build_audio.py  [bfh1_metal_hit_02.ogg, explosion.ogg, swish-7.wav]
+au_b_gallop.ogg  7KB  L245 AUD.b_gallop  ← art_src/audio/build_audio.py  [slam_0%d.ogg, wind]
+au_b_imp1.ogg  6KB  L245 AUD.b_imp1  ← art_src/audio/build_audio.py  [impactwood11.mp3.flac, hit_02.ogg]
+au_b_imp2.ogg  6KB  L245 AUD.b_imp2  ← art_src/audio/build_audio.py  [melee sound.wav, slam_02.ogg]
+au_b_imp3.ogg  6KB  L245 AUD.b_imp3  ← art_src/audio/build_audio.py  [bfh1_rock_hit_01.ogg, impactwood14.mp3.flac]
+au_b_moo.ogg  9KB  L245 AUD.b_moo  ← art_src/audio/build_audio.py  [moo-notification.wav, ogre2.wav]
+au_b_ram.ogg  10KB  L245 AUD.b_ram  ← art_src/audio/build_audio.py  [crack04.mp3.flac, explosion.ogg, moo-death.wav]
+au_b_stomp.ogg  6KB  L245 AUD.b_stomp  ← art_src/audio/build_audio.py  [explosion.ogg, slam_05.ogg]
+au_b_throw.ogg  5KB  L245 AUD.b_throw  ← art_src/audio/build_audio.py
+au_bgm0.ogg  556KB  L247 AUD.bgm0  ← art_src/audio/build_audio.py
+au_bgm1.ogg  303KB  L247 AUD.bgm1  ← art_src/audio/build_audio.py
+au_bgm10.ogg  730KB  L250 AUD.bgm10  ← art_src/audio/build_audio.py  [thunderchild.ogg, Blackmoor Tides.mp3]
+au_bgm10b.ogg  785KB  L250 AUD.bgm10b  ← art_src/audio/build_audio.py
+au_bgm11.ogg  187KB  L251 AUD.bgm11  ← art_src/audio/build_audio.py  [song21_mysterious.mp3, hard_dungeon_bpm140.ogg]
+au_bgm11b.ogg  805KB  L251 AUD.bgm11b  ← art_src/audio/build_audio.py
+au_bgm1b.ogg  613KB  L247 AUD.bgm1b  ← art_src/audio/build_audio.py
+au_bgm2.ogg  325KB  L247 AUD.bgm2  ← art_src/audio/build_audio.py
+au_bgm2b.ogg  789KB  L247 AUD.bgm2b  ← art_src/audio/build_audio.py
+au_bgm3.ogg  511KB  L247 AUD.bgm3  ← art_src/audio/build_audio.py  [Forest Whisper.ogg, final_hour.ogg, tribal.mp3, fight_looped.ogg]
+au_bgm3b.ogg  884KB  L247 AUD.bgm3b  ← art_src/audio/build_audio.py
+au_bgm4.ogg  807KB  L247 AUD.bgm4  ← art_src/audio/build_audio.py
+au_bgm4b.ogg  175KB  L247 AUD.bgm4b  ← art_src/audio/build_audio.py
+au_bgm5.ogg  603KB  L248 AUD.bgm5  ← art_src/audio/build_audio.py  [caravan.ogg, battleThemeB.mp3, snow.ogg, determined_pursuit.wav, rising_moon.mp3, epic_boss.wav]
+au_bgm5b.ogg  416KB  L248 AUD.bgm5b  ← art_src/audio/build_audio.py
+au_bgm6.ogg  349KB  L248 AUD.bgm6  ← art_src/audio/build_audio.py
+au_bgm6b.ogg  682KB  L248 AUD.bgm6b  ← art_src/audio/build_audio.py
+au_bgm7.ogg  677KB  L248 AUD.bgm7  ← art_src/audio/build_audio.py
+au_bgm7b.ogg  823KB  L248 AUD.bgm7b  ← art_src/audio/build_audio.py
+au_bgm8.ogg  454KB  L248 AUD.bgm8  ← art_src/audio/build_audio.py  [EmptyCity.ogg, Dark Rooms and Scary Things - isaiah658_1.ogg]
+au_bgm8b.ogg  793KB  L248 AUD.bgm8b  ← art_src/audio/build_audio.py
+au_bgm9.ogg  705KB  L250 AUD.bgm9  ← art_src/audio/build_audio.py  [LavaLand - One Loop.ogg, heavy_boss_battle_2_bpm110.ogg]
+au_bgm9b.ogg  806KB  L250 AUD.bgm9b  ← art_src/audio/build_audio.py
+au_blink.ogg  7KB  L243 AUD.blink  ← art_src/audio/build_audio.py
+au_boom.ogg  5KB  L243 AUD.boom  ← art_src/audio/build_audio.py
+au_br_bliz.ogg  15KB  L246 AUD.br_bliz  ← art_src/audio/build_audio.py  [wind, hiss]
+au_br_crash.ogg  8KB  L246 AUD.br_crash  ← art_src/audio/build_audio.py  [explosion.ogg, giant4.wav]
+au_br_growl.ogg  7KB  L246 AUD.br_growl  ← art_src/audio/build_audio.py  [giant2.wav]
+au_br_ice.ogg  7KB  L246 AUD.br_ice  ← art_src/audio/build_audio.py  [bfh1_rock_breaking_02.ogg]
+au_br_paw.ogg  6KB  L246 AUD.br_paw  ← art_src/audio/build_audio.py  [swish-7.wav, bfh1_hit_03.ogg, slam_01.ogg]
+au_br_roar.ogg  11KB  L246 AUD.br_roar  ← art_src/audio/build_audio.py  [roar_01.ogg]
+au_br_skate.ogg  11KB  L246 AUD.br_skate  ← art_src/audio/build_audio.py  [rumble]
+au_br_slam.ogg  6KB  L246 AUD.br_slam  ← art_src/audio/build_audio.py  [explosion.ogg, slam_03.ogg]
+au_br_throw.ogg  8KB  L246 AUD.br_throw  ← art_src/audio/build_audio.py  [bfh1_falling_02.ogg]
+au_breath.ogg  7KB  L244 AUD.breath  ← art_src/audio/build_audio.py
+au_buff.ogg  11KB  L243 AUD.buff  ← art_src/audio/build_audio.py
+au_dash.ogg  4KB  L243 AUD.dash  ← art_src/audio/build_audio.py
+au_eatk.ogg  6KB  L244 AUD.eatk  ← art_src/audio/build_audio.py  [grunt_03.ogg, bite-small.wav, spit_02.ogg, roar_02.ogg]
+au_fuse.ogg  5KB  L243 AUD.fuse  ← art_src/audio/build_audio.py
+au_g10_flap.ogg  7KB  L250 AUD.g10_flap  ← art_src/audio/build_audio.py  [swish-%d.wav, wind]
+au_g10_laugh.ogg  10KB  L250 AUD.g10_laugh  ← art_src/audio/build_audio.py  [shade12.wav]
+au_g10_orb.ogg  8KB  L250 AUD.g10_orb  ← art_src/audio/build_audio.py  [spell_01.ogg]
+au_g10_shriek.ogg  10KB  L250 AUD.g10_shriek  ← art_src/audio/build_audio.py  [shade5.wav, shade9.wav, hiss]
+au_g10_tele.ogg  8KB  L250 AUD.g10_tele  ← art_src/audio/build_audio.py  [magic1.wav, shade2.wav]
+au_g10_wind.ogg  13KB  L250 AUD.g10_wind  ← art_src/audio/build_audio.py  [wind, hiss]
+au_h_angry.ogg  7KB  L251 AUD.h_angry  ← art_src/audio/build_audio.py  [creature_hurt_01.ogg]
+au_h_clap.ogg  6KB  L251 AUD.h_clap  ← art_src/audio/build_audio.py  [impactwood11.mp3.flac, impactwood14.mp3.flac, slam_02.ogg]
+au_h_eat.ogg  11KB  L251 AUD.h_eat  ← art_src/audio/build_audio.py  [bite-small%s.wav, eat_02.ogg]
+au_h_shell.ogg  8KB  L251 AUD.h_shell  ← art_src/audio/build_audio.py  [crack02.mp3.flac, crack05.mp3.flac]
+au_h_squeak.ogg  6KB  L251 AUD.h_squeak  ← art_src/audio/build_audio.py  [creature_misc_03.ogg]
+au_h_throw.ogg  5KB  L251 AUD.h_throw  ← art_src/audio/build_audio.py  [swish-3.wav]
+au_howl.ogg  6KB  L244 AUD.howl  ← art_src/audio/build_audio.py  [howl.ogg, breath.ogg]
+au_k_bite.ogg  8KB  L246 AUD.k_bite  ← art_src/audio/build_audio.py  [bite-small2.wav, eat_02.ogg, hiss]
+au_k_buff.ogg  10KB  L246 AUD.k_buff  ← art_src/audio/build_audio.py  [rattle, hiss]
+au_k_bump.ogg  6KB  L246 AUD.k_bump  ← art_src/audio/build_audio.py  [slam_02.ogg, bfh1_hit_05.ogg, hiss]
+au_k_rattle.ogg  17KB  L246 AUD.k_rattle  ← art_src/audio/build_audio.py  [rattle]
+au_k_spit.ogg  8KB  L246 AUD.k_spit  ← art_src/audio/build_audio.py  [spit_01.ogg, slime3.wav, hiss]
+au_l9_chain.ogg  8KB  L250 AUD.l9_chain  ← art_src/audio/build_audio.py  [chain_01.ogg, chain_03.ogg, spell_fire_01.ogg]
+au_l9_erupt.ogg  15KB  L250 AUD.l9_erupt  ← art_src/audio/build_audio.py  [explosion.ogg, spell_fire_06.ogg, bfh1_rock_falling_04.ogg, rumble]
+au_l9_fire.ogg  10KB  L250 AUD.l9_fire  ← art_src/audio/build_audio.py  [spell_fire_03.ogg]
+au_l9_growl.ogg  8KB  L250 AUD.l9_growl  ← art_src/audio/build_audio.py  [breath.ogg]
+au_l9_laugh.ogg  9KB  L250 AUD.l9_laugh  ← art_src/audio/build_audio.py
+au_l9_punch.ogg  7KB  L250 AUD.l9_punch  ← art_src/audio/build_audio.py  [explosion.ogg, slam_02.ogg, spell_fire_05.ogg]
+au_l9_roar.ogg  12KB  L250 AUD.l9_roar  ← art_src/audio/build_audio.py  [rumble]
+au_lz_climb.ogg  8KB  L246 AUD.lz_climb  ← art_src/audio/build_audio.py  [scrape]
+au_lz_dig.ogg  11KB  L246 AUD.lz_dig  ← art_src/audio/build_audio.py  [bfh1_rock_falling_05.ogg, rumble, hiss]
+au_lz_growl.ogg  9KB  L246 AUD.lz_growl  ← art_src/audio/build_audio.py  [hiss]
+au_lz_land.ogg  6KB  L246 AUD.lz_land  ← art_src/audio/build_audio.py  [explosion.ogg, bfh1_rock_falling_02.ogg]
+au_lz_rock.ogg  6KB  L246 AUD.lz_rock  ← art_src/audio/build_audio.py  [bfh1_rock_breaking_01.ogg, slam_04.ogg]
+au_lz_spray.ogg  11KB  L246 AUD.lz_spray  ← art_src/audio/build_audio.py  [breath.ogg, bfh1_rock_falling_03.ogg, hiss]
+au_lz_storm.ogg  13KB  L246 AUD.lz_storm  ← art_src/audio/build_audio.py  [wind, hiss, rumble]
+au_lz_tail.ogg  6KB  L246 AUD.lz_tail  ← art_src/audio/build_audio.py  [swish-7.wav, slam_05.ogg, bfh1_rock_falling_01.ogg]
+au_lz_tongue.ogg  6KB  L246 AUD.lz_tongue  ← art_src/audio/build_audio.py  [weird_03.ogg, swish-3.wav, slime6.wav]
+au_peck.ogg  6KB  L244 AUD.peck  ← art_src/audio/build_audio.py, art_src/town/build_tpx.py
+au_proj.ogg  7KB  L244 AUD.proj  ← art_src/audio/build_audio.py
+au_roar.ogg  7KB  L244 AUD.roar  ← art_src/audio/build_audio.py
+au_sand.ogg  8KB  L244 AUD.sand  ← art_src/audio/build_audio.py
+au_sc_buff.ogg  8KB  L246 AUD.sc_buff  ← art_src/audio/build_audio.py  [bug_04.ogg, metal-ringing.wav]
+au_sc_chit.ogg  7KB  L246 AUD.sc_chit  ← art_src/audio/build_audio.py  [bug_01.ogg, bug_03.ogg]
+au_sc_claw.ogg  8KB  L246 AUD.sc_claw  ← art_src/audio/build_audio.py  [bug_02.ogg, metal_03.ogg, bite-small.wav, metal_05.ogg]
+au_sc_sting.ogg  7KB  L246 AUD.sc_sting  ← art_src/audio/build_audio.py  [blade_03.ogg, spit_02.ogg, hiss]
+au_sc_tail.ogg  5KB  L246 AUD.sc_tail  ← art_src/audio/build_audio.py  [swish-7.wav, bfh1_rock_hit_01.ogg, metal_02.ogg]
+au_slam.ogg  6KB  L243 AUD.slam  ← art_src/audio/build_audio.py  [slam_03.ogg, explosion.ogg, metal-ringing.wav, Footstep_Dirt_00.wav]
+au_step.ogg  5KB  L243 AUD.step  ← art_src/audio/build_audio.py
+au_storm.ogg  14KB  L244 AUD.storm  ← art_src/audio/build_audio.py
+au_swing.ogg  4KB  L243 AUD.swing  ← art_src/audio/build_audio.py  [swing.wav, swish-9.wav, Spell_01.wav, magic1.wav, spell.wav]
+au_tongue.ogg  5KB  L244 AUD.tongue  ← art_src/audio/build_audio.py  [weird_03.ogg, bfh1_rock_falling_01.ogg, Ambience_Cave_00.wav]
+au_v_shade.ogg  8KB  L245 AUD.v_shade  ← art_src/audio/build_audio.py  [shade11.wav]
+au_w_bite.ogg  6KB  L246 AUD.w_bite  ← art_src/audio/build_audio.py  [barking_01.ogg, bite-small3.wav]
+au_w_claw.ogg  5KB  L246 AUD.w_claw  ← art_src/audio/build_audio.py  [swish-11.wav, blade_01.ogg, bfh1_hit_08.ogg]
+au_w_growl.ogg  6KB  L246 AUD.w_growl  ← art_src/audio/build_audio.py  [monster_03.ogg, wolfman.wav]
+au_w_howl.ogg  11KB  L246 AUD.w_howl  ← art_src/audio/build_audio.py  [howl.ogg, wolfman.wav]
+au_w_land.ogg  6KB  L246 AUD.w_land  ← art_src/audio/build_audio.py  [explosion.ogg, slam_06.ogg, bfh1_falling_04.ogg]
+au_w_lunge.ogg  6KB  L246 AUD.w_lunge  ← art_src/audio/build_audio.py  [wolfman.wav, wind]
+au_w_snarl.ogg  6KB  L246 AUD.w_snarl  ← art_src/audio/build_audio.py  [wolfman.wav, barking_02.ogg]
+au_y_claw.ogg  8KB  L249 AUD.y_claw  ← art_src/audio/build_audio.py  [monster_05.ogg, wind, scrape]
+au_y_cradle.ogg  9KB  L249 AUD.y_cradle  ← art_src/audio/build_audio.py  [crack07.mp3.flac, crack09.mp3.flac]
+au_y_crawl.ogg  16KB  L249 AUD.y_crawl  ← art_src/audio/build_audio.py  [breath.ogg, scrape, rumble]
+au_y_cry.ogg  17KB  L249 AUD.y_cry  ← art_src/audio/build_audio.py
+au_y_cryl.ogg  23KB  L249 AUD.y_cryl  ← art_src/audio/build_audio.py
+au_y_hand.ogg  7KB  L249 AUD.y_hand  ← art_src/audio/build_audio.py  [bfh1_rock_breaking_02.ogg, crack02.mp3.flac, breath.ogg]
+au_y_laugh.ogg  9KB  L249 AUD.y_laugh  ← art_src/audio/build_audio.py
+au_y_sum.ogg  11KB  L249 AUD.y_sum  ← art_src/audio/build_audio.py  [ooh.ogg]
+au_y_tp.ogg  8KB  L249 AUD.y_tp  ← art_src/audio/build_audio.py  [swish-9.wav]
+au_y_ult.ogg  24KB  L249 AUD.y_ult  ← art_src/audio/build_audio.py  [rumble]
+au_zap.ogg  9KB  L243 AUD.zap  ← art_src/audio/build_audio.py
 
 == 没被源码引用的文件 0 个(可能是生成脚本的中间产物,或可以删)==
 
@@ -316,6 +320,14 @@ au_zap.ogg  9KB  L244 AUD.zap  ← art_src/audio/build_audio.py
    改动:按游戏用字裁剪字符集(OFL 允许),字体名改成 FPX12 / FPX8(保留字体名的规定:修改版不能用原名)。
    用法:python art_src/font/build_font.py <fusion-pixel-12px-proportional-zh_hans.ttf> <fusion-pixel-8px-proportional-zh_hans.ttf>
    源码新增文字后要重新运行(build.py 会提示缺哪些字)
+-- art_src/home/build_home.py
+   主页面美术(第二十一轮,模块 HOMEUI):全部来自外部 CC0 素材,不自己画
+   ① 背景 home_bg.png(640×360):Magic Cliffs Environment(ansimuz,CC0,https://opengameart.org/content/magic-cliffs-environment)
+   用预览合成图 magic-cliffs-PREVIEWx1.png 左边 640×304 的一段(浮空小岛 + 大树悬崖 + 海),上面 56 行用 sky.png 顶端的天空色补齐
+   ② 边框 home_frame.png / home_btn.png / home_div.png(CSS border-image 不能取图集里的一块,所以分成三张):Fantasy UI Borders(Kenney,CC0,https://kenney.nl/assets/fantasy-ui-borders)
+   home_frame 48×48 = panel-border-003(双线 + 四角结)染成金色、加 1 像素深棕描影,框内填半透明深紫(参考图「游戏内容」面板);
+   home_btn 48×48 = 同一个框的按钮版(填橙色);home_div 192×12 = divider-fade-002 染金(标题下的分隔线)
+   用法:python art_src/home/build_home.py   (素材 zip 在 raw/home/,输出到 assets/)
 -- art_src/lbg/build_lbg.py
    关卡像素背景图集(LBG):每关若干视差图层,一层一行叠在图集里;meta 记录 [图集 y, 宽, 高, 放大倍数, 屏幕底边 y, 视差系数, 自动飘移速度]
    素材(全部 CC0,除注明):

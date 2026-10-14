@@ -184,24 +184,23 @@ body.px .pd .sl{z-index:1;left:7px;top:5px;color:#e9d3a7;text-shadow:0 1px 0 #00
 body.px #tip{border:8px solid transparent!important;border-image:url(@@A:ui_tip@@) 6 fill/12px stretch!important;background:none!important;border-radius:0!important;image-rendering:pixelated}
 body.px .xb,body.px #pn .qbar{border-radius:0!important;box-shadow:0 0 0 2px #6d4b27}
 body.px .eqi,body.px .eqs,body.px .eqt,body.px #dg img{image-rendering:pixelated}
-/* ===== 主页面(第二十轮):打开游戏的第一页。左边 = 版本号 + 更新日志 / 操作说明,右边 = 菜单按钮;背后是暂停的主城画面 ===== */
-#home{position:absolute;inset:0;z-index:7;container-type:size;display:flex;gap:2.4cqw;padding:3.2cqh 3cqw;box-sizing:border-box;background:linear-gradient(90deg,rgba(14,10,24,.82),rgba(14,10,24,.55) 62%,rgba(14,10,24,.78));border-radius:8px;color:#f6ead2;font-size:clamp(11px,1.55cqw,24px);line-height:1.6}
+/* ===== 主页面(第二十轮;第二十一轮换外部素材 art_src/home/build_home.py):背景 Magic Cliffs(ansimuz,CC0),金色双线框 / 按钮框 / 分隔线 Fantasy UI Borders(Kenney,CC0)。
+   左边 = 版本号 + 更新日志 / 操作说明,右边 = 菜单按钮(布局参考用户给的「游戏内容」示例图) ===== */
+#home{position:absolute;inset:0;z-index:7;container-type:size;display:flex;gap:2.4cqw;padding:3.2cqh 3cqw;box-sizing:border-box;background:linear-gradient(90deg,rgba(14,10,24,.35),rgba(14,10,24,0) 62%,rgba(14,10,24,.3)),url(@@A:home_bg@@) center/100% 100% no-repeat;image-rendering:pixelated;border-radius:8px;color:#f6ead2;font-size:clamp(11px,1.55cqw,24px);line-height:1.6}
 #home[hidden]{display:none}
-#home .hl{flex:1 1 0;min-width:0;display:flex;flex-direction:column;background:linear-gradient(180deg,#fff8e8,#f4e0b8);color:#4a2c14;border:3px solid #7a4a22;box-shadow:inset 0 0 0 3px #f7d58a,0 8px 28px rgba(0,0,0,.5);border-radius:14px;padding:1.6cqh 1.8cqw;box-sizing:border-box}
-#home .hl h1{margin:0;font-family:FPX12,sans-serif;font-weight:400;font-size:2.6em;line-height:1.1;color:#7a3a08;letter-spacing:.06em}
-#home .hl .hv{margin:.2em 0 .5em;color:#8a6a4a;font-size:.92em}#home .hl .hv b{background:#e8890c;color:#fff;border-radius:4px;padding:0 .4em;margin-right:.4em}
-#home .hs{flex:1;overflow-y:auto;padding-right:.5em;border-top:2px dashed rgba(122,74,34,.35);padding-top:.4em}
-#home .hs h3{margin:.5em 0 .15em;font-size:1em;color:#7a3a08}#home .hs h3 span{color:#8a6a4a;font-weight:400;font-size:.88em;margin-left:.5em}
-#home .hs ul{margin:0 0 .3em;padding-left:1.3em}#home .hs li{margin:.1em 0}
-#home .hr{flex:0 0 31%;display:flex;flex-direction:column;justify-content:center;gap:1.5cqh}
-#home .hr button{display:block;width:100%;padding:.55em .6em;font:inherit;font-size:1.15em;font-weight:900;cursor:pointer;color:#fff;background:linear-gradient(180deg,#ffb84d,#e8770c);border:2px solid #6b3008;border-radius:10px;box-shadow:0 3px 0 #6b3008;text-shadow:0 1px 0 #6b3008}
-#home .hr button:hover:not(:disabled),#home .hr button.on{filter:brightness(1.12);transform:translateY(-1px)}
-#home .hr button:disabled{filter:grayscale(1) brightness(.75);cursor:default}
+#home .hl{flex:1 1 0;min-width:0;display:flex;flex-direction:column;border:32px solid transparent;border-image:url(@@A:home_frame@@) 16 fill/32px stretch;padding:0 .6cqw;box-sizing:border-box;image-rendering:pixelated;filter:drop-shadow(0 6px 14px rgba(0,0,0,.45))}
+#home .hl h1{margin:-.25em 0 0;font-family:FPX12,sans-serif;font-weight:400;font-size:2.6em;line-height:1.15;color:#ffd970;letter-spacing:.06em;text-shadow:0 3px 0 #6b3008,2px 0 0 #6b3008,-2px 0 0 #6b3008,0 -2px 0 #6b3008}
+#home .hl .hv{margin:.15em 0 .3em;color:#d9c7f0;font-size:.92em;padding-bottom:.55em;background:url(@@A:home_div@@) left bottom/100% .45em no-repeat}#home .hl .hv b{background:#e8770c;color:#fff;padding:0 .4em;margin-right:.4em;box-shadow:0 0 0 2px #f2c46b}
+#home .hs{flex:1;overflow-y:auto;padding-right:.5em;padding-top:.2em;scrollbar-color:#f2c46b rgba(0,0,0,.25)}
+#home .hs h3{margin:.5em 0 .15em;font-size:1em;color:#ffd970}#home .hs h3 span{color:#b8a6d6;font-weight:400;font-size:.88em;margin-left:.5em}
+#home .hs ul{margin:0 0 .3em;padding-left:1.3em}#home .hs li{margin:.1em 0;color:#f6ead2}#home .hs li::marker{color:#f2c46b}
+#home .hr{flex:0 0 31%;display:flex;flex-direction:column;justify-content:center;gap:1.3cqh}
+#home .hr button{display:block;width:100%;padding:.15em .4em;font:inherit;font-size:1.15em;font-weight:900;cursor:pointer;color:#fff;background:none;border:24px solid transparent;border-image:url(@@A:home_btn@@) 16 fill/24px stretch;image-rendering:pixelated;text-shadow:0 2px 0 #6b3008,1px 0 0 #6b3008,-1px 0 0 #6b3008;filter:drop-shadow(0 4px 6px rgba(0,0,0,.45))}
+#home .hr button:hover:not(:disabled),#home .hr button.on{filter:brightness(1.15) drop-shadow(0 4px 6px rgba(0,0,0,.45));transform:translateY(-1px)}
+#home .hr button:disabled{filter:grayscale(1) brightness(.7);cursor:default}
 #home .hr button small{display:block;font-size:.68em;font-weight:400;opacity:.95}
-#home .hm{min-height:3.2em;font-size:.9em;color:#ffe8a3;text-align:center}#home .hm button{display:inline-block;width:auto;font-size:.9em;padding:.2em .8em;margin:.3em .3em 0}
-body.px #home .hl{border:10px solid transparent!important;border-image:url(@@A:ui_panel@@) 6 fill/12px stretch!important;background:none!important;border-radius:0!important;image-rendering:pixelated}
-body.px #home .hr button{border:2px solid transparent!important;border-image:url(@@A:ui_btn@@) 4 fill/8px stretch!important;background:none!important;border-radius:0!important;box-shadow:none!important;image-rendering:pixelated;text-shadow:0 1px 0 #7a3a08,1px 0 0 #7a3a08,-1px 0 0 #7a3a08}
-body.px #home .hr button.on,body.px #home .hr button:hover:not(:disabled){border-image-source:url(@@A:ui_btn_on@@)!important;text-shadow:0 1px 0 #1e5a2a,1px 0 0 #1e5a2a,-1px 0 0 #1e5a2a}
+#home .hm{min-height:3.2em;font-size:.9em;color:#ffe8a3;text-align:center;text-shadow:0 1px 2px #000}#home .hm button{display:inline-block;width:auto;font-size:.9em;padding:0 .6em;margin:.3em .3em 0;border-width:16px;border-image-width:16px}
+#home .hs button{font:inherit;cursor:pointer;color:#fff;background:none;border:16px solid transparent;border-image:url(@@A:home_btn@@) 16 fill/16px stretch;padding:0 .5em;image-rendering:pixelated}
 </style>
 </head>
 <body>
@@ -211,7 +210,7 @@ body.px #home .hr button.on,body.px #home .hr button:hover:not(:disabled){border
 <p class="tip">← → / A D 移动(连按两次快跑) · K / ↑ 跳跃 · W+J / S+J 特殊普攻(学会二段跳后空中再按) · J 攻击(下劈 → 上挑 → 直戳 → 下劈 循环,按住蓄力重击;跑步中按 J = 冲刺直戳) · L 换武器 · H U I O 技能 · 空格 / W+空格 / S+空格 / WW+空格 剑士进阶技能(转职后) · 1 2 3 喝药水 · S 捡起地上的掉落物 · B 背包(左键点物品弹出菜单:使用 / 穿戴 / 出售,装备可拖动穿戴) · T 技能栏 · Q 任务 · P 商城 · Y 精灵 · G 宠物 · 装备翅膀后空中再按跳跃=飞行(W/S 升降、A/D 方向) · Esc / ⚙️ 设置(暂停、返回城镇、帧数、全屏)</p>
 <script>
 // 游戏版本:build.py 按它给输出文件命名(out/无名之旅_v版本.html),设置页也显示;每次发新版改这里
-const GAMEV='1.20';
+const GAMEV='1.21';
 // x 是当前的绘图上下文:平时是主画布;像素特效层(PXL,P2)绘制期间临时换成 640×360 的低分辨率图层
 const cv=document.getElementById('c');let x=cv.getContext('2d');const VW=640,VH=360,WW=3200,GY=300;
 // 渲染分辨率:电脑端 1920×1080(逻辑坐标仍是 640×360,整体放大 3 倍绘制,文字和像素都更清晰);手机端 1280×720
@@ -1007,7 +1006,7 @@ function bDodge(e,dt,lo,a,b,hop){e.dgc=(e.dgc||0)-dt;
 // 剑的普攻四段循环:下劈 → 上挑 → 直戳 → 下劈(第四下更重)。判定范围按每一招剑扫过的区域
 const SW=[{m:1,W:.09,S:.08,cd:.3,w:56,h:60,y:-22},{m:1,W:.08,S:.08,cd:.28,w:50,h:62,y:-28},{m:1.2,W:.1,S:.06,cd:.3,w:72,h:22,y:2},{m:1.7,W:.15,S:.1,cd:.5,w:60,h:62,y:-22}];  // W 预备(不造成伤害)、S 出手(有判定)
 const LUNGE=[18,12,26,22],LUNGEH=28;  // 出手瞬间招式带着身体往前冲的距离
-const KBV=170;  // 普攻击退初速度(前三段相同,第四段和蓄力重击加倍),同时怪物僵直  // 每段招式自带的前冲距离(攻击时脚步停下,由招式带动身体)
+const KBV=170;  // 普攻击退初速度(前三段相同,第四段和蓄力重击加倍);第二十一轮起不再附带僵直  // 每段招式自带的前冲距离(攻击时脚步停下,由招式带动身体)
 function strike(heavy){
   if(P.mode=='sword'){
     sfx(heavy?'heavy':'swing');
@@ -1047,9 +1046,10 @@ const SKM={sword:[[6,1.6,3,.2],[3,.55,1.5,.09],[10,1.8,5,.25],[40,5,15,.75],[12,
 // 第十三轮:1~8 挨个放一轮共耗 20% 最大魔力(不算被动回魔时,连放 5 轮剩 10% 左右);不再加固定值(SKD 第 3 项只留作旧数据)
 const SKMP={sword:[.012,.02,.018,.032,.025,.033,.032,.028],staff:[.01,.008,.016,.028,.028,.036,.036,.038]};
 const skMp=(w,i,M)=>Math.max(1,Math.round(M*SKMP[w][i]*(1-.04*pl('mp'))));  // 第十六轮:被动「法力」每级耗魔 -4%
-const skCd=(w,i,l)=>{l=l||LN[w][i]||1;
+const SKCDFIX={sword1:6};  // 第二十一轮(用户回复):剑 U 雷霆连斩冷却固定 6 秒,不吃等级 / 时装 / 疾风的冷却缩减
+const skCd=(w,i,l)=>{if(SKCDFIX[w+i])return SKCDFIX[w+i];l=l||LN[w][i]||1;
   return +(SKD[w][i][3]*(1-.06*(l-1))).toFixed(2)};  // 第十六轮:每升 1 级冷却 -6%(5 级 -24%)
-const skCdA=(w,i)=>+(skCd(w,i)*(WEAR.fash=='xy'?.9:1)*(1-.03*pl('spd'))).toFixed(2);  // 学院法师:冷却 -10%;被动「疾风」每级 -3%
+const skCdA=(w,i)=>SKCDFIX[w+i]||+(skCd(w,i)*(WEAR.fash=='xy'?.9:1)*(1-.03*pl('spd'))).toFixed(2);  // 学院法师:冷却 -10%;被动「疾风」每级 -3%
 const skB=(w,i,l)=>{const m=SKM[w][i];l=l||LN[w][i]||1;return m?[m[0]+m[2]*(l-1),+(m[1]+m[3]*(l-1)).toFixed(2)]:null};
 const skD=(w,i,S)=>{const b=skB(w,i);return b?(b[0]+S.atk*b[1])*(w=='sword'&&P.qiKE>GT?QIK:1):0};  // 剑势全开:2.2 秒内剑技能 ×1.4
 const SK_KEY='wuming-save-v1';
@@ -1749,7 +1749,7 @@ function update(dt){
   const all=bossOn&&B.hp>0?[...E,B]:E;
   skStep(dt,S,all);zStep(dt,S,all);smStep(dt,all);fashStep(dt,S,all);petStep(dt,S,all);hamPetStep(dt,S,all);sprStep(dt);starStep(dt);
   if(P.mode=='sword'&&P.at>0&&P.hb&&!(P.swT!=null&&P.swT<P.hbW)){const h=P.hb,hb={x:P.f>0?P.x+P.w:P.x-h.w,y:P.y+h.y,w:h.w,h:h.h};
-    for(const e of all)if(!P.hit.has(e)&&ov(hb,e)){P.hit.add(e);hitFx=P.cmb==-1?'heavy':null;dealt(e,Math.round(S.atk*h.m*(.9+Math.random()*.2)));hitFx=null;if(!isBig(e)&&!e.ug){const K=P.cmb==3||P.cmb==-1?2:1;e.kbv=P.f*KBV*K*(iceAt(e.x+e.w/2)?1.6:1);e.st=Math.max(e.st||0,.32*K)}}}  // 僵直 + 击退(第四段 / 重击加倍)
+    for(const e of all)if(!P.hit.has(e)&&ov(hb,e)){P.hit.add(e);hitFx=P.cmb==-1?'heavy':null;dealt(e,Math.round(S.atk*h.m*(.9+Math.random()*.2)));hitFx=null;if(!isBig(e)&&!e.ug){const K=P.cmb==3||P.cmb==-1?2:1;e.kbv=P.f*KBV*K*(iceAt(e.x+e.w/2)?1.6:1)}}}  // 击退(第四段 / 重击加倍);第二十一轮:每下 0.32 秒僵直取消,僵直改走小怪韧性 mobPz(和法师一样),击退只推开怪物、不打断它的动作
   for(let i=PB.length-1;i>=0;i--){const b=PB[i];b.x+=b.vx*dt;if(b.fb)weAbs(b.x,b.y,'fire');let gone=b.x<cam-30||b.x>cam+VW+30;const d=sgn(b.vx);
     if(b.wv)for(let n=0;n<2;n++)pt({x:b.x-d*rnd(10,30),y:b.y+rnd(-28,28),vx:-d*rnd(60,160),vy:rnd(-30,30),c:pick(['#ffe066','#fff3bf']),sh:1,s:2,l:.25});
     if(b.fb){for(let n=0;n<2;n++)pt({x:b.x-d*6+rnd(-4,4),y:b.y+rnd(-4,4),vx:-d*rnd(20,70),vy:rnd(-70,-10),c:pick(['#ff922b','#ffd43b','#ff6b35']),sh:2,s:rnd(6,10),l:rnd(.25,.45)});if(Math.random()<.25)pt({x:b.x-d*10,y:b.y,vx:-d*20,vy:-40,c:'rgba(70,64,60,.45)',ad:0,s:5,gr:1.5,l:.6})}
@@ -3707,6 +3707,7 @@ function rSet(){const fb=(v)=>`<button data-p="fps${v}" class="${SET.fps==v?'on'
     <b>传送门</b>:<a href="https://opengameart.org/content/portals" target="_blank" rel="noopener noreferrer">Portals</a>(作者 <b>LetargicDev</b>,<a href="https://creativecommons.org/publicdomain/zero/1.0/" target="_blank" rel="noopener noreferrer">CC0</a>)。我们做的改动:只用 portalRings2 的 5 帧漩涡,绿色换成白 / 蓝 / 紫,用 Scale3x 放大到 96×96。<br>
     <b>宠物钢盔小鸡</b>:<a href="https://opengameart.org/content/chick" target="_blank" rel="noopener noreferrer">Chick</a>(作者 <b>Jordan Irwin(AntumDeluge)</b>,改自 <b>Shepardskin</b> 的 <a href="https://opengameart.org/content/chicken-sprites" target="_blank" rel="noopener noreferrer">Chicken Sprites</a>,<a href="https://creativecommons.org/publicdomain/zero/1.0/" target="_blank" rel="noopener noreferrer">CC0</a>)。我们做的改动:只用 24×24 版侧面 7 帧,白色换成黄色、翻成朝右,用 Scale2x 放大,自己画了钢盔和红扇子(手里的扇子、扔出去的扇子)。<br>
     <b>女神像</b>:本游戏自绘(按原来的矢量石像转成像素画:限色、描边)。<br>
+    <b>主页面</b>:背景 <a href="https://opengameart.org/content/magic-cliffs-environment" target="_blank" rel="noopener noreferrer">Magic Cliffs Environment</a>(作者 <b>ansimuz</b>,<a href="https://creativecommons.org/publicdomain/zero/1.0/" target="_blank" rel="noopener noreferrer">CC0</a>),边框 / 按钮框 / 分隔线 <a href="https://kenney.nl/assets/fantasy-ui-borders" target="_blank" rel="noopener noreferrer">Fantasy UI Borders</a>(作者 <b>Kenney</b>,<a href="https://creativecommons.org/publicdomain/zero/1.0/" target="_blank" rel="noopener noreferrer">CC0</a>)。我们做的改动:背景取预览合成图左边一段、上方补天空色;边框染成金色加深棕描影,框内填半透明深紫 / 橙色,分隔线染金。<br>
     <b>药水图标</b>:<a href="https://opengameart.org/content/pixel-potion-set-16x16" target="_blank" rel="noopener noreferrer">Pixel Potion Set 16x16</a>(作者 <b>yafarida</b>,<a href="https://creativecommons.org/publicdomain/zero/1.0/" target="_blank" rel="noopener noreferrer">CC0</a>)。我们做的改动:小瓶 / 中瓶 / 大圆瓶分别当初级 / 中级 / 高级,红色是生命、蓝色是魔力、黄色大瓶是复活药水;格子统一成 16×17。<br>
     <b>菜单按钮 / 宠物技能图标</b>:<a href="https://opengameart.org/node/39455" target="_blank" rel="noopener noreferrer">496 pixel art icons for medieval/fantasy RPG</a>(作者 <b>Henrique Lazarini (7Soul1)</b>,<a href="https://creativecommons.org/publicdomain/zero/1.0/" target="_blank" rel="noopener noreferrer">CC0</a>)。我们做的改动:挑选 16 个图标原样使用(锤子 = GM、时钟 = 签到、卷轴 = 任务、羽毛 = 宠物、羽翼 = 精灵、金币 = 商城、魔法书 = 技能、宝箱 = 背包,另 8 个当宠物技能);「声音」的喇叭按同一画风自画。<br>
     <b>第十九轮新道具图标</b>:同样来自上面的 496 pixel art icons(7Soul1,<a href="https://creativecommons.org/publicdomain/zero/1.0/" target="_blank" rel="noopener noreferrer">CC0</a>):蓝宝石 / 紫水晶 = 低级 / 中级属性石,绿药瓶 = 合成添加剂,小宝箱 = 小礼袋,面包 = 宠物饲料,玛瑙 / 蛋白石 / 钻石 = 低 / 中 / 高级幸运宝石,卷轴 = 双倍爆率卡;原样使用。<br>
@@ -5879,6 +5880,7 @@ function pvImg(k){const t=.3,c=document.createElement('canvas'),g=c.getContext('
 // 主页面打开时 HOME=1:主城画面停住当背景(loop 里不跑 townUpd),键盘只认 Enter(继续 / 新游戏)和 Esc(从操作说明返回)
 // 更新日志 CHLOG:[版本, 日期, [条目...]],新版本加在最前面(和 GAMEV 一起改)
 const CHLOG=[
+ ['1.21','2026-10-14',['主页面换成外部美术素材:魔法悬崖背景(ansimuz,CC0)+ 金色双线边框 / 按钮框(Kenney,CC0),布局参考「游戏内容」面板','剑士普攻也改走小怪韧性:每一下仍然把怪物击退,但不再每下都打僵直,怪物会顶着击退继续往前走','剑 U 雷霆连斩冷却固定 6 秒(不再随等级、时装、疾风缩短)']],
  ['1.20','2026-10-14',['新增主页面:开始新游戏 / 继续游戏 / 提取存档(导出成文件)/ 添加存档(从文件导入)/ 操作说明','防御、暴击、闪避重新换算:防御 12 点 = 1% 减伤(最多 75%),暴击 60 点 = 1%,闪避 30 点 = 1%;属性石终于有用了,旧装备自动换算(百分比不变)','小怪也有韧性了:挨打照常后仰掉血,但会继续往前推进,连续打满韧性才会被打出僵直(法师普攻不能再把小怪钉死)','记住上次用的武器:常玩法师的话,进关卡、回城、重新打开游戏都还是法师','背包里左键点物品就能弹出 使用 / 穿戴 / 出售 菜单(双击照旧直接穿戴 / 喝药)']],
  ['1.19','2026-10-13',['属性石(熔炉镶嵌)、小礼袋与 NPC 好感、商城新道具和随机物品栏、幸运宝石、双倍爆率卡、宠物饲料','召唤物换成凤凰 / 食人花,精灵换成小仙子','强化最高 +6;关卡掉的强化石一律普通品质,高品质靠熔炉合成','游戏有了版本号,分享链接自动更新到最新版']],
  ['1.18','2026-10-13',['四个装备系列各有自己的外观和图标(剑士 / 法师各四套)','精灵改回像素画法']],
@@ -5889,7 +5891,7 @@ const CHLOG=[
 let HOME=0;const HM={v:'log',cf:0,imp:null,msg:'',fresh:!hasSave};  // fresh:打开游戏时还没有存档(启动时 toTown 会先存一个 1 级档,不算)
 function homeSave(){if(HM.fresh)return null;try{const s=localStorage.getItem(SK_KEY),d=s&&JSON.parse(s);return d&&d.lvl?{s,lv:d.lvl,m:d.pm=='staff'?'法师':'剑士'}:null}catch(e){return null}}
 function rHome(){const sv=homeSave(),esc=s=>String(s).replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));
-  const L=HM.v=='help'?'<h3>操作说明</h3><ul>'+document.querySelector('p.tip').textContent.split(' · ').map(s=>'<li>'+esc(s.trim())+'</li>').join('')+'</ul><p><button data-h="log" style="font:inherit;cursor:pointer">← 返回更新日志</button></p>'
+  const L=HM.v=='help'?'<h3>操作说明</h3><ul>'+document.querySelector('p.tip').textContent.split(' · ').map(s=>'<li>'+esc(s.trim())+'</li>').join('')+'</ul><p><button data-h="log">← 返回更新日志</button></p>'
     :CHLOG.map(([v,d,a])=>`<h3>${/^\d/.test(v)?'v'+v:v}<span>${d}</span></h3><ul>${a.map(s=>'<li>'+esc(s)+'</li>').join('')}</ul>`).join('');
   const B=(k,t,sub,dis,on)=>`<button data-h="${k}"${dis?' disabled':''}${on?' class="on"':''}>${t}${sub?'<small>'+sub+'</small>':''}</button>`;
   let m=HM.msg;if(HM.imp)m+=`<br><button data-h="impY">✔ 确认导入</button><button data-h="impN">取消</button>`;else if(HM.cf)m+=`<br><button data-h="newY">✔ 确定重新开始</button><button data-h="newN">取消</button>`;
