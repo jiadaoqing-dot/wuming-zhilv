@@ -210,7 +210,7 @@ body.px .eqi,body.px .eqs,body.px .eqt,body.px #dg img{image-rendering:pixelated
 <p class="tip">← → / A D 移动(连按两次快跑) · K / ↑ 跳跃 · W+J / S+J 特殊普攻(学会二段跳后空中再按) · J 攻击(下劈 → 上挑 → 直戳 → 下劈 循环,按住蓄力重击;跑步中按 J = 冲刺直戳) · L 换武器 · H U I O 技能 · 空格 / W+空格 / S+空格 / WW+空格 剑士进阶技能(转职后) · 1 2 3 喝药水 · S 捡起地上的掉落物 · 背包 / 技能 / 商城 / 精灵 / 宠物 / 任务 / 声音:点右下角按钮(菜单快捷键已关闭;背包里左键点物品弹出菜单,装备可拖动穿戴) · 装备翅膀后空中再按跳跃=飞行(W/S 升降、A/D 方向) · Esc / ⚙️ 设置(暂停、返回城镇、帧数、全屏)</p>
 <script>
 // 游戏版本:build.py 按它给输出文件命名(out/无名之旅_v版本.html),设置页也显示;每次发新版改这里
-const GAMEV='1.25';
+const GAMEV='1.26';
 // x 是当前的绘图上下文:平时是主画布;像素特效层(PXL,P2)绘制期间临时换成 640×360 的低分辨率图层
 const cv=document.getElementById('c');let x=cv.getContext('2d');const VW=640,VH=360,WW=3200,GY=300;
 // 渲染分辨率:电脑端 1920×1080(逻辑坐标仍是 640×360,整体放大 3 倍绘制,文字和像素都更清晰);手机端 1280×720
@@ -1800,7 +1800,7 @@ function update(dt){
     if(f.gb&&cur==6&&solidAt(f.x-6,f.x+6,GY)){if(f.bnc>0){f.vx=-f.vx;f.bnc--;f.x+=f.vx*dt*2;burst(f.x,f.y,6,['#fff','#a5d8ff'],120,{s:2,l:.25})}else{F.splice(i,1);continue}}
     if(f.snow&&f.y>=GY-14){F.splice(i,1);sfx('boom');shake=Math.max(shake,.2);burst(f.x,GY-10,22,['#fff','#e7f5ff','#d0ebff'],260,{s:4,l:.5,g:600});ring(f.x,GY-4,6,60,'#fff',.35,4,.3);if(Math.abs(P.x+12-f.x)<34&&P.y+P.h>GY-40)hurt(f.dmg);
       for(let k=0;k<7;k++)F.push({x:f.x+rnd(-8,8),y:GY-18,vx:rnd(-260,260),vy:rnd(-430,-230),g:700,c:5,dmg:7*LDM});continue}
-    const hr=8*(f.s||1);if(ov(P,{x:f.x-hr,y:f.y-hr,w:2*hr,h:2*hr})){mImp(f,1);{const hh=hurt(f.dmg||(f.c==2?13:f.c==1?10:12)*LDM);if(hh&&f.web)slowP(2);if(hh&&f.sn)slowP(1.2);if(hh&&f.sd)sandP(1);if(hh&&f.ht)heatAdd(f.ht)}BFX.end(f,1);F.splice(i,1)}else if(f.y>GY||f.y<-150||f.x<cam-50||f.x>cam+VW+50){mImp(f,f.y>GY?.8:.45);if(f.y>GY)BFX.end(f,0);if(f.web&&f.y>GY)WZ.push({x:f.x-25,w:50,t:4});if(f.hz&&f.y>GY)HZ.push({x:f.x-22,w:44,t:f.hz=='poi'?3:2.5,k:f.hz});F.splice(i,1)}}
+    const hr=8*(f.s||1)*SHHK;if(ov(P,{x:f.x-hr,y:f.y-hr,w:2*hr,h:2*hr})){mImp(f,1);{const hh=hurt(f.dmg||(f.c==2?13:f.c==1?10:12)*LDM);if(hh&&f.web)slowP(2);if(hh&&f.sn)slowP(1.2);if(hh&&f.sd)sandP(1);if(hh&&f.ht)heatAdd(f.ht)}BFX.end(f,1);F.splice(i,1)}else if(f.y>GY||f.y<-150||f.x<cam-50||f.x>cam+VW+50){mImp(f,f.y>GY?.8:.45);if(f.y>GY)BFX.end(f,0);if(f.web&&f.y>GY)WZ.push({x:f.x-25,w:50,t:4});if(f.hz&&f.y>GY)HZ.push({x:f.x-22,w:44,t:f.hz=='poi'?3:2.5,k:f.hz});F.splice(i,1)}}
   for(const w of WZ)w.t-=dt;WZ=WZ.filter(w=>w.t>0);hzStep(dt);
   gdStep(dt);
   for(let i=I.length-1;i>=0;i--)if(ov(P,I[i])){P.hp=Math.min(S.hp,P.hp+15);sfx('coin');tx('+15',P.x,P.y-6,'#69db7c');I.splice(i,1)}
@@ -2088,7 +2088,7 @@ function kingStep(e,dt){e.bf=Math.max(0,(e.bf||0)-dt);e.shd=Math.max(0,(e.shd||0
 function mEnd(e,lo){e.act=null;e.pz=null;sfxStop(e.gl);e.gl=null;e.cd=(lo?1:1.5)/bsp(e)}
 // 第十六轮重做:链锤回旋(前后两段)/ 蛮牛冲撞(半血过人急刹回头)/ 跃起震地(落地放两道贴地冲击波)/ 连环践踏(三步震地)/ 狂牛怒吼(半血一次:震慑 + 攻击 +25%)
 function mntStep(e,dt){const lo=e.hp<e.max/2,A=2620,Bx=WW-e.w-10,cl=v=>Math.max(A,Math.min(Bx,v));e.wv=e.wv||[];
-  for(const w of e.wv){w.x+=w.d*300*dt;w.tr+=300*dt;if(!w.hit&&P.gr&&Math.abs(P.x+12-w.x)<16&&P.y+P.h>GY-30&&hurt(10*e.dm,{kb:w.d*300}))w.hit=1}e.wv=e.wv.filter(w=>w.tr<360);
+  for(const w of e.wv){w.x+=w.d*300*dt;w.tr+=300*dt;if(!w.hit&&P.gr&&Math.abs(P.x+12-w.x)<24&&P.y+P.h>GY-44&&hurt(10*e.dm,{kb:w.d*300}))w.hit=1}e.wv=e.wv.filter(w=>w.tr<360);
   if(e.bst>0){e.bst-=dt;if(e.bst<=0){e.dm=e.dm0;e.bst=0}}
   if(!e.act&&bDodge(e,dt,lo,A,Bx,60))return;
   const dx=P.x+12-(e.x+e.w/2),ad=Math.abs(dx);
@@ -2394,7 +2394,7 @@ function bearStep(e,dt){const p2=e.hp<=e.max*.6,p3=e.hp<=e.max*.3;
   if(e.act!='bliz')e.blz=Math.max(0,(e.blz||0)-dt)}
 function bearFx(e){const t=performance.now()/1000;
   for(const w of e.wv){const wx=w.x-cam,a=1-w.tr/300;x.globalAlpha=Math.max(.2,a);x.save();x.translate(wx,GY);x.scale(w.d,1);
-    x.restore();VFX.frame(x,'frost-nova',Math.floor(t*20+w.x*.05)%13,wx,GY-20,.7,w.d,0,1);x.globalAlpha=1}
+    x.restore();VFX.frame(x,'frost-nova',Math.floor(t*20+w.x*.05)%13,wx,GY-28,1.05,w.d,0,1);x.globalAlpha=1}
   for(const s of e.sp){const sx=s.x-cam;for(let i=0;i<3;i++)VFX.frame(x,'i-cry'+i,3,sx+(i-1)*12,GY+2,i==1?1.3:1,1,0,1)}
   for(const z of e.zn){const zx=z.x-cam;if(z.t<.9)DZ.zone(zx,z.w);
     else{const fa=Math.max(0,1-(z.t-1.1)/.3),fi=Math.min(3,Math.floor((z.t-.9)*20));for(let i=0;i<4;i++){const px=zx+8+i*(z.w-16)/3;VFX.frame(x,'i-cry'+(i%3),fi,px,GY+2,1.3+(i%2)*.3,1,0,fa)}}}
@@ -3710,6 +3710,7 @@ function rSet(){const fb=(v)=>`<button data-p="fps${v}" class="${SET.fps==v?'on'
     <b>第八关 幽魂都市 场景</b>:<a href="https://opengameart.org/content/streets-of-fight" target="_blank" rel="noopener noreferrer">Streets of Fight</a>(作者 <b>ansimuz</b>,<a href="https://creativecommons.org/publicdomain/zero/1.0/" target="_blank" rel="noopener noreferrer">CC0</a>)的店面、红砖楼墙块、车库、涂鸦墙、人行道、汽车、消防栓、油桶,<a href="https://opengameart.org/content/warped-city" target="_blank" rel="noopener noreferrer">Warped City</a>(作者 <b>ansimuz</b>,<a href="https://creativecommons.org/publicdomain/zero/1.0/" target="_blank" rel="noopener noreferrer">CC0</a>)的远景天际线和楼群。我们做的改动:按段落压暗、偏冷色(远景改成暗紫灰,亮窗改成昏黄),把墙块拼成多层的街道和老居民楼;破窗、半开的门、电梯、外楼梯、路灯、垃圾桶、斑马线、废弃医院、地下通道、首领战的公寓楼群和自动售货机、铁格平台都是自画的。<br>
     <b>剑士 O「苍蓝巨剑」的剑</b>:<a href="https://opengameart.org/content/fantasy-sword-set" target="_blank" rel="noopener noreferrer">Fantasy Sword Set</a>(作者 <b>Melissa Krautheim(melle)</b>,<a href="https://creativecommons.org/publicdomain/zero/1.0/" target="_blank" rel="noopener noreferrer">CC0</a>)的宽刃剑,剑柄压短一半、缩小限色成像素风;整把剑换成黑紫色暗钢、金色剑芯换成暗红色,剑刃两边加了倒钩锯齿和描边,外发光(暗紫色)是按剪影生成的。<br>
     <b>剑士手里的大剑</b>:同一套 <a href="https://opengameart.org/content/fantasy-sword-set" target="_blank" rel="noopener noreferrer">Fantasy Sword Set</a>(作者 <b>Melissa Krautheim(melle)</b>,<a href="https://creativecommons.org/publicdomain/zero/1.0/" target="_blank" rel="noopener noreferrer">CC0</a>)的四把剑:旅者系列 = 牛角护手银剑,林王系列 = 雷光剑(金色剑芯换成翠绿),荒漠系列 = 火焰剑,雪原系列 = 寒冰剑。我们做的改动:去掉外发光,缩小到约 70 像素长、限 11 色并加深色描边,剑尖转向前方,挥剑时按角度旋转。<br>
+    <b>法师手里的法杖</b>:<a href="https://opengameart.org/content/staff-64-x64" target="_blank" rel="noopener noreferrer">Staff [64x64]</a>(作者 <b>LordNeo</b>,<a href="https://creativecommons.org/publicdomain/zero/1.0/" target="_blank" rel="noopener noreferrer">CC0</a>)里的三把:旅者系列 = 冬青法杖(金框换成银色、红宝石换成蓝宝石),林王系列 = 藤蔓法杖(红宝石换成绿宝石),荒漠系列 = 冬青法杖原色,雪原系列 = 蓝宝石法杖(木杖换成冰蓝、金色缠绕换成银白)。施法时按角度旋转。<br>
     <b>第九关 火山噩梦</b>:场景(红色天空、山脉、地面、浮空石台、熔岩、枯树、喷气孔、岩石、晶体)用 <a href="https://opengameart.org/content/2d-platformer-volcano-pack-11" target="_blank" rel="noopener noreferrer">2D Platformer Volcano Pack 1.1</a>(作者 <b>Tio Aimar</b>,<a href="https://creativecommons.org/publicdomain/zero/1.0/" target="_blank" rel="noopener noreferrer">CC0</a>),缩小到 1/4、限色,背景重新上色成红色天空 / 暗红山脉;炎牙魔、炎狱鬼将(换成黑曜石身体 + 火焰铠甲)、炎柱、熔火鬼、火球、首领「熔狱魔神」(翅膀换成熔岩色、斗篷加熔岩裂纹、头换成黑岩 + 三只燃烧的眼睛)和熔岩拳的火焰用 <a href="https://opengameart.org/content/gothicvania-patreons-collection" target="_blank" rel="noopener noreferrer">Gothicvania Patreon's Collection</a>(作者 <b>ansimuz</b>,<a href="https://creativecommons.org/publicdomain/zero/1.0/" target="_blank" rel="noopener noreferrer">CC0</a>)的 Hell Beast / Fire Skull / Flying Demon;熔岩魔用 <a href="https://opengameart.org/content/golem-animations" target="_blank" rel="noopener noreferrer">Golem animations</a>(作者 <b>irmirx</b>,<a href="https://creativecommons.org/licenses/by/3.0/" target="_blank" rel="noopener noreferrer">CC-BY 3.0</a>),缩小到 1/6、限色,换成黑色玄武岩 + 发光熔岩裂纹。火山内部的洞壁 / 钟乳石、熔岩祭坛、喷发的火山、燃烧的弯刀、地面火焰、熔岩裂缝、地狱之握的黑手是自画的。<br>
     <b>第十关 幽灵船</b>:夜空(天空、星星、月亮、云)用 <a href="https://opengameart.org/content/moon-and-sea-pixel-art-background" target="_blank" rel="noopener noreferrer">Moon and Sea Pixel Art Background</a>(作者 <b>CraftPix.net 2D Game Assets</b>,<a href="https://opengameart.org/content/oga-by-30-faq" target="_blank" rel="noopener noreferrer">OGA-BY 3.0</a>),缩小到 1/2,云换成青绿色;远处的幽灵船用 <a href="https://opengameart.org/content/old-fashioned-pirate-ship" target="_blank" rel="noopener noreferrer">Old-fashioned pirate ship</a>(作者 <b>KokoroReflections</b>,<a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener noreferrer">CC-BY 4.0</a>),缩小到 1/6,换成半透明青绿色剪影;甲板、浮空木板、木桶、大炮用 <a href="https://opengameart.org/content/pirate-bomb" target="_blank" rel="noopener noreferrer">Pirate Bomb</a>(作者 <b>Pixel Frog</b>,<a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener noreferrer">CC-BY 4.0</a>),缩小到 1/2,换成朽木色;翼魔、空翼妖用 <a href="https://opengameart.org/content/lpc-imp-2" target="_blank" rel="noopener noreferrer">LPC Imp 2</a>(作者 <b>William.Thompsonj</b>,<a href="https://creativecommons.org/licenses/by/3.0/" target="_blank" rel="noopener noreferrer">CC-BY 3.0</a>),空翼妖换成暗紫色 + 青色眼睛;浮游眼魔用 <a href="https://opengameart.org/content/flying-eye-monster-eye" target="_blank" rel="noopener noreferrer">Flying Eye Monster</a>(作者 <b>Lil Pie</b>,<a href="https://creativecommons.org/licenses/by/3.0/" target="_blank" rel="noopener noreferrer">CC-BY 3.0</a>),原色;首领「归蝇」用 <a href="https://opengameart.org/content/fallen-angel" target="_blank" rel="noopener noreferrer">Fallen Angel</a>(作者 <b>BlackSwordo</b>,<a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener noreferrer">CC-BY 4.0</a>),缩小到 1/2、去掉影子,剑光换成紫色,翅膀拆开单独扇动。桅杆和破帆、幽灵灯笼、栏杆、归蝇的第二对手臂 / 长尾 / 漂浮碎片、魔法弹是自画的。<br>神秘地带 / 神秘副本(2026-10-13):石砌大厅、石柱、石像鬼、张嘴石狮头、石灯柱、铁火盆和火焰、首领「瓜子大王」和宠物仓鼠、瓜子 / 瓜子壳、宠物蛋全部是自画的像素图(仓鼠配色参考了 <a href="https://opengameart.org/content/worlds-strongest-hamster-in-the-underground-empire-gfx" target="_blank" rel="noopener noreferrer">World's Strongest Hamster in The Underground Empire GFX</a>,作者 <b>mutantleg</b>,<a href="https://creativecommons.org/publicdomain/zero/1.0/" target="_blank" rel="noopener noreferrer">CC0</a>,没有直接使用原图)。<br>
     <b>第八关 鬼魂</b>:飞行的游魂 / 厉鬼用 <a href="https://opengameart.org/content/ghost-monster" target="_blank" rel="noopener noreferrer">Ghost monster</a>(作者 <b>ImogiaGames</b>,<a href="https://creativecommons.org/publicdomain/zero/1.0/" target="_blank" rel="noopener noreferrer">CC0</a>,基于 Balmer 的 Skeleton and Ghost),厉鬼换成黑紫色 + 红眼;提灯幽魂 / 伪装的怨灵用 <a href="https://opengameart.org/content/gothicvania-cemetery-pack" target="_blank" rel="noopener noreferrer">GothicVania Cemetery Pack</a>(作者 <b>ansimuz</b>,<a href="https://creativecommons.org/publicdomain/zero/1.0/" target="_blank" rel="noopener noreferrer">CC0</a>)的 ghost / ghost-halo;怨灵伪装成的路人是 Streets of Fight 的 Enemy Punk 待机帧(压暗)。首领「怨婴 · 银太郎」、它的黑色投影、鬼爪、鬼手、黑色摇篮、鬼火、窗后的鬼影、女神灵魂碎片都是自画的;婴儿哭声是用程序合成的。<br>
@@ -4191,6 +4192,8 @@ function atkKeys(c,W,E,R,from){const f0=from?{...from,__f:1}:null,K=[[0,f0]];
       [E+.07,{gx:13,gy:-8,wa:.02,two:1,lean:.45,x:4,head:.12,hF:1.1,kF:1,hB:-1,kB:.05,sq:.09}]);
   K.push([E+R+.12,null]);return K}
 // 站姿:剑 = 双臂自然下垂,双手握剑柄在下体前,剑身朝前、略微向下倾斜,长剑柄露在身后;法杖 = 单手斜握
+// 第二十六轮:法师普攻的两个关键姿势(双手横握法杖中段):STFR 收回贴胸、重心在后腿;STFT 双臂伸直前推、前腿弓步
+const STFR={gx:-1.5,gy:-9.5,wa:-.06,two:1,lean:-.15,x:-1.8,head:-.06,hF:.2,kF:.4,hB:-.2,kB:.5,sq:.04},STFT={gx:15,gy:-8.5,wa:0,two:1,lean:.32,x:3.5,head:.08,hF:.95,kF:.3,hB:-.85,kB:.15,sq:.05};
 const STANCE={sword:{gx:3.6,gy:-.6,wa:.13,two:1,aB:.12,eB:.5},staff:{gx:9,gy:-2.2,wa:-1.05,two:0,aB:.25,eB:.45}};
 // 剑的四段普攻 + 蓄力重击(双手持巨剑,剑和身体高度重合):w = 预备,s = 出手结束
 const SWK={
@@ -4218,7 +4221,7 @@ function rigCycle(kind,ph,m){const a=ph*6.2832,s=Math.sin(a),c=Math.cos(a),fwdF=
     aB:-s*.85+.15,eB:.3+Math.max(0,-s)*.7,
     ...(m=='sword'?{gx:3.6-s*1.3,gy:-.6+bob*.5,wa:.13-s*.07+bob*.03}:{gx:9-s*2.2,gy:-2.2+bob*.7,wa:-1.05-s*.15})}}
 // 根据游戏状态算出主角此刻的目标姿势
-function heroRig(){const k=P.sk,m=P.mode,tm=performance.now()/1000,sw0=STANCE[m];
+function heroRig(){const k=P.sk,m=P.mode,tm=performance.now()/1000,sw0=STANCE.sword;  // 第二十六轮:法师站姿 / 走路和剑士一样(STANCE.staff 只给 LPC 整帧用)
   const air=!P.gr&&!P.fly,walk=P.gr&&Math.abs(P.vx)>1&&!(P.frz>0),run=walk&&P.run;
   const br=Math.sin(tm*2.6);let po=rP(sw0,{y:-(br+1)*.32,gy:sw0.gy+br*.35,wa:sw0.wa+br*.025,aB:sw0.aB+br*.04});
   let glow=null,mouth=null,closed=0;
@@ -4226,7 +4229,7 @@ function heroRig(){const k=P.sk,m=P.mode,tm=performance.now()/1000,sw0=STANCE[m]
   else if(air)po=P.vy<0?rP(po,{hF:1.15,kF:1.8,hB:.5,kB:1.4,lean:-.06,aB:1.5,eB:.5,...(m=='sword'?{gx:4,gy:-10,wa:-1.05}:{gy:-8,wa:-1.6})}):rP(po,{hF:.42,kF:.35,hB:-.32,kB:.55,lean:.03,aB:1.1,eB:.4,...(m=='sword'?{gx:4,gy:-8,wa:-.9}:{gy:-6})});
   // 法师跑步 = 浮空飞行:离地一小段、身体不动只轻轻上下浮,双腿并拢微屈垂着,法杖斜握在身前,后手往后展开
   else if(run)po=m=='staff'?rP(po,{y:-9+Math.sin(tm*3.2)*1.2,lean:.16,head:.04,hF:.28,kF:.7,hB:.08,kB:.85,gx:8,gy:-4,wa:-.75,aB:-.55,eB:.35}):rP(po,rigCycle('run',P.an*1.45,m));
-  else if(walk)po=rP(po,rigCycle('walk',P.an*1.55,m));
+  else if(walk)po=rP(po,rigCycle('walk',P.an*1.55,'sword'));
   const base=po;
   if(m=='staff'){const cs=P.cs,sw=P.swT!=null&&P.swT<P.swR+.15?P.swT:null;
     if(cs&&cs.t<.8){const t=cs.t;glow='rgba(229,153,247,.95)';
@@ -4237,9 +4240,11 @@ function heroRig(){const k=P.sk,m=P.mode,tm=performance.now()/1000,sw0=STANCE[m]
       else if(cs.id=='staff4')po=rSeq(base,[[0,null],[.1,{gx:-2,gy:-6,wa:-2.1,lean:-.14,aB:-.6}],[.2,{gx:12,gy:-12,wa:-.6,lean:.24,aB:2.2,eB:.2,hF:.6,kF:.3,hB:-.5}],[.5,null]],t);
       else if(cs.id=='staff7'){glow='rgba(255,107,107,.95)';po=rSeq(base,[[0,null],[.12,{gx:3,gy:-6,wa:-1.6,lean:.1,sq:.12,hF:.7,kF:1,hB:-.6,kB:.8,aB:-.4}],[.3,{gx:5,gy:-20,wa:-1.55,aB:3,eB:.1,lean:-.2,y:-3}],[.7,null]],t)}
       else po=rSeq(base,[[0,null],[.12,{gx:8,gy:-14,wa:-1.2,aB:2,eB:.5,lean:-.08}],[.45,null]],t)}
-    else if(sw!=null){const hv=P.swC=='sh';glow=hv?'rgba(204,93,232,.95)':'rgba(229,153,247,.85)';
-      po=rSeq(base,[[0,null],[hv?.1:.05,{gx:1,gy:-6,wa:-1.95,lean:-.1,aB:-.2}],[hv?.18:.11,{gx:12,gy:-9,wa:-.5,two:hv?.8:0,lean:hv?.24:.16,aB:.9,eB:.2,hF:.55,kF:.25,hB:-.45}],[P.swR+.05,{gx:10,gy:-8,wa:-.7,lean:.08}],[P.swR+.15,null]],sw)}
-    if(P.ch>.15&&!(cs&&cs.t<.8)){const q=eo(P.ch/.3);po=rMix(po,rP(base,{gx:9,gy:-10,wa:-.9,two:.6,lean:-.08,sq:.05}),q);glow='rgba(229,153,247,.9)';if(P.ch>=.7)po.y+=Math.sin(tm*60)*.4}}
+    else if(sw!=null){const hv=P.swC=='sh';glow=hv?'rgba(204,93,232,.95)':'rgba(229,153,247,.85)';  // 第二十六轮:双手横握法杖中段,双臂前推(发出魔法球)→ 收回贴胸 → 再推,全身跟着前后移重心
+      const T={...STFT,...(hv?{gx:16.5,lean:.4,x:4.5,sq:.08,hF:1.05,kF:.45,hB:-.95}:{})};
+      po=rSeq(base,[[0,STFR],[hv?.07:.05,T],[hv?.16:.12,{...T,gx:T.gx-.5,lean:T.lean+.03}],[Math.max(.2,P.swR-.03),STFR],[P.swR+.15,null]],sw)}
+    if(P.ch>.15&&!(cs&&cs.t<.8)){const q=eo(P.ch/.3);po=rMix(po,rP(base,{...STFR,gx:-.5,lean:-.16,x:-1.5,sq:.06}),q);glow='rgba(229,153,247,.9)';if(P.ch>=.7)po.y+=Math.sin(tm*60)*.4}
+    {const tg=(sw!=null||P.ch>.15)&&!(cs&&cs.t<.8)?.5:.25;P.stg=P.stg==null?tg:P.stg+(tg-P.stg)*.3}}
   else{
     if(k&&k.id=='up'){glow='rgba(165,216,255,.85)';po=rSeq(base,[[0,{gx:5,gy:-1,wa:.7,two:1,sq:.14,lean:.14,hF:.6,kF:.9,hB:-.4,kB:.7}],[.05,{gx:5,gy:-1,wa:.7,two:1,sq:.14,lean:.14,hF:.6,kF:.9,hB:-.4,kB:.7}],[.18,{gx:4,gy:-16,wa:-1.75,two:1,lean:-.22,y:-3,hF:-.2,kF:.4,hB:.5,kB:.9}],[.3,{gx:4,gy:-15,wa:-1.7,two:1,lean:-.16,y:-2}]],k.t)}
     else if(k&&k.id=='smash'){glow=k.t<.3?'rgba(255,224,102,.9)':null;po=rSeq(base,[[0,null],[.18,{gx:-1,gy:-16,wa:-2.35,wb:1,two:1,lean:-.22,y:-3,hF:.6,kF:1,hB:.2,kB:.9}],[.28,{gx:-1,gy:-16,wa:-2.4,wb:1,two:1,lean:-.24,y:-3}],[.34,{gx:7,gy:-1,wa:1.05,two:1,lean:.42,sq:.15,hF:.85,kF:.95,hB:-.75,kB:.6}],[.55,{gx:6,gy:-2,wa:.95,two:1,lean:.28,sq:.08}]],k.t)}
@@ -4285,6 +4290,9 @@ const SWL=55,SWB=9;  // 剑尖 / 剑刃起点到握把的距离
 const HSW={D:'@@A:hsw_atlas@@',M:[[0,72,21,19,10],[21,72,21,20,10],[42,74,19,22,9],[61,79,23,22,11]],I:null,
   init(){const im=new Image();im.onload=()=>{this.I=im};im.src=this.D}};
 HSW.init();
+// 第二十六轮:纸娃娃手里的法杖 = Staff [64x64](LordNeo,CC0);一格 64×64 一把(杖头朝左上),M = [杖尾 x, 杖尾 y, 杖头 x, 杖头 y],按系列 0 旅者 / 1 林王 / 2 荒漠 / 3 雪原
+const STF={D:'@@A:stf_atlas@@',M:[[60,59,4,3],[61,60,11,12],[60,59,4,3],[61,60,11,12]],I:null,init(){const im=new Image();im.onload=()=>{this.I=im};im.src=this.D}};
+STF.init();
 // —— 武器:原点在握把(前手)处,沿 +x 方向。剑柄从 -14 到 +6(手握在中间偏上),护手 6~9,剑刃 9~55
 function drawWpn(c,wk,tier,glow,t,g){const pal=WPAL[tier||0];g=g||0;
   if(wk=='staff'){if(glow){c.save();c.globalCompositeOperation='lighter';C_(c,40,0,15,RGD(c,40,0,15,[glow,'rgba(0,0,0,0)']),0);c.restore()}
@@ -4601,7 +4609,7 @@ const TELE={
    if(a=='slam'&&e.at>=.72&&e.at<1.02){const r=e.hp<e.max/2?130:90;DZ.zone((e.f>0?e.x+20-r:e.x+e.w-20)-cam,r)}  // 第十六轮:流星锤荡回来扫身后的预警
    if(a=='stomp'&&e.at<1.8&&e.at%.6<.4){const c=e.x+e.w/2,r=e.w/2+70;DZ.zone(c-r-cam,2*r)}
    if(a=='roar'&&e.at<1)WARN(x,e.x+e.w/2-cam,e.y-24,1.1);
-   for(const w of e.wv||[])VFX.frame(x,'m-dust',Math.floor(t*14+w.x*.05)%4,w.x-cam,GY,1.1,w.d,0,Math.max(.3,1-w.tr/360));
+   for(const w of e.wv||[]){const wx=w.x-cam,q=Math.min(1,(360-w.tr)/60);VFX.frame(x,'earth-rupture',Math.floor(t*16+w.x*.05)%(VFX.M['earth-rupture']?VFX.M['earth-rupture'].n:4),wx,GY,1.25,w.d,0,q);VFX.frame(x,'m-dust',Math.floor(t*14+w.x*.05)%4,wx-w.d*14,GY,1.5,w.d,0,q)}  // 第二十六轮:原来是半透明小烟尘,看不清
    if(a=='leap'&&e.at<1.2){const r=e.hp<e.max/2?150:110,c=e.lx+e.w/2;DZ.zone(c-r-e.w/2-cam,2*r+e.w)}}};
 function drawE(e){const q=BWQ,qe=BWE;if(e.max){BWQ=1;BWE=e}try{drawE0(e)}finally{BWQ=q;BWE=qe}}  // 第二十四轮:画首领时屏蔽预警
 function drawE0(e){if(e.x+e.w<cam-200||e.x>cam+VW+200)return;const t=performance.now()/1000,cx=e.x+e.w/2-cam;
@@ -4675,23 +4683,27 @@ function monPose(e,t){const now=performance.now()/1000,o={lean:0,sx:1,sy:1,dy:0}
   else{o.sy=1+Math.sin(now*3+(e.ph||0))*.025}
   e._wu=wu;e._sk=sk;return o}
 // 怪物飞弹(卡通火球 / 魔法球 / 毒液 / 蛛丝)和主角法术弹
-function drawShots(){const t=performance.now()/1000;
-  for(const f of F){const s=f.s||1,fx=f.x-cam,fy=f.y,sp=Math.hypot(f.vx,f.vy)||1,dx=-f.vx/sp,dy=-f.vy/sp;
-    if(f.c>=17&&ARS.shot(f,fx,fy,t))continue;if(f.c==8&&GH8.fire(f,fx,fy,t))continue;if(f.c==9&&VOL9.fire(f,fx,fy,t))continue;if((f.c==10||f.c==12||f.c==13)&&SHIP10.fire(f,fx,fy,t))continue;if(BFX.shot(f,fx,fy,t))continue;
-    if(f.c==14){VFX.frame(x,'z-rock',0,fx,fy,.55*s,1,t*6,1);continue}  // 第十六轮:猿的石块 = BFX2 落石(Floor Effects,hernandack,CC0)
-    if(f.c==16){VFX.frame(x,'m-dust',Math.floor(t*12+fx)%4,fx,fy,.6*s,1,0,.9);continue}  // 鸵鸟踢起的沙团 = 烟尘帧
-    if(f.c==15){SHIP10.fr(x,'shard',Math.floor(t*10),fx-7,fy-7,1,1);continue}  // 骷髅兵的骨片 = 幽灵船碎片帧
+function drawShot1(f,t){const s=f.s||1,fx=f.x-cam,fy=f.y,sp=Math.hypot(f.vx,f.vy)||1,dx=-f.vx/sp,dy=-f.vy/sp;
+    if(f.c>=17&&ARS.shot(f,fx,fy,t))return;if(f.c==8&&GH8.fire(f,fx,fy,t))return;if(f.c==9&&VOL9.fire(f,fx,fy,t))return;if((f.c==10||f.c==12||f.c==13)&&SHIP10.fire(f,fx,fy,t))return;if(BFX.shot(f,fx,fy,t))return;
+    if(f.c==14){VFX.frame(x,'z-rock',0,fx,fy,.55*s,1,t*6,1);return}  // 第十六轮:猿的石块 = BFX2 落石(Floor Effects,hernandack,CC0)
+    if(f.c==16){VFX.frame(x,'m-dust',Math.floor(t*12+fx)%4,fx,fy,.6*s,1,0,.9);return}  // 鸵鸟踢起的沙团 = 烟尘帧
+    if(f.c==15){x.save();x.filter='brightness(2.6) sepia(.35)';SHIP10.fr(x,'shard',Math.floor(t*10),fx-7,fy-7,1,1);x.restore();return}  // 骷髅兵的骨片 = 幽灵船碎片帧
     if(f.c>=5){// 第六关:冰块(旋转的冰晶)· 大雪球 · 贴地冰球
-      if(f.c==6){const r=8*s;if(KB.ball(x,fx,fy,r/14,t*8*sgn(f.vx)))continue;C_(x,fx,fy,r,RGD(x,fx-r*.3,fy-r*.3,r*1.3,['#ffffff','#e7f0fa','#a9c6e2']),1.4);for(const [a,b,rr] of [[-.3,.2,.22],[.35,-.25,.16],[.1,.45,.14]])C_(x,fx+a*r,fy+b*r,rr*r,'rgba(160,190,220,.55)',0);continue}
+      if(f.c==6){const r=8*s;if(KB.ball(x,fx,fy,r/14,t*8*sgn(f.vx)))return;C_(x,fx,fy,r,RGD(x,fx-r*.3,fy-r*.3,r*1.3,['#ffffff','#e7f0fa','#a9c6e2']),1.4);for(const [a,b,rr] of [[-.3,.2,.22],[.35,-.25,.16],[.1,.45,.14]])C_(x,fx+a*r,fy+b*r,rr*r,'rgba(160,190,220,.55)',0);return}
       x.save();x.translate(fx,fy);x.rotate(t*(f.c==7?14*sgn(f.vx):8));if(f.c==7){C_(x,0,0,7,RGD(x,-2,-2,8,['#ffffff','#a5d8ff','#4dabf7']),1.2);LN_(x,[[-4,0],[4,0]],'#fff',1.2);LN_(x,[[0,-4],[0,4]],'#fff',1.2)}
-      else PG(x,[[0,-7],[6,0],[0,7],[-6,0]],LG(x,0,-7,0,7,['#ffffff','#a5d8ff','#4dabf7']),1.2);x.restore();continue}
-    if(f.c==2)RR(x,fx-12*s,GY-3,24*s,3,1.5,'rgba(190,75,219,.7)',0);
+      else PG(x,[[0,-7],[6,0],[0,7],[-6,0]],LG(x,0,-7,0,7,['#ffffff','#a5d8ff','#4dabf7']),1.2);x.restore();return}
     const P_={undefined:['#ff922b','#ffe066','#e8590c',8],1:['#9b4dff','#f3d9fa','#5f3dc4',7],2:['#7048e8','#d0bfff','#3b1f8f',10],3:['#40c057','#d3f9d8','#2b8a3e',7],4:['#f1f3f5','#ffffff','#adb5bd',6]}[f.c]||['#ff922b','#ffe066','#e8590c',8],r=P_[3]*s;
     x.save();x.globalCompositeOperation='lighter';C_(x,fx,fy,r*2,RGD(x,fx,fy,r*2,[P_[0]+'cc','rgba(0,0,0,0)']),0);x.restore();
-    if(f.c==4){for(let i=0;i<6;i++){const a=i*Math.PI/3+t*2;LN_(x,[[fx,fy],[fx+Math.cos(a)*r*1.3,fy+Math.sin(a)*r*1.3]],'#f1f3f5',1)}C_(x,fx,fy,r*.7,'#fff',1);continue}
+    if(f.c==4){for(let i=0;i<6;i++){const a=i*Math.PI/3+t*2;LN_(x,[[fx,fy],[fx+Math.cos(a)*r*1.3,fy+Math.sin(a)*r*1.3]],'#f1f3f5',1)}C_(x,fx,fy,r*.7,'#fff',1);return}
     if(f.c!=3){x.beginPath();x.moveTo(fx+dy*r,fy-dx*r);x.quadraticCurveTo(fx+dx*r*3.2,fy+dy*r*3.2,fx-dy*r,fy+dx*r);x.closePath();x.globalAlpha=.75;FS_(x,P_[0],0);x.globalAlpha=1}
     C_(x,fx,fy,r,RGD(x,fx-r*.3,fy-r*.3,r*1.2,[P_[1],P_[0],P_[2]]),1.2);C_(x,fx-r*.35,fy-r*.35,r*.28,'rgba(255,255,255,.85)',0);
     if(f.c==1||f.c==2){for(let i=0;i<4;i++){const a=t*6+i*1.57;C_(x,fx+Math.cos(a)*r*1.4,fy+Math.sin(a)*r*1.4,1.2*s,'#f3d9fa',0)}}}
+// 第二十六轮:怪物飞弹画面放大(小怪 ×SHVM、首领身边发出的 ×SHVB),判定半径 ×SHHK;贴地紫条(c==2)不放大
+const SHVM=1.6,SHVB=1.9,SHHK=1.25,SHX={3:1.6,15:1.5,16:1.4},SHC={1:'190,120,255',2:'170,140,255',3:'120,255,120',4:'230,240,255',5:'200,230,255',6:'230,240,255',7:'170,220,255',8:'120,255,220',9:'255,150,60',14:'255,220,160',15:'255,255,230',16:'255,230,170',17:'255,200,100',18:'150,220,255',19:'255,90,90'};
+function drawShots(){const t=performance.now()/1000;
+  for(const f of F){const fx=f.x-cam,fy=f.y,k=(f.mb===false?SHVB:SHVM)*(SHX[f.c]||1),hc=SHC[f.c]||'255,200,120';{const r=12*(f.s||1)*k;x.save();x.globalCompositeOperation='lighter';C_(x,fx,fy,r,RGD(x,fx,fy,r,['rgba('+hc+',.75)','rgba('+hc+',.3)','rgba(0,0,0,0)']),0);x.restore()}  // 亮色光晕,深色背景上也看得清
+   if(f.c==2)RR(x,fx-12*(f.s||1)*k,GY-3,24*(f.s||1)*k,3,1.5,'rgba(190,75,219,.85)',0);
+    x.save();x.translate(fx,fy);x.scale(k,k);x.translate(-fx,-fy);drawShot1(f,t);x.restore()}
   for(const b of PB){const bx=b.x-cam,d=sgn(b.vx);if(VFX.shot(b,bx,d,t))continue;
     if(b.wv){x.save();x.globalCompositeOperation='lighter';const A=v=>d>0?v:Math.PI-v,st=A(-1.25),en=A(1.25),ccw=d<0;
       for(let k=3;k>=0;k--){const ox=bx-d*k*16-d*22;x.globalAlpha=k?.28/k:1;x.strokeStyle='#ffd43b';x.lineWidth=14;x.beginPath();x.arc(ox,b.y,30,st,en,ccw);x.stroke();x.strokeStyle='#fff3bf';x.lineWidth=6;x.beginPath();x.arc(ox,b.y,30,st,en,ccw);x.stroke()}x.restore()}
@@ -5313,8 +5325,11 @@ const LPC={I:null,M:null,S:{},LK:{},
     const wpn=()=>{const hx=X(HF),hy2=Y(HF),c0=Math.cos(p.wa),s0=Math.sin(p.wa);
       const dot=(t,s,col)=>{g.fillStyle=col;g.fillRect(Math.round(hx+c0*t-s0*s),Math.round(hy2+s0*t+c0*s),1,1)};
       const band=(t0,t1,wf,colf)=>{for(let t=t0;t<=t1;t+=.5){const w=wf(t);for(let s=-w;s<=w;s+=.5)dot(t,s,colf(t,s,w))}};
-      if(m!='sword'){if(glow){g.globalAlpha=.75;band(20,30,t=>Math.max(.5,4.5-Math.abs(t-25)*.8),()=>glow);g.globalAlpha=1}
+      if(m!='sword'){if(glow){const q=STF.M[Math.max(0,Math.min(3,EQ.staff?EQ.staff.g||0:0))],hd=STF.I?(.8-(P.stg==null?.25:P.stg))*Math.hypot(q[2]-q[0],q[3]-q[1]):25;g.globalAlpha=.75;band(hd-6,hd+4,t=>Math.max(.5,4.5-Math.abs(t-hd+1)*.8),()=>glow);g.globalAlpha=1}
         // 第十八轮:手里的法杖 = 装备图标里四个系列各自的法杖(7Soul1,CC0),图标里杖头朝左上、握在右下 (24,24),按握持角度最近邻旋转
+        // 第二十六轮:换成 Staff [64x64](LordNeo,CC0,art_src/lpc/build_staff.py);普攻 / 蓄力时双手握中段(P.stg 平滑过渡),平时像剑一样握在下段
+        if(STF.I){const sg=Math.max(0,Math.min(3,EQ.staff?EQ.staff.g||0:0)),q=STF.M[sg],ax=q[2]-q[0],ay=q[3]-q[1],th=Math.atan2(ay,ax),f=P.stg==null?.25:P.stg,Gx=q[0]+ax*f,Gy=q[1]+ay*f;
+          g.save();g.translate(hx,hy2);g.rotate(p.wa-th);g.drawImage(STF.I,sg*64,0,64,64,-Gx,-Gy,64,64);g.restore();return}
         if(EQPX.I){const C=EQPX.C,sg=Math.max(0,Math.min(3,EQ.staff?EQ.staff.g||0:0));g.save();g.translate(hx,hy2);g.rotate(p.wa+Math.PI*.75);g.drawImage(EQPX.I,sg*C,EQPX.R.staff*C,C,C,-24,-24,C,C);g.restore();return}
         if(PXA.WI)g.drawImage(PXA.wc(PXA.wrow(m),PXA.wdir(p.wa),tier),hx-28,hy2-28);return}
       const sg=Math.max(0,Math.min(3,EQ.sword?EQ.sword.g||0:0)),W0=WPAL[sg];
@@ -5937,7 +5952,8 @@ function pvImg(k){const t=.3,c=document.createElement('canvas'),g=c.getContext('
 // 主页面打开时 HOME=1:主城画面停住当背景(loop 里不跑 townUpd),键盘只认 Enter(继续 / 新游戏)和 Esc(从操作说明返回)
 // 更新日志 CHLOG:[版本, 日期, [条目...]],新版本加在最前面(和 GAMEV 一起改)
 const CHLOG=[
- ['1.25','2026-10-14',['修复:玩家退回上一段区域时,一~七关的小怪卡在区域边界上不动 —— 现在会一直追过来','小怪和关卡机关的预警也全部去掉了(猿的落点、蝎子钻沙的圈、头上的感叹号、眼魔的预警线、第六关落雪的红圈、第九关熔岩裂缝等)','首领的前摇按招式区分:后仰蓄力、下蹲、后撤刨地、拉高上浮、鼓起狂抖、前探瞄准、下沉、左右摇摆、原地转身、原地跳动,看动作就知道要放哪一招','首领前摇时挨打不会再被打断动作,方便看清']],
+ ['1.26','2026-10-14',['法师的法杖换成外部像素素材(四个系列各一把,带宝石的华丽法杖),不再像一根木头','法师站立和走路的姿势和剑士一样;普通攻击改成双手横握法杖中段,双臂前推发出魔法球、收回、再推,全身跟着动','怪物的飞弹整体放大并加了亮色光晕,首领的更大;第一关牛魔落地放出的贴地冲击波换成清楚的裂地特效','修复:骷髅兵的骨片在暗处看不清']],
+  ['1.25','2026-10-14',['修复:玩家退回上一段区域时,一~七关的小怪卡在区域边界上不动 —— 现在会一直追过来','小怪和关卡机关的预警也全部去掉了(猿的落点、蝎子钻沙的圈、头上的感叹号、眼魔的预警线、第六关落雪的红圈、第九关熔岩裂缝等)','首领的前摇按招式区分:后仰蓄力、下蹲、后撤刨地、拉高上浮、鼓起狂抖、前探瞄准、下沉、左右摇摆、原地转身、原地跳动,看动作就知道要放哪一招','首领前摇时挨打不会再被打断动作,方便看清']],
   ['1.24','2026-10-14',['首领不再显示攻击范围和预警(地上的红色符文带、瞄准圈、感叹号、预警线都去掉了),改成看首领的前摇动作:要出招时首领会明显后仰蓄力、发抖','首领的飞弹最多飞 2 个闪现的距离,不会再隔着整个场地打人','修复:小怪被拉开距离后原地罚站 —— 现在一~七关的小怪会一直追着玩家','小怪近战出招频率降低约 40%','菜单快捷键(B / T / Q / P / Y / G / M)全部关闭,改用右下角按钮,不会再误按']],
  ['1.23','2026-10-14',['第一关减负:小怪的远程攻击只在 1 个闪现内才会放,飞弹飞一小段就消散;每只小怪两次远程至少隔 3.5 秒,全场的远程也错开放','药水加强:在百分比之外再加固定回复(初级生命 +80、中级 +220、高级 +500、超级 +1000;魔力 +30 / +80 / +180),冷却 10 秒 → 8 秒','经验和金币 ×1.5(同关一星一遍约升 1.2 级),通关击杀点 10 → 20(二星 26、三星 32)']],
  ['1.22','2026-10-14',['升级更快了:每级需要的经验降到原来的 40%(同关一星打一遍约升 0.8 级),旧存档攒着的经验会直接升级','基础生命 60 → 140、基础魔力 30 → 60,第一关不再两三下就倒','小怪的攻击距离缩短到约 1.5 个闪现:离得远不会出招,远程飞弹飞一段就消散(首领不变)','法师普攻射程缩短到约 1.75 个闪现']],

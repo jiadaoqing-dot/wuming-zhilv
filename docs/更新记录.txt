@@ -1,3 +1,9 @@
+【2026-10-14 v1.26 第二十六轮】法杖换素材 / 怪物攻击放大 / 法师动作
+- 法杖:art_src/lpc/build_staff.py → assets/stf_atlas.png(Staff [64x64],LordNeo,CC0,raw/staff_lordneo);源码 STF(HSW 下面),dollDraw 的 wpn() 按 P.stg(握持位置 0.25 下段 / 0.5 中段,heroRig 里平滑)把杖尾→杖头连线转到 p.wa。致谢已加。
+- 法师姿势:heroRig 的 sw0 一律用 STANCE.sword,走路用 rigCycle 的剑分支;普攻 = STFR(收)↔ STFT(推)往复,蓄力也双手横握;跑步没改。
+- 怪物飞弹:drawShots 拆成 drawShot1 + 外层放大(SHVM 1.6 / SHVB 1.9 / SHX 单独加大 / SHC 光晕颜色),判定 hr ×SHHK 1.25。牛魔 e.wv 画 earth-rupture + m-dust(原来半透明 m-dust),判定 ±24 / 高 44;北极熊 frost-nova .7 → 1.05;骨片 c15 提亮。
+- 截图检查:法师 站 / 走 / 跑 / 收 / 推 / 蓄力 并排;飞弹 6 种 + 牛魔冲击波。冒烟测试 0 错误。
+
 【2026-10-14 v1.25 第二十五轮】小怪 / 机关去预警 + 首领前摇按招式区分
 - 小怪、关卡机关预警全部不画:bwSkip 在 BWOFF 时一律返回 true(首领画的时候照旧记 bwT);眼魔黄线(s10Fx)、第八关鬼手 / 鬼爪 / 黑影冲刺预警(g8Fx)、第六关落雪的飘雪单独加 BWOFF 判断。熔火鬼自爆光球保留(问用户)。
 - 首领前摇:monPose 前面加 BWS(10 种动作)+ BWP(首领 → 招式 → 动作);首领 wu 时直接用 bwPose,不再被挨打后仰打断;每招开头 0.4 秒内也算前摇。
