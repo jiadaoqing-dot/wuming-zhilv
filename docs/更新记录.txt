@@ -1,3 +1,10 @@
+【2026-10-14 v1.29 第二十九轮】区域掉怪 / 怪物飞弹换特效 / 二关首领激光 / 剑普攻判定 / 法师进阶技能调整
+- 刷怪 waveStep / waveDrop(WB = 每个区域掉了几次):玩家进了区域(P.x+P.w ≥ ZB[z-1]+20)才刷;第一次掉一半,区域里没活怪再掉剩下的;用原来的 e.air 落地逻辑(e.y 往上 VH、e.hold 错开 0.12 秒、e.dropIn 落地出 landing-dust)。WMAX / WI 不再用。
+- 新图集 FX29(art_src/skfx/build_fx29.py → assets/fx29_atlas.png,im:7 → VFX.I7):Free Pixel Effects Pack(CodeManu,CC0)11 种 + bm-purp / bm-dark 光束段(Rawdanitsu)。FX29.S = 飞弹种类 c → [特效, 大小],drawShot1 开头 FX29.shot,drawShots 对这些种类不画光晕球。
+- 面具法师 chain:判定 pp<26,画面 bm-purp 三层 + x-spell 流动 + x-midnight,显示到 1.05 秒。
+- 剑普攻判定框(update 里 P.hb):往后盖住主角身体(x 从 P.x-6 起)。
+- 圣光禁域 MGR 135、炸开 115、困首领;火鸟 y GY-112、MGL 改成火团(MGFV 420,路上 + 落点 mgBoom 54,伤害 ×2);苍穹光柱 bigStun(e,2.5)(bigStun 加可选时长,强制),画面深色柱 + 全屏紫。截图检查 + 冒烟测试 0 错误。
+
 【2026-10-14 v1.28 第二十八轮】法杖加长 / 普攻再放慢 / 法师进阶技能重做
 - 法杖:build_staff.py 的 lengthen() 把杖尾前一段横截面复制 EXT 12 次,格子 76(STF.C / STF.E,握持点按加长前的杖身算)。
 - 普攻 MGA .16 / .5 / 1.67、.24 / .8 / 3.33,魔法球速度 MGV 220,重击音效 shot。I 画一圈(mcPose 一圈 .48 秒),身前法阵 MCIR(VFX.spawn 单帧要 hold:1)。
