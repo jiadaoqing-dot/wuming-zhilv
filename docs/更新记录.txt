@@ -1,3 +1,9 @@
+【2026-10-14 v1.27 第二十七轮】法师施法动作 / 普攻放慢 / 飞行持杖
+- 普攻:strike 法杖分支只记 P.mb,update 里 swT 到 swD(推到最前)才 mbFire 发魔法球;MGA = [推到最前, 间隔, 伤害倍率](.12 / .4 / 1.33,蓄力 .18 / .7 / 2.9,每秒伤害不变)。heroRig 的 STFR↔STFT 关键帧改用 P.swD。
+- 技能:useSk 法杖 H / I / O 改成 P.sk={id:'mc'}(MCT 时间表),skStep 开头转 mcStep 到时间才放(落雷 .5、火球 .6 出现 / .85 推出、乌云 .2 出现 + 第一道雷 .5);影分身在放出时跟着放;施法中霸体(hurt 里判断 mc,不画霸体圈)。U 闪现不变。
+- 姿势 mcPose(heroRig 上面);火球 r 26、fs 3(VFX.shot 的 b.fs)、速度 220,停在身前的火球带 b.mc,施法被清掉时 PB 循环自己放飞。
+- 浮空飞行持杖 FLYWA .5(杖头朝前下),P.stg .42 握中段偏下。截图 docs/截图_本轮/第二十七轮_法师施法.png;冒烟测试 0 错误。
+
 【2026-10-14 v1.26 第二十六轮】法杖换素材 / 怪物攻击放大 / 法师动作
 - 法杖:art_src/lpc/build_staff.py → assets/stf_atlas.png(Staff [64x64],LordNeo,CC0,raw/staff_lordneo);源码 STF(HSW 下面),dollDraw 的 wpn() 按 P.stg(握持位置 0.25 下段 / 0.5 中段,heroRig 里平滑)把杖尾→杖头连线转到 p.wa。致谢已加。
 - 法师姿势:heroRig 的 sw0 一律用 STANCE.sword,走路用 rigCycle 的剑分支;普攻 = STFR(收)↔ STFT(推)往复,蓄力也双手横握;跑步没改。

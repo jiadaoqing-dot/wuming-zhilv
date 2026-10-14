@@ -210,7 +210,7 @@ body.px .eqi,body.px .eqs,body.px .eqt,body.px #dg img{image-rendering:pixelated
 <p class="tip">← → / A D 移动(连按两次快跑) · K / ↑ 跳跃 · W+J / S+J 特殊普攻(学会二段跳后空中再按) · J 攻击(下劈 → 上挑 → 直戳 → 下劈 循环,按住蓄力重击;跑步中按 J = 冲刺直戳) · L 换武器 · H U I O 技能 · 空格 / W+空格 / S+空格 / WW+空格 剑士进阶技能(转职后) · 1 2 3 喝药水 · S 捡起地上的掉落物 · 背包 / 技能 / 商城 / 精灵 / 宠物 / 任务 / 声音:点右下角按钮(菜单快捷键已关闭;背包里左键点物品弹出菜单,装备可拖动穿戴) · 装备翅膀后空中再按跳跃=飞行(W/S 升降、A/D 方向) · Esc / ⚙️ 设置(暂停、返回城镇、帧数、全屏)</p>
 <script>
 // 游戏版本:build.py 按它给输出文件命名(out/无名之旅_v版本.html),设置页也显示;每次发新版改这里
-const GAMEV='1.26';
+const GAMEV='1.27';
 // x 是当前的绘图上下文:平时是主画布;像素特效层(PXL,P2)绘制期间临时换成 640×360 的低分辨率图层
 const cv=document.getElementById('c');let x=cv.getContext('2d');const VW=640,VH=360,WW=3200,GY=300;
 // 渲染分辨率:电脑端 1920×1080(逻辑坐标仍是 640×360,整体放大 3 倍绘制,文字和像素都更清晰);手机端 1280×720
@@ -746,7 +746,7 @@ function hurt(b,o){if(DECOY||GM.god||P.inv>0||(P.sk&&P.sk.inv))return false;cons
   if(P.hshT>0){if(P.hdr)d=Math.max(1,Math.round(d*(1-P.hdr)));if(P.hsh>0){const a=Math.min(P.hsh,d);P.hsh-=a;d-=a;tx('护盾 -'+a,P.x+4,P.y-14,'#ffe8a3');if(d<=0){P.inv=.5;shake=.1;sfx('hit');mfxHit();return true}}}  // 宠物仓鼠的瓜子壳护盾 + 减伤
   if(P.shdT>0&&P.shd>0){const a=Math.min(P.shd,d);P.shd-=a;d-=a;tx('🪨 -'+a,P.x+4,P.y-14,'#e0b984');if(d<=0){P.inv=.5;shake=.1;sfx('hit');mfxHit();return true}}P.hp-=d;mfxHit();P.combo=0;P.inv=o&&o.inv!=null?o.inv:1.2;P.vy=-250;if(o&&o.kb)P.kbx=o.kb;shake=.25;tx('-'+d,P.x+12,P.y-6,'#fff','d');sfx('hurt');
   // 受击僵直 0.3 秒(和怪物相同);2026-10-13 第十三轮取消连击保护(原来 2.5 秒内第 3 次僵直后 2 秒霸体)。技能给的霸体(P.ar)照旧
-  if(!(P.ar>0)){P.stun=HSTUN;if(P.sk&&P.sk.id=='giant'&&!P.sk.formed){burst(P.x+12,P.y-60,24,['#9d4edd','#c77dff'],220,{sh:2,s:5,l:.4,g:300})}P.sk=null}
+  if(!(P.ar>0)&&!(P.sk&&P.sk.id=='mc')){P.stun=HSTUN;if(P.sk&&P.sk.id=='giant'&&!P.sk.formed){burst(P.x+12,P.y-60,24,['#9d4edd','#c77dff'],220,{sh:2,s:5,l:.4,g:300})}P.sk=null}
   return true}
 // 减速(蛛丝):移动速度 -40%;沙尘:减速 + 视野变暗
 function slowP(t){if(GM.god)return;if(!(P.slw>0))tx('减速!',P.x,P.y-22,'#dee2e6');P.slw=Math.max(P.slw||0,t)}
@@ -1033,9 +1033,12 @@ function strike(heavy){
     P.hit=new Set();if(heavy)burst(P.x+12+P.f*30,P.y+16,10,['#ffe066','#fff'],260,{sh:1,s:2,l:.25,dr:4})  // 剑光由剑刃轨迹实时画出
   }else{
     {const dk=keys.r-keys.l;if(dk)P.f=dk}  // 法师普通攻击(含蓄力)不消耗魔力
-    P.cd=heavy?.6:.3;P.at=.12;sfx(heavy?'bigshot':'shot');P.swT=0;P.swC=heavy?'sh':'s';P.swD=.12;P.swR=P.cd;
-    PB.push({x:P.f>0?P.x+P.w:P.x-10,y:P.y+14,vx:P.f*(heavy?300:420),dmg:stats().atk*(heavy?2.5:1),r:heavy?12:6,big:heavy,hit:new Set(),rg:MAGR});  // 第二十二轮:法师普攻射程 1.75 个闪现(MAGR = 298)
+    // 第二十七轮:动作放慢(MGA),法杖推到最前面(swD)才发出魔法球(P.mb,在 update 的 swT 计时里发);伤害按间隔同比提高,每秒伤害不变
+    const q=MGA[heavy?1:0];P.cd=q[1];P.at=.12;P.swT=0;P.swC=heavy?'sh':'s';P.swD=q[0];P.swR=P.cd;P.mb={t:q[0],heavy,dmg:stats().atk*q[2]};
   }}
+const MGA=[[.12,.4,1.33],[.18,.7,2.9]];  // 法师普攻 [推到最前的时间, 攻击间隔, 伤害倍率]:原来 .05 / .3 / 1 和 .07 / .6 / 2.5
+function mbFire(){const q=P.mb;P.mb=null;sfx(q.heavy?'bigshot':'shot');
+  PB.push({x:P.f>0?P.x+P.w:P.x-10,y:P.y+14,vx:P.f*(q.heavy?300:420),dmg:q.dmg,r:q.heavy?12:6,big:q.heavy,hit:new Set(),rg:MAGR})}  // 第二十二轮:法师普攻射程 1.75 个闪现(MAGR = 298)
 // ===== 技能体系(2026-10-13 第十六轮重做;原版代码见 docs/原版技能代码_纪念.txt)=====
 // 剑士「剑势」:普攻 / 技能每次命中 +1 层(每 0.2 秒最多 1 层),攒满 5 层后下一个技能伤害 +40%(放招时清空,2.2 秒内生效);技能栏右边的 5 颗菱形 = 当前层数
 // 剑士「裂伤」:冲刺斩命中的敌人 5 秒内受到的剑伤害 +15%;苍蓝巨剑命中裂伤目标再 +30%
@@ -1216,12 +1219,19 @@ function useSk(i,S){const m=P.mode,df=SKD[m][i];if(i>=4&&JOB!=m){tx('转职为'+
       {const lo=Math.min(ox,nx)-20,hi=Math.max(ox,nx)+20;hitFx='thunder';for(const e of E.concat(bossOn&&B.hp>0?[B]:[]))if(!e.ug&&e.hp>0&&(e.mkT>0||e.mkF>0)&&e.x+e.w>lo&&e.x<hi&&Math.abs(e.y+e.h/2-oy)<90){tx('引爆!',e.x+e.w/2,e.y-28,'#e599f7');if(!(e.mkT>0&&e.mkF>0)){e.mkT=e.mkF=0}dealt(e,Math.round(S.atk*1.2*rnd(.9,1.1)),{ns:1})}hitFx=null}  // 第十六轮:闪现引爆印记(两种都有 → dealt 末尾的 elemChk 触发爆燃)
       for(let j=0;j<16;j++){const k=j/15;pt({x:ox+(nx-ox)*k,y:oy+rnd(-10,10),vx:rnd(-20,20),vy:rnd(-30,10),c:pick(['#e599f7','#d0bfff','#fff']),sh:2,s:rnd(4,7),l:rnd(.3,.5)})}
       ring(nx,oy,4,56,'#be4bdb',.42,6);VFX.spawn('foldstep',ox,oy);VFX.spawn('foldstep',nx,oy);SFX5('m-swirl',ox,oy,{s:1.3,life:.4,rs:4});SFX5('m-swirl',nx,oy,{s:1.6,life:.5,rs:-4,gr:.4});ring(nx,oy,2,32,'#e599f7',.3,3);pillar(ox,14,'rgba(204,93,232,.8)',.3);pillar(nx,18,'rgba(229,153,247,.9)',.35);burst(nx,oy,22,['#be4bdb','#e599f7','#f3d9fa'],260,{sh:1,s:2.5,l:.38,dr:3});flash('200,150,255',.18)}
-    else if(i==0){const t=E.concat(bossOn&&B.hp>0?[B]:[]).filter(e=>(e.x-P.x)*f>-40&&Math.abs(e.x-P.x)<340).sort((a,b)=>Math.abs(a.x-P.x)-Math.abs(b.x-P.x))[0];{const bx=t?t.x+t.w/2:P.x+f*160;bolt(bx,skD('staff',0,S),34,0,1);for(const o of[-90,90])bolt(bx+o,Math.round(skD('staff',0,S)*.4),26,0,0)}}
-    else if(i==2){PB.push({x:f>0?P.x+P.w:P.x-10,y:P.y+14,vx:f*320,dmg:skD('staff',2,S),r:18,col:'#ff6b35',sl:1,fb:1,pierce:1,hit:new Set()});burst(P.x+12+f*16,P.y+14,10,['#ff922b','#ffd43b'],160,{sh:2,s:7,l:.3,dr:4})}
-    else if(i==3){CL={x:P.x+P.w/2,t:5,k:0,fk:0};FX.dk=Math.max(FX.dk,.4)}
+    else if(i==0||i==2||i==3){P.cs=null;P.sk={id:'mc',i,t:0,T:MCT[i][0],end:MCT[i][1]}}  // 第二十七轮:先做施法动作(施法中霸体,hurt 里判断),到时间才放出来(mcStep)
     else magStart(i,S);
-    if(i<4)cloneCast(i,S)}
+    if(i==1)cloneCast(i,S)}
 }
+// 第二十七轮:法师 H / I / O 先施法再出技能。MCT[i] = [技能出现的时间, 动作结束的时间];I = [火球出现, 推出, 结束]
+const MCT={0:[.5,.62],2:[.6,1.05,.85],3:[.2,.6]};
+function mcStep(k,dt,S){const f=P.f,i=k.i;
+  if(i==0&&!k.a&&k.t>=k.T){k.a=1;const t=E.concat(bossOn&&B.hp>0?[B]:[]).filter(e=>(e.x-P.x)*f>-40&&Math.abs(e.x-P.x)<340).sort((a,b)=>Math.abs(a.x-P.x)-Math.abs(b.x-P.x))[0];{const bx=t?t.x+t.w/2:P.x+f*160;bolt(bx,skD('staff',0,S),34,0,1);for(const o of[-90,90])bolt(bx+o,Math.round(skD('staff',0,S)*.4),26,0,0)}cloneCast(0,S)}
+  if(i==2){// 火球(体积 ×1.5、速度 320 → 220):画完圈出现在身前,推出去时才飞
+    if(!k.a&&k.t>=k.T){k.a=1;k.pb={x:P.x+12+f*30,y:P.y+12,vx:f*.001,dmg:skD('staff',2,S),r:26,fs:3,col:'#ff6b35',sl:1,fb:1,pierce:1,hit:new Set(),mc:k};PB.push(k.pb);burst(P.x+12+f*30,P.y+12,12,['#ff922b','#ffd43b','#fff'],140,{sh:2,s:6,l:.3,dr:4});ring(P.x+12+f*30,P.y+12,4,30,'#ff922b',.3,3)}
+    if(k.pb&&!k.b&&k.t>=MCT[2][2]){k.b=1;if(PB.includes(k.pb))k.pb.vx=f*220;cloneCast(2,S);burst(P.x+12+f*30,P.y+12,10,['#ff922b','#ffd43b'],160,{sh:2,s:7,l:.3,dr:4})}}
+  if(i==3&&!k.a&&k.t>=k.T){k.a=1;CL={x:P.x+P.w/2,t:5,k:.3,fk:0};FX.dk=Math.max(FX.dk,.4);cloneCast(3,S)}  // 乌云先出现,动作收回(0.5 秒)时第一道雷落下
+  if(k.t>=k.end)P.sk=null}  // 被打断(P.sk 被清掉)时,停在身前的火球由 PB 循环(b.mc)自己飞出去
 // 影分身跟着施法(2026-10-12):主角放 H / U / I / O 时,场上的分身在自己的位置朝自己的方向同时放一次,伤害 60%,不耗魔力
 const CLK=.6;
 function cloneCast(i,S){const c=CLN;if(!c)return;const f=c.f,cx=c.x+12,cy=c.y+16,dm=k=>Math.round(skD('staff',k,S)*CLK);c.cs=.3;
@@ -1231,7 +1241,7 @@ function cloneCast(i,S){const c=CLN;if(!c)return;const f=c.f,cx=c.x+12,cy=c.y+16
   else if(i==2)PB.push({x:f>0?c.x+P.w:c.x-10,y:c.y+14,vx:f*320,dmg:dm(2),r:12,col:'#ff6b35',sl:1,fb:1,pierce:1,hit:new Set()});
   else if(i==3)CL2={x:cx,t:5,k:0,fk:0,dm:CLK}}
 function zline(x1,y1,x2,y2){const p=[[x1,y1]],n=6;for(let i=1;i<n;i++){const k=i/n;p.push([x1+(x2-x1)*k+rnd(-10,10),y1+(y2-y1)*k+rnd(-12,12)])}p.push([x2,y2]);return p}
-function skStep(dt,S,all){const k=P.sk;if(!k)return;k.t+=dt;const f=P.f;if(advStep(k,dt,S,all))return;
+function skStep(dt,S,all){const k=P.sk;if(!k)return;k.t+=dt;const f=P.f;if(k.id=='mc'){mcStep(k,dt,S);return}if(advStep(k,dt,S,all))return;
   if(k.id=='up'){if(k.t<.18){const hb={x:f>0?P.x+P.w-6:P.x-38,y:P.y-44,w:44,h:76};for(const e of all)if(!k.hit.has(e)&&ov(hb,e)){k.hit.add(e);dealt(e,Math.round(S.atk*1.1*rnd(.9,1.1)));launch(e)}}if(k.t>.3)P.sk=null;return}
   if(k.id=='smash'){if(k.t>=.28&&!k.done){k.done=1;shake=.25;hitstop(.06);const ix=P.x+12+f*34;slash(P.x+12,P.y+10,42,-2.7,.9,f,'#ffd43b',.24,6);ring(ix,GY-2,6,70,'#ffd43b',.35,5,.25);crack(ix,2,50);
       for(let n=0;n<10;n++)pt({x:ix+rnd(-20,20),y:GY-4,vx:rnd(-160,160),vy:rnd(-320,-120),g:1400,c:pick(['#8d5524','#adb5bd']),ad:0,s:rnd(2,4),l:.7,bn:1});
@@ -1727,7 +1737,7 @@ function update(dt){
   if(busy())return;GT+=dt;
   if(FX.hs>0){FX.hs-=dt;fxStep(dt*.2);return}
   const S=stats();{const cs=P.cryT>0?.5:1;for(const w in CD)for(let i=0;i<CD[w].length;i++)CD[w][i]=Math.max(0,CD[w][i]-dt*cs)}  // 哭声(第八关首领):技能冷却变慢
-  if(P.swT!=null)P.swT+=dt;if(P.cs){P.cs.t+=dt;if(P.cs.t>1)P.cs=null}
+  if(P.swT!=null)P.swT+=dt;if(P.mb&&(P.swT==null||P.swT>=P.mb.t||P.mode!='staff'))mbFire();if(P.cs){P.cs.t+=dt;if(P.cs.t>1)P.cs=null}
   // 预备结束、真正挥出去的瞬间,招式带着身体向前冲
   if(P.mode=='sword'&&P.swT!=null&&!P.lunged&&P.swT>=P.swW){P.lunged=1;if(P.gr&&!P.sk)P.lv=P.f*(P.swC==-1?LUNGEH:LUNGE[P.swC])*6}
   P.ar=(P.ar||0)-dt;P.sct=(P.sct||0)-dt;P.frz=Math.max(0,(P.frz||0)-dt);if(P.grab&&(!B||!(B.act=='hug'||(B.act=='bite'&&B.gs=='hold'))))P.grab=0;const stn=P.stun>0||P.frz>0||!!P.grab;if(stn){P.stun-=dt;sq=-1;jq=0;ar=0;lq=0;uq=dq=0;P.ch=0}
@@ -1765,7 +1775,7 @@ function update(dt){
   skStep(dt,S,all);zStep(dt,S,all);smStep(dt,all);fashStep(dt,S,all);petStep(dt,S,all);hamPetStep(dt,S,all);sprStep(dt);starStep(dt);
   if(P.mode=='sword'&&P.at>0&&P.hb&&!(P.swT!=null&&P.swT<P.hbW)){const h=P.hb,hb={x:P.f>0?P.x+P.w:P.x-h.w,y:P.y+h.y,w:h.w,h:h.h};
     for(const e of all)if(!P.hit.has(e)&&ov(hb,e)){P.hit.add(e);hitFx=P.cmb==-1?'heavy':null;dealt(e,Math.round(S.atk*h.m*(.9+Math.random()*.2)));hitFx=null;if(!isBig(e)&&!e.ug){const K=P.cmb==3||P.cmb==-1?2:1;e.kbv=P.f*KBV*K*(iceAt(e.x+e.w/2)?1.6:1)}}}  // 击退(第四段 / 重击加倍);第二十一轮:每下 0.32 秒僵直取消,僵直改走小怪韧性 mobPz(和法师一样),击退只推开怪物、不打断它的动作
-  for(let i=PB.length-1;i>=0;i--){const b=PB[i];if(b.x0==null)b.x0=b.x;b.x+=b.vx*dt;if(b.fb)weAbs(b.x,b.y,'fire');let gone=b.x<cam-30||b.x>cam+VW+30||(b.rg&&Math.abs(b.x-b.x0)>b.rg);const d=sgn(b.vx);
+  for(let i=PB.length-1;i>=0;i--){const b=PB[i];if(b.mc&&P.sk!==b.mc&&Math.abs(b.vx)<1)b.vx=sgn(b.vx)*220;if(b.x0==null)b.x0=b.x;b.x+=b.vx*dt;if(b.fb)weAbs(b.x,b.y,'fire');let gone=b.x<cam-30||b.x>cam+VW+30||(b.rg&&Math.abs(b.x-b.x0)>b.rg);const d=sgn(b.vx);
     if(b.wv)for(let n=0;n<2;n++)pt({x:b.x-d*rnd(10,30),y:b.y+rnd(-28,28),vx:-d*rnd(60,160),vy:rnd(-30,30),c:pick(['#ffe066','#fff3bf']),sh:1,s:2,l:.25});
     if(b.fb){for(let n=0;n<2;n++)pt({x:b.x-d*6+rnd(-4,4),y:b.y+rnd(-4,4),vx:-d*rnd(20,70),vy:rnd(-70,-10),c:pick(['#ff922b','#ffd43b','#ff6b35']),sh:2,s:rnd(6,10),l:rnd(.25,.45)});if(Math.random()<.25)pt({x:b.x-d*10,y:b.y,vx:-d*20,vy:-40,c:'rgba(70,64,60,.45)',ad:0,s:5,gr:1.5,l:.6})}
     for(const e of all)if(!b.hit.has(e)&&ov({x:b.x-b.r,y:b.y-b.r,w:2*b.r,h:2*b.r},e)){b.hit.add(e);hitFx=b.wv?'wave':null;if(b.fb)mkF(e);dealt(e,Math.round(b.dmg*(.9+Math.random()*.2)));hitFx=null;if(b.fb){explode(b.x+d*6,b.y);SFX5('r-burst',e.x+e.w/2,e.y+e.h/2,{s:1,life:.4,gr:.4});for(const o of all)if(o!==e&&!b.hit.has(o)&&!o.ug&&Math.abs(o.x+o.w/2-(e.x+e.w/2))<o.w/2+80&&Math.abs(o.y+o.h/2-(e.y+e.h/2))<90){mkF(o);dealt(o,Math.round(b.dmg*.4),{ns:1})}}if(b.sl)e.sl=2;if(!b.big&&!b.pierce)gone=true}
@@ -4220,6 +4230,17 @@ function rigCycle(kind,ph,m){const a=ph*6.2832,s=Math.sin(a),c=Math.cos(a),fwdF=
     hF:s*.62,kF:.1+swingF*1.0,hB:-s*.62,kB:.1+swingB*1.0,
     aB:-s*.85+.15,eB:.3+Math.max(0,-s)*.7,
     ...(m=='sword'?{gx:3.6-s*1.3,gy:-.6+bob*.5,wa:.13-s*.07+bob*.03}:{gx:9-s*2.2,gy:-2.2+bob*.7,wa:-1.05-s*.15})}}
+// 第二十七轮:法师施法动作(用户参考图)。H 落雷 0.5 秒:法杖从身后下方抡起 → 举过头顶、微微向脑后倾 → 指向敌人,雷落下;
+// I 火球 1 秒:法杖指向敌人 → 杖头画两圈 → 火球出现在身前 → 收一下再双手推出;O 乌云 0.5 秒:单手把法杖竖着举过头顶 → 收回
+function mcPose(base,k){const t=k.t;
+  if(k.i==0){const U={gx:1,gy:-20,wa:-2.1,two:0,lean:-.2,head:-.12,y:-1.5,aB:-.8,eB:.6,hF:.2,kF:.2,hB:-.25,kB:.3},A={gx:14,gy:-11,wa:-.08,two:0,lean:.22,head:.08,aB:-.5,eB:.4,hF:.7,kF:.35,hB:-.6,kB:.2};
+    return {g:'rgba(165,216,255,.95)',p:rSeq(base,[[0,null],[.1,{gx:0,gy:-5,wa:2.3,two:0,lean:.06,aB:-.4,eB:.5,hF:.4,kF:.3,hB:-.3,kB:.3}],[.28,U],[.36,{...U,wa:-2.25,lean:-.24}],[.48,A],[.62,A]],t)}}
+  if(k.i==2){const A={gx:13,gy:-11,wa:-.15,two:0,lean:.15,aB:-.4,eB:.5,hF:.5,kF:.3,hB:-.5,kB:.25},T={gx:16,gy:-10,wa:-.1,two:.6,lean:.32,x:3,hF:.95,kF:.3,hB:-.85,kB:.15};
+    if(t>.14&&t<.6){const a=(t-.14)/.46*12.566;return {g:'rgba(255,146,43,.95)',p:rP(base,{...A,gx:A.gx+(Math.cos(a)-1)*2.5,gy:A.gy+Math.sin(a)*2.5,wa:A.wa+Math.sin(a)*.35})}}
+    return {g:'rgba(255,146,43,.95)',p:rSeq(base,[[0,null],[.14,A],[.6,A],[.76,{gx:5,gy:-10,wa:-.25,two:.6,lean:-.06,hF:.3,kF:.3,hB:-.3,kB:.35}],[.85,T],[1.05,T]],t)}}
+  const U={gx:3,gy:-22,wa:-1.57,two:0,lean:-.12,head:-.15,y:-1.5,aB:-.6,eB:.5};
+  return {g:'rgba(229,153,247,.95)',p:rSeq(base,[[0,null],[.18,U],[.36,{...U,gy:-22.5}],[.55,null]],t)}}
+const FLYWA=.5;  // 第二十七轮:法师浮空飞行时法杖杖头朝前下方斜垂(原来 -.75 朝前上方)
 // 根据游戏状态算出主角此刻的目标姿势
 function heroRig(){const k=P.sk,m=P.mode,tm=performance.now()/1000,sw0=STANCE.sword;  // 第二十六轮:法师站姿 / 走路和剑士一样(STANCE.staff 只给 LPC 整帧用)
   const air=!P.gr&&!P.fly,walk=P.gr&&Math.abs(P.vx)>1&&!(P.frz>0),run=walk&&P.run;
@@ -4228,11 +4249,12 @@ function heroRig(){const k=P.sk,m=P.mode,tm=performance.now()/1000,sw0=STANCE.sw
   if(P.fly){po=WEAR.wing=='xyw'?rP(po,{hF:1.45,kF:1.65,hB:1.25,kB:1.6,lean:-.04}):rP(po,{lean:.22,hF:-.3,kF:.9,hB:-.6,kB:.7,y:-1})}
   else if(air)po=P.vy<0?rP(po,{hF:1.15,kF:1.8,hB:.5,kB:1.4,lean:-.06,aB:1.5,eB:.5,...(m=='sword'?{gx:4,gy:-10,wa:-1.05}:{gy:-8,wa:-1.6})}):rP(po,{hF:.42,kF:.35,hB:-.32,kB:.55,lean:.03,aB:1.1,eB:.4,...(m=='sword'?{gx:4,gy:-8,wa:-.9}:{gy:-6})});
   // 法师跑步 = 浮空飞行:离地一小段、身体不动只轻轻上下浮,双腿并拢微屈垂着,法杖斜握在身前,后手往后展开
-  else if(run)po=m=='staff'?rP(po,{y:-9+Math.sin(tm*3.2)*1.2,lean:.16,head:.04,hF:.28,kF:.7,hB:.08,kB:.85,gx:8,gy:-4,wa:-.75,aB:-.55,eB:.35}):rP(po,rigCycle('run',P.an*1.45,m));
+  else if(run)po=m=='staff'?rP(po,{y:-9+Math.sin(tm*3.2)*1.2,lean:.16,head:.04,hF:.28,kF:.7,hB:.08,kB:.85,gx:8,gy:-4,wa:FLYWA,aB:-.55,eB:.35}):rP(po,rigCycle('run',P.an*1.45,m));
   else if(walk)po=rP(po,rigCycle('walk',P.an*1.55,'sword'));
   const base=po;
   if(m=='staff'){const cs=P.cs,sw=P.swT!=null&&P.swT<P.swR+.15?P.swT:null;
-    if(cs&&cs.t<.8){const t=cs.t;glow='rgba(229,153,247,.95)';
+    if(k&&k.id=='mc'){const r=mcPose(base,k);po=r.p;glow=r.g}
+    else if(cs&&cs.t<.8){const t=cs.t;glow='rgba(229,153,247,.95)';
       if(cs.id=='staff1')po=rSeq(base,[[0,{lean:.38,gx:-2,gy:-3,wa:2.6,aB:2.3,eB:.3,hF:1,kF:.4,hB:-.8,kB:.5}],[.3,null]],t);
       else if(cs.id=='staff0')po=rSeq(base,[[0,null],[.1,{gx:6,gy:-19,wa:-1.5,aB:2.8,eB:.3,lean:-.12,y:-2}],[.45,{gx:6,gy:-18,wa:-1.5,aB:2.7,eB:.4,lean:-.1,y:-2}],[.7,null]],t);
       else if(cs.id=='staff2')po=rSeq(base,[[0,null],[.1,{gx:0,gy:-5,wa:-2.1,lean:-.12,aB:-.4}],[.2,{gx:12,gy:-8,wa:-.35,two:.7,lean:.22,hF:.6,kF:.3,hB:-.5}],[.5,{gx:11,gy:-8,wa:-.4,two:.5,lean:.15}],[.75,null]],t);
@@ -4242,9 +4264,9 @@ function heroRig(){const k=P.sk,m=P.mode,tm=performance.now()/1000,sw0=STANCE.sw
       else po=rSeq(base,[[0,null],[.12,{gx:8,gy:-14,wa:-1.2,aB:2,eB:.5,lean:-.08}],[.45,null]],t)}
     else if(sw!=null){const hv=P.swC=='sh';glow=hv?'rgba(204,93,232,.95)':'rgba(229,153,247,.85)';  // 第二十六轮:双手横握法杖中段,双臂前推(发出魔法球)→ 收回贴胸 → 再推,全身跟着前后移重心
       const T={...STFT,...(hv?{gx:16.5,lean:.4,x:4.5,sq:.08,hF:1.05,kF:.45,hB:-.95}:{})};
-      po=rSeq(base,[[0,STFR],[hv?.07:.05,T],[hv?.16:.12,{...T,gx:T.gx-.5,lean:T.lean+.03}],[Math.max(.2,P.swR-.03),STFR],[P.swR+.15,null]],sw)}
+      po=rSeq(base,[[0,STFR],[P.swD,T],[P.swD+(hv?.14:.08),{...T,gx:T.gx-.5,lean:T.lean+.03}],[Math.max(P.swD+.2,P.swR-.04),STFR],[P.swR+.15,null]],sw)}  // 第二十七轮:推到最前(swD)才发魔法球,整段放慢
     if(P.ch>.15&&!(cs&&cs.t<.8)){const q=eo(P.ch/.3);po=rMix(po,rP(base,{...STFR,gx:-.5,lean:-.16,x:-1.5,sq:.06}),q);glow='rgba(229,153,247,.9)';if(P.ch>=.7)po.y+=Math.sin(tm*60)*.4}
-    {const tg=(sw!=null||P.ch>.15)&&!(cs&&cs.t<.8)?.5:.25;P.stg=P.stg==null?tg:P.stg+(tg-P.stg)*.3}}
+    {const tg=(sw!=null||P.ch>.15)&&!(cs&&cs.t<.8)?.5:P.run&&P.gr&&!P.fly&&!k?.42:.25;P.stg=P.stg==null?tg:P.stg+(tg-P.stg)*.3}}
   else{
     if(k&&k.id=='up'){glow='rgba(165,216,255,.85)';po=rSeq(base,[[0,{gx:5,gy:-1,wa:.7,two:1,sq:.14,lean:.14,hF:.6,kF:.9,hB:-.4,kB:.7}],[.05,{gx:5,gy:-1,wa:.7,two:1,sq:.14,lean:.14,hF:.6,kF:.9,hB:-.4,kB:.7}],[.18,{gx:4,gy:-16,wa:-1.75,two:1,lean:-.22,y:-3,hF:-.2,kF:.4,hB:.5,kB:.9}],[.3,{gx:4,gy:-15,wa:-1.7,two:1,lean:-.16,y:-2}]],k.t)}
     else if(k&&k.id=='smash'){glow=k.t<.3?'rgba(255,224,102,.9)':null;po=rSeq(base,[[0,null],[.18,{gx:-1,gy:-16,wa:-2.35,wb:1,two:1,lean:-.22,y:-3,hF:.6,kF:1,hB:.2,kB:.9}],[.28,{gx:-1,gy:-16,wa:-2.4,wb:1,two:1,lean:-.24,y:-3}],[.34,{gx:7,gy:-1,wa:1.05,two:1,lean:.42,sq:.15,hF:.85,kF:.95,hB:-.75,kB:.6}],[.55,{gx:6,gy:-2,wa:.95,two:1,lean:.28,sq:.08}]],k.t)}
@@ -5470,7 +5492,7 @@ const VFX={I:null,D:'@@A:vfx_atlas@@',M:{"crescent-slash":{"y":0,"w":72,"h":36,"
     if(cr)this.spawn('solar-shrapnel',cx,cy,{s:.7})},
   // 玩家飞弹:火球、分身魔弹、法师普攻光球、剑气以外的都用素材画;返回 true 表示已经画过
   shot(b,bx,d,t){if(!this.ok())return false;
-    if(b.fb){const m=this.M['ss-fireball'];this.frame(x,'ss-fireball',4+Math.floor(t*14)%5,bx,b.y,2,d,0);return true}
+    if(b.fb){const m=this.M['ss-fireball'];this.frame(x,'ss-fireball',4+Math.floor(t*14)%5,bx,b.y,b.fs||2,d,0);return true}
     if(b.wv)return false;
     if(b.col=='#9775fa'){this.frame(x,'dw-arcane',Math.floor(t*12)%6,bx,b.y,1.6,d,0);return true}
     this.frame(x,'dw-orb',Math.floor(t*12)%6,bx,b.y,b.big?2.2:1.2,d,0);return true}};
@@ -5952,7 +5974,8 @@ function pvImg(k){const t=.3,c=document.createElement('canvas'),g=c.getContext('
 // 主页面打开时 HOME=1:主城画面停住当背景(loop 里不跑 townUpd),键盘只认 Enter(继续 / 新游戏)和 Esc(从操作说明返回)
 // 更新日志 CHLOG:[版本, 日期, [条目...]],新版本加在最前面(和 GAMEV 一起改)
 const CHLOG=[
- ['1.26','2026-10-14',['法师的法杖换成外部像素素材(四个系列各一把,带宝石的华丽法杖),不再像一根木头','法师站立和走路的姿势和剑士一样;普通攻击改成双手横握法杖中段,双臂前推发出魔法球、收回、再推,全身跟着动','怪物的飞弹整体放大并加了亮色光晕,首领的更大;第一关牛魔落地放出的贴地冲击波换成清楚的裂地特效','修复:骷髅兵的骨片在暗处看不清']],
+ ['1.27','2026-10-14',['法师普通攻击放慢,法杖推到最前面才发出魔法球(每秒伤害不变)','法师的落雷、火球、乌云改成先做施法动作再放出:落雷抡起法杖再指向敌人,火球画两圈后推出(火球更大、更慢),乌云单手把法杖举过头顶','法师浮空飞行时法杖杖头改成朝下斜垂']],
+  ['1.26','2026-10-14',['法师的法杖换成外部像素素材(四个系列各一把,带宝石的华丽法杖),不再像一根木头','法师站立和走路的姿势和剑士一样;普通攻击改成双手横握法杖中段,双臂前推发出魔法球、收回、再推,全身跟着动','怪物的飞弹整体放大并加了亮色光晕,首领的更大;第一关牛魔落地放出的贴地冲击波换成清楚的裂地特效','修复:骷髅兵的骨片在暗处看不清']],
   ['1.25','2026-10-14',['修复:玩家退回上一段区域时,一~七关的小怪卡在区域边界上不动 —— 现在会一直追过来','小怪和关卡机关的预警也全部去掉了(猿的落点、蝎子钻沙的圈、头上的感叹号、眼魔的预警线、第六关落雪的红圈、第九关熔岩裂缝等)','首领的前摇按招式区分:后仰蓄力、下蹲、后撤刨地、拉高上浮、鼓起狂抖、前探瞄准、下沉、左右摇摆、原地转身、原地跳动,看动作就知道要放哪一招','首领前摇时挨打不会再被打断动作,方便看清']],
   ['1.24','2026-10-14',['首领不再显示攻击范围和预警(地上的红色符文带、瞄准圈、感叹号、预警线都去掉了),改成看首领的前摇动作:要出招时首领会明显后仰蓄力、发抖','首领的飞弹最多飞 2 个闪现的距离,不会再隔着整个场地打人','修复:小怪被拉开距离后原地罚站 —— 现在一~七关的小怪会一直追着玩家','小怪近战出招频率降低约 40%','菜单快捷键(B / T / Q / P / Y / G / M)全部关闭,改用右下角按钮,不会再误按']],
  ['1.23','2026-10-14',['第一关减负:小怪的远程攻击只在 1 个闪现内才会放,飞弹飞一小段就消散;每只小怪两次远程至少隔 3.5 秒,全场的远程也错开放','药水加强:在百分比之外再加固定回复(初级生命 +80、中级 +220、高级 +500、超级 +1000;魔力 +30 / +80 / +180),冷却 10 秒 → 8 秒','经验和金币 ×1.5(同关一星一遍约升 1.2 级),通关击杀点 10 → 20(二星 26、三星 32)']],
