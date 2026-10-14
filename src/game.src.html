@@ -210,7 +210,7 @@ body.px .eqi,body.px .eqs,body.px .eqt,body.px #dg img{image-rendering:pixelated
 <p class="tip">← → / A D 移动(连按两次快跑) · K / ↑ 跳跃 · W+J / S+J 特殊普攻(学会二段跳后空中再按) · J 攻击(下劈 → 上挑 → 直戳 → 下劈 循环,按住蓄力重击;跑步中按 J = 冲刺直戳) · L 换武器 · H U I O 技能 · 空格 / W+空格 / S+空格 / WW+空格 剑士进阶技能(转职后) · 1 2 3 喝药水 · S 捡起地上的掉落物 · B 背包(左键点物品弹出菜单:使用 / 穿戴 / 出售,装备可拖动穿戴) · T 技能栏 · Q 任务 · P 商城 · Y 精灵 · G 宠物 · 装备翅膀后空中再按跳跃=飞行(W/S 升降、A/D 方向) · Esc / ⚙️ 设置(暂停、返回城镇、帧数、全屏)</p>
 <script>
 // 游戏版本:build.py 按它给输出文件命名(out/无名之旅_v版本.html),设置页也显示;每次发新版改这里
-const GAMEV='1.22';
+const GAMEV='1.23';
 // x 是当前的绘图上下文:平时是主画布;像素特效层(PXL,P2)绘制期间临时换成 640×360 的低分辨率图层
 const cv=document.getElementById('c');let x=cv.getContext('2d');const VW=640,VH=360,WW=3200,GY=300;
 // 渲染分辨率:电脑端 1920×1080(逻辑坐标仍是 640×360,整体放大 3 倍绘制,文字和像素都更清晰);手机端 1280×720
@@ -409,7 +409,10 @@ const BAGN=50;
 const POTD={hp1:['初级生命药水','#ff8787','hp',.10,60],hp2:['中级生命药水','#fa5252','hp',.13,220],hp3:['高级生命药水','#c92a2a','hp',.15,600],
   mp1:['初级魔力药水','#74c0fc','mp',.10,50],mp2:['中级魔力药水','#339af0','mp',.13,180],mp3:['高级魔力药水','#1864ab','mp',.15,500],rev:['复活药水','#ffd43b','rev',.5,3000],hp4:['超级生命药水','#e64980','hp',.30,1200,20]};  // 第六项 = 冷却秒数(默认 POTCD);超级生命药水只能从药剂师的好感奖励拿到
 // 药水冷却(秒):生命 / 魔力各自计时
-const POTCD=10;
+const POTCD=8;  // 第二十三轮:10 → 8 秒
+// 第二十三轮:药水在百分比之外再加固定回复 POTF(前期主要靠固定值:1 级约 160 血时初级生命药水 ≈ 回 60%;后期主要靠百分比)
+const POTF={hp1:80,hp2:220,hp3:500,hp4:1000,mp1:30,mp2:80,mp3:180};
+const potAmt=k=>{const d=POTD[k];return Math.round(d[3]*100)+'% 最大'+(d[2]=='hp'?'生命':'魔力')+(POTF[k]?' + '+POTF[k]+' 点':'')};
 // 像素药水图标 POTI:Pixel Potion Set 16x16(yafarida,CC0,art_src/potion/build_pot.py);16×17 一格,列 = 蓝 / 红 / 黄 / 绿,行 = 小瓶(初级)/ 中瓶(中级)/ 大圆瓶(高级)
 const POTI={I:null,D:'@@A:pot_atlas@@',S:{hp1:[1,0],hp2:[1,1],hp3:[1,2],mp1:[0,0],mp2:[0,1],mp3:[0,2],rev:[2,2],hp4:[3,2]},
   init(){const im=new Image();im.onload=()=>{this.I=im};im.src=this.D;const st=document.createElement('style');st.textContent='.pti{background-image:url('+this.D+')}';document.head.appendChild(st)}};
@@ -425,7 +428,7 @@ function potUse(id,quiet){if(!id||!POTD[id])return false;const d=POTD[id],ty=d[2
   if(st!='play'&&st!='town')return false;const k=potPick(id);if(!k){tx('没有'+(ty=='hp'?'生命':'魔力')+'药水了',P.x-24,P.y-20,'#adb5bd');return false}
   P.pcd=P.pcd||{};if(P.pcd[ty]>performance.now()/1000){return false}
   const S=stats();if(ty=='hp'&&P.hp>=S.hp){tx('生命已满',P.x-6,P.y-20,'#adb5bd');return false}if(ty=='mp'&&P.mp>=S.mp){tx('魔力已满',P.x-6,P.y-20,'#adb5bd');return false}
-  POT[k]--;if(!POT[k])delete POT[k];const pc=POTD[k][5]||POTCD;P.pcd[ty]=performance.now()/1000+pc;P.pcm=P.pcm||{};P.pcm[ty]=pc;const v=Math.round((ty=='hp'?S.hp:S.mp)*POTD[k][3]);
+  POT[k]--;if(!POT[k])delete POT[k];const pc=POTD[k][5]||POTCD;P.pcd[ty]=performance.now()/1000+pc;P.pcm=P.pcm||{};P.pcm[ty]=pc;const v=Math.round((ty=='hp'?S.hp:S.mp)*POTD[k][3])+(POTF[k]||0);
   if(ty=='hp'){P.hp=Math.min(S.hp,P.hp+v);tx('+'+v,P.x+4,P.y-14,'#69db7c')}else{P.mp=Math.min(S.mp,P.mp+v);tx('+'+v,P.x+4,P.y-14,'#74c0fc')}
   sfx('buff');const c=ty=='hp'?['#ff8787','#ffe3e3','#69db7c']:['#74c0fc','#d0ebff','#a5d8ff'];ring(P.x+12,P.y+16,4,30,c[0],.35,3);for(let i=0;i<12;i++)pt({x:P.x+12+rnd(-12,12),y:P.y+rnd(0,32),vx:rnd(-10,10),vy:rnd(-70,-30),c:pick(c),sh:2,s:rnd(3,5),l:rnd(.4,.7)});save();return true}
 function potQuick(i){const id=QS[i];if(!id)return;if(POTD[id][2]=='rev'){if(st=='dead')reviveP();else tx('复活药水在倒下时使用',P.x-24,P.y-20,'#ffd43b');return}potUse(id)}
@@ -618,10 +621,12 @@ const starOf=n=>STAR[n]|0,starOpen=(n,s)=>s<=1||starOf(n)>=s-1;
 const rollQ=p=>{const r=Math.random();let a=0;for(let i=0;i<p.length;i++){a+=p[i];if(r<a)return i}return p.length-1};
 // 第十六轮经济:小怪经验 / 金币 = 基础表 × XPK[关卡] ÷ 2.5(分区刷怪 ×2.5 的还原);首领固定 BXP[关卡](约等于该关推荐等级升一级所需经验的 12%);都再乘星级倍率
 // 校准:同关一星打一遍约升 1/3 级,二星 1/2 级,三星 3/4 级
+// 第二十三轮:经验 XPB ×1.5(同关一星一遍约 1.2 级)、金币 GDB ×1.5;通关击杀点 KPCL 10 → 20(二星 / 三星 26 / 32)
+const XPB=1.5,GDB=1.5,KPCL=20;
 const XPK=[0,1,1.8,2.6,3.4,4.2,5,5.8,6.6,7.4,8.2,3.4],BXP=[0,30,200,550,1000,1550,2200,2900,3700,4500,5400,1000];
 function reward(e){VFX.spawn('smoke-puff',e.x+e.w/2,e.y+e.h/2,{s:e.max?2.2:1});const t0={slime:[8,5,.22],bat:[6,4,.18],skel:[14,9,.4],boss:[120,100,0],mage:[300,250,0],snake:[10,6,.2],ape:[16,10,.35],king:[600,500,0],ysco:[16,10,.3],bsco:[22,14,.4],sco:[1000,800,0],spi:[18,12,.3],ost:[26,18,.4],andr:[1500,1200,0],pen:[30,20,.35],pen2:[42,28,.45],seal:[34,22,.4],seal2:[46,30,.5],bear:[2200,1800,0],dog:[38,24,.4],dog2:[52,34,.5],wiz:[2600,2100,0],gfly:[46,30,.45],gfly2:[64,42,.55],gland:[50,32,.45],gland2:[70,46,.6],yin:[3200,2600,0],cradle:[60,0,0],imp:[80,52,.45],fwisp:[76,50,.45],golem:[130,90,.6],oni:[600,420,1],lava:[3800,3000,0],lclone:[60,0,0],wimp:[96,62,.45],eye:[100,64,.45],swing:[700,480,1],gui:[4600,3600,0],ham:[1000,800,0]}[e.k],K=STK(),ci=Math.min(cur,11),lk=XPK[ci]||1,sm=e.sum?.25:1;
   let xp0,gd0;if(e.max){xp0=BXP[ci]||500;gd0=Math.round(xp0*1.2)}else{xp0=Math.max(1,Math.round(t0[0]*lk*sm/WMUL));gd0=Math.round(t0[1]*lk*sm/WMUL)}
-  const t=[Math.round(xp0*K.xp),Math.round(gd0*K.gd),e.sum||e.max?0:t0[2]/WMUL*K.dr],xp=isVip()?Math.round(t[0]*1.1):t[0];exp+=xp;gold+=t[1]+(Math.random()*3|0);  // VIP 经验 +10%
+  const t=[Math.round(xp0*K.xp*XPB),Math.round(gd0*K.gd*GDB),e.sum||e.max?0:t0[2]/WMUL*K.dr],xp=isVip()?Math.round(t[0]*1.1):t[0];exp+=xp;gold+=t[1]+(Math.random()*3|0);  // VIP 经验 +10%
   if(petOn()&&PET.lv<20){PET.exp+=t[0];petLv()}
   mqKill(e);tx('+'+xp+'经验',e.x,e.y-14,'#ffd43b');if(e.k=='snake'&&Math.random()<DROPK*K.dr)gdDrop(e,{k:'egg',n:1});if(Math.random()<t[2]*DROPK*DBLK())gdDrop(e,{k:'eq',it:rollItem()});if(!e.sum&&!e.max&&Math.random()<DRX.giftM*DBLK())gdDrop(e,{k:'gift',n:1});  // 装备和道具掉在地上,按 S 捡起
   lvUp();save()}
@@ -803,12 +808,13 @@ function mAtk(e){const s=e.s;if(MVK[e.k]){const a=s&&MVK[e.k].at?MVK[e.k].at[s]:
   default:return 0}}
 // 申请出招:拿到「攻击令牌」才能开始一次攻击;拿不到就继续走位,稍后再试。被召唤物吸引时不受限制
 // 第二十二轮:怪物攻击距离 = 1.5 个闪现(BLKD 170 × 1.5 = 255,MATKR):小怪离主角超过这个距离不出招;小怪的飞弹最多飞 MSHR 就消散(首领不受限)
-const BLKD=170,MATKR=Math.round(BLKD*1.5),MSHR=Math.round(BLKD*1.5)+60,MAGR=Math.round(BLKD*1.75);
-function tok(e,rg){if(DECOY)return true;if(P.sk&&P.sk.id=='zap')return false;if(!e.max&&Math.abs(e.x+e.w/2-(P.x+12))>MATKR)return false;  // 雷霆连斩期间不可选取:怪物不会对主角出招
+// 第二十三轮:远程攻击再收紧 —— 远程出招距离 MRNGR = 1 个闪现(170),飞弹最多飞 MSHR 230;每只小怪两次远程至少隔 MRCD 3.5 秒,全场两次远程至少隔 RGAP 1.2 秒(原来只要求同时只有 1 只在放远程)
+const BLKD=170,MATKR=Math.round(BLKD*1.5),MRNGR=BLKD,MSHR=BLKD+60,MAGR=Math.round(BLKD*1.75),MRCD=3.5,RGAP=1.2;let RATKT=-99;
+function tok(e,rg){if(DECOY)return true;if(P.sk&&P.sk.id=='zap')return false;if(!e.max){const ad_=Math.abs(e.x+e.w/2-(P.x+12));if(ad_>(rg?MRNGR:MATKR))return false;if(rg&&(GT-(e.rT??-99)<MRCD||GT-RATKT<RGAP))return false}  // 雷霆连斩期间不可选取:怪物不会对主角出招
  const L3=cur>=8&&cur<=10;if(GT-ATKT<(L3?.22:.35))return false;let n=0,r=0;const pc=P.x+12;
   let al=0;for(const o of E){if(o===e||o.hp<=0||Math.abs(o.x+o.w/2-pc)>420)continue;al++;const m=mAtk(o);if(m){n++;if(m==2)r++}}
   if(L3&&!bossOn&&al<=1&&GT-ATKT<.9)return false;  // 第八~十关只剩一两只时:两次出招至少隔 0.9 秒(不然会一直连发)
-  if(n>=(bossOn?1:L3?3:2))return false;if(rg&&(r>=1||F.length>=4))return false;ATKT=GT;return true}
+  if(n>=(bossOn?1:L3?3:2))return false;if(rg&&(r>=1||F.length>=4))return false;ATKT=GT;if(rg){RATKT=GT;e.rT=GT}return true}
 // 小怪索敌(2026-10-12):不出招时一直朝主角(或吸引它的召唤物)走;自己的走位已经在靠近就不管。远程怪(SEEKR)走到射程内停下,交给它自己的出招逻辑
 // 首领、潜伏中的海豹(ug)、出招 / 收招中的怪不受影响
 const SEEKV={slime:45,skel:65,bat:70,snake:60,ape:70,ysco:55,bsco:55,spi:70,ost:85,pen:45,pen2:50,seal:40,seal2:45,dog:105,dog2:95},SEEKR={pen:150,pen2:150,spi:110,dog2:90,seal:120,seal2:120};
@@ -1792,7 +1798,7 @@ function update(dt){
   for(const w of WZ)w.t-=dt;WZ=WZ.filter(w=>w.t>0);hzStep(dt);
   gdStep(dt);
   for(let i=I.length-1;i>=0;i--)if(ov(P,I[i])){P.hp=Math.min(S.hp,P.hp+15);sfx('coin');tx('+15',P.x,P.y-6,'#69db7c');I.splice(i,1)}
-  if(bossOn&&B.hp<=0&&!endT){endT=-1;CLRP=1;sfxAll();B.sh=null;B.gl=null;sfx('win');tx('站到通关光柱上按 W 完成关卡',P.x-50,P.y-62,'#ffe066');F=[];TOR=[];LCK=null;{const g=kpGain(10);KP+=g;tx('+'+g+' 击杀点'+(isVip()?'(VIP)':''),P.x-14,P.y-76,'#ff8787')}reward(B);if(cur==6&&!JOB&&!(MAT.job>0)&&!GD.some(g=>g.k=='job'))gdDrop(B,{k:'job',n:1});{const K=STK();for(let j=0;j<2;j++)if(!j||Math.random()<DROPK*K.dr*DBLK())gdDrop(B,{k:'eq',it:rollItem(rollQ(K.bq))});  // 第十六轮:首领必掉 1 件(品质按星级 bq),第 2 件看掉落率
+  if(bossOn&&B.hp<=0&&!endT){endT=-1;CLRP=1;sfxAll();B.sh=null;B.gl=null;sfx('win');tx('站到通关光柱上按 W 完成关卡',P.x-50,P.y-62,'#ffe066');F=[];TOR=[];LCK=null;{const g=kpGain(Math.round(KPCL*(1+(STK().gd-1)*.5)));KP+=g;tx('+'+g+' 击杀点'+(isVip()?'(VIP)':''),P.x-14,P.y-76,'#ff8787')}reward(B);if(cur==6&&!JOB&&!(MAT.job>0)&&!GD.some(g=>g.k=='job'))gdDrop(B,{k:'job',n:1});{const K=STK();for(let j=0;j<2;j++)if(!j||Math.random()<DROPK*K.dr*DBLK())gdDrop(B,{k:'eq',it:rollItem(rollQ(K.bq))});  // 第十六轮:首领必掉 1 件(品质按星级 bq),第 2 件看掉落率
       bossDrop19(K);tx('首领掉落了战利品,按 S 捡起',P.x-50,P.y-48,'#d0bfff')}if(cur==5||cur==7){B.T=[];B.Z=[];B.R=[];B.S=[];B.ult=0;B.act=null;B.ug=0;F=F.filter(f=>!(f.c>=17&&f.c<=19))}if(cur==6){B.wv=[];B.sp=[];B.zn=[];B.blz=0;B.act=null}if(cur==7){E=E.filter(e=>!e.sum);W7E=performance.now()}if(cur==8){B.act=null;B.ug=0;E=E.filter(e=>!e.sum);G8.cr=[];G8.hd=[];G8.cl=[];G8.ds=[];G8.vis=0;G8.lampOff=0;G8.wn=0;G8.bk=0;}if(cur==9){B.act=null;E=E.filter(e=>!e.sum);V9.pl=[];V9.rw=[];V9.cz=[];V9.ch=null;V9.gp=null;P.heat=0;P.ovh=0;P.burn=0;banner('熔岩冷却了……魔神化成了黑石')}if(cur==10){B.act=null;B.ug=0;B.hide=0;S10.sb=[];S10.bm=[];S10.af=[];S10.wind=0;F=[];banner('归蝇的黑翼散成了羽毛……幽灵船慢慢降到了海面上')}if(cur>=11){B.act=null;HSH=[];HCL=[];if(Math.random()<.05){gdDrop(B,{k:'hegg',n:1});banner('瓜子大王倒下了……留下了一颗暖乎乎的蛋!')}else banner('瓜子大王倒下了……这次没有留下蛋(5% 掉落)')}if(SOULV[cur]&&!soulHas(cur)&&!GD.some(g=>g.k=='soul')){gdDrop(B,{k:'soul',n:1,lv:cur});banner(SOULV[cur])}P.grab=0;P.frz=0;P.fzA=0;P.slw=P.sand=0;P.ps=0;qBoss()}
   for(const t of TX){t.t-=dt;t.y-=22*dt}TX=TX.filter(t=>t.t>0);
   if(P.hp<=0){st='dead';CHI=1;sfx('lose')}
@@ -3462,7 +3468,7 @@ function itemList(){const L=[];if(MAT.soul>0)L.push(['soul','💠','女神灵魂
 const itemDesc=id=>id[0]=='T'?(g=>g?`${ATSQ[g.q].n}:<b style="color:#1c7ed6">${atsTxt(g)}</b>。在 🔥 熔炉镶嵌到装备上(每件装备 1 颗,新的会替换旧的;不能拆下,出售装备不返还)。出售价格 ${ATSQ[g.q].pr} 金币。`:'')(R19.ats[+id.slice(1)]):MISC[id]?MISC[id][2]+(id=='dbl'&&dblOn()?`<br><b>生效中,还剩 ${Math.ceil((R19.dbl-Date.now())/60000)} 分钟</b>`:''):id=='hegg'?'神秘地带「瓜子大王」掉落(5% 几率)。打开顶栏 🐤 宠物界面,花 10 分钟孵化成宠物仓鼠(已经有仓鼠时,多孵出来的小仓鼠会让它多嗑 3 次瓜子)。不能出售。':id=='soul'?'女神灵魂碎片:第四关首领「黑棘巨蝎」、第八关首领「怨婴 · 银太郎」、第十关首领「归蝇」各掉落一块(这张地图一共 3 块)。碎片里封着女神被夺走的一缕灵魂,在黑暗里会发出淡紫色的光。收集齐全后或许能让城里的女神像重新苏醒……不能出售。':id=='job'?'第六关首领「北极熊」掉落。打开技能栏(T),在剑士或法师页面里选择转职(只能转职一次)。不能出售。':id=='egg'?'迷雾森林的蛇掉落的蛋。每日任务会用到,也可以卖掉(每个 3 金币)。':id=='luck'?'强化时在强化师那里选用,本次强化成功率 +50%。完成每日任务或在商城随机物品栏购买。':`用于把装备强化到 +${id[1]*3-2} ~ +${id[1]*3}(每次消耗 1 颗),在强化师处使用。品质「${STQ[+id[2]].n}」:强化成功时这一级 +${Math.round(STQ[+id[2]].b*100)}% 装备属性(3 颗可在熔炉合成高一档品质)。出售价格 ${itemPr(id)} 金币 / 颗。`;
 const itemPr=id=>id[0]=='T'?(R19.ats[+id.slice(1)]?ATSQ[R19.ats[+id.slice(1)].q].pr:0):MISC[id]?MISC[id][3]:id=='egg'?3:id=='luck'||id=='job'||id=='soul'||id=='hegg'?0:Math.floor(STP2[+id[1]]*STQ[+id[2]].p/2);
 const itemCnt=id=>id[0]=='T'?(R19.ats[+id.slice(1)]?1:0):MISC[id]?MAT[id]|0:id=='hegg'?MAT.hegg||0:id=='soul'?MAT.soul||0:id=='job'?MAT.job||0:id=='egg'?MAT.egg||0:id=='luck'?LUCK:STN[+id[1]][+id[2]]||0;
-const potTip=k=>{const d=POTD[k];return `<b style="color:${d[1]};font-size:13.5px">${d[0]}</b><br><span class="tg">药水 · 持有 ${POT[k]||0} 瓶${QS.includes(k)?' · 快捷栏 '+(QS.indexOf(k)+1):''}</span><hr>${d[2]=='rev'?'倒下时使用:原地复活,恢复 50% 生命和魔力,2.5 秒无敌':'立即恢复 '+Math.round(d[3]*100)+'% 最大'+(d[2]=='hp'?'生命':'魔力')+' · 同类药水 '+POTCD+' 秒冷却'}<hr><span class="tg">左键:使用 / 放到快捷栏 / 出售${d[2]=='rev'?'':' · 双击使用'}</span>`};
+const potTip=k=>{const d=POTD[k];return `<b style="color:${d[1]};font-size:13.5px">${d[0]}</b><br><span class="tg">药水 · 持有 ${POT[k]||0} 瓶${QS.includes(k)?' · 快捷栏 '+(QS.indexOf(k)+1):''}</span><hr>${d[2]=='rev'?'倒下时使用:原地复活,恢复 50% 生命和魔力,2.5 秒无敌':'立即恢复 '+potAmt(k)+' · 同类药水 '+POTCD+' 秒冷却'}<hr><span class="tg">左键:使用 / 放到快捷栏 / 出售${d[2]=='rev'?'':' · 双击使用'}</span>`};
 const COSSELL=2000;let CSC=0;  // 出售时装 / 翅膀:二次确认
 const cosId=r=>!r?null:r[0]=='w'?WEAR[r.slice(2)]:r[0]=='c'?r.slice(2):null;
 function renderBag(){
@@ -3474,7 +3480,7 @@ function renderBag(){
   if(it)dt=`<b style="color:${TR[it.tier][1]}">${nm(it)}</b> ${ST(it)} <span class="tag">${SER[it.g||0].n}系列</span>`+(it.tr?`<br><b style="color:${TRT[it.tr][1]}">【${TRT[it.tr][0]}】</b><small>${trDesc(it.tr)}</small>`:'')+'<br>'+(sel[0]=='b'?`<button data-r="eq">穿戴</button><button data-r="sell">出售 +${sellPr(it)}金币</button>`:`<button data-r="un">卸下</button><button data-r="sell">出售 +${sellPr(it)}金币</button>`);
   const cid=cosId(sel);
   if(cid){const d=COSD[cid],on=WEAR[d.t]==cid;dt=`<b style="color:#f783ac">${d.ic} ${d.n}</b> <span class="tag">${d.t=='fash'?'时装':'翅膀'}</span><br><small>${d.d}</small><br><small><b>${d.tr}</b></small><br>`+(CSC?`<b style="color:#c92a2a">确定出售「${d.n}」吗?</b> 获得 ${COSSELL} 金币,出售后要重新用击杀点购买。<br><button data-r="csellY">确定出售</button><button data-r="csellN">取消</button>`:`<button data-r="${on?'cu':'cw'}">${on?'卸下':'穿戴'}</button><button data-r="csell">出售 +${COSSELL}金币</button>`)}
-  if(sel&&sel.startsWith('p:')){const k=sel.slice(2),d=POTD[k],n=POT[k]||0;if(!n)sel=null;else dt=`${potEm(k)} <b style="color:${d[1]}">${d[0]}</b> <span class="tag">持有 ${n} 瓶 · ${d[2]=='rev'?'倒下时使用,原地复活':'恢复 '+Math.round(d[3]*100)+'% 最大'+(d[2]=='hp'?'生命':'魔力')}</span><br>${d[2]=='rev'?'':'<button data-r="pu">使用</button>'}${[0,1,2].map(i=>`<button data-r="q${i}" class="${QS[i]==k?'on':''}">快捷栏 ${i+1}${QS[i]==k?' ✓':''}</button>`).join('')}<button data-r="ps1">出售 1 瓶 +${Math.floor(d[4]/2)}</button><button data-r="psa">全部出售 +${Math.floor(d[4]/2)*n}</button>`}
+  if(sel&&sel.startsWith('p:')){const k=sel.slice(2),d=POTD[k],n=POT[k]||0;if(!n)sel=null;else dt=`${potEm(k)} <b style="color:${d[1]}">${d[0]}</b> <span class="tag">持有 ${n} 瓶 · ${d[2]=='rev'?'倒下时使用,原地复活':'恢复 '+potAmt(k)}</span><br>${d[2]=='rev'?'':'<button data-r="pu">使用</button>'}${[0,1,2].map(i=>`<button data-r="q${i}" class="${QS[i]==k?'on':''}">快捷栏 ${i+1}${QS[i]==k?' ✓':''}</button>`).join('')}<button data-r="ps1">出售 1 瓶 +${Math.floor(d[4]/2)}</button><button data-r="psa">全部出售 +${Math.floor(d[4]/2)*n}</button>`}
   if(sel&&sel.startsWith('i:')){const id=sel.slice(2),n=itemCnt(id),q=itemList().find(v=>v[0]==id);if(!n||!q)sel=null;else{const pr=itemPr(id);dt=`${q[1]} <b>${q[2]}</b> <span class="tag">×${n}</span><br><small>${itemDesc(id)}</small><br>`+(MISC[id]&&MISC[id][4]?`<button data-r="iu">${MISC[id][4]}</button>`:'')+(pr?`<button data-r="is1">出售 1 个 +${pr}</button>`+(n>1?`<button data-r="isa">全部出售 +${pr*n}</button>`:''):'')}}
   const ccell=sl=>{const id=WEAR[sl],r='w:'+sl;return `<button class="cl" data-r="${r}" style="${id?'border-color:#f783ac;':''}${sel==r?'background:rgba(255,212,59,.3);':''}"><i class="sl">${sl=='fash'?'时装':'翅膀'}</i>${id?COSD[id].ic:`<span style="opacity:.35">${sl=='fash'?'👘':'🎀'}</span>`}</button>`};
   const CBN=20,ct=bagTab==1?'fash':'wing',cl_=bagTab==1||bagTab==2?OWN.filter(id=>COSD[id].t==ct&&WEAR[ct]!=id):[];  // 时装 / 翅膀道具栏:已拥有且没穿上的
@@ -3656,7 +3662,7 @@ function rShop(){if(!SEROPEN[shopSer]())shopSer=0;const tb=(g,l)=>SEROPEN[g]()?`
 function rPot(){const tot=potTot(),free=POTMAX-tot,rvOk=RVD!=today();
   let h=hd('⚗️ 药剂师')+giftBox('药剂师')+`<div class="tag">买到的药水放进背包的「🧪 药水」页。生命、魔力、复活药水<b>合计最多携带 ${POTMAX} 瓶</b>,怎么搭配都可以。按键盘 <b>1 2 3</b> 使用快捷栏里的药水,同类药水有 ${POTCD} 秒冷却。复活药水在倒下时使用,每天限购 1 瓶。</div>`+fm();
   h+=`<div class="potcap"><span>药水背包 <b>${tot}</b> / ${POTMAX} 瓶</span><div class="xb"><i style="width:${Math.round(tot/POTMAX*100)}%"></i></div></div><div class="pots">`+POTK.filter(k=>k!='hp4').map(k=>{const d=POTD[k],n=POT[k]||0,rv=k=='rev',m=Math.min(10,free,Math.floor(gold/d[4]));
-    return `<div class="pc${rv?' rv':''}"><span class="pe">${potEm(k)}</span><b>${d[0]}</b><span class="tag">${rv?'倒下时使用:原地复活,恢复 50% 生命和魔力,2.5 秒无敌':'立即恢复 '+Math.round(d[3]*100)+'% 最大'+(d[2]=='hp'?'生命':'魔力')}</span><span class="tag">持有 ${n} 瓶</span><span class="pr">💰 ${d[4]}</span><span class="pbs">`+
+    return `<div class="pc${rv?' rv':''}"><span class="pe">${potEm(k)}</span><b>${d[0]}</b><span class="tag">${rv?'倒下时使用:原地复活,恢复 50% 生命和魔力,2.5 秒无敌':'立即恢复 '+potAmt(k)}</span><span class="tag">持有 ${n} 瓶</span><span class="pr">💰 ${d[4]}</span><span class="pbs">`+
     (rv?`<button data-p="pb_${k}_1" ${!rvOk||free<1||gold<d[4]?'disabled':''}>${rvOk?'购买(今日限购 1 瓶)':'今天已购买'}</button>`:`<button data-p="pb_${k}_1" ${free<1||gold<d[4]?'disabled':''}>买 1</button><button data-p="pb_${k}_10" ${m<1?'disabled':''}>买 ${m>1?m:10}</button>`)+`</span></div>`}).join('')+`</div>`;
   h+=`<h4>快捷栏(键盘 1 2 3)</h4><div class="tag">选择每个快捷格放哪种药水;某个品质用完时,会自动换成同类的其他品质。也可以在背包「药水」页左键点药水来设置。</div>`+
     [0,1,2].map(i=>`<div class="row"><b style="width:22px">${i+1}</b>${POTK.map(k=>`<button data-p="qs_${i}_${k}" class="pqb${QS[i]==k?' on':''}" title="${POTD[k][0]}">${potEm(k)}</button>`).join('')}<span class="tag">${POTD[QS[i]][0]}</span></div>`).join('');
@@ -5884,6 +5890,7 @@ function pvImg(k){const t=.3,c=document.createElement('canvas'),g=c.getContext('
 // 主页面打开时 HOME=1:主城画面停住当背景(loop 里不跑 townUpd),键盘只认 Enter(继续 / 新游戏)和 Esc(从操作说明返回)
 // 更新日志 CHLOG:[版本, 日期, [条目...]],新版本加在最前面(和 GAMEV 一起改)
 const CHLOG=[
+ ['1.23','2026-10-14',['第一关减负:小怪的远程攻击只在 1 个闪现内才会放,飞弹飞一小段就消散;每只小怪两次远程至少隔 3.5 秒,全场的远程也错开放','药水加强:在百分比之外再加固定回复(初级生命 +80、中级 +220、高级 +500、超级 +1000;魔力 +30 / +80 / +180),冷却 10 秒 → 8 秒','经验和金币 ×1.5(同关一星一遍约升 1.2 级),通关击杀点 10 → 20(二星 26、三星 32)']],
  ['1.22','2026-10-14',['升级更快了:每级需要的经验降到原来的 40%(同关一星打一遍约升 0.8 级),旧存档攒着的经验会直接升级','基础生命 60 → 140、基础魔力 30 → 60,第一关不再两三下就倒','小怪的攻击距离缩短到约 1.5 个闪现:离得远不会出招,远程飞弹飞一段就消散(首领不变)','法师普攻射程缩短到约 1.75 个闪现']],
  ['1.21','2026-10-14',['主页面换成外部美术素材:魔法悬崖背景(ansimuz,CC0)+ 金色双线边框 / 按钮框(Kenney,CC0),布局参考「游戏内容」面板','剑士普攻也改走小怪韧性:每一下仍然把怪物击退,但不再每下都打僵直,怪物会顶着击退继续往前走','剑 U 雷霆连斩冷却固定 6 秒(不再随等级、时装、疾风缩短)']],
  ['1.20','2026-10-14',['新增主页面:开始新游戏 / 继续游戏 / 提取存档(导出成文件)/ 添加存档(从文件导入)/ 操作说明','防御、暴击、闪避重新换算:防御 12 点 = 1% 减伤(最多 75%),暴击 60 点 = 1%,闪避 30 点 = 1%;属性石终于有用了,旧装备自动换算(百分比不变)','小怪也有韧性了:挨打照常后仰掉血,但会继续往前推进,连续打满韧性才会被打出僵直(法师普攻不能再把小怪钉死)','记住上次用的武器:常玩法师的话,进关卡、回城、重新打开游戏都还是法师','背包里左键点物品就能弹出 使用 / 穿戴 / 出售 菜单(双击照旧直接穿戴 / 喝药)']],

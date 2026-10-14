@@ -22,7 +22,8 @@
  旧的云端环境只能访问 GitHub / npm / pypi,opengameart、itch 访问不了。
  素材来源:ULPC 仓库(LPC 人物图层)、series-ai/jam-ready-assets(大量 CC0 素材,LFS 文件用 media 直链下载,见 fetch_assets.sh)。
 
-【当前状态(2026-10-14,第二十二轮完成后)】
+【当前状态(2026-10-14,第二十三轮完成后)】
+- v1.23(已推送):小怪远程 MRNGR / MSHR / MRCD / RGAP(tok 上面,tok 里按 rg 判断;RATKT / e.rT);药水 POTF / potAmt / POTCD 8(POTD 下面);奖励 XPB / GDB / KPCL(XPK 上面,reward 和通关那段)。问题在 docs/下次任务.txt。
 - ★ 和用户交流看 docs/下次任务.txt(新任务 + 「Claude 的问题」),问题写在那里,不要只写在本文件。
 - v1.22(已推送):经验 expNeed ×0.4(lvUp 上面;loadSave 末尾把旧存档多余经验直接升级)、基础 BHP 140 / BMP 60(DGMAX 上面,stats 里 lv(BHP))、小怪攻击距离 BLKD / MATKR / MSHR / MAGR(tok 上面;tok 里非首领超距不出招,F 循环里 f.ox / f.mb 飞弹射程,PB 的 rg 法师普攻射程)。首领、法师技能射程没限制(已在下次任务.txt 问用户)。
 - v1.21(2026-10-14,已推送 GitHub)。第二十一轮:主页面美术换外部素材(art_src/home/build_home.py,raw/home:Magic Cliffs / ansimuz + Fantasy UI Borders / Kenney,均 CC0;CSS 在 style 末尾 #home);剑普攻去掉每下 0.32 秒僵直(update 里 KBV 那行,只留击退);剑 U 冷却固定 6 秒(SKCDFIX,skCd / skCdA)。
