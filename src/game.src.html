@@ -210,7 +210,7 @@ body.px .eqi,body.px .eqs,body.px .eqt,body.px #dg img{image-rendering:pixelated
 <p class="tip">← → / A D 移动(连按两次快跑) · K / ↑ 跳跃 · W+J / S+J 特殊普攻(学会二段跳后空中再按) · J 攻击(下劈 → 上挑 → 直戳 → 下劈 循环,按住蓄力重击;跑步中按 J = 冲刺直戳) · L 换武器 · H U I O 技能 · 空格 / W+空格 / S+空格 / WW+空格 剑士进阶技能(转职后) · 1 2 3 喝药水 · S 捡起地上的掉落物 · 背包 / 技能 / 商城 / 精灵 / 宠物 / 任务 / 声音:点右下角按钮(菜单快捷键已关闭;背包里左键点物品弹出菜单,装备可拖动穿戴) · 装备翅膀后空中再按跳跃=飞行(W/S 升降、A/D 方向) · Esc / ⚙️ 设置(暂停、返回城镇、帧数、全屏)</p>
 <script>
 // 游戏版本:build.py 按它给输出文件命名(out/无名之旅_v版本.html),设置页也显示;每次发新版改这里
-const GAMEV='1.24';
+const GAMEV='1.25';
 // x 是当前的绘图上下文:平时是主画布;像素特效层(PXL,P2)绘制期间临时换成 640×360 的低分辨率图层
 const cv=document.getElementById('c');let x=cv.getContext('2d');const VW=640,VH=360,WW=3200,GY=300;
 // 渲染分辨率:电脑端 1920×1080(逻辑坐标仍是 640×360,整体放大 3 倍绘制,文字和像素都更清晰);手机端 1280×720
@@ -2246,7 +2246,7 @@ function andrStep(e,dt){const hp=e.hp/e.max;
 // BWQ=1 期间(画首领本体、首领招式效果时)这些预警不画,改成记下 bwT,首领本体在 monPose 里做蓄力前摇(后仰 + 压扁 + 发抖,幅度比原来大)。BWOFF=0 可恢复预警
 const BWOFF=1;let BWQ=0,BWE=null;
 function bwHit(){const e=BWE||B;if(e)e.bwT=GT}
-function bwSkip(){if(BWOFF&&BWQ){bwHit();return true}return false}
+function bwSkip(){if(BWOFF){if(BWQ)bwHit();return true}return false}  // 第二十五轮:小怪、关卡机关的预警也一律不画
 function BW(f){const q=BWQ;BWQ=1;try{f()}finally{BWQ=q}}
 const DZ={
   // 地面预警魔法阵:sx = 屏幕左边,w = 宽度。宽的区域排成一串圆环
@@ -2303,7 +2303,7 @@ function snowStep(dt){if(cur!=6||bossOn)return;SNW.t-=dt;
 function snowDraw(){if(cur!=6)return;const t=performance.now()/1000;
   for(const z of SNW.L){const zx=z.x-cam;if(zx<-80||zx>VW+80)continue;
     if(ICE6P.on()){x.save();x.imageSmoothingEnabled=false;
-      if(z.t<1.1){DZ.zone(zx-z.w/2,z.w);for(let i=0;i<8;i++)R(Math.round(zx-z.w/2+((i*29+t*30)%z.w)),Math.round((t*120+i*47)%(GY*.8)),3,3,'#fff');WARN(x,zx,GY-22,.8)}
+      if(z.t<1.1){DZ.zone(zx-z.w/2,z.w);if(!BWOFF)for(let i=0;i<8;i++)R(Math.round(zx-z.w/2+((i*29+t*30)%z.w)),Math.round((t*120+i*47)%(GY*.8)),3,3,'#fff');WARN(x,zx,GY-22,.8)}
       else if(z.t<1.3){const k=(z.t-1.1)/.2,yb=-40+k*(GY+10);ICE6P.spr('clump',zx-38,yb-34)}
       else{x.globalAlpha=Math.max(0,1-(z.t-1.3)/1.1);ICE6P.spr('pile',zx-44,GY-28)}
       x.restore();continue}
@@ -2734,17 +2734,17 @@ function g8Back(){const e=B;if(!e||e.k!='yin'||!bossOn||e.hp<=0)return;const now
   if(e.pj>.02){const m=GH8.M.babyS,s=6.5,fi=e.act=='claw'?2:(e.act=='cry'||e.act=='chn'||e.act=='sum'||e.act=='ult')?1:0,cx=e.x+e.w/2-cam,cy=GY-m[2]*s/2;x.save();x.globalCompositeOperation='lighter';E_(x,cx,cy,m[1]*s*.75,m[2]*s*.62,RGD(x,cx,cy,m[1]*s*.75,['rgba(120,30,170,'+.5*e.pj+')','rgba(60,10,90,'+.25*e.pj+')','rgba(0,0,0,0)']),0);x.restore();x.save();x.globalAlpha=.78*e.pj*(.85+.15*Math.sin(now*9));
     GH8.fr(x,'babyS',fi,cx-m[1]*s/2,GY-m[2]*s+16+Math.sin(now*1.5)*4,s,e.f);x.restore()}}
 function g8Fx(){const t=performance.now()/1000;
-  for(const h of G8.hd){const px=h.x-cam;if(h.t<h.w){const a=.45+.35*Math.sin(t*16);x.fillStyle='rgba(8,4,14,'+a+')';x.beginPath();x.ellipse(px,GY-1,22,6,0,0,7);x.fill();x.strokeStyle='rgba(190,75,219,'+a+')';x.lineWidth=1;x.stroke()}
+  for(const h of G8.hd){const px=h.x-cam;if(h.t<h.w){if(BWOFF)continue;const a=.45+.35*Math.sin(t*16);x.fillStyle='rgba(8,4,14,'+a+')';x.beginPath();x.ellipse(px,GY-1,22,6,0,0,7);x.fill();x.strokeStyle='rgba(190,75,219,'+a+')';x.lineWidth=1;x.stroke()}
     else{const k=Math.min(1,(h.t-h.w)/.12)*(h.t>h.w+.5?Math.max(0,1-(h.t-h.w-.5)/.2):1),m=GH8.M.hand,s=1.5;x.save();x.beginPath();x.rect(px-40,0,80,GY);x.clip();GH8.fr(x,'hand',0,px-m[1]*s/2,GY-m[2]*s*k,s,1);x.restore()}}
   for(const c of G8.cl){const k=g8ClawK(c),r=g8ClawR(c,1),a=.18+.14*Math.sin(t*18);
-    if(c.t<c.w){x.fillStyle='rgba(220,30,60,'+a+')';x.fillRect(r.x-cam,r.y,r.w,r.h);x.strokeStyle='rgba(255,90,110,.7)';x.lineWidth=1;x.strokeRect(r.x-cam+.5,r.y+.5,r.w-1,r.h-1);continue}
+    if(c.t<c.w){if(BWOFF)continue;x.fillStyle='rgba(220,30,60,'+a+')';x.fillRect(r.x-cam,r.y,r.w,r.h);x.strokeStyle='rgba(255,90,110,.7)';x.lineWidth=1;x.strokeRect(r.x-cam+.5,r.y+.5,r.w-1,r.h-1);continue}
     const rr=g8ClawR(c,k),m=GH8.M.claw,s=c.d=='T'?2.2:rr.h/m[2]*1.4;if(k<=0)continue;
     const cw=m[1]*s;x.fillStyle='#120c18';
     if(c.d=='T'){x.save();x.translate(c.x-cam,rr.h);x.rotate(Math.PI/2);if(rr.h>cw*.7)x.fillRect(-rr.h,-10,rr.h-cw*.7,20);GH8.fr(x,'claw',0,-cw,-m[2]*s/2,s,1);x.restore()}
     else{const tip=c.d=='L'?rr.x+rr.w:rr.x,cy=rr.y+rr.h/2;
       if(c.d=='L'){const a1=tip-cw*.7;if(a1>c.lo)x.fillRect(c.lo-cam,cy-10,a1-c.lo,20);GH8.fr(x,'claw',0,tip-cw-cam,cy-m[2]*s/2,s,1)}
       else{const a0=tip+cw*.7;if(c.hi>a0)x.fillRect(a0-cam,cy-10,c.hi-a0,20);GH8.fr(x,'claw',0,tip-cam,cy-m[2]*s/2,s,-1)}}}
-  for(const s of G8.ds){const px=s.x-cam;if(s.t<s.w){x.fillStyle='rgba(30,10,40,'+(.25+.2*Math.sin(t*20))+')';x.fillRect(0,s.y-36,VW,32);continue}
+  for(const s of G8.ds){const px=s.x-cam;if(s.t<s.w){if(BWOFF)continue;x.fillStyle='rgba(30,10,40,'+(.25+.2*Math.sin(t*20))+')';x.fillRect(0,s.y-36,VW,32);continue}
     x.save();x.filter='brightness(.15)';GH8.fr(x,'fly2',Math.floor(t*12),px-38,s.y-76,2.4,s.d);x.restore();for(let i=1;i<4;i++){x.globalAlpha=.25/i;GH8.fr(x,'fly2',0,px-38-s.d*i*26,s.y-76,2.4,s.d)}x.globalAlpha=1}
   for(const r of G8.cr){const R_=r.t*380,a=Math.max(0,1-R_/720);x.strokeStyle='rgba(200,170,255,'+.55*a+')';x.lineWidth=3;for(let i=0;i<3;i++){const rr=R_-i*16;if(rr>4){x.beginPath();x.arc(r.x-cam,r.y,rr,0,7);x.stroke()}}}
   if(B&&B.k=='yin'&&bossOn&&B.act=='tp'&&B.ug&&B.h2){const a=Math.min(1,(B.at-.25)/.5);x.globalAlpha=.7*a;GH8.fr(x,'babyS',0,B.tx+B.w/2-cam-21,B.ty+B.h-45+8,1.5,1);x.globalAlpha=1}}
@@ -3114,7 +3114,7 @@ SHIP10.init();
 // 招式效果(PXL 层,怪物之后画):眼魔的预警线 / 激光、首领残影、天空投射的魔法球、竖直光束
 function s10Fx(){if(!SHIP10.I)return;const t=performance.now()/1000;
   for(const e of E){if(e.k!='eye'||e.hp<=0)continue;const ex=e.x+e.w/2-cam,ey=e.y+e.h/2;
-    if(e.s=='bw'&&e.ba!=null){const n=26;x.fillStyle=e.t>=.7?'rgba(255,224,80,'+(.6+.4*Math.sin(t*40))+')':'rgba(255,224,80,.55)';for(let i=1;i<n;i++){if(i%2)continue;const d=i*16;x.fillRect(Math.round(ex+Math.cos(e.ba)*d)-1,Math.round(ey+Math.sin(e.ba)*d)-1,3,3)}}
+    if(!BWOFF&&e.s=='bw'&&e.ba!=null){const n=26;x.fillStyle=e.t>=.7?'rgba(255,224,80,'+(.6+.4*Math.sin(t*40))+')':'rgba(255,224,80,.55)';for(let i=1;i<n;i++){if(i%2)continue;const d=i*16;x.fillRect(Math.round(ex+Math.cos(e.ba)*d)-1,Math.round(ey+Math.sin(e.ba)*d)-1,3,3)}}
     if(e.s=='bm'&&e.ang!=null){const L=440,a=e.ang;x.save();x.globalCompositeOperation='lighter';for(const [w,c] of [[9,'rgba(255,90,216,.35)'],[5,'rgba(255,170,240,.7)'],[2,'rgba(255,255,255,.95)']]){x.strokeStyle=c;x.lineWidth=w;x.beginPath();x.moveTo(ex,ey);x.lineTo(ex+Math.cos(a)*L,ey+Math.sin(a)*L);x.stroke()}x.restore()}}
   if(bossOn&&B&&B.k=='gui'&&B.hp>0)for(const a of S10.af){x.save();x.globalAlpha=a.t/.3*.5;x.translate(a.x+B.w/2-cam,a.y+B.h);x.scale(a.f*1.1,1.1);x.filter='brightness(.4) sepia(1) hue-rotate(220deg)';SHIP10.boss(x,{pz:null,act:null},t,B.h/1.1);x.restore()}
   for(const b of S10.sb){const sx=b.x-cam;if(b.st=='trk')BW(()=>DZ.mark(sx,GY-2,14));SHIP10.fire({c:12,s:1.3},sx,b.y,t)}
@@ -4622,20 +4622,50 @@ function drawE0(e){if(e.x+e.w<cam-200||e.x>cam+VW+200)return;const t=performance
   if(e.k=='sco'&&e.sh>0&&BFX.ok())VFX.frame(x,'b-shield',Math.floor(t*10)%6,cx,e.y+22,2.6,1,0,.35+.08*Math.sin(t*8));else if(e.k=='sco'&&e.sh>0){x.strokeStyle='rgba(116,192,252,'+(.65+.25*Math.sin(t*8))+')';x.lineWidth=3;x.beginPath();x.ellipse(cx,e.y+18,72,50,0,0,7);x.stroke();x.fillStyle='rgba(116,192,252,.12)';x.fill()}
   // 小怪血条(受伤后显示)
   if(!e.max&&!e.ug){if(e.mh==null)e.mh=e.hp;if(e.hp<e.mh){const bw=Math.max(22,e.w),bx=cx-bw/2,by=e.y-(e.k=='ost'?16:9);RR(x,bx-1,by-1,bw+2,5,2,'#2b1a12',0);RR(x,bx,by,bw*Math.max(0,e.hp)/e.mh,3,1.5,LG(x,0,by,0,by+3,['#ffb347','#e8590c']),0)}}}
+// ===== 第二十五轮:首领前摇按招式区分(预警全部去掉了,看动作判断是哪一招)=====
+// 10 种前摇:rear 后仰蓄力(正面重击)· crouch 下蹲(跳 / 砸地 / 从脚下炸开)· back 后撤刨地(冲撞 / 俯冲)· rise 拉高上浮(天上落下来的招)·
+// roar 鼓起狂抖(怒吼 / 强化 / 全场爆)· aim 前探瞄准(飞弹 / 吐息)· sink 下沉(从地里钻出来的招)· sway 左右大摇摆(横扫 / 贴地横穿)·
+// spin 原地转身(瞬移 / 漩涡 / 弹幕环)· hop 原地跳动(连续落点 / 召唤)
+const BWS={
+  rear:(o,n)=>{o.lean=-.24+Math.sin(n*55)*.03;o.sx=1.09;o.sy=.88;o.dx=-3+Math.sin(n*70)*1.2},
+  crouch:(o,n)=>{o.sx=1.2;o.sy=.7+Math.sin(n*30)*.025;o.dx=Math.sin(n*60)*.8},
+  back:(o,n)=>{o.lean=.2;o.sx=1.06;o.sy=.9;o.dx=-7-Math.abs(Math.sin(n*14))*5},
+  rise:(o,n)=>{o.lean=Math.sin(n*5)*.05;o.sx=.86;o.sy=1.2;o.dy=-8-Math.sin(n*9)*3},
+  roar:(o,n)=>{const q=Math.sin(n*40);o.sx=1.14+q*.07;o.sy=1.14-q*.07;o.dx=Math.sin(n*90)*2.5},
+  aim:(o,n)=>{o.lean=.13+Math.sin(n*7)*.04;o.sx=1.05;o.sy=.95;o.dx=4},
+  sink:(o,n)=>{o.sx=1.12;o.sy=.8;o.dy=8+Math.sin(n*24)*1.5},
+  sway:(o,n)=>{o.lean=Math.sin(n*10)*.24;o.sx=1.04;o.sy=.96},
+  spin:(o,n)=>{const c=Math.cos(n*15);o.sx=Math.abs(c)<.15?.15*Math.sign(c||1):c;o.sy=1.04},
+  hop:(o,n)=>{const q=Math.abs(Math.sin(n*12));o.dy=-q*11;o.sy=.88+q*.16;o.sx=1.1-q*.12}};
+function bwPose(o,f,n){f(o,n)}
+const BWP={
+  boss:{slam:'rear',charge:'back',leap:'crouch',stomp:'hop',roar:'roar'},
+  mage:{volley:'aim',rain:'rise',chain:'rear',field:'sink',mirror:'spin'},
+  king:{bite:'rear',charge:'back',spit:'aim',tail:'sway',shed:'rise',buff:'roar'},
+  sco:{combo:'rear',claw:'rear',sweep:'sway',sting:'aim',burrow:'sink',buff:'roar'},
+  andr:{wake:'roar',rise:'rise',gys:'crouch',ring:'spin',orb:'aim',pull:'sway',sink:'sink',storm:'roar'},
+  bear:{paw:'rear',slam:'rise',combo:'rear',charge:'back',ball:'aim',skate:'crouch',roar:'roar',hug:'sway',pillars:'sink',aval:'hop',bliz:'spin'},
+  wiz:{fan:'aim',col:'sink',tp:'spin',barr:'rear',rain:'rise',imp:'crouch',pack:'hop',thorn:'sway',rite:'roar',morph:'roar'},
+  yin:{tpc:'spin',lane:'sway',cage:'sink',tear:'rise',echo:'roar',palm:'rear'},
+  lava:{brth:'aim',spout:'hop',hunt:'sink',met:'rise',tsu:'sway',crs:'crouch',nova:'roar'},
+  gui:{swoop:'back',fan:'aim',pull:'spin',fth:'roar',xb:'rise',ecl:'crouch'},
+  ham:{eat:'hop',shell:'crouch',trap:'sink',throw:'aim'}};
 // ===== 怪物动作(冒险岛式):走路一颠一颠、出招前后仰蓄力(压扁)、出招时前扑拉长、收招回弹、挨打后仰 =====
-const MWUP={king:{bite:[.5,.75],charge:[.6,9],spit:[.5,.7],buff:[.5,.8]},sco:{claw:[.45,.65],sweep:[.4,.65],sting:[.6,.75],buff:[.5,.8]}};
+const MWUP={king:{bite:[.5,.75],charge:[.6,9],spit:[.5,.7],buff:[.5,.8],tail:[.5,.7],shed:[.8,1]},sco:{claw:[.45,.65],sweep:[.4,.65],sting:[.6,.75],buff:[.5,.8]}};
 function monPose(e,t){const now=performance.now()/1000,o={lean:0,sx:1,sy:1,dy:0},big=e.max?.45:1;
   const mv=Math.abs(e.x-(e.pdx==null?e.x:e.pdx));e.pdx=e.x;e.mvs=(e.mvs||0)*.8+(mv>.15?1:0)*.2;
   if(e.fire!=null){if(e.pf!=null&&e.fire>e.pf+.1)e.shotAt=now;e.pf=e.fire}
-  let wu=0,sk=0;const cus='pz' in e;
-  if(cus){if(e.pz=='w')wu=1;else if(e.pz=='s')sk=1}
+  let wu=0,sk=0;const cus='pz' in e,ca=e.act=='combo'&&e.cact?e.cact:e.act,cat=e.act=='combo'&&e.cact?e.cat:e.at;
+  if(cus&&e.pz=='w')wu=1;else if(cus&&e.pz=='s')sk=1;else if(cus&&!MWUP[e.k]);  // 第二十五轮:蛇王 / 巨蝎设过 pz 以后也继续按 MWUP 判断
   else if(e.wu>0||e.wu2>0)wu=1;else if(e.sw>0||e.lg>0)sk=1;
   else if(e.s=='pw'||e.s=='cw'||e.s=='kw'||(e.s=='sp'&&e.t>0))wu=1;else if(e.s=='pj'||e.s=='ch'||e.s=='kk'||(e.s=='pk'&&e.t>=.4))sk=1;
-  else if(MWUP[e.k]&&e.act){const w=MWUP[e.k][e.act];if(w){if(e.at<w[0])wu=1;else if(e.at<w[1])sk=1}}
+  else if(MWUP[e.k]&&ca){const w=MWUP[e.k][ca];if(w){if(cat<w[0])wu=1;else if(cat<w[1])sk=1}}
   else if(e.k=='mage'&&e.fire<.55&&!(e.tpT>0))wu=1;
   if(e.shotAt&&now-e.shotAt<.22)sk=Math.max(sk,.8);
   if(e.max&&BWOFF&&!sk&&GT-(e.bwT??-9)<.15)wu=1;  // 第二十四轮:本来要显示预警的时候,首领一定在做前摇
+  if(e.max&&BWOFF&&e.act&&!sk&&!e.ug&&e.at<.4)wu=1;  // 第二十五轮:每招开头至少 0.4 秒前摇动作
   const bwk=e.max&&BWOFF&&wu?1.8:1;  // 没有预警了,首领前摇幅度加大
+  if(e.max&&BWOFF&&wu&&!(e.st>0)){bwPose(o,BWS[(BWP[e.k]||{})[e.act]]||BWS.rear,now);e._wu=1;e._sk=0;return o}  // 第二十五轮:不同招式不同前摇(挨打也不打断)
   if(e.k=='ape'&&!e.gr&&e.ap){o.lean=.25;o.sx=1.08;o.sy=.94}
   else if(e.hst>0||e.st>0){const q=Math.min(1,Math.max(e.hst>0?e.hst/HSTUN:0,e.st>0?e.st/.3:0)),hb=e.max?.55:1,j=e.hst>0?Math.sin(now*70)*.6*q:0;o.lean=-.28*q*hb;o.sx=1-.08*q*hb;o.sy=1+.05*q*hb;o.dy=-j*hb}  // 挨打后仰(第十三轮起首领也有,幅度小一点)
   else if(wu){const tr=Math.sin(now*55)*.025*bwk;o.lean=(-.17*bwk+tr)*big;o.sx=1+.1*big*bwk;o.sy=1-.13*big*bwk;if(bwk>1)o.dx=Math.sin(now*70)*1.2}
@@ -5907,7 +5937,8 @@ function pvImg(k){const t=.3,c=document.createElement('canvas'),g=c.getContext('
 // 主页面打开时 HOME=1:主城画面停住当背景(loop 里不跑 townUpd),键盘只认 Enter(继续 / 新游戏)和 Esc(从操作说明返回)
 // 更新日志 CHLOG:[版本, 日期, [条目...]],新版本加在最前面(和 GAMEV 一起改)
 const CHLOG=[
- ['1.24','2026-10-14',['首领不再显示攻击范围和预警(地上的红色符文带、瞄准圈、感叹号、预警线都去掉了),改成看首领的前摇动作:要出招时首领会明显后仰蓄力、发抖','首领的飞弹最多飞 2 个闪现的距离,不会再隔着整个场地打人','修复:小怪被拉开距离后原地罚站 —— 现在一~七关的小怪会一直追着玩家','小怪近战出招频率降低约 40%','菜单快捷键(B / T / Q / P / Y / G / M)全部关闭,改用右下角按钮,不会再误按']],
+ ['1.25','2026-10-14',['小怪和关卡机关的预警也全部去掉了(猿的落点、蝎子钻沙的圈、头上的感叹号、眼魔的预警线、第六关落雪的红圈、第九关熔岩裂缝等)','首领的前摇按招式区分:后仰蓄力、下蹲、后撤刨地、拉高上浮、鼓起狂抖、前探瞄准、下沉、左右摇摆、原地转身、原地跳动,看动作就知道要放哪一招','首领前摇时挨打不会再被打断动作,方便看清']],
+  ['1.24','2026-10-14',['首领不再显示攻击范围和预警(地上的红色符文带、瞄准圈、感叹号、预警线都去掉了),改成看首领的前摇动作:要出招时首领会明显后仰蓄力、发抖','首领的飞弹最多飞 2 个闪现的距离,不会再隔着整个场地打人','修复:小怪被拉开距离后原地罚站 —— 现在一~七关的小怪会一直追着玩家','小怪近战出招频率降低约 40%','菜单快捷键(B / T / Q / P / Y / G / M)全部关闭,改用右下角按钮,不会再误按']],
  ['1.23','2026-10-14',['第一关减负:小怪的远程攻击只在 1 个闪现内才会放,飞弹飞一小段就消散;每只小怪两次远程至少隔 3.5 秒,全场的远程也错开放','药水加强:在百分比之外再加固定回复(初级生命 +80、中级 +220、高级 +500、超级 +1000;魔力 +30 / +80 / +180),冷却 10 秒 → 8 秒','经验和金币 ×1.5(同关一星一遍约升 1.2 级),通关击杀点 10 → 20(二星 26、三星 32)']],
  ['1.22','2026-10-14',['升级更快了:每级需要的经验降到原来的 40%(同关一星打一遍约升 0.8 级),旧存档攒着的经验会直接升级','基础生命 60 → 140、基础魔力 30 → 60,第一关不再两三下就倒','小怪的攻击距离缩短到约 1.5 个闪现:离得远不会出招,远程飞弹飞一段就消散(首领不变)','法师普攻射程缩短到约 1.75 个闪现']],
  ['1.21','2026-10-14',['主页面换成外部美术素材:魔法悬崖背景(ansimuz,CC0)+ 金色双线边框 / 按钮框(Kenney,CC0),布局参考「游戏内容」面板','剑士普攻也改走小怪韧性:每一下仍然把怪物击退,但不再每下都打僵直,怪物会顶着击退继续往前走','剑 U 雷霆连斩冷却固定 6 秒(不再随等级、时装、疾风缩短)']],
