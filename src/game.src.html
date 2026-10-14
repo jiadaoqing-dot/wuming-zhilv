@@ -958,7 +958,7 @@ MVK.dog={idle(e,dt,dx,ad){const el=e.k=='dog2';if(ad<380){e.f=sgn(dx)||e.f;if(ad
     if(ad<44)return 'bt';if(ad<120&&r<.35)return 'hw';if(ad<240)return 'cw';return null},at:{sp:2,howl:0},
   mv:{cw(e,dt,dx){e.pz='w';if(e.t<.3)e.f=sgn(dx)||e.f;if(e.t>=(e.k=='dog2'?.75:.6)){e.s=e.k=='dog2'?'rs':'ds';e.t=0;e.hd=0;e.bn=0;sfx('dash')}},
     hw(e,dt,dx){if(e.t<.3){e.pz='w';e.f=sgn(dx)||e.f;e.x-=e.f*220*dt;return}e.s='cw';e.t=.25},
-    ds(e,dt){const el=e.k=='dog2';e.pz='s';const lo=e.zi>=0?(ZB[e.zi-1]||0):ARL,hi=e.zi>=0?ZB[e.zi]:ARR,nx=e.x+e.f*(el?500:540)*dt;
+    ds(e,dt){const el=e.k=='dog2';e.pz='s';const lo=e.zi>=0?zLo(e):ARL,hi=e.zi>=0?ZB[e.zi]:ARR,nx=e.x+e.f*(el?500:540)*dt;
       if(nx<lo+2||nx+e.w>hi-2){if(!el){e.x=Math.max(lo,Math.min(hi-e.w,nx));e.f*=-1;mvEnd(e,.9,.5);return}e.f*=-1;e.bn++;e.hd=0;shake=Math.max(shake,.12);sfx('boom');burst(e.f<0?e.x+e.w:e.x,e.y+e.h/2,12,['#fff','#d0ebff'],180,{s:3,l:.35})}else e.x=nx;
       if(Math.random()<dt*30)pt({x:e.x+e.w/2-e.f*12,y:GY-2,vx:-e.f*rnd(40,110),vy:rnd(-60,-15),c:'#fff',ad:0,s:rnd(2,3.4),l:.35});
       if(!e.hd&&mvHit(e,{x:e.x,y:e.y+e.h*.25,w:e.w,h:e.h*.75},el?12:9,{kb:e.f*(el?460:380)}))e.hd=1;
@@ -2273,7 +2273,7 @@ let SNW={t:4,L:[]};  // 落雪
 const iceAt=xx=>cur==6&&ICE6.some(r=>xx>r[0]&&xx<r[1]);
 // 实心检测:冰墙、关卡边界、首领战的左右墙。返回 1 / 冰墙对象 / null
 // 区域边界:小怪(非首领、非召唤)不能离开自己的区域;第六关的滑行 / 雪球把边界当成墙
-const zLo=e=>cur>=8&&cur<=10?0:ZB[e.zi-1]||0,zHi=e=>ZB[e.zi];  // 第八~十关(2026-10-13 第十二轮):小怪可以追出自己的区域(往回追玩家)
+const zLo=e=>0,zHi=e=>ZB[e.zi];  // 第二十五轮:一~七关也放开(原来玩家退回上一段时,小怪卡在区域边界上不动)  // 第八~十关(2026-10-13 第十二轮):小怪可以追出自己的区域(往回追玩家)
 const zWall=(e,nx)=>!e.max&&e.zi>=0&&(nx<zLo(e)+1||nx+e.w>zHi(e)-1);
 function zClampAll(){for(const e of E)if(!e.max&&e.zi>=0&&e.hp>0){const lo=zLo(e),hi=zHi(e);if(e.x<lo)e.x=lo;if(e.x+e.w>hi)e.x=hi-e.w}}
 function solidAt(xl,xr,yb){if(xl<0||xr>WW)return 1;if(bossOn&&cur>=5&&(xl<ARL||xr>ARR))return 1;if(cur!=6)return null;
@@ -5937,7 +5937,7 @@ function pvImg(k){const t=.3,c=document.createElement('canvas'),g=c.getContext('
 // 主页面打开时 HOME=1:主城画面停住当背景(loop 里不跑 townUpd),键盘只认 Enter(继续 / 新游戏)和 Esc(从操作说明返回)
 // 更新日志 CHLOG:[版本, 日期, [条目...]],新版本加在最前面(和 GAMEV 一起改)
 const CHLOG=[
- ['1.25','2026-10-14',['小怪和关卡机关的预警也全部去掉了(猿的落点、蝎子钻沙的圈、头上的感叹号、眼魔的预警线、第六关落雪的红圈、第九关熔岩裂缝等)','首领的前摇按招式区分:后仰蓄力、下蹲、后撤刨地、拉高上浮、鼓起狂抖、前探瞄准、下沉、左右摇摆、原地转身、原地跳动,看动作就知道要放哪一招','首领前摇时挨打不会再被打断动作,方便看清']],
+ ['1.25','2026-10-14',['修复:玩家退回上一段区域时,一~七关的小怪卡在区域边界上不动 —— 现在会一直追过来','小怪和关卡机关的预警也全部去掉了(猿的落点、蝎子钻沙的圈、头上的感叹号、眼魔的预警线、第六关落雪的红圈、第九关熔岩裂缝等)','首领的前摇按招式区分:后仰蓄力、下蹲、后撤刨地、拉高上浮、鼓起狂抖、前探瞄准、下沉、左右摇摆、原地转身、原地跳动,看动作就知道要放哪一招','首领前摇时挨打不会再被打断动作,方便看清']],
   ['1.24','2026-10-14',['首领不再显示攻击范围和预警(地上的红色符文带、瞄准圈、感叹号、预警线都去掉了),改成看首领的前摇动作:要出招时首领会明显后仰蓄力、发抖','首领的飞弹最多飞 2 个闪现的距离,不会再隔着整个场地打人','修复:小怪被拉开距离后原地罚站 —— 现在一~七关的小怪会一直追着玩家','小怪近战出招频率降低约 40%','菜单快捷键(B / T / Q / P / Y / G / M)全部关闭,改用右下角按钮,不会再误按']],
  ['1.23','2026-10-14',['第一关减负:小怪的远程攻击只在 1 个闪现内才会放,飞弹飞一小段就消散;每只小怪两次远程至少隔 3.5 秒,全场的远程也错开放','药水加强:在百分比之外再加固定回复(初级生命 +80、中级 +220、高级 +500、超级 +1000;魔力 +30 / +80 / +180),冷却 10 秒 → 8 秒','经验和金币 ×1.5(同关一星一遍约升 1.2 级),通关击杀点 10 → 20(二星 26、三星 32)']],
  ['1.22','2026-10-14',['升级更快了:每级需要的经验降到原来的 40%(同关一星打一遍约升 0.8 级),旧存档攒着的经验会直接升级','基础生命 60 → 140、基础魔力 30 → 60,第一关不再两三下就倒','小怪的攻击距离缩短到约 1.5 个闪现:离得远不会出招,远程飞弹飞一段就消散(首领不变)','法师普攻射程缩短到约 1.75 个闪现']],
