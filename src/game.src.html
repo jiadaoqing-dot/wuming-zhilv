@@ -210,7 +210,7 @@ body.px .eqi,body.px .eqs,body.px .eqt,body.px #dg img{image-rendering:pixelated
 <p class="tip">← → / A D 移动(连按两次快跑) · K / ↑ 跳跃 · W+J / S+J 特殊普攻(学会二段跳后空中再按) · J 攻击(下劈 → 上挑 → 直戳 → 下劈 循环,按住蓄力重击;跑步中按 J = 冲刺直戳) · L 换武器 · H U I O 技能 · 空格 / W+空格 / S+空格 / WW+空格 剑士进阶技能(转职后) · 1 2 3 喝药水 · S 捡起地上的掉落物 · B 背包(左键点物品弹出菜单:使用 / 穿戴 / 出售,装备可拖动穿戴) · T 技能栏 · Q 任务 · P 商城 · Y 精灵 · G 宠物 · 装备翅膀后空中再按跳跃=飞行(W/S 升降、A/D 方向) · Esc / ⚙️ 设置(暂停、返回城镇、帧数、全屏)</p>
 <script>
 // 游戏版本:build.py 按它给输出文件命名(out/无名之旅_v版本.html),设置页也显示;每次发新版改这里
-const GAMEV='1.21';
+const GAMEV='1.22';
 // x 是当前的绘图上下文:平时是主画布;像素特效层(PXL,P2)绘制期间临时换成 640×360 的低分辨率图层
 const cv=document.getElementById('c');let x=cv.getContext('2d');const VW=640,VH=360,WW=3200,GY=300;
 // 渲染分辨率:电脑端 1920×1080(逻辑坐标仍是 640×360,整体放大 3 倍绘制,文字和像素都更清晰);手机端 1280×720
@@ -535,9 +535,10 @@ const PSX=(k,l)=>k=='dj'?'在空中可以再跳一次':k=='crt'?`暴击率 +${l*
 const critK=()=>1.8+pl('crt')*.08;  // 暴击倍率:基础 1.8 倍,会心每级 +0.08
 function eqSum(ks){const g={hp:0,mp:0,atk:0,def:0,cr:0,dg:0};for(const k of ks){const it=EQ[k];if(!it)continue;for(const q in it.s)g[q]+=it.s[q]*EM(it);if(it.gem)for(const [q,v] of it.gem.a)g[q]+=v}return g}  // 装备白字 × 强化 + 属性石蓝字(不吃强化)
 function stats(){const g=eqSum(['head','body','ring','ear',P.mode]);
-  const b=1+setB(),X=1+setX(),c=setTr(),hp=Math.round(((lv(60)*b+g.hp)*pb('hp')+sprV('hp'))*X),am=1+atkTr(c,hp),cp=crdgP(g,c);
-  return {hp,mp:Math.round(((lv(30)*b+g.mp)*pb('mp')+sprV('mp'))*X),atk:Math.round(((lv(10)*b+g.atk)*pb('atk')*am+sprV('atk'))*(P.pAtk>0?1+petAtk():1)*(P.wy>0?1.3:1)*X),def:Math.round(((lv(3)*b+g.def)*pb('def')+sprV('def'))*(P.pDef>0?1+petDef():1)*X),
+  const b=1+setB(),X=1+setX(),c=setTr(),hp=Math.round(((lv(BHP)*b+g.hp)*pb('hp')+sprV('hp'))*X),am=1+atkTr(c,hp),cp=crdgP(g,c);
+  return {hp,mp:Math.round(((lv(BMP)*b+g.mp)*pb('mp')+sprV('mp'))*X),atk:Math.round(((lv(10)*b+g.atk)*pb('atk')*am+sprV('atk'))*(P.pAtk>0?1+petAtk():1)*(P.wy>0?1.3:1)*X),def:Math.round(((lv(3)*b+g.def)*pb('def')+sprV('def'))*(P.pDef>0?1+petDef():1)*X),
     cr:+(cp.cr.reduce((s,q)=>s+q[1],0)).toFixed(1),dg:Math.min(DGMAX,+(cp.dg.reduce((s,q)=>s+q[1],0)).toFixed(1))}}
+const BHP=140,BMP=60;  // 第二十二轮:基础生命 60 → 140、基础魔力 30 → 60(1 级约 160 血,第一关小怪一下约 13%;原来 82 血一下 25%,第二区就扛不住)
 const DGMAX=35;  // 暴击率不设上限;闪避率上限 35%(第十六轮:45 → 35,闪避太高会让首领招式没有威胁)
 // 暴击率 / 闪避率来源明细(背包里显示)
 function crdgP(g,c){const r=v=>+v.toFixed(1),cr=[['装备',r(g.cr/CRPT)]],dg=[['装备',r(g.dg/DGPT)]],nl=trv('lei',c),nj=c.ji||0;
@@ -700,7 +701,7 @@ function drawChoice(){const dead=st=='dead',L=chBtns(),t=performance.now()/1000;
   CT('← → 选择 · Enter 确认 · 也可以直接点击按钮'+(dead&&POT.rev>0&&QS.includes('rev')?' · 按 '+(QS.indexOf('rev')+1)+' 喝复活药水':''),320,272,9,'#d0bfff','center',2.2,'#1e1030')}
 // 2026-10-13 第十六轮:角色上限 50 级(第二张地图出来再提高);升级所需经验 = 150×等级^1.5 + 100(1 级 250 · 10 级 4843 · 25 级 18850 · 49 级 51560,1~50 共约 100 万);
 // 每级 2 技能点(49 级共 98 点:8 个主动技能满级 64 点 + 8 个被动满级 40 点,不能全满,要取舍)
-const LVMAX=50,SPLV=2,expNeed=l=>Math.round(150*Math.pow(l,1.5)+100);
+const LVMAX=50,SPLV=2,expNeed=l=>Math.round(60*Math.pow(l,1.5)+40);  // 第二十二轮:升级经验 ×0.4(原 150·l^1.5+100):同关一星打一遍约升 0.8 级(原来 1/3 级,太长);1→50 级总经验约 40 万
 function lvUp(){while(lvl<LVMAX&&exp>=expNeed(lvl)){exp-=expNeed(lvl);lvl++;sp+=SPLV;sfx('lvl');VFX.spawn('radiant-heal',P.x+12,P.y+P.h,{s:1.3});const S=stats();P.hp=S.hp;P.mp=S.mp;tx('升级! Lv'+lvl,P.x-10,P.y-34,'#fff3bf')}if(lvl>=LVMAX)exp=0}
 function init(full){
   if(full){lvl=1;exp=0;gold=0;sp=0;EQ={sword:gen('sword',0,'新手剑'),staff:gen('staff',0,'新手法杖')};BAG=[];LN={sword:Array(8).fill(0),staff:Array(8).fill(0)};JOB=null;STN=stnNew();CLR=[];STAR={};LVSTAR=1;QD=qNew();MAT={egg:0};LUCK=0;R19=r19New();PS={};KP=0;KPS=0;KPC=0;SIGN={day:'',n:0,str:0,last:0,prev:''};OWN=[];WEAR={fash:null,wing:null};SPR=sprNew();PET=petNew();HAM=hamNew();POT=potNew();QS=['hp1','mp1','rev'];RVD=''}
@@ -801,7 +802,9 @@ function mAtk(e){const s=e.s;if(MVK[e.k]){const a=s&&MVK[e.k].at?MVK[e.k].at[s]:
   case 'seal':case 'seal2':return s=='in'?2:s=='pop'||s=='slp'||s=='cu'||s=='ball'?1:0;
   default:return 0}}
 // 申请出招:拿到「攻击令牌」才能开始一次攻击;拿不到就继续走位,稍后再试。被召唤物吸引时不受限制
-function tok(e,rg){if(DECOY)return true;if(P.sk&&P.sk.id=='zap')return false;  // 雷霆连斩期间不可选取:怪物不会对主角出招
+// 第二十二轮:怪物攻击距离 = 1.5 个闪现(BLKD 170 × 1.5 = 255,MATKR):小怪离主角超过这个距离不出招;小怪的飞弹最多飞 MSHR 就消散(首领不受限)
+const BLKD=170,MATKR=Math.round(BLKD*1.5),MSHR=Math.round(BLKD*1.5)+60,MAGR=Math.round(BLKD*1.75);
+function tok(e,rg){if(DECOY)return true;if(P.sk&&P.sk.id=='zap')return false;if(!e.max&&Math.abs(e.x+e.w/2-(P.x+12))>MATKR)return false;  // 雷霆连斩期间不可选取:怪物不会对主角出招
  const L3=cur>=8&&cur<=10;if(GT-ATKT<(L3?.22:.35))return false;let n=0,r=0;const pc=P.x+12;
   let al=0;for(const o of E){if(o===e||o.hp<=0||Math.abs(o.x+o.w/2-pc)>420)continue;al++;const m=mAtk(o);if(m){n++;if(m==2)r++}}
   if(L3&&!bossOn&&al<=1&&GT-ATKT<.9)return false;  // 第八~十关只剩一两只时:两次出招至少隔 0.9 秒(不然会一直连发)
@@ -1019,7 +1022,7 @@ function strike(heavy){
   }else{
     {const dk=keys.r-keys.l;if(dk)P.f=dk}  // 法师普通攻击(含蓄力)不消耗魔力
     P.cd=heavy?.6:.3;P.at=.12;sfx(heavy?'bigshot':'shot');P.swT=0;P.swC=heavy?'sh':'s';P.swD=.12;P.swR=P.cd;
-    PB.push({x:P.f>0?P.x+P.w:P.x-10,y:P.y+14,vx:P.f*(heavy?300:420),dmg:stats().atk*(heavy?2.5:1),r:heavy?12:6,big:heavy,hit:new Set()});
+    PB.push({x:P.f>0?P.x+P.w:P.x-10,y:P.y+14,vx:P.f*(heavy?300:420),dmg:stats().atk*(heavy?2.5:1),r:heavy?12:6,big:heavy,hit:new Set(),rg:MAGR});  // 第二十二轮:法师普攻射程 1.75 个闪现(MAGR = 298)
   }}
 // ===== 技能体系(2026-10-13 第十六轮重做;原版代码见 docs/原版技能代码_纪念.txt)=====
 // 剑士「剑势」:普攻 / 技能每次命中 +1 层(每 0.2 秒最多 1 层),攒满 5 层后下一个技能伤害 +40%(放招时清空,2.2 秒内生效);技能栏右边的 5 颗菱形 = 当前层数
@@ -1077,7 +1080,7 @@ function loadSave(){try{const d=JSON.parse(localStorage.getItem(SK_KEY));if(d&&d
     PET=Object.assign(petNew(),d.PET);HAM=Object.assign(hamNew(),d.HAM);HAM.b=Object.assign(hamNew().b,HAM.b);
     // 旧存档没有消费记录:按已拥有的时装 / 翅膀价格补算
     KPS=d.KPS!=null?d.KPS:OWN.reduce((t,k)=>t+COSD[k].kp,0);KPC=d.KPC||0;POT=d.POT||potNew();for(const k in POT)if(!POTD[k]||!(POT[k]>0))delete POT[k];QS=(Array.isArray(d.QS)?d.QS:[]).concat([null,null,null]).slice(0,3).map((k,i)=>POTD[k]?k:['hp1','mp1','rev'][i]);RVD=d.RVD||'';  // 旧存档:送 8 瓶初级生命 + 8 瓶初级魔力
-    SIGN=Object.assign({day:'',n:0,str:0,last:0,prev:''},d.SIGN);TMX=d.TMX||0;JOB=d.JOB||null;LMODE=d.pm=='staff'?'staff':'sword';if(P)P.mode=LMODE;for(const w of ['sword','staff']){LN[w]=LN[w]||[];while(LN[w].length<8)LN[w].push(0)}if(!d.sw01){const a=LN.staff;[a[0],a[1]]=[a[1],a[0]]}return true}}catch(e){}return false}
+    SIGN=Object.assign({day:'',n:0,str:0,last:0,prev:''},d.SIGN);TMX=d.TMX||0;JOB=d.JOB||null;LMODE=d.pm=='staff'?'staff':'sword';if(P)P.mode=LMODE;for(const w of ['sword','staff']){LN[w]=LN[w]||[];while(LN[w].length<8)LN[w].push(0)}if(!d.sw01){const a=LN.staff;[a[0],a[1]]=[a[1],a[0]]}while(lvl<LVMAX&&exp>=expNeed(lvl)){exp-=expNeed(lvl);lvl++;sp+=SPLV}if(lvl>=LVMAX)exp=0;return true}}catch(e){}return false}  // 第二十二轮:经验曲线变短,旧存档攒着的经验读档时直接升级(return true 前的 while)
 function clearSave(){try{localStorage.removeItem(SK_KEY)}catch(e){}}
 try{hasSave=!!localStorage.getItem(SK_KEY)}catch(e){}
 // ===== 技能特效系统:粒子、光环、刀光、残影、地裂、焦痕、光柱、闪屏、压暗、顿帧 =====
@@ -1750,7 +1753,7 @@ function update(dt){
   skStep(dt,S,all);zStep(dt,S,all);smStep(dt,all);fashStep(dt,S,all);petStep(dt,S,all);hamPetStep(dt,S,all);sprStep(dt);starStep(dt);
   if(P.mode=='sword'&&P.at>0&&P.hb&&!(P.swT!=null&&P.swT<P.hbW)){const h=P.hb,hb={x:P.f>0?P.x+P.w:P.x-h.w,y:P.y+h.y,w:h.w,h:h.h};
     for(const e of all)if(!P.hit.has(e)&&ov(hb,e)){P.hit.add(e);hitFx=P.cmb==-1?'heavy':null;dealt(e,Math.round(S.atk*h.m*(.9+Math.random()*.2)));hitFx=null;if(!isBig(e)&&!e.ug){const K=P.cmb==3||P.cmb==-1?2:1;e.kbv=P.f*KBV*K*(iceAt(e.x+e.w/2)?1.6:1)}}}  // 击退(第四段 / 重击加倍);第二十一轮:每下 0.32 秒僵直取消,僵直改走小怪韧性 mobPz(和法师一样),击退只推开怪物、不打断它的动作
-  for(let i=PB.length-1;i>=0;i--){const b=PB[i];b.x+=b.vx*dt;if(b.fb)weAbs(b.x,b.y,'fire');let gone=b.x<cam-30||b.x>cam+VW+30;const d=sgn(b.vx);
+  for(let i=PB.length-1;i>=0;i--){const b=PB[i];if(b.x0==null)b.x0=b.x;b.x+=b.vx*dt;if(b.fb)weAbs(b.x,b.y,'fire');let gone=b.x<cam-30||b.x>cam+VW+30||(b.rg&&Math.abs(b.x-b.x0)>b.rg);const d=sgn(b.vx);
     if(b.wv)for(let n=0;n<2;n++)pt({x:b.x-d*rnd(10,30),y:b.y+rnd(-28,28),vx:-d*rnd(60,160),vy:rnd(-30,30),c:pick(['#ffe066','#fff3bf']),sh:1,s:2,l:.25});
     if(b.fb){for(let n=0;n<2;n++)pt({x:b.x-d*6+rnd(-4,4),y:b.y+rnd(-4,4),vx:-d*rnd(20,70),vy:rnd(-70,-10),c:pick(['#ff922b','#ffd43b','#ff6b35']),sh:2,s:rnd(6,10),l:rnd(.25,.45)});if(Math.random()<.25)pt({x:b.x-d*10,y:b.y,vx:-d*20,vy:-40,c:'rgba(70,64,60,.45)',ad:0,s:5,gr:1.5,l:.6})}
     for(const e of all)if(!b.hit.has(e)&&ov({x:b.x-b.r,y:b.y-b.r,w:2*b.r,h:2*b.r},e)){b.hit.add(e);hitFx=b.wv?'wave':null;if(b.fb)mkF(e);dealt(e,Math.round(b.dmg*(.9+Math.random()*.2)));hitFx=null;if(b.fb){explode(b.x+d*6,b.y);SFX5('r-burst',e.x+e.w/2,e.y+e.h/2,{s:1,life:.4,gr:.4});for(const o of all)if(o!==e&&!b.hit.has(o)&&!o.ug&&Math.abs(o.x+o.w/2-(e.x+e.w/2))<o.w/2+80&&Math.abs(o.y+o.h/2-(e.y+e.h/2))<90){mkF(o);dealt(o,Math.round(b.dmg*.4),{ns:1})}}if(b.sl)e.sl=2;if(!b.big&&!b.pierce)gone=true}
@@ -1781,6 +1784,7 @@ function update(dt){
   for(let i=E.length-1;i>=0;i--)if(E[i].hp<=0){const e=E[i];if(e.k=='fwisp')V9.bm.push({x:e.x+e.w/2,y:e.y+e.h/2,t:.4});sfxStop(e.sh);sfxStop(e.gl);if(e.max)sfxAll();reward(e);qKill();E.splice(i,1)}  // 小怪不再掉落回血药瓶
   for(let i=F.length-1;i>=0;i--){const f=F[i];if(f.hm){const a=Math.atan2(P.y+16-f.y,P.x+12-f.x),k=Math.min(1,dt*1.4);f.vx+=(Math.cos(a)*85-f.vx)*k;f.vy+=(Math.sin(a)*85-f.vy)*k;f.hl-=dt;if(f.hl<=0){burst(f.x,f.y,8,['#a8ffe8','#2fbf9f'],90,{s:2,l:.3});F.splice(i,1);continue}}  // 鬼火:慢慢追踪玩家
     f.x+=f.vx*dt;f.y+=f.vy*dt;if(!f.ng)f.vy+=(f.g||120)*dt;
+    if(f.ox==null){f.ox=f.x;f.mb=!(bossOn&&B&&B.hp>0&&Math.abs(f.x-(B.x+B.w/2))<B.w/2+140)}if(f.mb&&Math.abs(f.x-f.ox)>MSHR){burst(f.x,f.y,6,['#fff','#ced4da'],90,{s:2,l:.25});F.splice(i,1);continue}  // 第二十二轮:小怪飞弹射程上限(首领身边发出的不限)
     if(f.gb&&cur==6&&solidAt(f.x-6,f.x+6,GY)){if(f.bnc>0){f.vx=-f.vx;f.bnc--;f.x+=f.vx*dt*2;burst(f.x,f.y,6,['#fff','#a5d8ff'],120,{s:2,l:.25})}else{F.splice(i,1);continue}}
     if(f.snow&&f.y>=GY-14){F.splice(i,1);sfx('boom');shake=Math.max(shake,.2);burst(f.x,GY-10,22,['#fff','#e7f5ff','#d0ebff'],260,{s:4,l:.5,g:600});ring(f.x,GY-4,6,60,'#fff',.35,4,.3);if(Math.abs(P.x+12-f.x)<34&&P.y+P.h>GY-40)hurt(f.dmg);
       for(let k=0;k<7;k++)F.push({x:f.x+rnd(-8,8),y:GY-18,vx:rnd(-260,260),vy:rnd(-430,-230),g:700,c:5,dmg:7*LDM});continue}
@@ -5880,6 +5884,7 @@ function pvImg(k){const t=.3,c=document.createElement('canvas'),g=c.getContext('
 // 主页面打开时 HOME=1:主城画面停住当背景(loop 里不跑 townUpd),键盘只认 Enter(继续 / 新游戏)和 Esc(从操作说明返回)
 // 更新日志 CHLOG:[版本, 日期, [条目...]],新版本加在最前面(和 GAMEV 一起改)
 const CHLOG=[
+ ['1.22','2026-10-14',['升级更快了:每级需要的经验降到原来的 40%(同关一星打一遍约升 0.8 级),旧存档攒着的经验会直接升级','基础生命 60 → 140、基础魔力 30 → 60,第一关不再两三下就倒','小怪的攻击距离缩短到约 1.5 个闪现:离得远不会出招,远程飞弹飞一段就消散(首领不变)','法师普攻射程缩短到约 1.75 个闪现']],
  ['1.21','2026-10-14',['主页面换成外部美术素材:魔法悬崖背景(ansimuz,CC0)+ 金色双线边框 / 按钮框(Kenney,CC0),布局参考「游戏内容」面板','剑士普攻也改走小怪韧性:每一下仍然把怪物击退,但不再每下都打僵直,怪物会顶着击退继续往前走','剑 U 雷霆连斩冷却固定 6 秒(不再随等级、时装、疾风缩短)']],
  ['1.20','2026-10-14',['新增主页面:开始新游戏 / 继续游戏 / 提取存档(导出成文件)/ 添加存档(从文件导入)/ 操作说明','防御、暴击、闪避重新换算:防御 12 点 = 1% 减伤(最多 75%),暴击 60 点 = 1%,闪避 30 点 = 1%;属性石终于有用了,旧装备自动换算(百分比不变)','小怪也有韧性了:挨打照常后仰掉血,但会继续往前推进,连续打满韧性才会被打出僵直(法师普攻不能再把小怪钉死)','记住上次用的武器:常玩法师的话,进关卡、回城、重新打开游戏都还是法师','背包里左键点物品就能弹出 使用 / 穿戴 / 出售 菜单(双击照旧直接穿戴 / 喝药)']],
  ['1.19','2026-10-13',['属性石(熔炉镶嵌)、小礼袋与 NPC 好感、商城新道具和随机物品栏、幸运宝石、双倍爆率卡、宠物饲料','召唤物换成凤凰 / 食人花,精灵换成小仙子','强化最高 +6;关卡掉的强化石一律普通品质,高品质靠熔炉合成','游戏有了版本号,分享链接自动更新到最新版']],
