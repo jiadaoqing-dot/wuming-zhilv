@@ -204,13 +204,13 @@ body.px .eqi,body.px .eqs,body.px .eqt,body.px #dg img{image-rendering:pixelated
 </style>
 </head>
 <body>
-<div id="wrap"><canvas id="c" width="640" height="360"></canvas><div id="tb"><button id="bb" data-l="背包" title="背包 (B)">🎒</button><button id="sb" data-l="技能" title="技能 (T)">🌟</button><button id="ib" data-l="商城" title="商城 (P)">🏪</button><button id="fb" data-l="精灵" title="精灵 (Y)">🧚</button><button id="pb" data-l="宠物" title="宠物 (G)">🐤</button><button id="qb" data-l="任务" title="任务 (Q)" hidden>📜</button><button id="db" data-l="签到" title="每日签到">📅<i class="rd" id="dbd"></i></button><button id="mb" data-l="声音" title="声音 (M)">🔊</button></div><div id="bag" hidden></div><div id="tip" hidden></div><div id="sk" hidden></div><div id="pn" hidden></div><div id="home" hidden></div><input type="file" id="homeF" accept=".json,application/json" hidden></div>
+<div id="wrap"><canvas id="c" width="640" height="360"></canvas><div id="tb"><button id="bb" data-l="背包" title="背包">🎒</button><button id="sb" data-l="技能" title="技能">🌟</button><button id="ib" data-l="商城" title="商城">🏪</button><button id="fb" data-l="精灵" title="精灵">🧚</button><button id="pb" data-l="宠物" title="宠物">🐤</button><button id="qb" data-l="任务" title="任务" hidden>📜</button><button id="db" data-l="签到" title="每日签到">📅<i class="rd" id="dbd"></i></button><button id="mb" data-l="声音" title="声音">🔊</button></div><div id="bag" hidden></div><div id="tip" hidden></div><div id="sk" hidden></div><div id="pn" hidden></div><div id="home" hidden></div><input type="file" id="homeF" accept=".json,application/json" hidden></div>
 <div id="cm" hidden></div><div id="dg" class="cl" hidden></div>
 <div class="sbar"><span id="fpsT" class="tag" style="margin-right:auto;align-self:center"></span><button id="setb" title="设置 (Esc)">⚙️ 设置</button></div>
-<p class="tip">← → / A D 移动(连按两次快跑) · K / ↑ 跳跃 · W+J / S+J 特殊普攻(学会二段跳后空中再按) · J 攻击(下劈 → 上挑 → 直戳 → 下劈 循环,按住蓄力重击;跑步中按 J = 冲刺直戳) · L 换武器 · H U I O 技能 · 空格 / W+空格 / S+空格 / WW+空格 剑士进阶技能(转职后) · 1 2 3 喝药水 · S 捡起地上的掉落物 · B 背包(左键点物品弹出菜单:使用 / 穿戴 / 出售,装备可拖动穿戴) · T 技能栏 · Q 任务 · P 商城 · Y 精灵 · G 宠物 · 装备翅膀后空中再按跳跃=飞行(W/S 升降、A/D 方向) · Esc / ⚙️ 设置(暂停、返回城镇、帧数、全屏)</p>
+<p class="tip">← → / A D 移动(连按两次快跑) · K / ↑ 跳跃 · W+J / S+J 特殊普攻(学会二段跳后空中再按) · J 攻击(下劈 → 上挑 → 直戳 → 下劈 循环,按住蓄力重击;跑步中按 J = 冲刺直戳) · L 换武器 · H U I O 技能 · 空格 / W+空格 / S+空格 / WW+空格 剑士进阶技能(转职后) · 1 2 3 喝药水 · S 捡起地上的掉落物 · 背包 / 技能 / 商城 / 精灵 / 宠物 / 任务 / 声音:点右下角按钮(菜单快捷键已关闭;背包里左键点物品弹出菜单,装备可拖动穿戴) · 装备翅膀后空中再按跳跃=飞行(W/S 升降、A/D 方向) · Esc / ⚙️ 设置(暂停、返回城镇、帧数、全屏)</p>
 <script>
 // 游戏版本:build.py 按它给输出文件命名(out/无名之旅_v版本.html),设置页也显示;每次发新版改这里
-const GAMEV='1.23';
+const GAMEV='1.24';
 // x 是当前的绘图上下文:平时是主画布;像素特效层(PXL,P2)绘制期间临时换成 640×360 的低分辨率图层
 const cv=document.getElementById('c');let x=cv.getContext('2d');const VW=640,VH=360,WW=3200,GY=300;
 // 渲染分辨率:电脑端 1920×1080(逻辑坐标仍是 640×360,整体放大 3 倍绘制,文字和像素都更清晰);手机端 1280×720
@@ -809,6 +809,7 @@ function mAtk(e){const s=e.s;if(MVK[e.k]){const a=s&&MVK[e.k].at?MVK[e.k].at[s]:
 // 申请出招:拿到「攻击令牌」才能开始一次攻击;拿不到就继续走位,稍后再试。被召唤物吸引时不受限制
 // 第二十二轮:怪物攻击距离 = 1.5 个闪现(BLKD 170 × 1.5 = 255,MATKR):小怪离主角超过这个距离不出招;小怪的飞弹最多飞 MSHR 就消散(首领不受限)
 // 第二十三轮:远程攻击再收紧 —— 远程出招距离 MRNGR = 1 个闪现(170),飞弹最多飞 MSHR 230;每只小怪两次远程至少隔 MRCD 3.5 秒,全场两次远程至少隔 RGAP 1.2 秒(原来只要求同时只有 1 只在放远程)
+const BSHR=340;  // 第二十四轮(用户回复):首领的飞弹最多飞 2 个闪现(340 像素),不再隔着整个场地打人
 const BLKD=170,MATKR=Math.round(BLKD*1.5),MRNGR=BLKD,MSHR=BLKD+60,MAGR=Math.round(BLKD*1.75),MRCD=3.5,RGAP=1.2;let RATKT=-99;
 function tok(e,rg){if(DECOY)return true;if(P.sk&&P.sk.id=='zap')return false;if(!e.max){const ad_=Math.abs(e.x+e.w/2-(P.x+12));if(ad_>(rg?MRNGR:MATKR))return false;if(rg&&(GT-(e.rT??-99)<MRCD||GT-RATKT<RGAP))return false}  // 雷霆连斩期间不可选取:怪物不会对主角出招
  const L3=cur>=8&&cur<=10;if(GT-ATKT<(L3?.22:.35))return false;let n=0,r=0;const pc=P.x+12;
@@ -817,6 +818,7 @@ function tok(e,rg){if(DECOY)return true;if(P.sk&&P.sk.id=='zap')return false;if(
   if(n>=(bossOn?1:L3?3:2))return false;if(rg&&(r>=1||F.length>=4))return false;ATKT=GT;if(rg){RATKT=GT;e.rT=GT}return true}
 // 小怪索敌(2026-10-12):不出招时一直朝主角(或吸引它的召唤物)走;自己的走位已经在靠近就不管。远程怪(SEEKR)走到射程内停下,交给它自己的出招逻辑
 // 首领、潜伏中的海豹(ug)、出招 / 收招中的怪不受影响
+const MCHS=110;  // 第二十四轮:超过这个距离(远程怪按 SEEKR)就一定朝玩家走
 const SEEKV={slime:45,skel:65,bat:70,snake:60,ape:70,ysco:55,bsco:55,spi:70,ost:85,pen:45,pen2:50,seal:40,seal2:45,dog:105,dog2:95},SEEKR={pen:150,pen2:150,spi:110,dog2:90,seal:120,seal2:120};
 function seek(e,x0,dt){if(MVK[e.k])return;const v=SEEKV[e.k];if(!v||e===B||e.ug||e.ca>0||mAtk(e)||e.wu>0||e.sw>0||e.rec>0||e.wu2>0||e.lg>0||e.s||e.dg>0)return;
   const dx=P.x+12-(e.x+e.w/2),d=sgn(dx);if(Math.abs(dx)<(SEEKR[e.k]||e.w/2+26))return;
@@ -833,7 +835,9 @@ function hzDraw(){const t=performance.now()/1000;for(const h of HZ){const hx=h.x
   if(h.k=='slow'){x.filter='sepia(1) hue-rotate(60deg) saturate(2.2) brightness(.9)';for(let i=0;i<3;i++)VFX.frame(x,'m-smoke',(Math.floor(t*8)+i*2)%6,hx+h.w*(.2+.3*i),GY-5,.9,i%2?-1:1,0,.85,.45)}  // 黏液 = 烟雾帧(Ninja Adventure m-smoke)染绿压扁
   else for(let i=0;i<Math.max(1,Math.round(h.w/40));i++)VFX.frame(x,'m-poison',(Math.floor(t*12)+i*3)%12,hx+20+i*40,GY-8,1.3,i%2?-1:1,0,.8);x.restore()}}
 function mvHit(e,hb,b,o){return ov(P,hb)?hurt(b*e.dm,o):false}
-function mvEnd(e,cd,rec){e.s=null;e.t=0;e.pz=null;e.ug=0;e.cd=cd+Math.random()*.4;if(rec)e.rec=rec}
+// 第二十四轮:近战出招后的冷却 ×MMCK 1.6(近战频率降低约 40%;远程另有 MRCD 限制,不再乘)
+const MMCK=1.6;
+function mvEnd(e,cd,rec){const M=MVK[e.k],rg=M&&M.at&&M.at[e.s]==2,ml=M&&e.s&&!rg&&!(M.at&&M.at[e.s]===0);e.s=null;e.t=0;e.pz=null;e.ug=0;e.cd=cd*(ml?MMCK:1)+Math.random()*.4;if(rec)e.rec=rec}
 const mvBox=(e,w,h,dy)=>({x:e.f>0?e.x+e.w-8:e.x+8-w,y:e.y+e.h-(h||e.h)-(dy||0),w,h:h||e.h});
 function mvWalk(e,dt,v,stop,dx,ad){e.f=sgn(dx)||e.f;if(ad>stop)e.x+=e.f*v*dt;else if(ad<stop*.45)e.x-=e.f*v*.5*dt}
 function mvPatrol(e,dt,v){e.x+=e.f*v*dt;if(Math.abs(e.x-e.o)>80)e.f=sgn(e.o-e.x)||1}
@@ -843,7 +847,9 @@ function mobStep(e,dt){const M=MVK[e.k];e.cd=(e.cd==null?rnd(.6,1.4):e.cd)-dt;e.
   const dx=P.x+12-(e.x+e.w/2),ad=Math.abs(dx),dy=P.y+P.h-(e.y+e.h);
   if(e.s){e.t+=dt;const mv=M.mv[e.s];if(mv)mv(e,dt,dx,ad,dy);else mvEnd(e,.5);return}
   e.pz=null;if(e.rec>0){e.rec-=dt;return}
-  M.idle(e,dt,dx,ad,dy);
+  const ix0=e.x;M.idle(e,dt,dx,ad,dy);
+  // 第二十四轮:离玩家远了也要追(原来很多小怪的待机只在 300 像素内才走过来,拉开距离就原地罚站 / 来回巡逻);潜伏中的不动
+  if(!e.ug&&ad>(SEEKR[e.k]||MCHS)){const v=(SEEKV[e.k]||60)*(ad>320?1.4:1),s0=sgn(dx);if((e.x-ix0)*s0<v*dt*.5){e.x=ix0+s0*v*dt;e.f=s0||e.f}}
   if(e.cd<=0){const s=M.pick(e,dx,ad,dy);if(!s)return;const at=M.at&&M.at[s];if(at!==0&&!tok(e,at==2)){e.cd=.3;return}e.s=s;e.t=0;e.hd=0;e.hd2=0;e.pn=0;e.f=sgn(dx)||e.f;if(at!==0&&e.x+e.w>cam&&e.x<cam+VW)sfx('eatk')}}
 const MVK={};
 // 史莱姆:弹跳撞(三连跳,每次落地小范围伤害,跳起或后退躲)· 黏液喷射(抛物线,落地留黏液 2.5 秒,站上去减速)
@@ -1790,7 +1796,7 @@ function update(dt){
   for(let i=E.length-1;i>=0;i--)if(E[i].hp<=0){const e=E[i];if(e.k=='fwisp')V9.bm.push({x:e.x+e.w/2,y:e.y+e.h/2,t:.4});sfxStop(e.sh);sfxStop(e.gl);if(e.max)sfxAll();reward(e);qKill();E.splice(i,1)}  // 小怪不再掉落回血药瓶
   for(let i=F.length-1;i>=0;i--){const f=F[i];if(f.hm){const a=Math.atan2(P.y+16-f.y,P.x+12-f.x),k=Math.min(1,dt*1.4);f.vx+=(Math.cos(a)*85-f.vx)*k;f.vy+=(Math.sin(a)*85-f.vy)*k;f.hl-=dt;if(f.hl<=0){burst(f.x,f.y,8,['#a8ffe8','#2fbf9f'],90,{s:2,l:.3});F.splice(i,1);continue}}  // 鬼火:慢慢追踪玩家
     f.x+=f.vx*dt;f.y+=f.vy*dt;if(!f.ng)f.vy+=(f.g||120)*dt;
-    if(f.ox==null){f.ox=f.x;f.mb=!(bossOn&&B&&B.hp>0&&Math.abs(f.x-(B.x+B.w/2))<B.w/2+140)}if(f.mb&&Math.abs(f.x-f.ox)>MSHR){burst(f.x,f.y,6,['#fff','#ced4da'],90,{s:2,l:.25});F.splice(i,1);continue}  // 第二十二轮:小怪飞弹射程上限(首领身边发出的不限)
+    if(f.ox==null){f.ox=f.x;f.mb=!(bossOn&&B&&B.hp>0&&Math.abs(f.x-(B.x+B.w/2))<B.w/2+140)}if(!f.gb&&!f.hm&&Math.abs(f.x-f.ox)>(f.mb?MSHR:BSHR)){burst(f.x,f.y,6,['#fff','#ced4da'],90,{s:2,l:.25});F.splice(i,1);continue}  // 第二十二轮:小怪飞弹射程上限(首领身边发出的不限)
     if(f.gb&&cur==6&&solidAt(f.x-6,f.x+6,GY)){if(f.bnc>0){f.vx=-f.vx;f.bnc--;f.x+=f.vx*dt*2;burst(f.x,f.y,6,['#fff','#a5d8ff'],120,{s:2,l:.25})}else{F.splice(i,1);continue}}
     if(f.snow&&f.y>=GY-14){F.splice(i,1);sfx('boom');shake=Math.max(shake,.2);burst(f.x,GY-10,22,['#fff','#e7f5ff','#d0ebff'],260,{s:4,l:.5,g:600});ring(f.x,GY-4,6,60,'#fff',.35,4,.3);if(Math.abs(P.x+12-f.x)<34&&P.y+P.h>GY-40)hurt(f.dmg);
       for(let k=0;k<7;k++)F.push({x:f.x+rnd(-8,8),y:GY-18,vx:rnd(-260,260),vy:rnd(-430,-230),g:700,c:5,dmg:7*LDM});continue}
@@ -2236,14 +2242,20 @@ function andrStep(e,dt){const hp=e.hp/e.max;
 // ===== 首领攻击像素化(2026-10-12 第二版):特效全部来自 BFX2 图集(art_src/bfx/build_bfx2.py,素材见那个脚本开头)=====
 // 地面预警 DZ:符文圆环(Earth Impact,Cethiel,CC0)染红压扁;落石 BTA:灰石块(Floor Effects,hernandack,CC0)换沙岩色;
 // 沙浪:Tornado(devnewton,CC0)换沙黄;冰刺:Freeze Spell(Clint Bellanger,CC-BY 3.0);蝎王毒柱:Pixel FX Pack(CodeManu,CC0)
+// 第二十四轮:首领不再显示攻击范围 / 预警(地面红色符文带 DZ.zone、瞄准圈 DZ.mark、头顶感叹号 WARN、各种预警线),玩家看首领的前摇动作自己预判。
+// BWQ=1 期间(画首领本体、首领招式效果时)这些预警不画,改成记下 bwT,首领本体在 monPose 里做蓄力前摇(后仰 + 压扁 + 发抖,幅度比原来大)。BWOFF=0 可恢复预警
+const BWOFF=1;let BWQ=0,BWE=null;
+function bwHit(){const e=BWE||B;if(e)e.bwT=GT}
+function bwSkip(){if(BWOFF&&BWQ){bwHit();return true}return false}
+function BW(f){const q=BWQ;BWQ=1;try{f()}finally{BWQ=q}}
 const DZ={
   // 地面预警魔法阵:sx = 屏幕左边,w = 宽度。宽的区域排成一串圆环
-  zone(sx,w){const m=VFX.M['z-rune'],I=VFX.I4;if(!I||!m)return;const t=performance.now()/1000,i=Math.floor(t*m.fps)%m.n,W=Math.max(12,Math.round(w)),n=Math.max(1,Math.round(W/60)),cw=W/n;
+  zone(sx,w){if(bwSkip())return;const m=VFX.M['z-rune'],I=VFX.I4;if(!I||!m)return;const t=performance.now()/1000,i=Math.floor(t*m.fps)%m.n,W=Math.max(12,Math.round(w)),n=Math.max(1,Math.round(W/60)),cw=W/n;
     x.save();x.imageSmoothingEnabled=false;x.globalAlpha*=.8+.2*Math.sin(t*20);
     for(let k=0;k<n;k++){const X=Math.round(sx+k*cw);x.drawImage(I,((i+k)%m.n)*m.w,m.y,m.w,m.h,X,GY-9,Math.round(cw),18)}
     x.globalCompositeOperation='lighter';x.globalAlpha*=.45;for(let k=0;k<n;k++)x.drawImage(I,((i+k+4)%m.n)*m.w,m.y,m.w,m.h,Math.round(sx+k*cw),GY-9,Math.round(cw),18);x.restore()},
   // 小号瞄准标记(圆形,中心在 cx,cy)
-  mark(cx,cy,r){const m=VFX.M['z-rune'],I=VFX.I4;if(!I||!m)return;const t=performance.now()/1000,i=Math.floor(t*m.fps)%m.n;
+  mark(cx,cy,r){if(bwSkip())return;const m=VFX.M['z-rune'],I=VFX.I4;if(!I||!m)return;const t=performance.now()/1000,i=Math.floor(t*m.fps)%m.n;
     x.save();x.imageSmoothingEnabled=false;x.globalAlpha*=.75+.25*Math.sin(t*16);x.drawImage(I,i*m.w,m.y,m.w,m.h,Math.round(cx-r),Math.round(cy-r),Math.round(2*r),Math.round(2*r));x.restore()}};
 const BTA={
   // 落石:画在屏幕坐标,cx = 中心,by = 底边(放大 1.5 倍)
@@ -2931,7 +2943,7 @@ function v9Fx(){if(!VOL9.I)return;const t=performance.now()/1000,M=VOL9.M;
   for(const f of V9.fp){const sx=f.x-cam,n=Math.max(1,Math.round(f.w/14)),a=Math.min(1,f.t/.4);if(sx<-60||sx>VW+60)continue;x.save();x.globalAlpha=a;for(let i=0;i<n;i++)VOL9.fr(x,'flame',Math.floor(t*12+i*2)%3,sx-f.w/2+i*(f.w/n),GY-20+(i%2)*2,1,i%2?-1:1);x.restore()}
   for(const z of V9.cz){const sx=z.x-cam;if(z.w0>0){DZ.zone(sx,z.w);continue}const a=Math.min(1,z.t/.5);x.save();x.globalAlpha=a;for(let i=0;i<z.w;i+=60){x.drawImage(VOL9.I,M.crack[4]||0,M.crack[0],Math.min(64,z.w-i),8,Math.round(sx+i),GY-4,Math.min(64,z.w-i),8)}
     x.globalCompositeOperation='lighter';x.fillStyle=LG(x,0,GY-40,0,GY,['rgba(255,90,20,0)','rgba(255,90,20,'+(.3+.12*Math.sin(t*9))+')']);x.fillRect(sx,GY-40,z.w,40);if(Math.random()<.3)VOL9.fr(x,'flame',Math.floor(t*12)%3,sx+Math.random()*(z.w-16),GY-18,.8,1);x.restore()}
-  for(const p of V9.pl){const sx=p.x-cam;if(p.t<p.w){DZ.mark(sx,GY-2,p.sm?16:22);continue}const u=p.t-p.w,q=Math.min(1,u/.12)*Math.min(1,(p.w+.7-p.t)/.2),m=M.pillar,s=p.sm?.75:1;
+  for(const p of V9.pl){const sx=p.x-cam;if(p.t<p.w){BW(()=>DZ.mark(sx,GY-2,p.sm?16:22));continue}const u=p.t-p.w,q=Math.min(1,u/.12)*Math.min(1,(p.w+.7-p.t)/.2),m=M.pillar,s=p.sm?.75:1;
     x.save();x.globalAlpha=q;x.beginPath();x.rect(sx-50,0,100,GY+2);x.clip();VOL9.fr(x,'pillar',Math.floor(t*14)%2,sx-m[1]*s/2,GY+2-m[2]*s*Math.min(1,u/.12),s,1);x.restore()}
   for(const r of V9.rw){const sx=r.x-cam;for(let i=0;i<3;i++)VOL9.fr(x,'flame',Math.floor(t*14+i)%3,sx-8-r.d*i*10,GY-22-(i==0?6:0),i==0?1.5:1.1,r.d)}
   for(const q of V9F){q.t+=1/60;const m=M.dfire,i=Math.floor(q.t*14);if(i>=m[3])continue;VOL9.fr(x,'dfire',i,q.x-cam-m[1]*q.s/2,q.y-m[2]*q.s*.7,q.s,1)}for(let i=V9F.length-1;i>=0;i--)if(V9F[i].t>.4)V9F.splice(i,1);
@@ -3105,8 +3117,8 @@ function s10Fx(){if(!SHIP10.I)return;const t=performance.now()/1000;
     if(e.s=='bw'&&e.ba!=null){const n=26;x.fillStyle=e.t>=.7?'rgba(255,224,80,'+(.6+.4*Math.sin(t*40))+')':'rgba(255,224,80,.55)';for(let i=1;i<n;i++){if(i%2)continue;const d=i*16;x.fillRect(Math.round(ex+Math.cos(e.ba)*d)-1,Math.round(ey+Math.sin(e.ba)*d)-1,3,3)}}
     if(e.s=='bm'&&e.ang!=null){const L=440,a=e.ang;x.save();x.globalCompositeOperation='lighter';for(const [w,c] of [[9,'rgba(255,90,216,.35)'],[5,'rgba(255,170,240,.7)'],[2,'rgba(255,255,255,.95)']]){x.strokeStyle=c;x.lineWidth=w;x.beginPath();x.moveTo(ex,ey);x.lineTo(ex+Math.cos(a)*L,ey+Math.sin(a)*L);x.stroke()}x.restore()}}
   if(bossOn&&B&&B.k=='gui'&&B.hp>0)for(const a of S10.af){x.save();x.globalAlpha=a.t/.3*.5;x.translate(a.x+B.w/2-cam,a.y+B.h);x.scale(a.f*1.1,1.1);x.filter='brightness(.4) sepia(1) hue-rotate(220deg)';SHIP10.boss(x,{pz:null,act:null},t,B.h/1.1);x.restore()}
-  for(const b of S10.sb){const sx=b.x-cam;if(b.st=='trk')DZ.mark(sx,GY-2,14);SHIP10.fire({c:12,s:1.3},sx,b.y,t)}
-  for(const b of S10.bm){const sx=b.x-cam;if(b.t<.55){DZ.zone(sx-14,28);x.fillStyle='rgba(255,224,80,'+(.25+.25*Math.sin(t*30))+')';x.fillRect(Math.round(sx)-1,0,2,GY)}
+  for(const b of S10.sb){const sx=b.x-cam;if(b.st=='trk')BW(()=>DZ.mark(sx,GY-2,14));SHIP10.fire({c:12,s:1.3},sx,b.y,t)}
+  for(const b of S10.bm){const sx=b.x-cam;if(b.t<.55){BW(()=>{if(!bwSkip()){DZ.zone(sx-14,28);x.fillStyle='rgba(255,224,80,'+(.25+.25*Math.sin(t*30))+')';x.fillRect(Math.round(sx)-1,0,2,GY)}})}
     else{const q=Math.min(1,(b.t-.55)/.06)*Math.min(1,(.95-b.t)/.15);x.save();x.globalCompositeOperation='lighter';x.globalAlpha=q;x.fillStyle='rgba(177,151,252,.5)';x.fillRect(Math.round(sx)-12,0,24,GY);x.fillStyle='rgba(240,225,255,.95)';x.fillRect(Math.round(sx)-4,0,8,GY);x.restore()}}}
 // =====================================================================
 // ===== 第八~十关首领新招(2026-10-13 第十五轮):大范围、看得清的预警、躲法各不相同 =====
@@ -3180,10 +3192,10 @@ function nbStep(dt){if(!(cur>=8&&cur<=10))return;if(!bossOn||!B||B.hp<=0){if(NB.
 // 画面(PXL 层,怪物之后画)
 function nbFx(){if(!bossOn||!B||B.hp<=0)return;const t=performance.now()/1000,MID=(ARL+ARR)/2,pc=P.x+12;
   if(NB.ec>0){const g=x.createRadialGradient(pc-cam,P.y+16,30,pc-cam,P.y+16,200);g.addColorStop(0,'rgba(6,0,16,'+.25*NB.ec+')');g.addColorStop(1,'rgba(6,0,16,'+.78*NB.ec+')');x.fillStyle=g;x.fillRect(0,0,VW,VH);
-    if(B.act=='ecl'&&B.hide&&B.dx!=null&&B.at>.6&&B.at<4.2){DZ.zone(B.dx-30-cam,60);x.fillStyle='rgba(177,151,252,'+(.3+.3*Math.sin(t*30))+')';x.fillRect(Math.round(B.dx-cam)-1,0,2,GY)}}
+    if(B.act=='ecl'&&B.hide&&B.dx!=null&&B.at>.6&&B.at<4.2&&!bwSkip()){DZ.zone(B.dx-30-cam,60);x.fillStyle='rgba(177,151,252,'+(.3+.3*Math.sin(t*30))+')';x.fillRect(Math.round(B.dx-cam)-1,0,2,GY)}}
   // 鬼影回廊:预警带 → 一群黑色鬼影高速横穿
   for(const l of NB.ln){const y0=l.lo?GY-26:GY-78,h=l.lo?26:38;
-    if(l.t<l.w){if(l.t>-.3){x.fillStyle='rgba(150,60,200,'+(.16+.12*Math.sin(t*20))+')';x.fillRect(Math.round(ARL-cam),y0,ARR-ARL,h);x.fillStyle='rgba(220,150,255,.6)';x.fillRect(Math.round(ARL-cam),y0,ARR-ARL,1);x.fillRect(Math.round(ARL-cam),y0+h-1,ARR-ARL,1);
+    if(l.t<l.w){if(l.t>-.3&&!bwSkip()){x.fillStyle='rgba(150,60,200,'+(.16+.12*Math.sin(t*20))+')';x.fillRect(Math.round(ARL-cam),y0,ARR-ARL,h);x.fillStyle='rgba(220,150,255,.6)';x.fillRect(Math.round(ARL-cam),y0,ARR-ARL,1);x.fillRect(Math.round(ARL-cam),y0+h-1,ARR-ARL,1);
       for(let i=0;i<5;i++){const ax=(l.d>0?ARL+30:ARR-30)+l.d*i*12-cam;x.fillStyle='rgba(255,210,255,'+(.5+.4*Math.sin(t*20-i))+')';x.fillRect(Math.round(ax),y0+h/2-1,4,3)}}continue}
     for(let i=0;i<4;i++){const gx=l.x-l.d*(18+i*36)-cam,gy=y0+h/2-22+Math.sin(t*16+i)*3;x.save();x.globalAlpha=.9-i*.15;x.filter='brightness(.55) saturate(1.8)';GH8.fr(x,'fly2',Math.floor(t*12+i),gx-26,gy,1.6,l.d);x.restore()}
     x.save();x.globalCompositeOperation='lighter';x.fillStyle='rgba(170,80,230,.35)';x.fillRect(Math.round((l.d>0?l.x-170:l.x)-cam),y0+h/2-3,170,6);x.restore()}
@@ -3192,7 +3204,7 @@ function nbFx(){if(!bossOn||!B||B.hp<=0)return;const t=performance.now()/1000,MI
     x.fillStyle='rgba(201,42,90,.35)';x.fillRect(sx-1,ry-26,3,16);x.fillStyle='#3a0618';x.fillRect(sx-4,ry-8,9,10);x.fillRect(sx-2,ry-13,5,4);x.fillStyle='#c2255c';x.fillRect(sx-3,ry-7,7,8);x.fillRect(sx-1,ry-12,3,5);x.fillStyle='#f783ac';x.fillRect(sx-2,ry-6,2,3);x.fillStyle='#fff0f6';x.fillRect(sx-2,ry-5,1,1)}
   // 巨婴之掌:半边场地变暗 → 巨大的黑色手掌从天而降
   for(const m of NB.pm){const a=m.s<0?ARL:MID,b=m.s<0?MID:ARR,w=b-a,sx=a-cam;if(m.t<0)continue;
-    if(m.t<m.w){const k=m.t/m.w;DZ.zone(sx,w);x.fillStyle='rgba(10,0,20,'+(.12+.3*k)+')';x.fillRect(Math.round(sx),0,w,GY);continue}
+    if(m.t<m.w){const k=m.t/m.w;if(!bwSkip()){DZ.zone(sx,w);x.fillStyle='rgba(10,0,20,'+(.12+.3*k)+')';x.fillRect(Math.round(sx),0,w,GY)}continue}
     const u=m.t-m.w,q=Math.min(1,u/.1),fa=u>.5?Math.max(0,1-(u-.5)/.3):1,ph=150,py=Math.round(GY-ph*q),L=Math.round(sx+w*.12),W=Math.round(w*.76),top=py-200,H=Math.round(ph*.62)+200;x.save();x.globalAlpha=fa;
     // 巨大的黑色婴儿手掌:紫色光晕 + 暗紫手掌 + 亮紫轮廓 + 4 根手指(指节高光)
     x.save();x.globalCompositeOperation='lighter';x.fillStyle='rgba(150,50,210,.28)';x.fillRect(L-6,top,W+12,H+ph*.4+6);x.restore();
@@ -3893,19 +3905,21 @@ $('pn').addEventListener('click',e=>{const g=e.target.closest('[data-g]');if(g){
 const KM={ArrowLeft:'l',a:'l',A:'l',ArrowRight:'r',d:'r',D:'r'},JK=['k','K','ArrowUp'],AK=['j','J','x','X'],UK=['w','W'],DK=['s','S'];
 // 双击方向键快跑:280 毫秒内同方向按两次
 function tapDir(k){const t=performance.now();if(t-TAP[k]<280&&(st=='play'||st=='town'))P.run=1;TAP[k]=t}
+// 第二十四轮:用户经常误按,菜单快捷键(B 背包 / T 技能 / Q 任务 / P 商城 / Y 精灵 / G 宠物 / M 声音)全部关掉,改用右下角按钮;HOTK=1 可恢复。Esc(关面板 / 暂停 / 设置)和战斗按键照旧
+const HOTK=0;
 addEventListener('keydown',e=>{
   if(HOME){homeKey(e);return}  // 主页面打开时,游戏按键都不响应
   if(e.key=='F1'||e.key=='F2'||e.key=='F3'){e.preventDefault();const t=performance.now();if(t-GMSQ.t>3000)GMSQ.s='';GMSQ.t=t;GMSQ.s=(GMSQ.s+e.key[1]).slice(-6);if(GMSQ.s=='231233'){GMSQ.s='';toggleP('gm')}return}
-  if((e.key=='m'||e.key=='M')&&!e.repeat&&!(document.activeElement&&document.activeElement.tagName=='INPUT')){auCycle();return}
+  if(HOTK&&(e.key=='m'||e.key=='M')&&!e.repeat&&!(document.activeElement&&document.activeElement.tagName=='INPUT')){auCycle();return}
   if(DLG&&st=='town'&&!busy()){e.preventDefault();if(e.key=='Escape')dlgSkip();else if(['Enter',' ','j','J','k','K'].includes(e.key)&&!e.repeat)dlgNext();return}
   if(st=='lvsel'){e.preventDefault();lvsKey(e);return}
   if(st=='map'){e.preventDefault();if(e.key=='Escape')st='town';else if(e.key.length==1&&'1234567890'.includes(e.key)){const i=e.key=='0'?9:+e.key-1;if(MAPS[i].lock())say('通关上一关后解锁');else openLvSel(i)}else if(e.key=='Enter')openLvSel(0);return}
   if(st=='town'&&(e.key=='w'||e.key=='W')&&!busy()){e.preventDefault();if(!e.repeat){wTap();if(!P.fly&&townSpot())townAct()}keys.u=1;return}
   if(e.key=='Escape'){if(!$('cm').hidden)closeCM();else if(pn)closeP();else if(skOpen)toggleSk();else if(bagOpen)toggleBag();else if(PAUSED)PAUSED=0;else if((st=='play'||st=='town')&&!DLG)openP('set');return}
-  if(e.key=='b'||e.key=='B'){e.preventDefault();toggleBag();return}
-  if(e.key=='t'||e.key=='T'){e.preventDefault();toggleSk();return}
-  if(e.key=='q'||e.key=='Q'){e.preventDefault();toggleP('quest');return}
-  if(!(document.activeElement&&document.activeElement.tagName=='INPUT')){const pk={p:'mall',y:'spr',g:'pet'}[e.key.toLowerCase()];if(pk&&!e.repeat){e.preventDefault();toggleP(pk);return}}
+  if(HOTK&&(e.key=='b'||e.key=='B')){e.preventDefault();toggleBag();return}
+  if(HOTK&&(e.key=='t'||e.key=='T')){e.preventDefault();toggleSk();return}
+  if(HOTK&&(e.key=='q'||e.key=='Q')){e.preventDefault();toggleP('quest');return}
+  if(HOTK&&!(document.activeElement&&document.activeElement.tagName=='INPUT')){const pk={p:'mall',y:'spr',g:'pet'}[e.key.toLowerCase()];if(pk&&!e.repeat){e.preventDefault();toggleP(pk);return}}
   if(bagOpen&&(e.key=='l'||e.key=='L')&&!e.repeat){P.mode=LMODE=P.mode=='sword'?'staff':'sword';P.ch=0;sel=null;bmsg='已切换为'+SL[P.mode][0];renderBag();return}  // 背包里按 L 也能切换武器,属性和纸娃娃立刻刷新
   if(busy())return;
   if((st=='play'||st=='dead')&&e.key.length==1&&'123'.includes(e.key)&&!e.repeat&&!(document.activeElement&&document.activeElement.tagName=='INPUT')){e.preventDefault();potQuick(+e.key-1);return}  // 1 2 3:快捷栏药水
@@ -3949,7 +3963,7 @@ function RGD(c,x0,y0,r,st){if(FLW)return '#fff';const g=c.createRadialGradient(x
 function SHD(c,a,b,rx){E_(c,a,b,rx,rx*.22,'rgba(0,0,0,.22)',0)}
 // 卡通大眼睛:白底 + 彩色虹膜 + 黑瞳 + 两个高光
 function EYE(c,a,b,rx,ry,iris,lk){E_(c,a,b,rx,ry,'#fff',.8);if(FLW)return;const ix=a+rx*.22*(lk==null?1:lk);E_(c,ix,b+ry*.12,rx*.66,ry*.74,iris,0);E_(c,ix,b+ry*.18,rx*.34,ry*.42,'#14101c',0);C_(c,ix-rx*.28,b-ry*.3,Math.max(.35,rx*.24),'#fff',0);C_(c,ix+rx*.25,b+ry*.35,Math.max(.2,rx*.1),'rgba(255,255,255,.8)',0)}
-function WARN(c,a,b,s){s=s||1;c.save();c.translate(a,b);c.scale(s,s);const k=1+.12*Math.sin(performance.now()/60);c.scale(k,k);PG(c,[[0,-11],[9,6],[-9,6]],'#ffd43b',1.4);c.fillStyle='#c92a2a';c.fillRect(-1.2,-5,2.4,6);c.fillRect(-1.2,2.4,2.4,2);c.restore()}
+function WARN(c,a,b,s){if(bwSkip())return;s=s||1;c.save();c.translate(a,b);c.scale(s,s);const k=1+.12*Math.sin(performance.now()/60);c.scale(k,k);PG(c,[[0,-11],[9,6],[-9,6]],'#ffd43b',1.4);c.fillStyle='#c92a2a';c.fillRect(-1.2,-5,2.4,6);c.fillRect(-1.2,2.4,2.4,2);c.restore()}
 // 卡通描边文字(页游风:粗黑边 + 亮色/渐变填充)
 // =====================================================================
 // ===== 像素界面 PUI:Tiny RPG - Mana Soul GUI(tiopalada,CC0)的九宫格面板 / 血条框 / 按钮 / 菱形格 / 羊皮纸标题,
@@ -4577,7 +4591,7 @@ const TELE={
  mage(e){const t=performance.now()/1000;if(e.fire<.55&&!(e.tpT>0)){const sx=e.x+e.w/2-cam+e.f*13,sy=e.y+e.h-64;x.save();x.globalCompositeOperation='lighter';C_(x,sx,sy,22,RGD(x,sx,sy,22,['rgba(229,153,247,.9)','rgba(0,0,0,0)']),0);x.restore();WARN(x,e.x+e.w/2-cam,e.y-14)}
    // 第十六轮:暗影锁链的预警线 / 光束,黑暗领域的魔法阵,镜像
    if(e.act=='chain'&&e.tx!=null){const ox0=e.f>0?e.x+e.w:e.x,ox=ox0-cam,oy=e.y+18,vx=e.tx-ox0,vy=e.ty-oy,n=Math.hypot(vx,vy)||1;
-     if(e.at<.7){x.save();x.strokeStyle='rgba(190,120,255,'+(e.at>=.4?.6+.4*Math.sin(t*40):.4)+')';x.lineWidth=2;x.setLineDash([6,6]);x.lineDashOffset=-t*40;x.beginPath();x.moveTo(ox,oy);x.lineTo(ox+vx/n*600,oy+vy/n*600);x.stroke();x.restore()}
+     if(e.at<.7){if(!bwSkip()){x.save();x.strokeStyle='rgba(190,120,255,'+(e.at>=.4?.6+.4*Math.sin(t*40):.4)+')';x.lineWidth=2;x.setLineDash([6,6]);x.lineDashOffset=-t*40;x.beginPath();x.moveTo(ox,oy);x.lineTo(ox+vx/n*600,oy+vy/n*600);x.stroke();x.restore()}}
      else if(e.at<.95){const q=1-(e.at-.7)/.25;x.save();x.globalCompositeOperation='lighter';x.globalAlpha=q;for(const [w,c] of [[14,'rgba(120,60,200,.5)'],[6,'rgba(200,150,255,.8)'],[2,'#fff']]){x.strokeStyle=c;x.lineWidth=w;x.beginPath();x.moveTo(ox,oy);x.lineTo(ox+vx/n*600,oy+vy/n*600);x.stroke()}x.restore()}}
    for(const z of e.zn||[])if(z.t<1.1)DZ.zone(z.x-40-cam,80);
    for(const c of e.cl||[]){x.save();x.globalAlpha=.5;x.translate(c.x-cam,c.y+42);x.scale(sgn(P.x+12-c.x)||1,1);BOS.mage(x,{fire:Math.max(.01,.55-c.t*.6),tpT:0,st:0,al:.6},t);x.restore()}},
@@ -4589,7 +4603,8 @@ const TELE={
    if(a=='roar'&&e.at<1)WARN(x,e.x+e.w/2-cam,e.y-24,1.1);
    for(const w of e.wv||[])VFX.frame(x,'m-dust',Math.floor(t*14+w.x*.05)%4,w.x-cam,GY,1.1,w.d,0,Math.max(.3,1-w.tr/360));
    if(a=='leap'&&e.at<1.2){const r=e.hp<e.max/2?150:110,c=e.lx+e.w/2;DZ.zone(c-r-e.w/2-cam,2*r+e.w)}}};
-function drawE(e){if(e.x+e.w<cam-200||e.x>cam+VW+200)return;const t=performance.now()/1000,cx=e.x+e.w/2-cam;
+function drawE(e){const q=BWQ,qe=BWE;if(e.max){BWQ=1;BWE=e}try{drawE0(e)}finally{BWQ=q;BWE=qe}}  // 第二十四轮:画首领时屏蔽预警
+function drawE0(e){if(e.x+e.w<cam-200||e.x>cam+VW+200)return;const t=performance.now()/1000,cx=e.x+e.w/2-cam;
   if(e.ug&&((e.s&&MVK[e.k]&&e.k!='seal'&&e.k!='seal2')||e.k=='sco')){mvUgDraw(e);return}  // 第十六轮:潜沙中的蝎子 / 蜘蛛 / 巨蝎只画沙痕
   if(e.ar>0&&!e.ug){x.strokeStyle='rgba(255,146,43,'+(.5+.3*Math.sin(performance.now()/70))+')';x.lineWidth=2.4;x.beginPath();x.ellipse(cx,e.y+e.h/2,e.w/2+8,e.h/2+8,0,0,7);x.stroke()}
   if(e.st>0&&(!e.max||e.st>.3)){const q=performance.now()/90,n=e.st>1?3:2,r=e.max?Math.min(30,e.w*.3):9;for(let i=0;i<n;i++)CT('★',cx+Math.cos(q+i*6.283/n)*r,e.y-6+Math.sin(q+i*6.283/n)*2,e.st>1?11:9,e.st>1?'#a5d8ff':'#ffd43b','center',2.2)}
@@ -4601,7 +4616,7 @@ function drawE(e){if(e.x+e.w<cam-200||e.x>cam+VW+200)return;const t=performance.
   if(e.k=='bear')bearFx(e);if(e.k=='andr'||e.k=='wiz')arsFx(e);if(e.k=='dog2')dogFx(e);
   const tk=e.k=='sco'?'sco':e.k;if(TELE[tk]&&(e.k=='king'||e.k=='sco'||e.k=='ost'||e.k=='spi'||e.k=='mage'||e.k=='boss'))TELE[tk](e);
   FLW=e.fl>0?1:0;x.save();x.translate(Math.round(cx*RS)/RS,e.y+e.h);{const vs=e.max?1.1*(e.bsz||1):(e.vs||1);x.scale(e.f*vs,vs)}
-  {const q=monPose(e,t);if(q.dy)x.translate(0,q.dy);if(q.lean)x.rotate(q.lean);if(q.sx!=1||q.sy!=1)x.scale(q.sx,q.sy)}
+  {const q=monPose(e,t);if(q.dx)x.translate(q.dx,0);if(q.dy)x.translate(0,q.dy);if(q.lean)x.rotate(q.lean);if(q.sx!=1||q.sy!=1)x.scale(q.sx,q.sy)}
   if(e._sk&&!e._psk)mfxSwing(e);e._psk=e._sk;
   if(MYST.on(e))MYST.draw(x,e,t);else if(SHIP10.on(e))SHIP10.draw(x,e,t);else if(VOL9.on(e))VOL9.draw(x,e,t);else if(GH8.on(e))GH8.draw(x,e,t);else if(MNT.on(e))MNT.draw(x,e,t);else if(MOB.on(e))MOB.draw(x,e,t);else(e.k=='sco'?MON.sco_b:e.k=='ysco'||e.k=='bsco'?MON.sco:MON[e.k]||MON.boss)(x,e,t);x.restore();FLW=0;
   if(e.k=='sco'&&e.sh>0&&BFX.ok())VFX.frame(x,'b-shield',Math.floor(t*10)%6,cx,e.y+22,2.6,1,0,.35+.08*Math.sin(t*8));else if(e.k=='sco'&&e.sh>0){x.strokeStyle='rgba(116,192,252,'+(.65+.25*Math.sin(t*8))+')';x.lineWidth=3;x.beginPath();x.ellipse(cx,e.y+18,72,50,0,0,7);x.stroke();x.fillStyle='rgba(116,192,252,.12)';x.fill()}
@@ -4619,9 +4634,11 @@ function monPose(e,t){const now=performance.now()/1000,o={lean:0,sx:1,sy:1,dy:0}
   else if(MWUP[e.k]&&e.act){const w=MWUP[e.k][e.act];if(w){if(e.at<w[0])wu=1;else if(e.at<w[1])sk=1}}
   else if(e.k=='mage'&&e.fire<.55&&!(e.tpT>0))wu=1;
   if(e.shotAt&&now-e.shotAt<.22)sk=Math.max(sk,.8);
+  if(e.max&&BWOFF&&!sk&&GT-(e.bwT??-9)<.15)wu=1;  // 第二十四轮:本来要显示预警的时候,首领一定在做前摇
+  const bwk=e.max&&BWOFF&&wu?1.8:1;  // 没有预警了,首领前摇幅度加大
   if(e.k=='ape'&&!e.gr&&e.ap){o.lean=.25;o.sx=1.08;o.sy=.94}
   else if(e.hst>0||e.st>0){const q=Math.min(1,Math.max(e.hst>0?e.hst/HSTUN:0,e.st>0?e.st/.3:0)),hb=e.max?.55:1,j=e.hst>0?Math.sin(now*70)*.6*q:0;o.lean=-.28*q*hb;o.sx=1-.08*q*hb;o.sy=1+.05*q*hb;o.dy=-j*hb}  // 挨打后仰(第十三轮起首领也有,幅度小一点)
-  else if(wu){const tr=Math.sin(now*55)*.025;o.lean=(-.17+tr)*big;o.sx=1+.1*big;o.sy=1-.13*big}
+  else if(wu){const tr=Math.sin(now*55)*.025*bwk;o.lean=(-.17*bwk+tr)*big;o.sx=1+.1*big*bwk;o.sy=1-.13*big*bwk;if(bwk>1)o.dx=Math.sin(now*70)*1.2}
   else if(sk){o.lean=.2*big*sk;o.sx=1+.16*big*sk;o.sy=1-.09*big*sk}
   else if(e.rec>0){o.lean=-.06*big;o.sy=.96}
   else if(!cus&&e.mvs>.3&&!e.air&&e.k!='bat'&&e.k!='slime'){const ph=now*13+(e.ph||0);o.dy=-Math.abs(Math.sin(ph))*2.2*big;o.lean=.05*big+Math.sin(ph)*.04*big;o.sy=1+Math.abs(Math.sin(ph))*.04}
@@ -5890,6 +5907,7 @@ function pvImg(k){const t=.3,c=document.createElement('canvas'),g=c.getContext('
 // 主页面打开时 HOME=1:主城画面停住当背景(loop 里不跑 townUpd),键盘只认 Enter(继续 / 新游戏)和 Esc(从操作说明返回)
 // 更新日志 CHLOG:[版本, 日期, [条目...]],新版本加在最前面(和 GAMEV 一起改)
 const CHLOG=[
+ ['1.24','2026-10-14',['首领不再显示攻击范围和预警(地上的红色符文带、瞄准圈、感叹号、预警线都去掉了),改成看首领的前摇动作:要出招时首领会明显后仰蓄力、发抖','首领的飞弹最多飞 2 个闪现的距离,不会再隔着整个场地打人','修复:小怪被拉开距离后原地罚站 —— 现在一~七关的小怪会一直追着玩家','小怪近战出招频率降低约 40%','菜单快捷键(B / T / Q / P / Y / G / M)全部关闭,改用右下角按钮,不会再误按']],
  ['1.23','2026-10-14',['第一关减负:小怪的远程攻击只在 1 个闪现内才会放,飞弹飞一小段就消散;每只小怪两次远程至少隔 3.5 秒,全场的远程也错开放','药水加强:在百分比之外再加固定回复(初级生命 +80、中级 +220、高级 +500、超级 +1000;魔力 +30 / +80 / +180),冷却 10 秒 → 8 秒','经验和金币 ×1.5(同关一星一遍约升 1.2 级),通关击杀点 10 → 20(二星 26、三星 32)']],
  ['1.22','2026-10-14',['升级更快了:每级需要的经验降到原来的 40%(同关一星打一遍约升 0.8 级),旧存档攒着的经验会直接升级','基础生命 60 → 140、基础魔力 30 → 60,第一关不再两三下就倒','小怪的攻击距离缩短到约 1.5 个闪现:离得远不会出招,远程飞弹飞一段就消散(首领不变)','法师普攻射程缩短到约 1.75 个闪现']],
  ['1.21','2026-10-14',['主页面换成外部美术素材:魔法悬崖背景(ansimuz,CC0)+ 金色双线边框 / 按钮框(Kenney,CC0),布局参考「游戏内容」面板','剑士普攻也改走小怪韧性:每一下仍然把怪物击退,但不再每下都打僵直,怪物会顶着击退继续往前走','剑 U 雷霆连斩冷却固定 6 秒(不再随等级、时装、疾风缩短)']],
@@ -5932,6 +5950,9 @@ $('homeF').addEventListener('change',()=>{const f=$('homeF').files[0];if(!f)retu
     else{const sv=homeSave();HM.imp=String(r.result);HM.msg=`读取到存档:Lv ${d.lvl} · ${d.pm=='staff'?'法师':'剑士'}${d.gv?' · 游戏版本 v'+d.gv:''}`+(sv?`<br>⚠️ 导入会覆盖当前存档(Lv ${sv.lv})`:'')}rHome()};
   r.readAsText(f)});
 function homeKey(e){if(e.key=='Enter'){e.preventDefault();if(HM.imp)homeAct('impY');else if(HM.cf)homeAct('newY');else homeAct(homeSave()?'cont':'new')}else if(e.key=='Escape'){e.preventDefault();if(HM.imp)homeAct('impN');else if(HM.cf)homeAct('newN');else if(HM.v=='help')homeAct('log')}}
+
+// 第二十四轮:这些函数只画首领的招式,画的时候屏蔽预警(见 BWOFF)
+for(const n of ['arsHzDraw','arsFx','bearFx','nbFx','myFx'])if(typeof window[n]=='function')window[n]=(f=>function(...a){const q=BWQ;BWQ=1;try{return f.apply(this,a)}finally{BWQ=q}})(window[n]);
 
 init(1);if(!loadSave())init(1);toTown();openHome();if(SET.q=='sd'&&RS>2)applyRS(2);requestAnimationFrame(loop);setFsCls();uiScale();
 </script>
