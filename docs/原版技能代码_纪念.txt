@@ -1,0 +1,467 @@
+《无名之旅》原版技能代码纪念(2026-10-13 第十六轮改版前,从 src/game.src.html 原样摘出;行号是改版前的行号)
+第十六轮起:角色上限 50 级、技能上限 5 级、被动重做、剑士「剑势」/ 法师「元素印记」机制、技能倍率 / 冷却 / 耗魔全部重算。这份文件只做纪念,不参与构建。
+
+====================================================================================================
+【被动技能表 PSD / 被动数值 PSV】 原行号 502~504
+====================================================================================================
+// 被动技能:[键, 名称, 说明, 满级, 每级数值]
+const PSD=[['dj','二段跳','在空中可以再跳一次',1,0],['hp','生命强化','最大生命',9,.05],['mp','魔力强化','最大魔力',9,.05],['atk','攻击强化','攻击力',9,.04],['def','防御强化','防御力',9,.05],['spd','疾风步','移动速度',9,.04],['hpr','生命回复','每秒回复最大生命',9,.003],['mpr','魔力回复','每秒额外回复最大魔力',9,.0015]];
+const PSV=Object.fromEntries(PSD.map(q=>[q[0],q[4]])),pl=k=>PS[k]|0,pb=k=>1+pl(k)*PSV[k];
+
+====================================================================================================
+【主动技能表 SKD(名字 / 说明 / 旧第 3 项 / 冷却)、倍率表 SKM、耗魔 SKMP、冷却 / 伤害公式】 原行号 771~792
+====================================================================================================
+const SKD={sword:[['冲刺斩','向前冲刺斩击,再冲刺返回,两段伤害',5,3],['雷霆连斩','化身为一团雷球(释放期间隐身):雷球固定在身前斜上方(比一段跳略高),连续电击 15 次,只伤害雷球附近的敌人并把小怪定在空中,最后雷球炸开强力终结。没有敌人也能释放。对站在地面上的普通怪物只造成 50% 伤害,对浮空的敌人和首领造成全额伤害。全程无敌、不可选取',8,6],['天崩地裂','分两段释放。第一段:巨剑竖在身前格挡(霸体,不会被打断),随后用力推出,金色光爆在身前炸开,把一个普攻距离内的敌人击退到 1.5 倍普攻距离处;这一段还能消除身前怪物的远程攻击。第二段:4 秒内再按一次 I,巨剑狠狠劈在地上,1.5 倍普攻距离处落下一道深蓝色的巨大光束往回卷,把路上的敌人全部拉回身边(首领、鸵鸟等大型敌人只受伤害、不会被拉动),第二段全程无敌。冷却从放出第二段(或 4 秒没放)时开始',8,5.5],['苍蓝巨剑','蓄力 1 秒,在身后 45° 幻化出带锯齿的暗黑巨剑,抡过头顶砸向前方地面,覆盖约 2/3 屏幕。蓄力中被打僵则失败(仍进入冷却),霸体时不会被打断。全技能单次伤害最高;命中的敌人被长时间打僵(首领也会僵住一阵)',17,15],
+  ['疾风踏斩','锁定前方最近的敌人高速突进,到达的瞬间以自身为中心 360° 斩击,把周围的敌人击飞并在空中滞留约 1.4 秒(首领不会被击飞);随后在旋风中盘旋上升连斩 3 次、空中十字斩 2 次,最后落地风爆。全程无敌',18,6],
+  ['绝息风斩','附近必须有浮空的敌人(被击飞的,或者自己跳到空中的),或者大型敌人 / 首领(可以直接命中):画面一顿,瞬移到浮空的敌人身边,连续 30 段空中乱斩并把它们一直控制在空中,最后一刀狠狠劈回地面。之后 6 秒获得破甲(无视目标一半防御)。全程无敌',30,16],
+  ['封尘断念斩','蓄势后向前方 300 像素大范围斩击,命中的敌人被标记并眩晕;随后瞬移到最远的命中目标身后,一道风暴沿原路席卷,把敌人全部拉到身边;拔刀定格后十字斩出魔法伤害,把敌人击飞并在空中滞留约 1.5 秒。全程无敌',32,18],
+  ['焚天炎暴','放出一团持续向前推进的红色火焰风暴,旋转切割接触到的敌人(每 0.15 秒一次);碰到首领、鸵鸟这类大型敌人会停在它身边持续切割;4 秒后爆炸,再造成一次范围火焰伤害',28,15]],
+ staff:[['落雷','召唤巨大的落雷劈向前方的敌人,两侧再各落一道小雷(40% 伤害),落点范围很大。冷却 3.75 秒,每升 1 级 -5%,满级(9 级)2.25 秒',6,3.75],['闪现','向前瞬移并短暂无敌,穿过怪物和攻击',4,4],['火球','吐出巨大的穿透火球,贯穿路径上的所有敌人,逐个造成伤害并减速;每命中一个敌人都会爆炸,溅射周围的敌人(40% 伤害)',7,7.5],['雷云','召唤大片乌云,5秒内每0.5秒降下三道闪电(范围很广)',15,21],
+  ['影分身','向前方投出一个分身(持续 4 秒):落地后自动走向最近的敌人并发射魔弹,攻击力为你的 60%,不会被打死,也不吸引怪物。持续期间再按一次技能,你和分身立刻互换位置,两边各冒出烟雾,互换瞬间 0.3 秒无敌。互换后冷却立刻开始;没互换则分身消失时开始冷却',20,10],
+  ['岩盾陨石','分两段释放。第一段:身上生成岩石护盾,护盾值 = 最大生命的 25%,持续 8 秒,受到的伤害先扣护盾。第二段:护盾还在时再按一次,一颗巨大陨石砸向面前,大范围伤害并让敌人减速 40%,持续 3 秒。冷却从放出陨石(或护盾消失)时开始',30,18],
+  ['高天之歌','在前方空中生成旋转的风眼(持续 10 秒),把风眼所在区域里的所有小怪都吸到风眼中心聚在一起(首领、鸵鸟等大型敌人不被吸附,只受伤害)。每 0.5 秒对风眼周围的敌人造成一次伤害,共 20 次。风眼存在期间,火球打进风眼会吸收火焰、落雷 / 雷云劈进风眼会吸收雷电,之后每跳额外附加一段 20% 的火 / 雷伤害',35,20],
+  ['战意爆发','身上燃起红色气焰:攻击力 +30%,持续 10 秒;并立刻重置其他所有技能的冷却(剑和法杖的技能都算,不包括它自己)',40,60]]};
+
+const SKM={sword:[[5,1.6,3,.15],[3,.8,2,.08],[15,3.5,8,.3],[88,26.4,44,2.2],[40,2.6,14,.2],[6,.32,2,.025],[50,2.4,16,.18],[6,.28,2,.022]],staff:[[12,3,6,.25],null,[8,2,5,.2],[4,1.2,2,.1],[0,.6,0,.03],[60,3.2,20,.25],[4,.4,1,.03],null]};
+// 2026-10-13 第十二轮:技能耗魔按最大魔力比例;魔力回复同时下调(基础 1/秒,被动每级 0.15%,邪灵特性 0.8% / 1.2%)
+// 第十三轮:1~8 挨个放一轮共耗 20% 最大魔力(不算被动回魔时,连放 5 轮剩 10% 左右);不再加固定值(SKD 第 3 项只留作旧数据)
+const SKMP={sword:[.012,.02,.018,.032,.025,.033,.032,.028],staff:[.01,.008,.016,.028,.028,.036,.036,.038]};
+const skMp=(w,i,M)=>Math.max(1,Math.round(M*SKMP[w][i]));
+const skCd=(w,i,l)=>{l=l||LN[w][i]||1;
+  return +(SKD[w][i][3]*(1-.05*(l-1))).toFixed(2)};
+const skCdA=(w,i)=>+(skCd(w,i)*(WEAR.fash=='xy'?.9:1)).toFixed(2);  // 学院法师:冷却 -10%
+const skB=(w,i,l)=>{const m=SKM[w][i];l=l||LN[w][i]||1;return m?[m[0]+m[2]*(l-1),+(m[1]+m[3]*(l-1)).toFixed(2)]:null};
+const skD=(w,i,S)=>{const b=skB(w,i);return b?b[0]+S.atk*b[1]:0};
+const SK_KEY='wuming-save-v1';
+
+====================================================================================================
+【技能学习条件 skCan / 转职 / 花费 skCost / 说明 skInfo】 原行号 1393~1408
+====================================================================================================
+const skCan=(w,i)=>i>=4&&JOB!=w?false:i==0||i==4||(LN[w][i]|0)>0||(LN[w][i-1]|0)>0;
+// ===== 转职:剑士 / 法师二选一(只能转职一次),需要「转职凭证」(第六关首领掉落)。转职后可以学习该职业的 4 个进阶技能 =====
+let JOB=null,JOBC=null;const JOBN={sword:'剑士',staff:'法师'};
+const KEYN=['H','U','I','O','空格','W+空格','S+空格','WW+空格'];
+function doJob(w){if(JOB||!(MAT.job>0)||!JOBN[w])return;MAT.job--;if(!MAT.job)delete MAT.job;JOB=w;JOBC=null;sfx('lvl');if(P){flash('255,240,190',.4);tx('转职成功:'+JOBN[w]+'!',P.x-30,P.y-50,'#ffd43b')}save()}
+// 学习 / 升级的花费:技能点和金币都随目标等级上涨,并且有角色等级要求
+function skCost(id,L){if(id.startsWith('p_')){return {sp:1+((L-1)/4|0),gold:Math.round(120*L*L),lv:L==1?2:L*3}}
+  const i=+id.slice(-1);if(i<4)return {sp:1+((L-1)/3|0),gold:Math.round(60*(i+1)*L*L),lv:[1,4,8,12][i]+(L-1)*2};
+  return {sp:2+((L-1)/3|0),gold:Math.round(1200*(1+(i-4)*.5)*L*L),lv:36+(i-4)*2+((L-1)/2|0)}}
+const costT=c=>`Lv${c.lv} · ${c.sp} 技能点 · 💰${c.gold}`;
+function skInfo(id,AT){const pc=(q,v)=>q[0]=='hpr'||q[0]=='mpr'?(v*100).toFixed(1)+'%':Math.round(v*100)+'%';
+  if(id.startsWith('p_')){const q=PSD.find(q=>'p_'+q[0]==id),l=pl(q[0]),mx=q[3],ef=v=>q[0]=='dj'?q[2]:`${q[2]} +${pc(q,v*q[4])}`,c=l<mx?skCost(id,l+1):null;
+    return {name:q[1],l,mx,c,h:`<b>${q[1]}</b> <span class="tg">被动 · Lv ${l}/${mx}</span><hr>${q[0]=='dj'?q[2]+'(满级 1 级)':'每级 '+q[2]+' +'+pc(q,q[4])}<hr>${l?'当前:'+ef(l):'未学习'}${l<mx?'<br>下一级:'+ef(l+1)+'<br><span class="tg">'+(l?'升级':'学习')+'需要:'+costT(c)+'</span>':'<br>已满级'}`}}
+  const w=id.slice(0,-1),i=+id.slice(-1),q=SKD[w][i],l=LN[w][i]|0,dsc=lv=>{const b=skB(w,i,lv);return (b?`伤害 ${b[0]} + 攻击×${Math.round(b[1]*100)}%(约 ${Math.round(b[0]+AT[w]*b[1])})`:'无伤害')+` · 冷却 ${skCd(w,i,lv)} 秒`+(WEAR.fash=='xy'?`(学院法师 -10%:${+(skCd(w,i,lv)*.9).toFixed(2)} 秒)`:'')};
+  const ok=skCan(w,i),c=l<9?skCost(id,l+1):null,why=i>=4&&JOB!=w?`🔒 转职为「${JOBN[w]}」后才能学习`:i?`🔒 需要先学会「${KEYN[i-1]} · ${SKD[w][i-1][0]}」`:'';
+  return {name:q[0],l,mx:9,key:KEYN[i],ok,c,h:(ok?'':`<b style="color:#ff8787">${why}</b><hr>`)+`<b>${KEYN[i]} · ${q[0]}</b> <span class="tg">${i>=4?JOBN[w]+'进阶':SL[w][0]}技能 · Lv ${l}/9 · 魔力 ${skMp(w,i,stats().mp)}(最大魔力 ${+(SKMP[w][i]*100).toFixed(1)}%)</span><hr>${q[1]}<hr>${l?'当前:'+dsc(l):'未学习'}${l<9?'<br>Lv'+(l+1)+':'+dsc(l+1)+'<br><span class="tg">'+(l?'升级':'学习')+'需要:'+costT(c)+'</span>':'<br>已满级'}<br><span class="tg">每升 1 级冷却 -5%;有伤害的技能还会提高基础伤害和攻击倍率</span>`}}
+
+====================================================================================================
+【升级 upSk】 原行号 1425~1430
+====================================================================================================
+function upSk(id){if(!id)return;let msg=null;
+  const fail=m=>{if(P)tx(m,P.x-40,P.y-30,'#ff8787')};
+  if(id.startsWith('p_')){const q=PSD.find(q=>'p_'+q[0]==id);if(!q||pl(q[0])>=q[3])return;const c=skCost(id,pl(q[0])+1);
+    if(lvl<c.lv)return fail('需要角色 Lv'+c.lv);if(sp<c.sp)return fail('技能点不足');if(gold<c.gold)return fail('金币不足');sp-=c.sp;gold-=c.gold;PS[q[0]]=pl(q[0])+1;const S=stats();P.hp=Math.min(P.hp,S.hp)}
+  else{const w=id.slice(0,-1),i=+id.slice(-1);if(!skCan(w,i))return fail(i>=4&&JOB!=w?'转职为'+JOBN[w]+'后才能学习':'请按顺序学习');const l=LN[w][i]|0;if(l>=9)return;const c=skCost(id,l+1);
+    if(lvl<c.lv)return fail('需要角色 Lv'+c.lv);if(sp<c.sp)return fail('技能点不足');if(gold<c.gold)return fail('金币不足');sp-=c.sp;gold-=c.gold;LN[w][i]=l+1;sfx('coin')}save()}
+
+====================================================================================================
+【落雷 bolt / 释放 useSk / 分身跟放 cloneCast / 主动技能逐帧 skStep / 天崩地裂 gdPull / gdEat / drawGd】 原行号 905~1056
+====================================================================================================
+function bolt(cx,dmg,w,top,big){psx('zap');w*=1.8;VFX.spawn('electric-impact',cx,GY-26,{s:big?2:1.5});SFX5('m-bolt',cx,GY+4,{s:big?1.7:1.35,sy:1.2,life:.5});SFX5('b-orb',cx,GY-22,{s:big?1.8:1.3,life:.32,gr:1.2});weAbs(cx,null,'th');hitFx='thunder';for(const e of E.concat(bossOn&&B.hp>0?[B]:[]))if(e.x+e.w>cx-w&&e.x<cx+w)dealt(e,Math.round(dmg*(.9+Math.random()*.2)));hitFx=null;
+  top=top||0;Z.push({x:cx,t:.3,m:.3,top,big,...zpath(cx,top)});shake=Math.max(shake,big?.22:.1);
+  ring(cx,GY-2,6,big?150:100,'#a5d8ff',.4,5,.25);burst(cx,GY-6,big?22:12,['#d0ebff','#fff','#74c0fc'],big?360:280,{sh:1,s:2,g:700,l:.45,dr:1});
+  burst(cx,GY-10,6,'#4dabf7',60,{sh:2,s:16,l:.3,gr:1});DEC.push({x:cx,w:big?30:20,l:1.6,m:1.6,c:'#1c1f2b'});if(big){pillar(cx,26,'rgba(165,216,255,.9)',.35);flash('210,230,255',.35);FX.dk=Math.max(FX.dk,.45)}else flash('210,230,255',.08)}
+function useSk(i,S){const m=P.mode,df=SKD[m][i];if(i>=4&&JOB!=m){tx('转职为'+JOBN[m]+'后才能使用进阶技能',P.x-40,P.y-30,'#adb5bd');return}if(!df||!LN[m][i]){if(i>=4)tx('还没有学会这个进阶技能',P.x-30,P.y-30,'#adb5bd');return}
+  if(m=='sword'&&i==2&&P.gd2>0){if(!P.sk)gdPull();return}  // 天崩地裂第二段
+  if(m=='staff'){if(i==4&&CLN&&!CLN.sw){cloneSwap();return}if(i==5&&P.shdT>0&&P.met){metCast(S);return}}
+  // 剑士 U(雷霆连斩)可以取消 W+J 上挑 / S+J 重击的收招,直接接上(击飞时间很短,不取消就来不及)
+  if(CD[m][i]>0||(P.sk&&!(m=='sword'&&i==1&&(P.sk.id=='up'||P.sk.id=='smash'))))return;
+  if(m=='sword'&&i==5&&!lsTargets().length){tx('附近没有浮空的敌人或大型敌人(先用疾风踏斩等把敌人击飞)',P.x-80,P.y-30,'#a5d8ff');return}
+  const mc=skMp(m,i,S.mp);if(P.mp<mc){tx('魔力不足',P.x-10,P.y-8,'#74c0fc');return}
+  P.mp-=mc;CD[m][i]=skCdA(m,i);P.ch=0;ah=0;const f=P.f;P.cs={id:m+i,t:0};P.swT=null;fashCast(S);psx((m=='sword'?['dash','thunder','blink','wave','dash','zap','heavy','cloud']:['zap','blink','fire','cloud','blink','buff','wave','buff'])[i]);  // 旧版合成音(2026-10-11 版):放技能时一声,命中 / 终结时再一声(剑 I 两段的声音在 skStep 里)
+  if(m=='sword'){
+    if(i==0){P.sk={id:'dash',t:0,inv:1,hit:new Set()};flash('170,210,255',.15)}
+    else if(i==1){P.sk={id:'zap',t:0,inv:1,n:0,tk:0,tg:[],gd:new Set(),bx:P.x+12+f*ZAPB[0],by:P.y+P.h-ZAPB[1]};flash('140,190,255',.35);FX.dk=Math.max(FX.dk,.45);hitstop(.05);burst(P.x+12,P.y+16,20,['#a5d8ff','#fff','#74c0fc'],320,{sh:1,s:2.5,l:.3,dr:3})}
+    else if(i==2){P.sk={id:'slam',t:0,inv:0};P.ar=Math.max(P.ar||0,.7);CD.sword[2]=0}
+    else if(i==3){P.sk={id:'giant',t:0,inv:0};psx('buff');tx('蓄力中……',P.x-10,P.y-40,'#c77dff')}
+    else advStart(i,S);
+  }else{
+    if(i==1){const ox=P.x+12,oy=P.y+16;ghost('#be4bdb',.6);ring(ox,oy,44,3,'#be4bdb',.32,5);P.x=Math.max(bossOn?2570:0,Math.min(xMax(),P.x+f*170));P.inv=.5;const nx=P.x+12;
+      for(let j=0;j<16;j++){const k=j/15;pt({x:ox+(nx-ox)*k,y:oy+rnd(-10,10),vx:rnd(-20,20),vy:rnd(-30,10),c:pick(['#e599f7','#d0bfff','#fff']),sh:2,s:rnd(4,7),l:rnd(.3,.5)})}
+      ring(nx,oy,4,56,'#be4bdb',.42,6);VFX.spawn('foldstep',ox,oy);VFX.spawn('foldstep',nx,oy);SFX5('m-swirl',ox,oy,{s:1.3,life:.4,rs:4});SFX5('m-swirl',nx,oy,{s:1.6,life:.5,rs:-4,gr:.4});ring(nx,oy,2,32,'#e599f7',.3,3);pillar(ox,14,'rgba(204,93,232,.8)',.3);pillar(nx,18,'rgba(229,153,247,.9)',.35);burst(nx,oy,22,['#be4bdb','#e599f7','#f3d9fa'],260,{sh:1,s:2.5,l:.38,dr:3});flash('200,150,255',.18)}
+    else if(i==0){const t=E.concat(bossOn&&B.hp>0?[B]:[]).filter(e=>(e.x-P.x)*f>-40&&Math.abs(e.x-P.x)<340).sort((a,b)=>Math.abs(a.x-P.x)-Math.abs(b.x-P.x))[0];{const bx=t?t.x+t.w/2:P.x+f*160;bolt(bx,skD('staff',0,S),34,0,1);for(const o of[-90,90])bolt(bx+o,Math.round(skD('staff',0,S)*.4),26,0,0)}}
+    else if(i==2){PB.push({x:f>0?P.x+P.w:P.x-10,y:P.y+14,vx:f*320,dmg:skD('staff',2,S),r:18,col:'#ff6b35',sl:1,fb:1,pierce:1,hit:new Set()});burst(P.x+12+f*16,P.y+14,10,['#ff922b','#ffd43b'],160,{sh:2,s:7,l:.3,dr:4})}
+    else if(i==3){CL={x:P.x+P.w/2,t:5,k:0,fk:0};FX.dk=Math.max(FX.dk,.4)}
+    else magStart(i,S);
+    if(i<4)cloneCast(i,S)}
+}
+// 影分身跟着施法(2026-10-12):主角放 H / U / I / O 时,场上的分身在自己的位置朝自己的方向同时放一次,伤害 60%,不耗魔力
+const CLK=.6;
+function cloneCast(i,S){const c=CLN;if(!c)return;const f=c.f,cx=c.x+12,cy=c.y+16,dm=k=>Math.round(skD('staff',k,S)*CLK);c.cs=.3;
+  burst(cx,cy,10,['#b197fc','#e5dbff'],140,{s:2.5,l:.3});
+  if(i==0){const t=E.concat(bossOn&&B.hp>0?[B]:[]).filter(e=>(e.x+e.w/2-cx)*f>-40&&Math.abs(e.x+e.w/2-cx)<340).sort((a,b)=>Math.abs(a.x-cx)-Math.abs(b.x-cx))[0];bolt(t?t.x+t.w/2:cx+f*160,dm(0),34,0,0)}
+  else if(i==1){const ox=cx;c.x=clX(c.x+f*170);c.land=0;c.vy=0;c.vx=0;VFX.spawn('foldstep',ox,cy);VFX.spawn('foldstep',c.x+12,cy);ring(c.x+12,cy,4,40,'#9775fa',.35,4)}
+  else if(i==2)PB.push({x:f>0?c.x+P.w:c.x-10,y:c.y+14,vx:f*320,dmg:dm(2),r:12,col:'#ff6b35',sl:1,fb:1,pierce:1,hit:new Set()});
+  else if(i==3)CL2={x:cx,t:5,k:0,fk:0,dm:CLK}}
+function zline(x1,y1,x2,y2){const p=[[x1,y1]],n=6;for(let i=1;i<n;i++){const k=i/n;p.push([x1+(x2-x1)*k+rnd(-10,10),y1+(y2-y1)*k+rnd(-12,12)])}p.push([x2,y2]);return p}
+function skStep(dt,S,all){const k=P.sk;if(!k)return;k.t+=dt;const f=P.f;if(advStep(k,dt,S,all))return;
+  if(k.id=='up'){if(k.t<.18){const hb={x:f>0?P.x+P.w-6:P.x-38,y:P.y-44,w:44,h:76};for(const e of all)if(!k.hit.has(e)&&ov(hb,e)){k.hit.add(e);dealt(e,Math.round(S.atk*1.1*rnd(.9,1.1)));launch(e)}}if(k.t>.3)P.sk=null;return}
+  if(k.id=='smash'){if(k.t>=.28&&!k.done){k.done=1;shake=.25;hitstop(.06);const ix=P.x+12+f*34;slash(P.x+12,P.y+10,42,-2.7,.9,f,'#ffd43b',.24,6);ring(ix,GY-2,6,70,'#ffd43b',.35,5,.25);crack(ix,2,50);
+      for(let n=0;n<10;n++)pt({x:ix+rnd(-20,20),y:GY-4,vx:rnd(-160,160),vy:rnd(-320,-120),g:1400,c:pick(['#8d5524','#adb5bd']),ad:0,s:rnd(2,4),l:.7,bn:1});
+      const hb={x:f>0?P.x+4:P.x-60,y:P.y-14,w:80,h:P.h+14};hitFx='heavy';for(const e of all)if(ov(hb,e)){dealt(e,Math.round(S.atk*1.8*rnd(.9,1.1)));knock(e,f)}hitFx=null}
+    if(k.t>.55)P.sk=null;return}
+  if(k.id=='zap'){// 雷霆连斩(2026-10-13 第十轮):放招后主角隐身,只剩一团雷球,固定在身前斜上方(比一段跳略高);天上不再落雷,只有雷球附近的敌人受伤
+    P.vy=0;k.hid=1;zapBall(k,dt);if(k.t<.045)return;  // 2026-10-13 第十二轮:持续时间减半(间隔 .07 → .035,收尾 .25 → .13);第十三轮再 -25%(.035 → .026,收尾 .13 → .1)
+    if(k.n<ZAPN){k.tk-=dt;if(k.tk<=0){k.tk=.026;if(k.n%2==0)psx('zap');const c=all.filter(e=>e.hp>0&&!e.ug&&zapNear(e,k));
+        for(const e of c){if(!k.tg.includes(e)){k.tg.push(e);if(zapGd(e))k.gd.add(e)}if(!isBig(e)){if(!e.air){e.air=1;e.ay0=GY-e.h;e.hang=0;e.s=null;e.vy=0}e.hold=Math.max(e.hold||0,.3);e.avy=0}}
+        hitFx='thunder';for(const o of c)dealt(o,Math.round(skD('sword',1,S)*ZAPK*(k.gd.has(o)?.5:1)*rnd(.9,1.1)),{ns:isBig(o)?0:1});hitFx=null;k.n++;if(k.n>=ZAPN)k.fin=k.t}return}
+    // 结束:雷球炸开,雷球附近的敌人受终结伤害并被打落
+    const ft=k.t-k.fin;
+    if(!k.done){k.done=1;flash('200,225,255',.45);hitstop(.08);shake=.35;psx('thunder','boom');ring(k.bx,k.by,8,ZAPB[2]*1.3,'#74c0fc',.45,7);ring(k.bx,k.by,4,ZAPB[2],'#fff',.3,3);burst(k.bx,k.by,30,['#a5d8ff','#fff','#74c0fc'],420,{sh:1,s:2.5,l:.45,dr:3});VFX.spawn('electric-impact',k.bx,k.by,{s:3,add:1});
+      hitFx='slam';for(const e of all)if(e.hp>0&&!e.ug&&(k.tg.includes(e)||zapNear(e,k))){dealt(e,Math.round(skD('sword',1,S)*2.5*(k.gd.has(e)?.5:1)*rnd(.9,1.1)));if(!isBig(e)){e.hold=0;e.hang=0;e.avy=1100}}hitFx=null}
+    if(ft>.1){k.hid=0;P.sk=null}return}
+  if(k.id=='giant'){// 苍蓝巨剑:1 秒蓄力(身后 45° 幻化)→ 0.3 秒抡下 → 砸地
+    const T=GCH,ph=Math.min(1,k.t/T);FX.dk=Math.max(FX.dk,Math.min(.5,k.t*.3));if(!k.c1&&k.t>.35){k.c1=1;psx('zap')}if(!k.c2&&k.t>.7){k.c2=1;psx('zap')}
+    if(k.t<T){for(let n=0;n<2;n++){const G=gGeo(k),d=rnd(0,GL+30),px=G.hx+f*Math.cos(G.a)*d,py=G.hy+Math.sin(G.a)*d,r=rnd(30,70),b=Math.random()*6.283;
+          pt({x:px+Math.cos(b)*r,y:py+Math.sin(b)*r,vx:-Math.cos(b)*r/.3,vy:-Math.sin(b)*r/.3,c:pick(['#7b2cbf','#9d4edd','#ff4d6d']),sh:2,s:rnd(4,7),l:.3});if(Math.random()<.5)pt({x:px+rnd(-20,20),y:py+rnd(-20,20),vx:rnd(-20,20),vy:rnd(-40,-10),c:'rgba(20,6,30,.6)',ad:0,s:rnd(5,9),gr:1.4,l:.5})}
+      return}
+    if(!k.formed){k.formed=1;k.ft=k.t;psx('thunder');flash('40,0,60',.35);P.inv=Math.max(P.inv,.8);ring(P.x+12,P.y-60,6,90,'#9d4edd',.35,5)}
+    const st=k.t-k.ft;
+    if(st>=.3&&!k.done){k.done=1;const x0=P.x+12;flash('30,0,45',.6);hitstop(.13);shake=.6;psx('boom','slam');
+      for(let d=40;d<=420;d+=70){ring(x0+f*d,GY-2,6,90,'#7b2cbf',.55,6,.22);pillar(x0+f*d,16,'rgba(157,78,221,.85)',.45)}crack(x0+f*120,6,170);crack(x0+f*300,5,140);
+      for(let n=0;n<40;n++)pt({x:x0+f*rnd(20,400),y:GY-4,vx:rnd(-200,200),vy:rnd(-620,-200),g:1400,c:pick(['#8d5524','#6b3f1a','#2b1a3a','#c77dff']),ad:0,s:rnd(3,6),l:rnd(.7,1.1),bn:1});
+      burst(x0+f*200,GY-20,40,['#c77dff','#ff4d6d','#7b2cbf'],460,{sh:1,s:2.5,l:.55,dr:1.5,g:300});
+      const lo=Math.min(x0-30*f,x0+f*420),hi=Math.max(x0-30*f,x0+f*420);hitFx='slam';for(const e of all)if(!e.ug&&e.x+e.w>lo&&e.x<hi&&e.y+e.h>GY-170){const h0=e.hp;e.sc=0;dealt(e,Math.round(skD('sword',3,S)*rnd(.95,1.05)),{nm:1});if(e.hp<h0)bigStun(e)}hitFx=null}
+    if(st>.3&&st<.36)for(let n=0;n<6;n++){const d=rnd(40,GL);pt({x:P.x+12+f*d*.8,y:GY-rnd(4,20),vx:rnd(-80,80),vy:rnd(-200,-40),g:300,c:pick(['#c77dff','#ff4d6d']),s:rnd(3,5),l:.6})}
+    if(st>.75)P.sk=null;return}
+  if(k.id=='rstab'){// 冲刺直戳:0.06 秒收剑预备 → 0.26 秒高速前冲(约 120 像素)→ 收招
+    if(k.t>.06&&k.t<.32){const sp=570*(1-(k.t-.06)/.26*.5);P.x=Math.max(bossOn?2570:0,Math.min(xMax(),P.x+f*sp*dt));
+      k.gt=(k.gt||0)-dt;if(k.gt<=0){k.gt=.03;ghost('rgba(165,216,255,.8)',.22)}
+      for(let n=0;n<2;n++)pt({x:P.x+12-f*rnd(4,14),y:P.y+P.h-rnd(1,4),vx:-f*rnd(60,140),vy:rnd(-50,-10),c:'rgba(205,195,175,.7)',ad:0,s:rnd(3,5),gr:1,l:.35});
+      const hb={x:f>0?P.x+P.w-4:P.x-58,y:P.y-2,w:62,h:P.h};
+      for(const e of all)if(!k.hit.has(e)&&!e.ug&&ov(hb,e)){k.hit.add(e);hitFx='dash';dealt(e,Math.round(S.atk*1.6*rnd(.9,1.1)));hitFx=null;knock(e,f);if(!isBig(e))e.kbv=f*520;burst(e.x+e.w/2,e.y+e.h/2,10,['#a5d8ff','#fff'],260,{sh:1,s:2,l:.25,dr:4})}}
+    if(k.t>.48)P.sk=null;return}
+  if(k.id=='dash'){const ph=k.t<.18?1:k.t<.36?-1:0;if(!ph){P.sk=null;return}
+    if(!k.a){k.a=1;slash(P.x+12+f*18,P.y+16,36,-1.35,1.35,f,'#74c0fc',.3,5)}
+    if(ph==-1&&!k.b){k.b=1;k.hit=new Set();slash(P.x+12-f*18,P.y+16,36,1.35,-1.35,-f,'#b197fc',.3,5)}
+    k.gt=(k.gt||0)-dt;if(k.gt<=0){k.gt=.022;ghost(ph>0?'#339af0':'#845ef7',.3)}
+    for(let n=0;n<2;n++)pt({x:P.x+12+rnd(-14,14),y:P.y+rnd(2,30),vx:-f*ph*rnd(260,520),c:pick(['#74c0fc','#d0ebff']),sh:1,s:rnd(1.5,3),l:.2});
+    P.x=Math.max(bossOn?2570:0,Math.min(xMax(),P.x+f*ph*900*dt));
+    const hb={x:P.x-12,y:P.y,w:P.w+24,h:P.h};for(const e of all)if(!k.hit.has(e)&&ov(hb,e)){k.hit.add(e);hitFx='dash';dealt(e,Math.round(skD('sword',0,S)*(.9+Math.random()*.2)));hitFx=null}}
+  else if(k.id=='bolt'){if(k.t>.5){P.sk=null;return}FX.dk=Math.max(FX.dk,.35);k.tk=(k.tk||0)-dt;if(k.tk<=0){k.tk=.1;const hb={x:f>0?P.x-10:P.x-70,y:P.y-80,w:104,h:130};
+      for(let n=0;n<2;n++){const a0=rnd(-3.1,3.1);slash(hb.x+rnd(20,hb.w-20),hb.y+rnd(30,hb.h-20),rnd(16,30),a0,a0+rnd(2,3),pick([1,-1]),pick(['#74c0fc','#a5d8ff','#d0bfff']),.2,3)}
+      ghost('#a5d8ff',.15);burst(P.x+12,P.y+16,8,['#a5d8ff','#fff'],280,{sh:1,s:2,l:.2,dr:3});
+      hitFx='thunder';for(const e of all)if(ov(hb,e))dealt(e,Math.round(skD('sword',1,S)*(.9+Math.random()*.2)));hitFx=null}}
+  else if(k.id=='slam'){// 天崩地裂·第一段(2026-10-12 第六轮):巨剑竖在身前格挡(霸体)→ 0.32 秒时用力推出,金色光爆在身前炸开:一个普攻距离内的敌人被击退到 1.5 倍距离处;整段都会消除身前的怪物飞弹
+    P.ar=Math.max(P.ar||0,.05);gdEat(f);
+    if(k.t<.32){if(Math.random()<.7)pt({x:P.x+12+f*rnd(4,14),y:P.y-30+rnd(0,58),vx:rnd(-20,20),vy:rnd(-70,-20),c:pick(['#ffe066','#fff3bf','#ffd43b','#fff']),sh:2,s:rnd(2,3.5),l:.3});return}
+    if(!k.done){k.done=1;psx('heavy','wave');shake=.4;hitstop(.08);flash('255,236,170',.5);const x0=P.x+12,bx=x0+f*38;
+      SFX5('g-burst',bx,P.y+4,{s:1.45,life:.5,gr:.5,f});SFX5('g-orb',bx,P.y+4,{s:1.2,life:.3,gr:1});ring(bx,P.y+4,10,96,'#ffe066',.42,7);ring(bx,P.y+4,6,64,'#fff',.3,4);
+      burst(bx,P.y+4,40,['#fff','#fff3bf','#ffe066','#ffd43b','#ff922b'],560,{sh:1,s:2.6,l:.5,dr:2});
+      const hb={x:f>0?x0-8:x0+8-GDA,y:P.y-56,w:GDA,h:GY-P.y+56};hitFx='dash';
+      for(const e of all)if(!e.ug&&ov(hb,e)){dealt(e,Math.round(skD('sword',2,S)*rnd(.9,1.1)));if(isBig(e))continue;knock(e,f);
+        const d=(x0+f*GDR-(e.x+e.w/2))*f;e.kbv=f*(Math.max(0,d)*6+16);e.st=Math.max(e.st||0,.8)}  // 击退到 1.5 倍普攻距离(kbv 每秒减小 6 倍,总位移约 kbv/6)
+      hitFx=null;P.gd2=GDW;CD.sword[2]=0;tx('再按 I:拉回!',P.x-24,P.y-50,'#ffe066')}
+    if(k.t>.62)P.sk=null}
+  else if(k.id=='slam2'){// 第二段:巨剑高举 → 0.26 秒劈在地上 → 1.5 倍普攻距离处落下一道又高又宽的深蓝 / 白 / 紫色斜光束,往回卷,把路上的敌人拖到身边
+    const f=k.f,x0=P.x+12,far=x0+f*GDR,stop=x0+f*24;
+    if(k.t<.26)return;
+    if(!k.done){k.done=1;psx('slam','boom');shake=.55;hitstop(.1);flash('190,200,255',.45);crack(x0+f*32,5,60);ring(x0+f*32,GY-2,6,90,'#748ffc',.45,5,.25);
+      burst(x0+f*32,GY-6,22,['#fff','#91a7ff','#b197fc'],360,{sh:1,s:2,g:600,l:.5,dr:1});
+      for(let n=0;n<14;n++)pt({x:x0+f*rnd(8,56),y:GY-4,vx:rnd(-160,160),vy:rnd(-380,-120),g:1400,c:pick(['#8d5524','#6b3f1a','#adb5bd']),ad:0,s:rnd(2,4),l:rnd(.5,.8),bn:1});
+      k.qx=far;SFX5('b-orb',far,GY-40,{s:1.6,life:.35,gr:.8});SFX5('v-ring',far,GY-46,{s:1.3,life:.4,gr:.6});burst(far,GY-60,26,['#fff','#91a7ff','#b197fc','#4c6ef5'],360,{sh:1,s:2.4,l:.4,dr:2});pillar(far,30,'rgba(145,167,255,.85)',.3)}
+    const q=cl01((k.t-.34)/.45);k.qx=far+(stop-far)*eio(q);
+    if(k.t>=.34&&q<1){if(!k.w){k.w=1;psx('wave','dash')}
+      for(let n=0;n<5;n++){const h=rnd(4,GDH);pt({x:k.qx+f*(h*.35)+rnd(-8,8),y:GY-h,vx:f*rnd(140,320),vy:rnd(-20,20),c:pick(['#fff','#bac8ff','#748ffc','#b197fc','#7048e8']),sh:1,s:rnd(1.5,3),l:.28})}
+      for(const e of all){if(e.ug||e.hp<=0||e.y+e.h<GY-GDH-20||e.y>GY)continue;const c=e.x+e.w/2,d=(c-x0)*f;
+        if(!k.gr.has(e)&&d>0&&d<=GDR+30&&d>=(k.qx-x0)*f-12){k.gr.add(e);hitFx=null;dealt(e,Math.round(skD('sword',2,S)*.6*rnd(.9,1.1)));hitFx=null;burst(c,e.y+e.h/2,10,['#fff','#91a7ff','#b197fc'],260,{sh:1,s:2,l:.25,dr:3})}
+        if(k.gr.has(e)&&!isBig(e)){e.kbv=0;e.st=Math.max(e.st||0,.5);const nc=f>0?Math.max(k.qx-f*e.w/2,stop+e.w/2):Math.min(k.qx-f*e.w/2,stop-e.w/2);if((nc-c)*f<0)e.x=nc-e.w/2}}}
+    if(q>=1&&!k.e){k.e=1;for(const e of k.gr)if(!isBig(e)&&e.hp>0){e.st=Math.max(e.st||0,.8);tx('拉回!',e.x+e.w/2,e.y-18,'#91a7ff')}ring(stop,P.y+16,4,60,'#91a7ff',.35,4);SFX5('v-ring',stop,P.y+6,{s:.9,life:.3})}
+    if(k.t>.95)P.sk=null}}
+// 天崩地裂(2026-10-12 第六轮):GDA = 第一段范围 = 一个普攻距离(从身体中心算,约等于普攻判定的最远处);GDR = 1.5 倍普攻距离(第一段击退到这里,第二段剑气从这里出现);
+// GDW = 第一段后等第二段的秒数;GDH = 第二段光束高度
+const GDA=72,GDR=108,GDW=4,GDH=150;
+function gdPull(){P.gd2=0;CD.sword[2]=skCdA('sword',2);P.sk={id:'slam2',t:0,inv:1,f:P.f,gr:new Set()};P.ch=0;ah=0;P.swT=null;psx('heavy')}
+// 第一段消弹:身前一个普攻距离(略放宽)内的怪物飞弹直接消失
+function gdEat(f){const x0=P.x+12,a=f>0?x0-14:x0-GDA-20,b=f>0?x0+GDA+20:x0+14;
+  for(let i=F.length-1;i>=0;i--){const o=F[i];if(o.x>a&&o.x<b&&o.y>P.y-70&&o.y<GY+4){F.splice(i,1);burst(o.x,o.y,8,['#fff','#ffe066','#ffd43b'],200,{sh:1,s:2,l:.25,dr:3});VFX.spawn('solar-shrapnel',o.x,o.y,{s:.5})}}}
+// 天崩地裂的画面:第一段 = 竖剑上的金色光柱 → 身前炸开的金色光爆(比人大,弧形剑光 + 放射光线);第二段 = 贴地的剑光 + 又高又宽的深蓝卷浪月牙(紫边)往回卷
+function drawGd(){const k=P.sk;if(!k||(k.id!='slam'&&k.id!='slam2'))return;const t=performance.now()/1000;x.save();x.globalCompositeOperation='lighter';
+  if(k.id=='slam'){const f=P.f,x0=P.x+12-cam;
+    if(k.t<.32){const a=Math.min(1,k.t/.08),hx=Math.round(x0+f*10),top=P.y-62,h=GY-top,fl=.85+.15*Math.sin(t*40);
+      x.fillStyle=`rgba(255,180,40,${.22*a*fl})`;x.fillRect(hx-10,top,20,h);x.fillStyle=`rgba(255,224,102,${.45*a})`;x.fillRect(hx-5,top-4,10,h+4);x.fillStyle=`rgba(255,255,235,${.85*a})`;x.fillRect(hx-2,top-8,4,h+8);
+      const r=10+k.t*40;x.fillStyle=RGD(x,hx,P.y+4,r,[`rgba(255,240,180,${.5*a})`,'rgba(0,0,0,0)']);x.fillRect(hx-r,P.y+4-r,2*r,2*r);
+      const sy=P.y-10+Math.sin(t*9)*18;x.fillStyle=`rgba(255,255,255,${a})`;x.fillRect(hx-9,sy,18,1);x.fillRect(hx-.5,sy-9,1,18)}
+    else{const q=(k.t-.32)/.34;if(q<1){const al=1-q,bx=x0+f*38,y0=P.y+4,R0=30+70*eo(Math.min(1,q*2.2));
+      x.fillStyle=RGD(x,bx,y0,R0,[`rgba(255,255,240,${al})`,`rgba(255,224,102,${.8*al})`,`rgba(255,146,43,${.35*al})`,'rgba(0,0,0,0)']);x.fillRect(bx-R0,y0-R0,2*R0,2*R0);
+      // 放射光线
+      for(let i=0;i<14;i++){const a0=(i/14)*6.283+i*.37,L=R0*(1.1+((i*7)%5)*.18),w=i%3?1:2;x.save();x.translate(bx,y0);x.rotate(a0);x.fillStyle=i%2?`rgba(255,240,170,${al})`:`rgba(255,212,59,${.8*al})`;x.fillRect(R0*.3,-w/2,L*(.5+.5*eo(q*2)),w);x.restore()}
+      // 弧形剑光:向前上方甩出的几道月牙(示意图上方的金色弧线)
+      x.save();x.translate(bx-f*30,y0+18);x.scale(f,1);for(let i=0;i<5;i++){const r=50+i*16+q*44;x.strokeStyle=i%2?`rgba(255,240,170,${.9*al})`:`rgba(255,192,40,${.85*al})`;x.lineWidth=Math.max(1,4-i*.6);x.beginPath();x.arc(0,0,r,-1.55+i*.05,-.15-i*.06);x.stroke()}x.restore();
+      // 地面金光
+      x.fillStyle=`rgba(255,212,59,${.6*al})`;x.fillRect(Math.min(bx-60,bx+60)-0,GY-3,120,3);x.fillStyle=`rgba(255,255,230,${al})`;x.fillRect(bx-40,GY-2,80,1)}}}
+  else if(k.t>=.26){const f=k.f,x0=P.x+12-cam,st=k.t-.26;
+    if(st<.3){const al=1-st/.3;x.fillStyle=`rgba(116,143,252,${.6*al})`;x.fillRect(Math.min(x0+f*6,x0+f*62),GY-6,56,6);x.fillStyle=`rgba(255,255,255,${al})`;x.fillRect(Math.min(x0+f*6,x0+f*62),GY-3,56,2)}
+    if(k.qx!=null&&k.t<.92){const qx=Math.round(k.qx-cam),ap=Math.min(1,(k.t-.26)/.08),al=k.t<.79?1:Math.max(0,1-(k.t-.79)/.13),H=GDH*(.55+.45*ap);
+      // 2026-10-12 第七轮:按用户涂鸦改成卷浪月牙 —— 背面(远离主角)几乎竖直,顶部向主角方向卷出一个浪头,前沿内凹;实心深蓝,紫边,内侧浅蓝 / 白高光
+      const b=-f,Wc=H*.5,crest=(s,c,op)=>{x.globalCompositeOperation=op;x.fillStyle=c;const Q=(u,h)=>[qx+b*u*s,GY-h];let p,q;x.beginPath();p=Q(-16,0);x.moveTo(p[0],p[1]);
+        q=Q(-15,H*.55);p=Q(-12,H*.8);x.quadraticCurveTo(q[0],q[1],p[0],p[1]);q=Q(-4,H*1.06);p=Q(Wc*.55,H);x.quadraticCurveTo(q[0],q[1],p[0],p[1]);
+        q=Q(Wc*1.08,H*.97);p=Q(Wc,H*.76);x.quadraticCurveTo(q[0],q[1],p[0],p[1]);q=Q(Wc*.5,H*.58);p=Q(Wc*.36,H*.16);x.quadraticCurveTo(q[0],q[1],p[0],p[1]);
+        q=Q(Wc*.3,H*.05);p=Q(Wc*.32,0);x.quadraticCurveTo(q[0],q[1],p[0],p[1]);x.closePath();x.fill()};
+      x.globalAlpha=al*.7;crest(1.12,'#7048e8','source-over');x.globalAlpha=al;crest(1,'#1c2f9e','source-over');crest(.82,'#2f4bd0','source-over');
+      crest(.6,'rgba(116,143,252,.75)','lighter');crest(.38,'rgba(200,215,255,.8)','lighter');crest(.18,'rgba(255,255,255,.9)','lighter');
+      // 前沿(内凹那一侧)向主角方向甩出的细光线
+      for(let i=0;i<14;i++){const u=((i*37+((t*240)|0))%100)/100,hh=H*(.15+.75*u),ox=qx+b*(10+Wc*.9*u*u),len=14+((i*13)%5)*8;x.strokeStyle=['rgba(255,255,255,.95)','rgba(186,200,255,.85)','rgba(151,117,250,.8)','rgba(76,110,245,.8)'][i%4];x.lineWidth=i%3?1:2;
+        x.beginPath();x.moveTo(ox,GY-hh);x.lineTo(ox+b*len,GY-hh+len*.2);x.stroke()}
+      // 底部光团 + 往回卷的光痕
+      const r=28;x.fillStyle=RGD(x,qx,GY-6,r,['rgba(255,255,255,.9)','rgba(116,143,252,.5)','rgba(0,0,0,0)']);x.fillRect(qx-r,GY-6-r,2*r,2*r);
+      for(let i=0;i<6;i++){const yy=GY-8-((i*23+((t*90)|0))%Math.max(1,H*.7)),ln=20+((i*7)%3)*16;x.fillStyle=i%2?'rgba(151,117,250,.6)':'rgba(186,200,255,.65)';x.fillRect(Math.min(qx,qx+f*ln),yy,ln,2)}
+      x.globalAlpha=1}}
+  x.restore()}
+// =====================================================================
+
+====================================================================================================
+【剑士进阶技能:疾风踏斩 / 绝息风斩 / 封尘断念斩 / 焚天炎暴(advStart / advStep / stmStep / yrWave / drawAdv)】 原行号 1057~1185
+====================================================================================================
+// ===== 剑士进阶技能(转职剑士后学习):空格 / W+空格 / S+空格 / WW+空格 =====
+// =====================================================================
+let STM=[],SQI=[],WTAP=0;  // SQI:剑气(只是特效)
+  // STM:焚天炎暴;WTAP:上一次按 W 的时间(连按两下 W = WW)
+function wTap(){const t=performance.now();if(t-WTAP<300)keys.ww=1;WTAP=t}
+const allTg=()=>E.concat(bossOn&&B&&B.hp>0?[B]:[]).filter(e=>!e.ug&&e.hp>0);
+// 绝息风斩的目标:附近被击飞(浮空)的敌人
+// 可以锁定的目标:被击飞的、大型怪和首领、因为自己的招式跳到空中的怪(蝙蝠这种本来就在飞的不算)
+const onPlatE=e=>PL.some(p=>!p.gone&&p.y<GY&&Math.abs(p.y-(e.y+e.h))<5&&e.x+e.w>p.x&&e.x<p.x+p.w);
+const lsOk=e=>!e.ug&&e.hp>0&&(e.air||isBig(e)||e.k=='bat'||(e.y+e.h<GY-14&&!onPlatE(e)));  // 蝙蝠等飞行怪也算浮空目标
+// 雷霆连斩的目标(2026-10-12 取消击飞限制):身前约 200 像素内的所有敌人;放招时站在地面 / 平台上的非首领小怪只受 50% 伤害(zapGd)
+const zapGd=e=>e!==B&&!e.air&&e.k!='bat'&&(e.y+e.h>=GY-14||onPlatE(e));
+// 2026-10-13 第十轮:雷球 ZAPB = [离主角中心的水平距离, 离脚底的高度(一段跳约 90,略高一点), 伤害范围横半径, 竖半径](和雷球画面一样大);ZAPN 段,每段 ZAPK 倍,最后炸开 2.5 倍
+const ZAPB=[60,110,80,60],ZAPN=15,ZAPK=.27;
+const zapNear=(e,k)=>{const dx=Math.max(0,Math.abs(e.x+e.w/2-k.bx)-e.w/2),dy=Math.max(0,Math.abs(e.y+e.h/2-k.by)-e.h/2);return (dx/ZAPB[2])**2+(dy/ZAPB[3])**2<1};
+// 雷球:电击素材叠放在固定位置(比原来身上那团大一倍)+ 球里的短电弧
+function zapBall(k,dt){k.zb=(k.zb||0)-dt;if(k.zb>0)return;k.zb=.05;
+  VFX.spawn('electric-impact',k.bx+rnd(-8,8),k.by+rnd(-8,8),{s:rnd(1.6,2.1),add:1,r:rnd(-.6,.6),f:pick([1,-1])});
+  for(let n=0;n<3;n++){const a=rnd(0,6.28),r=rnd(10,40),x1=k.bx+Math.cos(a)*r*.4,y1=k.by+Math.sin(a)*r*.4;Z.push({x:x1,t:.08,m:.08,p:zline(x1,y1,k.bx+Math.cos(a)*r,k.by+Math.sin(a)*r),br:[]})}
+  burst(k.bx,k.by,4,['#fff','#a5d8ff','#74c0fc'],200,{sh:1,s:2,l:.18,dr:3})}
+// 第十三轮:绝息风斩只控制 / 伤害主角身边 LSR(横、竖半径)里的敌人;不在范围里或中途离开的敌人不再被定住、不再挨刀
+const LSR=[150,120],lsIn=e=>Math.abs(e.x+e.w/2-(P.x+12))<LSR[0]+e.w/2&&Math.abs(e.y+e.h/2-(P.y+20))<LSR[1]+e.h/2;
+const lsTargets=()=>allTg().filter(e=>lsOk(e)&&Math.abs(e.x+e.w/2-(P.x+12))<380&&Math.abs(e.y-P.y)<260);
+function advStart(i,S){const f=P.f,cx=P.x+12;
+  if(i==4){// 疾风踏斩:锁定前方最近的敌人 → 高速突进
+    const tg=allTg().filter(e=>(e.x+e.w/2-cx)*f>-10&&Math.abs(e.x+e.w/2-cx)<280).sort((a,b)=>Math.abs(a.x-cx)-Math.abs(b.x-cx))[0],tx_=tg?tg.x+tg.w/2:cx+f*150;
+    P.sk={id:'tw',t:0,inv:1,x0:P.x,x1:Math.max(10,Math.min(xMax(),tx_-12)),hit:new Set()};if(tg)P.f=sgn(tx_-cx)||f;ghost('#c3fae8',.35)}
+  else if(i==5){// 绝息风斩:画面停顿 → 瞬移到浮空敌人身边
+    const L=lsTargets(),c0=L.reduce((a,e)=>a+e.x+e.w/2,0)/L.length,y0=Math.min(...L.map(e=>e.y));hitstop(.12);flash('210,240,255',.4);FX.dk=Math.max(FX.dk,.5);ghost('#c3fae8',.4);
+    P.sk={id:'ls',t:0,inv:1,tg:L,px:Math.max(10,Math.min(xMax(),c0-12-P.f*18)),py:Math.max(20,y0-6),n:0,tk:0};P.x=P.sk.px;P.y=P.sk.py;P.vy=0;P.fly=0;for(const e of L)if(!isBig(e)&&lsIn(e)){if(!e.air){e.air=1;e.ay0=GY-e.h;e.hang=0;e.s=null;e.vy=0}e.hold=2;e.avy=0}
+    pillar(P.x+12,14,'rgba(195,250,232,.85)',.3);tx('绝息风斩!',P.x-14,P.y-30,'#c3fae8')}
+  else if(i==6){P.sk={id:'yr',t:0,inv:1,x0:cx,f,hit:[]};FX.dk=Math.max(FX.dk,.35);SFX5('v-gear',cx,P.y+4,{s:1.4,life:.45,rs:3})}
+  else{// 焚天炎暴:放出持续向前推进的冰暴
+    STM.push({x:cx+f*34,f,t:4,m:4,tk:0,st:null,a:0});P.cs={id:'sword7',t:0};ring(cx+f*34,GY-30,6,50,'#ff6b6b',.4,5);burst(cx+f*34,GY-30,16,['#ffc9c9','#ff6b6b','#fff'],200,{s:3,l:.4});SFX5('r-burst',cx+f*34,GY-50,{s:1.3,life:.4})}}
+function advStep(k,dt,S,all){const f=P.f;
+  if(k.id=='tw'){// 疾风踏斩(约 1.6 秒):突进 → 360° 斩击击飞 → 旋风中盘旋上升连斩 → 空中十字斩 → 落地风爆 → 收势
+    const t=k.t,cx=P.x+12;
+    if(t<.16){const q=t/.16;P.x=k.x0+(k.x1-k.x0)*eo(q);k.gt=(k.gt||0)-dt;if(k.gt<=0){k.gt=.03;ghost('rgba(195,250,232,.8)',.25)}
+      for(let n=0;n<2;n++)pt({x:cx-f*rnd(4,18),y:P.y+rnd(4,30),vx:-f*rnd(200,420),vy:rnd(-20,20),c:pick(['#c3fae8','#e6fcf5','#fff']),sh:1,s:2,l:.22});return 1}
+    if(!k.done){k.done=1;k.y0=P.y;k.sp=0;k.cr=0;const cy=P.y+16;psx('wave','swing');hitstop(.06);shake=.25;flash('210,255,240',.25);
+      slash(cx,cy,48,-3.1,3.1,1,'#c3fae8',.32,6);VFX.spawn('leaf-gust',cx,cy,{s:1.6,f});slash(cx,cy,62,-3.1,3.1,-1,'#ffffff',.3,4);ring(cx,cy,6,92,'#96f2d7',.42,6);
+      for(let n=0;n<34;n++){const a=n/34*6.283;pt({x:cx+Math.cos(a)*20,y:GY-4-n*2.2,vx:Math.cos(a+1.6)*220,vy:-rnd(60,180),c:pick(['#c3fae8','#e6fcf5','#fff']),sh:1,s:2,l:rnd(.35,.6),dr:2})}
+      k.L=[];hitFx='wave';for(const e of all)if(!e.ug&&Math.hypot(e.x+e.w/2-cx,e.y+e.h/2-cy)<e.w/2+72){dealt(e,Math.round(skD('sword',4,S)*rnd(.9,1.1)));launch(e,1.4);k.L.push(e)}hitFx=null}
+    const L=k.L.filter(e=>e.hp>0&&all.includes(e)),H=46;
+    if(t<.62){// 盘旋上升:旋风包住自己,每 0.12 秒一记 360° 斩
+      const q=(t-.16)/.46;P.y=k.y0-H*eo(q);P.vy=0;
+      for(let n=0;n<3;n++)pt({x:cx+Math.cos(t*30+n*2.1)*rnd(14,26),y:P.y+rnd(0,40),vx:Math.cos(t*30+n*2.1+1.6)*160,vy:-rnd(80,200),c:pick(['#c3fae8','#96f2d7','#fff']),sh:1,s:2,l:.3});
+      if(k.sp<3&&t>=.28+k.sp*.12){k.sp++;psx('swing');const cy=P.y+16,a0=t*12;slash(cx,cy,40+k.sp*6,a0,a0+6.2,k.sp%2?1:-1,k.sp%2?'#e6fcf5':'#96f2d7',.22,4);ring(cx,cy,4,60+k.sp*10,'#c3fae8',.3,3);
+        hitFx=null;for(const e of all)if(!e.ug&&Math.hypot(e.x+e.w/2-cx,e.y+e.h/2-cy)<e.w/2+80){dealt(e,Math.round(skD('sword',4,S)*.3*rnd(.9,1.1)),{ns:1});if(e.air)e.hang=Math.max(e.hang||0,.6)}}
+      return 1}
+    if(t<1.1){// 空中十字斩:在浮空的敌人之间来回
+      P.y=k.y0-H;P.vy=0;
+      if(k.cr<2&&t>=.72+k.cr*.18){k.cr++;psx('swing','wave');const tg=L.length?L[(k.cr-1)%L.length]:null,ex=tg?tg.x+tg.w/2:cx+f*50,ey=tg?tg.y+tg.h/2:P.y+16;
+        ghost('rgba(195,250,232,.7)',.25);if(tg){P.f=sgn(ex-cx)||f;P.x=Math.max(pLo(),Math.min(xMax(),ex-12-P.f*30))}
+        slash(ex,ey,46,-2.4,.8,1,'#ffffff',.26,5);slash(ex,ey,46,-.8,2.4,-1,'#96f2d7',.26,5);SQI.push({x:ex,y:ey,a:.8,t:.3,m:.3,len:120,c:'#c3fae8'},{x:ex,y:ey,a:-.8,t:.3,m:.3,len:120,c:'#ffffff'});
+        hitFx='wave';for(const e of L)if(Math.hypot(e.x+e.w/2-ex,e.y+e.h/2-ey)<110){dealt(e,Math.round(skD('sword',4,S)*.35*rnd(.9,1.1)),{ns:1});e.hang=Math.max(e.hang||0,.5)}hitFx=null}
+      return 1}
+    if(t<1.32){const q=(t-1.1)/.22;P.y=k.y0-H+H*q*q;P.vy=0;
+      if(q>=.99&&!k.ld){k.ld=1}return 1}
+    if(!k.ld2){k.ld2=1;P.y=k.y0;P.vy=0;psx('slam');VFX.spawn('landing-dust',cx,GY,{s:1.8});shake=.3;ring(cx,GY-4,8,110,'#96f2d7',.45,6,.25);ring(cx,GY-4,4,70,'#fff',.3,3,.25);crack(cx,3,70);
+      burst(cx,GY-8,26,['#c3fae8','#e6fcf5','#fff'],360,{sh:1,s:2.4,l:.45,dr:1});
+      hitFx='wave';for(const e of all)if(!e.ug&&!e.air&&Math.abs(e.x+e.w/2-cx)<e.w/2+90&&e.y+e.h>GY-60)dealt(e,Math.round(skD('sword',4,S)*.4*rnd(.9,1.1)),{ns:1});hitFx=null}
+    if(t>1.6)P.sk=null;return 1}
+  if(k.id=='ls'){// 30 段空中乱斩,把敌人一直控制在空中;最后一刀劈回地面,之后获得破甲
+    P.x=k.px;P.y=k.py;P.vy=0;FX.dk=Math.max(FX.dk,.4);const L=k.tg.filter(e=>e.hp>0&&all.includes(e)&&lsIn(e));for(const e of L)if(!isBig(e)){e.hold=.3;e.avy=0}
+    if(k.n<30){k.tk-=dt;while(k.tk<=0&&k.n<30){k.tk+=.0236;k.n++;if(k.n%3==0)psx('swing');const e=L[k.n%Math.max(1,L.length)];if(!e){k.n=30;break}if(isBig(e)){P.f=sgn(e.x+e.w/2-P.x-12)||P.f}const ex=e.x+e.w/2,ey=e.y+e.h/2,a0=rnd(-3.1,3.1);
+        slash(ex+rnd(-8,8),ey+rnd(-8,8),rnd(26,40),a0,a0+rnd(2,3),pick([1,-1]),pick(['#c3fae8','#fff','#a5d8ff']),.2,4);SQI.push({x:ex+rnd(-10,10),y:ey+rnd(-10,10),a:rnd(-3.1,3.1),t:.26,m:.26,len:rnd(90,150),c:pick(['#c3fae8','#ffffff','#a5d8ff','#96f2d7'])});if(k.n%2)burst(ex,ey,5,['#fff','#c3fae8'],220,{sh:1,s:2,l:.2,dr:3});P.f=pick([1,-1]);
+        hitFx=null;for(const o of L)if(Math.hypot(o.x+o.w/2-ex,o.y+o.h/2-ey)<90)dealt(o,Math.round(skD('sword',5,S)*rnd(.9,1.1)),{ns:1})}return 1}
+    if(!k.done){k.done=1;k.d2=0;psx('slam','boom');shake=.5;hitstop(.1);flash('230,250,255',.5);slash(P.x+12,P.y+20,46,-2.4,1.2,P.f,'#ffffff',.3,7);
+      for(const e of L){dealt(e,Math.round(skD('sword',5,S)*6),{ns:1});if(!isBig(e)){e.hold=0;e.hang=0;e.avy=1100}}crack(P.x+12,4,80);VFX.spawn('earth-rupture',P.x+12,GY,{s:1.4});ring(P.x+12,GY-2,8,110,'#c3fae8',.45,6,.25);P.apen=6;tx('破甲 6 秒!',P.x-10,P.y-30,'#c3fae8')}
+    k.d2+=dt;if(k.d2>.13){P.sk=null;P.vy=260}return 1}  // 2026-10-13 第十二轮:持续时间 -30%(每段 .045 → .0315);第十三轮再 -25%(.0315 → .0236,收尾 .175 → .13)
+  if(k.id=='yr'){// 封尘断念斩(约 1.8 秒):蓄势 → 前方大斩(眩晕标记)→ 瞬移到最远目标身后 → 风暴把敌人拉回 → 拔刀定格 → 魔法十字斩击飞 → 收刀
+    const f0=k.f,x0=k.x0,t=k.t;
+    if(t<.4){FX.dk=Math.max(FX.dk,.3);if(Math.random()<dt*40){const a=rnd(0,6.28),r=rnd(30,60);pt({x:P.x+12+Math.cos(a)*r,y:P.y+16+Math.sin(a)*r,vx:-Math.cos(a)*r*3,vy:-Math.sin(a)*r*3,c:pick(['#e599f7','#d0bfff','#fff']),sh:1,s:2,l:.3})}return 1}
+    if(!k.a){k.a=1;psx('heavy','wave');shake=.3;hitstop(.07);flash('230,190,255',.25);const hb={x:f0>0?x0:x0-300,y:P.y-40,w:300,h:P.h+50};
+      slash(x0+f0*60,P.y+10,90,-1.5,1.3,f0,'#f3d9fa',.32,8);slash(x0+f0*140,P.y+12,110,-1.3,1.1,f0,'#e599f7',.3,6);SFX5('v-wing',x0+f0*130,P.y+6,{s:2.3,f:f0,life:.5,gr:.25});SFX5('v-ring',x0+f0*70,P.y+8,{s:1.5,life:.4,gr:.5});
+      for(let n=0;n<40;n++)pt({x:x0+f0*rnd(10,300),y:P.y+rnd(-20,30),vx:f0*rnd(200,500),vy:rnd(-20,20),c:pick(['#e599f7','#f3d9fa','#fff']),sh:1,s:2.4,l:.35});
+      hitFx='slam';for(const e of all)if(!e.ug&&ov(hb,e)){dealt(e,Math.round(skD('sword',6,S)*rnd(.9,1.1)));e.st=Math.max(e.st||0,1.8);e.mk6=1.8;k.hit.push(e);SFX5('v-clock',0,0,{at:e,s:.85,life:1.8,rs:1.5,a:.9})}hitFx=null}
+    if(t<.62)return 1;
+    if(!k.b){k.b=1;const H=k.hit.filter(e=>e.hp>0);if(!H.length){k.miss=1}
+      else{const far=H.reduce((a,e)=>Math.abs(e.x+e.w/2-x0)>Math.abs(a.x+a.w/2-x0)?e:a);ghost('#e599f7',.45);P.x=Math.max(10,Math.min(xMax(),f0>0?far.x+far.w+14:far.x-14-P.w));P.f=-f0;pillar(P.x+12,16,'rgba(229,153,247,.85)',.35);psx('blink');k.vo={x:x0,y:P.y+8,w:0,h:0};SFX5('v-vortex',0,0,{at:k.vo,s:1.7,life:.62,rs:-8});burst(P.x+12,P.y+16,20,['#e599f7','#fff'],260,{sh:1,s:2,l:.35})}}
+    if(k.miss){if(t>1)P.sk=null;return 1}
+    if(t<1.2){if(!k.w2&&t>.9){k.w2=1;psx('wave')}const px=P.x+12;k.wp=(t-.62)/.58;for(const e of k.hit)if(e.hp>0&&!isBig(e)&&!e.ug){const tx_=px+P.f*28-e.w/2;e.x+=(tx_-e.x)*Math.min(1,dt*5);e.st=Math.max(e.st||0,.3)}
+      const wx=x0+(px-x0)*k.wp;if(k.vo)k.vo.x=wx;for(let n=0;n<4;n++)pt({x:wx+rnd(-10,10),y:P.y+rnd(-30,30),vx:sgn(px-x0)*rnd(200,400),vy:rnd(-40,40),c:pick(['#e599f7','#d0bfff','#fff']),sh:1,s:2,l:.3});
+      return 1}
+    if(t<1.35){FX.dk=Math.max(FX.dk,.45);if(!k.iai){k.iai=1;tx('封尘……',P.x-10,P.y-34,'#f3d9fa');psx('blink')}return 1}
+    if(!k.c){k.c=1;psx('thunder','slam');shake=.45;hitstop(.1);flash('230,200,255',.45);ring(P.x+12+P.f*28,P.y+16,6,100,'#e599f7',.45,6);SFX5('v-wing',P.x+12+P.f*70,P.y+6,{s:1.9,f:P.f,life:.5});tx('断念!',P.x-6,P.y-40,'#e599f7');hitFx='wave';
+      for(const e of k.hit)if(e.hp>0){const ex=e.x+e.w/2,ey=e.y+e.h/2;dealt(e,Math.round(skD('sword',6,S)*rnd(.9,1.1)));tx('魔法',ex,e.y-26,'#e599f7');launch(e,1.5);
+        SQI.push({x:ex,y:ey,a:.85,t:.4,m:.4,len:150,c:'#e599f7'},{x:ex,y:ey,a:-.85,t:.4,m:.4,len:150,c:'#f3d9fa'});SFX5('v-ring',ex,ey,{s:1.3,life:.45,gr:.6});SFX5('v-gear',ex,ey,{s:1.1,life:.4,rs:5});burst(ex,ey,14,['#e599f7','#fff'],260,{sh:1,s:2,l:.4})}hitFx=null}
+    if(Math.random()<dt*20)pt({x:P.x+12+rnd(-40,40),y:P.y-rnd(0,30),vx:rnd(-30,30),vy:rnd(20,60),c:pick(['#f3d9fa','#e599f7']),s:rnd(1.5,2.5),l:.8});
+    if(t>1.8)P.sk=null;return 1}
+  return 0}
+// 焚天炎暴:每 0.15 秒切割一次;碰到大型敌人会停在它身边;4 秒后爆炸
+function stmStep(dt,S,all){for(const s of STM){s.t-=dt;s.a+=dt*14;s.tk-=dt;
+    if(s.st&&(s.st.hp<=0||!all.includes(s.st)))s.st=null;
+    if(!s.st){s.x+=s.f*85*dt;for(const e of all)if(isBig(e)&&!e.ug&&Math.abs(e.x+e.w/2-s.x)<e.w/2+60&&e.y+e.h>GY-180){s.st=e;break}}else s.x+=(s.st.x+s.st.w/2-s.x)*Math.min(1,dt*4);
+    s.x=Math.max(10,Math.min((st=='town'?twW():WW)-10,s.x));
+    if(s.tk<=0){s.tk=.15;s.pc=(s.pc||0)+1;for(const e of all)if(!e.ug&&Math.abs(e.x+e.w/2-s.x)<e.w/2+68&&e.y+e.h>GY-200&&e.y<GY){noCombo=1;hitFx=null;dealt(e,Math.round(skD('sword',7,S)*rnd(.9,1.1)),{ns:1});noCombo=0}
+      for(let n=0;n<5;n++)pt({x:s.x+rnd(-60,60),y:GY-rnd(10,140),vx:rnd(-80,80),vy:rnd(-60,20),c:pick(['#ffa8a8','#ff6b6b','#e03131','#ffd8a8']),s:rnd(1.5,3),l:.4})}
+    if(s.t<=0){psx('boom','zap');SFX5('r-cross',s.x,GY-70,{s:2.6,life:.6,gr:.3});SFX5('r-burst',s.x,GY-70,{s:2.8,life:.7,gr:.3});shake=.35;flash('255,190,170',.3);ring(s.x,GY-60,10,200,'#ff6b6b',.5,8);ring(s.x,GY-60,6,120,'#ffd8a8',.35,4);
+      burst(s.x,GY-60,50,['#ffc9c9','#ff6b6b','#e03131','#ffd43b'],380,{s:3,l:.6,g:300});for(const e of all)if(!e.ug&&Math.abs(e.x+e.w/2-s.x)<e.w/2+180&&e.y+e.h>GY-260)dealt(e,Math.round(skD('sword',7,S)*8))}}
+  STM=STM.filter(s=>s.t>0)}
+// 封尘断念斩的冲击波:从 xa 扫到 xb(xb 是浪头,最高),上沿不规则起伏、随时间翻动;实心不透明,浪头一道亮边
+function yrWave(xa,xb,al,t){const d=sgn(xb-xa)||1,L=Math.abs(xb-xa);if(L<6||al<=0)return;const n=Math.max(3,Math.ceil(L/5)),
+    hy=u=>{const q=u/L;return (18+40*q*q+10*Math.sin(q*9.4+t*6))+7*Math.sin(u*.11+t*11)+4*Math.sin(u*.27-t*17)},top=[];
+  for(let i=0;i<=n;i++){const u=i/n*L;top.push([xa+d*u,GY-hy(u)])}
+  x.save();x.globalAlpha=Math.max(0,Math.min(1,al));x.fillStyle='#3b1f8f';x.beginPath();x.moveTo(xa,GY);for(const p of top)x.lineTo(p[0],p[1]);
+  const tx_=xb+d*10,ty=GY-hy(L)-14;x.quadraticCurveTo(tx_+d*6,ty+6,xb+d*4,GY-hy(L)*.55);x.quadraticCurveTo(xb+d*12,GY-10,xb,GY);x.closePath();x.fill();  // 浪头往前卷
+  x.fillStyle='#6741d9';x.beginPath();x.moveTo(top[0][0],top[0][1]+6);for(const p of top)x.lineTo(p[0],p[1]+6);for(let i=top.length-1;i>=0;i--)x.lineTo(top[i][0],top[i][1]+16);x.closePath();x.fill();
+  x.strokeStyle='#b197fc';x.lineWidth=3;x.beginPath();top.forEach((p,i)=>i?x.lineTo(p[0],p[1]+1):x.moveTo(p[0],p[1]+1));x.stroke();
+  x.strokeStyle='#f3d9fa';x.lineWidth=1.2;x.beginPath();top.forEach((p,i)=>i?x.lineTo(p[0],p[1]):x.moveTo(p[0],p[1]));x.stroke();
+  x.fillStyle='#f3d9fa';for(let i=0;i<n;i+=3){const p=top[i];if(Math.sin(i*1.7+t*20)>.4)x.fillRect(Math.round(p[0]),Math.round(p[1]-3),2,2)}  // 浪尖的白沫
+  x.restore()}
+// 进阶技能画面:封尘断念斩的范围预警 / 风暴,焚天炎暴
+function drawAdv(){const t=performance.now()/1000,k=P.sk;
+  SQI=SQI.filter(q=>(q.t-=1/60)>0);if(SQI.length){x.save();x.globalCompositeOperation='lighter';for(const q of SQI){const a=q.t/q.m,L=q.len*(1.15-a*.3),w=7*a+2;x.save();x.translate(q.x-cam,q.y);x.rotate(q.a);
+      x.globalAlpha=a*.55;x.fillStyle=q.c;x.beginPath();x.moveTo(-L/2,0);x.quadraticCurveTo(0,-w*2.2,L/2,0);x.quadraticCurveTo(0,w*.8,-L/2,0);x.fill();
+      x.globalAlpha=a;x.fillStyle='#ffffff';x.beginPath();x.moveTo(-L/2,0);x.quadraticCurveTo(0,-w*.9,L/2,0);x.quadraticCurveTo(0,w*.3,-L/2,0);x.fill();x.restore()}x.restore()}
+  if(k&&k.id=='tw'&&k.t>.16&&k.t<1.32){const cx=P.x+12-cam;x.save();x.globalCompositeOperation='lighter';for(let i=0;i<8;i++){const kk=i/7,y=GY-4-kk*(GY-P.y+10),w=12+kk*26,ox=Math.sin(t*14+kk*5)*(3+kk*5);x.strokeStyle=i%2?'rgba(230,252,245,.7)':'rgba(150,242,215,.6)';x.lineWidth=3;x.beginPath();x.ellipse(cx+ox,y,w,3+kk*3,0,t*9+i,t*9+i+4.4);x.stroke()}x.restore()}
+  // 2026-10-12 第七轮:范围预警 / 风暴从半透明长方形改成不透明的不规则紫色波浪(冲击波扫过去 → 卷回来)
+  if(k&&k.id=='yr'){const f0=k.f,x0=k.x0-cam;if(k.t<.4)yrWave(x0,x0+f0*300*eo(Math.min(1,k.t/.3)),Math.min(1,k.t/.05)*(k.t>.33?1-(k.t-.33)/.07:1),t);
+    else if(k.t<1.2&&k.wp!=null&&!k.miss){const px=P.x+12-cam,wx=x0+(px-x0)*k.wp;yrWave(x0,wx,Math.min(1,(1.2-k.t)/.12),t)}}
+  // 2026-10-12 第六轮:改成红色火焰风暴(Fire Wrath 的火环 + 火球 + 旋转火舌,图集 SKFX)
+  for(const s of STM){const sx=s.x-cam,a=Math.min(1,s.t/.3,(s.m-s.t)/.2+.3),cy=GY-64;if(sx<-200||sx>VW+200)continue;x.save();x.globalCompositeOperation='lighter';
+    C_(x,sx,cy,90,RGD(x,sx,cy,90,[`rgba(255,120,80,${.45*a})`,`rgba(224,49,49,${.22*a})`,'rgba(0,0,0,0)']),0);
+    VFX.frame(x,'r-ball',3+(Math.floor(s.a*.7)%2),sx,cy,1.25,1,-s.a*.35,a*.85);VFX.frame(x,'r-ring',2+(Math.floor(s.a*.9)%2),sx,cy,1.6,1,s.a*.5,a);
+    for(let i=0;i<7;i++){const k2=i/6,y=GY-4-k2*130,w=18+k2*44;x.strokeStyle=i%2?`rgba(255,212,59,${.8*a})`:`rgba(255,80,60,${.75*a})`;x.lineWidth=3;x.beginPath();x.ellipse(sx+Math.sin(s.a+k2*3)*6,y,w,4+k2*5,0,s.a+i,s.a+i+4.2);x.stroke()}
+    x.restore()}}
+
+
+====================================================================================================
+【法师进阶技能:影分身 / 岩盾陨石 / 高天之歌 / 战意爆发(magStart / cloneSwap / metCast / weAbs / magStep / drawClone / drawMag / drawPAura / zStep / clStep)】 原行号 1186~1266
+====================================================================================================
+// =====================================================================
+// ===== 法师进阶技能:影分身 / 岩盾陨石 / 高天之歌 / 战意爆发 =====
+// CLN:影分身(4 秒,再按一次互换位置);P.shd/P.shdT/P.met:岩盾(8 秒)和待放的陨石;MET:下落中的陨石;WE:风眼;P.wy:战意爆发剩余秒数
+// =====================================================================
+let CLN=null,WE=[],MET=[];
+const pLo=()=>bossOn?2570:10;
+const clX=v=>Math.max(pLo(),Math.min(xMax(),v));
+function smoke(cx,cy){VFX.spawn('smoke-puff',cx,cy+6);burst(cx,cy,18,['#5f3dc4','#9775fa','#d0bfff','#495057'],170,{s:6,l:.5,dr:4,gr:.6});ring(cx,cy,6,40,'#9775fa',.35,4)}
+function magStart(i,S){const f=P.f,cx=P.x+12;
+  if(i==4){CD.staff[4]=0;CLN={x:P.x,y:P.y,vy:-330,vx:f*280,f,t:0,land:0,ak:.35,an:0,sw:0,cs:0};ghost('#7048e8',.35);tx('影分身!',P.x-10,P.y-30,'#b197fc')}
+  else if(i==5){CD.staff[5]=0;P.shd=P.shdM=Math.round(S.hp*.25);P.shdT=8;P.met=1;ring(cx,P.y+16,6,46,'#a0703a',.4,6);burst(cx,P.y+16,20,['#8d6e4a','#c9a27a','#5c4a3a'],200,{s:4,l:.5,g:400,dr:4});shake=Math.max(shake,.15);
+    tx('岩盾 +'+P.shd+'(再按一次召唤陨石)',P.x-50,P.y-34,'#e0b984');VFX.spawn('arcane-parry',cx,P.y+P.h,{s:1})}
+  else if(i==6){for(const w of WE)if(w.vq)w.vq.life=.01;WE=[{x:Math.max(pLo()+40,Math.min(xMax()+P.w-10,cx+f*150)),y:GY-72,t:10,tk:.5,a:0,el:{}}];ring(WE[0].x,WE[0].y,4,70,'#96f2d7',.4,5);tx('高天之歌',P.x-14,P.y-30,'#96f2d7');VFX.spawn('rift-portal',WE[0].x,WE[0].y,{s:1.5,life:10,add:1,a:.55,at:null});WE[0].vq=SFX5('t-swirl',WE[0].x,WE[0].y,{s:2.4,life:10,rs:2,a:.75,fi:.3})}
+  else if(i==7){P.wy=10;for(const w in CD)for(let j=0;j<CD[w].length;j++)if(!(w=='staff'&&j==7))CD[w][j]=0;
+    flash('255,120,90',.35);shake=Math.max(shake,.2);ring(cx,P.y+16,6,70,'#ff6b6b',.45,7);burst(cx,P.y+16,30,['#ff6b6b','#ffa94d','#ffe066'],320,{sh:1,s:3,l:.5,dr:3});pillar(cx,22,'rgba(255,107,107,.85)',.4);
+    tx('战意爆发!攻击 +30%,技能冷却已重置',P.x-70,P.y-34,'#ff8787');VFX.spawn('mass-release',cx,P.y+P.h,{s:1.3});SFX5('r-wing',cx,P.y+2,{s:1.6,life:.8});SFX5('r-burst',cx,P.y+8,{s:2,life:.6,gr:.4})}}
+// 影分身:再按一次互换位置(0.3 秒无敌),冷却从互换时开始算
+function cloneSwap(){const c=CLN,ox=P.x,oy=P.y;smoke(ox+12,oy+16);smoke(c.x+12,c.y+16);psx('blink');P.x=c.x;P.y=c.y;P.vy=0;c.x=ox;c.y=oy;c.land=0;c.vx=0;c.vy=0;c.sw=1;
+  P.inv=Math.max(P.inv||0,.3);CD.staff[4]=skCdA('staff',4);ghost('#7048e8',.3);tx('互换!',P.x-6,P.y-24,'#b197fc')}
+// 陨石:护盾存在时再按一次,砸向面前
+function metCast(S){const f=P.f;MET.push({x:Math.max(pLo()+40,Math.min(xMax()+P.w+60,P.x+12+f*140)),f,t:0,dmg:skD('staff',5,S)});P.met=0;CD.staff[5]=skCdA('staff',5);psx('fire');tx('陨石!',P.x-6,P.y-30,'#ffa94d')}
+// 风眼吸收元素:火球、落雷 / 雷云打进风眼
+function weAbs(x0,y0,k){for(const w of WE)if(!w.el[k]&&Math.abs(x0-w.x)<120&&(y0==null||Math.abs(y0-w.y)<130)){w.el[k]=1;psx('buff');ring(w.x,w.y,6,90,k=='fire'?'#ff922b':'#74c0fc',.45,6);tx(k=='fire'?'风眼吸收了火焰!':'风眼吸收了雷电!',w.x-50,w.y-80,k=='fire'?'#ffa94d':'#a5d8ff')}}
+function magStep(dt,S,all){
+  if(P.wy>0){P.wy-=dt;if(Math.random()<dt*30)pt({x:P.x+12+rnd(-12,12),y:P.y+rnd(4,30),vx:rnd(-20,20),vy:rnd(-90,-40),c:pick(['#ff6b6b','#ff922b','#ffd43b']),s:rnd(2,3.5),l:rnd(.3,.5),sh:2})}
+  if(P.gd2>0){P.gd2-=dt;if(P.gd2<=0){P.gd2=0;CD.sword[2]=skCdA('sword',2)}}  // 天崩地裂:4 秒内没放第二段就开始冷却
+  if(P.shdT>0){P.shdT-=dt;if(P.shd<=0||P.shdT<=0){if(P.shd<=0){burst(P.x+12,P.y+16,18,['#8d6e4a','#c9a27a'],220,{s:4,l:.5,g:500});tx('护盾破了',P.x-10,P.y-30,'#c9a27a')}P.shdT=0;P.shd=0;if(P.met){P.met=0;CD.staff[5]=skCdA('staff',5)}}}
+  if(CLN){const c=CLN;c.t+=dt;c.an+=dt;
+    if(!c.land){const fy0=c.y+P.h;c.vy+=1100*dt;c.x=clX(c.x+c.vx*dt);c.y+=c.vy*dt;const fy=c.y+P.h;let sy=null;
+      if(c.vy>0){for(const p of PL)if(!p.gone&&fy0<=p.y+1&&fy>=p.y&&c.x+12>p.x&&c.x+12<p.x+p.w){sy=p.y;break}if(sy==null&&fy>=GY)sy=GY}
+      if(sy!=null){c.y=sy-P.h;c.land=1;c.vx=0;burst(c.x+12,sy-2,10,['#d0bfff','#9775fa'],120,{s:3,l:.35})}}
+    else{const tg=allTg().filter(e=>Math.abs(e.x+e.w/2-(c.x+12))<420).sort((a,b)=>Math.abs(a.x+a.w/2-c.x)-Math.abs(b.x+b.w/2-c.x))[0];c.mv=0;c.ak-=dt;c.cs=Math.max(0,c.cs-dt);
+      if(tg){const dx=tg.x+tg.w/2-(c.x+12);c.f=sgn(dx)||c.f;if(Math.abs(dx)>90){c.x=clX(c.x+c.f*130*dt);c.mv=1}
+        else if(c.ak<=0){c.ak=.55;c.cs=.3;PB.push({x:c.f>0?c.x+24:c.x-10,y:c.y+14,vx:c.f*400,dmg:skD('staff',4,S),r:6,col:'#9775fa',hit:new Set()});burst(c.x+12+c.f*16,c.y+14,6,['#b197fc','#fff'],120,{s:2,l:.25})}}
+      // 走出平台就落下
+      const fy=c.y+P.h;if(fy<GY-1&&!PL.some(p=>!p.gone&&Math.abs(p.y-fy)<2&&c.x+12>p.x&&c.x+12<p.x+p.w)){c.land=0;c.vy=0;c.vx=0}}
+    if(Math.random()<dt*12)pt({x:c.x+12+rnd(-10,10),y:c.y+rnd(6,30),vx:rnd(-10,10),vy:rnd(-40,-10),c:pick(['#5f3dc4','#9775fa']),s:rnd(2,3),l:.4,sh:2});
+    if(c.t>=4){smoke(c.x+12,c.y+16);if(!c.sw)CD.staff[4]=skCdA('staff',4);CLN=null}}
+  for(const m of MET){m.t+=dt;if(m.t>=.55&&!m.h){m.h=1;VFX.spawn('warm-explosion',m.x,GY-4,{s:2.6});SFX5('r-cross',m.x,GY-50,{s:2.6,life:.6,gr:.3});SFX5('r-burst',m.x,GY-60,{s:2.6,life:.7,gr:.3});VFX.spawn('earth-rupture',m.x,GY,{s:1.5});psx('boom','slam');shake=.5;hitstop(.08);flash('255,170,90',.4);ring(m.x,GY-4,8,130,'#ff922b',.5,7,.25);ring(m.x,GY-4,5,80,'#ffe066',.35,4,.25);crack(m.x,5,120);
+      burst(m.x,GY-12,34,['#8d6e4a','#5c4a3a','#ff922b','#ffd43b'],420,{s:4,l:.7,g:700,dr:3});for(let n=0;n<14;n++)pt({x:m.x+rnd(-30,30),y:GY-6,vx:rnd(-260,260),vy:rnd(-420,-160),g:1400,c:pick(['#8d6e4a','#5c4a3a','#a0703a']),ad:0,s:rnd(3,5),l:.8,bn:1});
+      hitFx='slam';for(const e of all)if(!e.ug&&Math.abs(e.x+e.w/2-m.x)<e.w/2+170&&e.y+e.h>GY-220){dealt(e,Math.round(m.dmg*rnd(.9,1.1)));e.ms=3;tx('减速',e.x+e.w/2,e.y-22,'#c9a27a')}hitFx=null}}
+  MET=MET.filter(m=>m.t<1.1);
+  for(const w of WE){w.t-=dt;w.a+=dt*7;
+    const wz=(()=>{let z=ZB.findIndex(b=>w.x<b);return z<0?ZB.length:z})();
+    for(const e of all){if(e.ug||e.hp<=0||isBig(e))continue;const dx=w.x-(e.x+e.w/2),ad=Math.abs(dx);if(e.zi===wz||(!(e.zi>=0)&&ad<600)||ad<140&&e.y+e.h>w.y-120&&e.y<w.y+120){e.x+=sgn(dx)*Math.min(ad,Math.max(110,ad*1.3)*dt);if(e.by!=null)e.by+=(w.y-10-e.by)*Math.min(1,dt*1.2);if(ad<60&&Math.random()<dt*6)pt({x:e.x+e.w/2,y:e.y+e.h/2,vx:sgn(dx)*60,vy:-30,c:'#c3fae8',s:2,l:.3})}}
+    if(Math.random()<dt*40){const a=rnd(0,6.28),r=rnd(80,130);pt({x:w.x+Math.cos(a)*r,y:w.y+Math.sin(a)*r*.6,vx:-Math.cos(a)*120,vy:-Math.sin(a)*70,c:w.el.fire&&Math.random()<.4?'#ffa94d':w.el.th&&Math.random()<.4?'#a5d8ff':pick(['#c3fae8','#e6fcf5','#fff']),s:rnd(1.5,2.5),l:.6})}
+    w.tk-=dt;if(w.tk<=0){w.tk+=.5;let any=0;
+      for(const e of all){if(e.ug||e.hp<=0)continue;if(Math.abs(e.x+e.w/2-w.x)<e.w/2+160&&e.y+e.h>w.y-140&&e.y<w.y+140){any=1;const b=Math.round(skD('staff',6,S)*rnd(.9,1.1));hitFx=null;dealt(e,b,{ns:1});
+        if(w.el.fire)dealt(e,Math.max(1,Math.round(b*.2)),{ns:1});if(w.el.th)dealt(e,Math.max(1,Math.round(b*.2)),{ns:1})}}
+      if(any){psx('swing');if(w.el.fire)tx('🔥 火',w.x-24,w.y-60,'#ffa94d');if(w.el.th)tx('⚡ 雷',w.x+8,w.y-60,'#a5d8ff')}}}
+  WE=WE.filter(w=>w.t>0)}
+// 分身:半透明紫色的主角
+function drawClone(){const c=CLN;if(!c)return;const t=performance.now()/1000,cx=c.x+12-cam,fy=c.y+P.h,a=Math.min(1,(4-c.t)*3,.7);
+  x.save();x.globalAlpha=a*.5;x.globalCompositeOperation='lighter';C_(x,cx,c.y+14,26,RGD(x,cx,c.y+14,26,['rgba(151,117,250,.6)','rgba(0,0,0,0)']),0);x.restore();
+  if(c.land)SHD(x,cx,fy,10);
+  const sw0=STANCE.staff;let po=rP(sw0,{});if(!c.land)po=rP(po,{hF:1.15,kF:1.8,hB:.5,kB:1.4,lean:-.06,aB:1.5,eB:.5,gy:-8,wa:-1.6});else if(c.cs>0)po=rP(po,{gx:12,gy:-8,wa:-.35,two:.7,lean:.22,hF:.6,kF:.3,hB:-.5});else if(c.mv)po=rP(po,rigCycle('walk',c.an*1.55,'staff'));
+  if(HERO().cloneOn()){if(HERO()===LPC)LPC.clone(x,cx,fy,{land:c.land,vy:c.vy,cs:c.cs,mv:c.mv},c.f,a,t,c.cs>0?-.35:-1.05);else{const fr=!c.land?(c.vy<0?6:7):c.cs>0?3:c.mv?24+Math.floor(t*13)%8:0;PXA.clone(x,cx,fy,fr,c.f,a,t,c.cs>0?-.35:-1.05)}}else{x.save();x.globalAlpha=a;x.translate(cx,fy);x.scale(c.f*HSC,HSC);drawHero(x,po,heroLook(),{t,wk:'staff',wg:EQ.staff?EQ.staff.g||0:0,glow:'rgba(151,117,250,.9)',tier:EQ.staff?EQ.staff.tier:0,world:1,angry:1});x.restore()}
+}
+function drawMag(){const t=performance.now()/1000;
+  for(const w of WE){const wx=w.x-cam,al=Math.min(1,w.t*2,(10-w.t)*3);if(wx<-160||wx>VW+160)continue;x.save();x.globalAlpha=al;x.globalCompositeOperation='lighter';
+    C_(x,wx,w.y,120,RGD(x,wx,w.y,120,[w.el.fire?'rgba(255,150,70,.32)':w.el.th?'rgba(120,180,255,.32)':'rgba(150,242,215,.28)','rgba(0,0,0,0)']),0);
+    for(let k=0;k<5;k++){const r=22+k*20,q=w.a*(1.4-k*.18)+k;x.strokeStyle=k%2?'rgba(195,250,232,.75)':(w.el.fire&&k==2?'rgba(255,169,77,.85)':w.el.th&&k==4?'rgba(165,216,255,.9)':'rgba(230,252,245,.6)');x.lineWidth=3-k*.3;x.beginPath();x.ellipse(wx,w.y,r,r*.55,0,q,q+3.6);x.stroke()}
+    C_(x,wx,w.y,9,RGD(x,wx,w.y,9,['#fff','rgba(150,242,215,.5)']),0);x.restore();
+    if(w.el.th&&Math.random()<.2){x.save();x.globalCompositeOperation='lighter';poly(zline(w.x-30,w.y-20,w.x+30,w.y+15),2,'#e7f5ff');x.restore()}}
+  for(const m of MET){const p=Math.min(1,m.t/.55),gx=m.x-cam;
+    if(!m.h){x.save();x.globalAlpha=.25+.3*p;E_(x,gx,GY-2,110*p,10*p,'rgba(255,80,40,.5)',0);x.restore();
+      const sx=gx-m.f*200*(1-p),sy=-90+(GY-80)*p;x.save();x.globalCompositeOperation='lighter';for(let k=1;k<7;k++){const q=Math.max(0,p-k*.05);C_(x,gx-m.f*200*(1-q),-90+(GY-80)*q,52-k*6,'rgba(255,'+(130-k*12)+',50,'+(.4-k*.05)+')',0)}
+      C_(x,sx,sy,80,RGD(x,sx,sy,80,['rgba(255,110,40,.75)','rgba(255,50,20,.3)','rgba(0,0,0,0)']),0);x.restore();VFX.frame(x,'met-rock',0,sx,sy,1.3,m.f,t*2.5*m.f,1)}  // 陨石:Pixel Art 2D Asteroid Pack(Cayden Franklin,CC-BY 4.0)压成焦黑色
+    else{x.globalAlpha=Math.max(0,1-(m.t-.55)/.55);E_(x,gx,GY-2,90,9,'rgba(60,40,30,.5)',0);x.globalAlpha=1}}
+  drawClone()}
+// 身上的岩盾 / 战意气焰(画在角色前后)
+function drawPAura(back){const cx=P.x+12-cam,t=performance.now()/1000;
+  if(back&&P.wy>0){x.save();for(let i=0;i<7;i++){const ph=t*6+i*.9,h=36+Math.sin(ph)*8-Math.abs(i-3)*4,ox=(i-3)*6;x.globalAlpha=.42+.14*Math.sin(ph*1.3);PG(x,[[cx+ox-8,P.y+P.h],[cx+ox+Math.sin(ph)*4,P.y+P.h-h-10],[cx+ox+8,P.y+P.h]],i%2?'#e03131':'#ff6b35',0)}
+    x.globalCompositeOperation='lighter';x.globalAlpha=.4;C_(x,cx,P.y+16,30,RGD(x,cx,P.y+16,30,['rgba(255,90,90,.7)','rgba(0,0,0,0)']),0);x.restore()}
+  if(!back&&P.shdT>0&&P.shd>0){const k=P.shd/P.shdM;x.save();x.globalAlpha=.55+.15*Math.sin(t*5);for(let i=0;i<8;i++){const a=t*1.2+i*.785,rx=cx+Math.cos(a)*22,ry=P.y+16+Math.sin(a)*24;PG(x,[[rx-5,ry-3],[rx,ry-6],[rx+5,ry-2],[rx+3,ry+5],[rx-4,ry+4]],i%2?'#a0703a':'#8d6e4a',1)}
+    x.strokeStyle='rgba(224,185,132,.7)';x.lineWidth=2;x.beginPath();x.ellipse(cx,P.y+16,24,27,0,0,6.283*k);x.stroke();x.restore()}}
+
+function zStep(dt,S,all){VFX.step(dt);stmStep(dt,S,all);magStep(dt,S,all);for(const z of Z)z.t-=dt;Z=Z.filter(z=>z.t>0);
+  CL=clStep(CL,dt,S,all);CL2=clStep(CL2,dt,S,all)}
+// 雷云(主角的 CL、分身的 CL2,dm = 伤害倍率)
+function clStep(C,dt,S,all){if(!C)return null;C.t-=dt;C.k-=dt;C.fk=Math.max(0,(C.fk||0)-dt);FX.dk=Math.max(FX.dk,Math.min(.38,C.t*.4));if(C.k<=0){C.k=.5;C.fk=.12;for(let n=0;n<3;n++){const c=all.filter(e=>e.x+e.w>cam&&e.x<cam+VW),e=c[Math.random()*c.length|0];C.fx=(e?e.x+e.w/2:cam+rnd(30,VW-30))-cam;bolt(e?e.x+e.w/2:cam+rnd(30,VW-30),Math.round(skD('staff',3,S)*(C.dm||1)),30,58)}}return C.t<=0?null:C}
+
+====================================================================================================
+【W+J / S+J 特殊普攻 special / bigStun / launch / knock】 原行号 867~882
+====================================================================================================
+// ===== W+J / S+J 特殊普攻 =====
+const isBig=e=>!!e.max||e.k=='ost'||e.k=='cradle'||e.k=='oni'||e.k=='lclone';  // Boss 和鸵鸟算大型怪:不能挑空、不被击退
+// 苍蓝巨剑命中:极高僵直(小怪 3 秒、鸵鸟 2 秒、首领 1.2 秒),期间不会霸体反击
+function bigStun(e){if(e.ug||e.hp<=0)return;const t=e.max?1.2:e.k=='ost'?2:3;if(e.max&&e.pim>0)return;e.st=Math.max(e.st||0,t);if(e.max)e.pim=t+PZIM;e.sc=0;e.ar=0;e.wu=0;if(!Array.isArray(e.sw))e.sw=0;e.ca=0;if(!e.max){e.lg=0;e.s=e.s=='hid'?e.s:null}tx('僵直!',e.x+e.w/2,e.y-22,'#a5d8ff')}
+// 召唤物(飞鸟 / 藤蔓)干扰索敌:离召唤物 230 像素内的小怪改为以召唤物为目标(首领不受影响)
+let DECOY=0;
+function decoyOf(e){let b=null,bd=230;const cx=e.x+e.w/2,cy=e.y+e.h/2;for(const k of ['vine','bird']){const q=SM[k];if(!q||q.hp<=0)continue;const d=Math.hypot(q.x+q.w/2-cx,(q.y+q.h/2-cy)*.6);if(d<bd){bd=d;b=q}}return b}
+function launch(e,hang){if(isBig(e)||e.ug)return;if(!e.air){e.ay0=e.y;e.air=1;e.hang=0;tx('浮空!',e.x+e.w/2,e.y-16,'#a5d8ff')}e.hang=Math.max(e.hang||0,hang||0);e.avy=-760;e.s=null;e.lg=0;e.vy=0}  // hang:到最高点后滞空的秒数
+function knock(e,f){if(isBig(e)||e.ug)return;e.kbv=f*460;e.s=null;e.lg=0}
+// 剑士 W+J(上挑,击飞)和 S+J(重击)的内置冷却:要比敌人浮空 + 落地硬直的时间长,不能无限连
+const UJC=1.2,SJC=1.0;
+function special(up,S){const f=P.f;
+  if(P.mode=='sword'){
+    if(up){if(P.ujc>0){tx('上挑冷却 '+P.ujc.toFixed(1),P.x-16,P.y-14,'#adb5bd');return}P.ujc=UJC;P.sk={id:'up',t:0,inv:0,hit:new Set()};P.cd=.45;if(P.gr)P.vy=-200;slash(P.x+12+f*8,P.y+16,36,1.3,-1.6,f,'#74c0fc',.24,5);burst(P.x+12+f*20,P.y+30,8,['#d0ebff','#fff'],200,{sh:1,s:2,l:.25,dr:4})}
+    else{if(P.sjc>0){tx('重击冷却 '+P.sjc.toFixed(1),P.x-16,P.y-14,'#adb5bd');return}P.sjc=SJC;P.sk={id:'smash',t:0,inv:0,hit:new Set()};P.cd=.7}}
+  else summon(up?'bird':'vine',S)}
+
+====================================================================================================
+【经验曲线 expNeed / 升级 lvUp】 原行号 599~601
+====================================================================================================
+// 升级所需经验:40 级以前是原来的 7 倍(140×等级);40 级起每一级是上一级的 2.7 倍
+const expNeed=l=>l<40?140*l:Math.round(140*39*Math.pow(2.7,l-39));
+function lvUp(){while(lvl<99&&exp>=expNeed(lvl)){exp-=expNeed(lvl);lvl++;sp++;sfx('lvl');VFX.spawn('radiant-heal',P.x+12,P.y+P.h,{s:1.3});const S=stats();P.hp=S.hp;P.mp=S.mp;tx('升级! Lv'+lvl,P.x-10,P.y-34,'#fff3bf')}if(lvl>=99)exp=0}
+

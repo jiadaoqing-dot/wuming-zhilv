@@ -1,0 +1,1346 @@
+raw/ 原始素材索引(tools/assets_index.py 自动生成;不打包进游戏)
+每个目录:文件数、文件名摘要(编号合并);「用到」= 哪个 art_src 脚本引用了这个目录。作者 / 授权见 docs/素材清单.txt 末尾的脚本说明
+
+## raw/audio
+  audio/  12 个 63.4MB  用到:art_src/audio/build_audio.py
+    zip: 100sfx.zip(2.8MB), creature.zip(1.8MB), fantasy.zip(29.6MB), hit.zip(1.5MB), rpg_sound_pack.zip(11.9MB), swishes.zip(376KB)
+    BattleRPGTheme.mp3, BattleRPGTheme.ogg, DarkShrineLoop.ogg, battleThemeA.mp3, happy_adventure.mp3, list.txt
+  audio/100sfx/  100 个 3.0MB  用到:art_src/audio/build_audio.py
+    bell_01~03.ogg, dishes_01~04.ogg, door_01~02.ogg, door_close_01~04.ogg, door_open.ogg, explosion.ogg, glass_01~05.ogg, gong_01~02.ogg, hit_01~04.ogg, key_open_01~02.ogg, machine_01~03.ogg, metal_01~12.ogg, microwave_door_close.ogg, microwave_door_open.ogg, noise_01~02.ogg, other_01~07.ogg, paper_01~04.ogg, plop_01~02.ogg, pot_01~02.ogg, shot_01~02.ogg, slam_01~07.ogg, splash_01~02.ogg, spring_01~09.ogg, switch_01~02.ogg, toilet_01~02.ogg, tools_01~05.ogg, weird_01~05.ogg, wooded_box_open.ogg, wooden_01~03.ogg
+  audio/bgm/  19 个 100.2MB  用到:art_src/audio/build_audio.py
+    zip: forest_whisper.zip(13.5MB)
+    Blackmoor Tides.mp3, Dark Rooms and Scary Things - isaiah658_1.ogg, EmptyCity.ogg, LavaLand - One Loop.ogg, battleThemeB.mp3, caravan.ogg, determined_pursuit.wav, epic_boss.wav, fight_looped.ogg, final_hour.ogg, hard_dungeon_bpm140.ogg, heavy_boss_battle_2_bpm110.ogg, rising_moon.mp3, snow.ogg, song21_mysterious.mp3, thunderchild.ogg, town.mp3, tribal.mp3
+  audio/bgm/forest_whisper/Forest Whisper Theme/  3 个 15.8MB  用到:art_src/audio/build_audio.py
+    Forest Whisper.ogg, Forest Whisper.wav, readme.txt
+  audio/creature/  80 个 1.9MB  用到:art_src/audio/build_audio.py
+    alien_01~06.ogg, barking_01~02.ogg, breath.ogg, bug_01~04.ogg, burble_01~02.ogg, burp_01~02.ogg, cough_01~03.ogg, cute_01~10.ogg, eat_01~04.ogg, grunt_01~05.ogg, howl.ogg, hurt_01~05.ogg, misc_01~09.ogg, monster_01~07.ogg, nose.ogg, ooh.ogg, roar_01~03.ogg, scream_01~02.ogg, snore.ogg, spit_01~03.ogg, troll_01~03.ogg, weird_01~05.ogg
+  audio/dl2/  18 个 12.3MB  用到:art_src/audio/build_audio.py
+    zip: 80-CC0-RPG-SFX_0.zip(1.8MB), melee sounds.zip(242KB), qubodup-sci-fi-cow-alien-soundpack.zip(2.9MB), sfx_throw.zip(27KB), sword_-_starninjas_1.zip(146KB), sword_clash_-_starninjas_0.zip(141KB)
+    choppingtree.ogg, independent_nu_ljudbank-wood_crack_hit_destruction.7z, magical_1_0.ogg, magical_2~5.ogg, magical_6_0.ogg, magical_7_0.ogg, spells.7z, thunderclap_0.ogg, wind woosh loop.ogg
+  audio/dl2/80-CC0-RPG-SFX_0/  80 个 1.9MB  用到:art_src/audio/build_audio.py
+    blade_01~03.ogg, book_01~04.ogg, chain_01~03.ogg, creature_die_01.ogg, creature_hurt_01~02.ogg, creature_misc_01~08.ogg, creature_monster_01~04.ogg, creature_roar_01~03.ogg, creature_slime_01~04.ogg, item_coins_01~04.ogg, item_gem_01~04.ogg, item_misc_01~06.ogg, item_stone_01~04.ogg, item_wood_01~03.ogg, lock_01~03.ogg, metal_01~03.ogg, misc_01~03.ogg, spell_01~02.ogg, spell_fire_01~07.ogg, stones_01~04.ogg, wood_01~05.ogg
+  audio/dl2/independent_nu_ljudbank-wood_crack_hit_destruction/wood_impact/  35 个 4.6MB  用到:art_src/audio/build_audio.py
+    crack01.mp3.flac, crack02.mp3.flac, crack03.mp3.flac, crack04.mp3.flac, crack05.mp3.flac, crack06.mp3.flac, crack07.mp3.flac, crack08.mp3.flac, crack09.mp3.flac, crack10.mp3.flac, impactwood01.mp3.flac, impactwood02.mp3.flac, impactwood03.mp3.flac, impactwood04.mp3.flac, impactwood05.mp3.flac, impactwood06.mp3.flac, impactwood07.mp3.flac, impactwood08.mp3.flac, impactwood09.mp3.flac, impactwood10.mp3.flac, impactwood11.mp3.flac, impactwood12.mp3.flac, impactwood13.mp3.flac, impactwood14.mp3.flac, impactwood15.mp3.flac, impactwood16.mp3.flac, impactwood17.mp3.flac, impactwood18.mp3.flac, impact …(共 35 组)
+  audio/dl2/melee sounds/melee sounds/  4 个 307KB  用到:art_src/audio/build_audio.py
+    animal melee sound.wav, melee sound.wav, melee.txt, sword sound.wav
+  audio/dl2/qubodup-sci-fi-cow-alien-soundpack/qubodup-sci-fi-cow-alien-soundpack/  10 个 3.2MB  用到:art_src/audio/build_audio.py
+    beam-down.wav, beam-up.wav, beam-wowow.wav, beam-wowowfast.wav, gameover-lose.wav, gameover-win.wav, gun-piu.wav, gun-zap.wav, moo-death.wav, moo-notification.wav
+  audio/dl2/sfx_throw/  1 个 30KB  用到:art_src/audio/build_audio.py
+    sfx_throw.wav
+  audio/dl2/spells/spells/  2 个 359KB  用到:art_src/audio/build_audio.py, art_src/bfx/build_bfx.py, art_src/vfx/build_vfx.py
+    Fire.aif, Spell1.aif
+  audio/dl2/sword_-_starninjas_1/sword - StarNinjas/  10 个 160KB  用到:art_src/audio/build_audio.py
+    sword.1~9.ogg
+  audio/dl2/sword_clash_-_starninjas_0/  10 个 156KB  用到:art_src/audio/build_audio.py
+    sword_clash.1~9.ogg
+  audio/fantasy/Fantasy Sound Library/Mp3/  27 个 2.7MB  用到:art_src/audio/build_audio.py
+    Ambience_Cave_00.mp3, Dragon_Growl_00~01.mp3, Goblin_00~04.mp3, Inventory_Open_00~01.mp3, Jingle_Achievement_00.mp3, Jingle_Lose_00.mp3, Jingle_Win_00.mp3, Menu_Select_00.mp3, Pickup_Gold_00~04.mp3, Spell_00~04.mp3, Trap_00~02.mp3
+  audio/fantasy/Fantasy Sound Library/Mp3/Footsteps/  18 个 239KB  用到:art_src/audio/build_audio.py
+    Footstep_Dirt_00~09.mp3, Footstep_Water_00~07.mp3
+  audio/fantasy/Fantasy Sound Library/Wav/  27 个 27.0MB  用到:art_src/audio/build_audio.py
+    Ambience_Cave_00.wav, Dragon_Growl_00~01.wav, Goblin_00~04.wav, Inventory_Open_00~01.wav, Jingle_Achievement_00.wav, Jingle_Lose_00.wav, Jingle_Win_00.wav, Menu_Select_00.wav, Pickup_Gold_00~04.wav, Spell_00~04.wav, Trap_00~02.wav
+  audio/fantasy/Fantasy Sound Library/Wav/Footsteps/  18 个 1.9MB  用到:art_src/audio/build_audio.py
+    Footstep_Dirt_00~09.wav, Footstep_Water_00~07.wav
+  audio/hit/  75 个 1.7MB  用到:art_src/audio/build_audio.py
+    bfh1_breaking_01~03.ogg, bfh1_falling_01~07.ogg, bfh1_glass_breaking_01~06.ogg, bfh1_glass_falling_01~04.ogg, bfh1_glass_hit_01~02.ogg, bfh1_hit_01~13.ogg, bfh1_metal_falling_01~05.ogg, bfh1_metal_hit_01~06.ogg, bfh1_misc_01~07.ogg, bfh1_rock_breaking_01~03.ogg, bfh1_rock_falling_01~09.ogg, bfh1_rock_hit_01.ogg, bfh1_wood_breaking_01~04.ogg, bfh1_wood_falling_01~02.ogg, bfh1_wood_hit_01~03.ogg
+  audio/rpg_sound_pack/RPG Sound Pack/NPC/beetle/  3 个 317KB  用到:art_src/audio/build_audio.py
+    bite-small.wav, bite-small2~3.wav
+  audio/rpg_sound_pack/RPG Sound Pack/NPC/giant/  5 个 975KB  用到:art_src/audio/build_audio.py, art_src/lpc/build_hsw.py, art_src/skfx/build_gsword.py
+    giant1~5.wav
+  audio/rpg_sound_pack/RPG Sound Pack/NPC/gutteral beast/  15 个 2.6MB  用到:art_src/audio/build_audio.py
+    mnstr1~9.wav
+  audio/rpg_sound_pack/RPG Sound Pack/NPC/misc/  1 个 117KB  用到:art_src/audio/build_audio.py
+    wolfman.wav
+  audio/rpg_sound_pack/RPG Sound Pack/NPC/ogre/  5 个 705KB  用到:art_src/audio/build_audio.py
+    ogre1~5.wav
+  audio/rpg_sound_pack/RPG Sound Pack/NPC/shade/  15 个 4.0MB  用到:art_src/audio/build_audio.py, art_src/lv/build_lair.py
+    shade1~9.wav
+  audio/rpg_sound_pack/RPG Sound Pack/NPC/slime/  10 个 618KB  用到:art_src/audio/build_audio.py, art_src/bfx/build_bfx.py, art_src/mob/build_mob.py
+    slime1~9.wav
+  audio/rpg_sound_pack/RPG Sound Pack/battle/  10 个 1.8MB  用到:art_src/audio/build_audio.py
+    magic1.wav, spell.wav, swing.wav, swing2~3.wav, sword-unsheathe.wav, sword-unsheathe2~5.wav
+  audio/rpg_sound_pack/RPG Sound Pack/interface/  6 个 509KB  用到:art_src/audio/build_audio.py
+    interface1~6.wav
+  audio/rpg_sound_pack/RPG Sound Pack/inventory/  18 个 2.4MB  用到:art_src/audio/build_audio.py
+    armor-light.wav, beads.wav, bottle.wav, bubble.wav, bubble2~3.wav, chainmail1~2.wav, cloth-heavy.wav, cloth.wav, coin.wav, coin2~3.wav, metal-ringing.wav, metal-small1~3.wav, wood-small.wav
+  audio/rpg_sound_pack/RPG Sound Pack/misc/  7 个 1.1MB  用到:art_src/audio/build_audio.py
+    burp.wav, random1~6.wav
+  audio/rpg_sound_pack/RPG Sound Pack/world/  1 个 259KB  用到:art_src/city/build_city8.py, art_src/map/build_map.py, art_src/myst/build_myst.py
+    door.wav
+  audio/swishes/swishes/  13 个 447KB  用到:art_src/audio/build_audio.py
+    swish-1~9.wav
+
+## raw/boss1
+  boss1/  2 个 68KB  用到:art_src/boss/build_mnt.py
+    minotaur_calciumtrice.png, oga_pixel_bosses.png
+
+## raw/boss57
+  boss57/ars_notoria/  2 个 92KB  用到:art_src/boss/build_ars.py
+    zip: spritesheets.zip(86KB)
+    boss-preview.png
+  boss57/ars_notoria/x/spritesheets/  12 个 85KB  用到:art_src/boss/build_ars.py, art_src/boss/build_mage.py, art_src/lpc/comp.py, art_src/lpc_npc/build_npc_lpc.py, art_src/mob/build_mob.py, art_src/vfx/build_vfx.py
+    acid2-14x67.png, andromalius-57x88.png, disciple-45x51.png, flameball-32x32.png, gnu-120x100.png, mage-1-85x94.png, mage-2-122x110.png, mage-3-87x110.png, mage-bullet-13x13.png, minion-45x66.png, shadow-80x70.png, tentacles-25x90.png
+
+## raw/bossfx
+  bossfx/  6 个 1.1MB  用到:art_src/bfx/build_bfx2.py
+    zip: earth_impact.zip(569KB), pixel_effects.zip(438KB)
+    floors_fx1.png, freeze.png, spike-animation.png, tornado-sheet_48x64.png
+  bossfx/earth_impact/  1 个 199KB  用到:art_src/bfx/build_bfx2.py
+    Preview_0.png
+  bossfx/earth_impact/1/  5 个 83KB  用到:art_src/bfx/build_bfx2.py
+    Earth-Impact_01~05.png
+  bossfx/earth_impact/2/  5 个 90KB  用到:art_src/bfx/build_bfx2.py
+    Earth-Impact_06~10.png
+  bossfx/earth_impact/3/  5 个 82KB  用到:art_src/bfx/build_bfx2.py
+    Earth-Impact_11~15.png
+  bossfx/earth_impact/4/  5 个 73KB  用到:art_src/bfx/build_bfx2.py
+    Earth-Impact_16~20.png
+  bossfx/earth_impact/5/  5 个 63KB  用到:art_src/bfx/build_bfx2.py
+    Earth-Impact_21~25.png
+  bossfx/pixel_effects/  10 个 466KB  用到:art_src/bfx/build_bfx2.py
+    1~9.png
+
+## raw/city
+  city/  3 个 4.4MB  用到:art_src/city/build_city8.py, art_src/city/build_gh8.py
+    zip: streets_of_fight_files.zip(288KB), Urban-landscape-files.zip(87KB), warped_city_files.zip(4.1MB)
+  city/Urban-landscape-files/Urban-landscape-files/  3 个 209KB
+    license.txt, urban-landscape-background-Preview.png, urban-landscape-background.psd
+  city/Urban-landscape-files/Urban-landscape-files/layers/  2 个 7KB  用到:art_src/boss/build_mage.py, art_src/lbg/build_lbg.py, art_src/lpc/build_lpc.py, art_src/lpc/comp.py, art_src/lpc_npc/build_npc_lpc.py, art_src/lv/build_ltl.py, art_src/volcano/build_vol9.py
+    Sky-layer.png, buildings-layer.png
+  city/streets_of_fight_files/Streets of Fight files/  1 个 0KB  用到:art_src/city/build_city8.py, art_src/city/build_gh8.py
+    public-license.txt
+  city/streets_of_fight_files/Streets of Fight files/Aseprite/  3 个 93KB  用到:art_src/city/build_city8.py, art_src/city/build_gh8.py
+    1stage.ase, BarwlerGirl-1.ase, enemy-punk.ase
+  city/streets_of_fight_files/Streets of Fight files/Previews/Brawler Girl/  9 个 13KB  用到:art_src/city/build_city8.py, art_src/city/build_gh8.py
+    dive_kick.gif, hurt.gif, idle.gif, jab.gif, jump.gif, jump_kick.gif, kick.gif, punch.gif, walk.gif
+  city/streets_of_fight_files/Streets of Fight files/Previews/Enemy Punk/  4 个 7KB  用到:art_src/city/build_gh8.py
+    hurt.gif, idle.gif, punch.gif, walk.gif
+  city/streets_of_fight_files/Streets of Fight files/Previews/Stage/  1 个 45KB  用到:art_src/city/build_city8.py
+    preview_stage.png
+  city/streets_of_fight_files/Streets of Fight files/Sprites/  1 个 0KB  用到:art_src/city/build_gh8.py, art_src/lpc/comp.py, art_src/lv/build_ltl.py, art_src/ship/build_ship10.py, art_src/summon/build_smn.py, art_src/town/build_tpx.py
+    shadow.png
+  city/streets_of_fight_files/Streets of Fight files/Sprites/Brawler-Girl/Dive_kick/  5 个 4KB  用到:art_src/city/build_gh8.py, art_src/lpc/comp.py, art_src/lv/build_ltl.py, art_src/ship/build_ship10.py, art_src/summon/build_smn.py, art_src/town/build_tpx.py
+    dive_kick1~5.png
+  city/streets_of_fight_files/Streets of Fight files/Sprites/Brawler-Girl/Hurt/  2 个 2KB  用到:art_src/mob/build_pen.py
+    hurt1~2.png
+  city/streets_of_fight_files/Streets of Fight files/Sprites/Brawler-Girl/Idle/  4 个 4KB  用到:art_src/city/build_gh8.py, art_src/mob/build_mob.py, art_src/mob/build_pen.py, art_src/ship/build_ship10.py, art_src/summon/build_smn.py
+    idle1~4.png
+  city/streets_of_fight_files/Streets of Fight files/Sprites/Brawler-Girl/Jab/  3 个 3KB  用到:art_src/city/build_gh8.py, art_src/lpc/comp.py, art_src/lv/build_ltl.py, art_src/ship/build_ship10.py, art_src/summon/build_smn.py, art_src/town/build_tpx.py
+    jab1~3.png
+  city/streets_of_fight_files/Streets of Fight files/Sprites/Brawler-Girl/Jump/  4 个 4KB  用到:art_src/mob/build_pen.py
+    jump1~4.png
+  city/streets_of_fight_files/Streets of Fight files/Sprites/Brawler-Girl/Jump_kick/  3 个 3KB  用到:art_src/city/build_gh8.py, art_src/lpc/comp.py, art_src/lv/build_ltl.py, art_src/ship/build_ship10.py, art_src/summon/build_smn.py, art_src/town/build_tpx.py
+    jump_kick1~3.png
+  city/streets_of_fight_files/Streets of Fight files/Sprites/Brawler-Girl/Kick/  5 个 5KB  用到:art_src/city/build_gh8.py, art_src/lpc/comp.py, art_src/lv/build_ltl.py, art_src/ship/build_ship10.py, art_src/summon/build_smn.py, art_src/town/build_tpx.py
+    kick1~5.png
+  city/streets_of_fight_files/Streets of Fight files/Sprites/Brawler-Girl/Punch/  3 个 3KB  用到:art_src/city/build_gh8.py, art_src/lpc/comp.py, art_src/lv/build_ltl.py, art_src/ship/build_ship10.py, art_src/summon/build_smn.py, art_src/town/build_tpx.py
+    punch1~3.png
+  city/streets_of_fight_files/Streets of Fight files/Sprites/Brawler-Girl/Walk/  10 个 9KB  用到:art_src/mob/build_pen.py
+    walk1~9.png
+  city/streets_of_fight_files/Streets of Fight files/Sprites/Enemy-Punk/Hurt/  4 个 5KB  用到:art_src/mob/build_pen.py
+    hurt1~4.png
+  city/streets_of_fight_files/Streets of Fight files/Sprites/Enemy-Punk/Idle/  4 个 6KB  用到:art_src/city/build_gh8.py, art_src/mob/build_mob.py, art_src/mob/build_pen.py, art_src/ship/build_ship10.py, art_src/summon/build_smn.py
+    idle1~4.png
+  city/streets_of_fight_files/Streets of Fight files/Sprites/Enemy-Punk/Punch/  3 个 4KB  用到:art_src/city/build_gh8.py
+    punch1~3.png
+  city/streets_of_fight_files/Streets of Fight files/Sprites/Enemy-Punk/Walk/  4 个 5KB  用到:art_src/mob/build_pen.py
+    walk1~4.png
+  city/streets_of_fight_files/Streets of Fight files/Spritesheets/Brawler Girl/  9 个 10KB  用到:art_src/city/build_city8.py, art_src/city/build_gh8.py
+    dive_kick.png, hurt.png, idle.png, jab.png, jump.png, jump_kick.png, kick.png, punch.png, walk.png
+  city/streets_of_fight_files/Streets of Fight files/Spritesheets/Enemy Punk/  4 个 5KB  用到:art_src/city/build_gh8.py
+    hurt.png, idle.png, punch.png, walk.png
+  city/streets_of_fight_files/Streets of Fight files/Stage Layers/  3 个 21KB  用到:art_src/city/build_city8.py
+    back.png, fore.png, tileset.png
+  city/streets_of_fight_files/Streets of Fight files/Stage Layers/props/  3 个 4KB  用到:art_src/city/build_city8.py, art_src/lv/build_lair.py, art_src/lv/build_ltl.py, art_src/town/build_town2.py
+    barrel.png, car.png, hydrant.png
+  city/streets_of_fight_files/Streets of Fight files/Stage Layers/props/Ethereum/  2 个 1KB  用到:art_src/city/build_city8.py, art_src/lv/build_lair.py, art_src/lv/build_ltl.py, art_src/town/build_town2.py
+    ethereum-1~2.png
+  city/streets_of_fight_files/Streets of Fight files/Stage Layers/props/Sushi/  2 个 1KB  用到:art_src/city/build_city8.py, art_src/lv/build_lair.py, art_src/lv/build_ltl.py, art_src/town/build_town2.py
+    sushi-1~2.png
+  city/streets_of_fight_files/Streets of Fight files/Stage Layers/props/banner-hor/  2 个 1KB  用到:art_src/city/build_city8.py, art_src/lv/build_lair.py, art_src/lv/build_ltl.py, art_src/town/build_town2.py
+    banner-hor1~2.png
+  city/warped_city_files/warped city files/  1 个 1KB  用到:art_src/city/build_city8.py
+    public-license.txt
+  city/warped_city_files/warped city files/ENVIRONMENT/  1 个 7KB  用到:art_src/city/build_city8.py, art_src/lv/build_lair.py, art_src/town/build_town2.py
+    tileset.png
+  city/warped_city_files/warped city files/ENVIRONMENT/background/  4 个 34KB  用到:art_src/audio/build_audio.py, art_src/city/build_city8.py, art_src/lbg/build_lbg.py, art_src/ship/build_ship10.py
+    buildings-bg.png, near-buildings-bg.png, skyline-a.png, skyline-b.png
+  city/warped_city_files/warped city files/ENVIRONMENT/props/  10 个 5KB  用到:art_src/city/build_city8.py, art_src/lv/build_lair.py, art_src/lv/build_ltl.py, art_src/town/build_town2.py
+    antenna.png, banner-arrow.png, banner-floor.png, banner-open.png, banner-small.png, banners.png, control-box-1~3.png, hotel-sign.png
+  city/warped_city_files/warped city files/ENVIRONMENT/props/banner-big/  5 个 6KB  用到:art_src/city/build_city8.py, art_src/lv/build_lair.py, art_src/lv/build_ltl.py, art_src/town/build_town2.py
+    banner-big-1~4.png, banner-big-preview.gif
+  city/warped_city_files/warped city files/ENVIRONMENT/props/banner-coke/  4 个 5KB  用到:art_src/city/build_city8.py, art_src/lv/build_lair.py, art_src/lv/build_ltl.py, art_src/town/build_town2.py
+    banner-coke-1~3.png, banner-coke-preview.gif
+  city/warped_city_files/warped city files/ENVIRONMENT/props/banner-neon/  5 个 4KB  用到:art_src/city/build_city8.py, art_src/lv/build_lair.py, art_src/lv/build_ltl.py, art_src/town/build_town2.py
+    banner-neon-1~4.png, banner-neon-preview.gif
+  city/warped_city_files/warped city files/ENVIRONMENT/props/banner-scroll/  5 个 3KB  用到:art_src/city/build_city8.py, art_src/lv/build_lair.py, art_src/lv/build_ltl.py, art_src/town/build_town2.py
+    banner-scroll-1~4.png, banner-scroll-preview.gif
+  city/warped_city_files/warped city files/ENVIRONMENT/props/banner-side/  5 个 4KB  用到:art_src/city/build_city8.py, art_src/lv/build_lair.py, art_src/lv/build_ltl.py, art_src/town/build_town2.py
+    banner-side-1~4.png, banner-side-preview.gif
+  city/warped_city_files/warped city files/ENVIRONMENT/props/banner-sushi/  4 个 3KB  用到:art_src/city/build_city8.py, art_src/lv/build_lair.py, art_src/lv/build_ltl.py, art_src/town/build_town2.py
+    banner-sushi-1~3.png, banner-sushi-preview.gif
+  city/warped_city_files/warped city files/ENVIRONMENT/props/monitorface/  5 个 3KB  用到:art_src/city/build_city8.py, art_src/lv/build_lair.py, art_src/lv/build_ltl.py, art_src/town/build_town2.py
+    monitor-face-1~4.png, monitorface_preview.gif
+  city/warped_city_files/warped city files/PSD/  1 个 956KB  用到:art_src/city/build_city8.py
+    concepts.psd
+  city/warped_city_files/warped city files/PSD/ENVIRONMENT/  8 个 1.1MB  用到:art_src/city/build_city8.py, art_src/lv/build_lair.py, art_src/town/build_town2.py
+    banner-big.psd, banner-coke.psd, banner-neon.psd, banner-scroll.psd, banner-side.psd, banner-sushi.psd, environment.psd, monitorface.psd
+  city/warped_city_files/warped city files/PSD/MISC/  6 个 469KB  用到:art_src/city/build_city8.py
+    drone.psd, enemy-explosion.psd, shot-hit.psd, shot.psd, title-screen.psd, turret.psd
+  city/warped_city_files/warped city files/PSD/player/  10 个 576KB  用到:art_src/city/build_city8.py
+    back-jump.psd, climb.psd, crouch.psd, hurt.psd, idle.psd, jump.psd, run-shoot.psd, run.psd, shoot.psd, walk.psd
+  city/warped_city_files/warped city files/SPRITES/misc/drone/  5 个 9KB  用到:art_src/audio/build_audio.py
+    drone-1~4.png, drone_preview.gif
+  city/warped_city_files/warped city files/SPRITES/misc/enemy-explosion/  7 个 14KB  用到:art_src/audio/build_audio.py
+    enemy-explosion-1~6.png, enemy-explosion-preview.gif
+  city/warped_city_files/warped city files/SPRITES/misc/shot/  4 个 4KB  用到:art_src/audio/build_audio.py
+    shot-1~3.png, shot-preview.gif
+  city/warped_city_files/warped city files/SPRITES/misc/shot-hit/  4 个 4KB  用到:art_src/audio/build_audio.py
+    shot-hit-1~3.png, shot-hit-preview.gif
+  city/warped_city_files/warped city files/SPRITES/misc/turret/  7 个 9KB  用到:art_src/audio/build_audio.py
+    turret-1~6.png, turret-preview.gif
+  city/warped_city_files/warped city files/SPRITES/player/back-jump/  8 个 9KB  用到:art_src/city/build_city8.py
+    back-jump-1~7.png, back-jump-preview.gif
+  city/warped_city_files/warped city files/SPRITES/player/climb/  7 个 7KB  用到:art_src/audio/build_audio.py
+    climb-1~6.png, climb-preview.gif
+  city/warped_city_files/warped city files/SPRITES/player/crouch/  1 个 2KB  用到:art_src/city/build_city8.py
+    crouch.png
+  city/warped_city_files/warped city files/SPRITES/player/hurt/  1 个 2KB  用到:art_src/audio/build_audio.py, art_src/boss/build_mage.py, art_src/myst/build_myst.py
+    hurt.png
+  city/warped_city_files/warped city files/SPRITES/player/idle/  5 个 6KB  用到:art_src/boss/build_bos.py, art_src/boss/build_mage.py, art_src/city/build_gh8.py, art_src/lpc/build_lpc.py, art_src/lpc_npc/build_npc_lpc.py, art_src/mob/build_dog2.py, art_src/mob/build_mob.py, art_src/mob/build_pen.py, art_src/myst/build_myst.py, art_src/volcano/build_vol9.py
+    idle-1~4.png, idle-peview.gif
+  city/warped_city_files/warped city files/SPRITES/player/jump/  5 个 6KB  用到:art_src/lpc/build_lpc.py, art_src/mob/build_dog2.py
+    jump-1~4.png, jump-preview.gif
+  city/warped_city_files/warped city files/SPRITES/player/run/  9 个 10KB  用到:art_src/city/build_city8.py
+    run-1~8.png, run-preview.gif
+  city/warped_city_files/warped city files/SPRITES/player/run-shoot/  9 个 17KB  用到:art_src/city/build_city8.py
+    run-shoot-1~8.png, run-shoot-preview.gif
+  city/warped_city_files/warped city files/SPRITES/player/shoot/  1 个 2KB  用到:art_src/city/build_city8.py
+    shoot.png
+  city/warped_city_files/warped city files/SPRITES/player/walk/  17 个 17KB  用到:art_src/boss/build_bos.py, art_src/boss/build_mage.py, art_src/boss/build_scob.py, art_src/city/build_city8.py, art_src/lpc/build_lpc.py, art_src/lpc_npc/build_npc_lpc.py, art_src/mob/build_dog2.py, art_src/mob/build_mob.py, art_src/mob/build_pen.py, art_src/myst/build_myst.py, art_src/ship/build_ship10.py, art_src/town/build_tpx.py, art_src/volcano/build_vol9.py
+    walk-1~9.png, walk-preview.gif
+  city/warped_city_files/warped city files/SPRITES/vehicles/  4 个 19KB  用到:art_src/city/build_city8.py
+    v-police.png, v-red.png, v-truck.png, v-yellow.png
+  city/warped_city_files/warped city files/demo/  4 个 837KB  用到:art_src/volcano/build_vol9.py
+    game.js, index.html, phaser.min.js, warped-lava.js
+  city/warped_city_files/warped city files/demo/assets/atlas/  3 个 102KB  用到:art_src/bfx/build_bfx2.py, art_src/boss/build_ars.py, art_src/boss/build_bos.py, art_src/boss/build_mage.py, art_src/boss/build_mnt.py, art_src/build_wpn.py, art_src/city/build_city8.py, art_src/city/build_gh8.py, art_src/eqicon/build_eqicon.py, art_src/lpc/build_hsw.py, art_src/lpc/build_lpc.py, art_src/lv/build_ice6.py, art_src/lv/build_lair.py, art_src/mob/build_dog2.py, art_src/mob/build_pen.py, art_src/mob/fix_dog2.py, art_src/myst/build_myst.py, art_src/ship/build_ship10.py, art_src/skfx/build_skfx.py, art_src/town/build_tpx.py, art_src/vfx/build_vfx.py, art_src/volcano/build_vol9.py
+    atlas.json, atlas.png, atlas.tps
+  city/warped_city_files/warped city files/demo/assets/environment/  4 个 40KB  用到:art_src/lv/build_ltl.py, art_src/town/build_town.py, art_src/town/build_town2.py
+    bg-1~3.png, tileset.png
+  city/warped_city_files/warped city files/demo/assets/maps/  1 个 32KB  用到:art_src/audio/build_audio.py, art_src/bfx/build_bfx2.py, art_src/boss/build_ars.py, art_src/boss/build_mnt.py, art_src/city/build_city8.py, art_src/city/build_gh8.py, art_src/eqicon/build_eqicon.py, art_src/font/build_font.py, art_src/lpc/build_hsw.py, art_src/lv/build_ice6.py, art_src/lv/build_lair.py, art_src/lv/build_ltl.py, art_src/map/build_map.py, art_src/mob/fix_dog2.py, art_src/myst/build_myst.py, art_src/ship/build_ship10.py, art_src/skfx/build_gsword.py, art_src/skfx/build_skfx.py, art_src/town/build_town.py, art_src/town/build_town2.py, art_src/ui/build_ui.py, art_src/volcano/build_vol9.py
+    map.json
+  city/warped_city_files/warped city files/demo/assets/sounds/  5 个 2.9MB  用到:art_src/audio/build_audio.py
+    beam.ogg, explosion.ogg, hurt.ogg, hurt.wav, sci_fi_platformer02.ogg
+  city/warped_city_files/warped city files/demo/assets/sprites/  6 个 13KB  用到:art_src/bfx/build_bfx.py, art_src/boss/build_ars.py, art_src/boss/build_mage.py, art_src/lpc/comp.py, art_src/lpc_npc/build_npc_lpc.py, art_src/mob/build_mob.py, art_src/summon/build_smn.py, art_src/vfx/build_vfx.py
+    credits-text.png, game-over.png, instructions.png, loading.png, press-enter-text.png, title-screen.png
+
+## raw/font
+  font/  3 个 98.5MB  用到:art_src/font/build_font.py(参数)
+    zip: fusion-pixel-font-10px-proportional-ttf-v2026.09.25.zip(26.9MB), fusion-pixel-font-12px-proportional-ttf-v2026.09.25.zip(47.1MB), fusion-pixel-font-8px-proportional-ttf-v2026.09.25.zip(24.4MB)
+
+## raw/forge
+  forge/  2 个 380KB  用到:art_src/town/build_town2.py
+    zip: lpc-blacksmith.zip(46KB)
+    preview.gif
+  forge/x/lpc-blacksmith/  2 个 49KB  用到:art_src/town/build_town2.py
+    CREDITS-blacksmith.txt, blacksmith-smelter.png
+
+## raw/ghost
+  ghost/  3 个 3.4MB  用到:art_src/city/build_gh8.py
+    zip: gothicvania-cemetery-files_1.zip(3.4MB)
+    anim-nme-ghost.png, monster-ghost-11variations.png
+  ghost/gothicvania-cemetery-files_1/gothicvania-cemetery-files/  1 个 1KB  用到:art_src/city/build_gh8.py
+    public-license.txt
+  ghost/gothicvania-cemetery-files_1/gothicvania-cemetery-files/GIFS/ghost/  2 个 4KB  用到:art_src/city/build_gh8.py
+    ghost-halo.gif, ghost.gif
+  ghost/gothicvania-cemetery-files_1/gothicvania-cemetery-files/GIFS/hell-gato/  1 个 2KB  用到:art_src/city/build_gh8.py
+    hell-gato.gif
+  ghost/gothicvania-cemetery-files_1/gothicvania-cemetery-files/GIFS/hero/  4 个 11KB  用到:art_src/city/build_gh8.py
+    hero-attack.gif, hero-idle.gif, hero-jump.gif, hero-run.gif
+  ghost/gothicvania-cemetery-files_1/gothicvania-cemetery-files/GIFS/misc/  1 个 1KB  用到:art_src/audio/build_audio.py
+    enemy-death.gif
+  ghost/gothicvania-cemetery-files_1/gothicvania-cemetery-files/GIFS/skeleton/  4 个 7KB  用到:art_src/mob/build_mob.py
+    skeleton-clothed.gif, skeleton-rise-clothed.gif, skeleton-rise.gif, skeleton.gif
+  ghost/gothicvania-cemetery-files_1/gothicvania-cemetery-files/PNG/Environment/  6 个 76KB  用到:art_src/city/build_gh8.py
+    background.png, graveyard.png, mountains.png, objects.png, tileset-sliced.png, tileset.png
+  ghost/gothicvania-cemetery-files_1/gothicvania-cemetery-files/PNG/Environment/sliced-objects/  10 个 27KB  用到:art_src/city/build_gh8.py
+    bush-large.png, bush-small.png, statue.png, stone-1~4.png, tree-1~3.png
+  ghost/gothicvania-cemetery-files_1/gothicvania-cemetery-files/PNG/Sprites/enemy-death/  5 个 6KB  用到:art_src/city/build_gh8.py, art_src/lpc/comp.py, art_src/lv/build_ltl.py, art_src/ship/build_ship10.py, art_src/summon/build_smn.py, art_src/town/build_tpx.py
+    enemy-death-1~5.png
+  ghost/gothicvania-cemetery-files_1/gothicvania-cemetery-files/PNG/Sprites/ghost/  4 个 4KB  用到:art_src/city/build_gh8.py
+    ghost-1~4.png
+  ghost/gothicvania-cemetery-files_1/gothicvania-cemetery-files/PNG/Sprites/ghost-halo/  4 个 5KB  用到:art_src/city/build_gh8.py
+    ghost-halo-1~4.png
+  ghost/gothicvania-cemetery-files_1/gothicvania-cemetery-files/PNG/Sprites/hell-gato/  4 个 4KB  用到:art_src/city/build_gh8.py, art_src/lpc/comp.py, art_src/lv/build_ltl.py, art_src/ship/build_ship10.py, art_src/summon/build_smn.py, art_src/town/build_tpx.py
+    hell-gato-1~4.png
+  ghost/gothicvania-cemetery-files_1/gothicvania-cemetery-files/PNG/Sprites/hero/hero-attack/  5 个 5KB  用到:art_src/city/build_gh8.py, art_src/lpc/comp.py, art_src/lv/build_ltl.py, art_src/ship/build_ship10.py, art_src/summon/build_smn.py, art_src/town/build_tpx.py
+    hero-attack-1~5.png
+  ghost/gothicvania-cemetery-files_1/gothicvania-cemetery-files/PNG/Sprites/hero/hero-crouch/  1 个 1KB  用到:art_src/city/build_gh8.py, art_src/lpc/comp.py, art_src/lv/build_ltl.py, art_src/ship/build_ship10.py, art_src/summon/build_smn.py, art_src/town/build_tpx.py
+    hero-crouch.png
+  ghost/gothicvania-cemetery-files_1/gothicvania-cemetery-files/PNG/Sprites/hero/hero-hurt/  1 个 2KB  用到:art_src/city/build_gh8.py, art_src/lpc/comp.py, art_src/lv/build_ltl.py, art_src/ship/build_ship10.py, art_src/summon/build_smn.py, art_src/town/build_tpx.py
+    hero-hurt.png
+  ghost/gothicvania-cemetery-files_1/gothicvania-cemetery-files/PNG/Sprites/hero/hero-idle/  4 个 5KB  用到:art_src/city/build_gh8.py, art_src/lpc/comp.py, art_src/lv/build_ltl.py, art_src/ship/build_ship10.py, art_src/summon/build_smn.py, art_src/town/build_tpx.py
+    hero-idle-1~4.png
+  ghost/gothicvania-cemetery-files_1/gothicvania-cemetery-files/PNG/Sprites/hero/hero-jump/  4 个 5KB  用到:art_src/city/build_gh8.py, art_src/lpc/comp.py, art_src/lv/build_ltl.py, art_src/ship/build_ship10.py, art_src/summon/build_smn.py, art_src/town/build_tpx.py
+    hero-jump-1~4.png
+  ghost/gothicvania-cemetery-files_1/gothicvania-cemetery-files/PNG/Sprites/hero/hero-run/  6 个 12KB  用到:art_src/city/build_gh8.py, art_src/lpc/comp.py, art_src/lv/build_ltl.py, art_src/ship/build_ship10.py, art_src/summon/build_smn.py, art_src/town/build_tpx.py
+    hero-run-1~6.png
+  ghost/gothicvania-cemetery-files_1/gothicvania-cemetery-files/PNG/Sprites/skeleton/  8 个 5KB  用到:art_src/mob/build_mob.py
+    skeleton-1~8.png
+  ghost/gothicvania-cemetery-files_1/gothicvania-cemetery-files/PNG/Sprites/skeleton-clothed/  8 个 6KB  用到:art_src/city/build_gh8.py, art_src/lpc/comp.py, art_src/lv/build_ltl.py, art_src/ship/build_ship10.py, art_src/summon/build_smn.py, art_src/town/build_tpx.py
+    skeleton-clothed-1~8.png
+  ghost/gothicvania-cemetery-files_1/gothicvania-cemetery-files/PNG/Sprites/skeleton-rise/  6 个 3KB  用到:art_src/city/build_gh8.py, art_src/lpc/comp.py, art_src/lv/build_ltl.py, art_src/ship/build_ship10.py, art_src/summon/build_smn.py, art_src/town/build_tpx.py
+    skeleton-rise-1~6.png
+  ghost/gothicvania-cemetery-files_1/gothicvania-cemetery-files/PNG/Sprites/skeleton-rise-clothed/  6 个 4KB  用到:art_src/city/build_gh8.py, art_src/lpc/comp.py, art_src/lv/build_ltl.py, art_src/ship/build_ship10.py, art_src/summon/build_smn.py, art_src/town/build_tpx.py
+    skeleton-rise-clothed-1~6.png
+  ghost/gothicvania-cemetery-files_1/gothicvania-cemetery-files/PSD/  2 个 1.7MB  用到:art_src/city/build_gh8.py
+    concepts.psd, old-concept.psd
+  ghost/gothicvania-cemetery-files_1/gothicvania-cemetery-files/PSD/environment/  1 个 1.4MB  用到:art_src/lv/build_ltl.py, art_src/town/build_town.py, art_src/town/build_town2.py
+    environment.psd
+  ghost/gothicvania-cemetery-files_1/gothicvania-cemetery-files/PSD/misc/  1 个 360KB  用到:art_src/audio/build_audio.py
+    title-screen.psd
+  ghost/gothicvania-cemetery-files_1/gothicvania-cemetery-files/PSD/sprites/  5 个 298KB  用到:art_src/bfx/build_bfx.py, art_src/boss/build_ars.py, art_src/boss/build_mage.py, art_src/lpc/comp.py, art_src/lpc_npc/build_npc_lpc.py, art_src/mob/build_mob.py, art_src/summon/build_smn.py, art_src/vfx/build_vfx.py
+    enemy-death.psd, ghost.psd, hell-gato.psd, skeleton-rise.psd, skeleton.psd
+  ghost/gothicvania-cemetery-files_1/gothicvania-cemetery-files/PSD/sprites/hero/  6 个 346KB  用到:art_src/bfx/build_bfx.py, art_src/boss/build_ars.py, art_src/boss/build_mage.py, art_src/lpc/comp.py, art_src/lpc_npc/build_npc_lpc.py, art_src/mob/build_mob.py, art_src/summon/build_smn.py, art_src/vfx/build_vfx.py
+    hero-attack.psd, hero-crouch.psd, hero-hurt.psd, hero-idle.psd, hero-jump.psd, hero-run.psd
+  ghost/gothicvania-cemetery-files_1/gothicvania-cemetery-files/demo/  3 个 811KB  用到:art_src/volcano/build_vol9.py
+    game.js, index.html, phaser.min.js
+  ghost/gothicvania-cemetery-files_1/gothicvania-cemetery-files/demo/assets/atlas/  6 个 84KB  用到:art_src/bfx/build_bfx2.py, art_src/boss/build_ars.py, art_src/boss/build_bos.py, art_src/boss/build_mage.py, art_src/boss/build_mnt.py, art_src/build_wpn.py, art_src/city/build_city8.py, art_src/city/build_gh8.py, art_src/eqicon/build_eqicon.py, art_src/lpc/build_hsw.py, art_src/lpc/build_lpc.py, art_src/lv/build_ice6.py, art_src/lv/build_lair.py, art_src/mob/build_dog2.py, art_src/mob/build_pen.py, art_src/mob/fix_dog2.py, art_src/myst/build_myst.py, art_src/ship/build_ship10.py, art_src/skfx/build_skfx.py, art_src/town/build_tpx.py, art_src/vfx/build_vfx.py, art_src/volcano/build_vol9.py
+    atlas-props.json, atlas-props.png, atlas-props.tps, atlas.json, atlas.png, atlas.tps
+  ghost/gothicvania-cemetery-files_1/gothicvania-cemetery-files/demo/assets/environment/  5 个 60KB  用到:art_src/lv/build_ltl.py, art_src/town/build_town.py, art_src/town/build_town2.py
+    bg-graveyard.png, bg-moon.png, bg-mountains.png, objects.png, tileset.png
+  ghost/gothicvania-cemetery-files_1/gothicvania-cemetery-files/demo/assets/maps/  1 个 42KB  用到:art_src/audio/build_audio.py, art_src/bfx/build_bfx2.py, art_src/boss/build_ars.py, art_src/boss/build_mnt.py, art_src/city/build_city8.py, art_src/city/build_gh8.py, art_src/eqicon/build_eqicon.py, art_src/font/build_font.py, art_src/lpc/build_hsw.py, art_src/lv/build_ice6.py, art_src/lv/build_lair.py, art_src/lv/build_ltl.py, art_src/map/build_map.py, art_src/mob/fix_dog2.py, art_src/myst/build_myst.py, art_src/ship/build_ship10.py, art_src/skfx/build_gsword.py, art_src/skfx/build_skfx.py, art_src/town/build_town.py, art_src/town/build_town2.py, art_src/ui/build_ui.py, art_src/volcano/build_vol9.py
+    map.json
+  ghost/gothicvania-cemetery-files_1/gothicvania-cemetery-files/demo/assets/sounds/  6 个 1.9MB  用到:art_src/audio/build_audio.py
+    attack.ogg, hurt.ogg, jump.ogg, kill.ogg, rise.ogg, sci_fi_platformer04_main_loop.ogg
+  ghost/gothicvania-cemetery-files_1/gothicvania-cemetery-files/demo/assets/sprites/  6 个 12KB  用到:art_src/bfx/build_bfx.py, art_src/boss/build_ars.py, art_src/boss/build_mage.py, art_src/lpc/comp.py, art_src/lpc_npc/build_npc_lpc.py, art_src/mob/build_mob.py, art_src/summon/build_smn.py, art_src/vfx/build_vfx.py
+    credits-text.png, game-over.png, instructions.png, loading.png, press-enter-text.png, title-screen.png
+
+## raw/giant_sword
+  giant_sword/fantasy_sword_melle/  4 个 814KB  用到:art_src/lpc/build_hsw.py, art_src/skfx/build_gsword.py
+    fire_sword.png, ice_sword.png, lightning_sword.png, sword.png
+
+## raw/hamster
+  hamster/  2 个 31KB  用到:art_src/myst/build_myst.py
+    zip: wshtue_gfx.zip(20KB)
+    preview_853.png
+  hamster/wshtue/  3 个 10KB
+    font10x12.png, font8x8.png, tileset3.png
+  hamster/wshtue/sprites/  25 个 7KB  用到:art_src/bfx/build_bfx.py, art_src/boss/build_ars.py, art_src/boss/build_mage.py, art_src/lpc/comp.py, art_src/lpc_npc/build_npc_lpc.py, art_src/mob/build_mob.py, art_src/summon/build_smn.py, art_src/vfx/build_vfx.py
+    beast.png, brick.png, cat.png, chomp0~3.png, devil.png, devilfire.png, fire.png, magic.png, magichit.png, man.png, nerd.png, pause.png, qmark0~7.png, worm.png, wormhead.png
+
+## raw/icons
+  icons/7soul1/  1 个 1.5MB  用到:art_src/eqicon/build_eqicon.py, art_src/ui/build_meni.py
+    zip: 496_RPG_icons.zip(1.5MB)
+  icons/7soul1/x/  496 个 1.4MB  用到:art_src/eqicon/build_eqicon.py, art_src/ui/build_meni.py
+    A_Armor04~05.png, A_Armour01~03.png, A_Clothing01~02.png, A_Shoes01~07.png, Ac_Medal01~04.png, Ac_Necklace01~08.png, Ac_Ring01~02.png, C_Elm01~04.png, C_Hat01~02.png, E_Bones02~03.png, E_Gold01~02.png, E_Metal01~09.png, E_Wood01~04.png, I_Agate.png, I_Amethist.png, I_Antidote.png, I_BatWing.png, I_BirdsBeak.png, I_Bone.png, I_Book.png, I_Bottle01~04.png, I_BronzeBar.png, I_BronzeCoin.png, I_C_Banana.png, I_C_Bread.png, I_C_Carrot.png, I_C_Cheese.png, I_C_Cherry.png, I_C_Fish.png, I_C_Grapes.png, I_C_GreenGrapes.png, I_C_GreenPepper.png, I_C_Lemon.png, I_C_Meat.png, I_C_Mulberry.png, I_C_Mushro …(共 130 组)
+  icons/jewelry/  2 个 158KB  用到:art_src/eqicon/build_eqicon.py
+    zip: jewelry-7soul1_20201212.zip(20KB), jewelry-dcss.zip(138KB)
+  icons/jewelry/x7/  2 个 6KB  用到:art_src/eqicon/build_eqicon.py
+    jewelry-7Soul1.png, jewelry-7Soul1.txt
+  icons/jewelry/x7/32x32/  18 个 6KB  用到:art_src/boss/build_ars.py, art_src/eqicon/build_eqicon.py
+    necklace_01~08.png, ring_01~02.png, ring_03_blue.png, ring_03_gray.png, ring_03_green.png, ring_03_light_green.png, ring_03_light_red.png, ring_03_pink.png, ring_03_purple.png, ring_03_red.png
+  icons/jewelry/x7/orig/  5 个 4KB  用到:art_src/eqicon/build_eqicon.py
+    necklace_03~08.png
+  icons/jewelry/xd/  3 个 179KB  用到:art_src/eqicon/build_eqicon.py
+    jewelry-DCSS.png, jewelry-DCSS.txt, jewelry-DCSS.xcf
+  icons/jewelry/xd/32x32/amulet/  41 个 18KB  用到:art_src/boss/build_ars.py, art_src/eqicon/build_eqicon.py
+    bone_gray.png, cameo_blue.png, cameo_orange.png, celtic_blue.png, celtic_red.png, celtic_yellow.png, crystal_green.png, crystal_red.png, crystal_white.png, cylinder_gray.png, eye_cyan.png, eye_green.png, eye_magenta.png, face_01_gold.png, face_02.png, penta_green.png, penta_orange.png, ring_cyan.png, ring_green.png, ring_red.png, stone_01_cyan.png, stone_01_green.png, stone_01_pink.png, stone_02_blue.png, stone_02_green.png, stone_02_red.png, stone_03_blue.png, stone_03_green.png, stone_03_magenta.png, urand_air_01~02.png, urand_bloodlust_01~02.png, urand_brooch_of_shielding_01~02.png, urand_c …(共 36 组)
+  icons/jewelry/xd/32x32/amulet/shadow/  18 个 3KB  用到:art_src/boss/build_ars.py, art_src/city/build_gh8.py
+    bone.png, cameo.png, celtic.png, crystal.png, cylinder.png, eye.png, face_01~02.png, penta.png, ring.png, stone_01~03.png, urand_air_02.png, urand_bloodlust_02.png, urand_brooch_of_shielding_02.png, urand_cekugob_02.png, urand_four_winds_02.png
+  icons/jewelry/xd/32x32/ring/  49 个 13KB  用到:art_src/audio/build_audio.py, art_src/bfx/build_bfx2.py, art_src/boss/build_mage.py, art_src/eqicon/build_eqicon.py, art_src/font/build_font.py, art_src/lpc/build_lpc.py, art_src/myst/build_myst.py, art_src/skfx/build_skfx.py
+    ring_01_emerald.png, ring_01_ruby.png, ring_01_sapphire.png, ring_01_topaz.png, ring_02_gold_blue.png, ring_02_gold_cyan.png, ring_02_gold_green.png, ring_02_gold_magenta.png, ring_02_gold_red.png, ring_02_gold_white.png, ring_02_gold_yellow.png, ring_03_diamond.png, ring_03_engagement.png, ring_03_shiny.png, ring_04_black_onyx.png, ring_04_moonstone.png, ring_04_opal.png, ring_04_pearl.png, ring_05_clay.png, ring_05_coral.png, ring_05_granite.png, ring_05_ivory.png, ring_05_wooden.png, ring_06_agate.png, ring_06_glass.png, ring_06_jade.png, ring_06_plain_black.png, ring_06_plain_blue.png, rin …(共 48 组)
+  icons/jewelry/xd/32x32/ring/shadow/  11 个 2KB  用到:art_src/boss/build_ars.py, art_src/city/build_gh8.py
+    ring_01-04.png, ring_05-06.png, ring_07~11.png, ring_09-10-octoring.png, urand_mage.png, urand_robustness.png, urand_shadows_01~02.png, urand_shaolin.png
+  icons/owlish/  1 个 45KB  用到:art_src/ui/build_meni.py
+    zip: RPG_Icons_Pack_OwlishMedia.zip(45KB)
+  icons/owlish/x/  108 个 32KB  用到:art_src/ui/build_meni.py
+    Heal.png, alert.png, axe.png, battle.png, battleaxe.png, berserk.png, blind.png, book.png, boomerang.png, boots.png, bow.png, box.png, brave.png, buff.png, cancel.png, charm.png, chest.png, clock.png, coins.png, confuse.png, cosmos.png, cross.png, crossbow.png, cuirass.png, cure.png, darkness.png, debuff.png, desk.png, discus.png, door.png, down.png, eagle_eye.png, earth.png, elixir.png, exclamation.png, eye.png, fire.png, frozen.png, gun.png, hammer.png, hand.png, helm.png, hourglass.png, ice.png, key.png, knife.png, knuckle-duster.png, leaf.png, left.png, letter.png, light.png, lightning.png …(共 105 组)
+
+king_cobra-1.0.zip  191KB
+## raw/lair
+  lair/  3 个 154KB  用到:art_src/lv/build_lair.py
+    castle_tileset_part1_0.png, castle_tileset_part2_0.png, castle_tileset_part3_0.png
+
+lpc_animals_2022_v1.1.zip  411KB
+## raw/lv
+  lv/  6 个 9.0MB  用到:art_src/lv/build_ice6.py, art_src/lv/build_ltl.py, art_src/town/build_town2.py
+    zip: sunny-land-forest-files.zip(4.8MB), sunny-land-woods-files.zip(4.0MB), sunnyland_trees_expansion_files.zip(89KB)
+    cover_13~68.png
+  lv/desert/  4 个 610KB  用到:art_src/lbg/build_lbg.py, art_src/lv/build_lair.py, art_src/lv/build_ltl.py
+    Spiky.png, desert_tile.png, rock_veget.png, view.png
+  lv/season/  3 个 37KB  用到:art_src/lv/build_ice6.py, art_src/lv/build_ltl.py, art_src/town/build_town.py, art_src/town/build_town2.py
+    Season_sets.png, Tiles_4.png, seasonal_trees.png
+  lv/sunny-land-forest-files/Sunny-land-forest-files/  1 个 1KB  用到:art_src/lv/build_ltl.py
+    public-license.txt
+  lv/sunny-land-forest-files/Sunny-land-forest-files/GIF/enemies/  4 个 5KB  用到:art_src/lv/build_ltl.py
+    bee.gif, piranha-plant-attack.gif, piranha-plant.gif, slug.gif
+  lv/sunny-land-forest-files/Sunny-land-forest-files/GIF/misc/  4 个 2KB  用到:art_src/audio/build_audio.py
+    carrot.gif, chest.gif, enemy-death.gif, star.gif
+  lv/sunny-land-forest-files/Sunny-land-forest-files/GIF/player/  7 个 7KB  用到:art_src/lv/build_ltl.py
+    climb.gif, duck.gif, fall.gif, hurt.gif, idle.gif, jump.gif, skip.gif
+  lv/sunny-land-forest-files/Sunny-land-forest-files/PNG/environment/  1 个 91KB  用到:art_src/lv/build_ltl.py, art_src/town/build_town.py, art_src/town/build_town2.py
+    environment-preview.png
+  lv/sunny-land-forest-files/Sunny-land-forest-files/PNG/environment/layers/  5 个 73KB  用到:art_src/boss/build_mage.py, art_src/lbg/build_lbg.py, art_src/lpc/build_lpc.py, art_src/lpc/comp.py, art_src/lpc_npc/build_npc_lpc.py, art_src/lv/build_ltl.py, art_src/volcano/build_vol9.py
+    background.png, middleground.png, props.png, tileset.png, tileset_preview.png
+  lv/sunny-land-forest-files/Sunny-land-forest-files/PNG/environment/props/  7 个 22KB  用到:art_src/city/build_city8.py, art_src/lv/build_lair.py, art_src/lv/build_ltl.py, art_src/town/build_town2.py
+    house.png, mushroom-brown.png, mushroom-red.png, plant.png, rock.png, tree.png, vine.png
+  lv/sunny-land-forest-files/Sunny-land-forest-files/PNG/sprites/enemies/bee/  8 个 6KB  用到:art_src/bfx/build_bfx.py, art_src/boss/build_ars.py, art_src/boss/build_mage.py, art_src/lpc/comp.py, art_src/lpc_npc/build_npc_lpc.py, art_src/mob/build_mob.py, art_src/summon/build_smn.py, art_src/vfx/build_vfx.py
+    bee-1~8.png
+  lv/sunny-land-forest-files/Sunny-land-forest-files/PNG/sprites/enemies/piranha-plant/  5 个 3KB  用到:art_src/bfx/build_bfx.py, art_src/boss/build_ars.py, art_src/boss/build_mage.py, art_src/lpc/comp.py, art_src/lpc_npc/build_npc_lpc.py, art_src/mob/build_mob.py, art_src/summon/build_smn.py, art_src/vfx/build_vfx.py
+    piranha-plant-1~5.png
+  lv/sunny-land-forest-files/Sunny-land-forest-files/PNG/sprites/enemies/piranha-plant-attack/  4 个 3KB  用到:art_src/bfx/build_bfx.py, art_src/boss/build_ars.py, art_src/boss/build_mage.py, art_src/lpc/comp.py, art_src/lpc_npc/build_npc_lpc.py, art_src/mob/build_mob.py, art_src/summon/build_smn.py, art_src/vfx/build_vfx.py
+    piranha-plant-attack-1~4.png
+  lv/sunny-land-forest-files/Sunny-land-forest-files/PNG/sprites/enemies/slug/  4 个 2KB  用到:art_src/bfx/build_bfx.py, art_src/boss/build_ars.py, art_src/boss/build_mage.py, art_src/lpc/comp.py, art_src/lpc_npc/build_npc_lpc.py, art_src/mob/build_mob.py, art_src/summon/build_smn.py, art_src/vfx/build_vfx.py
+    slug-1~4.png
+  lv/sunny-land-forest-files/Sunny-land-forest-files/PNG/sprites/misc/carrot/  4 个 1KB  用到:art_src/boss/build_mage.py, art_src/mob/build_mob.py, art_src/town/build_town2.py
+    carrot-1~4.png
+  lv/sunny-land-forest-files/Sunny-land-forest-files/PNG/sprites/misc/chest/  2 个 1KB  用到:art_src/lpc/build_lpc.py, art_src/lpc_npc/build_npc_lpc.py
+    chest-1~2.png
+  lv/sunny-land-forest-files/Sunny-land-forest-files/PNG/sprites/misc/enemy-death/  6 个 2KB  用到:art_src/audio/build_audio.py
+    enemy-death-1~6.png
+  lv/sunny-land-forest-files/Sunny-land-forest-files/PNG/sprites/misc/hud/  4 个 2KB  用到:art_src/audio/build_audio.py
+    hud-1~4.png
+  lv/sunny-land-forest-files/Sunny-land-forest-files/PNG/sprites/misc/star/  6 个 1KB  用到:art_src/audio/build_audio.py, art_src/boss/build_mage.py, art_src/eqicon/build_eqicon.py, art_src/lpc/comp.py, art_src/lpc_npc/build_npc_lpc.py, art_src/pend/build_pend.py, art_src/ship/build_ship10.py, art_src/ui/build_meni.py
+    star-1~6.png
+  lv/sunny-land-forest-files/Sunny-land-forest-files/PNG/sprites/player/player-climb/  4 个 2KB  用到:art_src/bfx/build_bfx.py, art_src/boss/build_ars.py, art_src/boss/build_mage.py, art_src/lpc/comp.py, art_src/lpc_npc/build_npc_lpc.py, art_src/mob/build_mob.py, art_src/summon/build_smn.py, art_src/vfx/build_vfx.py
+    player-climb-1~4.png
+  lv/sunny-land-forest-files/Sunny-land-forest-files/PNG/sprites/player/player-duck/  4 个 2KB  用到:art_src/bfx/build_bfx.py, art_src/boss/build_ars.py, art_src/boss/build_mage.py, art_src/lpc/comp.py, art_src/lpc_npc/build_npc_lpc.py, art_src/mob/build_mob.py, art_src/summon/build_smn.py, art_src/vfx/build_vfx.py
+    player-duck-1~4.png
+  lv/sunny-land-forest-files/Sunny-land-forest-files/PNG/sprites/player/player-fall/  4 个 2KB  用到:art_src/bfx/build_bfx.py, art_src/boss/build_ars.py, art_src/boss/build_mage.py, art_src/lpc/comp.py, art_src/lpc_npc/build_npc_lpc.py, art_src/mob/build_mob.py, art_src/summon/build_smn.py, art_src/vfx/build_vfx.py
+    player-fall-1~4.png
+  lv/sunny-land-forest-files/Sunny-land-forest-files/PNG/sprites/player/player-hurt/  2 个 1KB  用到:art_src/bfx/build_bfx.py, art_src/boss/build_ars.py, art_src/boss/build_mage.py, art_src/lpc/comp.py, art_src/lpc_npc/build_npc_lpc.py, art_src/mob/build_mob.py, art_src/summon/build_smn.py, art_src/vfx/build_vfx.py
+    player-hurt-1~2.png
+  lv/sunny-land-forest-files/Sunny-land-forest-files/PNG/sprites/player/player-idle/  9 个 5KB  用到:art_src/bfx/build_bfx.py, art_src/boss/build_ars.py, art_src/boss/build_mage.py, art_src/lpc/comp.py, art_src/lpc_npc/build_npc_lpc.py, art_src/mob/build_mob.py, art_src/summon/build_smn.py, art_src/vfx/build_vfx.py
+    player-idle-1~9.png
+  lv/sunny-land-forest-files/Sunny-land-forest-files/PNG/sprites/player/player-jump/  4 个 2KB  用到:art_src/bfx/build_bfx.py, art_src/boss/build_ars.py, art_src/boss/build_mage.py, art_src/lpc/comp.py, art_src/lpc_npc/build_npc_lpc.py, art_src/mob/build_mob.py, art_src/summon/build_smn.py, art_src/vfx/build_vfx.py
+    player-jump-1~4.png
+  lv/sunny-land-forest-files/Sunny-land-forest-files/PNG/sprites/player/player-skip/  8 个 4KB  用到:art_src/bfx/build_bfx.py, art_src/boss/build_ars.py, art_src/boss/build_mage.py, art_src/lpc/comp.py, art_src/lpc_npc/build_npc_lpc.py, art_src/mob/build_mob.py, art_src/summon/build_smn.py, art_src/vfx/build_vfx.py
+    player-skip-1~8.png
+  lv/sunny-land-forest-files/Sunny-land-forest-files/PNG/spritesheets/enemies/  4 个 7KB  用到:art_src/boss/build_ars.py, art_src/boss/build_mage.py, art_src/lpc/comp.py, art_src/lpc_npc/build_npc_lpc.py, art_src/mob/build_mob.py, art_src/vfx/build_vfx.py
+    bee.png, piranha-plant-attack.png, piranha-plant.png, slug.png
+  lv/sunny-land-forest-files/Sunny-land-forest-files/PNG/spritesheets/misc/  5 个 4KB  用到:art_src/audio/build_audio.py
+    carrot.png, chest.png, enemy-death.png, hud.png, star.png
+  lv/sunny-land-forest-files/Sunny-land-forest-files/PNG/spritesheets/player/  7 个 11KB  用到:art_src/boss/build_ars.py, art_src/boss/build_mage.py, art_src/lpc/comp.py, art_src/lpc_npc/build_npc_lpc.py, art_src/mob/build_mob.py, art_src/vfx/build_vfx.py
+    climb.png, duck.png, fall.png, hurt.png, idle.png, jump.png, skip.png
+  lv/sunny-land-forest-files/Sunny-land-forest-files/PSD/  1 个 1.6MB  用到:art_src/lv/build_ltl.py
+    concepts.psd
+  lv/sunny-land-forest-files/Sunny-land-forest-files/PSD/Environment/  1 个 1.5MB  用到:art_src/lv/build_ltl.py
+    environment.psd
+  lv/sunny-land-forest-files/Sunny-land-forest-files/PSD/enemies/  4 个 185KB  用到:art_src/lv/build_ltl.py
+    bee.psd, piranha-plant-attack.psd, piranha-plant.psd, slug.psd
+  lv/sunny-land-forest-files/Sunny-land-forest-files/PSD/misc/  5 个 407KB  用到:art_src/audio/build_audio.py
+    carrot.psd, chest.psd, enemy-death.psd, star.psd, title-screen.psd
+  lv/sunny-land-forest-files/Sunny-land-forest-files/PSD/player/  7 个 282KB  用到:art_src/lv/build_ltl.py
+    climb.psd, duck.psd, fall.psd, hurt.psd, idle.psd, jump.psd, skip.psd
+  lv/sunny-land-forest-files/Sunny-land-forest-files/demo/  3 个 819KB  用到:art_src/volcano/build_vol9.py
+    game.js, index.html, phaser.min.js
+  lv/sunny-land-forest-files/Sunny-land-forest-files/demo/assets/atlas/  6 个 77KB  用到:art_src/bfx/build_bfx2.py, art_src/boss/build_ars.py, art_src/boss/build_bos.py, art_src/boss/build_mage.py, art_src/boss/build_mnt.py, art_src/build_wpn.py, art_src/city/build_city8.py, art_src/city/build_gh8.py, art_src/eqicon/build_eqicon.py, art_src/lpc/build_hsw.py, art_src/lpc/build_lpc.py, art_src/lv/build_ice6.py, art_src/lv/build_lair.py, art_src/mob/build_dog2.py, art_src/mob/build_pen.py, art_src/mob/fix_dog2.py, art_src/myst/build_myst.py, art_src/ship/build_ship10.py, art_src/skfx/build_skfx.py, art_src/town/build_tpx.py, art_src/vfx/build_vfx.py, art_src/volcano/build_vol9.py
+    atlas-props.json, atlas-props.png, atlas-props.tps, atlas.json, atlas.png, atlas.tps
+  lv/sunny-land-forest-files/Sunny-land-forest-files/demo/assets/environment/  4 个 35KB  用到:art_src/lv/build_ltl.py, art_src/town/build_town.py, art_src/town/build_town2.py
+    background.png, collisions.png, middleground.png, tileset.png
+  lv/sunny-land-forest-files/Sunny-land-forest-files/demo/assets/maps/  1 个 40KB  用到:art_src/audio/build_audio.py, art_src/bfx/build_bfx2.py, art_src/boss/build_ars.py, art_src/boss/build_mnt.py, art_src/city/build_city8.py, art_src/city/build_gh8.py, art_src/eqicon/build_eqicon.py, art_src/font/build_font.py, art_src/lpc/build_hsw.py, art_src/lv/build_ice6.py, art_src/lv/build_lair.py, art_src/lv/build_ltl.py, art_src/map/build_map.py, art_src/mob/fix_dog2.py, art_src/myst/build_myst.py, art_src/ship/build_ship10.py, art_src/skfx/build_gsword.py, art_src/skfx/build_skfx.py, art_src/town/build_town.py, art_src/town/build_town2.py, art_src/ui/build_ui.py, art_src/volcano/build_vol9.py
+    map.json
+  lv/sunny-land-forest-files/Sunny-land-forest-files/demo/assets/sound/  14 个 2.9MB  用到:art_src/audio/build_audio.py
+    carrot.mp3, carrot.ogg, chest.mp3, chest.ogg, enchanted_forest.mp3, enchanted_forest_loop.ogg, enemy-death.mp3, enemy-death.ogg, hurt.mp3, hurt.ogg, jump.mp3, jump.ogg, star.mp3, star.ogg
+  lv/sunny-land-forest-files/Sunny-land-forest-files/demo/assets/sound/wavs/  6 个 292KB  用到:art_src/audio/build_audio.py
+    carrot.wav, chest.wav, enemy-death.wav, hurt.wav, jump.wav, star.wav
+  lv/sunny-land-forest-files/Sunny-land-forest-files/demo/assets/sprites/  7 个 13KB  用到:art_src/bfx/build_bfx.py, art_src/boss/build_ars.py, art_src/boss/build_mage.py, art_src/lpc/comp.py, art_src/lpc_npc/build_npc_lpc.py, art_src/mob/build_mob.py, art_src/summon/build_smn.py, art_src/vfx/build_vfx.py
+    credits-text.png, game-over.png, hud.png, instructions.png, loading.png, press-enter-text.png, title-screen.png
+  lv/sunny-land-woods-files/Sunny-land-woods-files/  1 个 1KB  用到:art_src/lv/build_lair.py, art_src/town/build_town2.py
+    public-license.txt
+  lv/sunny-land-woods-files/Sunny-land-woods-files/Demo/  3 个 812KB  用到:art_src/volcano/build_vol9.py
+    game.js, index.html, phaser.min.js
+  lv/sunny-land-woods-files/Sunny-land-woods-files/Demo/assets/atlas/  6 个 65KB  用到:art_src/bfx/build_bfx2.py, art_src/boss/build_ars.py, art_src/boss/build_bos.py, art_src/boss/build_mage.py, art_src/boss/build_mnt.py, art_src/build_wpn.py, art_src/city/build_city8.py, art_src/city/build_gh8.py, art_src/eqicon/build_eqicon.py, art_src/lpc/build_hsw.py, art_src/lpc/build_lpc.py, art_src/lv/build_ice6.py, art_src/lv/build_lair.py, art_src/mob/build_dog2.py, art_src/mob/build_pen.py, art_src/mob/fix_dog2.py, art_src/myst/build_myst.py, art_src/ship/build_ship10.py, art_src/skfx/build_skfx.py, art_src/town/build_tpx.py, art_src/vfx/build_vfx.py, art_src/volcano/build_vol9.py
+    atlas-props.json, atlas-props.png, atlas-props.tps, atlas.json, atlas.png, atlas.tps
+  lv/sunny-land-woods-files/Sunny-land-woods-files/Demo/assets/environment/  4 个 30KB  用到:art_src/lv/build_ltl.py, art_src/town/build_town.py, art_src/town/build_town2.py
+    bg-clouds.png, bg-mountains.png, bg-trees.png, tileset.png
+  lv/sunny-land-woods-files/Sunny-land-woods-files/Demo/assets/maps/  1 个 18KB  用到:art_src/audio/build_audio.py, art_src/bfx/build_bfx2.py, art_src/boss/build_ars.py, art_src/boss/build_mnt.py, art_src/city/build_city8.py, art_src/city/build_gh8.py, art_src/eqicon/build_eqicon.py, art_src/font/build_font.py, art_src/lpc/build_hsw.py, art_src/lv/build_ice6.py, art_src/lv/build_lair.py, art_src/lv/build_ltl.py, art_src/map/build_map.py, art_src/mob/fix_dog2.py, art_src/myst/build_myst.py, art_src/ship/build_ship10.py, art_src/skfx/build_gsword.py, art_src/skfx/build_skfx.py, art_src/town/build_town.py, art_src/town/build_town2.py, art_src/ui/build_ui.py, art_src/volcano/build_vol9.py
+    map.json
+  lv/sunny-land-woods-files/Sunny-land-woods-files/Demo/assets/sounds/  5 个 2.8MB  用到:art_src/audio/build_audio.py
+    enemy-death.ogg, hurt.ogg, item.ogg, jump.ogg, the_valley.ogg
+  lv/sunny-land-woods-files/Sunny-land-woods-files/Demo/assets/sprites/  6 个 17KB  用到:art_src/bfx/build_bfx.py, art_src/boss/build_ars.py, art_src/boss/build_mage.py, art_src/lpc/comp.py, art_src/lpc_npc/build_npc_lpc.py, art_src/mob/build_mob.py, art_src/summon/build_smn.py, art_src/vfx/build_vfx.py
+    credits-text.png, game-over.png, instructions.png, loading.png, press-enter-text.png, title-screen.png
+  lv/sunny-land-woods-files/Sunny-land-woods-files/ENVIRONMENT/  6 个 63KB  用到:art_src/city/build_city8.py, art_src/lv/build_lair.py, art_src/town/build_town2.py
+    bg-clouds.png, bg-mountains.png, bg-trees.png, props.png, tileset-sliced.png, tileset.png
+  lv/sunny-land-woods-files/Sunny-land-woods-files/ENVIRONMENT/props-sliced/  6 个 20KB  用到:art_src/lv/build_lair.py, art_src/town/build_town2.py
+    branch-01~05.png, leaves.png
+  lv/sunny-land-woods-files/Sunny-land-woods-files/PSD/  1 个 1.1MB  用到:art_src/lv/build_lair.py, art_src/town/build_town2.py
+    concepts.psd
+  lv/sunny-land-woods-files/Sunny-land-woods-files/PSD/Environment/  1 个 943KB  用到:art_src/lv/build_lair.py, art_src/town/build_town2.py
+    environment.psd
+  lv/sunny-land-woods-files/Sunny-land-woods-files/PSD/enemies/  6 个 294KB  用到:art_src/lv/build_lair.py, art_src/town/build_town2.py
+    ant.psd, enemy-death.psd, gator.psd, grasshopper-fall.psd, grasshopper-idle.psd, grasshopper-jump.psd
+  lv/sunny-land-woods-files/Sunny-land-woods-files/PSD/misc/  2 个 440KB  用到:art_src/audio/build_audio.py
+    acorn.psd, title-screen.psd
+  lv/sunny-land-woods-files/Sunny-land-woods-files/PSD/player/  5 个 282KB  用到:art_src/lv/build_lair.py, art_src/town/build_town2.py
+    player-crouch.psd, player-hurt.psd, player-idle.psd, player-jump.psd, player-run.psd
+  lv/sunny-land-woods-files/Sunny-land-woods-files/SPRITES/enemies/ant/  9 个 14KB  用到:art_src/lv/build_lair.py, art_src/town/build_town2.py
+    ant-1~8.png, ant-preview.gif
+  lv/sunny-land-woods-files/Sunny-land-woods-files/SPRITES/enemies/gator/  5 个 9KB  用到:art_src/lv/build_lair.py, art_src/town/build_town2.py
+    gator-1~4.png, gator-preview.gif
+  lv/sunny-land-woods-files/Sunny-land-woods-files/SPRITES/enemies/grasshopper-fall/  3 个 5KB  用到:art_src/lv/build_lair.py, art_src/town/build_town2.py
+    grasshopper-fall-1~2.png, grasshopper-fall-preview.gif
+  lv/sunny-land-woods-files/Sunny-land-woods-files/SPRITES/enemies/grasshopper-idle/  5 个 8KB  用到:art_src/lv/build_lair.py, art_src/town/build_town2.py
+    grasshopper-idle-1~4.png, grasshopper-idle-preview.gif
+  lv/sunny-land-woods-files/Sunny-land-woods-files/SPRITES/enemies/grasshopper-jump/  3 个 5KB  用到:art_src/lv/build_lair.py, art_src/town/build_town2.py
+    grasshopper-jump-1~2.png, grasshopper-jump-preview.gif
+  lv/sunny-land-woods-files/Sunny-land-woods-files/SPRITES/misc/acorn/  4 个 5KB  用到:art_src/audio/build_audio.py
+    acorn-1~3.png, acorn-preview.gif
+  lv/sunny-land-woods-files/Sunny-land-woods-files/SPRITES/misc/enemy-death/  5 个 6KB  用到:art_src/audio/build_audio.py
+    enemy-death-1~4.png, enemy-death-preview.gif
+  lv/sunny-land-woods-files/Sunny-land-woods-files/SPRITES/player/crouch/  3 个 5KB  用到:art_src/lv/build_lair.py, art_src/town/build_town2.py
+    player-crouch-1~2.png, player-crouch-preview.gif
+  lv/sunny-land-woods-files/Sunny-land-woods-files/SPRITES/player/hurt/  3 个 5KB  用到:art_src/audio/build_audio.py, art_src/boss/build_mage.py, art_src/myst/build_myst.py
+    player-hurt-1~2.png, player-hurt-preview.gif
+  lv/sunny-land-woods-files/Sunny-land-woods-files/SPRITES/player/idle/  9 个 16KB  用到:art_src/boss/build_bos.py, art_src/boss/build_mage.py, art_src/city/build_gh8.py, art_src/lpc/build_lpc.py, art_src/lpc_npc/build_npc_lpc.py, art_src/mob/build_dog2.py, art_src/mob/build_mob.py, art_src/mob/build_pen.py, art_src/myst/build_myst.py, art_src/volcano/build_vol9.py
+    player-idle-1~8.png, player-idle-preview.gif
+  lv/sunny-land-woods-files/Sunny-land-woods-files/SPRITES/player/jump/  5 个 9KB  用到:art_src/lpc/build_lpc.py, art_src/mob/build_dog2.py
+    player-jump-1~4.png, player-jump-preview.gif
+  lv/sunny-land-woods-files/Sunny-land-woods-files/SPRITES/player/run/  7 个 12KB  用到:art_src/lv/build_lair.py, art_src/town/build_town2.py
+    player-run-1~6.png, player-run-preview.gif
+  lv/sunnyland_trees_expansion_files/Sunnyland Trees Expansion Files/  1 个 0KB  用到:art_src/lv/build_ltl.py
+    public-license.txt
+  lv/sunnyland_trees_expansion_files/Sunnyland Trees Expansion Files/Previews/  2 个 60KB  用到:art_src/lv/build_ltl.py
+    trees.png, treesx3.png
+  lv/sunnyland_trees_expansion_files/Sunnyland Trees Expansion Files/Sprites/  1 个 6KB  用到:art_src/city/build_gh8.py, art_src/lpc/comp.py, art_src/lv/build_ltl.py, art_src/ship/build_ship10.py, art_src/summon/build_smn.py, art_src/town/build_tpx.py
+    Trees.png
+  lv/sunnyland_trees_expansion_files/Sunnyland Trees Expansion Files/Sprites/Sliced Trees/  3 个 5KB  用到:art_src/lv/build_ltl.py
+    palm.png, pine.png, tree.png
+  lv/sunnyland_trees_expansion_files/Sunnyland Trees Expansion Files/aseprite/  1 个 17KB  用到:art_src/lv/build_ltl.py
+    trees.ase
+  lv/swamp/  1 个 426KB  用到:art_src/lbg/build_lbg.py, art_src/lv/build_ltl.py
+    zip: gothicvania_swamp_files.zip(426KB)
+  lv/swamp/Gothicvania Swamp files/  1 个 1KB  用到:art_src/lbg/build_lbg.py, art_src/lv/build_ltl.py
+    public-license.txt
+  lv/swamp/Gothicvania Swamp files/Evironment/  6 个 42KB  用到:art_src/lbg/build_lbg.py, art_src/lv/build_ltl.py
+    background.png, mid-layer-01~02.png, props.png, tileset.png, trees.png
+  lv/swamp/Gothicvania Swamp files/PSD/  3 个 693KB  用到:art_src/lbg/build_lbg.py, art_src/lv/build_ltl.py
+    concepts.psd, preview.png, title-screen.psd
+  lv/swamp/Gothicvania Swamp files/Sprites/Enemy-Death/  2 个 5KB  用到:art_src/city/build_gh8.py, art_src/lpc/comp.py, art_src/lv/build_ltl.py, art_src/ship/build_ship10.py, art_src/summon/build_smn.py, art_src/town/build_tpx.py
+    Enemy-Death-Preview.gif, Enemy-Death.ase
+  lv/swamp/Gothicvania Swamp files/Sprites/Enemy-Death/Explosion/  6 个 4KB  用到:art_src/mob/build_mfx.py
+    Enemy-Death1~6.png
+  lv/swamp/Gothicvania Swamp files/Sprites/Fire/  2 个 1KB  用到:art_src/audio/build_audio.py, art_src/bfx/build_bfx.py, art_src/skfx/build_skfx.py, art_src/vfx/build_vfx.py, art_src/volcano/build_vol9.py
+    fire-preview.gif, fire.ase
+  lv/swamp/Gothicvania Swamp files/Sprites/Fire/fire/  2 个 0KB  用到:art_src/audio/build_audio.py, art_src/bfx/build_bfx.py, art_src/city/build_gh8.py, art_src/lpc/build_hsw.py, art_src/myst/build_myst.py, art_src/skfx/build_skfx.py, art_src/vfx/build_vfx.py, art_src/volcano/build_vol9.py
+    fire1~2.png
+  lv/swamp/Gothicvania Swamp files/Sprites/Ghost/  2 个 4KB  用到:art_src/city/build_gh8.py
+    Ghost-peview.gif, Ghost.ase
+  lv/swamp/Gothicvania Swamp files/Sprites/Ghost/Flying/  4 个 4KB  用到:art_src/ship/build_ship10.py, art_src/volcano/build_vol9.py
+    Ghost1~4.png
+  lv/swamp/Gothicvania Swamp files/Sprites/Player/  2 个 41KB  用到:art_src/city/build_gh8.py, art_src/lpc/comp.py, art_src/lv/build_ltl.py, art_src/ship/build_ship10.py, art_src/summon/build_smn.py, art_src/town/build_tpx.py
+    player-preview.gif, player.ase
+  lv/swamp/Gothicvania Swamp files/Sprites/Player/crouch/  3 个 3KB  用到:art_src/city/build_gh8.py, art_src/lpc/comp.py, art_src/lv/build_ltl.py, art_src/ship/build_ship10.py, art_src/summon/build_smn.py, art_src/town/build_tpx.py
+    crouch1~3.png
+  lv/swamp/Gothicvania Swamp files/Sprites/Player/crouch-shoot/  3 个 3KB  用到:art_src/city/build_gh8.py, art_src/lpc/comp.py, art_src/lv/build_ltl.py, art_src/ship/build_ship10.py, art_src/summon/build_smn.py, art_src/town/build_tpx.py
+    crouch-shoot1~3.png
+  lv/swamp/Gothicvania Swamp files/Sprites/Player/fall/  2 个 2KB  用到:art_src/audio/build_audio.py, art_src/ship/build_ship10.py
+    fall1~2.png
+  lv/swamp/Gothicvania Swamp files/Sprites/Player/hurt/  2 个 2KB  用到:art_src/audio/build_audio.py, art_src/boss/build_mage.py, art_src/myst/build_myst.py
+    Hurt1~2.png
+  lv/swamp/Gothicvania Swamp files/Sprites/Player/idle/  6 个 6KB  用到:art_src/boss/build_bos.py, art_src/boss/build_mage.py, art_src/city/build_gh8.py, art_src/lpc/build_lpc.py, art_src/lpc_npc/build_npc_lpc.py, art_src/mob/build_dog2.py, art_src/mob/build_mob.py, art_src/mob/build_pen.py, art_src/myst/build_myst.py, art_src/volcano/build_vol9.py
+    idle1~6.png
+  lv/swamp/Gothicvania Swamp files/Sprites/Player/jump/  2 个 2KB  用到:art_src/lpc/build_lpc.py, art_src/mob/build_dog2.py
+    jump1~2.png
+  lv/swamp/Gothicvania Swamp files/Sprites/Player/run/  14 个 14KB  用到:art_src/city/build_gh8.py, art_src/lpc/comp.py, art_src/lv/build_ltl.py, art_src/ship/build_ship10.py, art_src/summon/build_smn.py, art_src/town/build_tpx.py
+    run1~9.png
+  lv/swamp/Gothicvania Swamp files/Sprites/Player/shoot/  3 个 3KB  用到:art_src/city/build_gh8.py, art_src/lpc/comp.py, art_src/lv/build_ltl.py, art_src/ship/build_ship10.py, art_src/summon/build_smn.py, art_src/town/build_tpx.py
+    shoot1~3.png
+  lv/swamp/Gothicvania Swamp files/Sprites/Player/stand/  1 个 1KB  用到:art_src/town/build_tpx.py
+    stand.png
+  lv/swamp/Gothicvania Swamp files/Sprites/Spider/  2 个 3KB  用到:art_src/mob/build_mob.py
+    spider-preview.gif, spider.ase
+  lv/swamp/Gothicvania Swamp files/Sprites/Spider/walk/  4 个 3KB  用到:art_src/boss/build_bos.py, art_src/boss/build_mage.py, art_src/boss/build_scob.py, art_src/city/build_city8.py, art_src/lpc/build_lpc.py, art_src/lpc_npc/build_npc_lpc.py, art_src/mob/build_dog2.py, art_src/mob/build_mob.py, art_src/mob/build_pen.py, art_src/myst/build_myst.py, art_src/ship/build_ship10.py, art_src/town/build_tpx.py, art_src/volcano/build_vol9.py
+    spider1~4.png
+  lv/swamp/Gothicvania Swamp files/Sprites/Thing/  2 个 3KB  用到:art_src/audio/build_audio.py
+    thing-preview.gif, thing.ase
+  lv/swamp/Gothicvania Swamp files/Sprites/Thing/walk thing/  4 个 3KB  用到:art_src/audio/build_audio.py
+    thing1~4.png
+
+## raw/map
+  map/  1 个 100KB  用到:art_src/map/build_map.py
+    world_map_custom.webp
+
+## raw/potion
+  potion/  9 个 97KB  用到:art_src/potion/build_pot.py
+    PotionSet16x16.png, potions_1~3.png, potions_1_0.png, potions_2_0.png, potions_3_0.png, potions_4_0.png
+
+shark_underwater_160x160_sevarihk.png  7KB
+## raw/ship
+  ship/  10 个 3.8MB  用到:art_src/ship/build_ship10.py
+    zip: flying_eye.zip(40KB), lpc_imp.zip(146KB), lpc_imp2.zip(446KB), moon_sea.zip(424KB), pirateship.zip(1.3MB), pirate_bomb.zip(1.2MB)
+    fallen_angel.png, floating_islands_tiles.png, sky_clouds.png, winged_blue_imp.png
+  ship/flying_eye/flying eye/Dead/  3 个 9KB  用到:art_src/mob/build_pen.py
+    eye_dead.png, flyingeye_dead.png, wings_dead.png
+  ship/flying_eye/flying eye/DeadNoGore/  3 个 8KB  用到:art_src/ship/build_ship10.py
+    eye_deadnogore.png, flyingeye_dead.png, wings_dead.png
+  ship/flying_eye/flying eye/Hit/  3 个 4KB  用到:art_src/ship/build_ship10.py
+    flyingeye_hit01_sheet.png, flyingeye_hit_sheet.png, wings_hit_sheet.png
+  ship/flying_eye/flying eye/Idle/  3 个 3KB  用到:art_src/city/build_gh8.py, art_src/mob/build_mob.py, art_src/mob/build_pen.py, art_src/ship/build_ship10.py, art_src/summon/build_smn.py
+    eye_idle_sheet.png, flyingeyesheet.png, wings_idle_sheet.png
+  ship/flying_eye/flying eye/preview/  3 个 13KB  用到:art_src/ship/build_ship10.py
+    Sprite-0005.gif, flying.gif, flyingeye01.png
+  ship/flying_eye/flying eye/wink/  1 个 1KB  用到:art_src/ship/build_ship10.py
+    flyingeye_wink.png
+  ship/lpc_imp/LPC imp/  10 个 149KB  用到:art_src/ship/build_ship10.py
+    attack - pitchfork shield.png, attack - pitchfork.png, attack - sword shield.png, attack - sword.png, attack - vanilla.png, walk - pitchfork shield.png, walk - pitchfork.png, walk - sword shield.png, walk - sword.png, walk - vanilla.png
+  ship/lpc_imp2/  1 个 0KB  用到:art_src/ship/build_ship10.py
+    readme.txt
+  ship/lpc_imp2/LPC Imp 2/blue/  11 个 156KB  用到:art_src/boss/build_mage.py, art_src/lpc/build_lpc.py, art_src/mob/build_mob.py, art_src/ship/build_ship10.py, art_src/skfx/build_skfx.py, art_src/town/build_town2.py
+    attack - pitchfork shield.png, attack - pitchfork.png, attack - sword shield.png, attack - sword.png, attack - vanilla.png, imp death.png, walk - pitchfork shield.png, walk - pitchfork.png, walk - sword shield.png, walk - sword.png, walk - vanilla.png
+  ship/lpc_imp2/LPC Imp 2/green/  11 个 143KB  用到:art_src/eqicon/build_eqicon.py, art_src/lpc/build_hsw.py, art_src/lpc/build_lpc.py, art_src/lpc_npc/build_npc_lpc.py
+    attack - pitchfork shield.png, attack - pitchfork.png, attack - sword shield.png, attack - sword.png, attack - vanilla.png, imp death.png, walk - pitchfork shield.png, walk - pitchfork.png, walk - sword shield.png, walk - sword.png, walk - vanilla.png
+  ship/lpc_imp2/LPC Imp 2/red/  11 个 154KB  用到:art_src/ship/build_ship10.py
+    attack - pitchfork shield.png, attack - pitchfork.png, attack - sword shield.png, attack - sword.png, attack - vanilla.png, imp death.png, walk - pitchfork shield.png, walk - pitchfork.png, walk - sword shield.png, walk - sword.png, walk - vanilla.png
+  ship/moon_sea/  7 个 540KB  用到:art_src/ship/build_ship10.py
+    1~5.png, COUPON.pdf, COUPON.png
+  ship/pirate_bomb/Aseprite Files/  8 个 311KB  用到:art_src/ship/build_ship10.py
+    1-Player-Bomb Guy.aseprite, 2-Enemy-Bold Pirate.aseprite, 3-Enemy-Cucumber.aseprite, 4-Enemy-Big Guy.aseprite, 5-Enemy-Captain.aseprite, 6-Enemy-Whale.aseprite, 7-Objects.aseprite, 8-Tile-Sets.aseprite
+  ship/pirate_bomb/Sprites/1-Player-Bomb Guy/1-Idle/  26 个 33KB  用到:art_src/mob/build_pen.py, art_src/ship/build_ship10.py
+    1~9.png
+  ship/pirate_bomb/Sprites/1-Player-Bomb Guy/10-Door In/  16 个 14KB  用到:art_src/city/build_gh8.py, art_src/lpc/comp.py, art_src/lv/build_ltl.py, art_src/ship/build_ship10.py, art_src/summon/build_smn.py, art_src/town/build_tpx.py
+    1~9.png
+  ship/pirate_bomb/Sprites/1-Player-Bomb Guy/11-Door Out/  16 个 14KB  用到:art_src/city/build_gh8.py, art_src/lpc/comp.py, art_src/lv/build_ltl.py, art_src/ship/build_ship10.py, art_src/summon/build_smn.py, art_src/town/build_tpx.py
+    1~9.png
+  ship/pirate_bomb/Sprites/1-Player-Bomb Guy/2-Run/  14 个 18KB  用到:art_src/city/build_gh8.py, art_src/lpc/comp.py, art_src/lv/build_ltl.py, art_src/ship/build_ship10.py, art_src/summon/build_smn.py, art_src/town/build_tpx.py
+    1~9.png
+  ship/pirate_bomb/Sprites/1-Player-Bomb Guy/3-Jump Anticipation/  1 个 1KB  用到:art_src/city/build_gh8.py, art_src/lpc/comp.py, art_src/lv/build_ltl.py, art_src/ship/build_ship10.py, art_src/summon/build_smn.py, art_src/town/build_tpx.py
+    1.png
+  ship/pirate_bomb/Sprites/1-Player-Bomb Guy/4-Jump/  4 个 5KB  用到:art_src/city/build_gh8.py, art_src/lpc/comp.py, art_src/lv/build_ltl.py, art_src/ship/build_ship10.py, art_src/summon/build_smn.py, art_src/town/build_tpx.py
+    1~4.png
+  ship/pirate_bomb/Sprites/1-Player-Bomb Guy/5-Fall/  2 个 2KB  用到:art_src/city/build_gh8.py, art_src/lpc/comp.py, art_src/lv/build_ltl.py, art_src/ship/build_ship10.py, art_src/summon/build_smn.py, art_src/town/build_tpx.py
+    1~2.png
+  ship/pirate_bomb/Sprites/1-Player-Bomb Guy/6-Ground/  3 个 4KB  用到:art_src/city/build_gh8.py, art_src/lpc/comp.py, art_src/lv/build_ltl.py, art_src/ship/build_ship10.py, art_src/summon/build_smn.py, art_src/town/build_tpx.py
+    1~3.png
+  ship/pirate_bomb/Sprites/1-Player-Bomb Guy/7-Hit/  8 个 7KB  用到:art_src/city/build_gh8.py, art_src/lpc/comp.py, art_src/lv/build_ltl.py, art_src/ship/build_ship10.py, art_src/summon/build_smn.py, art_src/town/build_tpx.py
+    1~8.png
+  ship/pirate_bomb/Sprites/1-Player-Bomb Guy/8-Dead Hit/  6 个 5KB  用到:art_src/city/build_gh8.py, art_src/lpc/comp.py, art_src/lv/build_ltl.py, art_src/ship/build_ship10.py, art_src/summon/build_smn.py, art_src/town/build_tpx.py
+    1~6.png
+  ship/pirate_bomb/Sprites/1-Player-Bomb Guy/9-Dead Ground/  4 个 4KB  用到:art_src/city/build_gh8.py, art_src/lpc/comp.py, art_src/lv/build_ltl.py, art_src/ship/build_ship10.py, art_src/summon/build_smn.py, art_src/town/build_tpx.py
+    1~4.png
+  ship/pirate_bomb/Sprites/2-Enemy-Bald Pirate/1-Idle/  34 个 43KB  用到:art_src/mob/build_pen.py, art_src/ship/build_ship10.py
+    1~9.png
+  ship/pirate_bomb/Sprites/2-Enemy-Bald Pirate/10-Dead Ground/  4 个 4KB  用到:art_src/city/build_gh8.py, art_src/lpc/comp.py, art_src/lv/build_ltl.py, art_src/ship/build_ship10.py, art_src/summon/build_smn.py, art_src/town/build_tpx.py
+    1~4.png
+  ship/pirate_bomb/Sprites/2-Enemy-Bald Pirate/2-Run/  14 个 18KB  用到:art_src/city/build_gh8.py, art_src/lpc/comp.py, art_src/lv/build_ltl.py, art_src/ship/build_ship10.py, art_src/summon/build_smn.py, art_src/town/build_tpx.py
+    1~9.png
+  ship/pirate_bomb/Sprites/2-Enemy-Bald Pirate/3-Jump Anticipation/  1 个 1KB  用到:art_src/city/build_gh8.py, art_src/lpc/comp.py, art_src/lv/build_ltl.py, art_src/ship/build_ship10.py, art_src/summon/build_smn.py, art_src/town/build_tpx.py
+    1.png
+  ship/pirate_bomb/Sprites/2-Enemy-Bald Pirate/4-Jump/  4 个 5KB  用到:art_src/city/build_gh8.py, art_src/lpc/comp.py, art_src/lv/build_ltl.py, art_src/ship/build_ship10.py, art_src/summon/build_smn.py, art_src/town/build_tpx.py
+    1~4.png
+  ship/pirate_bomb/Sprites/2-Enemy-Bald Pirate/5-Fall/  2 个 3KB  用到:art_src/city/build_gh8.py, art_src/lpc/comp.py, art_src/lv/build_ltl.py, art_src/ship/build_ship10.py, art_src/summon/build_smn.py, art_src/town/build_tpx.py
+    1~2.png
+  ship/pirate_bomb/Sprites/2-Enemy-Bald Pirate/6-Ground/  3 个 4KB  用到:art_src/city/build_gh8.py, art_src/lpc/comp.py, art_src/lv/build_ltl.py, art_src/ship/build_ship10.py, art_src/summon/build_smn.py, art_src/town/build_tpx.py
+    1~3.png
+  ship/pirate_bomb/Sprites/2-Enemy-Bald Pirate/7-Attack/  12 个 15KB  用到:art_src/city/build_gh8.py, art_src/lpc/comp.py, art_src/lv/build_ltl.py, art_src/ship/build_ship10.py, art_src/summon/build_smn.py, art_src/town/build_tpx.py
+    1~9.png
+  ship/pirate_bomb/Sprites/2-Enemy-Bald Pirate/8-Hit/  8 个 8KB  用到:art_src/city/build_gh8.py, art_src/lpc/comp.py, art_src/lv/build_ltl.py, art_src/ship/build_ship10.py, art_src/summon/build_smn.py, art_src/town/build_tpx.py
+    1~8.png
+  ship/pirate_bomb/Sprites/2-Enemy-Bald Pirate/9-Dead Hit/  6 个 5KB  用到:art_src/city/build_gh8.py, art_src/lpc/comp.py, art_src/lv/build_ltl.py, art_src/ship/build_ship10.py, art_src/summon/build_smn.py, art_src/town/build_tpx.py
+    1~6.png
+  ship/pirate_bomb/Sprites/3-Enemy-Cucumber/1-Idle/  36 个 37KB  用到:art_src/mob/build_pen.py, art_src/ship/build_ship10.py
+    1~9.png
+  ship/pirate_bomb/Sprites/3-Enemy-Cucumber/10-Dead Hit/  6 个 4KB  用到:art_src/city/build_gh8.py, art_src/lpc/comp.py, art_src/lv/build_ltl.py, art_src/ship/build_ship10.py, art_src/summon/build_smn.py, art_src/town/build_tpx.py
+    1~6.png
+  ship/pirate_bomb/Sprites/3-Enemy-Cucumber/11-Dead Ground/  4 个 4KB  用到:art_src/city/build_gh8.py, art_src/lpc/comp.py, art_src/lv/build_ltl.py, art_src/ship/build_ship10.py, art_src/summon/build_smn.py, art_src/town/build_tpx.py
+    1~4.png
+  ship/pirate_bomb/Sprites/3-Enemy-Cucumber/2-Run/  12 个 12KB  用到:art_src/city/build_gh8.py, art_src/lpc/comp.py, art_src/lv/build_ltl.py, art_src/ship/build_ship10.py, art_src/summon/build_smn.py, art_src/town/build_tpx.py
+    1~9.png
+  ship/pirate_bomb/Sprites/3-Enemy-Cucumber/3-Jump Anticipation/  1 个 1KB  用到:art_src/city/build_gh8.py, art_src/lpc/comp.py, art_src/lv/build_ltl.py, art_src/ship/build_ship10.py, art_src/summon/build_smn.py, art_src/town/build_tpx.py
+    1.png
+  ship/pirate_bomb/Sprites/3-Enemy-Cucumber/4-Jump/  4 个 4KB  用到:art_src/city/build_gh8.py, art_src/lpc/comp.py, art_src/lv/build_ltl.py, art_src/ship/build_ship10.py, art_src/summon/build_smn.py, art_src/town/build_tpx.py
+    1~4.png
+  ship/pirate_bomb/Sprites/3-Enemy-Cucumber/5-Fall/  2 个 2KB  用到:art_src/city/build_gh8.py, art_src/lpc/comp.py, art_src/lv/build_ltl.py, art_src/ship/build_ship10.py, art_src/summon/build_smn.py, art_src/town/build_tpx.py
+    1~2.png
+  ship/pirate_bomb/Sprites/3-Enemy-Cucumber/6-Ground/  3 个 3KB  用到:art_src/city/build_gh8.py, art_src/lpc/comp.py, art_src/lv/build_ltl.py, art_src/ship/build_ship10.py, art_src/summon/build_smn.py, art_src/town/build_tpx.py
+    1~3.png
+  ship/pirate_bomb/Sprites/3-Enemy-Cucumber/7-Attack/  11 个 11KB  用到:art_src/city/build_gh8.py, art_src/lpc/comp.py, art_src/lv/build_ltl.py, art_src/ship/build_ship10.py, art_src/summon/build_smn.py, art_src/town/build_tpx.py
+    1~9.png
+  ship/pirate_bomb/Sprites/3-Enemy-Cucumber/8-Blow the wick/  11 个 11KB  用到:art_src/city/build_gh8.py, art_src/lpc/comp.py, art_src/lv/build_ltl.py, art_src/ship/build_ship10.py, art_src/summon/build_smn.py, art_src/town/build_tpx.py
+    1~9.png
+  ship/pirate_bomb/Sprites/3-Enemy-Cucumber/9-Hit/  8 个 6KB  用到:art_src/city/build_gh8.py, art_src/lpc/comp.py, art_src/lv/build_ltl.py, art_src/ship/build_ship10.py, art_src/summon/build_smn.py, art_src/town/build_tpx.py
+    1~8.png
+  ship/pirate_bomb/Sprites/4-Enemy-Big Guy/1-Idle/  38 个 54KB  用到:art_src/mob/build_pen.py, art_src/ship/build_ship10.py
+    1~9.png
+  ship/pirate_bomb/Sprites/4-Enemy-Big Guy/10-Run (Bomb)/  16 个 24KB  用到:art_src/city/build_gh8.py, art_src/lpc/comp.py, art_src/lv/build_ltl.py, art_src/ship/build_ship10.py, art_src/summon/build_smn.py, art_src/town/build_tpx.py
+    1~9.png
+  ship/pirate_bomb/Sprites/4-Enemy-Big Guy/11-Throw (Bomb)/  11 个 14KB  用到:art_src/city/build_gh8.py, art_src/lpc/comp.py, art_src/lv/build_ltl.py, art_src/ship/build_ship10.py, art_src/summon/build_smn.py, art_src/town/build_tpx.py
+    1~9.png
+  ship/pirate_bomb/Sprites/4-Enemy-Big Guy/12-Hit/  8 个 8KB  用到:art_src/city/build_gh8.py, art_src/lpc/comp.py, art_src/lv/build_ltl.py, art_src/ship/build_ship10.py, art_src/summon/build_smn.py, art_src/town/build_tpx.py
+    1~8.png
+  ship/pirate_bomb/Sprites/4-Enemy-Big Guy/13-Dead Hit/  6 个 5KB  用到:art_src/city/build_gh8.py, art_src/lpc/comp.py, art_src/lv/build_ltl.py, art_src/ship/build_ship10.py, art_src/summon/build_smn.py, art_src/town/build_tpx.py
+    1~6.png
+  ship/pirate_bomb/Sprites/4-Enemy-Big Guy/14-Dead Ground/  4 个 4KB  用到:art_src/city/build_gh8.py, art_src/lpc/comp.py, art_src/lv/build_ltl.py, art_src/ship/build_ship10.py, art_src/summon/build_smn.py, art_src/town/build_tpx.py
+    1~4.png
+  ship/pirate_bomb/Sprites/4-Enemy-Big Guy/2-Run/  16 个 24KB  用到:art_src/city/build_gh8.py, art_src/lpc/comp.py, art_src/lv/build_ltl.py, art_src/ship/build_ship10.py, art_src/summon/build_smn.py, art_src/town/build_tpx.py
+    1~9.png
+  ship/pirate_bomb/Sprites/4-Enemy-Big Guy/3-Jump Anticipation/  1 个 1KB  用到:art_src/city/build_gh8.py, art_src/lpc/comp.py, art_src/lv/build_ltl.py, art_src/ship/build_ship10.py, art_src/summon/build_smn.py, art_src/town/build_tpx.py
+    1.png
+  ship/pirate_bomb/Sprites/4-Enemy-Big Guy/4-Jump/  4 个 6KB  用到:art_src/city/build_gh8.py, art_src/lpc/comp.py, art_src/lv/build_ltl.py, art_src/ship/build_ship10.py, art_src/summon/build_smn.py, art_src/town/build_tpx.py
+    1~4.png
+  ship/pirate_bomb/Sprites/4-Enemy-Big Guy/5-Fall/  2 个 3KB  用到:art_src/city/build_gh8.py, art_src/lpc/comp.py, art_src/lv/build_ltl.py, art_src/ship/build_ship10.py, art_src/summon/build_smn.py, art_src/town/build_tpx.py
+    1~2.png
+  ship/pirate_bomb/Sprites/4-Enemy-Big Guy/6-Ground/  3 个 4KB  用到:art_src/city/build_gh8.py, art_src/lpc/comp.py, art_src/lv/build_ltl.py, art_src/ship/build_ship10.py, art_src/summon/build_smn.py, art_src/town/build_tpx.py
+    1~3.png
+  ship/pirate_bomb/Sprites/4-Enemy-Big Guy/7-Attack/  11 个 14KB  用到:art_src/city/build_gh8.py, art_src/lpc/comp.py, art_src/lv/build_ltl.py, art_src/ship/build_ship10.py, art_src/summon/build_smn.py, art_src/town/build_tpx.py
+    1~9.png
+  ship/pirate_bomb/Sprites/4-Enemy-Big Guy/8-Pick (Bomb)/  8 个 12KB  用到:art_src/city/build_gh8.py, art_src/lpc/comp.py, art_src/lv/build_ltl.py, art_src/ship/build_ship10.py, art_src/summon/build_smn.py, art_src/town/build_tpx.py
+    1~8.png
+  ship/pirate_bomb/Sprites/4-Enemy-Big Guy/9-Idle (Bomb)/  1 个 1KB  用到:art_src/city/build_gh8.py, art_src/lpc/comp.py, art_src/lv/build_ltl.py, art_src/ship/build_ship10.py, art_src/summon/build_smn.py, art_src/town/build_tpx.py
+    1.png
+  ship/pirate_bomb/Sprites/5-Enemy-Captain/1-Idle/  32 个 47KB  用到:art_src/mob/build_pen.py, art_src/ship/build_ship10.py
+    1~9.png
+  ship/pirate_bomb/Sprites/5-Enemy-Captain/10-Dead Hit/  6 个 5KB  用到:art_src/city/build_gh8.py, art_src/lpc/comp.py, art_src/lv/build_ltl.py, art_src/ship/build_ship10.py, art_src/summon/build_smn.py, art_src/town/build_tpx.py
+    1~6.png
+  ship/pirate_bomb/Sprites/5-Enemy-Captain/11-Dead Ground/  4 个 5KB  用到:art_src/city/build_gh8.py, art_src/lpc/comp.py, art_src/lv/build_ltl.py, art_src/ship/build_ship10.py, art_src/summon/build_smn.py, art_src/town/build_tpx.py
+    1~4.png
+  ship/pirate_bomb/Sprites/5-Enemy-Captain/2-Run/  14 个 20KB  用到:art_src/city/build_gh8.py, art_src/lpc/comp.py, art_src/lv/build_ltl.py, art_src/ship/build_ship10.py, art_src/summon/build_smn.py, art_src/town/build_tpx.py
+    1~9.png
+  ship/pirate_bomb/Sprites/5-Enemy-Captain/3-Jump Anticipation/  1 个 1KB  用到:art_src/city/build_gh8.py, art_src/lpc/comp.py, art_src/lv/build_ltl.py, art_src/ship/build_ship10.py, art_src/summon/build_smn.py, art_src/town/build_tpx.py
+    1.png
+  ship/pirate_bomb/Sprites/5-Enemy-Captain/4-Jump/  4 个 6KB  用到:art_src/city/build_gh8.py, art_src/lpc/comp.py, art_src/lv/build_ltl.py, art_src/ship/build_ship10.py, art_src/summon/build_smn.py, art_src/town/build_tpx.py
+    1~4.png
+  ship/pirate_bomb/Sprites/5-Enemy-Captain/5-Fall/  2 个 3KB  用到:art_src/city/build_gh8.py, art_src/lpc/comp.py, art_src/lv/build_ltl.py, art_src/ship/build_ship10.py, art_src/summon/build_smn.py, art_src/town/build_tpx.py
+    1~2.png
+  ship/pirate_bomb/Sprites/5-Enemy-Captain/6-Ground/  3 个 4KB  用到:art_src/city/build_gh8.py, art_src/lpc/comp.py, art_src/lv/build_ltl.py, art_src/ship/build_ship10.py, art_src/summon/build_smn.py, art_src/town/build_tpx.py
+    1~3.png
+  ship/pirate_bomb/Sprites/5-Enemy-Captain/7-Attack/  7 个 10KB  用到:art_src/city/build_gh8.py, art_src/lpc/comp.py, art_src/lv/build_ltl.py, art_src/ship/build_ship10.py, art_src/summon/build_smn.py, art_src/town/build_tpx.py
+    1~7.png
+  ship/pirate_bomb/Sprites/5-Enemy-Captain/8-Scare Run/  12 个 16KB  用到:art_src/city/build_gh8.py, art_src/lpc/comp.py, art_src/lv/build_ltl.py, art_src/ship/build_ship10.py, art_src/summon/build_smn.py, art_src/town/build_tpx.py
+    1~9.png
+  ship/pirate_bomb/Sprites/5-Enemy-Captain/9-Hit/  8 个 8KB  用到:art_src/city/build_gh8.py, art_src/lpc/comp.py, art_src/lv/build_ltl.py, art_src/ship/build_ship10.py, art_src/summon/build_smn.py, art_src/town/build_tpx.py
+    1~8.png
+  ship/pirate_bomb/Sprites/6-Enemy-Whale/1-Idle/  44 个 54KB  用到:art_src/mob/build_pen.py, art_src/ship/build_ship10.py
+    1~9.png
+  ship/pirate_bomb/Sprites/6-Enemy-Whale/10-Dead Hit/  6 个 5KB  用到:art_src/city/build_gh8.py, art_src/lpc/comp.py, art_src/lv/build_ltl.py, art_src/ship/build_ship10.py, art_src/summon/build_smn.py, art_src/town/build_tpx.py
+    1~6.png
+  ship/pirate_bomb/Sprites/6-Enemy-Whale/11-Dead Ground/  4 个 4KB  用到:art_src/city/build_gh8.py, art_src/lpc/comp.py, art_src/lv/build_ltl.py, art_src/ship/build_ship10.py, art_src/summon/build_smn.py, art_src/town/build_tpx.py
+    1~4.png
+  ship/pirate_bomb/Sprites/6-Enemy-Whale/2-Run/  14 个 17KB  用到:art_src/city/build_gh8.py, art_src/lpc/comp.py, art_src/lv/build_ltl.py, art_src/ship/build_ship10.py, art_src/summon/build_smn.py, art_src/town/build_tpx.py
+    1~9.png
+  ship/pirate_bomb/Sprites/6-Enemy-Whale/3-Jump Anticipation/  1 个 1KB  用到:art_src/city/build_gh8.py, art_src/lpc/comp.py, art_src/lv/build_ltl.py, art_src/ship/build_ship10.py, art_src/summon/build_smn.py, art_src/town/build_tpx.py
+    1.png
+  ship/pirate_bomb/Sprites/6-Enemy-Whale/4-Jump/  4 个 5KB  用到:art_src/city/build_gh8.py, art_src/lpc/comp.py, art_src/lv/build_ltl.py, art_src/ship/build_ship10.py, art_src/summon/build_smn.py, art_src/town/build_tpx.py
+    1~4.png
+  ship/pirate_bomb/Sprites/6-Enemy-Whale/5-Fall/  2 个 2KB  用到:art_src/city/build_gh8.py, art_src/lpc/comp.py, art_src/lv/build_ltl.py, art_src/ship/build_ship10.py, art_src/summon/build_smn.py, art_src/town/build_tpx.py
+    1~2.png
+  ship/pirate_bomb/Sprites/6-Enemy-Whale/6-Ground/  3 个 4KB  用到:art_src/city/build_gh8.py, art_src/lpc/comp.py, art_src/lv/build_ltl.py, art_src/ship/build_ship10.py, art_src/summon/build_smn.py, art_src/town/build_tpx.py
+    1~3.png
+  ship/pirate_bomb/Sprites/6-Enemy-Whale/7-Attack/  11 个 13KB  用到:art_src/city/build_gh8.py, art_src/lpc/comp.py, art_src/lv/build_ltl.py, art_src/ship/build_ship10.py, art_src/summon/build_smn.py, art_src/town/build_tpx.py
+    1~9.png
+  ship/pirate_bomb/Sprites/6-Enemy-Whale/8-Swalow (Bomb)/  10 个 12KB  用到:art_src/city/build_gh8.py, art_src/lpc/comp.py, art_src/lv/build_ltl.py, art_src/ship/build_ship10.py, art_src/summon/build_smn.py, art_src/town/build_tpx.py
+    1~9.png
+  ship/pirate_bomb/Sprites/6-Enemy-Whale/9-Hit/  7 个 6KB  用到:art_src/city/build_gh8.py, art_src/lpc/comp.py, art_src/lv/build_ltl.py, art_src/ship/build_ship10.py, art_src/summon/build_smn.py, art_src/town/build_tpx.py
+    1~7.png
+  ship/pirate_bomb/Sprites/7-Objects/1-BOMB/1-Bomb Off/  1 个 1KB  用到:art_src/ship/build_ship10.py
+    1.png
+  ship/pirate_bomb/Sprites/7-Objects/1-BOMB/2-Bomb On/  10 个 7KB  用到:art_src/ship/build_ship10.py
+    1~9.png
+  ship/pirate_bomb/Sprites/7-Objects/1-BOMB/3-Explotion/  9 个 7KB  用到:art_src/ship/build_ship10.py
+    1~9.png
+  ship/pirate_bomb/Sprites/7-Objects/10-Big Chain/  10 个 5KB  用到:art_src/ship/build_ship10.py
+    1~9.png
+  ship/pirate_bomb/Sprites/7-Objects/11-Health Bar/  2 个 2KB  用到:art_src/ship/build_ship10.py
+    Health Bar.png, Heart.png
+  ship/pirate_bomb/Sprites/7-Objects/12-Other Objects/  8 个 5KB  用到:art_src/ship/build_ship10.py
+    Barrel.png, Blue Bottle.png, Chair.png, Green Bottle.png, Red Bottle.png, Skull.png, Table.png, Windows.png
+  ship/pirate_bomb/Sprites/7-Objects/13-Run Particles/  6 个 1KB  用到:art_src/ship/build_ship10.py
+    1~6.png
+  ship/pirate_bomb/Sprites/7-Objects/14-Jump Particles/  6 个 1KB  用到:art_src/ship/build_ship10.py
+    1~6.png
+  ship/pirate_bomb/Sprites/7-Objects/15-Fall Particles/  6 个 1KB  用到:art_src/ship/build_ship10.py
+    1~6.png
+  ship/pirate_bomb/Sprites/7-Objects/16-Enemy-Cannon/1-Idle/  1 个 1KB  用到:art_src/mob/build_pen.py, art_src/ship/build_ship10.py
+    1.png
+  ship/pirate_bomb/Sprites/7-Objects/16-Enemy-Cannon/2-Attack/  9 个 9KB  用到:art_src/ship/build_ship10.py
+    1~9.png
+  ship/pirate_bomb/Sprites/7-Objects/16-Enemy-Cannon/3-Cannon Ball/  1 个 0KB  用到:art_src/ship/build_ship10.py
+    1.png
+  ship/pirate_bomb/Sprites/7-Objects/17-Heart/1-Idle/  22 个 6KB  用到:art_src/mob/build_pen.py, art_src/ship/build_ship10.py
+    1~9.png
+  ship/pirate_bomb/Sprites/7-Objects/17-Heart/2-Live+1/  4 个 1KB  用到:art_src/ship/build_ship10.py
+    1~4.png
+  ship/pirate_bomb/Sprites/7-Objects/2-Door/1-Closed/  1 个 1KB  用到:art_src/ship/build_ship10.py
+    1.png
+  ship/pirate_bomb/Sprites/7-Objects/2-Door/2-Opening/  5 个 5KB  用到:art_src/ship/build_ship10.py
+    1~5.png
+  ship/pirate_bomb/Sprites/7-Objects/2-Door/3-Closing/  5 个 6KB  用到:art_src/ship/build_ship10.py
+    1~5.png
+  ship/pirate_bomb/Sprites/7-Objects/3-Bomb Bar/1-Charging Bar/  11 个 2KB  用到:art_src/ship/build_ship10.py
+    1~9.png
+  ship/pirate_bomb/Sprites/7-Objects/3-Bomb Bar/2-Full (Intermitent)/  3 个 1KB  用到:art_src/ship/build_ship10.py
+    1~3.png
+  ship/pirate_bomb/Sprites/7-Objects/3-Bomb Bar/3-Closing/  1 个 0KB  用到:art_src/ship/build_ship10.py
+    1.png
+  ship/pirate_bomb/Sprites/7-Objects/4-Interrogation Dialog/1-Opening/  4 个 1KB  用到:art_src/ship/build_ship10.py
+    1~4.png
+  ship/pirate_bomb/Sprites/7-Objects/4-Interrogation Dialog/2-Closing/  1 个 0KB  用到:art_src/ship/build_ship10.py
+    1.png
+  ship/pirate_bomb/Sprites/7-Objects/5-Exclamation Dialog/1-Opening/  4 个 1KB  用到:art_src/ship/build_ship10.py
+    1~4.png
+  ship/pirate_bomb/Sprites/7-Objects/5-Exclamation Dialog/2-Closing/  1 个 0KB  用到:art_src/ship/build_ship10.py
+    1.png
+  ship/pirate_bomb/Sprites/7-Objects/6-Candle/  8 个 3KB  用到:art_src/ship/build_ship10.py
+    1~8.png
+  ship/pirate_bomb/Sprites/7-Objects/7-Candle Light/  5 个 5KB  用到:art_src/ship/build_ship10.py
+    1~5.png
+  ship/pirate_bomb/Sprites/7-Objects/8-Window Light/  4 个 10KB  用到:art_src/ship/build_ship10.py
+    1~4.png
+  ship/pirate_bomb/Sprites/7-Objects/9-Small Chain/  10 个 4KB  用到:art_src/ship/build_ship10.py
+    1~9.png
+  ship/pirate_bomb/Sprites/8-Tile-Sets/  1 个 13KB  用到:art_src/ship/build_ship10.py
+    Tile-Sets (64-64).png
+  ship/pirate_bomb/Sprites/8-Tile-Sets/Variations/  8 个 2KB  用到:art_src/ship/build_ship10.py
+    1~8.png
+  ship/pirateship/  3 个 1.3MB  用到:art_src/ship/build_ship10.py
+    ship_parallax_complete.png, ship_parallax_overhead.png, ship_parallax_underneath.png
+
+## raw/skfx
+  skfx/asteroid/  3 个 54KB  用到:art_src/skfx/build_skfx.py
+    Asteroid_Huge.png, Asteroid_Huge_0.png, Asteroid_Large.png
+  skfx/clouds/  2 个 4KB  用到:art_src/lbg/build_lbg.py, art_src/skfx/build_skfx.py
+    gundarev_clouds.png, ryder_clouds.png
+  skfx/codemanu_fx/  1 个 1.4MB
+    zip: codemanu_fx.zip(1.4MB)
+  skfx/codemanu_fx/x/  22 个 1.5MB
+    10_weaponhit_spritesheet.png, 11_fire_spritesheet.png, 12_nebula_spritesheet.png, 13_vortex_spritesheet.png, 14_phantom_spritesheet.png, 15_loading_spritesheet.png, 16_sunburn_spritesheet.png, 17_felspell_spritesheet.png, 18_midnight_spritesheet.png, 19_freezing_spritesheet.png, 1_magicspell_spritesheet.png, 20_magicbubbles_spritesheet.png, 2_magic8_spritesheet.png, 3_bluefire_spritesheet.png, 4_casting_spritesheet.png, 5_magickahit_spritesheet.png, 6_flamelash_spritesheet.png, 7_firespin_spritesheet.png, 8_protectioncircle_spritesheet.png, 9_brightfire_spritesheet.png, README.txt, cover.png
+  skfx/cosmic_time/  1 个 436KB  用到:art_src/skfx/build_skfx.py
+    zip: cosmic_time.zip(436KB)
+  skfx/cosmic_time/x/  1 个 207KB  用到:art_src/skfx/build_skfx.py
+    Preview.png
+  skfx/cosmic_time/x/1/  5 个 42KB  用到:art_src/skfx/build_skfx.py
+    Cosmic_01~05.png
+  skfx/cosmic_time/x/2/  5 个 62KB  用到:art_src/skfx/build_skfx.py
+    Cosmic_06~10.png
+  skfx/cosmic_time/x/3/  5 个 40KB  用到:art_src/skfx/build_skfx.py
+    Cosmic_11~15.png
+  skfx/cosmic_time/x/4/  5 个 49KB  用到:art_src/skfx/build_skfx.py
+    Cosmic_16~20.png
+  skfx/cosmic_time/x/5/  5 个 61KB  用到:art_src/skfx/build_skfx.py
+    Cosmic_21~25.png
+  skfx/fire_wrath/  1 个 1.6MB  用到:art_src/skfx/build_skfx.py
+    zip: fire_wrath.zip(1.6MB)
+  skfx/fire_wrath/x/SD/  2 个 991KB  用到:art_src/skfx/build_skfx.py
+    Preview_1.png, SD.png
+  skfx/fire_wrath/x/SD/1/  5 个 117KB  用到:art_src/skfx/build_skfx.py
+    Fire-Wrath__01~05.png
+  skfx/fire_wrath/x/SD/2/  5 个 146KB  用到:art_src/skfx/build_skfx.py
+    Fire-Wrath__06~10.png
+  skfx/fire_wrath/x/SD/3/  5 个 106KB  用到:art_src/skfx/build_skfx.py
+    Fire-Wrath__11~15.png
+  skfx/fire_wrath/x/SD/4/  5 个 155KB  用到:art_src/skfx/build_skfx.py
+    Fire-Wrath__16~20.png
+  skfx/fire_wrath/x/SD/5/  5 个 122KB  用到:art_src/skfx/build_skfx.py
+    Fire-Wrath__21~25.png
+  skfx/light_fx/  1 个 335KB  用到:art_src/skfx/build_skfx.py
+    zip: light_fx.zip(335KB)
+  skfx/light_fx/x/  26 个 357KB  用到:art_src/skfx/build_skfx.py
+    LightEffect_01~25.png, Preview.png
+  skfx/mikodrak_fx/  1 个 2.9MB  用到:art_src/skfx/build_skfx.py
+    zip: mikodrak_fx.zip(2.9MB)
+  skfx/mikodrak_fx/x/  12 个 1.2MB  用到:art_src/skfx/build_skfx.py
+    YoudBetterReadMe.txt, fx10_blackExplosion.gif, fx1_blue_topEffect.gif, fx2_swordFire.gif, fx3_fireBall.gif, fx4_sign_of_fire.gif, fx5_fire_scissors.gif, fx6_eaterFire.gif, fx7_energyBall.gif, fx8_explosionOfDust.gif, fx8_lighteningBall.gif, fx9_rainOnGround.gif
+  skfx/mikodrak_fx/x/fx10_blackExplosion/  19 个 31KB  用到:art_src/skfx/build_skfx.py
+    smoke_black_1_19_1~9.png
+  skfx/mikodrak_fx/x/fx1_blue_topEffect/  22 个 213KB  用到:art_src/skfx/build_skfx.py
+    spell_bluetop_1_1~9.png
+  skfx/mikodrak_fx/x/fx2_swordFire/  35 个 304KB  用到:art_src/skfx/build_skfx.py
+    spell_decap_1_zoomblur_1~9.png
+  skfx/mikodrak_fx/x/fx3_fireBall/  20 个 206KB  用到:art_src/skfx/build_skfx.py
+    spell_decap_2_ball_1~9.png
+  skfx/mikodrak_fx/x/fx4_sign_of_fire/  20 个 135KB  用到:art_src/skfx/build_skfx.py
+    spell_signoffire_1~9.png
+  skfx/mikodrak_fx/x/fx5_fire_scissors/  13 个 89KB  用到:art_src/skfx/build_skfx.py
+    spell_twoflames_1~9.png
+  skfx/mikodrak_fx/x/fx6_eaterFire/  20 个 523KB  用到:art_src/skfx/build_skfx.py
+    spell_spiderfire_1~9.png
+  skfx/mikodrak_fx/x/fx7_energyBall/  32 个 150KB  用到:art_src/skfx/build_skfx.py
+    aura_test_1_32_1~9.png
+  skfx/mikodrak_fx/x/fx8_lighteningBall/  20 个 116KB  用到:art_src/skfx/build_skfx.py
+    lighteningball_1_20_1~9.png
+  skfx/mikodrak_fx/x/fx9_rainOnGround/  30 个 75KB  用到:art_src/skfx/build_skfx.py
+    raindrops_1_30_1~9.png
+
+snowball.png  1KB
+## raw/summon19
+  summon19/  3 个 29KB  用到:art_src/summon/build_smn.py
+    Phoenix_SpriteSheet_0.png, icy_fairy.png, super_random_sprites.png
+  summon19/predator_plant/  1 个 599KB  用到:art_src/summon/build_smn.py
+    zip: pixel_predator_plant_mob_character.zip(599KB)
+  summon19/predator_plant/x/  1 个 0KB  用到:art_src/summon/build_smn.py
+    Free Assets Craftpix!.url
+  summon19/predator_plant/x/Attack/  5 个 48KB  用到:art_src/mob/build_mfx.py, art_src/mob/build_mob.py, art_src/summon/build_smn.py
+    Plant3_Attack_body.png, Plant3_Attack_full.png, Plant3_Attack_head.png, Plant3_Attack_shadow.png, Plant3_Attack_swing.png
+  summon19/predator_plant/x/Death/  5 个 49KB  用到:art_src/summon/build_smn.py
+    Plant3_Death_body.png, Plant3_Death_brown.png, Plant3_Death_full.png, Plant3_Death_head.png, Plant3_Death_shadow.png
+  summon19/predator_plant/x/Hurt/  5 个 36KB  用到:art_src/mob/build_pen.py
+    Plant3_Hurt_body.png, Plant3_Hurt_full.png, Plant3_Hurt_head.png, Plant3_Hurt_red.png, Plant3_Hurt_shadow.png
+  summon19/predator_plant/x/Idle/  4 个 21KB  用到:art_src/city/build_gh8.py, art_src/mob/build_mob.py, art_src/mob/build_pen.py, art_src/ship/build_ship10.py, art_src/summon/build_smn.py
+    Plant3_Idle_body.png, Plant3_Idle_full.png, Plant3_Idle_head.png, Plant3_Idle_shadow.png
+  summon19/predator_plant/x/Run/  4 个 34KB  用到:art_src/summon/build_smn.py
+    Plant3_Run_body.png, Plant3_Run_full.png, Plant3_Run_head.png, Plant3_Run_shadow.png
+  summon19/predator_plant/x/Walk/  4 个 33KB  用到:art_src/mob/build_pen.py
+    Plant3_Walk_body.png, Plant3_Walk_full.png, Plant3_Walk_head.png, Plant3_Walk_shadow.png
+
+## raw/town_chick
+  town_chick/  3 个 9KB  用到:art_src/town/build_tpx.py(参数)
+    zip: chick-1.0.zip(8KB)
+    chick_24x24_0.png, chick_48x64.png
+  town_chick/zip/  2 个 7KB  用到:art_src/town/build_tpx.py(参数)
+    LICENSE.txt, README.txt
+  town_chick/zip/PNG/  2 个 1KB  用到:art_src/town/build_tpx.py
+    chick_24x24.png, chick_48x64.png
+  town_chick/zip/source/  1 个 12KB  用到:art_src/town/build_tpx.py(参数)
+    chick_24x24.xcf
+
+## raw/town_jra
+  town_jra/16x16-rpg-item-pack/2D/top-down-rpg/  1 个 5KB  用到:art_src/mob/build_mfx.py, art_src/town/build_town.py, art_src/town/build_town2.py
+    Sheet.png
+  town_jra/ansimuz-sunnyland/2D/platformer/environment/  1 个 20KB  用到:art_src/lv/build_ltl.py, art_src/town/build_town.py, art_src/town/build_town2.py
+    tileset.png
+  town_jra/ansimuz-sunnyland/2D/platformer/environment/Background/  1 个 8KB  用到:art_src/lbg/build_lbg.py, art_src/ship/build_ship10.py, art_src/town/build_town.py, art_src/town/build_town2.py
+    back.png
+  town_jra/ansimuz-sunnyland/2D/platformer/environment/Props/  12 个 34KB  用到:art_src/town/build_town.py, art_src/town/build_town2.py
+    big-crate.png, bush.png, crate.png, house.png, palm.png, pine.png, plant-house.png, platform-long.png, straw-house.png, tree-house.png, tree.png, wooden-house.png
+  town_jra/grafxkid-seasonal-tilesets/2D/platformer/1 - Grassland/Background parts/  2 个 3KB  用到:art_src/town/build_town.py, art_src/town/build_town2.py
+    1 - Foreground_scenery.png, 2 - Hills.png
+
+## raw/town_portal
+  town_portal/  4 个 88KB  用到:art_src/town/build_tpx.py
+    p1~2.gif, portalRings1~2.png
+
+## raw/ui
+  ui/  4 个 241KB  用到:art_src/ui/build_pui.py(参数)
+    zip: Pixel Speech Bubbles V2.zip(2KB), PixelSpeechBubbles.zip(6KB), PixelUIpack.zip(139KB), tinyrpg_manasoulgui_v_1_0.zip(94KB)
+
+## raw/ulpc
+  ulpc/  1 个 10KB  用到:art_src/lpc/comp.py
+    miss.json
+  ulpc/palette_definitions/body/  2 个 3KB  用到:art_src/boss/build_mage.py, art_src/build_wing.py, art_src/city/build_gh8.py, art_src/eqicon/build_eqicon.py, art_src/lpc/build_lpc.py, art_src/lpc/comp.py, art_src/lpc_npc/build_npc_lpc.py, art_src/lv/build_lair.py, art_src/mob/build_mob.py, art_src/ship/build_ship10.py, art_src/volcano/build_vol9.py
+    body_ulpc.json, meta_body.json
+  ulpc/palette_definitions/cloth/  2 个 3KB  用到:art_src/boss/build_mage.py, art_src/lpc/build_lpc.py, art_src/lpc_npc/build_npc_lpc.py
+    cloth_ulpc.json, meta_cloth.json
+  ulpc/palette_definitions/hair/  2 个 4KB  用到:art_src/lpc/build_lpc.py, art_src/lpc_npc/build_npc_lpc.py
+    hair_ulpc.json, meta_hair.json
+  ulpc/palette_definitions/metal/  2 个 1KB  用到:art_src/audio/build_audio.py
+    meta_metal.json, metal_ulpc.json
+  ulpc/sheet_definitions/body/  4 个 10KB  用到:art_src/boss/build_mage.py, art_src/build_wing.py, art_src/city/build_gh8.py, art_src/eqicon/build_eqicon.py, art_src/lpc/build_lpc.py, art_src/lpc/comp.py, art_src/lpc_npc/build_npc_lpc.py, art_src/lv/build_lair.py, art_src/mob/build_mob.py, art_src/ship/build_ship10.py, art_src/volcano/build_vol9.py
+    body.json, meta_body.json, shadow.json, wheelchair.json
+  ulpc/sheet_definitions/body/lizard/  4 个 4KB  用到:art_src/boss/build_mage.py, art_src/build_wing.py, art_src/city/build_gh8.py, art_src/eqicon/build_eqicon.py, art_src/lpc/build_lpc.py, art_src/lpc/comp.py, art_src/lpc_npc/build_npc_lpc.py, art_src/lv/build_lair.py, art_src/mob/build_mob.py, art_src/ship/build_ship10.py, art_src/volcano/build_vol9.py
+    meta_lizard.json, tail_lizard.json, wings_lizard.json, wings_lizard_bat.json
+  ulpc/sheet_definitions/body/prostheses/  3 个 2KB  用到:art_src/boss/build_mage.py, art_src/build_wing.py, art_src/city/build_gh8.py, art_src/eqicon/build_eqicon.py, art_src/lpc/build_lpc.py, art_src/lpc/comp.py, art_src/lpc_npc/build_npc_lpc.py, art_src/lv/build_lair.py, art_src/mob/build_mob.py, art_src/ship/build_ship10.py, art_src/volcano/build_vol9.py
+    meta_prostheses.json, prosthesis_hook.json, prosthesis_peg_leg.json
+  ulpc/sheet_definitions/body/special/  3 个 2KB  用到:art_src/boss/build_mage.py, art_src/build_wing.py, art_src/city/build_gh8.py, art_src/eqicon/build_eqicon.py, art_src/lpc/build_lpc.py, art_src/lpc/comp.py, art_src/lpc_npc/build_npc_lpc.py, art_src/lv/build_lair.py, art_src/mob/build_mob.py, art_src/ship/build_ship10.py, art_src/volcano/build_vol9.py
+    body_skeleton.json, body_zombie.json, meta_special.json
+  ulpc/sheet_definitions/body/tails/  5 个 7KB  用到:art_src/boss/build_mage.py, art_src/build_wing.py, art_src/city/build_gh8.py, art_src/eqicon/build_eqicon.py, art_src/lpc/build_lpc.py, art_src/lpc/comp.py, art_src/lpc_npc/build_npc_lpc.py, art_src/lv/build_lair.py, art_src/mob/build_mob.py, art_src/ship/build_ship10.py, art_src/volcano/build_vol9.py
+    meta_tails.json, tail_cat.json, tail_lizard_alt.json, tail_wolf.json, tail_wolf_fluffy.json
+  ulpc/sheet_definitions/body/wings/  5 个 7KB  用到:art_src/build_wing.py
+    meta_wings.json, wings_bat.json, wings_feathered.json, wings_lizard_alt.json, wings_lunar.json
+  ulpc/sheet_definitions/body/wings/dragonfly/  3 个 3KB  用到:art_src/build_wing.py
+    meta_dragonfly.json, wings_dragonfly.json, wings_dragonfly_transparent.json
+  ulpc/sheet_definitions/body/wings/monarch/  4 个 4KB  用到:art_src/build_wing.py
+    meta_monarch.json, wings_monarch.json, wings_monarch_dots.json, wings_monarch_edge.json
+  ulpc/sheet_definitions/body/wings/pixie/  3 个 3KB  用到:art_src/build_wing.py
+    meta_pixie.json, wings_pixie.json, wings_pixie_transparent.json
+  ulpc/sheet_definitions/body/wounds/  7 个 6KB  用到:art_src/boss/build_mage.py, art_src/build_wing.py, art_src/city/build_gh8.py, art_src/eqicon/build_eqicon.py, art_src/lpc/build_lpc.py, art_src/lpc/comp.py, art_src/lpc_npc/build_npc_lpc.py, art_src/lv/build_lair.py, art_src/mob/build_mob.py, art_src/ship/build_ship10.py, art_src/volcano/build_vol9.py
+    meta_wounds.json, wound_arm.json, wound_brain.json, wound_eye_left.json, wound_eye_right.json, wound_mouth.json, wound_ribs.json
+  ulpc/sheet_definitions/feet/boots/  5 个 6KB  用到:art_src/lpc/build_lpc.py, art_src/lpc_npc/build_npc_lpc.py
+    feet_boots_basic.json, feet_boots_fold.json, feet_boots_revised.json, feet_boots_rim.json, meta_boots.json
+  ulpc/sheet_definitions/hair/braids/  17 个 25KB  用到:art_src/lpc/build_lpc.py, art_src/lpc_npc/build_npc_lpc.py
+    hair_bangs_bun.json, hair_braid.json, hair_braid2.json, hair_half_up.json, hair_high_ponytail.json, hair_long_tied.json, hair_ponytail.json, hair_ponytail2.json, hair_relm_ponytail.json, hair_relm_xlong.json, hair_shoulderl.json, hair_shoulderr.json, hair_topknot_long.json, hair_topknot_long2.json, hair_topknot_short.json, hair_topknot_short2.json, meta_braids.json
+  ulpc/sheet_definitions/hair/spiky/  8 个 7KB  用到:art_src/lpc/build_lpc.py
+    hair_halfmessy.json, hair_spiked.json, hair_spiked2.json, hair_spiked_beehive.json, hair_spiked_liberty.json, hair_spiked_liberty2.json, hair_spiked_porcupine.json, meta_spiky.json
+  ulpc/sheet_definitions/head/faces/  17 个 44KB  用到:art_src/lpc/build_lpc.py
+    face_angry.json, face_angry2.json, face_blush.json, face_closed.json, face_closing.json, face_eyeroll.json, face_happy.json, face_happy2.json, face_look_l.json, face_look_r.json, face_neutral.json, face_sad.json, face_sad2.json, face_shame.json, face_shock.json, face_tears.json, meta_faces.json
+  ulpc/sheet_definitions/head/heads/human/  11 个 14KB  用到:art_src/boss/build_mage.py, art_src/lpc/build_lpc.py, art_src/lpc_npc/build_npc_lpc.py
+    heads_human_child.json, heads_human_elderly_small.json, heads_human_female.json, heads_human_female_elderly.json, heads_human_female_small.json, heads_human_male.json, heads_human_male_elderly.json, heads_human_male_gaunt.json, heads_human_male_plump.json, heads_human_male_small.json, meta_human.json
+  ulpc/sheet_definitions/headwear/  1 个 0KB  用到:art_src/boss/build_mage.py, art_src/lpc/build_lpc.py
+    meta_headwear.json
+  ulpc/sheet_definitions/headwear/accessories/  2 个 2KB  用到:art_src/boss/build_mage.py
+    facial_mask_plain.json, meta_accessories.json
+  ulpc/sheet_definitions/headwear/accessories/earrings/  8 个 6KB  用到:art_src/boss/build_mage.py
+    facial_earring_left.json, facial_earring_right.json, facial_earrings_emerald.json, facial_earrings_moon.json, facial_earrings_pear.json, facial_earrings_princess.json, facial_earrings_stud.json, meta_earrings.json
+  ulpc/sheet_definitions/headwear/accessories/eyepatch/  8 个 10KB  用到:art_src/boss/build_mage.py
+    facial_eyepatch2_left.json, facial_eyepatch2_right.json, facial_eyepatch_ambi.json, facial_eyepatch_left.json, facial_eyepatch_right.json, facial_eyepatch_small_left.json, facial_eyepatch_small_right.json, meta_eyepatch.json
+  ulpc/sheet_definitions/headwear/accessories/glasses/  8 个 10KB  用到:art_src/boss/build_mage.py
+    facial_glasses.json, facial_glasses_halfmoon.json, facial_glasses_nerd.json, facial_glasses_round.json, facial_glasses_secretary.json, facial_glasses_shades.json, facial_glasses_sunglasses.json, meta_glasses.json
+  ulpc/sheet_definitions/headwear/accessories/monocle/  5 个 6KB  用到:art_src/boss/build_mage.py
+    facial_monocle_left.json, facial_monocle_left_frame.json, facial_monocle_right.json, facial_monocle_right_frame.json, meta_monocle.json
+  ulpc/sheet_definitions/headwear/coverings/  1 个 0KB  用到:art_src/boss/build_mage.py, art_src/lpc/build_lpc.py
+    meta_coverings.json
+  ulpc/sheet_definitions/headwear/coverings/bandana/  5 个 5KB  用到:art_src/boss/build_mage.py, art_src/lpc/build_lpc.py
+    hat_bandana.json, hat_bandana2.json, hat_bandana_pirate.json, hat_bandana_pirate_skull.json, meta_bandana.json
+  ulpc/sheet_definitions/headwear/coverings/headbands/  7 个 7KB  用到:art_src/boss/build_mage.py, art_src/lpc/build_lpc.py
+    hat_headband_hairtie.json, hat_headband_hairtie_rune.json, hat_headband_kerchief.json, hat_headband_thick.json, hat_headband_thick_rune.json, hat_headband_tied.json, meta_headbands.json
+  ulpc/sheet_definitions/headwear/coverings/hoods/  4 个 3KB  用到:art_src/boss/build_mage.py, art_src/lpc/build_lpc.py
+    hat_hood_cloth.json, hat_hood_hijab.json, hat_hood_sack_cloth.json, meta_hoods.json
+  ulpc/sheet_definitions/headwear/hats/  1 个 0KB  用到:art_src/lpc/build_lpc.py
+    meta_hats.json
+  ulpc/sheet_definitions/headwear/hats/athwart/  10 个 13KB  用到:art_src/lpc/build_lpc.py
+    hat_bicorne_athwart_admiral.json, hat_bicorne_athwart_admiral_cockade.json, hat_bicorne_athwart_admiral_trim.json, hat_bicorne_athwart_basic.json, hat_bicorne_athwart_basic_skull.json, hat_bicorne_athwart_captain.json, hat_bicorne_athwart_captain_skull.json, hat_bicorne_athwart_commodore.json, hat_bicorne_athwart_commodore_trim.json, meta_athwart.json
+  ulpc/sheet_definitions/headwear/hats/caps/  9 个 11KB  用到:art_src/lpc/build_lpc.py
+    hat_cap_bonnie.json, hat_cap_bonnie_feather.json, hat_cap_bonnie_tilt.json, hat_cap_bonnie_trim.json, hat_cap_cavalier.json, hat_cap_cavalier_feather.json, hat_cap_leather.json, hat_cap_leather_feather.json, meta_caps.json
+  ulpc/sheet_definitions/headwear/hats/foreaft/  4 个 5KB  用到:art_src/lpc/build_lpc.py
+    hat_bicorne_foreaft.json, hat_bicorne_foreaft_commodore.json, hat_bicorne_foreaft_commodore_trim.json, meta_foreaft.json
+  ulpc/sheet_definitions/headwear/hats/formal/  5 个 5KB  用到:art_src/lpc/build_lpc.py
+    hat_formal_bowler.json, hat_formal_crown.json, hat_formal_tiara.json, hat_formal_tophat.json, meta_formal.json
+  ulpc/sheet_definitions/headwear/hats/holiday/  4 个 4KB  用到:art_src/lpc/build_lpc.py
+    hat_holiday_christmas.json, hat_holiday_elf.json, hat_holiday_santa.json, meta_holiday.json
+  ulpc/sheet_definitions/headwear/hats/magic/  9 个 12KB  用到:art_src/audio/build_audio.py, art_src/bfx/build_bfx.py, art_src/boss/build_mage.py, art_src/lpc/build_lpc.py, art_src/lpc_npc/build_npc_lpc.py, art_src/skfx/build_skfx.py
+    hat_magic_celestial.json, hat_magic_celestial_moon.json, hat_magic_celestial_moon_trim.json, hat_magic_celestial_trim.json, hat_magic_large.json, hat_magic_wizard.json, hat_magic_wizard_belt.json, hat_magic_wizard_buckle.json, meta_magic.json
+  ulpc/sheet_definitions/headwear/hats/tricorne/  9 个 12KB  用到:art_src/lpc/build_lpc.py
+    hat_tricorne.json, hat_tricorne_captain.json, hat_tricorne_captain_skull.json, hat_tricorne_captain_trim.json, hat_tricorne_lieutenant.json, hat_tricorne_lieutenant_trim.json, hat_tricorne_stitched.json, hat_tricorne_thatch.json, meta_tricorne.json
+  ulpc/sheet_definitions/headwear/helmets/  1 个 0KB  用到:art_src/lpc/build_lpc.py
+    meta_helmets.json
+  ulpc/sheet_definitions/headwear/helmets/accessories/  10 个 11KB  用到:art_src/boss/build_mage.py
+    hat_accessory_crest.json, hat_accessory_crest_centurion.json, hat_accessory_horns_downward.json, hat_accessory_horns_short.json, hat_accessory_horns_upward.json, hat_accessory_plumage.json, hat_accessory_plumage_centurion.json, hat_accessory_plumage_legion.json, hat_accessory_wings.json, meta_accessories.json
+  ulpc/sheet_definitions/headwear/helmets/helmets/  27 个 31KB  用到:art_src/lpc/build_lpc.py
+    hat_helmet_armet.json, hat_helmet_armet_simple.json, hat_helmet_barbarian.json, hat_helmet_barbarian_nasal.json, hat_helmet_barbarian_viking.json, hat_helmet_barbuta.json, hat_helmet_barbuta_simple.json, hat_helmet_bascinet.json, hat_helmet_bascinet_round.json, hat_helmet_close.json, hat_helmet_flattop.json, hat_helmet_greathelm.json, hat_helmet_horned.json, hat_helmet_kettle.json, hat_helmet_legion.json, hat_helmet_mail.json, hat_helmet_maximus.json, hat_helmet_morion.json, hat_helmet_nasal.json, hat_helmet_norman.json, hat_helmet_pointed.json, hat_helmet_spangenhelm.json, hat_helmet_spangenh …(共 27 组)
+  ulpc/sheet_definitions/headwear/helmets/visors/  10 个 11KB  用到:art_src/lpc/build_lpc.py
+    hat_visor_grated.json, hat_visor_grated_narrow.json, hat_visor_horned.json, hat_visor_pigface.json, hat_visor_pigface_raised.json, hat_visor_round.json, hat_visor_round_raised.json, hat_visor_slit.json, hat_visor_slit_narrow.json, meta_visors.json
+  ulpc/sheet_definitions/headwear/neck/  14 个 13KB  用到:art_src/eqicon/build_eqicon.py
+    meta_neck.json, neck_bowtie.json, neck_bowtie2.json, neck_capeclip.json, neck_capetie.json, neck_cravat.json, neck_jabot.json, neck_necklace.json, neck_necklace_beaded_large.json, neck_necklace_beaded_small.json, neck_necklace_chain.json, neck_necklace_simple.json, neck_necktie.json, neck_scarf.json
+  ulpc/sheet_definitions/headwear/neck/charms/  17 个 16KB  用到:art_src/eqicon/build_eqicon.py
+    meta_charms.json, neck_amulet_cross.json, neck_amulet_dangle.json, neck_amulet_spider.json, neck_amulet_star.json, neck_charm_box.json, neck_charm_oval.json, neck_charm_ring.json, neck_charm_star.json, neck_gem_emerald.json, neck_gem_marquise.json, neck_gem_natural.json, neck_gem_pear.json, neck_gem_pearl.json, neck_gem_princess.json, neck_gem_round.json, neck_gem_trilliant.json
+  ulpc/sheet_definitions/legs/  2 个 1KB  用到:art_src/boss/build_mage.py, art_src/lpc/build_lpc.py, art_src/lpc_npc/build_npc_lpc.py
+    legs_armour.json, meta_legs.json
+  ulpc/sheet_definitions/legs/leggings/  4 个 5KB  用到:art_src/boss/build_mage.py, art_src/lpc/build_lpc.py, art_src/lpc_npc/build_npc_lpc.py
+    legs_hose.json, legs_leggings.json, legs_leggings2.json, meta_leggings.json
+  ulpc/sheet_definitions/legs/pants/  10 个 16KB  用到:art_src/lpc/build_lpc.py, art_src/lpc_npc/build_npc_lpc.py
+    legs_childpants.json, legs_cuffed.json, legs_formal.json, legs_formal_striped.json, legs_pantaloons.json, legs_pants.json, legs_pants2.json, legs_pregnantpants.json, legs_widepants.json, meta_pants.json
+  ulpc/sheet_definitions/legs/shorts/  3 个 4KB  用到:art_src/boss/build_mage.py, art_src/lpc/build_lpc.py, art_src/lpc_npc/build_npc_lpc.py
+    legs_shorts.json, legs_shorts_short.json, meta_shorts.json
+  ulpc/sheet_definitions/legs/skirts/  8 个 7KB  用到:art_src/boss/build_mage.py, art_src/lpc/build_lpc.py, art_src/lpc_npc/build_npc_lpc.py
+    legs_childskirts.json, legs_skirt_belle.json, legs_skirt_overskirt.json, legs_skirt_straight.json, legs_skirts_legion.json, legs_skirts_plain.json, legs_skirts_slit.json, meta_skirts.json
+  ulpc/sheet_definitions/torso/  3 个 2KB  用到:art_src/boss/build_mage.py, art_src/lpc/build_lpc.py, art_src/lpc_npc/build_npc_lpc.py
+    meta_torso.json, torso_bandages.json, torso_chainmail.json
+  ulpc/sheet_definitions/torso/aprons/  6 个 5KB  用到:art_src/lpc_npc/build_npc_lpc.py
+    meta_aprons.json, torso_aprons_apron.json, torso_aprons_apron_full.json, torso_aprons_apron_half.json, torso_aprons_overalls.json, torso_aprons_suspenders.json
+  ulpc/sheet_definitions/torso/armour/  4 个 7KB  用到:art_src/lpc/build_lpc.py
+    meta_armour.json, torso_armour_leather.json, torso_armour_legion.json, torso_armour_plate.json
+  ulpc/sheet_definitions/torso/backpack/  8 个 6KB  用到:art_src/boss/build_mage.py, art_src/lpc/build_lpc.py, art_src/lpc_npc/build_npc_lpc.py
+    backpack.json, backpack_basket.json, backpack_jetpack.json, backpack_jetpack_fins.json, backpack_squarepack.json, backpack_straps.json, meta_backpack.json, quiver.json
+  ulpc/sheet_definitions/torso/backpack/cargo/  3 个 2KB  用到:art_src/boss/build_mage.py, art_src/lpc/build_lpc.py, art_src/lpc_npc/build_npc_lpc.py
+    backpack_contents_ore.json, backpack_contents_wood.json, meta_cargo.json
+  ulpc/sheet_definitions/torso/cape/  4 个 4KB  用到:art_src/boss/build_mage.py, art_src/lpc/build_lpc.py
+    cape_solid.json, cape_tattered.json, cape_trim.json, meta_cape.json
+  ulpc/sheet_definitions/torso/dresses/  4 个 3KB  用到:art_src/lpc/build_lpc.py
+    dress_bodice.json, dress_sash.json, dress_slit.json, meta_dresses.json
+  ulpc/sheet_definitions/torso/dresses/kimono/  9 个 10KB  用到:art_src/lpc/build_lpc.py
+    dress_kimono.json, dress_kimono_longsleeve.json, dress_kimono_longsleeve_trim.json, dress_kimono_oversize.json, dress_kimono_oversize_trim.json, dress_kimono_split.json, dress_kimono_split_trim.json, dress_kimono_trim.json, meta_kimono.json
+  ulpc/sheet_definitions/torso/jacket/  7 个 5KB  用到:art_src/lpc/build_lpc.py, art_src/lpc_npc/build_npc_lpc.py
+    meta_jacket.json, torso_jacket_collared.json, torso_jacket_frock.json, torso_jacket_iverness.json, torso_jacket_santa.json, torso_jacket_tabard.json, torso_jacket_trench.json
+  ulpc/sheet_definitions/torso/jacket/accessory/  6 个 3KB  用到:art_src/lpc/build_lpc.py, art_src/lpc_npc/build_npc_lpc.py
+    meta_accessory.json, torso_jacket_frock_buttons.json, torso_jacket_frock_collar.json, torso_jacket_frock_lace.json, torso_jacket_frock_lapel.json, torso_jacket_pockets.json
+  ulpc/sheet_definitions/torso/shirts/  8 个 6KB  用到:art_src/boss/build_mage.py, art_src/lpc/build_lpc.py, art_src/lpc_npc/build_npc_lpc.py
+    meta_shirts.json, torso_clothes_blouse.json, torso_clothes_blouse_longsleeve.json, torso_clothes_child_shirt.json, torso_clothes_corset.json, torso_clothes_robe.json, torso_clothes_tunic.json, torso_clothes_tunic_sara.json
+  ulpc/sheet_definitions/torso/shirts/longsleeve/  13 个 21KB  用到:art_src/boss/build_mage.py, art_src/lpc/build_lpc.py, art_src/lpc_npc/build_npc_lpc.py
+    meta_longsleeve.json, torso_clothes_longsleeve.json, torso_clothes_longsleeve2.json, torso_clothes_longsleeve2_buttoned.json, torso_clothes_longsleeve2_cardigan.json, torso_clothes_longsleeve2_polo.json, torso_clothes_longsleeve2_scoop.json, torso_clothes_longsleeve2_vneck.json, torso_clothes_longsleeve_formal.json, torso_clothes_longsleeve_formal_striped.json, torso_clothes_longsleeve_laced.json, torso_clothes_longsleeve_scoop.json, torso_clothes_longsleeves_cuffed.json
+  ulpc/sheet_definitions/torso/shirts/shortsleeve/  8 个 13KB  用到:art_src/boss/build_mage.py, art_src/lpc/build_lpc.py, art_src/lpc_npc/build_npc_lpc.py
+    meta_shortsleeve.json, torso_clothes_shortsleeve.json, torso_clothes_shortsleeve_cardigan.json, torso_clothes_shortsleeve_polo.json, torso_clothes_tshirt.json, torso_clothes_tshirt_buttoned.json, torso_clothes_tshirt_scoop.json, torso_clothes_tshirt_vneck.json
+  ulpc/sheet_definitions/torso/shirts/sleeveless/  12 个 18KB  用到:art_src/boss/build_mage.py, art_src/lpc/build_lpc.py, art_src/lpc_npc/build_npc_lpc.py
+    meta_sleeveless.json, torso_clothes_sleeveless.json, torso_clothes_sleeveless1~2.json, torso_clothes_sleeveless2_buttoned.json, torso_clothes_sleeveless2_cardigan.json, torso_clothes_sleeveless2_polo.json, torso_clothes_sleeveless2_scoop.json, torso_clothes_sleeveless2_vneck.json, torso_clothes_sleeveless_laced.json, torso_clothes_sleeveless_striped.json, torso_clothes_sleeveless_tanktop.json
+  ulpc/sheet_definitions/torso/shirts/sleeves/  5 个 10KB  用到:art_src/boss/build_mage.py, art_src/lpc/build_lpc.py, art_src/lpc_npc/build_npc_lpc.py
+    meta_sleeves.json, torso_clothes_longsleeves.json, torso_clothes_longsleeves2.json, torso_clothes_shortsleeves.json, torso_clothes_shortsleeves2.json
+  ulpc/sheet_definitions/torso/vest/  3 个 3KB  用到:art_src/boss/build_mage.py, art_src/lpc/build_lpc.py, art_src/lpc_npc/build_npc_lpc.py
+    meta_vest.json, torso_clothes_vest.json, torso_clothes_vest_open.json
+  ulpc/sheet_definitions/torso/waist/  13 个 10KB  用到:art_src/boss/build_mage.py, art_src/lpc/build_lpc.py, art_src/lpc_npc/build_npc_lpc.py
+    belt_belly.json, belt_double.json, belt_formal.json, belt_leather.json, belt_leather2.json, belt_loose.json, belt_mage.json, belt_robe.json, belt_sash.json, belt_sash_narrow.json, belt_waistband.json, buckles.json, meta_waist.json
+  ulpc/sheet_definitions/torso/waist/obi/  4 个 4KB  用到:art_src/boss/build_mage.py, art_src/lpc/build_lpc.py, art_src/lpc_npc/build_npc_lpc.py
+    belt_obi.json, belt_obi_knot_left.json, belt_obi_knot_right.json, meta_obi.json
+  ulpc/spritesheets/body/bodies/teen/  10 个 87KB  用到:art_src/lpc/build_lpc.py, art_src/lpc_npc/build_npc_lpc.py, art_src/vfx/build_vfx.py
+    backslash.png, combat_idle.png, halfslash.png, idle.png, jump.png, run.png, slash.png, spellcast.png, thrust.png, walk.png
+  ulpc/spritesheets/cape/solid/bg/  5 个 10KB  用到:art_src/lpc/build_lpc.py
+    idle.png, slash.png, spellcast.png, thrust.png, walk.png
+  ulpc/spritesheets/cape/solid/fg/  5 个 14KB  用到:art_src/lpc/build_lpc.py
+    idle.png, slash.png, spellcast.png, thrust.png, walk.png
+  ulpc/spritesheets/dress/kimono/normal/universal/female/idle/  1 个 2KB  用到:art_src/boss/build_bos.py, art_src/boss/build_mage.py, art_src/city/build_gh8.py, art_src/lpc/build_lpc.py, art_src/lpc_npc/build_npc_lpc.py, art_src/mob/build_dog2.py, art_src/mob/build_mob.py, art_src/mob/build_pen.py, art_src/myst/build_myst.py, art_src/volcano/build_vol9.py
+    white.png
+  ulpc/spritesheets/dress/kimono/normal/universal/female/slash/  1 个 3KB  用到:art_src/lpc/build_lpc.py, art_src/lpc/comp.py, art_src/mob/build_mfx.py, art_src/mob/build_mob.py, art_src/vfx/build_vfx.py
+    white.png
+  ulpc/spritesheets/dress/kimono/normal/universal/female/spellcast/  1 个 2KB  用到:art_src/boss/build_mage.py, art_src/lpc/build_lpc.py, art_src/lpc/comp.py
+    white.png
+  ulpc/spritesheets/dress/kimono/normal/universal/female/thrust/  1 个 3KB  用到:art_src/lpc/build_lpc.py, art_src/lpc/comp.py
+    white.png
+  ulpc/spritesheets/dress/kimono/normal/universal/female/walk/  1 个 4KB  用到:art_src/boss/build_bos.py, art_src/boss/build_mage.py, art_src/boss/build_scob.py, art_src/city/build_city8.py, art_src/lpc/build_lpc.py, art_src/lpc_npc/build_npc_lpc.py, art_src/mob/build_dog2.py, art_src/mob/build_mob.py, art_src/mob/build_pen.py, art_src/myst/build_myst.py, art_src/ship/build_ship10.py, art_src/town/build_tpx.py, art_src/volcano/build_vol9.py
+    white.png
+  ulpc/spritesheets/dress/kimono/sleeves_oversize/universal/female/idle/  1 个 1KB  用到:art_src/boss/build_bos.py, art_src/boss/build_mage.py, art_src/city/build_gh8.py, art_src/lpc/build_lpc.py, art_src/lpc_npc/build_npc_lpc.py, art_src/mob/build_dog2.py, art_src/mob/build_mob.py, art_src/mob/build_pen.py, art_src/myst/build_myst.py, art_src/volcano/build_vol9.py
+    white.png
+  ulpc/spritesheets/dress/kimono/sleeves_oversize/universal/female/slash/  1 个 2KB  用到:art_src/lpc/build_lpc.py, art_src/lpc/comp.py, art_src/mob/build_mfx.py, art_src/mob/build_mob.py, art_src/vfx/build_vfx.py
+    white.png
+  ulpc/spritesheets/dress/kimono/sleeves_oversize/universal/female/spellcast/  1 个 3KB  用到:art_src/boss/build_mage.py, art_src/lpc/build_lpc.py, art_src/lpc/comp.py
+    white.png
+  ulpc/spritesheets/dress/kimono/sleeves_oversize/universal/female/thrust/  1 个 3KB  用到:art_src/lpc/build_lpc.py, art_src/lpc/comp.py
+    white.png
+  ulpc/spritesheets/dress/kimono/sleeves_oversize/universal/female/walk/  1 个 3KB  用到:art_src/boss/build_bos.py, art_src/boss/build_mage.py, art_src/boss/build_scob.py, art_src/city/build_city8.py, art_src/lpc/build_lpc.py, art_src/lpc_npc/build_npc_lpc.py, art_src/mob/build_dog2.py, art_src/mob/build_mob.py, art_src/mob/build_pen.py, art_src/myst/build_myst.py, art_src/ship/build_ship10.py, art_src/town/build_tpx.py, art_src/volcano/build_vol9.py
+    white.png
+  ulpc/spritesheets/feet/boots/basic/thin/  10 个 41KB  用到:art_src/audio/build_audio.py
+    backslash.png, combat_idle.png, halfslash.png, idle.png, jump.png, run.png, slash.png, spellcast.png, thrust.png, walk.png
+  ulpc/spritesheets/hair/high_ponytail/adult/bg/  10 个 11KB  用到:art_src/build_wing.py, art_src/mob/build_mob.py
+    backslash.png, combat_idle.png, halfslash.png, idle.png, jump.png, run.png, slash.png, spellcast.png, thrust.png, walk.png
+  ulpc/spritesheets/hair/high_ponytail/adult/fg/  10 个 40KB  用到:art_src/build_wing.py, art_src/mob/build_mob.py
+    backslash.png, combat_idle.png, halfslash.png, idle.png, jump.png, run.png, slash.png, spellcast.png, thrust.png, walk.png
+  ulpc/spritesheets/hair/spiked/adult/  10 个 41KB  用到:art_src/build_wing.py, art_src/mob/build_mob.py
+    backslash.png, combat_idle.png, halfslash.png, idle.png, jump.png, run.png, slash.png, spellcast.png, thrust.png, walk.png
+  ulpc/spritesheets/hat/cloth/hood/adult/  10 个 66KB  用到:art_src/build_wing.py, art_src/mob/build_mob.py
+    backslash.png, combat_idle.png, halfslash.png, idle.png, jump.png, run.png, slash.png, spellcast.png, thrust.png, walk.png
+  ulpc/spritesheets/hat/cloth/leather_cap/adult/backslash/  1 个 4KB  用到:art_src/lpc/build_lpc.py
+    forest.png
+  ulpc/spritesheets/hat/cloth/leather_cap/adult/combat_idle/  1 个 2KB  用到:art_src/lpc/build_lpc.py
+    forest.png
+  ulpc/spritesheets/hat/cloth/leather_cap/adult/halfslash/  1 个 3KB  用到:art_src/lpc/build_lpc.py
+    forest.png
+  ulpc/spritesheets/hat/cloth/leather_cap/adult/idle/  1 个 2KB  用到:art_src/boss/build_bos.py, art_src/boss/build_mage.py, art_src/city/build_gh8.py, art_src/lpc/build_lpc.py, art_src/lpc_npc/build_npc_lpc.py, art_src/mob/build_dog2.py, art_src/mob/build_mob.py, art_src/mob/build_pen.py, art_src/myst/build_myst.py, art_src/volcano/build_vol9.py
+    forest.png
+  ulpc/spritesheets/hat/cloth/leather_cap/adult/jump/  1 个 2KB  用到:art_src/lpc/build_lpc.py, art_src/mob/build_dog2.py
+    forest.png
+  ulpc/spritesheets/hat/cloth/leather_cap/adult/run/  1 个 2KB  用到:art_src/build_wing.py, art_src/mob/build_mob.py
+    forest.png
+  ulpc/spritesheets/hat/cloth/leather_cap/adult/slash/  1 个 2KB  用到:art_src/lpc/build_lpc.py, art_src/lpc/comp.py, art_src/mob/build_mfx.py, art_src/mob/build_mob.py, art_src/vfx/build_vfx.py
+    forest.png
+  ulpc/spritesheets/hat/cloth/leather_cap/adult/spellcast/  1 个 2KB  用到:art_src/boss/build_mage.py, art_src/lpc/build_lpc.py, art_src/lpc/comp.py
+    forest.png
+  ulpc/spritesheets/hat/cloth/leather_cap/adult/thrust/  1 个 2KB  用到:art_src/lpc/build_lpc.py, art_src/lpc/comp.py
+    forest.png
+  ulpc/spritesheets/hat/cloth/leather_cap/adult/walk/  1 个 2KB  用到:art_src/boss/build_bos.py, art_src/boss/build_mage.py, art_src/boss/build_scob.py, art_src/city/build_city8.py, art_src/lpc/build_lpc.py, art_src/lpc_npc/build_npc_lpc.py, art_src/mob/build_dog2.py, art_src/mob/build_mob.py, art_src/mob/build_pen.py, art_src/myst/build_myst.py, art_src/ship/build_ship10.py, art_src/town/build_tpx.py, art_src/volcano/build_vol9.py
+    forest.png
+  ulpc/spritesheets/hat/cloth/leather_cap/feather/adult/backslash/  1 个 1KB  用到:art_src/lpc/build_lpc.py
+    white.png
+  ulpc/spritesheets/hat/cloth/leather_cap/feather/adult/combat_idle/  1 个 1KB  用到:art_src/lpc/build_lpc.py
+    white.png
+  ulpc/spritesheets/hat/cloth/leather_cap/feather/adult/halfslash/  1 个 1KB  用到:art_src/lpc/build_lpc.py
+    white.png
+  ulpc/spritesheets/hat/cloth/leather_cap/feather/adult/idle/  1 个 1KB  用到:art_src/boss/build_bos.py, art_src/boss/build_mage.py, art_src/city/build_gh8.py, art_src/lpc/build_lpc.py, art_src/lpc_npc/build_npc_lpc.py, art_src/mob/build_dog2.py, art_src/mob/build_mob.py, art_src/mob/build_pen.py, art_src/myst/build_myst.py, art_src/volcano/build_vol9.py
+    white.png
+  ulpc/spritesheets/hat/cloth/leather_cap/feather/adult/jump/  1 个 1KB  用到:art_src/lpc/build_lpc.py, art_src/mob/build_dog2.py
+    white.png
+  ulpc/spritesheets/hat/cloth/leather_cap/feather/adult/run/  1 个 1KB  用到:art_src/build_wing.py, art_src/mob/build_mob.py
+    white.png
+  ulpc/spritesheets/hat/cloth/leather_cap/feather/adult/slash/  1 个 1KB  用到:art_src/lpc/build_lpc.py, art_src/lpc/comp.py, art_src/mob/build_mfx.py, art_src/mob/build_mob.py, art_src/vfx/build_vfx.py
+    white.png
+  ulpc/spritesheets/hat/cloth/leather_cap/feather/adult/spellcast/  1 个 1KB  用到:art_src/boss/build_mage.py, art_src/lpc/build_lpc.py, art_src/lpc/comp.py
+    white.png
+  ulpc/spritesheets/hat/cloth/leather_cap/feather/adult/thrust/  1 个 1KB  用到:art_src/lpc/build_lpc.py, art_src/lpc/comp.py
+    white.png
+  ulpc/spritesheets/hat/cloth/leather_cap/feather/adult/walk/  1 个 1KB  用到:art_src/boss/build_bos.py, art_src/boss/build_mage.py, art_src/boss/build_scob.py, art_src/city/build_city8.py, art_src/lpc/build_lpc.py, art_src/lpc_npc/build_npc_lpc.py, art_src/mob/build_dog2.py, art_src/mob/build_mob.py, art_src/mob/build_pen.py, art_src/myst/build_myst.py, art_src/ship/build_ship10.py, art_src/town/build_tpx.py, art_src/volcano/build_vol9.py
+    white.png
+  ulpc/spritesheets/hat/helmet/barbuta/female/  10 个 22KB  用到:art_src/lpc_npc/build_npc_lpc.py
+    backslash.png, combat_idle.png, halfslash.png, idle.png, jump.png, run.png, slash.png, spellcast.png, thrust.png, walk.png
+  ulpc/spritesheets/hat/helmet/legion/adult/  10 个 16KB  用到:art_src/build_wing.py, art_src/mob/build_mob.py
+    backslash.png, combat_idle.png, halfslash.png, idle.png, jump.png, run.png, slash.png, spellcast.png, thrust.png, walk.png
+  ulpc/spritesheets/hat/helmet/spangenhelm_viking/adult/  10 个 45KB  用到:art_src/build_wing.py, art_src/mob/build_mob.py
+    backslash.png, combat_idle.png, halfslash.png, idle.png, jump.png, run.png, slash.png, spellcast.png, thrust.png, walk.png
+  ulpc/spritesheets/hat/magic/celestial/adult/backslash/  6 个 50KB  用到:art_src/lpc/build_lpc.py
+    black.png, blue.png, green.png, maroon.png, sky.png, white.png
+  ulpc/spritesheets/hat/magic/celestial/adult/combat_idle/  6 个 16KB  用到:art_src/lpc/build_lpc.py
+    black.png, blue.png, green.png, maroon.png, sky.png, white.png
+  ulpc/spritesheets/hat/magic/celestial/adult/halfslash/  6 个 36KB  用到:art_src/lpc/build_lpc.py
+    black.png, blue.png, green.png, maroon.png, sky.png, white.png
+  ulpc/spritesheets/hat/magic/celestial/adult/idle/  6 个 18KB  用到:art_src/boss/build_bos.py, art_src/boss/build_mage.py, art_src/city/build_gh8.py, art_src/lpc/build_lpc.py, art_src/lpc_npc/build_npc_lpc.py, art_src/mob/build_dog2.py, art_src/mob/build_mob.py, art_src/mob/build_pen.py, art_src/myst/build_myst.py, art_src/volcano/build_vol9.py
+    black.png, blue.png, green.png, maroon.png, sky.png, white.png
+  ulpc/spritesheets/hat/magic/celestial/adult/jump/  6 个 33KB  用到:art_src/lpc/build_lpc.py, art_src/mob/build_dog2.py
+    black.png, blue.png, green.png, maroon.png, sky.png, white.png
+  ulpc/spritesheets/hat/magic/celestial/adult/run/  6 个 39KB  用到:art_src/build_wing.py, art_src/mob/build_mob.py
+    black.png, blue.png, green.png, maroon.png, sky.png, white.png
+  ulpc/spritesheets/hat/magic/celestial/adult/slash/  6 个 33KB  用到:art_src/lpc/build_lpc.py, art_src/lpc/comp.py, art_src/mob/build_mfx.py, art_src/mob/build_mob.py, art_src/vfx/build_vfx.py
+    black.png, blue.png, green.png, maroon.png, sky.png, white.png
+  ulpc/spritesheets/hat/magic/celestial/adult/spellcast/  6 个 25KB  用到:art_src/boss/build_mage.py, art_src/lpc/build_lpc.py, art_src/lpc/comp.py
+    black.png, blue.png, green.png, maroon.png, sky.png, white.png
+  ulpc/spritesheets/hat/magic/celestial/adult/thrust/  6 个 32KB  用到:art_src/lpc/build_lpc.py, art_src/lpc/comp.py
+    black.png, blue.png, green.png, maroon.png, sky.png, white.png
+  ulpc/spritesheets/hat/magic/celestial/adult/walk/  6 个 39KB  用到:art_src/boss/build_bos.py, art_src/boss/build_mage.py, art_src/boss/build_scob.py, art_src/city/build_city8.py, art_src/lpc/build_lpc.py, art_src/lpc_npc/build_npc_lpc.py, art_src/mob/build_dog2.py, art_src/mob/build_mob.py, art_src/mob/build_pen.py, art_src/myst/build_myst.py, art_src/ship/build_ship10.py, art_src/town/build_tpx.py, art_src/volcano/build_vol9.py
+    black.png, blue.png, green.png, maroon.png, sky.png, white.png
+  ulpc/spritesheets/hat/magic/celestial_moon/adult/backslash/  1 个 8KB  用到:art_src/lpc/build_lpc.py
+    maroon.png
+  ulpc/spritesheets/hat/magic/celestial_moon/adult/combat_idle/  1 个 3KB  用到:art_src/lpc/build_lpc.py
+    maroon.png
+  ulpc/spritesheets/hat/magic/celestial_moon/adult/halfslash/  1 个 6KB  用到:art_src/lpc/build_lpc.py
+    maroon.png
+  ulpc/spritesheets/hat/magic/celestial_moon/adult/idle/  1 个 3KB  用到:art_src/boss/build_bos.py, art_src/boss/build_mage.py, art_src/city/build_gh8.py, art_src/lpc/build_lpc.py, art_src/lpc_npc/build_npc_lpc.py, art_src/mob/build_dog2.py, art_src/mob/build_mob.py, art_src/mob/build_pen.py, art_src/myst/build_myst.py, art_src/volcano/build_vol9.py
+    maroon.png
+  ulpc/spritesheets/hat/magic/celestial_moon/adult/jump/  1 个 6KB  用到:art_src/lpc/build_lpc.py, art_src/mob/build_dog2.py
+    maroon.png
+  ulpc/spritesheets/hat/magic/celestial_moon/adult/run/  1 个 7KB  用到:art_src/build_wing.py, art_src/mob/build_mob.py
+    maroon.png
+  ulpc/spritesheets/hat/magic/celestial_moon/adult/slash/  1 个 6KB  用到:art_src/lpc/build_lpc.py, art_src/lpc/comp.py, art_src/mob/build_mfx.py, art_src/mob/build_mob.py, art_src/vfx/build_vfx.py
+    maroon.png
+  ulpc/spritesheets/hat/magic/celestial_moon/adult/spellcast/  1 个 4KB  用到:art_src/boss/build_mage.py, art_src/lpc/build_lpc.py, art_src/lpc/comp.py
+    maroon.png
+  ulpc/spritesheets/hat/magic/celestial_moon/adult/thrust/  1 个 6KB  用到:art_src/lpc/build_lpc.py, art_src/lpc/comp.py
+    maroon.png
+  ulpc/spritesheets/hat/magic/celestial_moon/adult/walk/  1 个 7KB  用到:art_src/boss/build_bos.py, art_src/boss/build_mage.py, art_src/boss/build_scob.py, art_src/city/build_city8.py, art_src/lpc/build_lpc.py, art_src/lpc_npc/build_npc_lpc.py, art_src/mob/build_dog2.py, art_src/mob/build_mob.py, art_src/mob/build_pen.py, art_src/myst/build_myst.py, art_src/ship/build_ship10.py, art_src/town/build_tpx.py, art_src/volcano/build_vol9.py
+    maroon.png
+  ulpc/spritesheets/head/heads/human/male/  10 个 16KB  用到:art_src/boss/build_mage.py, art_src/lpc/build_lpc.py, art_src/lpc/comp.py, art_src/lpc_npc/build_npc_lpc.py
+    backslash.png, combat_idle.png, halfslash.png, idle.png, jump.png, run.png, slash.png, spellcast.png, thrust.png, walk.png
+  ulpc/spritesheets/legs/pants/thin/  10 个 16KB  用到:art_src/audio/build_audio.py
+    backslash.png, combat_idle.png, halfslash.png, idle.png, jump.png, run.png, slash.png, spellcast.png, thrust.png, walk.png
+  ulpc/spritesheets/legs/skirts/plain/thin/  5 个 19KB  用到:art_src/audio/build_audio.py
+    idle.png, slash.png, spellcast.png, thrust.png, walk.png
+  ulpc/spritesheets/torso/armour/leather/teen/  7 个 35KB  用到:art_src/lpc/build_lpc.py, art_src/lpc_npc/build_npc_lpc.py, art_src/vfx/build_vfx.py
+    idle.png, jump.png, run.png, slash.png, spellcast.png, thrust.png, walk.png
+  ulpc/spritesheets/torso/armour/legion/teen/  10 个 32KB  用到:art_src/lpc/build_lpc.py, art_src/lpc_npc/build_npc_lpc.py, art_src/vfx/build_vfx.py
+    backslash.png, combat_idle.png, halfslash.png, idle.png, jump.png, run.png, slash.png, spellcast.png, thrust.png, walk.png
+  ulpc/spritesheets/torso/armour/plate/teen/  10 个 41KB  用到:art_src/lpc/build_lpc.py, art_src/lpc_npc/build_npc_lpc.py, art_src/vfx/build_vfx.py
+    backslash.png, combat_idle.png, halfslash.png, idle.png, jump.png, run.png, slash.png, spellcast.png, thrust.png, walk.png
+  ulpc/spritesheets/torso/chainmail/female/  7 个 62KB  用到:art_src/lpc_npc/build_npc_lpc.py
+    idle.png, jump.png, run.png, slash.png, spellcast.png, thrust.png, walk.png
+  ulpc/spritesheets/torso/clothes/longsleeve/longsleeve2/teen/  10 个 23KB  用到:art_src/lpc/build_lpc.py, art_src/lpc_npc/build_npc_lpc.py, art_src/vfx/build_vfx.py
+    backslash.png, combat_idle.png, halfslash.png, idle.png, jump.png, run.png, slash.png, spellcast.png, thrust.png, walk.png
+  ulpc/spritesheets/torso/jacket/tabard/female/slash/  2 个 4KB  用到:art_src/lpc/build_lpc.py, art_src/lpc/comp.py, art_src/mob/build_mfx.py, art_src/mob/build_mob.py, art_src/vfx/build_vfx.py
+    forest.png, sky.png
+  ulpc/spritesheets/torso/jacket/tabard/female/spellcast/  2 个 3KB  用到:art_src/boss/build_mage.py, art_src/lpc/build_lpc.py, art_src/lpc/comp.py
+    forest.png, sky.png
+  ulpc/spritesheets/torso/jacket/tabard/female/thrust/  2 个 5KB  用到:art_src/lpc/build_lpc.py, art_src/lpc/comp.py
+    forest.png, sky.png
+  ulpc/spritesheets/torso/jacket/tabard/female/walk/  2 个 5KB  用到:art_src/boss/build_bos.py, art_src/boss/build_mage.py, art_src/boss/build_scob.py, art_src/city/build_city8.py, art_src/lpc/build_lpc.py, art_src/lpc_npc/build_npc_lpc.py, art_src/mob/build_dog2.py, art_src/mob/build_mob.py, art_src/mob/build_pen.py, art_src/myst/build_myst.py, art_src/ship/build_ship10.py, art_src/town/build_tpx.py, art_src/volcano/build_vol9.py
+    forest.png, sky.png
+  ulpc/spritesheets/torso/waist/obi/thin/backslash/  1 个 1KB  用到:art_src/lpc/build_lpc.py
+    forest.png
+  ulpc/spritesheets/torso/waist/obi/thin/combat_idle/  1 个 1KB  用到:art_src/lpc/build_lpc.py
+    forest.png
+  ulpc/spritesheets/torso/waist/obi/thin/halfslash/  1 个 1KB  用到:art_src/lpc/build_lpc.py
+    forest.png
+  ulpc/spritesheets/torso/waist/obi/thin/idle/  1 个 1KB  用到:art_src/boss/build_bos.py, art_src/boss/build_mage.py, art_src/city/build_gh8.py, art_src/lpc/build_lpc.py, art_src/lpc_npc/build_npc_lpc.py, art_src/mob/build_dog2.py, art_src/mob/build_mob.py, art_src/mob/build_pen.py, art_src/myst/build_myst.py, art_src/volcano/build_vol9.py
+    forest.png
+  ulpc/spritesheets/torso/waist/obi/thin/jump/  1 个 1KB  用到:art_src/lpc/build_lpc.py, art_src/mob/build_dog2.py
+    forest.png
+  ulpc/spritesheets/torso/waist/obi/thin/run/  1 个 1KB  用到:art_src/audio/build_audio.py
+    forest.png
+  ulpc/spritesheets/torso/waist/obi/thin/slash/  1 个 1KB  用到:art_src/lpc/build_lpc.py, art_src/lpc/comp.py, art_src/mob/build_mfx.py, art_src/mob/build_mob.py, art_src/vfx/build_vfx.py
+    forest.png
+  ulpc/spritesheets/torso/waist/obi/thin/spellcast/  1 个 1KB  用到:art_src/boss/build_mage.py, art_src/lpc/build_lpc.py, art_src/lpc/comp.py
+    forest.png
+  ulpc/spritesheets/torso/waist/obi/thin/thrust/  1 个 1KB  用到:art_src/lpc/build_lpc.py, art_src/lpc/comp.py
+    forest.png
+  ulpc/spritesheets/torso/waist/obi/thin/walk/  1 个 1KB  用到:art_src/boss/build_bos.py, art_src/boss/build_mage.py, art_src/boss/build_scob.py, art_src/city/build_city8.py, art_src/lpc/build_lpc.py, art_src/lpc_npc/build_npc_lpc.py, art_src/mob/build_dog2.py, art_src/mob/build_mob.py, art_src/mob/build_pen.py, art_src/myst/build_myst.py, art_src/ship/build_ship10.py, art_src/town/build_tpx.py, art_src/volcano/build_vol9.py
+    forest.png
+  ulpc/spritesheets/torso/waist/sash/male/slash/  1 个 2KB  用到:art_src/lpc/build_lpc.py, art_src/lpc/comp.py, art_src/mob/build_mfx.py, art_src/mob/build_mob.py, art_src/vfx/build_vfx.py
+    orange.png
+  ulpc/spritesheets/torso/waist/sash/male/spellcast/  1 个 1KB  用到:art_src/boss/build_mage.py, art_src/lpc/build_lpc.py, art_src/lpc/comp.py
+    orange.png
+  ulpc/spritesheets/torso/waist/sash/male/thrust/  1 个 2KB  用到:art_src/lpc/build_lpc.py, art_src/lpc/comp.py
+    orange.png
+  ulpc/spritesheets/torso/waist/sash/male/walk/  1 个 2KB  用到:art_src/boss/build_bos.py, art_src/boss/build_mage.py, art_src/boss/build_scob.py, art_src/city/build_city8.py, art_src/lpc/build_lpc.py, art_src/lpc_npc/build_npc_lpc.py, art_src/mob/build_dog2.py, art_src/mob/build_mob.py, art_src/mob/build_pen.py, art_src/myst/build_myst.py, art_src/ship/build_ship10.py, art_src/town/build_tpx.py, art_src/volcano/build_vol9.py
+    orange.png
+
+## raw/volcano
+  volcano/golem_anim/  1 个 1.1MB  用到:art_src/volcano/build_vol9.py
+    zip: golem_anim.zip(1.1MB)
+  volcano/golem_anim/x/appear/  15 个 226KB  用到:art_src/volcano/build_vol9.py
+    appear_1~9.png
+  volcano/golem_anim/x/attack/  6 个 345KB  用到:art_src/ship/build_ship10.py, art_src/volcano/build_vol9.py
+    hit_1~6.png
+  volcano/golem_anim/x/die/  7 个 186KB  用到:art_src/volcano/build_vol9.py
+    die_1~7.png
+  volcano/golem_anim/x/idle-walk/  6 个 342KB  用到:art_src/volcano/build_vol9.py
+    idle_1~6.png
+  volcano/gothicvania_patreon/  1 个 3.8MB  用到:art_src/volcano/build_vol9.py
+    zip: gothicvania_patreon_collection.zip(3.8MB)
+  volcano/gothicvania_patreon/x/ gothicvania patreon collection/  1 个 0KB  用到:art_src/volcano/build_vol9.py
+    public-license.txt
+  volcano/gothicvania_patreon/x/ gothicvania patreon collection/Fire-Skull-Files/GIF/  2 个 9KB  用到:art_src/volcano/build_vol9.py
+    fire-skull-no-fire.gif, fire-skull.gif
+  volcano/gothicvania_patreon/x/ gothicvania patreon collection/Fire-Skull-Files/PNG/  2 个 11KB  用到:art_src/volcano/build_vol9.py
+    fire-skull-no-fire.png, fire-skull.png
+  volcano/gothicvania_patreon/x/ gothicvania patreon collection/Fire-Skull-Files/PSD/  2 个 278KB  用到:art_src/volcano/build_vol9.py
+    fire-skull-no-fire.psd, fire-skull.psd
+  volcano/gothicvania_patreon/x/ gothicvania patreon collection/Ghost-Files/GIFS/  4 个 24KB  用到:art_src/volcano/build_vol9.py
+    ghost-appears.gif, ghost-idle.gif, ghost-shriek.gif, ghost-vanish.gif
+  volcano/gothicvania_patreon/x/ gothicvania patreon collection/Ghost-Files/PNG/  4 个 14KB  用到:art_src/volcano/build_vol9.py
+    ghost-appears.png, ghost-idle.png, ghost-shriek.png, ghost-vanish.png
+  volcano/gothicvania_patreon/x/ gothicvania patreon collection/Ghost-Files/PSD/  4 个 454KB  用到:art_src/volcano/build_vol9.py
+    ghost-appears.psd, ghost-idle.psd, ghost-shriek.psd, ghost-vanish.psd
+  volcano/gothicvania_patreon/x/ gothicvania patreon collection/Gothic-Castle-Files/PNG/  1 个 30KB  用到:art_src/volcano/build_vol9.py
+    gothic-castle-preview.png
+  volcano/gothicvania_patreon/x/ gothicvania patreon collection/Gothic-Castle-Files/PNG/layers/  2 个 23KB  用到:art_src/boss/build_mage.py, art_src/lbg/build_lbg.py, art_src/lpc/build_lpc.py, art_src/lpc/comp.py, art_src/lpc_npc/build_npc_lpc.py, art_src/lv/build_ltl.py, art_src/volcano/build_vol9.py
+    gothic-castle-background.png, gothic-castle-tileset.png
+  volcano/gothicvania_patreon/x/ gothicvania patreon collection/Gothic-Castle-Files/PSD/  1 个 765KB  用到:art_src/volcano/build_vol9.py
+    gothic-castle.psd
+  volcano/gothicvania_patreon/x/ gothicvania patreon collection/Gothic-Horror-Files/PNG/  1 个 37KB  用到:art_src/volcano/build_vol9.py
+    PREVIEW-gothic-horror.png
+  volcano/gothicvania_patreon/x/ gothicvania patreon collection/Gothic-Horror-Files/PNG/layers/  3 个 42KB  用到:art_src/boss/build_mage.py, art_src/lbg/build_lbg.py, art_src/lpc/build_lpc.py, art_src/lpc/comp.py, art_src/lpc_npc/build_npc_lpc.py, art_src/lv/build_ltl.py, art_src/volcano/build_vol9.py
+    clouds.png, tiles.png, town.png
+  volcano/gothicvania_patreon/x/ gothicvania patreon collection/Gothic-Horror-Files/PSD/  1 个 539KB  用到:art_src/volcano/build_vol9.py
+    gothic-horror.psd
+  volcano/gothicvania_patreon/x/ gothicvania patreon collection/Gothic-hero-Files/GIFS/  4 个 16KB  用到:art_src/volcano/build_vol9.py
+    gothic-hero-attack.gif, gothic-hero-idle.gif, gothic-hero-jump.gif, gothic-hero-run.gif
+  volcano/gothicvania_patreon/x/ gothicvania patreon collection/Gothic-hero-Files/PNG/  4 个 20KB  用到:art_src/volcano/build_vol9.py
+    gothic-hero-attack.png, gothic-hero-idle.png, gothic-hero-jump.png, gothic-hero-run.png
+  volcano/gothicvania_patreon/x/ gothicvania patreon collection/Gothic-hero-Files/PSD/  4 个 667KB  用到:art_src/volcano/build_vol9.py
+    gothic-hero-attack.psd, gothic-hero-idle.psd, gothic-hero-jump.psd, gothic-hero-run.psd
+  volcano/gothicvania_patreon/x/ gothicvania patreon collection/Gothic-hero-p2-Files/GIFS/  5 个 15KB  用到:art_src/volcano/build_vol9.py
+    gothic-hero-crouch-slash.gif, gothic-hero-crouch.gif, gothic-hero-hurt.gif, gothic-hero-jump-attack.gif, gothic-hero-jump-climb.gif
+  volcano/gothicvania_patreon/x/ gothicvania patreon collection/Gothic-hero-p2-Files/PNG/sprites/climb/  7 个 8KB  用到:art_src/audio/build_audio.py
+    gothic-hero-crouch-slash_0000_Layer-1.png, gothic-hero-crouch-slash_0001_Layer-2.png, gothic-hero-crouch-slash_0002_Layer-3.png, gothic-hero-crouch-slash_0003_Layer-4.png, gothic-hero-crouch-slash_0004_Layer-5.png, gothic-hero-crouch-slash_0005_Layer-6.png, gothic-hero-crouch-slash_0006_Layer-7.png
+  volcano/gothicvania_patreon/x/ gothicvania patreon collection/Gothic-hero-p2-Files/PNG/sprites/crouch/  3 个 3KB  用到:art_src/bfx/build_bfx.py, art_src/boss/build_ars.py, art_src/boss/build_mage.py, art_src/lpc/comp.py, art_src/lpc_npc/build_npc_lpc.py, art_src/mob/build_mob.py, art_src/summon/build_smn.py, art_src/vfx/build_vfx.py
+    gothic-hero-crouch-slash_0000_Layer-1.png, gothic-hero-crouch-slash_0001_Layer-2.png, gothic-hero-crouch-slash_0002_Layer-3.png
+  volcano/gothicvania_patreon/x/ gothicvania patreon collection/Gothic-hero-p2-Files/PNG/sprites/crouch-slash/  4 个 4KB  用到:art_src/bfx/build_bfx.py, art_src/boss/build_ars.py, art_src/boss/build_mage.py, art_src/lpc/comp.py, art_src/lpc_npc/build_npc_lpc.py, art_src/mob/build_mob.py, art_src/summon/build_smn.py, art_src/vfx/build_vfx.py
+    gothic-hero-crouch-slash_0000_Layer-1.png, gothic-hero-crouch-slash_0001_Layer-2.png, gothic-hero-crouch-slash_0002_Layer-3.png, gothic-hero-crouch-slash_0003_Layer-4.png
+  volcano/gothicvania_patreon/x/ gothicvania patreon collection/Gothic-hero-p2-Files/PNG/sprites/hurt/  3 个 3KB  用到:art_src/audio/build_audio.py, art_src/boss/build_mage.py, art_src/myst/build_myst.py
+    gothic-hero-crouch-slash_0000_Layer-1.png, gothic-hero-crouch-slash_0001_Layer-2.png, gothic-hero-crouch-slash_0002_Layer-3.png
+  volcano/gothicvania_patreon/x/ gothicvania patreon collection/Gothic-hero-p2-Files/PNG/sprites/jump-attack/  6 个 7KB  用到:art_src/bfx/build_bfx.py, art_src/boss/build_ars.py, art_src/boss/build_mage.py, art_src/lpc/comp.py, art_src/lpc_npc/build_npc_lpc.py, art_src/mob/build_mob.py, art_src/summon/build_smn.py, art_src/vfx/build_vfx.py
+    gothic-hero-crouch-slash_0000_Layer-1.png, gothic-hero-crouch-slash_0001_Layer-2.png, gothic-hero-crouch-slash_0002_Layer-3.png, gothic-hero-crouch-slash_0003_Layer-4.png, gothic-hero-crouch-slash_0004_Layer-5.png, gothic-hero-crouch-slash_0005_Layer-6.png
+  volcano/gothicvania_patreon/x/ gothicvania patreon collection/Gothic-hero-p2-Files/PNG/spritesheets/  5 个 18KB  用到:art_src/boss/build_ars.py, art_src/boss/build_mage.py, art_src/lpc/comp.py, art_src/lpc_npc/build_npc_lpc.py, art_src/mob/build_mob.py, art_src/vfx/build_vfx.py
+    gothic-hero-crouch-slash.png, gothic-hero-crouch.png, gothic-hero-hurt.png, gothic-hero-jump-attack.png, gothic-hero-jump-climb.png
+  volcano/gothicvania_patreon/x/ gothicvania patreon collection/Gothic-hero-p2-Files/PSD/  5 个 729KB  用到:art_src/volcano/build_vol9.py
+    gothic-hero-crouch-slash.psd, gothic-hero-crouch.psd, gothic-hero-hurt.psd, gothic-hero-jump-attack.psd, gothic-hero-jump-climb.psd
+  volcano/gothicvania_patreon/x/ gothicvania patreon collection/Hell-Beast-Files/GIF/  1 个 1KB  用到:art_src/volcano/build_vol9.py
+    fire-ball.gif
+  volcano/gothicvania_patreon/x/ gothicvania patreon collection/Hell-Beast-Files/GIF/with-stroke/  3 个 45KB  用到:art_src/volcano/build_vol9.py
+    hell-beast-breath.gif, hell-beast-burn.gif, hell-beast-idle.gif
+  volcano/gothicvania_patreon/x/ gothicvania patreon collection/Hell-Beast-Files/GIF/without-stroke/  3 个 42KB  用到:art_src/volcano/build_vol9.py
+    hell-beast-breath.gif, hell-beast-burn.gif, hell-beast-idle.gif
+  volcano/gothicvania_patreon/x/ gothicvania patreon collection/Hell-Beast-Files/PNG/  1 个 1KB  用到:art_src/volcano/build_vol9.py
+    fire-ball.png
+  volcano/gothicvania_patreon/x/ gothicvania patreon collection/Hell-Beast-Files/PNG/with-stroke/  3 个 20KB  用到:art_src/volcano/build_vol9.py
+    hell-beast-breath.png, hell-beast-burn.png, hell-beast-idle.png
+  volcano/gothicvania_patreon/x/ gothicvania patreon collection/Hell-Beast-Files/PNG/without-stroke/  3 个 15KB  用到:art_src/volcano/build_vol9.py
+    hell-beast-breath.png, hell-beast-burn.png, hell-beast-idle.png
+  volcano/gothicvania_patreon/x/ gothicvania patreon collection/Hell-Beast-Files/PSD/  3 个 498KB  用到:art_src/volcano/build_vol9.py
+    hell-beast-breath.psd, hell-beast-burn.psd, hell-beast-idle.psd
+  volcano/gothicvania_patreon/x/ gothicvania patreon collection/Hell-Hound-Files/  1 个 72KB  用到:art_src/volcano/build_vol9.py
+    get-more.jpg
+  volcano/gothicvania_patreon/x/ gothicvania patreon collection/Hell-Hound-Files/GIFS/  4 个 13KB  用到:art_src/volcano/build_vol9.py
+    hell-hound-idle.gif, hell-hound-jump.gif, hell-hound-run.gif, hell-hound-walk.gif
+  volcano/gothicvania_patreon/x/ gothicvania patreon collection/Hell-Hound-Files/PNG/  4 个 15KB  用到:art_src/volcano/build_vol9.py
+    hell-hound-idle.png, hell-hound-jump.png, hell-hound-run.png, hell-hound-walk.png
+  volcano/gothicvania_patreon/x/ gothicvania patreon collection/Hell-Hound-Files/PSD/  4 个 337KB  用到:art_src/volcano/build_vol9.py
+    hell-hound-idle.psd, hell-hound-jump.psd, hell-hound-run.psd, hell-hound-walk.psd
+  volcano/gothicvania_patreon/x/ gothicvania patreon collection/Nightmare-Files/GIFS/  3 个 24KB  用到:art_src/volcano/build_vol9.py
+    nightmare-galloping-background.gif, nightmare-galloping.gif, nightmare-idle.gif
+  volcano/gothicvania_patreon/x/ gothicvania patreon collection/Nightmare-Files/PNG/  2 个 15KB  用到:art_src/volcano/build_vol9.py
+    nightmare-galloping.png, nightmare-idle.png
+  volcano/gothicvania_patreon/x/ gothicvania patreon collection/Nightmare-Files/PSD/  2 个 359KB  用到:art_src/volcano/build_vol9.py
+    nightmare-galloping.psd, nightmare-idle.psd
+  volcano/gothicvania_patreon/x/ gothicvania patreon collection/Old-dark-Castle-tileset-Files/PNG/  3 个 66KB  用到:art_src/volcano/build_vol9.py
+    old-dark-castle-interior-background.png, old-dark-castle-interior-tileset.png, preview-old-dark-castle-interior-tileset.png
+  volcano/gothicvania_patreon/x/ gothicvania patreon collection/Old-dark-Castle-tileset-Files/PSD/  1 个 471KB  用到:art_src/volcano/build_vol9.py
+    old-dark-castle-interior-tileset.psd
+  volcano/gothicvania_patreon/x/ gothicvania patreon collection/demon-Files/GIFS/  3 个 88KB  用到:art_src/volcano/build_vol9.py
+    demon-attack-no-breath.gif, demon-attack.gif, demon-idle.gif
+  volcano/gothicvania_patreon/x/ gothicvania patreon collection/demon-Files/PNG/  5 个 77KB  用到:art_src/volcano/build_vol9.py
+    breath-fire.png, breath.png, demon-attack-no-breath.png, demon-attack.png, demon-idle.png
+  volcano/gothicvania_patreon/x/ gothicvania patreon collection/demon-Files/PSD/  3 个 613KB  用到:art_src/volcano/build_vol9.py
+    breath.psd, demon-attack.psd, demon-idle.psd
+  volcano/gothicvania_patreon/x/ gothicvania patreon collection/night-town-background-files/  4 个 373KB  用到:art_src/lbg/build_lbg.py
+    night-town-background-preview-LOW-RES.jpg, night-town-background-previewx1~2.png, night-town-background.psd
+  volcano/gothicvania_patreon/x/ gothicvania patreon collection/night-town-background-files/layers/  7 个 19KB  用到:art_src/boss/build_mage.py, art_src/lbg/build_lbg.py, art_src/lpc/build_lpc.py, art_src/lpc/comp.py, art_src/lpc_npc/build_npc_lpc.py, art_src/lv/build_ltl.py, art_src/volcano/build_vol9.py
+    night-town-background-clouds.png, night-town-background-far-buildings.png, night-town-background-forest.png, night-town-background-mountains-lights.png, night-town-background-mountains.png, night-town-background-sky.png, night-town-background-town.png
+  volcano/gothicvania_patreon/x/ gothicvania patreon collection/wolf-runing-cycle/PSD/  2 个 72KB  用到:art_src/volcano/build_vol9.py
+    wolf-runing-cycle-skin.psd, wolf-runing-cycle.psd
+  volcano/gothicvania_patreon/x/ gothicvania patreon collection/wolf-runing-cycle/previews/  4 个 7KB  用到:art_src/volcano/build_vol9.py
+    wolf-runing-cycle-skinx1~4.gif, wolf-runing-cycle.gif, wolf-runing-cyclex4.gif
+  volcano/gothicvania_patreon/x/ gothicvania patreon collection/wolf-runing-cycle/sprites/  2 个 3KB  用到:art_src/bfx/build_bfx.py, art_src/boss/build_ars.py, art_src/boss/build_mage.py, art_src/lpc/comp.py, art_src/lpc_npc/build_npc_lpc.py, art_src/mob/build_mob.py, art_src/summon/build_smn.py, art_src/vfx/build_vfx.py
+    wolf-runing-cycle-skin.png, wolf-runing-cycle.png
+  volcano/tio_volcano/  1 个 817KB  用到:art_src/volcano/build_vol9.py
+    zip: volcano_pack_1.1.zip(817KB)
+  volcano/tio_volcano/x/  4 个 589KB  用到:art_src/volcano/build_vol9.py
+    License.txt, preview.png, sample.png, sample_alt.png
+  volcano/tio_volcano/x/PNG/  54 个 208KB  用到:art_src/volcano/build_vol9.py
+    bg_volcano.png, volcano_pack_03~74.png, volcano_pack_alt_03~41.png
+  volcano/tio_volcano/x/PNG/bg_volcano_layers/  6 个 77KB  用到:art_src/volcano/build_vol9.py
+    bg_volcano_1~6.png
+  volcano/tio_volcano/x/Vector/  3 个 201KB  用到:art_src/volcano/build_vol9.py
+    bg_volcano.svg, volcano_pack.svg, volcano_pack_ground_alt.svg
+

@@ -1,0 +1,903 @@
+{
+"anims": [
+[
+"idle",
+0,
+2
+],
+[
+"walk",
+2,
+9
+],
+[
+"run",
+11,
+8
+],
+[
+"jump",
+19,
+5
+],
+[
+"slash",
+24,
+6
+],
+[
+"backslash",
+30,
+13
+],
+[
+"halfslash",
+43,
+6
+],
+[
+"thrust",
+49,
+8
+],
+[
+"spellcast",
+57,
+7
+],
+[
+"combat_idle",
+64,
+2
+]
+],
+"nf": 66,
+"layers": {
+"body": {
+"row": 0,
+"z": 10,
+"has": [
+"idle",
+"walk",
+"run",
+"jump",
+"slash",
+"backslash",
+"halfslash",
+"thrust",
+"spellcast",
+"combat_idle"
+],
+"def": "body/body.json"
+},
+"head": {
+"row": 1,
+"z": 100,
+"has": [
+"idle",
+"walk",
+"run",
+"jump",
+"slash",
+"backslash",
+"halfslash",
+"thrust",
+"spellcast",
+"combat_idle"
+],
+"def": "head/heads/human/heads_human_male.json"
+},
+"hair0": {
+"row": 2,
+"z": 120,
+"has": [
+"idle",
+"walk",
+"run",
+"jump",
+"slash",
+"backslash",
+"halfslash",
+"thrust",
+"spellcast",
+"combat_idle"
+],
+"def": "hair/spiky/hair_spiked.json"
+},
+"hair1": {
+"row": 3,
+"z": 120,
+"has": [
+"idle",
+"walk",
+"run",
+"jump",
+"slash",
+"backslash",
+"halfslash",
+"thrust",
+"spellcast",
+"combat_idle"
+],
+"def": "hair/spiky/hair_spiked.json"
+},
+"hair2": {
+"row": 4,
+"z": 120,
+"has": [
+"idle",
+"walk",
+"run",
+"jump",
+"slash",
+"backslash",
+"halfslash",
+"thrust",
+"spellcast",
+"combat_idle"
+],
+"def": "hair/spiky/hair_spiked.json"
+},
+"hairX": {
+"row": 5,
+"z": 120,
+"has": [
+"idle",
+"walk",
+"run",
+"jump",
+"slash",
+"backslash",
+"halfslash",
+"thrust",
+"spellcast",
+"combat_idle"
+],
+"def": "hair/spiky/hair_spiked.json"
+},
+"hairP#0": {
+"row": 6,
+"z": 120,
+"has": [
+"idle",
+"walk",
+"run",
+"jump",
+"slash",
+"backslash",
+"halfslash",
+"thrust",
+"spellcast",
+"combat_idle"
+],
+"def": "hair/braids/hair_high_ponytail.json"
+},
+"hairP#1": {
+"row": 7,
+"z": 9,
+"has": [
+"idle",
+"walk",
+"run",
+"jump",
+"slash",
+"backslash",
+"halfslash",
+"thrust",
+"spellcast",
+"combat_idle"
+],
+"def": "hair/braids/hair_high_ponytail.json"
+},
+"shirt_navy": {
+"row": 8,
+"z": 35,
+"has": [
+"idle",
+"walk",
+"run",
+"jump",
+"slash",
+"backslash",
+"halfslash",
+"thrust",
+"spellcast",
+"combat_idle"
+],
+"def": "torso/shirts/longsleeve/torso_clothes_longsleeve2.json"
+},
+"shirt_forest": {
+"row": 9,
+"z": 35,
+"has": [
+"idle",
+"walk",
+"run",
+"jump",
+"slash",
+"backslash",
+"halfslash",
+"thrust",
+"spellcast",
+"combat_idle"
+],
+"def": "torso/shirts/longsleeve/torso_clothes_longsleeve2.json"
+},
+"shirt_maroon": {
+"row": 10,
+"z": 35,
+"has": [
+"idle",
+"walk",
+"run",
+"jump",
+"slash",
+"backslash",
+"halfslash",
+"thrust",
+"spellcast",
+"combat_idle"
+],
+"def": "torso/shirts/longsleeve/torso_clothes_longsleeve2.json"
+},
+"shirt_white": {
+"row": 11,
+"z": 35,
+"has": [
+"idle",
+"walk",
+"run",
+"jump",
+"slash",
+"backslash",
+"halfslash",
+"thrust",
+"spellcast",
+"combat_idle"
+],
+"def": "torso/shirts/longsleeve/torso_clothes_longsleeve2.json"
+},
+"shirt_blue": {
+"row": 12,
+"z": 35,
+"has": [
+"idle",
+"walk",
+"run",
+"jump",
+"slash",
+"backslash",
+"halfslash",
+"thrust",
+"spellcast",
+"combat_idle"
+],
+"def": "torso/shirts/longsleeve/torso_clothes_longsleeve2.json"
+},
+"shirt_green": {
+"row": 13,
+"z": 35,
+"has": [
+"idle",
+"walk",
+"run",
+"jump",
+"slash",
+"backslash",
+"halfslash",
+"thrust",
+"spellcast",
+"combat_idle"
+],
+"def": "torso/shirts/longsleeve/torso_clothes_longsleeve2.json"
+},
+"shirt_orange": {
+"row": 14,
+"z": 35,
+"has": [
+"idle",
+"walk",
+"run",
+"jump",
+"slash",
+"backslash",
+"halfslash",
+"thrust",
+"spellcast",
+"combat_idle"
+],
+"def": "torso/shirts/longsleeve/torso_clothes_longsleeve2.json"
+},
+"shirt_black": {
+"row": 15,
+"z": 35,
+"has": [
+"idle",
+"walk",
+"run",
+"jump",
+"slash",
+"backslash",
+"halfslash",
+"thrust",
+"spellcast",
+"combat_idle"
+],
+"def": "torso/shirts/longsleeve/torso_clothes_longsleeve2.json"
+},
+"pants_navy": {
+"row": 16,
+"z": 20,
+"has": [
+"idle",
+"walk",
+"run",
+"jump",
+"slash",
+"backslash",
+"halfslash",
+"thrust",
+"spellcast",
+"combat_idle"
+],
+"def": "legs/pants/legs_pants.json"
+},
+"pants_forest": {
+"row": 17,
+"z": 20,
+"has": [
+"idle",
+"walk",
+"run",
+"jump",
+"slash",
+"backslash",
+"halfslash",
+"thrust",
+"spellcast",
+"combat_idle"
+],
+"def": "legs/pants/legs_pants.json"
+},
+"pants_tan": {
+"row": 18,
+"z": 20,
+"has": [
+"idle",
+"walk",
+"run",
+"jump",
+"slash",
+"backslash",
+"halfslash",
+"thrust",
+"spellcast",
+"combat_idle"
+],
+"def": "legs/pants/legs_pants.json"
+},
+"skirt_blue": {
+"row": 19,
+"z": 20,
+"has": [
+"idle",
+"walk",
+"slash",
+"thrust",
+"spellcast"
+],
+"def": "legs/skirts/legs_skirts_plain.json"
+},
+"skirt_forest": {
+"row": 20,
+"z": 20,
+"has": [
+"idle",
+"walk",
+"slash",
+"thrust",
+"spellcast"
+],
+"def": "legs/skirts/legs_skirts_plain.json"
+},
+"skirt_maroon": {
+"row": 21,
+"z": 20,
+"has": [
+"idle",
+"walk",
+"slash",
+"thrust",
+"spellcast"
+],
+"def": "legs/skirts/legs_skirts_plain.json"
+},
+"skirt_white": {
+"row": 22,
+"z": 20,
+"has": [
+"idle",
+"walk",
+"slash",
+"thrust",
+"spellcast"
+],
+"def": "legs/skirts/legs_skirts_plain.json"
+},
+"skirt_black": {
+"row": 23,
+"z": 20,
+"has": [
+"idle",
+"walk",
+"slash",
+"thrust",
+"spellcast"
+],
+"def": "legs/skirts/legs_skirts_plain.json"
+},
+"boots_brown": {
+"row": 24,
+"z": 25,
+"has": [
+"idle",
+"walk",
+"run",
+"jump",
+"slash",
+"backslash",
+"halfslash",
+"thrust",
+"spellcast",
+"combat_idle"
+],
+"def": "feet/boots/feet_boots_basic.json"
+},
+"boots_black": {
+"row": 25,
+"z": 25,
+"has": [
+"idle",
+"walk",
+"run",
+"jump",
+"slash",
+"backslash",
+"halfslash",
+"thrust",
+"spellcast",
+"combat_idle"
+],
+"def": "feet/boots/feet_boots_basic.json"
+},
+"boots_white": {
+"row": 26,
+"z": 25,
+"has": [
+"idle",
+"walk",
+"run",
+"jump",
+"slash",
+"backslash",
+"halfslash",
+"thrust",
+"spellcast",
+"combat_idle"
+],
+"def": "feet/boots/feet_boots_basic.json"
+},
+"plate": {
+"row": 27,
+"z": 60,
+"has": [
+"idle",
+"walk",
+"run",
+"jump",
+"slash",
+"backslash",
+"halfslash",
+"thrust",
+"spellcast",
+"combat_idle"
+],
+"def": "torso/armour/torso_armour_plate.json"
+},
+"leather": {
+"row": 28,
+"z": 60,
+"has": [
+"idle",
+"walk",
+"run",
+"jump",
+"slash",
+"thrust",
+"spellcast"
+],
+"def": "torso/armour/torso_armour_leather.json"
+},
+"legion": {
+"row": 29,
+"z": 60,
+"has": [
+"idle",
+"walk",
+"run",
+"jump",
+"slash",
+"backslash",
+"halfslash",
+"thrust",
+"spellcast",
+"combat_idle"
+],
+"def": "torso/armour/torso_armour_legion.json"
+},
+"helm0": {
+"row": 30,
+"z": 130,
+"has": [
+"idle",
+"walk",
+"run",
+"jump",
+"slash",
+"backslash",
+"halfslash",
+"thrust",
+"spellcast",
+"combat_idle"
+],
+"def": "headwear/helmets/helmets/hat_helmet_barbuta.json"
+},
+"helm1": {
+"row": 31,
+"z": 130,
+"has": [
+"idle",
+"walk",
+"run",
+"jump",
+"slash",
+"backslash",
+"halfslash",
+"thrust",
+"spellcast",
+"combat_idle"
+],
+"def": "headwear/coverings/hoods/hat_hood_cloth.json"
+},
+"helm2": {
+"row": 32,
+"z": 130,
+"has": [
+"idle",
+"walk",
+"run",
+"jump",
+"slash",
+"backslash",
+"halfslash",
+"thrust",
+"spellcast",
+"combat_idle"
+],
+"def": "headwear/helmets/helmets/hat_helmet_legion.json"
+},
+"hat_black": {
+"row": 33,
+"z": 130,
+"has": [
+"idle",
+"walk",
+"run",
+"jump",
+"slash",
+"backslash",
+"halfslash",
+"thrust",
+"spellcast",
+"combat_idle"
+],
+"def": "headwear/hats/magic/hat_magic_celestial.json"
+},
+"cape#0": {
+"row": 34,
+"z": 85,
+"has": [
+"idle",
+"walk",
+"slash",
+"thrust",
+"spellcast"
+],
+"def": "torso/cape/cape_solid.json"
+},
+"cape#1": {
+"row": 35,
+"z": 5,
+"has": [
+"idle",
+"walk",
+"slash",
+"thrust",
+"spellcast"
+],
+"def": "torso/cape/cape_solid.json"
+},
+"hair3": {
+"row": 36,
+"z": 120,
+"has": [
+"idle",
+"walk",
+"run",
+"jump",
+"slash",
+"backslash",
+"halfslash",
+"thrust",
+"spellcast",
+"combat_idle"
+],
+"def": "hair/spiky/hair_spiked.json"
+},
+"pants_white": {
+"row": 37,
+"z": 20,
+"has": [
+"idle",
+"walk",
+"run",
+"jump",
+"slash",
+"backslash",
+"halfslash",
+"thrust",
+"spellcast",
+"combat_idle"
+],
+"def": "legs/pants/legs_pants.json"
+},
+"chain": {
+"row": 38,
+"z": 50,
+"has": [
+"idle",
+"walk",
+"run",
+"jump",
+"slash",
+"thrust",
+"spellcast"
+],
+"def": "torso/torso_chainmail.json"
+},
+"tabard_sky": {
+"row": 39,
+"z": 55,
+"has": [
+"walk",
+"slash",
+"thrust",
+"spellcast"
+],
+"def": "torso/jacket/torso_jacket_tabard.json"
+},
+"tabard_forest": {
+"row": 40,
+"z": 55,
+"has": [
+"walk",
+"slash",
+"thrust",
+"spellcast"
+],
+"def": "torso/jacket/torso_jacket_tabard.json"
+},
+"helm3": {
+"row": 41,
+"z": 130,
+"has": [
+"idle",
+"walk",
+"run",
+"jump",
+"slash",
+"backslash",
+"halfslash",
+"thrust",
+"spellcast",
+"combat_idle"
+],
+"def": "headwear/helmets/helmets/hat_helmet_spangenhelm_viking.json"
+},
+"cape_navy#0": {
+"row": 42,
+"z": 85,
+"has": [
+"idle",
+"walk",
+"slash",
+"thrust",
+"spellcast"
+],
+"def": "torso/cape/cape_solid.json"
+},
+"cape_navy#1": {
+"row": 43,
+"z": 5,
+"has": [
+"idle",
+"walk",
+"slash",
+"thrust",
+"spellcast"
+],
+"def": "torso/cape/cape_solid.json"
+},
+"cape_sky#0": {
+"row": 44,
+"z": 85,
+"has": [
+"idle",
+"walk",
+"slash",
+"thrust",
+"spellcast"
+],
+"def": "torso/cape/cape_solid.json"
+},
+"cape_sky#1": {
+"row": 45,
+"z": 5,
+"has": [
+"idle",
+"walk",
+"slash",
+"thrust",
+"spellcast"
+],
+"def": "torso/cape/cape_solid.json"
+},
+"hood_navy": {
+"row": 46,
+"z": 130,
+"has": [
+"idle",
+"walk",
+"run",
+"jump",
+"slash",
+"backslash",
+"halfslash",
+"thrust",
+"spellcast",
+"combat_idle"
+],
+"def": "headwear/coverings/hoods/hat_hood_cloth.json"
+},
+"capf_forest": {
+"row": 47,
+"z": 130,
+"has": [
+"idle",
+"walk",
+"run",
+"jump",
+"slash",
+"backslash",
+"halfslash",
+"thrust",
+"spellcast",
+"combat_idle"
+],
+"def": "headwear/hats/caps/hat_cap_leather.json"
+},
+"feather": {
+"row": 48,
+"z": 131,
+"has": [
+"idle",
+"walk",
+"run",
+"jump",
+"slash",
+"backslash",
+"halfslash",
+"thrust",
+"spellcast",
+"combat_idle"
+],
+"def": "headwear/hats/caps/hat_cap_leather_feather.json"
+},
+"hatm_maroon": {
+"row": 49,
+"z": 130,
+"has": [
+"idle",
+"walk",
+"run",
+"jump",
+"slash",
+"backslash",
+"halfslash",
+"thrust",
+"spellcast",
+"combat_idle"
+],
+"def": "headwear/hats/magic/hat_magic_celestial_moon.json"
+},
+"hat_sky": {
+"row": 50,
+"z": 130,
+"has": [
+"idle",
+"walk",
+"run",
+"jump",
+"slash",
+"backslash",
+"halfslash",
+"thrust",
+"spellcast",
+"combat_idle"
+],
+"def": "headwear/hats/magic/hat_magic_celestial.json"
+},
+"sash_orange": {
+"row": 51,
+"z": 65,
+"has": [
+"walk",
+"slash",
+"thrust",
+"spellcast"
+],
+"def": "torso/waist/belt_sash.json"
+},
+"kimono": {
+"row": 52,
+"z": 30,
+"has": [
+"idle",
+"walk",
+"slash",
+"thrust",
+"spellcast"
+],
+"def": "torso/dresses/kimono/dress_kimono.json"
+},
+"kimono2#0": {
+"row": 53,
+"z": 31,
+"has": [
+"idle",
+"walk",
+"slash",
+"thrust",
+"spellcast"
+],
+"def": "torso/dresses/kimono/dress_kimono_oversize.json"
+},
+"obi": {
+"row": 54,
+"z": 65,
+"has": [
+"idle",
+"walk",
+"run",
+"jump",
+"slash",
+"backslash",
+"halfslash",
+"thrust",
+"spellcast",
+"combat_idle"
+],
+"def": "torso/waist/obi/belt_obi.json"
+}
+}
+}
