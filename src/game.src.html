@@ -184,16 +184,34 @@ body.px .pd .sl{z-index:1;left:7px;top:5px;color:#e9d3a7;text-shadow:0 1px 0 #00
 body.px #tip{border:8px solid transparent!important;border-image:url(@@A:ui_tip@@) 6 fill/12px stretch!important;background:none!important;border-radius:0!important;image-rendering:pixelated}
 body.px .xb,body.px #pn .qbar{border-radius:0!important;box-shadow:0 0 0 2px #6d4b27}
 body.px .eqi,body.px .eqs,body.px .eqt,body.px #dg img{image-rendering:pixelated}
+/* ===== 主页面(第二十轮):打开游戏的第一页。左边 = 版本号 + 更新日志 / 操作说明,右边 = 菜单按钮;背后是暂停的主城画面 ===== */
+#home{position:absolute;inset:0;z-index:7;container-type:size;display:flex;gap:2.4cqw;padding:3.2cqh 3cqw;box-sizing:border-box;background:linear-gradient(90deg,rgba(14,10,24,.82),rgba(14,10,24,.55) 62%,rgba(14,10,24,.78));border-radius:8px;color:#f6ead2;font-size:clamp(11px,1.55cqw,24px);line-height:1.6}
+#home[hidden]{display:none}
+#home .hl{flex:1 1 0;min-width:0;display:flex;flex-direction:column;background:linear-gradient(180deg,#fff8e8,#f4e0b8);color:#4a2c14;border:3px solid #7a4a22;box-shadow:inset 0 0 0 3px #f7d58a,0 8px 28px rgba(0,0,0,.5);border-radius:14px;padding:1.6cqh 1.8cqw;box-sizing:border-box}
+#home .hl h1{margin:0;font-family:FPX12,sans-serif;font-weight:400;font-size:2.6em;line-height:1.1;color:#7a3a08;letter-spacing:.06em}
+#home .hl .hv{margin:.2em 0 .5em;color:#8a6a4a;font-size:.92em}#home .hl .hv b{background:#e8890c;color:#fff;border-radius:4px;padding:0 .4em;margin-right:.4em}
+#home .hs{flex:1;overflow-y:auto;padding-right:.5em;border-top:2px dashed rgba(122,74,34,.35);padding-top:.4em}
+#home .hs h3{margin:.5em 0 .15em;font-size:1em;color:#7a3a08}#home .hs h3 span{color:#8a6a4a;font-weight:400;font-size:.88em;margin-left:.5em}
+#home .hs ul{margin:0 0 .3em;padding-left:1.3em}#home .hs li{margin:.1em 0}
+#home .hr{flex:0 0 31%;display:flex;flex-direction:column;justify-content:center;gap:1.5cqh}
+#home .hr button{display:block;width:100%;padding:.55em .6em;font:inherit;font-size:1.15em;font-weight:900;cursor:pointer;color:#fff;background:linear-gradient(180deg,#ffb84d,#e8770c);border:2px solid #6b3008;border-radius:10px;box-shadow:0 3px 0 #6b3008;text-shadow:0 1px 0 #6b3008}
+#home .hr button:hover:not(:disabled),#home .hr button.on{filter:brightness(1.12);transform:translateY(-1px)}
+#home .hr button:disabled{filter:grayscale(1) brightness(.75);cursor:default}
+#home .hr button small{display:block;font-size:.68em;font-weight:400;opacity:.95}
+#home .hm{min-height:3.2em;font-size:.9em;color:#ffe8a3;text-align:center}#home .hm button{display:inline-block;width:auto;font-size:.9em;padding:.2em .8em;margin:.3em .3em 0}
+body.px #home .hl{border:10px solid transparent!important;border-image:url(@@A:ui_panel@@) 6 fill/12px stretch!important;background:none!important;border-radius:0!important;image-rendering:pixelated}
+body.px #home .hr button{border:2px solid transparent!important;border-image:url(@@A:ui_btn@@) 4 fill/8px stretch!important;background:none!important;border-radius:0!important;box-shadow:none!important;image-rendering:pixelated;text-shadow:0 1px 0 #7a3a08,1px 0 0 #7a3a08,-1px 0 0 #7a3a08}
+body.px #home .hr button.on,body.px #home .hr button:hover:not(:disabled){border-image-source:url(@@A:ui_btn_on@@)!important;text-shadow:0 1px 0 #1e5a2a,1px 0 0 #1e5a2a,-1px 0 0 #1e5a2a}
 </style>
 </head>
 <body>
-<div id="wrap"><canvas id="c" width="640" height="360"></canvas><div id="tb"><button id="bb" data-l="背包" title="背包 (B)">🎒</button><button id="sb" data-l="技能" title="技能 (T)">🌟</button><button id="ib" data-l="商城" title="商城 (P)">🏪</button><button id="fb" data-l="精灵" title="精灵 (Y)">🧚</button><button id="pb" data-l="宠物" title="宠物 (G)">🐤</button><button id="qb" data-l="任务" title="任务 (Q)" hidden>📜</button><button id="db" data-l="签到" title="每日签到">📅<i class="rd" id="dbd"></i></button><button id="mb" data-l="声音" title="声音 (M)">🔊</button></div><div id="bag" hidden></div><div id="tip" hidden></div><div id="sk" hidden></div><div id="pn" hidden></div></div>
+<div id="wrap"><canvas id="c" width="640" height="360"></canvas><div id="tb"><button id="bb" data-l="背包" title="背包 (B)">🎒</button><button id="sb" data-l="技能" title="技能 (T)">🌟</button><button id="ib" data-l="商城" title="商城 (P)">🏪</button><button id="fb" data-l="精灵" title="精灵 (Y)">🧚</button><button id="pb" data-l="宠物" title="宠物 (G)">🐤</button><button id="qb" data-l="任务" title="任务 (Q)" hidden>📜</button><button id="db" data-l="签到" title="每日签到">📅<i class="rd" id="dbd"></i></button><button id="mb" data-l="声音" title="声音 (M)">🔊</button></div><div id="bag" hidden></div><div id="tip" hidden></div><div id="sk" hidden></div><div id="pn" hidden></div><div id="home" hidden></div><input type="file" id="homeF" accept=".json,application/json" hidden></div>
 <div id="cm" hidden></div><div id="dg" class="cl" hidden></div>
 <div class="sbar"><span id="fpsT" class="tag" style="margin-right:auto;align-self:center"></span><button id="setb" title="设置 (Esc)">⚙️ 设置</button></div>
-<p class="tip">← → / A D 移动(连按两次快跑) · K / ↑ 跳跃 · W+J / S+J 特殊普攻(学会二段跳后空中再按) · J 攻击(下劈 → 上挑 → 直戳 → 下劈 循环,按住蓄力重击;跑步中按 J = 冲刺直戳) · L 换武器 · H U I O 技能 · 空格 / W+空格 / S+空格 / WW+空格 剑士进阶技能(转职后) · 1 2 3 喝药水 · S 捡起地上的掉落物 · B 背包(右键物品弹出菜单,装备可拖动穿戴) · T 技能栏 · Q 任务 · P 商城 · Y 精灵 · G 宠物 · 装备翅膀后空中再按跳跃=飞行(W/S 升降、A/D 方向) · Esc / ⚙️ 设置(暂停、返回城镇、帧数、全屏)</p>
+<p class="tip">← → / A D 移动(连按两次快跑) · K / ↑ 跳跃 · W+J / S+J 特殊普攻(学会二段跳后空中再按) · J 攻击(下劈 → 上挑 → 直戳 → 下劈 循环,按住蓄力重击;跑步中按 J = 冲刺直戳) · L 换武器 · H U I O 技能 · 空格 / W+空格 / S+空格 / WW+空格 剑士进阶技能(转职后) · 1 2 3 喝药水 · S 捡起地上的掉落物 · B 背包(左键点物品弹出菜单:使用 / 穿戴 / 出售,装备可拖动穿戴) · T 技能栏 · Q 任务 · P 商城 · Y 精灵 · G 宠物 · 装备翅膀后空中再按跳跃=飞行(W/S 升降、A/D 方向) · Esc / ⚙️ 设置(暂停、返回城镇、帧数、全屏)</p>
 <script>
 // 游戏版本:build.py 按它给输出文件命名(out/无名之旅_v版本.html),设置页也显示;每次发新版改这里
-const GAMEV='1.19';
+const GAMEV='1.20';
 // x 是当前的绘图上下文:平时是主画布;像素特效层(PXL,P2)绘制期间临时换成 640×360 的低分辨率图层
 const cv=document.getElementById('c');let x=cv.getContext('2d');const VW=640,VH=360,WW=3200,GY=300;
 // 渲染分辨率:电脑端 1920×1080(逻辑坐标仍是 640×360,整体放大 3 倍绘制,文字和像素都更清晰);手机端 1280×720
@@ -356,11 +374,14 @@ function trDesc(k){const q=TRT[k],pc=v=>+(v*100).toFixed(1)+'%';
 // 暴击率 / 闪避率词条(百分数):发型、戒指、耳坠带暴击率,铠甲带闪避率;按品质和系列成长,强化同样 +10%/级
 const JIDG=[2,2];
 // 第十九轮:装备的暴击 / 闪避词条改成数值显示(没有 %);CRPT 点暴击 = 1% 暴击率,DGPT 点闪避 = 1% 闪避率(换算不在游戏里说明)
-const CRPT=1223,DGPT=300;
+// 第二十轮重算:原来 1223 / 300 让属性石的 80~108 暴击、50~72 闪避几乎等于 0;改成 60 / 30 后低级属性石 ≈ 1.3% 暴击 / 1.7% 闪避,
+// 中级 ≈ 1.8% / 2.4%,五颗全镶同一项约 +9% 暴击 / +12% 闪避;装备词条按百分比不变换算(migIt v7),满配暴击约 50%、闪避约 25%(上限 35%)
+const CRPT=60,DGPT=30,CRPT0=1223,DGPT0=300;
 // 本版本平衡:史诗荒漠 +10 时,发型/戒指/耳坠各 4% 暴击、铠甲 3% 闪避
 function crdgAdd(slot,tier,g,s){const b=[.5,.75,1,1.25][tier]*[1,1.3,1.6,1.9][g||0];delete s.cr;delete s.dg;if(slot=='head'||slot=='ring'||slot=='ear')s.cr=Math.round(b*CRPT);if(slot=='body')s.dg=Math.round(b*.75*DGPT)}  // 第十九轮:存数值(CRPT / DGPT 换算成百分比)
-function migIt(it){if(it&&!it.v4){crdgAdd(it.slot,it.tier,it.g,it.s);it.v3=it.v4=it.v6=1}
-  if(it&&!it.v6){if(it.s.cr!=null)it.s.cr=Math.round(it.s.cr*CRPT);if(it.s.dg!=null)it.s.dg=Math.round(it.s.dg*DGPT);if((it.en||0)>ENMX){if(it.eb!=null)it.eb=it.eb*ENMX/it.en;it.en=ENMX}it.v6=1}  // v6(第十九轮):暴击 / 闪避百分比 → 数值;强化上限 +6,超出的压回 +6(加成按比例)
+function migIt(it){if(it&&!it.v4){crdgAdd(it.slot,it.tier,it.g,it.s);it.v3=it.v4=it.v6=it.v7=1}
+  if(it&&!it.v6){if(it.s.cr!=null)it.s.cr=Math.round(it.s.cr*CRPT);if(it.s.dg!=null)it.s.dg=Math.round(it.s.dg*DGPT);if((it.en||0)>ENMX){if(it.eb!=null)it.eb=it.eb*ENMX/it.en;it.en=ENMX}it.v6=it.v7=1}
+  if(it&&!it.v7){if(it.s.cr!=null)it.s.cr=Math.max(1,Math.round(it.s.cr*CRPT/CRPT0));if(it.s.dg!=null)it.s.dg=Math.max(1,Math.round(it.s.dg*DGPT/DGPT0));it.v7=1}  // v7(第二十轮):按旧换算 1223 / 300 存的数值 → 新换算 60 / 30(百分比不变)  // v6(第十九轮):暴击 / 闪避百分比 → 数值;强化上限 +6,超出的压回 +6(加成按比例)
 if(it&&!it.v5){if((it.slot=='sword'||it.slot=='staff')&&it.s.atk)it.s.atk+=WPN5;it.v5=1}}  // v5:武器攻击 +5(2026-10-12)
 // 白色词条(攻击 / 防御 / 生命 / 魔力 / 暴击率 / 闪避率)在基础值 ±10% 内随机;fix=1 时取基础值(商店展示、算范围用)
 const RV=.1,WPN5=5;  // 所有武器攻击 +5(加在随机之前,商店 / 掉落 / 旧存档都一样)
@@ -374,7 +395,7 @@ function gen(slot,tier,name,g,tr,fix){g=g||0;const m=TR[tier][2]*SER[g].m,md=TR[
   crdgAdd(slot,tier,g,s);
   if(!fix)for(const k in s){const v=s[k],r=v*(1-RV)+Math.random()*v*2*RV;s[k]=Math.max(1,Math.round(r))}
   const pr=Math.round((s.atk||0)*6+(s.def||0)*6+(s.hp||0)*.8+(s.mp||0)*.8)+2;
-  const it={slot,tier,s,pr,v2:1,v3:1,v4:1,v5:1,v6:1,n:name||(g?TR[tier][0]+'·'+(tr?TRT[tr][0]:SER[g].n)+SL[slot][0]:TR[tier][0]+SL[slot][0])};if(g)it.g=g;if(tr)it.tr=tr;return it}
+  const it={slot,tier,s,pr,v2:1,v3:1,v4:1,v5:1,v6:1,v7:1,n:name||(g?TR[tier][0]+'·'+(tr?TRT[tr][0]:SER[g].n)+SL[slot][0]:TR[tier][0]+SL[slot][0])};if(g)it.g=g;if(tr)it.tr=tr;return it}
 const curSer=()=>cur<=2?0:cur<=4?1:cur<=7?2:3;  // 第六、七关也掉荒漠系列;第八关起掉雪原系列
 // 掉落:按当前关卡掉对应系列;第五关的发型/铠甲/戒指/耳坠随机带 5 种特性之一,武器没有特性
 function rollItem(t,g){const ks=Object.keys(SL),sl=ks[Math.random()*6|0];g=g!=null?g:curSer();
@@ -684,7 +705,8 @@ const LVMAX=50,SPLV=2,expNeed=l=>Math.round(150*Math.pow(l,1.5)+100);
 function lvUp(){while(lvl<LVMAX&&exp>=expNeed(lvl)){exp-=expNeed(lvl);lvl++;sp+=SPLV;sfx('lvl');VFX.spawn('radiant-heal',P.x+12,P.y+P.h,{s:1.3});const S=stats();P.hp=S.hp;P.mp=S.mp;tx('升级! Lv'+lvl,P.x-10,P.y-34,'#fff3bf')}if(lvl>=LVMAX)exp=0}
 function init(full){
   if(full){lvl=1;exp=0;gold=0;sp=0;EQ={sword:gen('sword',0,'新手剑'),staff:gen('staff',0,'新手法杖')};BAG=[];LN={sword:Array(8).fill(0),staff:Array(8).fill(0)};JOB=null;STN=stnNew();CLR=[];STAR={};LVSTAR=1;QD=qNew();MAT={egg:0};LUCK=0;R19=r19New();PS={};KP=0;KPS=0;KPC=0;SIGN={day:'',n:0,str:0,last:0,prev:''};OWN=[];WEAR={fash:null,wing:null};SPR=sprNew();PET=petNew();HAM=hamNew();POT=potNew();QS=['hp1','mp1','rev'];RVD=''}
-  P={x:60,y:GY-32,w:24,h:32,vx:0,vy:0,f:1,at:0,cd:0,inv:0,gr:true,an:0,py:0,hit:new Set(),mode:'sword',cmb:0,ct:0,ch:0,hb:null,sk:null};
+  if(full)LMODE='sword';
+  P={x:60,y:GY-32,w:24,h:32,vx:0,vy:0,f:1,at:0,cd:0,inv:0,gr:true,an:0,py:0,hit:new Set(),mode:LMODE,cmb:0,ct:0,ch:0,hb:null,sk:null};
   sfxAll();const S=stats();P.hp=S.hp;P.mp=S.mp;
   const LM=[1,2.2,4,6,8,10,12,14,16,18,6][cur-1];PL=cur>=11?[{x:0,y:GY,w:WW}]:cur==10?PL10.map(p=>({...p,x0:p.x,y0:p.y})):cur==9?PL9.map(p=>({...p})):cur==8?PL8.map(p=>({...p})):cur==7?PL7.map(p=>({...p})):cur==6?lv6Plats():[PL1,PL2,PL3,PL4,PL5][cur-1];if(![E1,E2,E3,E4,E5,E6,E7,E8,E9,E10,[]][cur-1].some(a=>FLYK[a[0]]))PL=PL.filter(p=>p.y>=GY||p.blk||p.x>=ARL);/* 没有飞行小怪的关卡去掉浮空平台(冰墙、首领场地里的保留)*/LDM=1+(LM-1)*.6;MOONK=1;MOONR=0;DOOR7=0;HOWLT=9;{const W_=mkWQ([E1,E2,E3,E4,E5,E6,E7,E8,E9,E10,[]][cur-1]);WQ=W_.q;WT=1.2;WI=0;WLM=LM;E=W_.rest.map(a=>mk(a[0],a[1],LM))}WZ=[];HZ=[];SNW={t:3,L:[]};g8Init();g9Init();s10Init();if(cur==9){WQ[1].push('oni');WQ[2].push('oni')}if(cur==10){WQ[1].push('swing');WQ[2].push('swing');WQ[3].push('swing')}P.cryT=0;P.heat=0;P.ovh=0;P.burn=0;
   // 第十六轮:首领生命 BHN × EHP 7 × 星级倍率(按「同关精良 +5 装备打 60~90 秒」校准:1600 / 2000 / 2850 … 9000),防御 BDF + 星级加值;攻击 = 关卡倍率 × 星级倍率
@@ -709,7 +731,9 @@ const sgn=v=>v<0?-1:1;
 const CDMG={slime:6,bat:5,skel:8,boss:14,mage:10,snake:7,ape:9,king:12,ysco:7,bsco:8,sco:12,spi:6,ost:8,andr:12,pen:7,pen2:8,seal:8,seal2:9,bear:14,dog:9,dog2:10,wiz:15,gfly:8,gfly2:9,gland:9,gland2:10,yin:14,cradle:0,imp:10,fwisp:9,golem:12,oni:15,lava:16,lclone:0,wimp:9,eye:8,swing:12,gui:14,ham:14};
 let noCombo=0;
 // 防御(第十九轮重做):每 DEFP 点防御减伤 1%,最多 DEFMX(75%)。旧公式(递减减伤)删除
-const DEFP=77,DEFMX=.75,defR=def=>Math.min(DEFMX,Math.max(0,def)/DEFP/100),dmgIn=(raw,def)=>Math.max(1,Math.round(raw*(1-defR(def))));
+// 第二十轮重算 77 → 12:按「同关稀有 / 史诗 +3~+6 装备 + 等级 + 属性石」的防御,第一~二关约 1~2%,第五关约 15%,第七关约 25%,
+// 第十关约 45%,满级满配(史诗雪原 +6、五颗防御石、精灵防御点满)才碰到 75% 上限。77 时全程只有 0~10%,防御形同虚设
+const DEFP=12,DEFMX=.75,defR=def=>Math.min(DEFMX,Math.max(0,def)/DEFP/100),dmgIn=(raw,def)=>Math.max(1,Math.round(raw*(1-defR(def))));
 function hurt(b,o){if(DECOY||GM.god||P.inv>0||(P.sk&&P.sk.inv))return false;const S=stats();
   // 闪避:按闪避率完全躲开这次伤害(不清连击),之后 0.4 秒无敌,避免贴身判定连续触发
   if(Math.random()<S.dg/100){P.inv=.4;tx('闪避成功!',P.x-8,P.y-10,'#a5d8ff');ghost('#a5d8ff',.3);syn('blink');return false}
@@ -743,14 +767,20 @@ function drawGate(){}  // 第十三轮:关卡里不再显示「清除本区域 �
 function poison(t,p){if(GM.god)return;const on=P.ps>0;if(!on)P.pt=.5;P.pp=on?Math.max(P.pp,p):p;P.ps=Math.max(P.ps||0,t);tx('中毒!',P.x,P.y-22,'#8ce99a')}
 // 怪物僵直(2026-10-13 第十三轮):所有怪物(含首领)和玩家一样 0.3 秒;取消连击保护(原来 2 秒内被打僵 4 次 → 霸体反击);hst = 挨打后仰动作计时
 const HSTUN=.3;
-function hitStun(e){if(e.air)e.avy=Math.min(e.avy,-230);e.hst=HSTUN;if(e.sa||e.max)return;e.st=Math.max(e.st||0,HSTUN)}
+// 第二十轮:小怪也改用韧性(mobPz),挨打只有后仰动作(hst)、照常掉血、继续往前推进,不再每下都僵直 —— 法师普攻频率高,原来能把小怪钉死在原地
+function hitStun(e){if(e.air)e.avy=Math.min(e.avy,-230);e.hst=HSTUN}
 // 首领韧性(第十五轮,参考动作游戏常见的 poise / 韧性条做法):首领挨打只有后仰动作、照常掉血,但不再每下都僵直;
 // 伤害同时扣韧性池(最大生命 PZK),扣空 = 破韧:僵直 PZST 秒(打穿超过半条 → 大破韧 PZST2 秒),之后连同僵直再加 PZIM 秒免疫韧性伤害
 // (免疫期间的伤害不累计,防止连续破韧压制);每次有效命中都会重置回复延迟 PZRD,停手后每秒回复 PZRG 的韧性池
 const PZK=.07,PZST=1.1,PZST2=1.8,PZIM=3,PZRD=2.5,PZRG=.25;
 function poiseHit(e,dm){if(!e.pzm)e.pzm=e.po=Math.max(50,e.max*PZK);e.prd=PZRD;if(e.pim>0)return;e.po-=dm;
   if(e.po<=0){const big=-e.po>e.pzm*.5,t=big?PZST2:PZST;e.st=Math.max(e.st||0,t);e.pim=t+PZIM;e.po=e.pzm;shake=Math.max(shake,big?.35:.2);ring(e.x+e.w/2,e.y+e.h/2,6,e.w*.8+30,big?'#ffd43b':'#fff',.35,5)}}
-function poiseStep(e,dt){e.pim=(e.pim||0)-dt;e.prd=(e.prd||0)-dt;if(e.pzm&&e.prd<=0&&e.pim<=0)e.po=Math.min(e.pzm,e.po+e.pzm*PZRG*dt)}
+// 小怪韧性:池 = 生命上限 × MPZK(同关普攻约 2~3 下打空),打空僵直 MPZST 秒(打穿超过半条 MPZST2),之后连同僵直 MPZIM 秒不再累计;
+// 停手 MPZRD 秒后每秒回复 MPZRG。霸体(e.sa)的小怪不吃韧性。击飞 / 苍蓝巨剑 / 冻结等控制技能直接写 e.st,不受影响
+const MPZK=.45,MPZST=.45,MPZST2=.8,MPZIM=1.6,MPZRD=1.5,MPZRG=.5;
+function mobPz(e,dm){if(e.sa)return;if(!e.pzm)e.pzm=e.po=Math.max(1,(e.hp0||e.hp)*MPZK);e.prd=MPZRD;if(e.pim>0)return;e.po-=dm;
+  if(e.po<=0){const t=-e.po>e.pzm*.5?MPZST2:MPZST;e.st=Math.max(e.st||0,t);e.pim=t+MPZIM;e.po=e.pzm}}
+function poiseStep(e,dt){e.pim=(e.pim||0)-dt;e.prd=(e.prd||0)-dt;if(e.pzm&&e.prd<=0&&e.pim<=0)e.po=Math.min(e.pzm,e.po+e.pzm*(e.max?PZRG:MPZRG)*dt)}
 // ===== 怪物群攻击协调:同一时间最多 2 只小怪在出招(首领战时 1 只),远程攻击同时只允许 1 只,两次出招至少错开 0.35 秒 =====
 let GT=0,ATKT=-9;  // GT:游戏时间(暂停不走);ATKT:上一次有怪物开始出招的时间
 // 怪物此刻是否在一套攻击动作里:0 没有 · 1 近战 · 2 远程
@@ -959,7 +989,7 @@ function dealt(e,dm,o){if(e.ug)return;
   if(e.hdr>0)dm=Math.max(1,Math.round(dm*(1-e.hdr)));  // 瓜子大王吃瓜子壳:减伤 + 护盾 hsd(e.sh 被首领音效占用)
   if(e.hsd>0){const a=Math.min(e.hsd,dm);e.hsd-=a;dm-=a;tx('🛡'+a,e.x+e.w/2,e.y-16,'#ffe8a3');if(dm<=0){e.fl=.08;return}}
   if(e.sh>0){const a=Math.min(e.sh,dm);e.sh-=a;dm-=a;tx('🛡'+a,e.x+e.w/2,e.y-16,'#74c0fc');if(dm<=0){e.fl=.08;return}}
-  e.hp-=dm;e.fl=.15;if(e.max)poiseHit(e,dm);hitFX(e,cr);tx(dm,e.x+e.w/2,e.y-4,cr?'#d68cff':'#fff',cr?'c':'d');elemChk(e)}
+  e.hp-=dm;e.fl=.15;if(e.max)poiseHit(e,dm);else if(!(o&&o.ns))mobPz(e,dm);hitFX(e,cr);tx(dm,e.x+e.w/2,e.y-4,cr?'#d68cff':'#fff',cr?'c':'d');elemChk(e)}
 // 元素印记(第十六轮):雷印 + 火印 同时存在 → 爆燃(攻击 ×1.5 额外伤害,清掉印记)。ELX 防止爆燃伤害再触发爆燃
 let ELX=0;
 function elemChk(e){if(ELX||!(e.mkT>0&&e.mkF>0)||e.hp<=0)return;ELX=1;e.mkT=e.mkF=0;const cx=e.x+e.w/2,cy=e.y+e.h/2;
@@ -1024,6 +1054,8 @@ const skB=(w,i,l)=>{const m=SKM[w][i];l=l||LN[w][i]||1;return m?[m[0]+m[2]*(l-1)
 const skD=(w,i,S)=>{const b=skB(w,i);return b?(b[0]+S.atk*b[1])*(w=='sword'&&P.qiKE>GT?QIK:1):0};  // 剑势全开:2.2 秒内剑技能 ×1.4
 const SK_KEY='wuming-save-v1';
 // 存档格式版本 SAVEV:存档里写 sv(格式版本)和 gv(保存时的游戏版本);读档时按 SAVEMIG 依次升级旧格式。以后新增道具 / 技能 / 字段:在 SAVEMIG 末尾加一步并把 SAVEV +1,缺的字段在 loadSave 里给默认值
+// 第二十轮:记住上次用的武器(剑士 / 法师)LMODE,存档字段 pm;进关卡 / 回城 / 重新打开游戏都沿用(旧存档没有 pm = 剑士)
+let LMODE='sword';
 const SAVEV=2,SAVEMIG=[null,null,d=>{d.MAT=Object.assign({egg:0},d.MAT);d.R19=d.R19||{}}];  // 1 → 2:第十九轮(MAT 新道具、R19)
 // ===== 防重复领取 =====
 // ① 防多开:同一个浏览器只让最新打开的页面运行,旧页面立刻存一次档后暂停(否则两个页面各自签到 / 领奖再互相覆盖存档,就能重复领取)
@@ -1033,7 +1065,7 @@ function dupChk(){if(DUP)return;let v=null;try{v=localStorage.getItem('wuming-ta
 addEventListener('storage',e=>{if(e.key=='wuming-tab')dupChk()});
 // ② 防调时间:记下见过的最晚时间 TMX,系统时间被调回 10 分钟以上时,签到 / 每日任务 / 每日限购暂停,直到时间追上
 let TMX=0;const timeBad=()=>Date.now()<TMX-600000,TBMSG='⚠️ 检测到系统时间被调回过,签到、每日任务和每日限购暂时不可用,等时间恢复正常后再来';
-function save(){if(DUP)return;TMX=Math.max(TMX,Date.now());try{localStorage.setItem(SK_KEY,JSON.stringify({lvl,exp,gold,sp,EQ,BAG,LN,STN2:STN,CLR,STAR,QD,MAT,LUCK,PS,KP,KPS,KPC,SIGN,OWN,WEAR,SPR,PET,HAM,POT,QS,RVD,TMX,JOB,R19,sw01:1,v16:1,sv:SAVEV,gv:GAMEV}))}catch(e){}}
+function save(){if(DUP)return;TMX=Math.max(TMX,Date.now());try{localStorage.setItem(SK_KEY,JSON.stringify({lvl,exp,gold,sp,EQ,BAG,LN,STN2:STN,CLR,STAR,QD,MAT,LUCK,PS,KP,KPS,KPC,SIGN,OWN,WEAR,SPR,PET,HAM,POT,QS,RVD,TMX,JOB,R19,pm:P?P.mode:LMODE,sw01:1,v16:1,sv:SAVEV,gv:GAMEV}))}catch(e){}}
 function loadSave(){try{const d=JSON.parse(localStorage.getItem(SK_KEY));if(d&&d.lvl){for(let v=(d.sv|0)+1;v<=SAVEV;v++)if(SAVEMIG[v])SAVEMIG[v](d);lvl=d.lvl;exp=d.exp;gold=d.gold;sp=d.sp;EQ=d.EQ;BAG=d.BAG;LN=d.LN;STN=stnLoad(d);CLR=d.CLR||[];STAR=d.STAR||{};for(const n of CLR)if(!(STAR[n]>=1))STAR[n]=1;
     // 第十六轮旧存档:等级压到 50、技能等级压到 5(多出来的技能点按新花费退还)、旧被动换算成新被动(9 级 → 5 级),经验按新曲线清零
     if(!d.v16){lvl=Math.min(LVMAX,lvl);exp=0;let rf=0;for(const w of ['sword','staff'])for(let i=0;i<8;i++){const v=LN[w][i]|0;if(v>LNMAX){for(let L=LNMAX+1;L<=v;L++)rf+=skCost(w+i,L).sp;LN[w][i]=LNMAX}}
@@ -1045,7 +1077,7 @@ function loadSave(){try{const d=JSON.parse(localStorage.getItem(SK_KEY));if(d&&d
     PET=Object.assign(petNew(),d.PET);HAM=Object.assign(hamNew(),d.HAM);HAM.b=Object.assign(hamNew().b,HAM.b);
     // 旧存档没有消费记录:按已拥有的时装 / 翅膀价格补算
     KPS=d.KPS!=null?d.KPS:OWN.reduce((t,k)=>t+COSD[k].kp,0);KPC=d.KPC||0;POT=d.POT||potNew();for(const k in POT)if(!POTD[k]||!(POT[k]>0))delete POT[k];QS=(Array.isArray(d.QS)?d.QS:[]).concat([null,null,null]).slice(0,3).map((k,i)=>POTD[k]?k:['hp1','mp1','rev'][i]);RVD=d.RVD||'';  // 旧存档:送 8 瓶初级生命 + 8 瓶初级魔力
-    SIGN=Object.assign({day:'',n:0,str:0,last:0,prev:''},d.SIGN);TMX=d.TMX||0;JOB=d.JOB||null;for(const w of ['sword','staff']){LN[w]=LN[w]||[];while(LN[w].length<8)LN[w].push(0)}if(!d.sw01){const a=LN.staff;[a[0],a[1]]=[a[1],a[0]]}return true}}catch(e){}return false}
+    SIGN=Object.assign({day:'',n:0,str:0,last:0,prev:''},d.SIGN);TMX=d.TMX||0;JOB=d.JOB||null;LMODE=d.pm=='staff'?'staff':'sword';if(P)P.mode=LMODE;for(const w of ['sword','staff']){LN[w]=LN[w]||[];while(LN[w].length<8)LN[w].push(0)}if(!d.sw01){const a=LN.staff;[a[0],a[1]]=[a[1],a[0]]}return true}}catch(e){}return false}
 function clearSave(){try{localStorage.removeItem(SK_KEY)}catch(e){}}
 try{hasSave=!!localStorage.getItem(SK_KEY)}catch(e){}
 // ===== 技能特效系统:粒子、光环、刀光、残影、地裂、焦痕、光柱、闪屏、压暗、顿帧 =====
@@ -1704,7 +1736,7 @@ function update(dt){
   if(ah)P.ch+=dt;
   if(ar){ar=0;const hv=P.ch>=.7;P.ch=0;if(P.cd<=0&&!P.sk)strike(hv)}
   if(uq||dq){const u=uq;uq=dq=0;if(!stn&&P.cd<=0&&!P.sk)special(u,S)}
-  if(lq){lq=0;P.mode=P.mode=='sword'?'staff':'sword';P.ch=0}
+  if(lq){lq=0;P.mode=LMODE=P.mode=='sword'?'staff':'sword';P.ch=0}
   P.kbx=(P.kbx||0)*Math.max(0,1-dt*7);flyPhys(dt,S);if(P.lv){if(!P.gr||P.sk)P.lv=0;else{P.lv*=Math.exp(-6*dt);if(Math.abs(P.lv)<6)P.lv=0}}P.x+=(P.vx+P.kbx+(P.lv||0))*dt;P.x=Math.max(bossOn?2570:0,Math.min(xMax(),P.x));
   P.py=P.y;P.y+=P.vy*dt;P.gr=false;if(P.fly){const top=cur==5&&bossOn?CY+4:6;if(P.y<top){P.y=top;P.vy=0}}
   P.onP=null;for(const p of PL)if(!p.gone&&P.vy>=0&&P.py+P.h<=p.y+1&&P.y+P.h>=p.y&&P.x+P.w>p.x&&P.x<p.x+p.w){P.y=p.y-P.h;P.vy=0;P.gr=true;P.dj=0;P.fly=0;P.onP=p}
@@ -1724,7 +1756,7 @@ function update(dt){
     for(const e of all)if(!b.hit.has(e)&&ov({x:b.x-b.r,y:b.y-b.r,w:2*b.r,h:2*b.r},e)){b.hit.add(e);hitFx=b.wv?'wave':null;if(b.fb)mkF(e);dealt(e,Math.round(b.dmg*(.9+Math.random()*.2)));hitFx=null;if(b.fb){explode(b.x+d*6,b.y);SFX5('r-burst',e.x+e.w/2,e.y+e.h/2,{s:1,life:.4,gr:.4});for(const o of all)if(o!==e&&!b.hit.has(o)&&!o.ug&&Math.abs(o.x+o.w/2-(e.x+e.w/2))<o.w/2+80&&Math.abs(o.y+o.h/2-(e.y+e.h/2))<90){mkF(o);dealt(o,Math.round(b.dmg*.4),{ns:1})}}if(b.sl)e.sl=2;if(!b.big&&!b.pierce)gone=true}
     if(gone)PB.splice(i,1)}
   for(const e of all){SFXB=e.max?1:0;  // 首领 AI 里的音效走外部素材
-    e.fl-=dt;e.hst=(e.hst||0)-dt;if(e.max)poiseStep(e,dt);e.mx=(e.mx||0)-dt;e.sl=(e.sl||0)-dt;e.ms=(e.ms||0)-dt;const ed=(e.sl>0?dt*.5:e.ms>0?dt*.6:dt)*STK().sp;  // 第十六轮:二 / 三星怪物动作快 6% / 12%
+    e.fl-=dt;e.hst=(e.hst||0)-dt;if(e.pzm)poiseStep(e,dt);e.mx=(e.mx||0)-dt;e.sl=(e.sl||0)-dt;e.ms=(e.ms||0)-dt;const ed=(e.sl>0?dt*.5:e.ms>0?dt*.6:dt)*STK().sp;  // 第十六轮:二 / 三星怪物动作快 6% / 12%
     e.ar=(e.ar||0)-dt;e.sct=(e.sct||0)-dt;e.bld=(e.bld||0)-dt;e.mkT=(e.mkT||0)-dt;e.mkF=(e.mkF||0)-dt;
     if(e.air){if(e.hold>0){e.hold-=dt;continue}if(e.hang>0&&e.avy>=0){e.hang-=dt;e.y+=Math.sin(GT*7+e.x)*.25;continue}e.avy+=2800*dt;e.y+=e.avy*dt;if(e.y>=e.ay0&&e.avy>0){e.y=e.ay0;e.air=0;e.st=Math.max(e.st||0,.3);burst(e.x+e.w/2,e.y+e.h,6,'rgba(205,195,175,.8)',90,{ad:0,s:4,l:.3})}continue}
     if(e.kbv){e.x+=e.kbv*dt;e.kbv*=Math.max(0,1-dt*(iceAt(e.x+e.w/2)?1.3:6));if(Math.abs(e.kbv)<15){e.kbv=0;e.bmp=null}else iceBump(e,dt)}
@@ -3397,8 +3429,8 @@ function loop(t){requestAnimationFrame(loop);const iv=1000/SET.fps,el=t-lastF;if
   const dt=Math.min(.033,(t-last)/1000||0);last=t;
   if(pn=='pet'&&HAM.ht&&t-(loop.ht||0)>1000){loop.ht=t;renderP()}  // 宠物蛋孵化倒计时
   bgmSet(st=='play'?(cur==8&&bossOn&&B.p3&&B.hp>0?null:'bgm'+cur+(bossOn&&B.hp>0?'b':'')):st=='town'?(MYS?'bgm11':'bgm0'):st=='map'?'bgm0':st=='lvsel'?(LVS.m?'bgm11':'bgm0'):null);  // 主城 bgm0;每关一首关卡曲 + 一首首领曲
-  $('tb').style.visibility=st=='play'||(st=='town'&&!DLG)?'':'hidden';  // 对话时隐藏菜单按钮,免得挡住对话框
-  $('qb').hidden=!(st=='play'||st=='town');{const d=$('dbd'),v=signed();if(d.hidden!=v)d.hidden=v}{const dl=!!DLG&&st=='town';if(document.body.classList.contains('dlg')!=dl)document.body.classList.toggle('dlg',dl)}if(st=='play'){update(dt);draw()}else if(st=='town'){townUpd(dt);drawTown()}else if(st=='map')drawMap();else if(st=='lvsel')drawLvSel()
+  $('tb').style.visibility=!HOME&&(st=='play'||(st=='town'&&!DLG))?'':'hidden';  // 对话时隐藏菜单按钮,免得挡住对话框
+  $('qb').hidden=!(st=='play'||st=='town');{const d=$('dbd'),v=signed();if(d.hidden!=v)d.hidden=v}{const dl=!!DLG&&st=='town';if(document.body.classList.contains('dlg')!=dl)document.body.classList.toggle('dlg',dl)}if(st=='play'){update(dt);draw()}else if(st=='town'){if(!HOME)townUpd(dt);drawTown()}else if(st=='map')drawMap();else if(st=='lvsel')drawLvSel()
   else if(chOn()){draw();drawChoice()}
   if(PAUSED&&(st=='play'||st=='town')){x.fillStyle='rgba(10,10,20,.55)';x.fillRect(0,0,VW,VH);CTG('⏸ 游戏已暂停',320,172,30);CT('按 Esc / 点击画面 / ⚙️ 继续',320,206,14,'#fff','center',3)}}
 function advance(){if(busy())return;if(chOn())chGo(CHI)}
@@ -3419,19 +3451,19 @@ function tipItem(it,from){const q=TR[it.tier];let h=`${eqImg(it,'eqt')}<b style=
   if(it.tr)h+=`<hr><b style="color:${TRT[it.tr][1]}">【${TRT[it.tr][0]}】${TRT[it.tr][2]}</b><br><span class="tg">${trDesc(it.tr)}</span><br><span class="tg">当前穿戴 ${TRT[it.tr][0]} ×${trCnt(it.tr)}</span>`;
   else if(!['sword','staff'].includes(it.slot)&&it.g!=2)h+=`<hr><span class="tg">无特性(第五关「荒漠」系列的发型/铠甲/戒指/耳坠才有特性)</span>`;
   const e=EQ[it.slot];if(from=='b'&&e)h+=`<hr><span class="tg">已穿戴:</span><br><b style="color:${TR[e.tier][1]}">${nm(e)}</b><br><span class="tg">${ST(e)}</span>`;
-  h+=`<hr><span class="tg">售价 ${sellPr(it)} 金币 · ${from=='b'?'双击穿戴 · 右键穿戴 / 出售 · 可拖到左边部位穿戴':'双击卸下 · 右键卸下 / 出售 · 可拖到右边卸下'}</span>`;return h}
+  h+=`<hr><span class="tg">售价 ${sellPr(it)} 金币 · ${from=='b'?'左键:穿戴 / 出售 · 双击直接穿戴 · 可拖到左边部位穿戴':'左键:卸下 / 出售 · 双击直接卸下 · 可拖到右边卸下'}</span>`;return h}
 // 道具背包里的条目:蛇蛋、高级幸运石、各级强化石(同种叠放在一格)
 function itemList(){const L=[];if(MAT.soul>0)L.push(['soul','💠','女神灵魂碎片',MAT.soul]);if(MAT.job>0)L.push(['job','⚜️','转职凭证',MAT.job]);if(MAT.hegg>0)L.push(['hegg',heggEm(),'仓鼠宠物蛋',MAT.hegg]);if(MAT.egg>0)L.push(['egg','🥚','蛇蛋',MAT.egg]);if(LUCK>0)L.push(['luck',mniEm('luck'),'高级幸运宝石',LUCK]);
   for(const k in MISC)if(MAT[k]>0)L.push([k,mniEm(k),MISC[k][0],MAT[k]]);R19.ats.forEach((g,i)=>L.push(['T'+i,mniEm('A'+g.q),ATSQ[g.q].n,1]));for(let l=1;l<=2;l++)for(let q=3;q>=0;q--)if(STN[l][q]>0)L.push(['s'+l+q,stnEm(l,q),stnName(l,q),STN[l][q]]);return L}
 const itemDesc=id=>id[0]=='T'?(g=>g?`${ATSQ[g.q].n}:<b style="color:#1c7ed6">${atsTxt(g)}</b>。在 🔥 熔炉镶嵌到装备上(每件装备 1 颗,新的会替换旧的;不能拆下,出售装备不返还)。出售价格 ${ATSQ[g.q].pr} 金币。`:'')(R19.ats[+id.slice(1)]):MISC[id]?MISC[id][2]+(id=='dbl'&&dblOn()?`<br><b>生效中,还剩 ${Math.ceil((R19.dbl-Date.now())/60000)} 分钟</b>`:''):id=='hegg'?'神秘地带「瓜子大王」掉落(5% 几率)。打开顶栏 🐤 宠物界面,花 10 分钟孵化成宠物仓鼠(已经有仓鼠时,多孵出来的小仓鼠会让它多嗑 3 次瓜子)。不能出售。':id=='soul'?'女神灵魂碎片:第四关首领「黑棘巨蝎」、第八关首领「怨婴 · 银太郎」、第十关首领「归蝇」各掉落一块(这张地图一共 3 块)。碎片里封着女神被夺走的一缕灵魂,在黑暗里会发出淡紫色的光。收集齐全后或许能让城里的女神像重新苏醒……不能出售。':id=='job'?'第六关首领「北极熊」掉落。打开技能栏(T),在剑士或法师页面里选择转职(只能转职一次)。不能出售。':id=='egg'?'迷雾森林的蛇掉落的蛋。每日任务会用到,也可以卖掉(每个 3 金币)。':id=='luck'?'强化时在强化师那里选用,本次强化成功率 +50%。完成每日任务或在商城随机物品栏购买。':`用于把装备强化到 +${id[1]*3-2} ~ +${id[1]*3}(每次消耗 1 颗),在强化师处使用。品质「${STQ[+id[2]].n}」:强化成功时这一级 +${Math.round(STQ[+id[2]].b*100)}% 装备属性(3 颗可在熔炉合成高一档品质)。出售价格 ${itemPr(id)} 金币 / 颗。`;
 const itemPr=id=>id[0]=='T'?(R19.ats[+id.slice(1)]?ATSQ[R19.ats[+id.slice(1)].q].pr:0):MISC[id]?MISC[id][3]:id=='egg'?3:id=='luck'||id=='job'||id=='soul'||id=='hegg'?0:Math.floor(STP2[+id[1]]*STQ[+id[2]].p/2);
 const itemCnt=id=>id[0]=='T'?(R19.ats[+id.slice(1)]?1:0):MISC[id]?MAT[id]|0:id=='hegg'?MAT.hegg||0:id=='soul'?MAT.soul||0:id=='job'?MAT.job||0:id=='egg'?MAT.egg||0:id=='luck'?LUCK:STN[+id[1]][+id[2]]||0;
-const potTip=k=>{const d=POTD[k];return `<b style="color:${d[1]};font-size:13.5px">${d[0]}</b><br><span class="tg">药水 · 持有 ${POT[k]||0} 瓶${QS.includes(k)?' · 快捷栏 '+(QS.indexOf(k)+1):''}</span><hr>${d[2]=='rev'?'倒下时使用:原地复活,恢复 50% 生命和魔力,2.5 秒无敌':'立即恢复 '+Math.round(d[3]*100)+'% 最大'+(d[2]=='hp'?'生命':'魔力')+' · 同类药水 '+POTCD+' 秒冷却'}<hr><span class="tg">右键:使用 / 放到快捷栏 / 出售${d[2]=='rev'?'':' · 双击使用'}</span>`};
+const potTip=k=>{const d=POTD[k];return `<b style="color:${d[1]};font-size:13.5px">${d[0]}</b><br><span class="tg">药水 · 持有 ${POT[k]||0} 瓶${QS.includes(k)?' · 快捷栏 '+(QS.indexOf(k)+1):''}</span><hr>${d[2]=='rev'?'倒下时使用:原地复活,恢复 50% 生命和魔力,2.5 秒无敌':'立即恢复 '+Math.round(d[3]*100)+'% 最大'+(d[2]=='hp'?'生命':'魔力')+' · 同类药水 '+POTCD+' 秒冷却'}<hr><span class="tg">左键:使用 / 放到快捷栏 / 出售${d[2]=='rev'?'':' · 双击使用'}</span>`};
 const COSSELL=2000;let CSC=0;  // 出售时装 / 翅膀:二次确认
 const cosId=r=>!r?null:r[0]=='w'?WEAR[r.slice(2)]:r[0]=='c'?r.slice(2):null;
 function renderBag(){
   const S=stats(),cell=(it,r,lab)=>`<button class="cl" data-r="${r}" style="${it?'border-color:'+TR[it.tier][1]+';':''}${sel==r?'background:rgba(255,212,59,.3);':''}">${lab&&r[0]=='e'?`<i class="sl">${lab}</i>`:''}${it?eqImg(it)+(it.en?'<sup>+'+it.en+'</sup>':'')+(it.tr?`<i class="tm" style="background:${TRT[it.tr][1]}">${TRT[it.tr][0][0]}</i>`:it.g?`<i class="tm" style="background:#868e96">${'旅林荒雪'[it.g]}</i>`:''):(r[0]=='e'?`<span style="opacity:.35">${SL[r.slice(2)][1]}</span>`:'')}</button>`;
-  const it=itOf(sel);let dt=bmsg||'<span class="tag">'+(canHover?'鼠标移到物品上查看说明;<b>右键</b>弹出菜单(穿戴 / 出售);也可以把装备、时装、翅膀<b>直接拖到左边</b>的部位上穿戴,拖回右边就卸下;双击直接穿戴 / 卸下。':'点一下物品查看说明,再点下方按钮穿戴、卸下或出售;<b>长按</b>物品弹出菜单。')+'</span>';
+  const it=itOf(sel);let dt=bmsg||'<span class="tag">'+(canHover?'鼠标移到物品上查看说明;<b>左键</b>点物品弹出菜单(使用 / 穿戴 / 出售);也可以把装备、时装、翅膀<b>直接拖到左边</b>的部位上穿戴,拖回右边就卸下;双击直接穿戴 / 卸下。':'点一下物品查看说明,再点下方按钮穿戴、卸下或出售;<b>长按</b>物品弹出菜单。')+'</span>';
   if(bsq){const a=BSA||[],ga=a.reduce((s,i)=>s+sellPr(BAG[i]),0),gb=bsq.reduce((s,i)=>s+sellPr(BAG[i]),0);
     dt=`<b>💰 一键出售</b> <span class="tag">已穿戴的装备不会被卖</span><br>① ${bfOn()?'出售<b>筛选出的</b>':'<b>清空装备栏</b>:出售背包里的'}全部 <b>${a.length}</b> 件装备,共 <b>${ga}</b> 金币 <button data-r="ally" ${a.length?'':'disabled'}>确认全部出售</button><br>`+
       `② 只卖多余的 <b>${bsq.length}</b> 件,共 <b>${gb}</b> 金币 <button data-r="autoy" ${bsq.length?'':'disabled'}>只卖多余的</button><br><small>「多余」:每个部位只保留属性最高的一件(带特性的按「部位 + 特性」分别保留,方便凑套装);如果已穿戴的更好,该组背包里的全部出售。</small><br><button data-r="auton">取消</button>`}
@@ -3467,7 +3499,7 @@ function renderBag(){
   </div>
   <div class="bright"><div class="btab">${tabB(0,'⚔️ 装备')}${tabB(1,'👘 时装')}${tabB(2,'🎀 翅膀')}${tabB(3,'🧪 药水')}${tabB(4,'📦 道具')}</div>${right}<div class="dt">${dt}</div></div></div>`;
   drawDoll($('doll'))}
-// 背包操作(按钮、右键菜单、拖动共用):a = 操作,r = 物品位置
+// 背包操作(按钮、左键菜单、拖动共用):a = 操作,r = 物品位置
 function bagAct(a,r){const it=itOf(r);hideTip();CSC=0;let keep=0;
   if(a=='eq'&&it&&r[0]=='b'){const i=+r.slice(1),old=EQ[it.slot];EQ[it.slot]=it;BAG.splice(i,1);if(old)BAG.push(old);bmsg='已穿戴 '+nm(it)}
   else if(a=='un'&&it&&r[0]=='e'){if(BAG.length<BAGN){BAG.push(it);EQ[r.slice(2)]=null;bmsg='已卸下 '+nm(it)}else bmsg='装备栏满了,先整理一下背包'}
@@ -3480,7 +3512,7 @@ function bagAct(a,r){const it=itOf(r);hideTip();CSC=0;let keep=0;
   else if((a=='is1'||a=='isa')&&r.startsWith('i:')){keep=1;const id=r.slice(2),pr=itemPr(id),n=Math.min(a=='is1'?1:1e9,itemCnt(id));if(pr&&n>0){if(id=='egg')MAT.egg-=n;else if(id[0]=='T'){R19.ats.splice(+id.slice(1),1);sel=null}else if(MISC[id])MAT[id]-=n;else STN[+id[1]][+id[2]]-=n;gold+=pr*n;sfx('coin');bmsg='出售 '+n+' 个,获得 '+pr*n+' 金币'}}
   else if(a=='iu'&&r.startsWith('i:')){keep=1;bmsg=itemUse(r.slice(2))}
   if(!keep)sel=null;else if(sel!=r)sel=r;const S=stats();P.hp=Math.min(P.hp,S.hp);P.mp=Math.min(P.mp,S.mp);save();renderBag()}
-// ===== 右键菜单(手机:长按)=====
+// ===== 物品菜单(第二十轮:左键单击弹出;右键也照样能用)=====
 let CMR=null,CMF=0,cmT=0;
 function cmItems(r){const it=itOf(r);
   if(/^b\d/.test(r)&&it)return [['🛡️ 穿戴','eq'],['💰 出售 +'+sellPr(it)+' 金币','sell']];
@@ -3517,13 +3549,13 @@ addEventListener('pointerup',e=>{if(!DRG)return;const d=DRG;DRG=null;if(!d.on)re
 
 // 悬停说明(电脑);手机上点一下在下方显示
 var canHover=matchMedia('(hover:hover)').matches;
-function showTip(h,ev){const t=$('tip');t.innerHTML=h;t.hidden=false;moveTip(ev)}
+function showTip(h,ev){if(CMR)return;const t=$('tip');t.innerHTML=h;t.hidden=false;moveTip(ev)}
 function moveTip(ev){const t=$('tip');if(t.hidden)return;const w=t.offsetWidth,h=t.offsetHeight;let lx=ev.clientX+14,ly=ev.clientY+14;if(lx+w>innerWidth-6)lx=ev.clientX-w-14;if(ly+h>innerHeight-6)ly=Math.max(6,innerHeight-h-6);t.style.left=Math.max(6,lx)+'px';t.style.top=ly+'px'}
 function hideTip(){$('tip').hidden=true}
 $('bag').addEventListener('mouseover',e=>{if(!canHover||DRG&&DRG.on)return;const t=e.target.closest('[data-r]'),r=t&&t.dataset.r,it=t&&itOf(r);
   if(r&&r.startsWith('p:')&&POTD[r.slice(2)]){showTip(potTip(r.slice(2)),e);return}
-  if(r&&r.startsWith('i:')){const q=itemList().find(v=>'i:'+v[0]==r);if(q){showTip(`<b style="font-size:13.5px">${q[1]} ${q[2]}</b><br><span class="tg">道具 · ×${q[3]}</span><hr>${itemDesc(q[0])}`+(itemPr(q[0])?'<hr><span class="tg">右键:出售</span>':''),e);return}}
-  if(r&&/^[wc]:/.test(r)){const id=r[0]=='w'?WEAR[r.slice(2)]:r.slice(2);if(id){showTip(cosTip(id)+`<hr><span class="tg">${WEAR[COSD[id].t]==id?'双击卸下 · 右键卸下 / 出售':'双击穿戴 · 右键穿戴 / 出售 · 可拖到左边穿戴'}</span>`,e);return}}
+  if(r&&r.startsWith('i:')){const q=itemList().find(v=>'i:'+v[0]==r);if(q){showTip(`<b style="font-size:13.5px">${q[1]} ${q[2]}</b><br><span class="tg">道具 · ×${q[3]}</span><hr>${itemDesc(q[0])}`+(itemPr(q[0])?'<hr><span class="tg">左键:出售</span>':''),e);return}}
+  if(r&&/^[wc]:/.test(r)){const id=r[0]=='w'?WEAR[r.slice(2)]:r.slice(2);if(id){showTip(cosTip(id)+`<hr><span class="tg">${WEAR[COSD[id].t]==id?'左键:卸下 / 出售 · 双击直接卸下':'左键:穿戴 / 出售 · 双击直接穿戴 · 可拖到左边穿戴'}</span>`,e);return}}
   if(it&&/^(b\d|e:)/.test(r))showTip(tipItem(it,r[0]),e);else hideTip()});
 // 穿戴 / 卸下时装、翅膀(on=true 穿戴)
 function wearC(id,on){const d=COSD[id];if(!d||!OWN.includes(id))return;WEAR[d.t]=on?id:null;if(d.t=='wing'&&!on)P.fly=0;const S=stats();P.hp=Math.min(P.hp,S.hp);P.mp=Math.min(P.mp,S.mp);save()}
@@ -3548,10 +3580,12 @@ $('bag').addEventListener('click',e=>{if(performance.now()-dragT<250||performanc
   if(r=='csell'){CSC=1;renderBag();return}if(r=='csellN'){CSC=0;renderBag();return}
   if(['eq','sell','un','cw','cu','pu','q0','q1','q2','ps1','psa','is1','isa','csellY'].includes(r)){if(sel)bagAct(r=='csellY'?'csell':r,sel);return}
   CSC=0;
-  if(r[0]=='w'||r[0]=='c'){const id=cosId(r);if(!id){sel=null;renderBag();return}hideTip();if(r[0]=='w')bagTab=COSD[id].t=='fash'?1:2;if(canHover&&dbl(r)){wearC(id,WEAR[COSD[id].t]!=id);sel=null}else sel=r;renderBag();return}
-  if(r.startsWith('p:')||r.startsWith('i:')){hideTip();if(canHover&&dbl(r)&&r[0]=='p'&&POTD[r.slice(2)][2]!='rev'){bagAct('pu',r);return}sel=r;renderBag();return}
-  if(canHover&&/^(b\d|e:)/.test(r)&&dbl(r)){bagDbl(r);return}sel=itOf(r)?r:null;
+  if(r[0]=='w'||r[0]=='c'){const id=cosId(r);if(!id){sel=null;renderBag();return}hideTip();if(r[0]=='w')bagTab=COSD[id].t=='fash'?1:2;if(canHover&&dbl(r)){wearC(id,WEAR[COSD[id].t]!=id);sel=null;renderBag()}else lcm(r,e);return}
+  if(r.startsWith('p:')||r.startsWith('i:')){hideTip();if(canHover&&dbl(r)&&r[0]=='p'&&POTD[r.slice(2)][2]!='rev'){bagAct('pu',r);return}lcm(r,e);return}
+  if(canHover&&/^(b\d|e:)/.test(r)&&dbl(r)){bagDbl(r);return}if(itOf(r)){lcm(r,e);return}sel=null;
   renderBag()});
+// 第二十轮:左键单击物品 = 选中 + 弹出菜单(使用 / 穿戴 / 出售 / 快捷栏);双击照旧直接穿戴 / 喝药(第一下弹出的菜单在第二下按下时自动关掉)
+function lcm(r,e){sel=r;if(cmItems(r))openCM(r,e.clientX,e.clientY);else renderBag()}
 function openP(n){if((st!='play'&&st!='town')||bagOpen||skOpen||DLG)return;pn=n;fs=null;spSel=null;fmsg='';GM.rc=0;keys.l=keys.r=0;ah=0;ar=0;$('pn').hidden=false;renderP()}
 function closeP(){pn=null;fmsg='';$('pn').hidden=true;save()}
 function toggleP(n){if(pn==n)closeP();else{if(pn)closeP();openP(n)}}
@@ -3620,7 +3654,7 @@ function rPot(){const tot=potTot(),free=POTMAX-tot,rvOk=RVD!=today();
   h+=`<div class="potcap"><span>药水背包 <b>${tot}</b> / ${POTMAX} 瓶</span><div class="xb"><i style="width:${Math.round(tot/POTMAX*100)}%"></i></div></div><div class="pots">`+POTK.filter(k=>k!='hp4').map(k=>{const d=POTD[k],n=POT[k]||0,rv=k=='rev',m=Math.min(10,free,Math.floor(gold/d[4]));
     return `<div class="pc${rv?' rv':''}"><span class="pe">${potEm(k)}</span><b>${d[0]}</b><span class="tag">${rv?'倒下时使用:原地复活,恢复 50% 生命和魔力,2.5 秒无敌':'立即恢复 '+Math.round(d[3]*100)+'% 最大'+(d[2]=='hp'?'生命':'魔力')}</span><span class="tag">持有 ${n} 瓶</span><span class="pr">💰 ${d[4]}</span><span class="pbs">`+
     (rv?`<button data-p="pb_${k}_1" ${!rvOk||free<1||gold<d[4]?'disabled':''}>${rvOk?'购买(今日限购 1 瓶)':'今天已购买'}</button>`:`<button data-p="pb_${k}_1" ${free<1||gold<d[4]?'disabled':''}>买 1</button><button data-p="pb_${k}_10" ${m<1?'disabled':''}>买 ${m>1?m:10}</button>`)+`</span></div>`}).join('')+`</div>`;
-  h+=`<h4>快捷栏(键盘 1 2 3)</h4><div class="tag">选择每个快捷格放哪种药水;某个品质用完时,会自动换成同类的其他品质。也可以在背包「药水」页右键 / 点选药水来设置。</div>`+
+  h+=`<h4>快捷栏(键盘 1 2 3)</h4><div class="tag">选择每个快捷格放哪种药水;某个品质用完时,会自动换成同类的其他品质。也可以在背包「药水」页左键点药水来设置。</div>`+
     [0,1,2].map(i=>`<div class="row"><b style="width:22px">${i+1}</b>${POTK.map(k=>`<button data-p="qs_${i}_${k}" class="pqb${QS[i]==k?' on':''}" title="${POTD[k][0]}">${potEm(k)}</button>`).join('')}<span class="tag">${POTD[QS[i]][0]}</span></div>`).join('');
   return h}
 function potBuy(k,n){const d=POTD[k];if(!d)return;const free=POTMAX-potTot();
@@ -3849,6 +3883,7 @@ const KM={ArrowLeft:'l',a:'l',A:'l',ArrowRight:'r',d:'r',D:'r'},JK=['k','K','Arr
 // 双击方向键快跑:280 毫秒内同方向按两次
 function tapDir(k){const t=performance.now();if(t-TAP[k]<280&&(st=='play'||st=='town'))P.run=1;TAP[k]=t}
 addEventListener('keydown',e=>{
+  if(HOME){homeKey(e);return}  // 主页面打开时,游戏按键都不响应
   if(e.key=='F1'||e.key=='F2'||e.key=='F3'){e.preventDefault();const t=performance.now();if(t-GMSQ.t>3000)GMSQ.s='';GMSQ.t=t;GMSQ.s=(GMSQ.s+e.key[1]).slice(-6);if(GMSQ.s=='231233'){GMSQ.s='';toggleP('gm')}return}
   if((e.key=='m'||e.key=='M')&&!e.repeat&&!(document.activeElement&&document.activeElement.tagName=='INPUT')){auCycle();return}
   if(DLG&&st=='town'&&!busy()){e.preventDefault();if(e.key=='Escape')dlgSkip();else if(['Enter',' ','j','J','k','K'].includes(e.key)&&!e.repeat)dlgNext();return}
@@ -3860,7 +3895,7 @@ addEventListener('keydown',e=>{
   if(e.key=='t'||e.key=='T'){e.preventDefault();toggleSk();return}
   if(e.key=='q'||e.key=='Q'){e.preventDefault();toggleP('quest');return}
   if(!(document.activeElement&&document.activeElement.tagName=='INPUT')){const pk={p:'mall',y:'spr',g:'pet'}[e.key.toLowerCase()];if(pk&&!e.repeat){e.preventDefault();toggleP(pk);return}}
-  if(bagOpen&&(e.key=='l'||e.key=='L')&&!e.repeat){P.mode=P.mode=='sword'?'staff':'sword';P.ch=0;sel=null;bmsg='已切换为'+SL[P.mode][0];renderBag();return}  // 背包里按 L 也能切换武器,属性和纸娃娃立刻刷新
+  if(bagOpen&&(e.key=='l'||e.key=='L')&&!e.repeat){P.mode=LMODE=P.mode=='sword'?'staff':'sword';P.ch=0;sel=null;bmsg='已切换为'+SL[P.mode][0];renderBag();return}  // 背包里按 L 也能切换武器,属性和纸娃娃立刻刷新
   if(busy())return;
   if((st=='play'||st=='dead')&&e.key.length==1&&'123'.includes(e.key)&&!e.repeat&&!(document.activeElement&&document.activeElement.tagName=='INPUT')){e.preventDefault();potQuick(+e.key-1);return}  // 1 2 3:快捷栏药水
   if(chOn()&&chKey(e))return;
@@ -5840,8 +5875,51 @@ function pvImg(k){const t=.3,c=document.createElement('canvas'),g=c.getContext('
     heroStatic(g,{t,look:{...heroLook(),look:d.t=='fash'?k:null},wing:d.t=='wing'?k:null,fly:k=='xyw',pose:k=='xyw'?'ride':null,wlen:.5})}
   return c.toDataURL()}
 
-// 不再有开场画面:新存档、旧存档都直接进主城
-init(1);if(!loadSave())init(1);toTown();if(!signed())openP('sign');if(SET.q=='sd'&&RS>2)applyRS(2);requestAnimationFrame(loop);setFsCls();uiScale();
+// ===== 主页面(第二十轮):打开游戏后的第一页 —— 左边版本号 + 更新日志(或操作说明),右边 开始新游戏 / 继续游戏 / 提取存档 / 添加存档 / 操作说明 =====
+// 主页面打开时 HOME=1:主城画面停住当背景(loop 里不跑 townUpd),键盘只认 Enter(继续 / 新游戏)和 Esc(从操作说明返回)
+// 更新日志 CHLOG:[版本, 日期, [条目...]],新版本加在最前面(和 GAMEV 一起改)
+const CHLOG=[
+ ['1.20','2026-10-14',['新增主页面:开始新游戏 / 继续游戏 / 提取存档(导出成文件)/ 添加存档(从文件导入)/ 操作说明','防御、暴击、闪避重新换算:防御 12 点 = 1% 减伤(最多 75%),暴击 60 点 = 1%,闪避 30 点 = 1%;属性石终于有用了,旧装备自动换算(百分比不变)','小怪也有韧性了:挨打照常后仰掉血,但会继续往前推进,连续打满韧性才会被打出僵直(法师普攻不能再把小怪钉死)','记住上次用的武器:常玩法师的话,进关卡、回城、重新打开游戏都还是法师','背包里左键点物品就能弹出 使用 / 穿戴 / 出售 菜单(双击照旧直接穿戴 / 喝药)']],
+ ['1.19','2026-10-13',['属性石(熔炉镶嵌)、小礼袋与 NPC 好感、商城新道具和随机物品栏、幸运宝石、双倍爆率卡、宠物饲料','召唤物换成凤凰 / 食人花,精灵换成小仙子','强化最高 +6;关卡掉的强化石一律普通品质,高品质靠熔炉合成','游戏有了版本号,分享链接自动更新到最新版']],
+ ['1.18','2026-10-13',['四个装备系列各有自己的外观和图标(剑士 / 法师各四套)','精灵改回像素画法']],
+ ['1.17','2026-10-13',['第五关首领换成「沙渊古神」,第七关首领换成「血月巫王」(三形态)','剑士手里的剑换成四个系列四把新剑']],
+ ['1.16','2026-10-13',['星级选关(一星 / 二星 / 三星),角色上限 50 级,技能最高 5 级,被动重做','剑势 / 裂伤、雷印 + 火印 → 爆燃;一~七关小怪全部换新招式,首领招式重做']],
+ ['1.15','2026-10-13',['首领韧性条:打空韧性才会破韧僵直','第八~十关首领新招;菜单按钮换成像素图标']],
+ ['更早','2026-10-11 ~ 10-13',['第八关 幽魂都市、第九关 火山噩梦、第十关 幽灵船、神秘地带与瓜子大王、宠物仓鼠','全面像素化:界面、主城、关卡地面 / 平台 / 背景、怪物、首领、技能特效','音效与每关 BGM、主城扩建、熔炉、强化石品质']]];
+let HOME=0;const HM={v:'log',cf:0,imp:null,msg:'',fresh:!hasSave};  // fresh:打开游戏时还没有存档(启动时 toTown 会先存一个 1 级档,不算)
+function homeSave(){if(HM.fresh)return null;try{const s=localStorage.getItem(SK_KEY),d=s&&JSON.parse(s);return d&&d.lvl?{s,lv:d.lvl,m:d.pm=='staff'?'法师':'剑士'}:null}catch(e){return null}}
+function rHome(){const sv=homeSave(),esc=s=>String(s).replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));
+  const L=HM.v=='help'?'<h3>操作说明</h3><ul>'+document.querySelector('p.tip').textContent.split(' · ').map(s=>'<li>'+esc(s.trim())+'</li>').join('')+'</ul><p><button data-h="log" style="font:inherit;cursor:pointer">← 返回更新日志</button></p>'
+    :CHLOG.map(([v,d,a])=>`<h3>${/^\d/.test(v)?'v'+v:v}<span>${d}</span></h3><ul>${a.map(s=>'<li>'+esc(s)+'</li>').join('')}</ul>`).join('');
+  const B=(k,t,sub,dis,on)=>`<button data-h="${k}"${dis?' disabled':''}${on?' class="on"':''}>${t}${sub?'<small>'+sub+'</small>':''}</button>`;
+  let m=HM.msg;if(HM.imp)m+=`<br><button data-h="impY">✔ 确认导入</button><button data-h="impN">取消</button>`;else if(HM.cf)m+=`<br><button data-h="newY">✔ 确定重新开始</button><button data-h="newN">取消</button>`;
+  $('home').innerHTML=`<div class="hl"><h1>无名之旅</h1><div class="hv"><b>v${GAMEV}</b>${HM.v=='help'?'操作说明':'更新日志'}</div><div class="hs">${L}</div></div>
+    <div class="hr">${B('cont','▶ 继续游戏',sv?'Lv '+sv.lv+' · '+sv.m:'还没有存档',!sv,!!sv)}${B('new','✦ 开始新游戏','',0,!sv)}${B('exp','📤 提取存档','导出成文件备份',!sv)}${B('imp','📥 添加存档','从文件导入')}${B('help','📖 操作说明')}<div class="hm">${m}</div></div>`}
+function openHome(){HOME=1;HM.v='log';HM.cf=0;HM.imp=null;HM.msg='';keys.l=keys.r=0;$('home').hidden=false;rHome()}
+function closeHome(){HOME=0;$('home').hidden=true;HM.imp=null;HM.cf=0;if(!signed())openP('sign')}
+function homeAct(a){HM.msg='';
+  if(a=='cont'){if(homeSave())closeHome();return}
+  if(a=='new'){HM.imp=null;if(homeSave()&&!HM.cf){HM.cf=1;HM.msg='⚠️ 重新开始会删除当前存档(等级、装备、道具全部清空)。<br>想留着的话,先点「提取存档」备份成文件。'}else homeAct('newY');rHome();return}
+  if(a=='newN'){HM.cf=0;rHome();return}
+  if(a=='newY'){HM.cf=0;HM.fresh=0;clearSave();init(1);toTown();save();closeHome();say('新的旅程开始了!');return}
+  if(a=='exp'){HM.cf=0;HM.imp=null;save();const sv=homeSave();if(!sv){HM.msg='还没有存档';rHome();return}
+    const d=new Date(),p=n=>String(n).padStart(2,'0'),f=`无名之旅存档_Lv${sv.lv}_${d.getFullYear()}${p(d.getMonth()+1)}${p(d.getDate())}_${p(d.getHours())}${p(d.getMinutes())}.json`;
+    const u=URL.createObjectURL(new Blob([sv.s],{type:'application/json'})),A=document.createElement('a');A.href=u;A.download=f;document.body.appendChild(A);A.click();A.remove();setTimeout(()=>URL.revokeObjectURL(u),2000);
+    HM.msg='✔ 已导出:'+f+'<br>(在浏览器的下载文件夹里;换电脑 / 换浏览器时用「添加存档」导入)';rHome();return}
+  if(a=='imp'){HM.cf=0;HM.imp=null;$('homeF').value='';$('homeF').click();return}
+  if(a=='impN'){HM.imp=null;rHome();return}
+  if(a=='impY'){const s=HM.imp,old=homeSave();HM.imp=null;HM.fresh=0;try{localStorage.setItem(SK_KEY,s);init(1);if(!loadSave())throw 0;toTown();HM.msg='✔ 存档已导入(Lv '+lvl+'),点「继续游戏」开始'}
+    catch(e){try{if(old)localStorage.setItem(SK_KEY,old);else clearSave()}catch(_){}init(1);loadSave();toTown();HM.msg='❌ 导入失败,原来的存档没有改动'}rHome();return}
+  if(a=='help'||a=='log'){HM.v=a;rHome();$('home').querySelector('.hs').scrollTop=0}}
+$('home').addEventListener('click',e=>{const b=e.target.closest('[data-h]');if(b&&!b.disabled)homeAct(b.dataset.h)});
+$('homeF').addEventListener('change',()=>{const f=$('homeF').files[0];if(!f)return;const r=new FileReader();
+  r.onload=()=>{let d=null;try{d=JSON.parse(r.result)}catch(e){}
+    if(!d||!d.lvl||!d.EQ){HM.msg='❌ 这个文件不是《无名之旅》的存档';HM.imp=null}
+    else{const sv=homeSave();HM.imp=String(r.result);HM.msg=`读取到存档:Lv ${d.lvl} · ${d.pm=='staff'?'法师':'剑士'}${d.gv?' · 游戏版本 v'+d.gv:''}`+(sv?`<br>⚠️ 导入会覆盖当前存档(Lv ${sv.lv})`:'')}rHome()};
+  r.readAsText(f)});
+function homeKey(e){if(e.key=='Enter'){e.preventDefault();if(HM.imp)homeAct('impY');else if(HM.cf)homeAct('newY');else homeAct(homeSave()?'cont':'new')}else if(e.key=='Escape'){e.preventDefault();if(HM.imp)homeAct('impN');else if(HM.cf)homeAct('newN');else if(HM.v=='help')homeAct('log')}}
+
+init(1);if(!loadSave())init(1);toTown();openHome();if(SET.q=='sd'&&RS>2)applyRS(2);requestAnimationFrame(loop);setFsCls();uiScale();
 </script>
 </body>
 </html>

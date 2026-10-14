@@ -10,7 +10,7 @@ async def run(p,w,h,art,hero,job):
     try:await pg.wait_for_function("typeof SET!='undefined'&&typeof init=='function'",timeout=30000)  # 文件 15MB(内嵌 BGM),等脚本加载完
     except Exception:print('load failed',E[:3]);raise
     await pg.wait_for_timeout(500)
-    await pg.evaluate("([a,h,j])=>{SET.art=a;SET.hero=h;init(1);lvl=60;JOB=j;LN.sword=Array(8).fill(9);LN.staff=Array(8).fill(9);EQ.body=gen('body',2,'x');EQ.head=gen('head',1,'x');OWN.push('fhw','xyw','fh','xy');WEAR.wing='xyw';toTown();GM.god=1}",[art,hero,job])
+    await pg.evaluate("([a,h,j])=>{if(HOME)closeHome();SET.art=a;SET.hero=h;init(1);lvl=60;JOB=j;LN.sword=Array(8).fill(9);LN.staff=Array(8).fill(9);EQ.body=gen('body',2,'x');EQ.head=gen('head',1,'x');OWN.push('fhw','xyw','fh','xy');WEAR.wing='xyw';toTown();GM.god=1}",[art,hero,job])
     await pg.wait_for_timeout(400)
     for key in ['j','h','u','i','o','Space','b','b','p','Escape','Escape']:await k.press(key);await pg.wait_for_timeout(250)
     await pg.evaluate("()=>{P.x=92}");await k.press('w');await pg.wait_for_timeout(400);await k.press('Escape')
