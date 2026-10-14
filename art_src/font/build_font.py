@@ -8,6 +8,7 @@ from fontTools import subset
 from fontTools.ttLib import TTFont
 D=os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 src=open(D+'/src/game.src.html',encoding='utf8').read()
+import re;src=re.sub(r'/\*NOFONT\{\*/.*?/\*\}NOFONT\*/','',src,flags=re.S)  # 书的正文等只在网页面板里显示的字,不进像素字体
 chars=sorted(set(c for c in src if ord(c)>=0x20)|set(chr(i) for i in range(0x20,0x7f))|set('…·—「」『』、。,!?:;()【】《》'))
 open(D+'/art_src/font/chars.txt','w',encoding='utf8').write(''.join(chars))
 for path,name in zip(sys.argv[1:3],['FPX12','FPX8']):

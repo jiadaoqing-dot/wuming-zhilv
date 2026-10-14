@@ -12,7 +12,7 @@ out=re.sub(r'@@O:([\w$]+)@@',subO,src)
 out=re.sub(r'@@J:([\w$]+)@@',subJ,re.sub(r'@@F:([\w$]+)@@',subF,re.sub(r'@@A:([\w$]+)@@',sub,out)))
 # 像素字体是按源码用字裁剪的:源码里出现了字体里没有的字就提醒(要重新运行 art_src/font/build_font.py)
 if os.path.exists(D+'/art_src/font/chars.txt'):
-    miss=sorted(set(c for c in src if ord(c)>=0x20)-set(open(D+'/art_src/font/chars.txt',encoding='utf8').read()))
+    miss=sorted(set(c for c in re.sub(r'/\*NOFONT\{\*/.*?/\*\}NOFONT\*/','',src,flags=re.S) if ord(c)>=0x20)-set(open(D+'/art_src/font/chars.txt',encoding='utf8').read()))
     if miss:print('提醒:像素字体缺这些字,请重新运行 art_src/font/build_font.py:',''.join(miss))
 GV=re.search(r"const GAMEV='([\w.]+)'",src).group(1)
 out=out.replace('<title>无名之旅</title>','<title>无名之旅 v'+GV+'</title>',1)

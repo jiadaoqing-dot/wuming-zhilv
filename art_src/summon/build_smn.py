@@ -17,6 +17,15 @@ def key(im,cols):
       if px[x,y][:3] in cols:px[x,y]=(0,0,0,0)
   return im
 ph=key(Image.open(os.path.join(D,'Phoenix_SpriteSheet_0.png')),{(64,64,64)})
+# 第三十一轮:去掉白眼睛和黄鸟喙(元素生物,只留鸟的轮廓),眼睛用下方的红色补,鸟喙黄色换成同亮度的红
+pp=ph.load()
+for k in range(6):
+  for x,y in((26,14),(27,14)):pp[k*32+x,y]=pp[k*32+x,y+1]
+  for y in range(32):
+    for x in range(28,32):
+      c=pp[k*32+x,y][:3]
+      if c==(255,191,0):pp[k*32+x,y]=(255,63,0,255)
+      elif c==(229,172,0):pp[k*32+x,y]=(204,51,0,255)
 for k in range(6):out.alpha_composite(ph.crop((k*32,0,k*32+32,32)),(k*32,0))
 fa=Image.open(os.path.join(D,'super_random_sprites.png')).convert('RGBA')
 bgc=fa.getpixel((200,300))[:3];fa=key(fa,{bgc})

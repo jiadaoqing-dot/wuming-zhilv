@@ -1,3 +1,11 @@
+【2026-10-14 v1.31 第三十一轮】凤凰去眼睛鸟喙 / 影分身 6 秒并和主角技能共存 / 翅膀展开 / 书架与四本书
+- SMN 图集(build_smn.py):凤凰 6 帧的白眼睛用下方红色补、鸟喙黄换同亮度红;火鸟图腾、飞鸟召唤、图标都跟着变。
+- 影分身 CLNT 6 秒;分身的火鸟 / 光柱放在 MGTc / MGPc,mgC 临时换进 MGT / MGP 跑 mgStep0 / drawMg0(火团并回 MGL),和主角的同时存在。
+- 飞行翅膀 wing_fly.png 改用 LPC Feathered Wings 的 jump 动画(张开 3 帧 + 下扇 1 帧排 8 帧,build_wing.py,raw/ulpc/.../wings/feathered)。
+- 书籍:金币商店四本书(BKP 199,R19.bk 存已拥有,不进背包);主城书架 TWN.shelf 1325(熔炉右边),站上去按 W 打开面板 pn='book'(rBook / bookAct / BKR 章节翻页)。图集 BOOK(art_src/book/build_book.py:Bookshelf AlejandroHaibi CC0 + DCSS 书 CC0,raw/books)。
+- 正文 BOOKS 在 /*NOFONT{*/ … /*}NOFONT*/ 里,build.py / build_font.py 的像素字体用字统计会跳过这段;像素字体已重建(⬅喙籍阅📚)。
+- 截图检查(主城书架、商城卡片、书架面板、阅读、飞行翅膀、两只火鸟)+ 冒烟测试 0 错误。
+
 【2026-10-14 v1.30 第三十轮】苍穹光柱去外光 / 剩余圆球细线换素材 / 法师普攻球形闪电 / 火鸟喷火 / 影分身自己打
 - FX29 追加 x-lball(Mikodrak fx8)、x-flame / x-boom / x-arc / x-star(Lots of game effects,Soluna Software,CC0,raw/skfx/soluna_fx);x-flame 原点在火源。
 - 法师普攻 PB.lb(r 12 / 重击 16),VFX.shot 画三层 x-lball,重击加 x-arc、命中 x-star;hitFx thunder。
