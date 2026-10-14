@@ -1,3 +1,10 @@
+【2026-10-14 v1.28 第二十八轮】法杖加长 / 普攻再放慢 / 法师进阶技能重做
+- 法杖:build_staff.py 的 lengthen() 把杖尾前一段横截面复制 EXT 12 次,格子 76(STF.C / STF.E,握持点按加长前的杖身算)。
+- 普攻 MGA .16 / .5 / 1.67、.24 / .8 / 3.33,魔法球速度 MGV 220,重击音效 shot。I 画一圈(mcPose 一圈 .48 秒),身前法阵 MCIR(VFX.spawn 单帧要 hold:1)。
+- 新图集 MG27(art_src/skfx/build_mg27.py → assets/mg27_atlas.png,im:6 → VFX.I6):mc-fire / mc-gold / mc-blue 法阵(4 summoning circles,Luke.RUSTLTD,CC0)、bm-red / bm-blue 光束段(Lasers and beams,Rawdanitsu,CC0);mgG 画平放在地上的法阵;mgIcons 生成新技能图标。
+- 进阶技能(mcStep 后面「法师进阶技能」):空格分身直接出现在身前;W空 圣光禁域(PB.gl → holyBoom → MGD 领域);S空 火鸟图腾 MGT + 激光 MGL(SMN 凤凰 ×3);WW空 苍穹光柱 MGP(小怪 e.st 定住,首领 bigStun 一次);施法 MCT 5 / 6 / 7 + mcFx 身上特效;SKM staff 5~7 重算,SKD 文字改。旧岩盾 / 风眼 / 战意的代码留着没删(不再触发)。
+- 像素字体重建(穹 / 叉 / 椭 / 稿)。截图检查 + 冒烟测试 0 错误。
+
 【2026-10-14 v1.27 第二十七轮】法师施法动作 / 普攻放慢 / 飞行持杖
 - 普攻:strike 法杖分支只记 P.mb,update 里 swT 到 swD(推到最前)才 mbFire 发魔法球;MGA = [推到最前, 间隔, 伤害倍率](.12 / .4 / 1.33,蓄力 .18 / .7 / 2.9,每秒伤害不变)。heroRig 的 STFR↔STFT 关键帧改用 P.swD。
 - 技能:useSk 法杖 H / I / O 改成 P.sk={id:'mc'}(MCT 时间表),skStep 开头转 mcStep 到时间才放(落雷 .5、火球 .6 出现 / .85 推出、乌云 .2 出现 + 第一道雷 .5);影分身在放出时跟着放;施法中霸体(hurt 里判断 mc,不画霸体圈)。U 闪现不变。

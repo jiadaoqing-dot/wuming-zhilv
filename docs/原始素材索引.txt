@@ -527,7 +527,7 @@ lpc_animals_2022_v1.1.zip  411KB
     Enemy-Death1~6.png
   lv/swamp/Gothicvania Swamp files/Sprites/Fire/  2 个 1KB  用到:art_src/audio/build_audio.py, art_src/bfx/build_bfx.py, art_src/skfx/build_skfx.py, art_src/vfx/build_vfx.py, art_src/volcano/build_vol9.py
     fire-preview.gif, fire.ase
-  lv/swamp/Gothicvania Swamp files/Sprites/Fire/fire/  2 个 0KB  用到:art_src/audio/build_audio.py, art_src/bfx/build_bfx.py, art_src/city/build_gh8.py, art_src/lpc/build_hsw.py, art_src/myst/build_myst.py, art_src/skfx/build_skfx.py, art_src/vfx/build_vfx.py, art_src/volcano/build_vol9.py
+  lv/swamp/Gothicvania Swamp files/Sprites/Fire/fire/  2 个 0KB  用到:art_src/audio/build_audio.py, art_src/bfx/build_bfx.py, art_src/city/build_gh8.py, art_src/lpc/build_hsw.py, art_src/myst/build_myst.py, art_src/skfx/build_mg27.py, art_src/skfx/build_skfx.py, art_src/vfx/build_vfx.py, art_src/volcano/build_vol9.py
     fire1~2.png
   lv/swamp/Gothicvania Swamp files/Sprites/Ghost/  2 个 4KB  用到:art_src/city/build_gh8.py
     Ghost-peview.gif, Ghost.ase
@@ -591,7 +591,7 @@ shark_underwater_160x160_sevarihk.png  7KB
     attack - pitchfork shield.png, attack - pitchfork.png, attack - sword shield.png, attack - sword.png, attack - vanilla.png, walk - pitchfork shield.png, walk - pitchfork.png, walk - sword shield.png, walk - sword.png, walk - vanilla.png
   ship/lpc_imp2/  1 个 0KB  用到:art_src/ship/build_ship10.py
     readme.txt
-  ship/lpc_imp2/LPC Imp 2/blue/  11 个 156KB  用到:art_src/boss/build_mage.py, art_src/lpc/build_lpc.py, art_src/mob/build_mob.py, art_src/ship/build_ship10.py, art_src/skfx/build_skfx.py, art_src/town/build_town2.py
+  ship/lpc_imp2/LPC Imp 2/blue/  11 个 156KB  用到:art_src/boss/build_mage.py, art_src/lpc/build_lpc.py, art_src/mob/build_mob.py, art_src/ship/build_ship10.py, art_src/skfx/build_mg27.py, art_src/skfx/build_skfx.py, art_src/town/build_town2.py
     attack - pitchfork shield.png, attack - pitchfork.png, attack - sword shield.png, attack - sword.png, attack - vanilla.png, imp death.png, walk - pitchfork shield.png, walk - pitchfork.png, walk - sword shield.png, walk - sword.png, walk - vanilla.png
   ship/lpc_imp2/LPC Imp 2/green/  11 个 143KB  用到:art_src/eqicon/build_eqicon.py, art_src/lpc/build_hsw.py, art_src/lpc/build_lpc.py, art_src/lpc/build_staff.py, art_src/lpc_npc/build_npc_lpc.py
     attack - pitchfork shield.png, attack - pitchfork.png, attack - sword shield.png, attack - sword.png, attack - vanilla.png, imp death.png, walk - pitchfork shield.png, walk - pitchfork.png, walk - sword shield.png, walk - sword.png, walk - vanilla.png
@@ -803,6 +803,8 @@ shark_underwater_160x160_sevarihk.png  7KB
 ## raw/skfx
   skfx/asteroid/  3 个 54KB  用到:art_src/skfx/build_skfx.py
     Asteroid_Huge.png, Asteroid_Huge_0.png, Asteroid_Large.png
+  skfx/beams_rawdanitsu/  1 个 54KB  用到:art_src/skfx/build_mg27.py
+    beams.png
   skfx/clouds/  2 个 4KB  用到:art_src/lbg/build_lbg.py, art_src/skfx/build_skfx.py
     gundarev_clouds.png, ryder_clouds.png
   skfx/codemanu_fx/  1 个 1.4MB
@@ -865,6 +867,8 @@ shark_underwater_160x160_sevarihk.png  7KB
     lighteningball_1_20_1~9.png
   skfx/mikodrak_fx/x/fx9_rainOnGround/  30 个 75KB  用到:art_src/skfx/build_skfx.py
     raindrops_1_30_1~9.png
+  skfx/summoning_circles/  4 个 188KB  用到:art_src/skfx/build_mg27.py
+    circle4~7.png
 
 snowball.png  1KB
 ## raw/staff_lordneo

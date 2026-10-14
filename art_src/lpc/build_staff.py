@@ -50,12 +50,27 @@ def icy(H, l, s):      # 木头 → 冰蓝;金色 → 银白
     if s > .35 and 35 <= H <= 70: return (195 / 360, min(.95, l * 1.15), .25)
     if 10 <= H < 35: return (205 / 360, min(.9, l * 1.35 + .08), .45)
 L = [remap(load('holly staff.png'), silver), recolor_red_to_green(load('staff04.png')), load('holly staff.png'), remap(load('staff05.png'), icy)]
-out = Image.new('RGBA', (64 * 4, 64), (0, 0, 0, 0))
+# 第二十七轮(用户):手后面那一截加长 —— 把杖尾前面一段杖身的横截面沿斜线复制 EXT 次,杖尾端整体往右下挪(格子变成 C×C)
+EXT = 12; C = 64 + EXT
+def lengthen(im):
+    a = im.getchannel('A').load(); px = im.load()
+    pts = [(x, y) for y in range(64) for x in range(64) if a[x, y]]
+    td = max(x + y for x, y in pts); cut = td - 12
+    n = Image.new('RGBA', (C, C), (0, 0, 0, 0)); q = n.load()
+    for x, y in pts:
+        d = x + y
+        if d <= cut: q[x, y] = px[x, y]
+        else: q[x + EXT, y + EXT] = px[x, y]
+        if cut - 2 < d <= cut:
+            for j in range(1, EXT + 1): q[x + j, y + j] = px[x, y]
+    return n
+L = [lengthen(im) for im in L]
+out = Image.new('RGBA', (C * 4, C), (0, 0, 0, 0))
 meta = []
 for i, im in enumerate(L):
-    out.alpha_composite(im, (64 * i, 0))
+    out.alpha_composite(im, (C * i, 0))
     a = im.getchannel('A').load()
-    pts = [(x, y) for y in range(64) for x in range(64) if a[x, y]]
+    pts = [(x, y) for y in range(C) for x in range(C) if a[x, y]]
     tail = max(pts, key=lambda p: p[0] + p[1])   # 右下 = 杖尾
     head = min(pts, key=lambda p: p[0] + p[1])   # 左上 = 杖头
     meta.append([tail[0], tail[1], head[0], head[1]])
