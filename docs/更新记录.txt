@@ -1,3 +1,10 @@
+【2026-10-14 v1.30 第三十轮】苍穹光柱去外光 / 剩余圆球细线换素材 / 法师普攻球形闪电 / 火鸟喷火 / 影分身自己打
+- FX29 追加 x-lball(Mikodrak fx8)、x-flame / x-boom / x-arc / x-star(Lots of game effects,Soluna Software,CC0,raw/skfx/soluna_fx);x-flame 原点在火源。
+- 法师普攻 PB.lb(r 12 / 重击 16),VFX.shot 画三层 x-lball,重击加 x-arc、命中 x-star;hitFx thunder。
+- 火鸟 MGL 改成火焰喷流 {x1,y1,a,L}:0.1 秒时整条判定 + x-boom + mgBoom;drawMg 画三层 x-flame;火鸟身上 x-sun / x-flame 火尾 / r-wing 1.55 / 翼尖 x-fire,凤凰 3.4 倍。苍穹光柱去掉全屏泛紫和 bm-purp 外光。
+- 影分身:cloneAI / cloneSkStep(CLSK 随机技能,伤害 CLK)、drawClone 把 P 的状态临时换成分身画 drawPBody(离屏画布染紫,在 drawP 前画);cloneCast 直接 return。
+- 第九 / 十关:眼魔激光 bm-purp(判定 11 → 16)、nbBeam(天空竖光束 / 堕天十字光)、V9.ch 火焰链、V9.bm x-boom、熔核 x-sun + x-vortex。截图检查 + 冒烟测试 0 错误。
+
 【2026-10-14 v1.29 第二十九轮】区域掉怪 / 怪物飞弹换特效 / 二关首领激光 / 剑普攻判定 / 法师进阶技能调整
 - 刷怪 waveStep / waveDrop(WB = 每个区域掉了几次):玩家进了区域(P.x+P.w ≥ ZB[z-1]+20)才刷;第一次掉一半,区域里没活怪再掉剩下的;用原来的 e.air 落地逻辑(e.y 往上 VH、e.hold 错开 0.12 秒、e.dropIn 落地出 landing-dust)。WMAX / WI 不再用。
 - 新图集 FX29(art_src/skfx/build_fx29.py → assets/fx29_atlas.png,im:7 → VFX.I7):Free Pixel Effects Pack(CodeManu,CC0)11 种 + bm-purp / bm-dark 光束段(Rawdanitsu)。FX29.S = 飞弹种类 c → [特效, 大小],drawShot1 开头 FX29.shot,drawShots 对这些种类不画光晕球。

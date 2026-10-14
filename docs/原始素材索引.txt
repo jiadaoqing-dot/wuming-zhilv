@@ -405,7 +405,7 @@ lpc_animals_2022_v1.1.zip  411KB
     enemy-death-1~6.png
   lv/sunny-land-forest-files/Sunny-land-forest-files/PNG/sprites/misc/hud/  4 个 2KB  用到:art_src/audio/build_audio.py
     hud-1~4.png
-  lv/sunny-land-forest-files/Sunny-land-forest-files/PNG/sprites/misc/star/  6 个 1KB  用到:art_src/audio/build_audio.py, art_src/boss/build_mage.py, art_src/eqicon/build_eqicon.py, art_src/lpc/comp.py, art_src/lpc_npc/build_npc_lpc.py, art_src/pend/build_pend.py, art_src/ship/build_ship10.py, art_src/ui/build_meni.py
+  lv/sunny-land-forest-files/Sunny-land-forest-files/PNG/sprites/misc/star/  6 个 1KB  用到:art_src/audio/build_audio.py, art_src/boss/build_mage.py, art_src/eqicon/build_eqicon.py, art_src/lpc/comp.py, art_src/lpc_npc/build_npc_lpc.py, art_src/pend/build_pend.py, art_src/ship/build_ship10.py, art_src/skfx/build_fx29.py, art_src/ui/build_meni.py
     star-1~6.png
   lv/sunny-land-forest-files/Sunny-land-forest-files/PNG/sprites/player/player-climb/  4 个 2KB  用到:art_src/bfx/build_bfx.py, art_src/boss/build_ars.py, art_src/boss/build_mage.py, art_src/lpc/comp.py, art_src/lpc_npc/build_npc_lpc.py, art_src/mob/build_mob.py, art_src/skfx/build_fx29.py, art_src/summon/build_smn.py, art_src/vfx/build_vfx.py
     player-climb-1~4.png
@@ -523,9 +523,9 @@ lpc_animals_2022_v1.1.zip  411KB
     concepts.psd, preview.png, title-screen.psd
   lv/swamp/Gothicvania Swamp files/Sprites/Enemy-Death/  2 个 5KB  用到:art_src/city/build_gh8.py, art_src/lpc/comp.py, art_src/lv/build_ltl.py, art_src/ship/build_ship10.py, art_src/summon/build_smn.py, art_src/town/build_tpx.py
     Enemy-Death-Preview.gif, Enemy-Death.ase
-  lv/swamp/Gothicvania Swamp files/Sprites/Enemy-Death/Explosion/  6 个 4KB  用到:art_src/mob/build_mfx.py
+  lv/swamp/Gothicvania Swamp files/Sprites/Enemy-Death/Explosion/  6 个 4KB  用到:art_src/mob/build_mfx.py, art_src/skfx/build_fx29.py
     Enemy-Death1~6.png
-  lv/swamp/Gothicvania Swamp files/Sprites/Fire/  2 个 1KB  用到:art_src/audio/build_audio.py, art_src/bfx/build_bfx.py, art_src/skfx/build_skfx.py, art_src/vfx/build_vfx.py, art_src/volcano/build_vol9.py
+  lv/swamp/Gothicvania Swamp files/Sprites/Fire/  2 个 1KB  用到:art_src/audio/build_audio.py, art_src/bfx/build_bfx.py, art_src/skfx/build_fx29.py, art_src/skfx/build_skfx.py, art_src/vfx/build_vfx.py, art_src/volcano/build_vol9.py
     fire-preview.gif, fire.ase
   lv/swamp/Gothicvania Swamp files/Sprites/Fire/fire/  2 个 0KB  用到:art_src/audio/build_audio.py, art_src/bfx/build_bfx.py, art_src/city/build_gh8.py, art_src/lpc/build_hsw.py, art_src/myst/build_myst.py, art_src/skfx/build_fx29.py, art_src/skfx/build_mg27.py, art_src/skfx/build_skfx.py, art_src/vfx/build_vfx.py, art_src/volcano/build_vol9.py
     fire1~2.png
@@ -843,30 +843,32 @@ shark_underwater_160x160_sevarihk.png  7KB
     zip: light_fx.zip(335KB)
   skfx/light_fx/x/  26 个 357KB  用到:art_src/skfx/build_skfx.py
     LightEffect_01~25.png, Preview.png
-  skfx/mikodrak_fx/  1 个 2.9MB  用到:art_src/skfx/build_skfx.py
+  skfx/mikodrak_fx/  1 个 2.9MB  用到:art_src/skfx/build_fx29.py, art_src/skfx/build_skfx.py
     zip: mikodrak_fx.zip(2.9MB)
-  skfx/mikodrak_fx/x/  12 个 1.2MB  用到:art_src/skfx/build_skfx.py
+  skfx/mikodrak_fx/x/  12 个 1.2MB  用到:art_src/skfx/build_fx29.py, art_src/skfx/build_skfx.py
     YoudBetterReadMe.txt, fx10_blackExplosion.gif, fx1_blue_topEffect.gif, fx2_swordFire.gif, fx3_fireBall.gif, fx4_sign_of_fire.gif, fx5_fire_scissors.gif, fx6_eaterFire.gif, fx7_energyBall.gif, fx8_explosionOfDust.gif, fx8_lighteningBall.gif, fx9_rainOnGround.gif
-  skfx/mikodrak_fx/x/fx10_blackExplosion/  19 个 31KB  用到:art_src/skfx/build_skfx.py
+  skfx/mikodrak_fx/x/fx10_blackExplosion/  19 个 31KB  用到:art_src/skfx/build_fx29.py, art_src/skfx/build_skfx.py
     smoke_black_1_19_1~9.png
   skfx/mikodrak_fx/x/fx1_blue_topEffect/  22 个 213KB  用到:art_src/skfx/build_skfx.py
     spell_bluetop_1_1~9.png
-  skfx/mikodrak_fx/x/fx2_swordFire/  35 个 304KB  用到:art_src/skfx/build_skfx.py
+  skfx/mikodrak_fx/x/fx2_swordFire/  35 个 304KB  用到:art_src/skfx/build_fx29.py, art_src/skfx/build_skfx.py
     spell_decap_1_zoomblur_1~9.png
-  skfx/mikodrak_fx/x/fx3_fireBall/  20 个 206KB  用到:art_src/skfx/build_skfx.py
+  skfx/mikodrak_fx/x/fx3_fireBall/  20 个 206KB  用到:art_src/skfx/build_fx29.py, art_src/skfx/build_skfx.py
     spell_decap_2_ball_1~9.png
-  skfx/mikodrak_fx/x/fx4_sign_of_fire/  20 个 135KB  用到:art_src/skfx/build_skfx.py
+  skfx/mikodrak_fx/x/fx4_sign_of_fire/  20 个 135KB  用到:art_src/skfx/build_fx29.py, art_src/skfx/build_skfx.py
     spell_signoffire_1~9.png
-  skfx/mikodrak_fx/x/fx5_fire_scissors/  13 个 89KB  用到:art_src/skfx/build_skfx.py
+  skfx/mikodrak_fx/x/fx5_fire_scissors/  13 个 89KB  用到:art_src/skfx/build_fx29.py, art_src/skfx/build_skfx.py
     spell_twoflames_1~9.png
-  skfx/mikodrak_fx/x/fx6_eaterFire/  20 个 523KB  用到:art_src/skfx/build_skfx.py
+  skfx/mikodrak_fx/x/fx6_eaterFire/  20 个 523KB  用到:art_src/skfx/build_fx29.py, art_src/skfx/build_skfx.py
     spell_spiderfire_1~9.png
-  skfx/mikodrak_fx/x/fx7_energyBall/  32 个 150KB  用到:art_src/skfx/build_skfx.py
+  skfx/mikodrak_fx/x/fx7_energyBall/  32 个 150KB  用到:art_src/skfx/build_fx29.py, art_src/skfx/build_skfx.py
     aura_test_1_32_1~9.png
-  skfx/mikodrak_fx/x/fx8_lighteningBall/  20 个 116KB  用到:art_src/skfx/build_skfx.py
+  skfx/mikodrak_fx/x/fx8_lighteningBall/  20 个 116KB  用到:art_src/skfx/build_fx29.py
     lighteningball_1_20_1~9.png
-  skfx/mikodrak_fx/x/fx9_rainOnGround/  30 个 75KB  用到:art_src/skfx/build_skfx.py
+  skfx/mikodrak_fx/x/fx9_rainOnGround/  30 个 75KB  用到:art_src/skfx/build_fx29.py, art_src/skfx/build_skfx.py
     raindrops_1_30_1~9.png
+  skfx/soluna_fx/  4 个 1.5MB  用到:art_src/skfx/build_fx29.py
+    Effect36~51.png, Explosion25.png, Fire01.png
   skfx/summoning_circles/  4 个 188KB  用到:art_src/skfx/build_mg27.py
     circle4~7.png
 

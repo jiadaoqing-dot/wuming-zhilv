@@ -38,6 +38,26 @@ def dark(row):  # 深色光柱:亮度越高越深(中心深紫黑),边缘亮紫,
 parts=[('x-sun',fxs('16_sunburn',4)),('x-vortex',fxs('13_vortex',4)),('x-nebula',fxs('12_nebula',4)),('x-midnight',fxs('18_midnight',4)),
        ('x-fel',fxs('17_felspell',6)),('x-bluefire',fxs('3_bluefire',4)),('x-fire',fxs('11_fire',4)),('x-phantom',fxs('14_phantom',4)),
        ('x-bubble',fxs('20_magicbubbles',4)),('x-lash',fxs('6_flamelash',3)),('x-spell',fxs('1_magicspell',5))]
+# 第三十轮追加:法师普攻球形闪电(Mikodrak 2D Spell Effects,CC0,raw/skfx/mikodrak_fx/x/fx8_lighteningBall)、
+#   Lots of game effects(Soluna Software,CC0,https://opengameart.org/content/lots-of-game-effects,raw/skfx/soluna_fx):
+#   Fire01 火焰喷流(火鸟吐火)、Explosion25 爆炸、Effect36 蓝色魔光球(重击外层)、Effect51 星花爆开(重击命中);改动:隔帧取、缩小一半
+import glob,re
+def mko(d,step,sc=1):
+    fs=sorted(glob.glob(f'{RAW}/mikodrak_fx/x/{d}/*.png'),key=lambda p:int(re.findall(r'(\d+)\.png$',p)[0]))[::step]
+    cells=[Image.open(p).convert('RGBA') for p in fs];return pack(cells,sc)
+def sol(name,cw,ch,step,sc,keep=None):
+    im=Image.open(f'{RAW}/soluna_fx/{name}.png').convert('RGBA');n=im.width//cw;m=im.height//ch
+    cells=[im.crop((j%n*cw,j//n*ch,j%n*cw+cw,j//n*ch+ch)) for j in range(n*m)];cells=[c for c in cells if c.getbbox()][::step]
+    if keep:cells=cells[:keep]
+    return pack(cells,sc)
+def pack(cells,sc):
+    W0=max(c.width for c in cells);H0=max(c.height for c in cells);cells=[c.crop((0,0,W0,H0)) for c in cells]
+    bb=[c.getbbox() for c in cells];x0=min(b[0] for b in bb);y0=min(b[1] for b in bb);x1=max(b[2] for b in bb);y1=max(b[3] for b in bb)
+    w,h=round((x1-x0)*sc),round((y1-y0)*sc);st=Image.new('RGBA',(w*len(cells),h))
+    for i,c in enumerate(cells):st.paste(c.crop((x0,y0,x1,y1)).resize((w,h),Image.BOX),(i*w,0))
+    return st,len(cells),w//2,h//2
+parts+=[('x-lball',mko('fx8_lighteningBall',1)),('x-flame',sol('Fire01',128,256,2,.5)),('x-boom',sol('Explosion25',128,128,1,.75)),
+        ('x-arc',sol('Effect36',128,128,1,.6)),('x-star',sol('Effect51',128,128,1,.6))]
 pr=xsec((232,215,40,70),24);bl=xsec((300,30,58,106),40)
 beams=[('bm-purp',bar(pr,64)),('bm-dark',bar(dark(bl),16))]
 W=max(max(p[0].width for _,p in parts),max(b.width for _,b in beams));H=sum(p[0].height for _,p in parts)+sum(b.height for _,b in beams)
@@ -46,4 +66,5 @@ for k,(im,n,px,py) in parts:
     at.paste(im,(0,y));M[k]={'y':y,'w':im.width//n,'h':im.height,'n':n,'px':px,'py':py,'fps':15,'loop':True,'im':7};y+=im.height
 for k,im in beams:
     at.paste(im,(0,y));M[k]={'y':y,'w':im.width,'h':im.height,'n':1,'px':im.width//2,'py':im.height//2,'fps':12,'loop':False,'im':7};y+=im.height
+M['x-flame']['py']=M['x-flame']['h']-6  # 火焰喷流的原点在火源(底部)
 at.save(OUT,optimize=True);print(json.dumps(M,separators=(',',':')))
