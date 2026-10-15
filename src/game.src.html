@@ -202,6 +202,11 @@ body.px .eqi,body.px .eqs,body.px .eqt,body.px #dg img{image-rendering:pixelated
 #home .hr button small{display:block;font-size:.68em;font-weight:400;opacity:.95}
 #home .hm{min-height:3.2em;font-size:.9em;color:#ffe8a3;text-align:center;text-shadow:0 1px 2px #000}#home .hm button{display:inline-block;width:auto;font-size:.9em;padding:0 .6em;margin:.3em .3em 0;border-width:16px;border-image-width:16px}
 #home .hs button{font:inherit;cursor:pointer;color:#fff;background:none;border:16px solid transparent;border-image:url(@@A:home_btn@@) 16 fill/16px stretch;padding:0 .5em;image-rendering:pixelated}
+/* 第三十二轮:强化荣誉徽章 + 悬停提示框(参考用户给的效果图:黑底、青色圆角边、橙色标题) */
+.hon{display:flex;flex-wrap:wrap;gap:4px;margin:4px 0}.hon .hb{position:relative;display:inline-block;min-width:2.4em;padding:1px 4px;text-align:center;font-weight:bold;color:#868e96;background:#495057;border:2px solid #868e96;border-radius:6px;cursor:help}
+.hon .hb.ok{color:#a5d8ff;background:#1b2a44;border-color:#4dabf7}.hon .hb.on{color:#fff;background:#1971c2;border-color:#74c0fc;box-shadow:0 0 6px #74c0fc}
+.hon .ht{display:none;position:absolute;left:50%;bottom:calc(100% + 6px);transform:translateX(-50%);z-index:20;width:13em;padding:6px 10px;background:#000;border:3px solid #1fc8c8;border-radius:12px;color:#b8f5f0;font-weight:normal;line-height:1.5;text-align:center;white-space:normal}
+.hon .ht b{display:block;color:#ff922b;margin-bottom:2px}.hon .hb:hover .ht{display:block}
 </style>
 </head>
 <body>
@@ -211,7 +216,7 @@ body.px .eqi,body.px .eqs,body.px .eqt,body.px #dg img{image-rendering:pixelated
 <p class="tip">← → / A D 移动(连按两次快跑) · K / ↑ 跳跃 · W+J / S+J 特殊普攻(学会二段跳后空中再按) · J 攻击(下劈 → 上挑 → 直戳 → 下劈 循环,按住蓄力重击;跑步中按 J = 冲刺直戳) · L 换武器 · H U I O 技能 · 空格 / W+空格 / S+空格 / WW+空格 剑士进阶技能(转职后) · 1 2 3 喝药水 · S 捡起地上的掉落物 · 背包 / 技能 / 商城 / 精灵 / 宠物 / 任务 / 声音:点右下角按钮(菜单快捷键已关闭;背包里左键点物品弹出菜单,装备可拖动穿戴) · 装备翅膀后空中再按跳跃=飞行(W/S 升降、A/D 方向) · Esc / ⚙️ 设置(暂停、返回城镇、帧数、全屏)</p>
 <script>
 // 游戏版本:build.py 按它给输出文件命名(out/无名之旅_v版本.html),设置页也显示;每次发新版改这里
-const GAMEV='1.31';
+const GAMEV='1.32';
 // x 是当前的绘图上下文:平时是主画布;像素特效层(PXL,P2)绘制期间临时换成 640×360 的低分辨率图层
 const cv=document.getElementById('c');let x=cv.getContext('2d');const VW=640,VH=360,WW=3200,GY=300;
 // 渲染分辨率:电脑端 1920×1080(逻辑坐标仍是 640×360,整体放大 3 倍绘制,文字和像素都更清晰);手机端 1280×720
@@ -492,16 +497,16 @@ const sellPr=it=>Math.round(it.pr*EM(it)),buyPr=it=>it.pr*4;
 const STP=[0,20,35,60,100,160,250,380,550,800,1200,1800,2600];
 const enFee=(it,k)=>Math.ceil(STP[k]*(1+it.tier*.5)/10)*10;  // 强化手续费:每次尝试都收,成功失败都扣
 const SR=[0,.95,.9,.85,.75,.65,.55,.45,.35,.25,.15,.12,.08];
-const ENMX=6,ENMAX=()=>ENMX;  // 第十九轮:强化最高 +6(VIP 也一样);Lv3 / Lv4 强化石删除
+const ENMX=10,ENMAX=()=>ENMX;  // 第三十二轮:强化最高 +10(为了强化荣誉 +7~+10;VIP 也一样),Lv3(+7~+9)/ Lv4(+10)强化石恢复,只从首领掉落(第十九轮曾是 +6)
 const srOf=(k,lk)=>GM.luck?1:Math.min(1,SR[k]+(isVip()?.1:0)+(lk||0));  // lk = 幸运宝石加成(.25 / .35 / .5)  // VIP 强化成功率 +10%
 // ===== 强化石(2026-10-12 改版):Lv1~4 四级,每级管 3 个强化等级(Lv1 = +1~+3 · Lv2 = +4~+6 · Lv3 = +7~+9 · Lv4 = +10~+12);
 // 品质 普通 / 精良 / 史诗 / 卓越(蓝白 / 绿 / 紫 / 金黄):品质越高每级强化加的属性越多(b)、光芒越明显。关卡只掉普通,高品质在熔炉里 3 合 1。STN[级][品质] = 数量(存档字段 STN2)
 const STQ=[{n:'普通',c:'#a5d8ff',b:.08,p:1},{n:'精良',c:'#51cf66',b:.1,p:3},{n:'史诗',c:'#cc5de8',b:.12,p:9},{n:'卓越',c:'#fcc419',b:.15,p:27}];  // 第十六轮:每级 8% / 10% / 12% / 15%(原 10 / 12 / 15 / 20,+12 全卓越从 ×3.4 降到 ×2.8)
-const STP2=[0,40,170,560,1800];  // 强化石价格(商店只卖普通,高品质在熔炉合成)
-const stnLv=k=>Math.ceil(k/3);
+const STP2=[0,40,170,560,1800];  // 强化石参考价(只用于出售道具;第三十二轮起强化师不再卖强化石)
+const stnLv=k=>Math.ceil(k/3),stnUse=l=>l>=4?'+10':'+'+(l*3-2)+'~+'+l*3;
 function stnNew(){return [null,[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0]]}
 // 读档:新存档 STN2;旧存档 STN[k](k = 强化等级)换成对应等级的普通强化石
-function stnLoad(d){const S=stnNew();if(Array.isArray(d.STN2)){for(let l=1;l<=2;l++)for(let q=0;q<4;q++)S[l][q]=+(d.STN2[l]&&d.STN2[l][q])||0}else if(Array.isArray(d.STN))d.STN.forEach((n,k)=>{if(k&&n>0)S[stnLv(Math.min(ENMX,k))][0]+=n});return S}  // 第十九轮:旧存档的 Lv3 / Lv4 强化石直接删除
+function stnLoad(d){const S=stnNew();if(Array.isArray(d.STN2)){for(let l=1;l<=4;l++)for(let q=0;q<4;q++)S[l][q]=+(d.STN2[l]&&d.STN2[l][q])||0}else if(Array.isArray(d.STN))d.STN.forEach((n,k)=>{if(k&&n>0)S[stnLv(Math.min(ENMX,k))][0]+=n});return S}
 const stnTot=l=>STN[l].reduce((a,b)=>a+b,0);
 const stnRollQ=()=>0;  // 关卡只掉普通品质
 // 熔炉合成(免费):3 颗同级同品质 → 1 颗高一档品质(卓越最高);n = 合成次数(0 = 能合多少合多少)
@@ -516,9 +521,13 @@ function stnDraw(c,l,q,cx,cy,s){s=s||1;const t=performance.now()/1000,col=STQ[q]
   if(q>=2)for(let i=0;i<q;i++){const a=t*2+i*2.1;C_(c,cx+Math.cos(a)*9*s,cy+Math.sin(a)*6*s,1,'#fff',0)}}
 let FQ=-1;  // 强化面板里选中的强化石品质(-1 = 自动选持有的最低品质)
 function setLv(){let m=99;for(const k of ALL){const it=EQ[k];m=Math.min(m,it?(it.en||0):0)}return m}
-const setB=()=>{const m=setLv();return m>=5?Math.min(m,10)*.05:0};  // 第十六轮:全身 +5 起每级 5%(原 10%),+10 共 +50%
-// 全身 +11 / +12:生命、魔力、攻击、防御最终值再 +10% / +15%(第十六轮:原 15% / 20%)
-const setX=()=>{const m=setLv();return m>=12?.15:m>=11?.1:0};
+// 第三十二轮:强化荣誉(代替原来的全身 +5 起每级 5% 基础属性):除时装 / 翅膀外 6 个部位(发型、铠甲、戒指、耳坠、剑、法杖)都强化到 +N 时,
+// 按最低等级取下表一档(不累加):hp 生命 · cr 暴击率 · def 防御 · atk 攻击(都是最终值 ×(1+x),暴击率按全部来源合计 ×(1+x))· mv 移动力(每点 +HMV 移动速度)
+const HONR={4:{hp:.1},5:{hp:.15,cr:.1},6:{hp:.15,cr:.15,mv:1},7:{hp:.15,atk:.2,def:.05,mv:1},8:{hp:.2,cr:.25,def:.07,mv:1},9:{hp:.2,cr:.25,def:.1,atk:.05,mv:1},10:{hp:.27,cr:.25,def:.15,atk:.32,mv:2}},HMV=.05;
+const honLv=()=>{const m=Math.min(10,setLv());return m>=4?m:0},hon=()=>HONR[honLv()]||{};
+const honTxt=l=>{const h=HONR[l],p=v=>Math.round(v*100)+'%',a=[];if(h.hp)a.push('提高生命值'+p(h.hp));if(h.cr)a.push('提高暴击率'+p(h.cr));if(h.def)a.push('提高防御力'+p(h.def));if(h.atk)a.push('提高攻击力'+p(h.atk));if(h.mv)a.push('提升'+h.mv+'点移动力');return a};
+// 强化荣誉徽章(+4~+10 一排;达到的亮起,鼠标移上去显示这一档的效果,样式见 CSS .hon)
+const honRow=()=>{const L=honLv();return `<div class="hon">${[4,5,6,7,8,9,10].map(l=>`<span class="hb${l==L?' on':l<L?' ok':''}">+${l}<span class="ht"><b>强化荣誉+${l}</b>${honTxt(l).join(' ')}</span></span>`).join('')}</div>`};
 // ===== VIP:商城累计消费 5000 击杀点自动开通(永久)=====
 const VIPN=5000;let KPS=0,KPC=0,SIGN={day:'',n:0,str:0,last:0,prev:''};
 const isVip=()=>KPS>=VIPN;
@@ -539,20 +548,20 @@ const PSX=(k,l)=>k=='dj'?'在空中可以再跳一次':k=='crt'?`暴击率 +${l*
 const critK=()=>1.8+pl('crt')*.08;  // 暴击倍率:基础 1.8 倍,会心每级 +0.08
 function eqSum(ks){const g={hp:0,mp:0,atk:0,def:0,cr:0,dg:0};for(const k of ks){const it=EQ[k];if(!it)continue;for(const q in it.s)g[q]+=it.s[q]*EM(it);if(it.gem)for(const [q,v] of it.gem.a)g[q]+=v}return g}  // 装备白字 × 强化 + 属性石蓝字(不吃强化)
 function stats(){const g=eqSum(['head','body','ring','ear',P.mode]);
-  const b=1+setB(),X=1+setX(),c=setTr(),hp=Math.round(((lv(BHP)*b+g.hp)*pb('hp')+sprV('hp'))*X),am=1+atkTr(c,hp),cp=crdgP(g,c);
-  return {hp,mp:Math.round(((lv(BMP)*b+g.mp)*pb('mp')+sprV('mp'))*X),atk:Math.round(((lv(10)*b+g.atk)*pb('atk')*am+sprV('atk'))*(P.pAtk>0?1+petAtk():1)*(P.wy>0?1.3:1)*X),def:Math.round(((lv(3)*b+g.def)*pb('def')+sprV('def'))*(P.pDef>0?1+petDef():1)*X),
+  const H=hon(),c=setTr(),hp=Math.round(((lv(BHP)+g.hp)*pb('hp')+sprV('hp'))*(1+(H.hp||0))),am=1+atkTr(c,hp),cp=crdgP(g,c);
+  return {hp,mp:Math.round((lv(BMP)+g.mp)*pb('mp')+sprV('mp')),atk:Math.round(((lv(10)+g.atk)*pb('atk')*am+sprV('atk'))*(P.pAtk>0?1+petAtk():1)*(P.wy>0?1.3:1)*(1+(H.atk||0))),def:Math.round(((lv(3)+g.def)*pb('def')+sprV('def'))*(P.pDef>0?1+petDef():1)*(1+(H.def||0))),
     cr:+(cp.cr.reduce((s,q)=>s+q[1],0)).toFixed(1),dg:Math.min(DGMAX,+(cp.dg.reduce((s,q)=>s+q[1],0)).toFixed(1))}}
 const BHP=140,BMP=60;  // 第二十二轮:基础生命 60 → 140、基础魔力 30 → 60(1 级约 160 血,第一关小怪一下约 13%;原来 82 血一下 25%,第二区就扛不住)
 const DGMAX=35;  // 暴击率不设上限;闪避率上限 35%(第十六轮:45 → 35,闪避太高会让首领招式没有威胁)
 // 暴击率 / 闪避率来源明细(背包里显示)
 function crdgP(g,c){const r=v=>+v.toFixed(1),cr=[['装备',r(g.cr/CRPT)]],dg=[['装备',r(g.dg/DGPT)]],nl=trv('lei',c),nj=c.ji||0;
-  if(pl('crt'))cr.push(['会心',pl('crt')*2]);if(nl)cr.push(['怒雷套',r(nl*100)]);if(WEAR.wing&&COSD[WEAR.wing].cr)cr.push([COSD[WEAR.wing].n,COSD[WEAR.wing].cr]);if(sprV('cr'))cr.push(['精灵',sprV('cr')]);
+  if(pl('crt'))cr.push(['会心',pl('crt')*2]);if(nl)cr.push(['怒雷套',r(nl*100)]);if(WEAR.wing&&COSD[WEAR.wing].cr)cr.push([COSD[WEAR.wing].n,COSD[WEAR.wing].cr]);if(sprV('cr'))cr.push(['精灵',sprV('cr')]);{const hc=hon().cr;if(hc)cr.push(['强化荣誉',r(cr.reduce((s,q)=>s+q[1],0)*hc)])}
   if(nj>=2)dg.push(['神技套',nj>=4?JIDG[0]+JIDG[1]:JIDG[0]]);if(sprV('dg'))dg.push(['精灵',sprV('dg')]);return {cr,dg}}
 function atkTr(c,hp){let a=0;const nj=c.ji||0;if(nj>=2)a+=Math.min(P.combo||0,nj>=4?15:12)*(nj>=4?.02:.01);
   const nx=c.xue||0;if(nx>=2&&hp>0)a+=(nx>=4?.6:.25)*Math.max(0,Math.min(1,1-P.hp/hp));return a}
 // 2026-10-13 第十三轮:关卡里只飘数字(伤害 / 回复),文字提示(技能名、状态、MISS、魔力不足……)都不显示;k:'d' 伤害 · 'c' 暴击
 function tx(s,px,py,c,k){if(st=='play'&&!k&&!/^[+-]?\d+$/.test(String(s)))return;TX.push({s,x:px,y:py,t:.9,c,k})}
-function addItem(it){if(BAG.length<BAGN){BAG.push(it);tx('获得 '+it.n,P.x-20,P.y-20,it.tr?TRT[it.tr][1]:TR[it.tier][1])}else{gold+=it.pr;tx('背包已满,自动出售 +'+it.pr,P.x-30,P.y-20,'#ffd43b')}}
+function addItem(it){if(BAG.length<BAGN){BAG.push(it);tx('获得 '+it.n,P.x-20,P.y-20,it.tr?TRT[it.tr][1]:TR[it.tier][1])}else if(R19.wh.length<WHN){R19.wh.push(it);tx('背包已满,放进仓库:'+it.n,P.x-30,P.y-20,'#74c0fc')}else{gold+=it.pr;tx('背包已满,自动出售 +'+it.pr,P.x-30,P.y-20,'#ffd43b')}}
 // 第十五轮:关卡掉落率减半(小怪装备 / 蛇蛋、首领的装备和强化石);主线任务物品、转职凭证、女神碎片、仓鼠宠物蛋不受影响
 const DROPK=.5;
 // ===== 第十九轮(2026-10-13):属性石 · 小礼袋与 NPC 好感 · 合成添加剂 · 幸运宝石 · 双倍爆率卡 · 宠物饲料 · 商城道具与随机物品栏 =====
@@ -561,12 +570,26 @@ const ATSD={atk:['攻击',10,15],mp:['魔力',200,220],def:['防御',20,30],cr:[
 function atsNew(q){const ks=Object.keys(ATSD).sort(()=>Math.random()-.5).slice(0,q?2:1);return {q,a:ks.map(k=>{const d=ATSD[k];return [k,Math.round((d[1]+Math.random()*(d[2]-d[1]))*ATSQ[q].m)]})}}
 const atsTxt=g=>g.a.map(([k,v])=>ATSD[k][0]+' +'+v).join(' · ');
 // 关卡掉落(首领倒下时每样判定一次;双倍爆率卡 ×2):低级属性石 30% · 中级 12% · 小礼袋 50%(小怪 2%) · Lv1 强化石 10% · 第七~十关再判定 Lv2 强化石 7%
-const DRX={a0:.3,a1:.12,gift:.5,giftM:.02,s1:.1,s2:.07};
+// 第三十二轮(强化师不卖强化石、强化上限 +10):第八~十关再判定 Lv3 强化石 12% · 第十关再判定 Lv4 强化石 5%
+const DRX={a0:.3,a1:.12,gift:.5,giftM:.02,s1:.1,s2:.07,s3:.12,s4:.05};
 function bossDrop19(K){const dk=DBLK(),r=v=>Math.random()<v*dk;if(r(DRX.a0))gdDrop(B,{k:'ats',it:atsNew(0),n:1});if(r(DRX.a1))gdDrop(B,{k:'ats',it:atsNew(1),n:1});if(r(DRX.gift))gdDrop(B,{k:'gift',n:1});
-  if(r(DRX.s1))gdDrop(B,{k:'stn',lv:1,q:0,n:1});if(cur>=7&&cur<=10&&r(DRX.s2))gdDrop(B,{k:'stn',lv:2,q:0,n:1})}  // 关卡只掉普通品质(高品质只能熔炉合成)
+  if(r(DRX.s1))gdDrop(B,{k:'stn',lv:1,q:0,n:1});if(cur>=7&&cur<=10&&r(DRX.s2))gdDrop(B,{k:'stn',lv:2,q:0,n:1});if(cur>=8&&cur<=10&&r(DRX.s3))gdDrop(B,{k:'stn',lv:3,q:0,n:1});if(cur==10&&r(DRX.s4))gdDrop(B,{k:'stn',lv:4,q:0,n:1})}  // 关卡只掉普通品质(高品质只能熔炉合成)
 // 存档字段 R19:aff 好感 {NPC 名:{v 好感, d 今天领过的日期}} · ats 背包里的属性石 · dbl 双倍爆率卡到期时间 · mr 商城随机物品栏 {day, n 今天买了几次, L 三个货}
 let R19=r19New(),skMsg='',GSEL={e:null,s:-1,ok:0};
-function r19New(){return {aff:{},ats:[],dbl:0,mr:{day:'',n:0,L:[]}}}
+function r19New(){return {aff:{},ats:[],dbl:0,mr:{day:'',n:0,L:[]},wh:[]}}
+// ===== 第三十二轮:仓库(主城仓库管理员桂婶)=====
+// 装备可以在背包和仓库之间存取(仓库 WHN 格,存在 R19.wh);关卡里背包满了,新装备先自动放进仓库,仓库也满了才自动出售
+const WHN=100;
+function rWh(){const W=R19.wh,row=(it,b)=>`<div class="row"><span style="color:${TR[it.tier][1]};font-weight:bold">${eqImg(it,'eqs')} ${nm(it)}</span><span class="tag">${ST(it)}</span>${b}</div>`;
+  let h=hd('📦 仓库')+`<div class="tag">背包装不下的装备可以存在这里,随时来取。仓库 ${WHN} 格;关卡里背包满了,新捡到的装备会先自动放进仓库,仓库也满了才自动出售。</div>`+fm();
+  h+=`<h4>背包 ${BAG.length} / ${BAGN}</h4>`+(BAG.length?`<div class="row" style="border:0"><button data-p="Wa" ${W.length<WHN?'':'disabled'}>全部存入</button></div>`+BAG.map((it,i)=>row(it,`<button data-p="Wd${i}" style="margin-left:auto" ${W.length<WHN?'':'disabled'}>存入</button>`)).join(''):'<div class="tag">背包是空的</div>');
+  h+=`<h4>仓库 ${W.length} / ${WHN}</h4>`+(W.length?W.map((it,i)=>row(it,`<button data-p="Wt${i}" style="margin-left:auto" ${BAG.length<BAGN?'':'disabled'}>取出</button>`)).join(''):'<div class="tag">仓库是空的</div>');
+  return h}
+function whAct(r){if(!/^W[adt]/.test(r))return 0;const W=R19.wh,i=+r.slice(2);
+  if(r=='Wa'){const n=Math.min(BAG.length,WHN-W.length);W.push(...BAG.splice(0,n));fmsg=n?'存入了 '+n+' 件装备':'仓库满了'}
+  else if(r[1]=='d'){if(BAG[i]&&W.length<WHN){const it=BAG.splice(i,1)[0];W.push(it);fmsg='已存入 '+nm(it)}}
+  else if(W[i]&&BAG.length<BAGN){const it=W.splice(i,1)[0];BAG.push(it);fmsg='已取出 '+nm(it)}
+  return 1}
 const dblOn=()=>R19.dbl>Date.now(),DBLK=()=>dblOn()?2:1;
 // 新道具放在 MAT 里:[名称, 说明, (占位), 出售价, 使用按钮文字]
 const MISC={add:['合成添加剂','熔炉合成强化石时,每次合成要放 1 瓶(3 颗同级同品质 + 1 瓶 → 1 颗高一档品质)。目前不会掉落,只在 🏪 商城的随机物品栏出现。','',0],
@@ -1849,7 +1872,7 @@ function update(dt){
   let sf=1;P.wz=0;if(P.slw>0){P.slw-=dt;sf=.6}if(P.sand>0){P.sand-=dt;sf=.6}
   for(const w of WZ)if(P.y+P.h>=GY-2&&P.x+P.w>w.x&&P.x<w.x+w.w){P.wz=1;sf=.6}
   P.spdT=(P.spdT||0)-dt;P.apen=(P.apen||0)-dt;P.pAtk=(P.pAtk||0)-dt;P.pDef=(P.pDef||0)-dt;P.hshT=(P.hshT||0)-dt;if(P.hshT<=0)P.hdr=0;
-  if(!d||P.sk)P.run=0;P.vx=d*170*pb('spd')*sf*(P.run?1.65:1)*(P.spdT>0?1.35:1)*(P.fly?1.1:1);if(d)P.f=d;
+  if(!d||P.sk)P.run=0;P.vx=d*170*pb('spd')*(1+(hon().mv||0)*HMV)*sf*(P.run?1.65:1)*(P.spdT>0?1.35:1)*(P.fly?1.1:1);if(d)P.f=d;
   // 冰面:摩擦力小,加速慢、松开方向键还会滑一段
   {const onIce=cur==6&&!INTOWN&&P.gr&&!P.fly&&(P.onP&&P.onP.y<GY?P.onP.ice:iceAt(P.x+12));if(onIce&&!P.sk){P.ivx=(P.ivx||0)+(P.vx-(P.ivx||0))*Math.min(1,dt*(d?2.6:1.1));if(Math.abs(P.ivx)>40&&Math.random()<dt*14)pt({x:P.x+12-sgn(P.ivx)*6,y:P.y+P.h-1,vx:-P.ivx*.2,vy:rnd(-30,-10),c:'#e7f5ff',ad:0,s:2,l:.3});P.vx=P.ivx}else P.ivx=P.vx}
   if(P.run&&P.gr&&d){P.dt_=(P.dt_||0)-dt;if(P.dt_<=0){P.dt_=.07;pt({x:P.x+12-P.f*8,y:P.y+P.h-2,vx:-P.f*rnd(30,70),vy:rnd(-40,-10),c:'rgba(205,195,175,.65)',ad:0,s:rnd(3,5),gr:1.2,l:.35})}}
@@ -2024,7 +2047,7 @@ function qBoss(){qDay();const d=QD.d[2];if(d.s==1&&d.p<2){d.p++;tx('首领猎人
 // ty:kill 击败指定小怪 · boss 击败本关首领 · col 收集掉落物(接取后,指定怪物有几率掉落任务物品,按 S / ▼ 捡起)
 // g:委托人(城镇 NPC 的职业名),s:委托时的剧情,d:完成后的后记
 // =====================================================================
-const GN={'技能导师':'艾琳','药剂师':'小葵','装备商人':'老金','强化师':'铁叔','村长':''};
+const GN={'技能导师':'艾琳','药剂师':'小葵','装备商人':'老金','强化师':'铁叔','村长':'','仓库管理员':'桂婶'};
 const MN={slime:'史莱姆',skel:'骷髅兵',bat:'蝙蝠',snake:'小蛇',ape:'猿猴',ysco:'黄蝎',bsco:'黑棘蝎',spi:'沙蛛',ost:'鸵鸟',pen:'企鹅',pen2:'精英企鹅',seal:'海豹',seal2:'精英海豹',boss:'铁角牛魔',mage:'面具法师',king:'金色蛇王',sco:'黑棘巨蝎',andr:'沙渊古神',bear:'北极熊',dog:'雪原狼犬',dog2:'双头犬',wiz:'血月巫王',gfly:'游魂',gfly2:'厉鬼',gland:'提灯幽魂',gland2:'伪装的怨灵',yin:'怨婴·银太郎',cradle:'黑色摇篮',imp:'炎牙魔',fwisp:'熔火鬼',golem:'熔岩魔',oni:'炎狱鬼将',lava:'熔狱魔神',lclone:'炎魔分身',wimp:'翼魔',eye:'浮游眼魔',swing:'空翼妖',gui:'归蝇',ham:'瓜子大王'};
 const MQ=[
  // ——— 第一章 · 牛魔古堡 ———
@@ -2156,7 +2179,7 @@ function dlgSkip(){if(!DLG)return;const cb=DLG.cb;DLG=null;if(cb)cb()}
 let msg='',msgU=0;
 const say=m=>{msg=m;msgU=performance.now()+2400};
 // 主城 NPC(2026-10-12 扩图后分散摆放;y = 脚底高度,技能导师站在树屋高台上)
-const NPCS=[{x:340,y:252,n:'技能导师',c:'#7048e8',h:'#e8d5ff'},{x:600,y:300,n:'药剂师',c:'#0ca678',h:'#c3fae8'},{x:985,y:300,n:'装备商人',c:'#e8590c',h:'#ffd8a8'},{x:1195,y:300,n:'强化师',c:'#2b8a3e',h:'#b2f2bb'}];
+const NPCS=[{x:340,y:252,n:'技能导师',c:'#7048e8',h:'#e8d5ff'},{x:600,y:300,n:'药剂师',c:'#0ca678',h:'#c3fae8'},{x:985,y:300,n:'装备商人',c:'#e8590c',h:'#ffd8a8'},{x:1195,y:300,n:'强化师',c:'#2b8a3e',h:'#b2f2bb'},{x:700,y:300,n:'仓库管理员',c:'#364fc7',h:'#d0ebff'}];  // 第三十二轮:仓库管理员桂婶
 function toTown(){MYS=0;save();init();bossOn=false;cam=0;E=[];GD=[];PL=TWN.pl.map(p=>({...p}));st='town';P.x=TWN.spawn;cam=0;P.f=1;DLG=null;{const q=mqCur();say(CLR.includes(3)&&chiefNew()?'村长好像有话想对你说……':mqDone()?'主线「'+q.n+'」已完成,找'+mqWho(q)+'或打开 📜 领取奖励':q&&!QD.ms&&!mqLock(q)?'新的主线任务:去找'+mqWho(q)+'(头上有 ❗)':'欢迎回到晨曦镇')}if(MYR){MYR=0;mystIn()}}
 
 // 面具法师的暗影法球 / 天降暗影雷砸中主角、地面或场地墙壁:砸在身体 / 木头 / 石墙上的声音随机混用
@@ -3543,7 +3566,7 @@ function bookAct(r){if(r.startsWith('bbk')){fmsg=bkBuy(+r.slice(3));return 1}if(
   if(r.startsWith('bkc')&&BKR){BKR.c=+r.slice(3);bkTop();return 1}if(r=='bkl'){BKR=null;pn='book';bkTop();return 1}return 0}
 function bkTop(){setTimeout(()=>{const e=document.querySelector('#pn .bh');if(e)e.scrollIntoView({block:'start'})},0)}
 // 主城可互动的点:站在上面按 W(手机按方向盘 ▲)
-function townSpots(){const L=[];if(MYS){L.push({x:44,y:GY,n:'回城光柱',go:mystOut,v:'返回晨曦镇',bh:190});for(let i=0;i<myOpen();i++)L.push({x:MYLX[i],y:GY,n:'神秘副本 '+(i+1),go:()=>mystGo(i),v:'进入「'+MYNM[i]+'」',bh:204});return L}if(CLR.includes(3))L.push({x:TWN.chief,y:GY,n:'村长',go:talkChief});for(const n of NPCS)L.push({x:n.x,y:n.y,n:n.n,go:()=>mqTalk(n.n)?0:n.n=='技能导师'?toggleSk():openP({'装备商人':'shop','药剂师':'pot'}[n.n]||'forge')});
+function townSpots(){const L=[];if(MYS){L.push({x:44,y:GY,n:'回城光柱',go:mystOut,v:'返回晨曦镇',bh:190});for(let i=0;i<myOpen();i++)L.push({x:MYLX[i],y:GY,n:'神秘副本 '+(i+1),go:()=>mystGo(i),v:'进入「'+MYNM[i]+'」',bh:204});return L}if(CLR.includes(3))L.push({x:TWN.chief,y:GY,n:'村长',go:talkChief});for(const n of NPCS)L.push({x:n.x,y:n.y,n:n.n,go:()=>mqTalk(n.n)?0:n.n=='技能导师'?toggleSk():openP({'装备商人':'shop','药剂师':'pot','仓库管理员':'wh'}[n.n]||'forge')});
   L.push({x:TWN.forge,y:GY,n:'熔炉',go:()=>openP('fuse'),v:'合成强化石'});L.push({x:TWN.shelf,y:GY,n:'书架',go:()=>{BKR=null;openP('book')},v:'阅读书籍'});L.push({x:TWN.portal[0],y:TWN.portal[1],n:'传送门',go:openMap,v:'打开世界地图'});if(soulN()>0)L.push({x:MYTP[0],y:MYTP[1],n:'神秘光柱',go:mystIn,v:'进入神秘地带',bh:190});return L}
 function townSpot(){const px=P.x+12;let b=null,bd=30;for(const q of townSpots()){const d=Math.abs(px-q.x);if(d<bd&&Math.abs(P.y+P.h-q.y)<6){bd=d;b=q}}return P.gr?b:null}
 function townAct(){if(DLG){dlgNext();return}const q=townSpot();if(q)q.go()}
@@ -3611,7 +3634,7 @@ function tipItem(it,from){const q=TR[it.tier];let h=`${eqImg(it,'eqt')}<b style=
   h+=`<hr><span class="tg">售价 ${sellPr(it)} 金币 · ${from=='b'?'左键:穿戴 / 出售 · 双击直接穿戴 · 可拖到左边部位穿戴':'左键:卸下 / 出售 · 双击直接卸下 · 可拖到右边卸下'}</span>`;return h}
 // 道具背包里的条目:蛇蛋、高级幸运石、各级强化石(同种叠放在一格)
 function itemList(){const L=[];if(MAT.soul>0)L.push(['soul','💠','女神灵魂碎片',MAT.soul]);if(MAT.job>0)L.push(['job','⚜️','转职凭证',MAT.job]);if(MAT.hegg>0)L.push(['hegg',heggEm(),'仓鼠宠物蛋',MAT.hegg]);if(MAT.egg>0)L.push(['egg','🥚','蛇蛋',MAT.egg]);if(LUCK>0)L.push(['luck',mniEm('luck'),'高级幸运宝石',LUCK]);
-  for(const k in MISC)if(MAT[k]>0)L.push([k,mniEm(k),MISC[k][0],MAT[k]]);R19.ats.forEach((g,i)=>L.push(['T'+i,mniEm('A'+g.q),ATSQ[g.q].n,1]));for(let l=1;l<=2;l++)for(let q=3;q>=0;q--)if(STN[l][q]>0)L.push(['s'+l+q,stnEm(l,q),stnName(l,q),STN[l][q]]);return L}
+  for(const k in MISC)if(MAT[k]>0)L.push([k,mniEm(k),MISC[k][0],MAT[k]]);R19.ats.forEach((g,i)=>L.push(['T'+i,mniEm('A'+g.q),ATSQ[g.q].n,1]));for(let l=1;l<=4;l++)for(let q=3;q>=0;q--)if(STN[l][q]>0)L.push(['s'+l+q,stnEm(l,q),stnName(l,q),STN[l][q]]);return L}
 const itemDesc=id=>id[0]=='T'?(g=>g?`${ATSQ[g.q].n}:<b style="color:#1c7ed6">${atsTxt(g)}</b>。在 🔥 熔炉镶嵌到装备上(每件装备 1 颗,新的会替换旧的;不能拆下,出售装备不返还)。出售价格 ${ATSQ[g.q].pr} 金币。`:'')(R19.ats[+id.slice(1)]):MISC[id]?MISC[id][2]+(id=='dbl'&&dblOn()?`<br><b>生效中,还剩 ${Math.ceil((R19.dbl-Date.now())/60000)} 分钟</b>`:''):id=='hegg'?'神秘地带「瓜子大王」掉落(5% 几率)。打开顶栏 🐤 宠物界面,花 10 分钟孵化成宠物仓鼠(已经有仓鼠时,多孵出来的小仓鼠会让它多嗑 3 次瓜子)。不能出售。':id=='soul'?'女神灵魂碎片:第四关首领「黑棘巨蝎」、第八关首领「怨婴 · 银太郎」、第十关首领「归蝇」各掉落一块(这张地图一共 3 块)。碎片里封着女神被夺走的一缕灵魂,在黑暗里会发出淡紫色的光。收集齐全后或许能让城里的女神像重新苏醒……不能出售。':id=='job'?'第六关首领「北极熊」掉落。打开技能栏(T),在剑士或法师页面里选择转职(只能转职一次)。不能出售。':id=='egg'?'迷雾森林的蛇掉落的蛋。每日任务会用到,也可以卖掉(每个 3 金币)。':id=='luck'?'强化时在强化师那里选用,本次强化成功率 +50%。完成每日任务或在商城随机物品栏购买。':`用于把装备强化到 +${id[1]*3-2} ~ +${id[1]*3}(每次消耗 1 颗),在强化师处使用。品质「${STQ[+id[2]].n}」:强化成功时这一级 +${Math.round(STQ[+id[2]].b*100)}% 装备属性(3 颗可在熔炉合成高一档品质)。出售价格 ${itemPr(id)} 金币 / 颗。`;
 const itemPr=id=>id[0]=='T'?(R19.ats[+id.slice(1)]?ATSQ[R19.ats[+id.slice(1)].q].pr:0):MISC[id]?MISC[id][3]:id=='egg'?3:id=='luck'||id=='job'||id=='soul'||id=='hegg'?0:Math.floor(STP2[+id[1]]*STQ[+id[2]].p/2);
 const itemCnt=id=>id[0]=='T'?(R19.ats[+id.slice(1)]?1:0):MISC[id]?MAT[id]|0:id=='hegg'?MAT.hegg||0:id=='soul'?MAT.soul||0:id=='job'?MAT.job||0:id=='egg'?MAT.egg||0:id=='luck'?LUCK:STN[+id[1]][+id[2]]||0;
@@ -3634,7 +3657,7 @@ function renderBag(){
   const ccl=id=>{if(!id)return '<button class="cl" data-r="-"></button>';const r='c:'+id;return `<button class="cl" data-r="${r}" style="border-color:#f783ac;${sel==r?'background:rgba(255,212,59,.3);':''}">${COSD[id].ic}</button>`};
   const tabB=(i,l)=>`<button data-r="t${i}" class="${bagTab==i?'on':''}">${l}</button>`;
   const cp=crdgP(eqSum(['head','body','ring','ear',P.mode]),setTr()),src=a=>a.filter(q=>q[1]).map(q=>q[0]+' '+q[1]+'%').join(' + ')||'无';
-  const nx=expNeed(lvl),stn=[1,2].map(l=>stnTot(l)?'Lv'+l+'×'+stnTot(l):'').filter(Boolean).join(' ')||'无';
+  const nx=expNeed(lvl),stn=[1,2,3,4].map(l=>stnTot(l)?'Lv'+l+'×'+stnTot(l):'').filter(Boolean).join(' ')||'无';
   let right;
   if(bagTab==3){const tot=potTot(),cells=[];for(const k of POTK)for(let n=0;n<(POT[k]||0);n++)cells.push(k);
     right=`<div class="bcap"><span>药水 ${tot} / ${POTMAX} 瓶</span><span>1 格放 1 瓶 · 键盘 1 2 3 使用快捷栏 · 在 ⚗️ 药剂师购买</span></div><div class="qsr">快捷栏 ${QS.map((k,i)=>`<b>${i+1}</b>${potEm(k)}<span>${POTD[k][0]}</span>`).join('')}</div><div class="bgrid">${Array.from({length:POTMAX},(_,i)=>{const k=cells[i];if(!k)return '<button class="cl" data-r="-"></button>';const r='p:'+k,f=cells.indexOf(k)==i,q=QS.indexOf(k);return `<button class="cl pcl" data-r="${r}" style="border-color:${POTD[k][1]};${sel==r?'background:rgba(255,212,59,.3);':''}">${potEm(k)}${f&&q>=0?`<i class="tm qn">${q+1}</i>`:''}</button>`}).join('')}</div>`}
@@ -3652,7 +3675,7 @@ function renderBag(){
    <b>暴击率</b><span><b style="color:#f08c00">${S.cr}%</b> <span class="tag">${src(cp.cr)} · 暴击 ${+critK().toFixed(2)} 倍伤害</span></span>
    <b>闪避率</b><span><b style="color:#1c7ed6">${S.dg}%</b> <span class="tag">${src(cp.dg)}${S.dg>=DGMAX?' · 已达上限':''} · 完全躲开一次伤害</span></span>
    <b>技能点</b><span>${sp}</span><b>金币</b><span>💰 ${gold}</span><b>击杀点</b><span>⚔️ ${KP}</span><b>药水</b><span>${potTot()} / ${POTMAX} 瓶</span><b>材料</b><span>🥚×${MAT.egg||0} · 幸运宝石 ${(MAT.lk1|0)+(MAT.lk2|0)+LUCK} · 小礼袋 ${MAT.gift|0}</span><b>强化石</b><span>${stn}</span>
-   <b>全身强化</b><span>+${setLv()}${setB()?' <span class="tag">(基础属性 +'+Math.round(setB()*100)+'%'+(setX()?' · 全身属性 +'+Math.round(setX()*100)+'%':'')+')</span>':''}</span><b>VIP</b><span>${isVip()?'<b style="color:#e8590c">👑 已开通</b>':'<span class="tag">未开通(商城累计消费 '+KPS+' / '+VIPN+' 击杀点)</span>'}</span>${trSum()?`<span class="w">${trSum()}</span>`:''}</div>
+   <b>强化荣誉</b><span>${honLv()?'<b style="color:#ff922b">+'+honLv()+'</b>':'<span class="tag">未激活(全身 +4 起)</span>'} <span class="tag">全身最低 +${setLv()}</span>${honRow()}</span><b>VIP</b><span>${isVip()?'<b style="color:#e8590c">👑 已开通</b>':'<span class="tag">未开通(商城累计消费 '+KPS+' / '+VIPN+' 击杀点)</span>'}</span>${trSum()?`<span class="w">${trSum()}</span>`:''}</div>
   </div>
   <div class="bright"><div class="btab">${tabB(0,'⚔️ 装备')}${tabB(1,'👘 时装')}${tabB(2,'🎀 翅膀')}${tabB(3,'🧪 药水')}${tabB(4,'📦 道具')}</div>${right}<div class="dt">${dt}</div></div></div>`;
   drawDoll($('doll'))}
@@ -3746,7 +3769,7 @@ function lcm(r,e){sel=r;if(cmItems(r))openCM(r,e.clientX,e.clientY);else renderB
 function openP(n){if((st!='play'&&st!='town')||bagOpen||skOpen||DLG)return;pn=n;fs=null;spSel=null;fmsg='';GM.rc=0;keys.l=keys.r=0;ah=0;ar=0;$('pn').hidden=false;renderP()}
 function closeP(){pn=null;fmsg='';$('pn').hidden=true;save()}
 function toggleP(n){if(pn==n)closeP();else{if(pn)closeP();openP(n)}}
-function renderP(){$('pn').innerHTML=pn=='sign'?rSign():pn=='set'?rSet():pn=='shop'?rShop():pn=='forge'?rForge():pn=='fuse'?rFuse():pn=='quest'?rQuest():pn=='mall'?rMall():pn=='book'?rBook():pn=='spr'?rSpr():pn=='pet'?rPet():pn=='pot'?rPot():rGM()}
+function renderP(){$('pn').innerHTML=pn=='sign'?rSign():pn=='set'?rSet():pn=='shop'?rShop():pn=='forge'?rForge():pn=='fuse'?rFuse():pn=='quest'?rQuest():pn=='mall'?rMall():pn=='book'?rBook():pn=='wh'?rWh():pn=='spr'?rSpr():pn=='pet'?rPet():pn=='pot'?rPot():rGM()}
 // VIP 说明 + 进度(商城顶部)
 const VIPB=['击败怪物获得的经验 +10%','通关击杀点 +25%(10 → 12.5)','强化成功率 +10%'];
 function vipBox(){const v=isVip(),k=Math.min(1,KPS/VIPN);
@@ -3949,21 +3972,20 @@ function mallAct(r){
 function rForge(){
   const it=itOf(fs),m=setLv(),pk=(q,r)=>`<button class="pk${fs==r?' on':''}" data-p="f${r}" style="${q?'border-color:'+TR[q.tier][1]:''}">${eqImg(q)}${q.en?'<sup>+'+q.en+'</sup>':''}</button>`;
   const MX=ENMAX(),V=isVip();
-  let h=hd('🔨 强化师')+giftBox('强化师')+`<div class="tag">强化石分 2 级:Lv1 用于 +1~+3、Lv2 用于 +4~+6,每次消耗 1 颗;强化石品质决定这一级加多少属性(普通 +8%、精良 +10%、史诗 +12%、卓越 +15%),高品质强化石在旁边的熔炉里 3 颗 + 1 瓶合成添加剂合成。每次还要付金币手续费(成功失败都收)。等级越高成功率越低,失败只损失强化石,装备不受影响。最高 +${MX}${V?';<b style="color:#e8590c">👑 VIP:成功率 +10%</b>':';开通 👑 VIP 后成功率 +10%'}。可以选用幸运宝石提高成功率(低级 +25% · 中级 +35% · 高级 +50%)。</div>`;
+  let h=hd('🔨 强化师')+giftBox('强化师')+`<div class="tag">强化石分 4 级:Lv1 用于 +1~+3、Lv2 用于 +4~+6、Lv3 用于 +7~+9、Lv4 用于 +10,每次消耗 1 颗;强化师不卖强化石,只能打首领掉落(Lv1 各关 · Lv2 第七关起 · Lv3 第八关起 · Lv4 第十关)、做任务和好感奖励获得;强化石品质决定这一级加多少属性(普通 +8%、精良 +10%、史诗 +12%、卓越 +15%),高品质强化石在旁边的熔炉里 3 颗 + 1 瓶合成添加剂合成。每次还要付金币手续费(成功失败都收)。等级越高成功率越低,失败只损失强化石,装备不受影响。最高 +${MX}${V?';<b style="color:#e8590c">👑 VIP:成功率 +10%</b>':';开通 👑 VIP 后成功率 +10%'}。可以选用幸运宝石提高成功率(低级 +25% · 中级 +35% · 高级 +50%)。</div>`;
   h+=`<h4>已穿戴</h4><div class="row" style="border:0">${ALL.map(k=>EQ[k]?pk(EQ[k],'e:'+k):'').join('')||'<span class="tag">无</span>'}</div>`;
   h+=`<h4>背包</h4><div class="row" style="border:0">${BAG.map((q,i)=>pk(q,'b'+i)).join('')||'<span class="tag">空</span>'}</div>`;
   if(it){const n=it.en||0,k=n+1,c=`<b style="color:${TR[it.tier][1]}">${nm(it)}</b>`;
     if(n>=MX)h+=`<p>${c} ${ST(it)}<br>已强化到最高等级 +${MX}</p>`;
     else{const sl=stnLv(k),own=STN[sl],q=FQ>=0&&own[FQ]>0?FQ:Math.max(0,own.findIndex(v=>v>0)),has=own[q]>0,fee=enFee(it,k);
-      h+=`<p>${c}<br>当前:${ST(it)}<br>+${k} 后:${ST({...it,en:k,eb:enB(it)+STQ[q].b})} <span class="tag">(${STQ[q].n}品质:本级 +${Math.round(STQ[q].b*100)}%,累计 +${Math.round((enB(it)+STQ[q].b)*100)}%)</span><br>需要 <b>Lv${sl} 强化石</b>(用于 +${sl*3-2}~+${sl*3}),选择品质:`+STQ.map((Q,i)=>`<button data-p="Q${i}" class="${i==q&&has?'on':''}" ${own[i]?'':'disabled'}>${stnEm(sl,i)} ${Q.n} ×${own[i]}</button>`).join(' ')+
-        `<br>成功率 <b>${Math.round(srOf(k,lkB())*100)}%</b>${V?' <span class="tag">(含 VIP +10%)</span>':''}${lkB()?` <span class="tag">(含${LKS[useLk][1]} +${Math.round(lkB()*100)}%)</span>`:''} · 消耗 1 颗 + 💰${fee} 手续费${gold<fee?' <b style="color:#c92a2a">金币不足</b>':''}<br><button data-p="up" ${has&&gold>=fee?'':'disabled'}>🔨 强化到 +${k}(💰${fee})</button>${[1,2,3].filter(i=>lkHave(i)>0).map(i=>` <button data-p="lk${i}" class="${useLk==i?'on':''}">${useLk==i?'✅':'⬜'} ${LKS[i][1]}(持有 ${lkHave(i)})</button>`).join('')} <button data-p="k${sl}_0_1" ${gold<STP2[sl]?'disabled':''}>买 1 颗普通 Lv${sl} 石 💰${STP2[sl]}</button></p>`}}
+      h+=`<p>${c}<br>当前:${ST(it)}<br>+${k} 后:${ST({...it,en:k,eb:enB(it)+STQ[q].b})} <span class="tag">(${STQ[q].n}品质:本级 +${Math.round(STQ[q].b*100)}%,累计 +${Math.round((enB(it)+STQ[q].b)*100)}%)</span><br>需要 <b>Lv${sl} 强化石</b>(用于 ${stnUse(sl)}),选择品质:`+STQ.map((Q,i)=>`<button data-p="Q${i}" class="${i==q&&has?'on':''}" ${own[i]?'':'disabled'}>${stnEm(sl,i)} ${Q.n} ×${own[i]}</button>`).join(' ')+
+        `<br>成功率 <b>${Math.round(srOf(k,lkB())*100)}%</b>${V?' <span class="tag">(含 VIP +10%)</span>':''}${lkB()?` <span class="tag">(含${LKS[useLk][1]} +${Math.round(lkB()*100)}%)</span>`:''} · 消耗 1 颗 + 💰${fee} 手续费${gold<fee?' <b style="color:#c92a2a">金币不足</b>':''}<br><button data-p="up" ${has&&gold>=fee?'':'disabled'}>🔨 强化到 +${k}(💰${fee})</button>${[1,2,3].filter(i=>lkHave(i)>0).map(i=>` <button data-p="lk${i}" class="${useLk==i?'on':''}">${useLk==i?'✅':'⬜'} ${LKS[i][1]}(持有 ${lkHave(i)})</button>`).join('')}${own.some(v=>v>0)?'':` <span class="tag">没有 Lv${sl} 强化石(打首领掉落)</span>`}</p>`}}
   else h+=`<p class="tag">点选上方一件装备开始强化</p>`;
-  h+=fm()+`<h4>全身强化加成</h4><div>发型、铠甲、戒指、耳坠、剑、法杖 6 个部位都强化到 +5 及以上时,按其中最低的强化等级,每级 +5% 角色基础属性(+5 即 +25%,+6 即 +30%)。<br>当前最低 +${m}:${m>=5?'<b>已激活,基础属性 +'+Math.round(setB()*100)+'%</b>':'未激活'}</div>`;
-  h+=`<h4>购买强化石</h4><div class="tag">商店只卖普通品质;精良、史诗、卓越要在熔炉里合成。</div>`+[1,2].map(l=>{const p=STP2[l];return `<div class="row"><span>${stnEm(l,0)} ${stnName(l,0)}</span><span class="tag">用于 +${l*3-2}~+${l*3} · 持有 ${STN[l][0]}</span><span style="margin-left:auto"><button data-p="k${l}_0_1" ${gold<p?'disabled':''}>买 1 💰${p}</button> <button data-p="k${l}_0_10" ${gold<p*10?'disabled':''}>买 10</button></span></div>`}).join('');
+  h+=fm()+`<h4>强化荣誉</h4><div>除时装、翅膀外,发型、铠甲、戒指、耳坠、剑、法杖 6 个部位都强化到 +4 及以上时,按其中最低的强化等级获得一档强化荣誉(只取最高一档,不累加)。鼠标移到下面的徽章上查看每一档的效果。<br>当前最低 +${m}:${honLv()?'<b style="color:#ff922b">强化荣誉+'+honLv()+' 已激活</b>':'未激活'}${honRow()}</div>`;
   return h}
 // 熔炉:强化石 3 合 1(同级、同品质 → 高一档品质)
 function rFuse(){let h=hd('🔥 熔炉')+fm()+rGem()+`<h4>强化石合成</h4><div class="tag">把 3 颗同等级、同品质的强化石 + 1 瓶合成添加剂放进熔炉,炼成 1 颗高一档品质的强化石:普通 → 精良 → 史诗 → 卓越,必定成功。品质越高,强化时这一级加的属性越多(普通 +8%、精良 +10%、史诗 +12%、卓越 +15%)。合成添加剂只在 🏪 商城的随机物品栏出现 · 持有 <b>${MAT.add|0}</b> 瓶</div>`;
-  for(let l=1;l<=2;l++){h+=`<h4>Lv${l} 强化石(用于 +${l*3-2}~+${l*3})</h4>`;
+  for(let l=1;l<=4;l++){h+=`<h4>Lv${l} 强化石(用于 ${stnUse(l)})</h4>`;
     for(let q=0;q<3;q++){const n=STN[l][q],k=Math.min(Math.floor(n/3),MAT.add|0);h+=`<div class="row"><span>${stnEm(l,q)} ${STQ[q].n} ×${n}</span><span class="tag">3 颗 + 1 瓶添加剂 → 1 颗 ${stnEm(l,q+1)} ${STQ[q+1].n}(持有 ${STN[l][q+1]})</span><span style="margin-left:auto"><button data-p="F${l}${q}1" ${k?'':'disabled'}>合成 1 次</button> <button data-p="F${l}${q}0" ${k>1?'':'disabled'}>全部合成(${k} 次)</button></span></div>`}}
   return h}
 function rGM(){const sel=(id,o)=>`<select id="${id}">${o}</select>`,nums=(d)=>Array.from({length:ENMX+1},(_,i)=>`<option${i==d?' selected':''}>${i}</option>`).join(''),
@@ -3981,7 +4003,7 @@ function rGM(){const sel=(id,o)=>`<select id="${id}">${o}</select>`,nums=(d)=>Ar
 function gmAct(a){fmsg='';const full=()=>{const S=stats();P.hp=S.hp;P.mp=S.mp};if(a!='reset')GM.rc=0;
   if(a.startsWith('t_')){const k=a.slice(2);GM[k]=GM[k]?0:1}
   else if(a=='g1000')gold+=1000;else if(a=='g10000')gold+=10000;else if(a=='g0')gold=0;
-  else if(a=='st10'){for(let l=1;l<=2;l++)for(let q=0;q<4;q++)STN[l][q]+=10;MAT.add=(MAT.add|0)+10;fmsg='每级每种品质的强化石各 +10,合成添加剂 +10'}
+  else if(a=='st10'){for(let l=1;l<=4;l++)for(let q=0;q<4;q++)STN[l][q]+=10;MAT.add=(MAT.add|0)+10;fmsg='每级每种品质的强化石各 +10,合成添加剂 +10'}
   else if(a=='it19'){MAT.gift=(MAT.gift|0)+50;MAT.food=(MAT.food|0)+10;MAT.lk1=(MAT.lk1|0)+3;MAT.lk2=(MAT.lk2|0)+3;MAT.dbl=(MAT.dbl|0)+1;for(let i=0;i<3;i++){R19.ats.push(atsNew(0));R19.ats.push(atsNew(1))}fmsg='小礼袋 +50 · 宠物饲料 +10 · 低 / 中级幸运宝石 +3 · 双倍爆率卡 +1 · 低 / 中级属性石各 +3'}
   else if(a=='vip'){KPS=isVip()?0:VIPN;full();fmsg=isVip()?'👑 VIP 已开通':'VIP 已关闭(累计消费清零)'}
   else if(a=='sign0'){SIGN.day=SIGN.day==today()?yday():SIGN.day;fmsg='今天的签到已重置,可以再签一次'}
@@ -4026,6 +4048,7 @@ $('pn').addEventListener('click',e=>{const g=e.target.closest('[data-g]');if(g){
   const t=e.target.closest('[data-p]');if(!t||t.disabled)return;const r=t.dataset.p;fmsg='';
   if(r=='x'){closeP();return}
   {const m=giftAct(r);if(m!=null){fmsg=m;save();renderP();return}}
+  if(whAct(r)){save();renderP();return}
   {const m=mallAct(r);if(m==2)return;if(m){save();renderP();return}}
   if(r=='mqa'){const q=mqCur();if(mqAccept())fmsg='✅ 已接受主线:'+q.n}
   else if(r=='mqc'){const q0=mqCur(),rt=q0&&mqRwT(q0),q=mqClaim();if(q)fmsg=`🎁 主线「${q.n}」完成:${rt}<br><span class="tag" style="font-weight:normal">后记:${q.d}</span>`}
@@ -4042,7 +4065,6 @@ $('pn').addEventListener('click',e=>{const g=e.target.closest('[data-g]');if(g){
       const S=stats();P.hp=Math.min(P.hp,S.hp);P.mp=Math.min(P.mp,S.mp)}}
   else if(r[0]=='F'&&r.length==4){const l=+r[1],q=+r[2],k=stnFuse(l,q,+r[3]);if(k){fmsg=`🔥 熔炼成功:${stnName(l,q+1)} ×${k}(消耗 ${STQ[q].n} ×${k*3}、合成添加剂 ×${k})`;sfx('fuse');save()}else fmsg='需要 3 颗同级同品质的强化石和 1 瓶合成添加剂'}
   else if(r.startsWith('gE')){GSEL.e=r.slice(2);GSEL.ok=0}else if(r.startsWith('gS')){GSEL.s=+r.slice(2);GSEL.ok=0}else if(r=='gI'){fmsg=gemSet()}
-  else if(r[0]=='k'){const [l,q,n]=r.slice(1).split('_').map(Number),p=STP2[l]*(STQ[q]?STQ[q].p:1e9);if(l>=1&&l<=2&&q==0&&n>0&&gold>=p*n){gold-=p*n;STN[l][q]+=n;fmsg='购买了 '+n+' 颗 '+stnName(l,q)}}
   else if(r[0]=='b'){const [i,j]=r.slice(1).split('_').map(Number),it=shopIt(i,j),c=buyPr(it);
     if(BAG.length>=BAGN)fmsg='背包已满';else if(gold>=c){gold-=c;const nb=shopIt(i,j,1);BAG.push(nb);fmsg='购买了 '+it.n+'('+ST(nb)+'),已放进背包'}}
   else if(r[0]=='s'){const i=+r.slice(1),it=BAG[i];if(it){const c=sellPr(it);gold+=c;BAG.splice(i,1);fmsg='出售 '+nm(it)+',获得 '+c+' 金币'}}
@@ -5566,7 +5588,7 @@ PEND.init();
 // ===== 城镇 NPC 的 LPC 形象(和 LPC 主角统一画风):每个 NPC 一行 = 待机朝右 2 帧 + 待机正面 2 帧(64×64,脚底在第 62 行)=====
 // 艾琳 女 · 紫色长发紫袍;小葵 少女 · 绿色双马尾 + 白围裙;铁叔 中年 · 寸头大胡子 + 皮围裙;老金 老年 · 秃顶灰发 + 八字胡 + 橙马甲 + 背包;村长 老年 · 白发白胡子 + 拐杖
 // 设置里「人物形象」选 Ars / 旧版时,回到原来的 Sara / Trevor / Old Man
-const LNPC={I:null,D:'@@A:npc_lpc@@',M:{"技能导师":{"row":0,"top":14},"药剂师":{"row":1,"top":13},"强化师":{"row":2,"top":15},"装备商人":{"row":3,"top":15},"村长":{"row":4,"top":15}},
+const LNPC={I:null,D:'@@A:npc_lpc@@',M:{"技能导师":{"row":0,"top":14},"药剂师":{"row":1,"top":13},"强化师":{"row":2,"top":15},"装备商人":{"row":3,"top":15},"村长":{"row":4,"top":15},"仓库管理员":{"row":5,"top":10}},
   init(){const im=new Image();im.onload=()=>{this.I=im};im.src=this.D},
   on(k){return SET.art!==0&&SET.hero!=='ars'&&!!this.I&&!!this.M[k]},
   // 玩家走到 44 像素内转成正面,否则侧身朝向玩家;待机 2 帧缓慢交替(各 NPC 错开)
@@ -5768,7 +5790,8 @@ const NPCLOOK={
   '技能导师':{hs:'elf',hair:'#d0bfff',hl:'#f3f0ff',eye:'#7048e8',robe:1,top:'#7048e8',top2:'#4b2bb5',belt:'#ffd43b',wpn:{k:'staff',arm:.95,glow:'rgba(229,153,247,.6)'},skin:'#ffe3c8'},
   '装备商人':{hs:'cap',hair:'#8a5a2e',capc:'#e8590c',eye:'#2f9e44',top:'#ff922b',top2:'#e8590c',belt:'#8a5a32',must:'#6b3a1e',wpn:{k:'bag',arm:1.1},skin:'#ffd8b0'},
   '药剂师':{hs:'twin',hair:'#96f2d7',hl:'#e6fcf5',eye:'#0ca678',robe:1,top:'#38d9a9',top2:'#0b7285',belt:'#ffd43b',hat:'band',hatc:'#ff8fab',wpn:{k:'flask',arm:.55},skin:'#ffe3c8'},
-  '强化师':{hs:'bald',hair:'#868e96',eye:'#1c7ed6',top:'#2b8a3e',top2:'#1e6b30',belt:'#6b4423',beard:'#adb5bd',angry:1,wpn:{k:'hammer',arm:.5,a:-.7},skin:'#f2c9a0'}};
+  '强化师':{hs:'bald',hair:'#868e96',eye:'#1c7ed6',top:'#2b8a3e',top2:'#1e6b30',belt:'#6b4423',beard:'#adb5bd',angry:1,wpn:{k:'hammer',arm:.5,a:-.7},skin:'#f2c9a0'},
+  '仓库管理员':{hs:'twin',hair:'#c0582a',eye:'#1c7ed6',robe:1,top:'#364fc7',top2:'#7a2e3a',belt:'#6b4423',skin:'#ffe3c8'}};  // 第三十二轮:只给 Ars / 旧版人物形象兜底用
 function drawNPC(c,a,look,t,f,k){if(k&&PXA.npc(c,k,a,t,f||1))return;c.save();c.translate(a,GY);c.scale(f||1,1);SHD(c,0,0,14);c.scale(1.1,1.1);drawChibi(c,{...look,t});c.restore()}
 function drawTown(){const t=performance.now()/1000,c0=Math.round(cam),I=TWN.I;
   if(MYS)MYST.hub(t);else{x.fillStyle='#8fd3ff';x.fillRect(0,0,VW,VH);
@@ -5796,7 +5819,7 @@ function drawTown(){const t=performance.now()/1000,c0=Math.round(cam),I=TWN.I;
   if(BOOK.I){const bx=TWN.shelf;x.imageSmoothingEnabled=false;x.drawImage(BOOK.I,0,0,34,60,bx-17,GY-60,34,60);x.imageSmoothingEnabled=true;PLQ(x,bx,GY-74,'书架','阅读书籍')}
   PLQ(x,TWN.forge,GY-140,'熔炉','合成强化石');
   // NPC(y 不在地面的 NPC 整体平移过去画)
-  for(const n of NPCS){const dy=n.y-GY;x.save();x.translate(0,dy);drawNPC(x,n.x,NPCLOOK[n.n],t+n.x,P.x+12<n.x?-1:1,n.n);PLQ(x,n.x,GY-(PXA.has(n.n)?64:76),n.n,{'技能导师':'学习 / 升级技能','药剂师':'购买药水','装备商人':'买卖装备','强化师':'强化装备'}[n.n]);if(mqGiver(n.n))CT(mqDone()?'❓':'❗',n.x,GY-(PXA.has(n.n)?84:96)+Math.sin(t*5)*3,16,'#ffd43b','center',3);x.restore()}
+  for(const n of NPCS){const dy=n.y-GY;x.save();x.translate(0,dy);drawNPC(x,n.x,NPCLOOK[n.n],t+n.x,P.x+12<n.x?-1:1,n.n);const px_=PXA.has(n.n)||LNPC.on(n.n);PLQ(x,n.x,GY-(px_?64:76),n.n,{'技能导师':'学习 / 升级技能','药剂师':'购买药水','装备商人':'买卖装备','强化师':'强化装备','仓库管理员':'存取装备'}[n.n]);if(mqGiver(n.n))CT(mqDone()?'❓':'❗',n.x,GY-(px_?84:96)+Math.sin(t*5)*3,16,'#ffd43b','center',3);x.restore()}
   if(CLR.includes(3))drawChief();
   x.restore();if(soulN()>0)MYST.pillar(MYTP[0],MYTP[1],t,'177,151,252','神秘光柱','神秘地带')}  // 神秘光柱:技能导师树屋高台右端
   drawSM();PXL.run(drawTor,TOR.length>0||!!LCK);drawPet();drawHamPet();PXL.run(drawShots);drawStarF(cam);PXL.run(trailDraw,SWTR.length>1);drawP();drawHamShd();PXL.run(thrDraw,THR.length>0);PXL.run(()=>drawFairy(x,SPRP.x-cam,SPRP.y,t,1,P.f),!!(SPR.own&&SPR.on));
@@ -5979,7 +6002,7 @@ const lvsName=n=>n>=11?'神秘副本 '+(n-10)+' · '+MYNM[n-11]:MAPS[n-1].n;
 // 本关掉落预览:装备 6 个部位(按本关系列;一星画精良、二星稀有、三星史诗的图标)、首领的强化石、特殊掉落
 function lvsDrops(n){const L=[],ser=n<=2?0:n<=4?1:n<=7?2:3;
   for(const sl of ALL){const it=gen(sl,LVS.s>=3?3:LVS.s==2?2:1,null,ser,null,1);L.push({d:(cx,cy)=>eqDraw(it,cx,cy,22),n:SL[sl][0],c:TR[it.tier][1]})}
-  for(const l of n>=7&&n<=10?[1,2]:[1]){const q=0;L.push({d:(cx,cy)=>stnDraw(x,l,q,cx,cy,1.3),n:'Lv'+l+' 强化石',c:STQ[q].c})}
+  for(const l of n==10?[1,2,3,4]:n>=8&&n<=10?[1,2,3]:n==7?[1,2]:[1]){const q=0;L.push({d:(cx,cy)=>stnDraw(x,l,q,cx,cy,1.3),n:'Lv'+l+' 强化石',c:STQ[q].c})}
   for(const [k,nm_,c] of [['A0','属性石',ATSQ[0].c],['gift','小礼袋','#ffd43b']])L.push({d:(cx,cy)=>{if(MENI.I){x.save();x.imageSmoothingEnabled=false;x.drawImage(MENI.I,MENI.P[k]*34,0,34,34,Math.round(cx-11),Math.round(cy-11),22,22);x.restore()}},n:nm_,c})
   if(n==3)L.push({e:'🥚',n:'蛇蛋',c:'#ffe8a3'});if(n==6)L.push({e:'📜',n:'转职凭证',c:'#ffd43b'});if(SOULV[n])L.push({d:(cx,cy)=>soulDraw(x,cx,cy,performance.now()/1000),n:'女神碎片',c:'#d0bfff'});if(n>=11)L.push({e:'🥚',n:'仓鼠宠物蛋',c:'#ffe8a3'});
   return L}
@@ -6136,6 +6159,7 @@ function pvImg(k){const t=.3,c=document.createElement('canvas'),g=c.getContext('
 // 主页面打开时 HOME=1:主城画面停住当背景(loop 里不跑 townUpd),键盘只认 Enter(继续 / 新游戏)和 Esc(从操作说明返回)
 // 更新日志 CHLOG:[版本, 日期, [条目...]],新版本加在最前面(和 GAMEV 一起改)
 const CHLOG=[
+ ['1.32','2026-10-14',['主城新增仓库管理员桂婶(药剂师和女神像之间):背包装不下的装备可以存进仓库(100 格);关卡里背包满了,新装备先自动放进仓库','强化师不再出售强化石,只能打首领掉落、做任务获得;强化上限提高到 +10,恢复 Lv3(+7~+9,第八关起掉落)和 Lv4(+10,第十关掉落)强化石','新增强化荣誉:除时装、翅膀外 6 个部位全部强化到 +4 起,按最低等级获得生命 / 暴击率 / 防御 / 攻击 / 移动力加成(背包和强化师里鼠标移到 +4~+10 徽章上查看)']],
  ['1.31','2026-10-14',['金币商店新增四本书:勇者大陆历史、冒险王传说、十二星灵故事、消失的龙族(每本 199 金币),买到后放在主城的书架上,站在书架前按 W 阅读','凤凰(火鸟)去掉白眼睛和黄鸟喙,只留火焰鸟的轮廓','翅膀飞行时展开扇动(不再一直收着)','影分身持续 6 秒;分身放的火鸟 / 光柱和你自己放的可以同时存在']],
  ['1.30','2026-10-14',['法师普攻换成白色球形闪电(和原来的重击一样大),重击更大并带蓝色魔光、命中星花','火鸟图腾更华丽(火光、火尾、更大的火焰双翼),改成喷出一道大火焰,落点爆炸','苍穹光柱去掉外层紫光和全屏泛紫,只留深色光柱和上下法阵','影分身换成和主角一样的新形象,自己找敌人、普攻、随机放攻击技能(不再跟着主角放)','第九、十关剩下的光球和细线条招式换成素材特效(眼魔激光、天空光束、十字光、火焰链、熔核)']],
  ['1.29','2026-10-14',['关卡小怪改成走进哪个区域才出现哪个区域的怪,分两次从天上掉下来','怪物的飞弹不再是圆球,每种换成不同的花样特效;第二关首领的激光加粗、加特效','剑士普攻能打到和自己重叠的怪了','圣光禁域:光球变大、颜色更多彩,领域更大,也能困住首领;火鸟图腾升高,改成吐出一大团火焰;苍穹光柱改成深紫色光柱,首领僵直 2.5 秒']],

@@ -22,7 +22,8 @@
  旧的云端环境只能访问 GitHub / npm / pypi,opengameart、itch 访问不了。
  素材来源:ULPC 仓库(LPC 人物图层)、series-ai/jam-ready-assets(大量 CC0 素材,LFS 文件用 media 直链下载,见 fetch_assets.sh)。
 
-【当前状态(2026-10-14,第三十一轮完成后)】
+【当前状态(2026-10-14,第三十二轮完成后)】
+- v1.32:仓库 rWh / whAct / WHN(r19New 下面,R19.wh);仓库管理员桂婶 NPCS x=700、LNPC row 5(build_npc_lpc.py 只重新合成 KEEP 以外的行)。强化上限 ENMX 10、Lv3 / Lv4 强化石只从首领掉(DRX.s3 / s4);强化师不卖强化石。强化荣誉 HONR / hon() / honRow(setLv 下面,setB / setX 已删),CSS .hon。问题在 docs/下次任务.txt「第三十二轮」。
 - v1.31:书架与书籍整段在源码「第三十一轮 · 书架与书籍」(townSpots 上面:BOOK 图集 / BOOKS 正文 / BKDS / bkBuy / rBook / bookAct,R19.bk;TWN.shelf 1325);正文包在 /*NOFONT{*/ … /*}NOFONT*/ 里,像素字体统计跳过。影分身 CLNT 6 秒,分身的火鸟 / 光柱在 MGTc / MGPc(mgC 包装,mgStep0 / drawMg0)。翅膀 wing_fly.png = LPC 羽翼 jump 张开帧(build_wing.py)。凤凰去眼睛鸟喙(build_smn.py)。剧情设定(四本书的明线 / 暗线 / 谜底)写在 docs/下次任务.txt 第三十一轮;以后写主线要和书里的设定对得上。
 - v1.30:影分身 cloneAI / cloneSkStep / drawClone(cloneSwap 上面;drawClone 在 draw 里 drawP 前);法师普攻 PB.lb(mbFire、VFX.shot);火鸟喷流 MGL + drawMg;nbBeam(s10Fx 上面);FX29 新帧(build_fx29.py,raw/skfx/soluna_fx)。问题在 docs/下次任务.txt「第三十轮」(付费凤凰素材、分身时长、分身和主角共用火鸟 / 光柱)。
 - v1.29:区域掉怪 waveStep / waveDrop / WB(ZB 上面);图集 FX29(build_fx29.py,im:7,MG27 后面,FX29.S 飞弹种类 → 特效);面具法师 chain 激光(mageStep + drawE 的 mage);剑普攻判定(update 里 P.hb);法师进阶 MGL 改成火团 + mgBoom,bigStun(e,T)。问题在 docs/下次任务.txt「第二十九轮」。
@@ -123,6 +124,7 @@
   仍是矢量画进像素层:猿、鸵鸟(决定保留);蛛丝、狼人冲击波、蝎子毒柱;北极熊的冲击波 / 冰刺 / 暴风雪。
 
 【下一步】
+  ★ 第三十二轮已完成(2026-10-14,v1.32),等用户回复 docs/下次任务.txt「第三十二轮」(+10 上限和 Lv3/Lv4 掉率、+7→+8 攻击回落、暴击按比例、移动力 5%、背包满自动进仓库)。
   ★ 第三十轮已完成(2026-10-14,v1.30),等用户回复 docs/下次任务.txt「第三十轮」。
   ★ 第二十九轮已完成(2026-10-14,v1.29),等用户回复 docs/下次任务.txt「第二十九轮」的 3 个问题(掉怪方式、光污染亮度、飞弹样子)。
 ★ 第二十八轮已完成(2026-10-14):法师进阶技能已按用户重置的设计做完,等试玩反馈(首领是否也该被困 / 定住、伤害冷却)。
