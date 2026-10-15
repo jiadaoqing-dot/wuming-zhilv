@@ -896,9 +896,9 @@
  6349  pvImg              
  6359  ■ 主页面(第二十轮):打开游戏后的第一页 —— 左边版本号 + 更新日志(或操作说明),右边 开始新游戏 / 继续游戏 / 提取存档 / 添加存档 / 操作说明
  6362  CHLOG              更新日志 CHLOG:[版本, 日期, [条目...]],新版本加在最前面(和 GAMEV 一起改)
- 6388  homeSave           
- 6389  rHome              
- 6396  openHome           
- 6397  closeHome          
- 6398  homeAct            
- 6418  homeKey            
+ 6389  homeSave           
+ 6390  rHome              
+ 6397  openHome           
+ 6398  closeHome          
+ 6399  homeAct            
+ 6419  homeKey            
