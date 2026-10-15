@@ -22,7 +22,8 @@
  旧的云端环境只能访问 GitHub / npm / pypi,opengameart、itch 访问不了。
  素材来源:ULPC 仓库(LPC 人物图层)、series-ai/jam-ready-assets(大量 CC0 素材,LFS 文件用 media 直链下载,见 fetch_assets.sh)。
 
-【当前状态(2026-10-15,第三十八轮完成后)】
+【当前状态(2026-10-15,第三十九轮完成后)】
+- v1.39:fixNum(save 上面)防金币 / 经验 NaN;mqRw 11 项。神秘副本 2 梦魇幽驹 nmr / 3 深渊炎魔 dmn(GP 图集 + nmrStep / dmnStep / gpStep / gpFx,myStep 后面;cur 12 / 13,MYNM 3 项)。再加神秘副本 4、5 时:MYNM、LM / E 列表 / BHN / BDF / XPK / BXP 加项,B 选择、怪物循环、drawE、bg、名字表、HUD、BWP、ESKN、lvsArt / lvsBoss、通关处理。
 - v1.38:神秘副本(cur ≥ 11)首领掉装备固定林王系列(update 首领死亡那段 rollItem 第二个参数)。
 - v1.37:通关击杀点 KPCL 40 + KPLV 12 × 关卡(update 首领死亡那段);击杀点价格 COSD / KPIT / RCP kp / AMP 约减半;FREC 3000k;VIPN 2500。「练满」计算口径写在《更新记录》v1.37。
 - v1.36:EXPT 经验表(LVMAX 上面)按实测反推;GDB 3;进阶技能金币 600;MAPS 推荐等级 1~34。经济模拟脚本思路:enterLv 后每帧 P.x+5、把镜头里的怪 hp=0、首领 hp=0,卡住就跳 140 像素(第六关地形)。花销表在 docs/下次任务.txt「第三十六轮」。

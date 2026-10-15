@@ -1,3 +1,9 @@
+【2026-10-15 v1.39 第三十九轮】修金币 NaN / 神秘副本 2「梦魇幽驹」、3「深渊炎魔」
+- 金币 NaN:主线任务奖励 mqRw 的表只有 9 项,第十关任务领奖 → gold / exp += undefined → NaN(NaN 比较全是 false,买东西不扣钱、经验不再升级)。表补到 11 项;新增 fixNum()(save 开头 + loadSave 末尾),金币 / 经验 / 技能点 / 击杀点不是有限数或为负就归零。
+- 神秘副本 2 / 3(源码「第三十九轮:神秘副本 2 / 3」在 myStep 后面):图集 GP(art_src/myst/build_gp.py,raw/gothic_pc = Gothicvania Patreon's Collection,ansimuz,CC0);nmrStep / dmnStep / gpStep / gpFx / GP.arena2 / arena3;数值 = 第八 / 第十关首领 ×1.2(BHN / BDF 13 项、LM、B.dm ×1.2、BDMK)。
+- 接入:B 选择、怪物循环、drawE(GP.on)、bg、myStep / myFx、reward / XPK / BXP、CDMG、名字表、HUD 名字、BWP、BSR、ESKN、通关处理(gpClr、横幅;仓鼠蛋只在副本 1)、掉落(副本 1 林王,2 / 3 雪原 + Lv2 强化石)、选关页卡片 / 掉落预览;设置页美术致谢加一条;像素字体重新裁剪(驹魇鬃颅鞍等)。
+- 测试:两个首领各模拟 70 秒,所有招式都出现、无报错;截图检查各招式;冒烟测试 0 错误。
+
 【2026-10-15 v1.38 第三十八轮】瓜子大王掉林王系列
 - 首领掉装备那行 rollItem(品质, cur>=11 ? 1 : 默认系列):神秘副本 1 瓜子大王只掉林王系列(以前按 curSer 掉雪原)。测试 8 次击杀全是林王;冒烟测试 0 错误。
 
