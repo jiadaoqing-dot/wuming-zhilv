@@ -251,7 +251,7 @@ body.px .at2{border:2px solid transparent;border-image:url(@@A:ui_card@@) 6 fill
 <p class="tip">← → / A D 移动(连按两次快跑) · K / ↑ 跳跃 · W+J / S+J 特殊普攻(学会二段跳后空中再按) · J 攻击(下劈 → 上挑 → 直戳 → 下劈 循环,按住蓄力重击;跑步中按 J = 冲刺直戳) · L 换武器 · H U I O 技能 · 空格 / W+空格 / S+空格 / WW+空格 剑士进阶技能(转职后) · 1 2 3 喝药水 · S 捡起地上的掉落物 · 背包 / 技能 / 商城 / 精灵 / 宠物 / 任务 / 声音:点右下角按钮(菜单快捷键已关闭;背包里左键点物品弹出菜单,装备可拖动穿戴) · 装备翅膀后空中再按跳跃=飞行(W/S 升降、A/D 方向) · Esc / ⚙️ 设置(暂停、返回城镇、帧数、全屏)</p>
 <script>
 // 游戏版本:build.py 按它给输出文件命名(out/无名之旅_v版本.html),设置页也显示;每次发新版改这里
-const GAMEV='1.36';
+const GAMEV='1.37';
 // x 是当前的绘图上下文:平时是主画布;像素特效层(PXL,P2)绘制期间临时换成 640×360 的低分辨率图层
 const cv=document.getElementById('c');let x=cv.getContext('2d');const VW=640,VH=360,WW=3200,GY=300;
 // 渲染分辨率:电脑端 1920×1080(逻辑坐标仍是 640×360,整体放大 3 倍绘制,文字和像素都更清晰);手机端 1280×720
@@ -510,10 +510,10 @@ function potIcon(c,cx,cy,k){const s=POTI.S[k];if(!POTI.I||!s)return;c.save();c.i
 const potEm=k=>{const s=POTI.S[k]||[0,0];return `<i class="pti" style="background-position:-${s[0]*1.25}em -${(s[1]*1.328).toFixed(3)}em"></i>`};
 // ===== 时装 / 翅膀(击杀点商店)· 精灵 / 宠物(金币商店)=====
 const COSD={
- fh:{t:'fash',n:'风华剑仙',ic:'☁️',kp:1990,d:'仙人白衣、墨发高髻、玉簪轻绾,衣袂与发丝随风飘动,周身萦绕仙气。',tr:'【御风】每次释放技能:移动速度 +35%(3 秒),并在身前召唤一道龙卷风,持续 3 秒、缓缓向前推进,每 0.3 秒对卷入的敌人造成 35% 攻击力伤害(可暴击,不会打僵敌人)。最多同时存在 3 道,再召唤会替换最早的一道。'},
- xy:{t:'fash',n:'学院法师',ic:'🎓',kp:1990,d:'魔法学院的黑色长袍、尖顶巫师帽,配一条红金条纹围巾。',tr:'【学识】所有技能冷却 -10%。累计释放 8 次技能后召唤「锁敌雷电」,持续 5 秒:自动锁定附近的敌人,每 0.5 秒落下一道雷电,伤害等于普通攻击(可暴击,不会造成僵直)。10 秒内没有放技能,计数清零。'},
- fhw:{t:'wing',n:'风华剑仙翅膀',ic:'🎀',kp:1990,d:'一缕仙气丝带(披帛)绕身而过。飞行时背后展开一对白色羽翼(像素美术下所有翅膀飞行都是这对羽翼;原版几何画法是丝带随风舒展)。',tr:'翅膀可以飞行:在空中再按一次跳跃起飞(学会二段跳的话是第三下),飞行中 W / S 控制高度(按住跳跃也能上升)、A / D 控制方向,不按就悬停,按 S 落到地面或平台上结束;飞行每秒消耗 8 + 2.5% 最大魔力。'},
- xyw:{t:'wing',n:'学院法师翅膀',ic:'🧹',kp:1990,d:'一把施了魔法的扫帚,平时化作一颗四角星在身后跟随。飞行时背后展开一对白色羽翼(像素美术下所有翅膀飞行都是这对羽翼;原版几何画法是骑着扫帚飞行)。',tr:'翅膀可以飞行:在空中再按一次跳跃起飞(学会二段跳的话是第三下),飞行中 W / S 控制高度(按住跳跃也能上升)、A / D 控制方向,不按就悬停,按 S 落到地面或平台上结束;飞行每秒消耗 8 + 2.5% 最大魔力。'}};
+ fh:{t:'fash',n:'风华剑仙',ic:'☁️',kp:990,d:'仙人白衣、墨发高髻、玉簪轻绾,衣袂与发丝随风飘动,周身萦绕仙气。',tr:'【御风】每次释放技能:移动速度 +35%(3 秒),并在身前召唤一道龙卷风,持续 3 秒、缓缓向前推进,每 0.3 秒对卷入的敌人造成 35% 攻击力伤害(可暴击,不会打僵敌人)。最多同时存在 3 道,再召唤会替换最早的一道。'},
+ xy:{t:'fash',n:'学院法师',ic:'🎓',kp:990,d:'魔法学院的黑色长袍、尖顶巫师帽,配一条红金条纹围巾。',tr:'【学识】所有技能冷却 -10%。累计释放 8 次技能后召唤「锁敌雷电」,持续 5 秒:自动锁定附近的敌人,每 0.5 秒落下一道雷电,伤害等于普通攻击(可暴击,不会造成僵直)。10 秒内没有放技能,计数清零。'},
+ fhw:{t:'wing',n:'风华剑仙翅膀',ic:'🎀',kp:990,d:'一缕仙气丝带(披帛)绕身而过。飞行时背后展开一对白色羽翼(像素美术下所有翅膀飞行都是这对羽翼;原版几何画法是丝带随风舒展)。',tr:'翅膀可以飞行:在空中再按一次跳跃起飞(学会二段跳的话是第三下),飞行中 W / S 控制高度(按住跳跃也能上升)、A / D 控制方向,不按就悬停,按 S 落到地面或平台上结束;飞行每秒消耗 8 + 2.5% 最大魔力。'},
+ xyw:{t:'wing',n:'学院法师翅膀',ic:'🧹',kp:990,d:'一把施了魔法的扫帚,平时化作一颗四角星在身后跟随。飞行时背后展开一对白色羽翼(像素美术下所有翅膀飞行都是这对羽翼;原版几何画法是骑着扫帚飞行)。',tr:'翅膀可以飞行:在空中再按一次跳跃起飞(学会二段跳的话是第三下),飞行中 W / S 控制高度(按住跳跃也能上升)、A / D 控制方向,不按就悬停,按 S 落到地面或平台上结束;飞行每秒消耗 8 + 2.5% 最大魔力。'}};
 const SPRP_=59990,PETP_=69000;
 // 精灵属性:[键, 名称, 每点数值, 单位];每级 1 点(50 级共 50 点),每项最多 50 点
 const SPK=[['hp','生命',40,''],['mp','魔力',40,''],['atk','攻击',10,''],['def','防御',3,''],['cr','暴击率',.24,'%'],['dg','闪避率',.06,'%']],SPKV=Object.fromEntries(SPK.map(q=>[q[0],q[2]]));
@@ -575,8 +575,9 @@ const honLv=()=>{const m=Math.min(ENMX,setLv());return m>=4?m:0},hon=()=>HONR[ho
 const honTxt=l=>{const h=HONR[l],p=v=>Math.round(v*100)+'%',a=[];if(h.hp)a.push('提高生命值'+p(h.hp));if(h.cr)a.push('提高暴击率'+p(h.cr));if(h.def)a.push('提高防御力'+p(h.def));if(h.atk)a.push('提高攻击力'+p(h.atk));if(h.mv)a.push('提升'+h.mv+'点移动力');return a};
 // 强化荣誉徽章(+4~+10 一排;达到的亮起,鼠标移上去显示这一档的效果,样式见 CSS .hon)
 const honRow=()=>{const L=honLv();return `<div class="hon">${[4,5,6,7,8,9,10].filter(l=>l<=ENMX).map(l=>`<span class="hb${l==L?' on':l<L?' ok':''}">+${l}<span class="ht"><b>强化荣誉+${l}</b>${honTxt(l).join(' ')}</span></span>`).join('')}</div>`};
-// ===== VIP:商城累计消费 5000 击杀点自动开通(永久)=====
-const VIPN=5000;let KPS=0,KPC=0,SIGN={day:'',n:0,str:0,last:0,prev:''};
+// ===== VIP:商城累计消费 2500(VIPN,第三十七轮从 5000 降下来) 击杀点自动开通(永久)=====
+const VIPN=2500;  // 第三十七轮:击杀点商店降价约一半,VIP 条件跟着减半
+let KPS=0,KPC=0,SIGN={day:'',n:0,str:0,last:0,prev:''};
 const isVip=()=>KPS>=VIPN;
 // 通关奖励击杀点:VIP +25%(小数部分累积到下次,不会丢)
 function kpGain(b){if(!isVip())return b;const v=b*1.25+KPC,n=Math.floor(v);KPC=+(v-n).toFixed(3);return n}
@@ -680,7 +681,8 @@ function rGem(){const it=itOf(GSEL.e),g=R19.ats[GSEL.s],pk=(q,r)=>`<button class
 function gemSet(){const it=itOf(GSEL.e),g=R19.ats[GSEL.s];if(!it||!g)return '先选一件装备和一颗属性石';if(it.gem&&!GSEL.ok){GSEL.ok=1;return ''}
   it.gem={q:g.q,a:g.a.map(v=>v.slice())};R19.ats.splice(GSEL.s,1);GSEL.s=-1;GSEL.ok=0;sfx('fuse');const S=stats();P.hp=Math.min(P.hp,S.hp);P.mp=Math.min(P.mp,S.mp);save();return '💠 镶嵌成功:'+nm(it)+' '+atsTxt(it.gem)}
 // 商城(击杀点):固定货架 + 随机物品栏(3 个货,每天限买 MRMAX 次;每次在商城消费都刷新;合成添加剂、高级幸运宝石只在随机栏出现)
-const KPIT={ats0:['低级属性石',100,'随机 1 条属性(攻击 / 魔力 / 防御 / 暴击 / 闪避)'],ats1:['中级属性石',150,'随机 2 条属性'],gift:['小礼袋',25,'送给 NPC,好感度 +1'],food:['宠物饲料',5,'钢盔小鸡获得 20% 升级经验'],lk1:['低级幸运宝石',100,'强化成功率 +25%'],lk2:['中级幸运宝石',150,'强化成功率 +35%'],add:['合成添加剂',180,'熔炉合成强化石必需'],lk3:['高级幸运宝石',220,'强化成功率 +50%']};
+// 第三十七轮(用户:账号练满不该要几百小时):通关击杀点 = (40 + 12 × 关卡) × 星级(一星 1 / 二星 1.3 / 三星 1.7),原来固定 20;击杀点商店、时装翅膀、制作书、材料约降一半
+const KPIT={ats0:['低级属性石',60,'随机 1 条属性(攻击 / 魔力 / 防御 / 暴击 / 闪避)'],ats1:['中级属性石',90,'随机 2 条属性'],gift:['小礼袋',25,'送给 NPC,好感度 +1'],food:['宠物饲料',5,'钢盔小鸡获得 20% 升级经验'],lk1:['低级幸运宝石',60,'强化成功率 +25%'],lk2:['中级幸运宝石',90,'强化成功率 +35%'],add:['合成添加剂',100,'熔炉合成强化石必需'],lk3:['高级幸运宝石',130,'强化成功率 +50%']};
 const KPFIX=['ats0','ats1','gift','food','lk1','lk2'],KPRND=['add','add','add','lk3','lk3','ats0','ats1','gift','lk1','lk2','food'],MRMAX=3;
 function mrRoll(){const L=[];let n=0;while(L.length<3&&n++<200){const k=pick(KPRND);if(!L.includes(k))L.push(k)}R19.mr.L=L}
 function mrDay(){if(R19.mr.day!=today()){R19.mr.day=today();R19.mr.n=0;mrRoll()}if(!R19.mr.L.length)mrRoll()}
@@ -697,14 +699,14 @@ for(const k in MATD)MISC[k]=[MATD[k][0],`装备和其他道具的制作材料,�
 MISC.wash=['洗脸券','在 🔥 熔炉「洗练」里使用:把一件装备的 3 条绿字全部重新随机一次(种类和数值都重新随机)。击杀点商店购买。','',0];
 for(const k in AMP)MISC['amp_'+k]=[AMP[k][0],`增幅宝石:在 🔥 熔炉「增幅宝石」里镶嵌到装备、时装或翅膀上(8 个部位都能用),${AMP[k][2]} +${Math.round(AMP[k][1]*100)}%(加在基础数值上)。每件只能镶 1 颗,新的会覆盖旧的,不能拆下。击杀点商店购买。`,'',0];
 for(let k=1;k<=FGMX;k++)MISC['fg'+k]=[FGN[k]+'级锻造石',`在 🔥 熔炉「锻造」里使用:把锻造 ${k-1} 级的装备提升到 ${k} 级(白字 +${k*FGK*100}%)。用「${FGN[k]}级锻造」制作书在熔炉制作。`,'',0];
-Object.assign(KPIT,{flax:['亚麻',20,'制作材料'],glue:['动物皮胶',30,'制作材料'],wash:['洗脸券',60,'刷新一件装备的 3 条绿字'],amp_cr:['暴击宝石',400,'增幅宝石:暴击率 +15%'],amp_atk:['攻击宝石',400,'增幅宝石:攻击力 +3%'],amp_hp:['HP宝石',400,'增幅宝石:生命值 +6%'],amp_def:['防御宝石',400,'增幅宝石:防御力 +4%']});
+Object.assign(KPIT,{flax:['亚麻',10,'制作材料'],glue:['动物皮胶',15,'制作材料'],wash:['洗脸券',30,'刷新一件装备的 3 条绿字'],amp_cr:['暴击宝石',200,'增幅宝石:暴击率 +15%'],amp_atk:['攻击宝石',200,'增幅宝石:攻击力 +3%'],amp_hp:['HP宝石',200,'增幅宝石:生命值 +6%'],amp_def:['防御宝石',200,'增幅宝石:防御力 +4%']});
 KPFIX.push('flax','glue','wash','amp_cr','amp_atk','amp_hp','amp_def');
 // 制作书(买一次永久学会,存在 R19.rc):大师头饰 / 战甲 / 项链 / 指环 × 五种特性;一~五级锻造
 const MSL=['head','body','ear','ring'],MSN={head:'头饰',body:'战甲',ear:'项链',ring:'指环'};
-const RCP={};for(const s of MSL)for(const t of TRK)RCP['m'+s+'_'+t]={n:'大师'+MSN[s]+' · '+TRT[t][0],kp:300,s,t};for(let k=1;k<=FGMX;k++)RCP['f'+k]={n:FGN[k]+'级锻造',kp:100*k,k};
+const RCP={};for(const s of MSL)for(const t of TRK)RCP['m'+s+'_'+t]={n:'大师'+MSN[s]+' · '+TRT[t][0],kp:150,s,t};for(let k=1;k<=FGMX;k++)RCP['f'+k]={n:FGN[k]+'级锻造',kp:60*k,k};
 // 配方:材料数量 + 金币(add = 合成添加剂)
 const MREC={head:{steel:2,silk:3,gthr:2,flax:4,glue:2,add:1,gold:30000},body:{steel:4,rhino:3,gthr:1,flax:3,glue:3,add:1,gold:40000},ear:{steel:1,silk:2,gthr:4,flax:2,glue:2,add:1,gold:30000},ring:{steel:3,silk:1,gthr:3,flax:2,glue:2,add:1,gold:30000}};
-const FREC=k=>({steel:2*k,rhino:k,gthr:k,glue:k,gold:5000*k});
+const FREC=k=>({steel:2*k,rhino:k,gthr:k,glue:k,gold:3000*k});  // 第三十七轮:金币 5000k → 3000k
 const recOf=id=>{const r=RCP[id];return r.s?MREC[r.s]:FREC(r.k)},rcOwn=id=>R19.rc.includes(id);
 const matHave=k=>k=='gold'?gold:MAT[k]|0,matName=k=>k=='add'?'合成添加剂':MISC[k]?MISC[k][0]:k;
 function rcBuy(id){const r=RCP[id];if(!r||rcOwn(id))return '';if(KP<r.kp)return '击杀点不足';KP-=r.kp;KPS+=r.kp;R19.rc.push(id);sfx('coin');save();return '📖 学会了「'+r.n+'」,去 🔥 熔炉制作'}
@@ -765,7 +767,7 @@ const rollQ=p=>{const r=Math.random();let a=0;for(let i=0;i<p.length;i++){a+=p[i
 // 第十六轮经济:小怪经验 / 金币 = 基础表 × XPK[关卡] ÷ 2.5(分区刷怪 ×2.5 的还原);首领固定 BXP[关卡](约等于该关推荐等级升一级所需经验的 12%);都再乘星级倍率
 // 校准:同关一星打一遍约升 1/3 级,二星 1/2 级,三星 3/4 级
 // 第二十三轮:经验 XPB ×1.5(同关一星一遍约 1.2 级)、金币 GDB ×1.5;通关击杀点 KPCL 10 → 20(二星 / 三星 26 / 32)
-const XPB=1.5,GDB=3,KPCL=20;  // 第三十六轮:金币再翻倍(GDB 1.5 → 3)
+const XPB=1.5,GDB=3,KPCL=40,KPLV=12;  // 第三十六轮:金币再翻倍(GDB 1.5 → 3)
 const XPK=[0,1,1.8,2.6,3.4,4.2,5,5.8,6.6,7.4,8.2,3.4],BXP=[0,30,200,550,1000,1550,2200,2900,3700,4500,5400,1000];
 function reward(e){VFX.spawn('smoke-puff',e.x+e.w/2,e.y+e.h/2,{s:e.max?2.2:1});const t0={slime:[8,5,.22],bat:[6,4,.18],skel:[14,9,.4],boss:[120,100,0],mage:[300,250,0],snake:[10,6,.2],ape:[16,10,.35],king:[600,500,0],ysco:[16,10,.3],bsco:[22,14,.4],sco:[1000,800,0],spi:[18,12,.3],ost:[26,18,.4],andr:[1500,1200,0],pen:[30,20,.35],pen2:[42,28,.45],seal:[34,22,.4],seal2:[46,30,.5],bear:[2200,1800,0],dog:[38,24,.4],dog2:[52,34,.5],wiz:[2600,2100,0],gfly:[46,30,.45],gfly2:[64,42,.55],gland:[50,32,.45],gland2:[70,46,.6],yin:[3200,2600,0],cradle:[60,0,0],imp:[80,52,.45],fwisp:[76,50,.45],golem:[130,90,.6],oni:[600,420,1],lava:[3800,3000,0],lclone:[60,0,0],wimp:[96,62,.45],eye:[100,64,.45],swing:[700,480,1],gui:[4600,3600,0],ham:[1000,800,0]}[e.k],K=STK(),ci=Math.min(cur,11),lk=XPK[ci]||1,sm=e.sum?.25:1;
   let xp0,gd0;if(e.max){xp0=BXP[ci]||500;gd0=Math.round(xp0*1.2)}else{xp0=Math.max(1,Math.round(t0[0]*lk*sm/WMUL));gd0=Math.round(t0[1]*lk*sm/WMUL)}
@@ -2113,7 +2115,7 @@ function update(dt){
   for(const w of WZ)w.t-=dt;WZ=WZ.filter(w=>w.t>0);hzStep(dt);
   gdStep(dt);
   for(let i=I.length-1;i>=0;i--)if(ov(P,I[i])){P.hp=Math.min(S.hp,P.hp+15);sfx('coin');tx('+15',P.x,P.y-6,'#69db7c');I.splice(i,1)}
-  if(bossOn&&B.hp<=0&&!endT){endT=-1;CLRP=1;sfxAll();B.sh=null;B.gl=null;sfx('win');tx('站到通关光柱上按 W 完成关卡',P.x-50,P.y-62,'#ffe066');F=[];TOR=[];LCK=null;{const g=kpGain(Math.round(KPCL*(1+(STK().gd-1)*.5)));KP+=g;tx('+'+g+' 击杀点'+(isVip()?'(VIP)':''),P.x-14,P.y-76,'#ff8787')}reward(B);if(cur==6&&!JOB&&!(MAT.job>0)&&!GD.some(g=>g.k=='job'))gdDrop(B,{k:'job',n:1});{const K=STK();for(let j=0;j<2;j++)if(!j||Math.random()<DROPK*K.dr*DBLK())gdDrop(B,{k:'eq',it:rollItem(rollQ(K.bq))});  // 第十六轮:首领必掉 1 件(品质按星级 bq),第 2 件看掉落率
+  if(bossOn&&B.hp<=0&&!endT){endT=-1;CLRP=1;sfxAll();B.sh=null;B.gl=null;sfx('win');tx('站到通关光柱上按 W 完成关卡',P.x-50,P.y-62,'#ffe066');F=[];TOR=[];LCK=null;{const g=kpGain(Math.round((KPCL+KPLV*Math.min(cur,10))*(1+(STK().gd-1)*.5)));KP+=g;tx('+'+g+' 击杀点'+(isVip()?'(VIP)':''),P.x-14,P.y-76,'#ff8787')}reward(B);if(cur==6&&!JOB&&!(MAT.job>0)&&!GD.some(g=>g.k=='job'))gdDrop(B,{k:'job',n:1});{const K=STK();for(let j=0;j<2;j++)if(!j||Math.random()<DROPK*K.dr*DBLK())gdDrop(B,{k:'eq',it:rollItem(rollQ(K.bq))});  // 第十六轮:首领必掉 1 件(品质按星级 bq),第 2 件看掉落率
       bossDrop19(K);tx('首领掉落了战利品,按 S 捡起',P.x-50,P.y-48,'#d0bfff')}if(cur==5||cur==7){B.T=[];B.Z=[];B.R=[];B.S=[];B.ult=0;B.act=null;B.ug=0;F=F.filter(f=>!(f.c>=17&&f.c<=19))}if(cur==6){B.wv=[];B.sp=[];B.zn=[];B.blz=0;B.act=null}if(cur==7){E=E.filter(e=>!e.sum);W7E=performance.now()}if(cur==8){B.act=null;B.ug=0;E=E.filter(e=>!e.sum);G8.cr=[];G8.hd=[];G8.cl=[];G8.ds=[];G8.vis=0;G8.lampOff=0;G8.wn=0;G8.bk=0;}if(cur==9){B.act=null;E=E.filter(e=>!e.sum);V9.pl=[];V9.rw=[];V9.cz=[];V9.ch=null;V9.gp=null;P.heat=0;P.ovh=0;P.burn=0;banner('熔岩冷却了……魔神化成了黑石')}if(cur==10){B.act=null;B.ug=0;B.hide=0;S10.sb=[];S10.bm=[];S10.af=[];S10.wind=0;F=[];banner('归蝇的黑翼散成了羽毛……幽灵船慢慢降到了海面上')}if(cur>=11){B.act=null;HSH=[];HCL=[];if(Math.random()<.05){gdDrop(B,{k:'hegg',n:1});banner('瓜子大王倒下了……留下了一颗暖乎乎的蛋!')}else banner('瓜子大王倒下了……这次没有留下蛋(5% 掉落)')}if(SOULV[cur]&&!soulHas(cur)&&!GD.some(g=>g.k=='soul')){gdDrop(B,{k:'soul',n:1,lv:cur});banner(SOULV[cur])}P.grab=0;P.frz=0;P.fzA=0;P.slw=P.sand=0;P.ps=0;qBoss()}
   for(const t of TX){t.t-=dt;t.y-=22*dt}TX=TX.filter(t=>t.t>0);
   if(P.hp<=0){st='dead';CHI=1;sfx('lose')}
@@ -3968,7 +3970,7 @@ function vipBox(){const v=isVip(),k=Math.min(1,KPS/VIPN);
   return `<div class="vip${v?' on':''}"><b>👑 VIP ${v?'· 已开通':'· 未开通'}</b> <span class="tag">${v?'永久有效':'在击杀点商店累计消费 '+VIPN+' 击杀点自动开通'} · 累计消费 ${KPS} / ${VIPN}</span><div class="xb"><i style="width:${Math.round(k*100)}%"></i></div><span class="tag">${VIPB.map(q=>(v?'✅ ':'🔒 ')+q).join(' · ')}</span></div>`}
 // 商城预览图:把角色 / 精灵 / 宠物画到小画布上
 function rMall(){const tb=(i,l)=>`<button data-p="mt${i}" class="${mallTab==i?'on':''}">${l}</button>`;
-  let h=`<div class="bh"><b>🏪 商城</b><span><span class="tag">💰 ${gold} · ⚔️ 击杀点 ${KP}</span> <button data-p="x">✕ 关闭</button></span></div><div class="row" style="border:0">${tb(0,'💰 金币商店')}${tb(1,'⚔️ 击杀点商店')}<span class="tag" style="margin-left:auto">每次通关(击败关卡首领)奖励 10 击杀点${isVip()?'(VIP 12.5)':''} · 每天 📅 签到 1~100</span></div>`+fm()+vipBox();
+  let h=`<div class="bh"><b>🏪 商城</b><span><span class="tag">💰 ${gold} · ⚔️ 击杀点 ${KP}</span> <button data-p="x">✕ 关闭</button></span></div><div class="row" style="border:0">${tb(0,'💰 金币商店')}${tb(1,'⚔️ 击杀点商店')}<span class="tag" style="margin-left:auto">每次通关(击败关卡首领)奖励 ${KPCL+KPLV*Math.min(Math.max(cur,1),10)} 击杀点(第 N 关 = 40 + 12×N,二星 ×1.3、三星 ×1.7${isVip()?',VIP 再 ×1.25':''}) · 每天 📅 签到 1~100</span></div>`+fm()+vipBox();
   const card=(img,sq,name,desc,price,own,btn)=>`<div class="mc${own?' own':''}"><img class="${sq?'sq':''}" src="${img}" alt=""><b>${name}</b><div class="tag">${desc}</div><div class="pr">${price}</div>${btn}</div>`;
   if(!mallTab)h+=`<div class="tag">精灵和宠物都只需要买一次;买到后点顶栏 🧚 / 🐤 培养。书买到后放在主城的书架上(不占背包),站在书架前按 W 阅读。</div><div class="mall">`+
     card(pvImg('spr'),1,'🧚 精灵','迷你小精灵,跟随在身边。没有技能;吸收背包里的装备升级,每级 1 个分配点,可加生命、魔力、暴击、闪避、攻击、防御。满级 50 级。','💰 '+SPRP_,SPR.own,SPR.own?'<button disabled>✓ 已拥有</button>':`<button data-p="bspr" ${gold<SPRP_?'disabled':''}>购买</button>`)+
@@ -6358,6 +6360,7 @@ function pvImg(k){const t=.3,c=document.createElement('canvas'),g=c.getContext('
 // 主页面打开时 HOME=1:主城画面停住当背景(loop 里不跑 townUpd),键盘只认 Enter(继续 / 新游戏)和 Esc(从操作说明返回)
 // 更新日志 CHLOG:[版本, 日期, [条目...]],新版本加在最前面(和 GAMEV 一起改)
 const CHLOG=[
+ ['1.37','2026-10-15',['通关击杀点大幅提高:第一关 52、第十关 160(二星 ×1.3、三星 ×1.7),原来每关只有 20','击杀点商店约降价一半:时装 / 翅膀 990、增幅宝石 200、属性石 60 / 90、洗脸券 30、亚麻 10、动物皮胶 15,制作书 150 / 60~300;锻造石的金币花费 -40%','全身练满从「几百个小时」降到大约 6 小时(主线 + 二星 + 三星各一遍,再刷二十几遍)']],
  ['1.36','2026-10-15',['等级经验曲线重做:一星每关打一遍就能跟上下一关的推荐等级,打完第十关约 37 级,二星十关各打一遍满级 50;世界地图的推荐等级也改成 1~34 级','金币获取翻倍;转职进阶技能学习 / 升级的金币花费降到原来的 40%']],
  ['1.35','2026-10-15',['所有敌人都有技能冷却和魔力了:同一个技能放完要等冷却,技能越多的敌人冷却越长;魔力用光后会停下来回蓝,回到 15% 才继续放技能','首领血条下面多了一条蓝色魔力条,回蓝时闪烁']],
  ['1.34','2026-10-15',['剑 U 全屏雷霆改成飞雷神:主角化作闪电,卷着乌云在怪物之间高速来回,最后回到原地现身并一起炸开','强化固定值全部提高约 1.6 倍(老存档已强化的装备也一起提高)','时装白字 防御 / 攻击各 10%,翅膀白字 暴击 / 生命各 10%;时装 / 翅膀也能锻造(最高 5 级,10% → 15%)']],
