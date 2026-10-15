@@ -49,7 +49,10 @@ def silver(H, l, s):   # 金色 → 银白;红宝石 → 蓝宝石
 def icy(H, l, s):      # 木头 → 冰蓝;金色 → 银白
     if s > .35 and 35 <= H <= 70: return (195 / 360, min(.95, l * 1.15), .25)
     if 10 <= H < 35: return (205 / 360, min(.9, l * 1.35 + .08), .45)
-L = [remap(load('holly staff.png'), silver), recolor_red_to_green(load('staff04.png')), load('holly staff.png'), remap(load('staff05.png'), icy)]
+def iron(H, l, s):     # 第四十一轮 机械:staff03 的木杖身 → 钢灰,金色 → 黄铜
+    if 10 <= H < 40 and s > .15: return (210 / 360, min(.85, l * 1.2 + .05), .12)
+    if s > .35 and 40 <= H <= 70: return (38 / 360, l, .6)
+L = [remap(load('holly staff.png'), silver), recolor_red_to_green(load('staff04.png')), load('holly staff.png'), remap(load('staff05.png'), icy), remap(load('staff03.png'), iron)]
 # 第二十七轮(用户):手后面那一截加长 —— 把杖尾前面一段杖身的横截面沿斜线复制 EXT 次,杖尾端整体往右下挪(格子变成 C×C)
 EXT = 12; C = 64 + EXT
 def lengthen(im):
@@ -65,7 +68,7 @@ def lengthen(im):
             for j in range(1, EXT + 1): q[x + j, y + j] = px[x, y]
     return n
 L = [lengthen(im) for im in L]
-out = Image.new('RGBA', (C * 4, C), (0, 0, 0, 0))
+out = Image.new('RGBA', (C * len(L), C), (0, 0, 0, 0))
 meta = []
 for i, im in enumerate(L):
     out.alpha_composite(im, (C * i, 0))

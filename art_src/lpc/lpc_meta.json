@@ -898,6 +898,83 @@
 "combat_idle"
 ],
 "def": "torso/waist/obi/belt_obi.json"
+},
+"plate_cu": {
+"row": 55,
+"z": 60,
+"has": [
+"idle",
+"walk",
+"run",
+"jump",
+"slash",
+"backslash",
+"halfslash",
+"thrust",
+"spellcast",
+"combat_idle"
+],
+"def": "torso/armour/torso_armour_plate.json"
+},
+"legs_cu": {
+"row": 56,
+"z": 20,
+"has": [
+"idle",
+"walk",
+"jump",
+"slash",
+"thrust",
+"spellcast"
+],
+"def": "legs/legs_armour.json"
+},
+"legs_fe": {
+"row": 57,
+"z": 20,
+"has": [
+"idle",
+"walk",
+"jump",
+"slash",
+"thrust",
+"spellcast"
+],
+"def": "legs/legs_armour.json"
+},
+"helm4": {
+"row": 58,
+"z": 130,
+"has": [
+"idle",
+"walk",
+"run",
+"jump",
+"slash",
+"backslash",
+"halfslash",
+"thrust",
+"spellcast",
+"combat_idle"
+],
+"def": "headwear/helmets/helmets/hat_helmet_xeon.json"
+},
+"helm5": {
+"row": 59,
+"z": 130,
+"has": [
+"idle",
+"walk",
+"run",
+"jump",
+"slash",
+"backslash",
+"halfslash",
+"thrust",
+"spellcast",
+"combat_idle"
+],
+"def": "headwear/helmets/helmets/hat_helmet_xeon.json"
 }
 }
 }

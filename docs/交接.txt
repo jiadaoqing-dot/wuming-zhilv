@@ -22,7 +22,12 @@
  旧的云端环境只能访问 GitHub / npm / pypi,opengameart、itch 访问不了。
  素材来源:ULPC 仓库(LPC 人物图层)、series-ai/jam-ready-assets(大量 CC0 素材,LFS 文件用 media 直链下载,见 fetch_assets.sh)。
 
-【当前状态(2026-10-15,第四十轮完成后)】
+【当前状态(2026-10-15,第四十一轮完成后)】
+- v1.41:第十二关永夜王城 cur 15(宠物仓鼠上面「第四十一轮:第十二关」:CST 图集 art_src/castle/build_castle.py / PL15 / E15 / skwStep gobStep nwzStep / 首领 nkStep(roar 群控 nkStun,蓄力中掉 5% 血被打断 e.daze)/ c15Step c15Fx);MAPS2 第 2 项、MHK[13] / LM / BHN / BDF / XPK / BXP [15]、curSer cur>=14 → 机械。
+  怪物技能石(godHud 下面「第四十一轮:怪物技能石」:MSS[cur] 表、MISC.ms+cur、R19.mse、蓄力 MSTC(dealt 里 mscAdd,注意 MSC 是小怪体型常量)、N 键 mscCast、MSQ 事件队列、mscDraw 虚影用 lvsBoss);首领掉落在 update 首领死亡那段。
+  仓库三页(rWh / whAct,R19.whi 道具 / R19.whp 药水,itemSet);大师装备 eqK(tier,g,ms) 按 SER 最后一项算、ms=2 = 已重算(migIt),trMul 特性倍率;法师冷却 STCDK(skCd);KPCL 27 / KPLV 8;LVMAX 55(EXPT 加 5 项);上帝卡牌改剩余毫秒 + godTick(只在 update 里扣)。
+  主线第十一章 MQ 里 lv:14(lv = cur,mqMap / mqCh 换算章节号和地图);机械外观 LPC.keys 系列 4(plate_cu / legs_cu / helm4 / helm5)、HSW.M[4] / STF.M[4](build_hsw.py / build_staff.py 加第 5 把)。BGM bgm15 / bgm15b 是用临时脚本单独编码的(build_audio.py 里已登记,整套重跑结果一样)。
+  再加第二张地图的关卡:cur 16 起,照 cur 15 的改法(本次 patch 动过的地方都写了 cur==15 或 cur>=14);问题在 docs/下次任务.txt「第四十一轮」。
 - v1.40:上帝卡牌(itemUse 后面「第四十轮:上帝卡牌」:GODT / godOn / PAL 好伙计 / godHud)、第二张地图(mapHit 上面:MAPI2 / MPG / MAPS2 / drawMap2)、第十一关齿轮要塞 cur 14(宠物仓鼠上面:MECH 图集 / gbot / zdr / tank / mech / BELT14 / m14Step / m14Fx)、机械系列 SER[4]。
   再加第二张地图的关卡:MAPS2 加一项(p 位置、cur 编号用 15 起),init 里 LM / PL / E 列表 / BHN / BDF / XPK / BXP / MHK、B 选择、怪物循环、drawE、bg、名字表、BWP、ESKN、lvsArt / lvsBoss / lvsDrops、通关处理;cur>=11 的神秘副本判断已改成 11~13,注意别再写 cur>=11。
   问题在 docs/下次任务.txt「第四十轮」。
@@ -134,6 +139,7 @@
   仍是矢量画进像素层:猿、鸵鸟(决定保留);蛛丝、狼人冲击波、蝎子毒柱;北极熊的冲击波 / 冰刺 / 暴风雪。
 
 【下一步】
+  ★ 第四十一轮已完成(2026-10-15,v1.41),等用户回复 docs/下次任务.txt「第四十一轮」(下一关的截图 / 地点、夜王群控两层打断、技能石强度、大师装备跟随最高系列)。用户说过挑战模式先不做。
   ★ 第三十三轮已完成(2026-10-15,v1.33),等用户回复 docs/下次任务.txt「第三十三轮」(材料配方数量 / 价格、强化固定值、白字暴击取消后暴击偏低、制作书放击杀点商店等)。第三十二轮的问题用户已回复并照做。
   ★ 第三十轮已完成(2026-10-14,v1.30),等用户回复 docs/下次任务.txt「第三十轮」。
   ★ 第二十九轮已完成(2026-10-14,v1.29),等用户回复 docs/下次任务.txt「第二十九轮」的 3 个问题(掉怪方式、光污染亮度、飞弹样子)。

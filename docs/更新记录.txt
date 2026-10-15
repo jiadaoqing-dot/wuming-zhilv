@@ -1,3 +1,11 @@
+【2026-10-15 v1.41 第四十一轮】第十二关「永夜王城」/ 怪物技能石 / 仓库三页 / 大师最强 / 机械外观 / 第十一章主线
+- 第十二关 cur 15(源码「第四十一轮:第十二关」在宠物仓鼠上面):图集 CST(art_src/castle/build_castle.py,raw/castle12 = LuizMelo 三个 CC0 包 + raw/gothic_pc 的 Old Dark Castle);skw / gob / nwz / 首领 nk(cmb / dash / leap / roar 群控:300 像素眩晕 1 秒 + 打断技能;蓄力中掉 5% 血被打断愣 1.5 秒)。接入方式同第十一关,MAPS2 第 2 项、BGM bgm15 / 15b(StarNinjas / nene,CC0)。
+- 怪物技能石(源码「第四十一轮:怪物技能石」在 godHud 下面):MSS 12 种、首领 MSDR 20% 掉(gdDrop k:'gc' id ms+cur)、R19.mse 装备、MSTC 蓄力 40 次(dealt 里 mscAdd)、N 键 mscCast、MSQ 事件队列、虚影 mscDraw;图标 MENI 41(build_meni.py 加 I_Crystal02)。
+- 仓库三页(R19.whi / whp,itemSet);桂婶好感奖励合成添加剂;上帝卡牌改成只在关卡里扣(godTick,旧存档到期时间换算成剩余毫秒)。
+- 大师装备 eqK 按 SER 最高系列 ×1.2(ms=2,migIt 重算旧的),特性 trMul 翻倍;法师冷却 STCDK;KPCL 27 / KPLV 8;LVMAX 55;第十一章主线 7 个(MQ lv:14,mqMap / mqCh)。
+- 机械外观:LPC plate_cu / legs_cu / helm4 / helm5(Xeon helmet,Redshrike,OGA-BY),HSW 第 5 把黄铜剑、STF 第 5 把 staff03 钢灰;美术致谢加两条;像素字体重新裁剪。
+- 测试:截图检查第十二关小怪 / 首领 / 地图 / 仓库 / 技能石 / 机械外观;震慑和打断、技能石眩晕用脚本验证;冒烟测试 0 错误。
+
 【2026-10-15 v1.40 第四十轮】上帝卡牌 / 第二张地图「暗黑大陆」/ 第十一关「齿轮要塞」
 - 上帝卡牌(源码「第四十轮:上帝卡牌」在 itemUse 后面):MISC gc1 / gc2,R19.god {cr, pal, pk},godOn / godLeft / GODT 2 小时(现实时间);暴击升级 = crdgP +25、critK +0.2;好伙计 PAL / palInit(init)/ palStep(smStep 后)/ palDraw(PXL 层,用 lvsBoss 画首领)/ godHud。神秘副本 2 首领 GODDR 25% 掉 gc(gdDrop k:'gc'),副本 3 35% / 第十一关 30% 掉合成添加剂(k:'add');图标 MENI 39 / 40(build_meni.py 追加 S_Light02 / S_Buff01)。
 - 第二张地图(源码「第四十轮:第二张世界地图」在 mapHit 上面):MAPI2(art_src/map/build_map2.py,raw/map/map2_user.webp,擦掉「浮岛城镇」、纵向压扁 7%)、MPG 页码、MAPS2、map2Btn / map2Click / map2Go / drawMap2;openMap 从第十一关回来停在第二页;键盘 Tab 进、Esc 回。

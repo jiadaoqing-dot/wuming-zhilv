@@ -34,7 +34,10 @@ BGM={'bgm0':(G+'town.mp3',None,1),'bgm1':('happy_adventure.mp3',None,1),'bgm1b':
  'bgm9':(G+'LavaLand - One Loop.ogg',None,1),'bgm9b':(G+'heavy_boss_battle_2_bpm110.ogg',120,1),
  'bgm10':(G+'thunderchild.ogg',120,1),'bgm10b':(G+'Blackmoor Tides.mp3',120,1),
  'bgm11':(G+'song21_mysterious.mp3',None,1),'bgm11b':(G+'hard_dungeon_bpm140.ogg',120,1),
- 'bgm14':(G+'mech/Factory.ogg',120,1),'bgm14b':(G+'mech/hardwar.mp3',None,1)}
+ 'bgm14':(G+'mech/Factory.ogg',120,1),'bgm14b':(G+'mech/hardwar.mp3',None,1),
+ # 第十二关永夜王城(第四十一轮,cur 15)Abandoned Castle Music (Loop)(StarNinjas,CC0,https://opengameart.org/node/122922)/ Boss Battle #2 [Symphonic Metal](nene,CC0,https://opengameart.org/node/84428;
+ #   包里的文件名写反了,真正的循环段是 opening.wav)
+ 'bgm15':(G+'castle12/abandoned_castle.ogg',None,1),'bgm15b':(G+'castle12/boss2/boss_battle_#2_metal_opening.wav',120,1)}
 def load(p,sr):
   d,s=sf.read(A+p,always_2d=True);m=d.mean(1)
   g=np.gcd(s,sr);return resample_poly(m,sr//g,s//g) if s!=sr else m

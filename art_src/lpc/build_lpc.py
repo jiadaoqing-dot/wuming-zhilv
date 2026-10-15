@@ -1,4 +1,4 @@
-﻿import os
+import os
 # 主角 LPC 图层图集:从 ULPC 仓库取朝右(第 4 行)的帧,按我们用到的颜色换色,每个子图层一行
 # 输出 lpc_atlas.png(每行 64 高,66 帧 × 64 宽)和 lpc_meta.json(动画表、图层表:行号、zPos、有哪些动画)
 import json,os,sys
@@ -50,6 +50,12 @@ L={
  'kimono':('torso/dresses/kimono/dress_kimono.json','white',None),
  'kimono2':('torso/dresses/kimono/dress_kimono_oversize.json','white',None),
  'obi':('torso/waist/obi/belt_obi.json','forest',None),
+ # 第四十一轮:机械系列(4)外观 —— 剑士 黄铜板甲 + 黄铜腿甲 + Xeon 机甲盔(Redshrike,OGA-BY 3.0)+ 炭黑衬衣;法师 铁色腿甲当护胫 + 黑袍 + 铁色 Xeon 盔
+ 'plate_cu':('torso/armour/torso_armour_plate.json',None,'brass'),
+ 'legs_cu':('legs/legs_armour.json',None,'brass'),
+ 'legs_fe':('legs/legs_armour.json',None,'iron'),
+ 'helm4':('headwear/helmets/helmets/hat_helmet_xeon.json',None,'brass'),
+ 'helm5':('headwear/helmets/helmets/hat_helmet_xeon.json',None,'iron'),
 }
 rows=[];meta={'anims':[[a,START[a],n] for a,n in A],'nf':NF,'layers':{}}
 for key,(dp,var,col) in L.items():
