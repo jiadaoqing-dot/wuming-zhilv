@@ -23,7 +23,7 @@
  素材来源:ULPC 仓库(LPC 人物图层)、series-ai/jam-ready-assets(大量 CC0 素材,LFS 文件用 media 直链下载,见 fetch_assets.sh)。
 
 【当前状态(2026-10-15,第三十四轮完成后)】
-- v1.34:按第三十三轮回复改:EQE ×1.6(EQE16,存档 v9)、COSW 10% + 时装 / 翅膀锻造(cosV,c.fg)、全屏雷霆改飞雷神(zapFs / zapJump / drawZapFs,在 zapNear 下面)。第三十四轮没有新问题;docs/下次任务.txt 等新清单。
+- v1.34:按第三十三轮回复改:EQE ×1.6(EQE16,存档 v9)、COSW 10% + 时装 / 翅膀锻造(cosV,c.fg)、全屏雷霆改飞雷神(zapFs / zapJump / drawZapFs,在 zapNear 下面);被动 crt / rec 图标(mkIcons 末尾 + mkCrtIcon),upSk 失败写 skMsg。第三十四轮没有新问题;docs/下次任务.txt 等新清单。
 - v1.33:装备 2.0(EQW / EQG / EQE / FGK / AMP / COSW / eqAdd / migIt v8 / cosIt,在 gen 上面)、属性 stats / pctB / crdgP(百分比只乘基础数值)、制作与熔炉(MATD / RCP / MREC / FZ / fzAct / fzGo / rFuse / rStnFuse / rcShop,在 rMallIt 下面)、背包新布局 renderBag(bw2,分页 bagPg)、tipItem;剑 U 全屏雷霆 zapFs(P.uFs);蝙蝠 e.ltx。存档字段 R19.cen / R19.rc,装备 it.gr / it.fg / it.ev / it.amp / it.ms / v8。问题在 docs/下次任务.txt「第三十三轮」。
 - v1.32:仓库 rWh / whAct / WHN(r19New 下面,R19.wh);仓库管理员桂婶 NPCS x=700、LNPC row 5(build_npc_lpc.py 只重新合成 KEEP 以外的行)。强化上限 ENMX 10、Lv3 / Lv4 强化石只从首领掉(DRX.s3 / s4);强化师不卖强化石。强化荣誉 HONR / hon() / honRow(setLv 下面,setB / setX 已删),CSS .hon。问题在 docs/下次任务.txt「第三十二轮」。
 - v1.31:书架与书籍整段在源码「第三十一轮 · 书架与书籍」(townSpots 上面:BOOK 图集 / BOOKS 正文 / BKDS / bkBuy / rBook / bookAct,R19.bk;TWN.shelf 1325);正文包在 /*NOFONT{*/ … /*}NOFONT*/ 里,像素字体统计跳过。影分身 CLNT 6 秒,分身的火鸟 / 光柱在 MGTc / MGPc(mgC 包装,mgStep0 / drawMg0)。翅膀 wing_fly.png = LPC 羽翼 jump 张开帧(build_wing.py)。凤凰去眼睛鸟喙(build_smn.py)。剧情设定(四本书的明线 / 暗线 / 谜底)写在 docs/下次任务.txt 第三十一轮;以后写主线要和书里的设定对得上。

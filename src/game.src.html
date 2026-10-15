@@ -1958,7 +1958,12 @@ const ICON={};
   mk('p_def',...PB,c=>{F(c,[[24,6],[39,12],[37,30],[24,42],[11,30],[9,12]],'#ced4da');F(c,[[24,10],[35,14],[33,29],[24,38]],'#adb5bd');L(c,[[24,17],[24,31]],3,'#495057');L(c,[[17,24],[31,24]],3,'#495057')});
   mk('p_spd',...PB,c=>{for(const [y,w] of [[16,14],[24,20],[32,14]])L(c,[[6,y],[6+w,y]],3,'rgba(255,255,255,.7)');c.fillStyle='#e8590c';c.fillRect(24,14,10,16);c.fillRect(24,26,18,8);c.fillStyle='#fff';c.fillRect(24,32,18,3)});
   mk('p_hpr',...PB,c=>{heart(c,21,22,12,'#ff6b6b');plus(c,35,34)});
-  mk('p_mpr',...PB,c=>{drop(c,21,22,13,'#4dabf7');plus(c,35,34)})})();
+  mk('p_mpr',...PB,c=>{drop(c,21,22,13,'#4dabf7');plus(c,35,34)});
+  // 第三十四轮修:第十六轮的新被动「回春」rec /「会心」crt 一直没有图标(显示成破图)。回春沿用生命回复图标;会心先用锐利,MENI 图集载入后换成暴击宝石图标(7Soul1,mkCrtIcon)
+  ICON.p_rec=ICON.p_hpr;ICON.p_crt=ICON.p_atk})();
+function mkCrtIcon(){if(!MENI.I)return;const N=192,cv=document.createElement('canvas');cv.width=cv.height=N;const c=cv.getContext('2d'),g=c.createLinearGradient(0,0,N,N);g.addColorStop(0,'#0b3a2b');g.addColorStop(1,'#2b8a3e');
+  c.fillStyle=g;c.beginPath();c.roundRect?c.roundRect(0,0,N,N,36):c.rect(0,0,N,N);c.fill();c.strokeStyle='rgba(255,255,255,.25)';c.lineWidth=8;c.stroke();c.imageSmoothingEnabled=false;c.drawImage(MENI.I,MENI.P.amp_cr*34,0,34,34,28,28,136,136);ICON.p_crt=cv.toDataURL();if(typeof SKIMG!='undefined')delete SKIMG.p_crt}
+if(MENI.I)mkCrtIcon();else{const im=new Image();im.onload=()=>{MENI.I=MENI.I||im;mkCrtIcon()};im.src=MENI.D}
 let skTab=0,skSel=null;
 // 主动技能必须按 H → U → I → O 的顺序学习(已经学会的不受影响,升级不限顺序)
 const skCan=(w,i)=>i>=4&&JOB!=w?false:i==0||i==4||(LN[w][i]|0)>0||(LN[w][i-1]|0)>0;
@@ -1995,7 +2000,7 @@ function renderSk(){const AT=skAT(),icon=id=>{const f=skInfo(id,AT);return `<but
     d=f.h.replace(/<hr>/g,'<br>')+(f.l<f.mx?`<br><button data-s="up" ${can?'':'disabled'}>${f.l?'升级':'学习'}(${c.sp} 技能点 · 💰${c.gold})</button>`+(c&&lvl<c.lv?` <span class="tag" style="color:#c92a2a">需要角色 Lv${c.lv}</span>`:c&&gold<c.gold?' <span class="tag" style="color:#c92a2a">金币不足</span>':c&&sp<c.sp?' <span class="tag" style="color:#c92a2a">技能点不足</span>':''):'')}
   $('sk').innerHTML=h+`<div class="dt">${d}</div>`}
 function upSk(id){if(!id)return;let msg=null;
-  const fail=m=>{if(P)tx(m,P.x-40,P.y-30,'#ff8787')};
+  const fail=m=>{skMsg='⚠️ '+m;if(P)tx(m,P.x-40,P.y-30,'#ff8787')};  // 第三十四轮:失败原因也写在技能面板里(面板挡住了头顶飘字)
   if(id.startsWith('p_')){const q=PSD.find(q=>'p_'+q[0]==id);if(!q||pl(q[0])>=q[3])return;const c=skCost(id,pl(q[0])+1);
     if(lvl<c.lv)return fail('需要角色 Lv'+c.lv);if(sp<c.sp)return fail('技能点不足');if(gold<c.gold)return fail('金币不足');sp-=c.sp;gold-=c.gold;PS[q[0]]=pl(q[0])+1;const S=stats();P.hp=Math.min(P.hp,S.hp)}
   else{const w=id.slice(0,-1),i=+id.slice(-1);if(!skCan(w,i))return fail(i>=4&&JOB!=w?'转职为'+JOBN[w]+'后才能学习':'请按顺序学习');const l=LN[w][i]|0;if(l>=LNMAX)return;const c=skCost(id,l+1);
