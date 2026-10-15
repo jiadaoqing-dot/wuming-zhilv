@@ -251,7 +251,7 @@ body.px .at2{border:2px solid transparent;border-image:url(@@A:ui_card@@) 6 fill
 <p class="tip">← → / A D 移动(连按两次快跑) · K / ↑ 跳跃 · W+J / S+J 特殊普攻(学会二段跳后空中再按) · J 攻击(下劈 → 上挑 → 直戳 → 下劈 循环,按住蓄力重击;跑步中按 J = 冲刺直戳) · L 换武器 · H U I O 技能 · 空格 / W+空格 / S+空格 / WW+空格 剑士进阶技能(转职后) · 1 2 3 喝药水 · S 捡起地上的掉落物 · 背包 / 技能 / 商城 / 精灵 / 宠物 / 任务 / 声音:点右下角按钮(菜单快捷键已关闭;背包里左键点物品弹出菜单,装备可拖动穿戴) · 装备翅膀后空中再按跳跃=飞行(W/S 升降、A/D 方向) · Esc / ⚙️ 设置(暂停、返回城镇、帧数、全屏)</p>
 <script>
 // 游戏版本:build.py 按它给输出文件命名(out/无名之旅_v版本.html),设置页也显示;每次发新版改这里
-const GAMEV='1.34';
+const GAMEV='1.35';
 // x 是当前的绘图上下文:平时是主画布;像素特效层(PXL,P2)绘制期间临时换成 640×360 的低分辨率图层
 const cv=document.getElementById('c');let x=cv.getContext('2d');const VW=640,VH=360,WW=3200,GY=300;
 // 渲染分辨率:电脑端 1920×1080(逻辑坐标仍是 640×360,整体放大 3 倍绘制,文字和像素都更清晰);手机端 1280×720
@@ -997,7 +997,21 @@ function mobStep(e,dt){const M=MVK[e.k];e.cd=(e.cd==null?rnd(.6,1.4):e.cd)-dt;e.
   const ix0=e.x;M.idle(e,dt,dx,ad,dy);
   // 第二十四轮:离玩家远了也要追(原来很多小怪的待机只在 300 像素内才走过来,拉开距离就原地罚站 / 来回巡逻);潜伏中的不动
   if(!e.ug&&ad>(SEEKR[e.k]||MCHS)){const v=(SEEKV[e.k]||60)*(ad>320?1.4:1),s0=sgn(dx);if((e.x-ix0)*s0<v*dt*.5){e.x=ix0+s0*v*dt;e.f=s0||e.f}}
-  if(e.cd<=0){const s=M.pick(e,dx,ad,dy);if(!s)return;const at=M.at&&M.at[s];if(at!==0&&!tok(e,at==2)){e.cd=.3;return}e.s=s;e.t=0;e.hd=0;e.hd2=0;e.pn=0;e.f=sgn(dx)||e.f;if(at!==0&&e.x+e.w>cam&&e.x<cam+VW)sfx('eatk')}}
+  if(e.cd<=0){const s=M.pick(e,dx,ad,dy);if(!s)return;if(!eskUse(e,s)){e.cd=.3;return}const at=M.at&&M.at[s];if(at!==0&&!tok(e,at==2)){e.cd=.3;eskBack(e,s);return}e.s=s;e.t=0;e.hd=0;e.hd2=0;e.pn=0;e.f=sgn(dx)||e.f;if(at!==0&&e.x+e.w>cam&&e.x<cam+VW)sfx('eatk')}}
+// ===== 第三十五轮:敌人技能冷却 + 魔力(用户要求)=====
+// 每个敌人每个技能各自冷却:放完一个技能,这个技能要等 CD 结束才能再放;技能越多的敌人 CD 越长(小怪 ESC0 + ESC1 × 技能数,首领 ESB0 + ESB1 × 技能数)
+// 魔力:满 100,每放一个技能扣 ESMP(首领 ESMPB);不够扣时进入回蓝:每秒回 ESRG,回到 15%(ESRT)才继续放技能(回蓝期间只走动 / 追人,不出招)
+// 小怪(招式库 MVK)在 mobStep 选招时判断;其他小怪和首领在 update 的敌人循环里判断(新动作刚开始时不满足就取消,过一会儿再选)
+const ESKN={slime:2,bat:2,skel:3,snake:3,ape:3,ysco:5,bsco:5,spi:5,ost:3,pen:4,pen2:4,seal:4,seal2:4,dog:5,dog2:5,gfly:3,gfly2:3,gland:3,gland2:3,imp:2,fwisp:1,golem:1,oni:3,wimp:2,eye:2,swing:1,
+  king:5,mage:4,sco:5,bear:9,wiz:8,andr:7,boss:5,yin:3,lava:5,gui:5,ham:4};
+const ESC0=1.2,ESC1=1,ESB0=2,ESB1=.9,ESMP=10,ESMPB=8,ESRG=6,ESRT=15;
+const ESKX={rec:1,hid:1,rest:1,up:1,morph:1,intro:1};  // 不算技能的状态(收招 / 隐身 / 休息 / 变身)
+const eskCd=e=>{const n=ESKN[e.k]||(e.max?5:2);return e.max?ESB0+ESB1*n:ESC0+ESC1*n};
+function eskStep(e,dt){if(e.emp==null){e.emp=100;e.ekc={}}for(const k in e.ekc)e.ekc[k]-=dt;if(e.erg){e.emp=Math.min(100,e.emp+ESRG*dt);if(e.emp>=ESRT)e.erg=0}}
+// 能不能放技能 a:能就扣魔力、开始冷却,返回 true
+function eskUse(e,a){if(ESKX[a]||GM.ko)return true;if(e.emp==null)eskStep(e,0);if(e.erg||(e.ekc[a]||0)>0)return false;const c=e.max?ESMPB:ESMP;if(e.emp<c){e.erg=1;return false}
+  e.emp-=c;e.ekc[a]=eskCd(e);if(e.emp<c)e.erg=1;return true}
+function eskBack(e,a){if(ESKX[a]||GM.ko||!e.ekc)return;e.ekc[a]=0;e.emp=Math.min(100,e.emp+(e.max?ESMPB:ESMP));if(e.emp>=(e.max?ESMPB:ESMP)&&e.emp>=ESRT)e.erg=0}  // 拿不到攻击令牌:退回
 const MVK={};
 // 史莱姆:弹跳撞(三连跳,每次落地小范围伤害,跳起或后退躲)· 黏液喷射(抛物线,落地留黏液 2.5 秒,站上去减速)
 MVK.slime={idle(e,dt,dx,ad){if(ad<300)mvWalk(e,dt,42,40,dx,ad);else mvPatrol(e,dt,30)},
@@ -2069,7 +2083,7 @@ function update(dt){
     if(!e.max&&e.zi>=0){const b=ZB[e.zi],a=zLo(e);if(e.x+e.w>b)e.x=b-e.w;if(e.x<a)e.x=a}
     if(e.st>0){e.st-=dt;continue}
     e.tnt=(e.tnt||0)-dt;const dc=!e.max&&decoyOf(e),px0=P.x,py0=P.y;if(dc){P.x=dc.x+dc.w/2-12;P.y=dc.y+dc.h-P.h;DECOY=1}  // 被召唤物吸引的那只小怪改为追打召唤物(第十九轮:召唤时 10% 几率吸引一只,见 smLure)
-    if(e.ca>0){e.ca-=dt;e.x+=e.f*260*dt}const sx0=e.x;
+    if(e.ca>0){e.ca-=dt;e.x+=e.f*260*dt}const sx0=e.x;eskStep(e,ed);const ekf=e.max?'act':'s',ea0=e[ekf];
     if(MVK[e.k])mobStep(e,ed);  // 第十六轮:一~七关小怪走招式库
     else if(e.k=='king')kingStep(e,ed);else if(e.k=='mage')mageStep(e,ed);else if(e.k=='sco')scoBStep(e,ed);
     else if(e.k=='bear')bearStep(e,ed);else if(e.k=='wiz')wizStep(e,ed);else if(e.k=='andr')andrStep(e,ed);
@@ -2077,6 +2091,7 @@ function update(dt){
     else if(e.k=='gfly'||e.k=='gfly2')gflyStep(e,ed);else if(e.k=='gland'||e.k=='gland2')glandStep(e,ed);else if(e.k=='yin')yinStep(e,ed);else if(e.k=='cradle')cradleStep(e,ed);
     else if(e.k=='imp')impStep(e,ed);else if(e.k=='fwisp')fwispStep(e,ed);else if(e.k=='golem')golemStep(e,ed);else if(e.k=='oni')oniStep(e,ed);else if(e.k=='lava')lavaStep(e,ed);else if(e.k=='lclone')lcloneStep(e,ed);
     else if(e.k=='wimp')wimpStep(e,ed);else if(e.k=='eye')eyeStep(e,ed);else if(e.k=='swing')swingStep(e,ed);else if(e.k=='gui')guiStep(e,ed);else if(e.k=='ham')hamStep(e,ed);
+    if(!MVK[e.k]&&!ea0&&e[ekf]&&!eskUse(e,e[ekf])){e[ekf]=null;e.t=0;e.at=0;e.cd=Math.max(e.cd||0,.3)}  // 第三十五轮:技能冷却 / 魔力不够,取消刚选的招
     seek(e,sx0,ed);
     if(dc){P.x=px0;P.y=py0;DECOY=0}
     esfx(e);
@@ -6274,7 +6289,9 @@ function hud(){const S=stats(),t=performance.now()/1000,px=PUI.on();
     if(px){PUI.bar(x,'bA',bx-6,by+1,bw+12,B.hp/B.max,['#ff8a8a','#e03131','#8a1414']);if(B.sh>0){x.fillStyle='#74c0fc';x.fillRect(bx-2,by+3,Math.round(Math.min(bw,bw*B.sh/B.max)),2)}for(let k=1;k<10;k++){x.fillStyle='rgba(0,0,0,.35)';x.fillRect(Math.round(bx+k*bw/10),by+3,1,6)}}
     else{RR(x,bx-4,by-4,bw+8,22,10,LG(x,0,by-4,0,by+18,['#3d3352','#1e1829']),1.8);RR(x,bx,by+4,bw,10,5,'#120d18',0);RR(x,bx,by+4,bw*B.hp/B.max,10,5,LG(x,0,by+4,0,by+14,['#ff8a8a','#e03131','#8a1414']),0);
     if(B.sh>0)RR(x,bx,by+4,Math.min(bw,bw*B.sh/B.max),5,2.5,'#74c0fc',0);for(let k=1;k<10;k++)LN_(x,[[bx+k*bw/10,by+5],[bx+k*bw/10,by+13]],'rgba(0,0,0,.35)',1)}
-    if(B.pzm){const k=B.pim>0?1:Math.max(0,B.po/B.pzm),yy=by+(px?13:17);x.fillStyle='rgba(20,12,24,.85)';x.fillRect(bx,yy,bw,3);x.fillStyle=B.pim>0?'rgba(173,181,189,'+(.45+.25*Math.sin(t*10))+')':'#ffc038';x.fillRect(bx,yy,Math.round(bw*k),3)}  // 韧性条(第十五轮):金色 = 剩余韧性,灰色闪烁 = 破韧后的免疫期
+    if(B.pzm){const k=B.pim>0?1:Math.max(0,B.po/B.pzm),yy=by+(px?13:17);x.fillStyle='rgba(20,12,24,.85)';x.fillRect(bx,yy,bw,3);x.fillStyle=B.pim>0?'rgba(173,181,189,'+(.45+.25*Math.sin(t*10))+')':'#ffc038';x.fillRect(bx,yy,Math.round(bw*k),3)}
+    if(B.emp!=null){const yy=by+(px?17:21);x.fillStyle='rgba(20,12,24,.85)';x.fillRect(bx,yy,bw,3);x.fillStyle=B.erg?'rgba(116,192,252,'+(.45+.25*Math.sin(t*8))+')':'#4dabf7';x.fillRect(bx,yy,Math.round(bw*B.emp/100),3);x.fillStyle='rgba(255,255,255,.6)';x.fillRect(Math.round(bx+bw*ESRT/100),yy,1,3)}  // 第三十五轮:首领魔力条(蓝色,回蓝中闪烁;白色刻度 = 15%)
+  // 韧性条(第十五轮):金色 = 剩余韧性,灰色闪烁 = 破韧后的免疫期
     if(px)PUI.img(x,'dia1',bx-20,by-6);else RR(x,bx-14,by-8,30,30,15,LG(x,0,by-8,0,by+22,['#ff6b6b','#a61e1e']),1.8);CT('👑',px?bx-5:bx+1,by+12,13,'#fff','center',0);CT((['铁角牛魔','面具法师','金色蛇王','黑棘巨蝎','沙渊古神','北极熊','血月巫王','怨婴·银太郎','熔狱魔神','归蝇','瓜子大王'][cur-1]||'')+' '+'★'.repeat(LVSTAR),bx+22,by+2,10,B.bf>0?'#ff8787':'#fff3bf','left',2.6,'#1e1829')}}  // 第十六轮:名字后面画本次的星级  // 第十三轮:首领名后面不再写阶段 / 状态文字
 // 技能栏(左下角):金框技能格 + 图标 + 冷却扇形
 const SKIMG={};function skImg(id){let m=SKIMG[id];if(!m){m=SKIMG[id]=new Image();m.src=ICON[id]}return m}
@@ -6338,6 +6355,7 @@ function pvImg(k){const t=.3,c=document.createElement('canvas'),g=c.getContext('
 // 主页面打开时 HOME=1:主城画面停住当背景(loop 里不跑 townUpd),键盘只认 Enter(继续 / 新游戏)和 Esc(从操作说明返回)
 // 更新日志 CHLOG:[版本, 日期, [条目...]],新版本加在最前面(和 GAMEV 一起改)
 const CHLOG=[
+ ['1.35','2026-10-15',['所有敌人都有技能冷却和魔力了:同一个技能放完要等冷却,技能越多的敌人冷却越长;魔力用光后会停下来回蓝,回到 15% 才继续放技能','首领血条下面多了一条蓝色魔力条,回蓝时闪烁']],
  ['1.34','2026-10-15',['剑 U 全屏雷霆改成飞雷神:主角化作闪电,卷着乌云在怪物之间高速来回,最后回到原地现身并一起炸开','强化固定值全部提高约 1.6 倍(老存档已强化的装备也一起提高)','时装白字 防御 / 攻击各 10%,翅膀白字 暴击 / 生命各 10%;时装 / 翅膀也能锻造(最高 5 级,10% → 15%)']],
  ['1.33','2026-10-15',['背包和熔炉换新布局:背包左边是强化奖励徽章 + 两列装备格 + 属性,右边分页格子;熔炉改成火焰法阵材料圈 + 配方卡片','装备更新:白字固定(锻造石提升,最高 5 级)+ 3 条随机绿字(洗脸券刷新);强化改成按部位加固定数值;时装 / 翅膀有百分比白字,也能强化','新增制作材料、洗脸券、增幅宝石、大师装备制作书和锻造制作书;百分比加成只加在基础数值上','开局就会剑士 / 法师的 H 技能;基础生命 +80、防御 +20,每级生命多 +20;移动越快跳得越远','蝙蝠俯冲不再追着你调整方向;剑 U 对地面怪也是 100% 伤害,放过 O 或 WW+空格后下一次 U 变成全屏雷霆','强化上限保持 +6;关卡里背包满了只提示「背包已满」']],
  ['1.32','2026-10-14',['主城新增仓库管理员桂婶(药剂师和女神像之间):背包装不下的装备可以存进仓库(100 格);关卡里背包满了,新装备先自动放进仓库','强化师不再出售强化石,只能打首领掉落、做任务获得;强化上限提高到 +10,恢复 Lv3(+7~+9,第八关起掉落)和 Lv4(+10,第十关掉落)强化石','新增强化荣誉:除时装、翅膀外 6 个部位全部强化到 +4 起,按最低等级获得生命 / 暴击率 / 防御 / 攻击 / 移动力加成(背包和强化师里鼠标移到 +4~+10 徽章上查看)']],
