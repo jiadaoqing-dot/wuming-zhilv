@@ -1,3 +1,11 @@
+【2026-10-15 v1.33 第三十三轮】装备 2.0 / 制作与锻造 / 背包和熔炉新布局 / 技能小改
+- 按回复回退:ENMX 6、Lv3/Lv4 强化石和掉落删除,强化荣誉只到 +6(HONR 表留着);背包满只提示「背包已满」(tx k='m' 关卡里也显示);跳在空中水平速度再乘一次 mvK()。
+- 装备 2.0(gen 上面「第三十三轮:装备 2.0」):EQW 白字 / EQG 绿字(it.gr,greenRoll)/ FGK 锻造(it.fg)/ EQE 强化固定值(enV,it.ev)/ AMP 增幅宝石(it.amp)/ COSW 时装翅膀白字 / cosIt(R19.cen);migIt v8 重建旧装备;stats 改成基础数值 ×(1+pctB 百分比合计),BHP 220 / BDEF 20 / BHPL 20。部位改名 头饰 / 战甲 / 项链。
+- 制作(rMallIt 下面「第三十三轮:制作材料…」):MATD 材料、MISC 新道具、KPIT 新货、RCP 制作书(R19.rc,rcShop)、MREC / FREC 配方、FZ + fzAct / fzGo / rFuse 熔炉新界面(旧的强化石合成改名 rStnFuse);MENI 图集追加 13 个 7Soul1 图标(26 起)。
+- 背包新布局(renderBag:bw2 / pd / at2 / bpg 分页 BPG 25,bagPg,BFO 筛选折叠);tipItem 按用户顺序重写;CSS 在 style 末尾。
+- 开局 LN[0]=1;蝙蝠俯冲出招时锁定 e.ltx;剑 U 去掉地面 50%,P.uFs(放 O / 焚天炎暴后)→ zapFs 全屏雷霆;修了 useSk 里被注释吞掉的 psx 技能音效。
+- 截图检查(背包、装备说明、熔炉两页、商城两页)+ 冒烟测试 0 错误。
+
 【2026-10-14 v1.32 第三十二轮】仓库 NPC / 强化师不卖强化石 / 强化荣誉
 - 仓库管理员桂婶(NPCS x=700,LNPC 第 6 行;build_npc_lpc.py 改用 comp.py 按需下载,旧 5 行沿用旧图只合成新行):面板 pn='wh'(rWh / whAct,R19.wh,WHN 100);addItem 背包满先进仓库,仓库满才自动出售。
 - 强化师去掉买强化石(面板按钮和 'k' 处理都删了);ENMX 6 → 10,Lv3 / Lv4 强化石恢复(stnLoad / 熔炉 / 道具栏 / GM 都到 4 级),首领掉落 DRX.s3 12%(第八~十关)/ s4 5%(第十关),选关页掉落预览跟着改。
