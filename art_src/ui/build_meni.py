@@ -13,7 +13,9 @@ PICK=[None,'W_Mace003','I_Clock','I_Scroll','I_Feather02','S_Holy08','I_GoldCoin
       'S_Buff14','S_Holy09','S_Wind02','S_Wind03','I_C_Nut','I_SolidShell','S_Physic01','S_Physic02',
       'I_Sapphire','I_Amethist','P_Green03','I_Chest01','I_C_Bread','I_Agate','I_Opal','I_Diamond','I_Scroll02',
       # 第三十三轮追加(26 起):低碳钢 犀牛皮 绢帛 金丝线 亚麻 动物皮胶 洗脸券 | 增幅宝石 暴击 攻击 HP 防御 | 制作书 锻造石
-      'I_SilverBar','I_WolfFur','I_Fabric','I_GoldBar','I_Leaf','I_Bottle03','I_Map','I_Ruby','I_Crystal01','I_Jade','I_Crystal03','I_Book','I_Rock03']
+      'I_SilverBar','I_WolfFur','I_Fabric','I_GoldBar','I_Leaf','I_Bottle03','I_Map','I_Ruby','I_Crystal01','I_Jade','I_Crystal03','I_Book','I_Rock03',
+      # 第四十轮追加(39 起):上帝卡牌 暴击升级 / 来个好伙计
+      'S_Light02','S_Buff01']
 def speaker():
   im=Image.new('RGBA',(C,C));d=ImageDraw.Draw(im)
   # 喇叭:灰蓝箱体 + 喇叭口,三道黄白声波;最后统一加 1 像素黑描边

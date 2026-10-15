@@ -22,7 +22,10 @@
  旧的云端环境只能访问 GitHub / npm / pypi,opengameart、itch 访问不了。
  素材来源:ULPC 仓库(LPC 人物图层)、series-ai/jam-ready-assets(大量 CC0 素材,LFS 文件用 media 直链下载,见 fetch_assets.sh)。
 
-【当前状态(2026-10-15,第三十九轮完成后)】
+【当前状态(2026-10-15,第四十轮完成后)】
+- v1.40:上帝卡牌(itemUse 后面「第四十轮:上帝卡牌」:GODT / godOn / PAL 好伙计 / godHud)、第二张地图(mapHit 上面:MAPI2 / MPG / MAPS2 / drawMap2)、第十一关齿轮要塞 cur 14(宠物仓鼠上面:MECH 图集 / gbot / zdr / tank / mech / BELT14 / m14Step / m14Fx)、机械系列 SER[4]。
+  再加第二张地图的关卡:MAPS2 加一项(p 位置、cur 编号用 15 起),init 里 LM / PL / E 列表 / BHN / BDF / XPK / BXP / MHK、B 选择、怪物循环、drawE、bg、名字表、BWP、ESKN、lvsArt / lvsBoss / lvsDrops、通关处理;cur>=11 的神秘副本判断已改成 11~13,注意别再写 cur>=11。
+  问题在 docs/下次任务.txt「第四十轮」。
 - v1.39:fixNum(save 上面)防金币 / 经验 NaN;mqRw 11 项。神秘副本 2 梦魇幽驹 nmr / 3 深渊炎魔 dmn(GP 图集 + nmrStep / dmnStep / gpStep / gpFx,myStep 后面;cur 12 / 13,MYNM 3 项)。再加神秘副本 4、5 时:MYNM、LM / E 列表 / BHN / BDF / XPK / BXP 加项,B 选择、怪物循环、drawE、bg、名字表、HUD、BWP、ESKN、lvsArt / lvsBoss、通关处理。
 - v1.38:神秘副本(cur ≥ 11)首领掉装备固定林王系列(update 首领死亡那段 rollItem 第二个参数)。
 - v1.37:通关击杀点 KPCL 40 + KPLV 12 × 关卡(update 首领死亡那段);击杀点价格 COSD / KPIT / RCP kp / AMP 约减半;FREC 3000k;VIPN 2500。「练满」计算口径写在《更新记录》v1.37。

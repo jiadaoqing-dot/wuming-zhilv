@@ -1,3 +1,10 @@
+【2026-10-15 v1.40 第四十轮】上帝卡牌 / 第二张地图「暗黑大陆」/ 第十一关「齿轮要塞」
+- 上帝卡牌(源码「第四十轮:上帝卡牌」在 itemUse 后面):MISC gc1 / gc2,R19.god {cr, pal, pk},godOn / godLeft / GODT 2 小时(现实时间);暴击升级 = crdgP +25、critK +0.2;好伙计 PAL / palInit(init)/ palStep(smStep 后)/ palDraw(PXL 层,用 lvsBoss 画首领)/ godHud。神秘副本 2 首领 GODDR 25% 掉 gc(gdDrop k:'gc'),副本 3 35% / 第十一关 30% 掉合成添加剂(k:'add');图标 MENI 39 / 40(build_meni.py 追加 S_Light02 / S_Buff01)。
+- 第二张地图(源码「第四十轮:第二张世界地图」在 mapHit 上面):MAPI2(art_src/map/build_map2.py,raw/map/map2_user.webp,擦掉「浮岛城镇」、纵向压扁 7%)、MPG 页码、MAPS2、map2Btn / map2Click / map2Go / drawMap2;openMap 从第十一关回来停在第二页;键盘 Tab 进、Esc 回。
+- 第十一关 cur 14(源码「第四十轮:第十一关齿轮要塞」在宠物仓鼠上面):PL14 / E14 / BELT14、图集 MECH(art_src/mech/build_mech.py,raw/mech)、gbotStep / zdrStep / tankStep / mechStep / m14Step / m14Fx;接入 LM / MHK[12] / BHN / BDF / XPK / BXP [14]、mk 尺寸、CDMG / ESKN / mAtk / MDEL / FLYK、BWP.mech、bg、drawE、F 弹 c:24、通关处理、名字表、lvsArt / lvsBoss / lvsDrops;神秘副本的 cur>=11 判断改成 11~13。
+- 机械系列 SER[4](m 30 / d 13,eqK ×2.2,curSer cur==14):图标 eq_atlas 第 5 列(build_eqicon.py 钢青色);纸娃娃 / 原版几何外观夹到 3(沿用雪原,ARMP[4] / HAIRS[4] 别名)。
+- BGM bgm14 Factory ambiance(yd,CC0)/ bgm14b hardwar(cinameng,CC0);美术致谢加一条;像素字体重新裁剪。测试:截图检查地图两页、选关页、关卡、首领四招、通关、背包;掉落模拟三关;冒烟测试 0 错误。
+
 【2026-10-15 v1.39 第三十九轮】修金币 NaN / 神秘副本 2「梦魇幽驹」、3「深渊炎魔」
 - 金币 NaN:主线任务奖励 mqRw 的表只有 9 项,第十关任务领奖 → gold / exp += undefined → NaN(NaN 比较全是 false,买东西不扣钱、经验不再升级)。表补到 11 项;新增 fixNum()(save 开头 + loadSave 末尾),金币 / 经验 / 技能点 / 击杀点不是有限数或为负就归零。
 - 神秘副本 2 / 3(源码「第三十九轮:神秘副本 2 / 3」在 myStep 后面):图集 GP(art_src/myst/build_gp.py,raw/gothic_pc = Gothicvania Patreon's Collection,ansimuz,CC0);nmrStep / dmnStep / gpStep / gpFx / GP.arena2 / arena3;数值 = 第八 / 第十关首领 ×1.2(BHN / BDF 13 项、LM、B.dm ×1.2、BDMK)。

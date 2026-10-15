@@ -1,112 +1,113 @@
 assets/ 素材清单(tools/assets_index.py 自动生成,build.py 每次构建时更新;不要手改)
 格式:文件  大小  源码引用(行号 所在函数/对象.键)  ← 生成脚本  [音频:用到的原始素材]
 
-== 图片 PNG(@@A:)  117 个 ==
-ars_ar1.png  4KB  L5572 PXA.ar1  ← 无脚本:Hero spritesheets - Ars Notoria(Balmer,CC0)换色分层,旧主角选项,见源码 PXA 注释
-ars_ar2.png  4KB  L5573 PXA.ar2  ← 无脚本:Hero spritesheets - Ars Notoria(Balmer,CC0)换色分层,旧主角选项,见源码 PXA 注释
-ars_ar3.png  4KB  L5574 PXA.ar3  ← 无脚本:Hero spritesheets - Ars Notoria(Balmer,CC0)换色分层,旧主角选项,见源码 PXA 注释
-ars_ar4.png  4KB  L5575 PXA.ar4  ← 无脚本:Hero spritesheets - Ars Notoria(Balmer,CC0)换色分层,旧主角选项,见源码 PXA 注释
-ars_ar5.png  4KB  L5576 PXA.ar5  ← 无脚本:Hero spritesheets - Ars Notoria(Balmer,CC0)换色分层,旧主角选项,见源码 PXA 注释
-ars_ar6.png  4KB  L5577 PXA.ar6  ← 无脚本:Hero spritesheets - Ars Notoria(Balmer,CC0)换色分层,旧主角选项,见源码 PXA 注释
-ars_ar7.png  3KB  L5578 PXA.ar7  ← 无脚本:Hero spritesheets - Ars Notoria(Balmer,CC0)换色分层,旧主角选项,见源码 PXA 注释
-ars_ar8.png  3KB  L5579 PXA.ar8  ← 无脚本:Hero spritesheets - Ars Notoria(Balmer,CC0)换色分层,旧主角选项,见源码 PXA 注释
-ars_atlas.png  106KB  L2465 ARS.D  ← art_src/boss/build_ars.py
-ars_bk1.png  3KB  L5612 PXA.bk1  ← 无脚本:Hero spritesheets - Ars Notoria(Balmer,CC0)换色分层,旧主角选项,见源码 PXA 注释
-ars_bk2.png  2KB  L5613 PXA.bk2  ← 无脚本:Hero spritesheets - Ars Notoria(Balmer,CC0)换色分层,旧主角选项,见源码 PXA 注释
-ars_bk3.png  3KB  L5614 PXA.bk3  ← 无脚本:Hero spritesheets - Ars Notoria(Balmer,CC0)换色分层,旧主角选项,见源码 PXA 注释
-ars_bk4.png  2KB  L5615 PXA.bk4  ← 无脚本:Hero spritesheets - Ars Notoria(Balmer,CC0)换色分层,旧主角选项,见源码 PXA 注释
-ars_bk5.png  2KB  L5616 PXA.bk5  ← 无脚本:Hero spritesheets - Ars Notoria(Balmer,CC0)换色分层,旧主角选项,见源码 PXA 注释
-ars_bk6.png  2KB  L5617 PXA.bk6  ← 无脚本:Hero spritesheets - Ars Notoria(Balmer,CC0)换色分层,旧主角选项,见源码 PXA 注释
-ars_bk7.png  2KB  L5618 PXA.bk7  ← 无脚本:Hero spritesheets - Ars Notoria(Balmer,CC0)换色分层,旧主角选项,见源码 PXA 注释
-ars_bk8.png  2KB  L5619 PXA.bk8  ← 无脚本:Hero spritesheets - Ars Notoria(Balmer,CC0)换色分层,旧主角选项,见源码 PXA 注释
-ars_ha1.png  2KB  L5596 PXA.ha1  ← 无脚本:Hero spritesheets - Ars Notoria(Balmer,CC0)换色分层,旧主角选项,见源码 PXA 注释
-ars_ha2.png  2KB  L5597 PXA.ha2  ← 无脚本:Hero spritesheets - Ars Notoria(Balmer,CC0)换色分层,旧主角选项,见源码 PXA 注释
-ars_ha3.png  2KB  L5598 PXA.ha3  ← 无脚本:Hero spritesheets - Ars Notoria(Balmer,CC0)换色分层,旧主角选项,见源码 PXA 注释
-ars_ha4.png  2KB  L5599 PXA.ha4  ← 无脚本:Hero spritesheets - Ars Notoria(Balmer,CC0)换色分层,旧主角选项,见源码 PXA 注释
-ars_ha5.png  2KB  L5600 PXA.ha5  ← 无脚本:Hero spritesheets - Ars Notoria(Balmer,CC0)换色分层,旧主角选项,见源码 PXA 注释
-ars_ha6.png  2KB  L5601 PXA.ha6  ← 无脚本:Hero spritesheets - Ars Notoria(Balmer,CC0)换色分层,旧主角选项,见源码 PXA 注释
-ars_ha7.png  2KB  L5602 PXA.ha7  ← 无脚本:Hero spritesheets - Ars Notoria(Balmer,CC0)换色分层,旧主角选项,见源码 PXA 注释
-ars_ha8.png  1KB  L5603 PXA.ha8  ← 无脚本:Hero spritesheets - Ars Notoria(Balmer,CC0)换色分层,旧主角选项,见源码 PXA 注释
-ars_he1.png  2KB  L5588 PXA.he1  ← 无脚本:Hero spritesheets - Ars Notoria(Balmer,CC0)换色分层,旧主角选项,见源码 PXA 注释
-ars_he2.png  2KB  L5589 PXA.he2  ← 无脚本:Hero spritesheets - Ars Notoria(Balmer,CC0)换色分层,旧主角选项,见源码 PXA 注释
-ars_he3.png  2KB  L5590 PXA.he3  ← 无脚本:Hero spritesheets - Ars Notoria(Balmer,CC0)换色分层,旧主角选项,见源码 PXA 注释
-ars_he4.png  2KB  L5591 PXA.he4  ← 无脚本:Hero spritesheets - Ars Notoria(Balmer,CC0)换色分层,旧主角选项,见源码 PXA 注释
-ars_he5.png  3KB  L5592 PXA.he5  ← 无脚本:Hero spritesheets - Ars Notoria(Balmer,CC0)换色分层,旧主角选项,见源码 PXA 注释
-ars_he6.png  2KB  L5593 PXA.he6  ← 无脚本:Hero spritesheets - Ars Notoria(Balmer,CC0)换色分层,旧主角选项,见源码 PXA 注释
-ars_he7.png  2KB  L5594 PXA.he7  ← 无脚本:Hero spritesheets - Ars Notoria(Balmer,CC0)换色分层,旧主角选项,见源码 PXA 注释
-ars_he8.png  2KB  L5595 PXA.he8  ← 无脚本:Hero spritesheets - Ars Notoria(Balmer,CC0)换色分层,旧主角选项,见源码 PXA 注释
-ars_pl.png  11KB  L5571 PXA.pl  ← 无脚本:Hero spritesheets - Ars Notoria(Balmer,CC0)换色分层,旧主角选项,见源码 PXA 注释
-ars_ro1.png  8KB  L5580 PXA.ro1  ← 无脚本:Hero spritesheets - Ars Notoria(Balmer,CC0)换色分层,旧主角选项,见源码 PXA 注释
-ars_ro2.png  8KB  L5581 PXA.ro2  ← 无脚本:Hero spritesheets - Ars Notoria(Balmer,CC0)换色分层,旧主角选项,见源码 PXA 注释
-ars_ro3.png  9KB  L5582 PXA.ro3  ← 无脚本:Hero spritesheets - Ars Notoria(Balmer,CC0)换色分层,旧主角选项,见源码 PXA 注释
-ars_ro4.png  8KB  L5583 PXA.ro4  ← 无脚本:Hero spritesheets - Ars Notoria(Balmer,CC0)换色分层,旧主角选项,见源码 PXA 注释
-ars_ro5.png  8KB  L5584 PXA.ro5  ← 无脚本:Hero spritesheets - Ars Notoria(Balmer,CC0)换色分层,旧主角选项,见源码 PXA 注释
-ars_ro6.png  8KB  L5585 PXA.ro6  ← 无脚本:Hero spritesheets - Ars Notoria(Balmer,CC0)换色分层,旧主角选项,见源码 PXA 注释
-ars_ro7.png  9KB  L5586 PXA.ro7  ← 无脚本:Hero spritesheets - Ars Notoria(Balmer,CC0)换色分层,旧主角选项,见源码 PXA 注释
-ars_ro8.png  6KB  L5587 PXA.ro8  ← 无脚本:Hero spritesheets - Ars Notoria(Balmer,CC0)换色分层,旧主角选项,见源码 PXA 注释
-ars_sh1.png  3KB  L5604 PXA.sh1  ← 无脚本:Hero spritesheets - Ars Notoria(Balmer,CC0)换色分层,旧主角选项,见源码 PXA 注释
-ars_sh2.png  3KB  L5605 PXA.sh2  ← 无脚本:Hero spritesheets - Ars Notoria(Balmer,CC0)换色分层,旧主角选项,见源码 PXA 注释
-ars_sh3.png  3KB  L5606 PXA.sh3  ← 无脚本:Hero spritesheets - Ars Notoria(Balmer,CC0)换色分层,旧主角选项,见源码 PXA 注释
-ars_sh4.png  3KB  L5607 PXA.sh4  ← 无脚本:Hero spritesheets - Ars Notoria(Balmer,CC0)换色分层,旧主角选项,见源码 PXA 注释
-ars_sh5.png  3KB  L5608 PXA.sh5  ← 无脚本:Hero spritesheets - Ars Notoria(Balmer,CC0)换色分层,旧主角选项,见源码 PXA 注释
-ars_sh6.png  4KB  L5609 PXA.sh6  ← 无脚本:Hero spritesheets - Ars Notoria(Balmer,CC0)换色分层,旧主角选项,见源码 PXA 注释
-ars_sh7.png  4KB  L5610 PXA.sh7  ← 无脚本:Hero spritesheets - Ars Notoria(Balmer,CC0)换色分层,旧主角选项,见源码 PXA 注释
-ars_sh8.png  5KB  L5611 PXA.sh8  ← 无脚本:Hero spritesheets - Ars Notoria(Balmer,CC0)换色分层,旧主角选项,见源码 PXA 注释
-bfx2_atlas.png  58KB  L6087 BFX2.D  ← art_src/bfx/build_bfx2.py
-bfx_atlas.png  27KB  L6069 BFX.D  ← art_src/bfx/build_bfx.py
-book_atlas.png  4KB  L3856 BOOK.D  ← art_src/book/build_book.py
-city8_atlas.png  128KB  L2989 CITY8.D  ← art_src/city/build_city8.py
-eq_atlas.png  12KB  L4857 EQPX.D  ← art_src/eqicon/build_eqicon.py
-fx29_atlas.png  817KB  L6100 FX29.D  ← art_src/skfx/build_fx29.py
-gh8_atlas.png  13KB  L3024 GH8.D  ← art_src/city/build_gh8.py
-gp_atlas.png  144KB  L3614 GP.D  ← art_src/myst/build_gp.py
-gsword.png  11KB  L2143 GSW.D  ← art_src/skfx/build_gsword.py
+== 图片 PNG(@@A:)  118 个 ==
+ars_ar1.png  4KB  L5714 PXA.ar1  ← 无脚本:Hero spritesheets - Ars Notoria(Balmer,CC0)换色分层,旧主角选项,见源码 PXA 注释
+ars_ar2.png  4KB  L5715 PXA.ar2  ← 无脚本:Hero spritesheets - Ars Notoria(Balmer,CC0)换色分层,旧主角选项,见源码 PXA 注释
+ars_ar3.png  4KB  L5716 PXA.ar3  ← 无脚本:Hero spritesheets - Ars Notoria(Balmer,CC0)换色分层,旧主角选项,见源码 PXA 注释
+ars_ar4.png  4KB  L5717 PXA.ar4  ← 无脚本:Hero spritesheets - Ars Notoria(Balmer,CC0)换色分层,旧主角选项,见源码 PXA 注释
+ars_ar5.png  4KB  L5718 PXA.ar5  ← 无脚本:Hero spritesheets - Ars Notoria(Balmer,CC0)换色分层,旧主角选项,见源码 PXA 注释
+ars_ar6.png  4KB  L5719 PXA.ar6  ← 无脚本:Hero spritesheets - Ars Notoria(Balmer,CC0)换色分层,旧主角选项,见源码 PXA 注释
+ars_ar7.png  3KB  L5720 PXA.ar7  ← 无脚本:Hero spritesheets - Ars Notoria(Balmer,CC0)换色分层,旧主角选项,见源码 PXA 注释
+ars_ar8.png  3KB  L5721 PXA.ar8  ← 无脚本:Hero spritesheets - Ars Notoria(Balmer,CC0)换色分层,旧主角选项,见源码 PXA 注释
+ars_atlas.png  106KB  L2491 ARS.D  ← art_src/boss/build_ars.py
+ars_bk1.png  3KB  L5754 PXA.bk1  ← 无脚本:Hero spritesheets - Ars Notoria(Balmer,CC0)换色分层,旧主角选项,见源码 PXA 注释
+ars_bk2.png  2KB  L5755 PXA.bk2  ← 无脚本:Hero spritesheets - Ars Notoria(Balmer,CC0)换色分层,旧主角选项,见源码 PXA 注释
+ars_bk3.png  3KB  L5756 PXA.bk3  ← 无脚本:Hero spritesheets - Ars Notoria(Balmer,CC0)换色分层,旧主角选项,见源码 PXA 注释
+ars_bk4.png  2KB  L5757 PXA.bk4  ← 无脚本:Hero spritesheets - Ars Notoria(Balmer,CC0)换色分层,旧主角选项,见源码 PXA 注释
+ars_bk5.png  2KB  L5758 PXA.bk5  ← 无脚本:Hero spritesheets - Ars Notoria(Balmer,CC0)换色分层,旧主角选项,见源码 PXA 注释
+ars_bk6.png  2KB  L5759 PXA.bk6  ← 无脚本:Hero spritesheets - Ars Notoria(Balmer,CC0)换色分层,旧主角选项,见源码 PXA 注释
+ars_bk7.png  2KB  L5760 PXA.bk7  ← 无脚本:Hero spritesheets - Ars Notoria(Balmer,CC0)换色分层,旧主角选项,见源码 PXA 注释
+ars_bk8.png  2KB  L5761 PXA.bk8  ← 无脚本:Hero spritesheets - Ars Notoria(Balmer,CC0)换色分层,旧主角选项,见源码 PXA 注释
+ars_ha1.png  2KB  L5738 PXA.ha1  ← 无脚本:Hero spritesheets - Ars Notoria(Balmer,CC0)换色分层,旧主角选项,见源码 PXA 注释
+ars_ha2.png  2KB  L5739 PXA.ha2  ← 无脚本:Hero spritesheets - Ars Notoria(Balmer,CC0)换色分层,旧主角选项,见源码 PXA 注释
+ars_ha3.png  2KB  L5740 PXA.ha3  ← 无脚本:Hero spritesheets - Ars Notoria(Balmer,CC0)换色分层,旧主角选项,见源码 PXA 注释
+ars_ha4.png  2KB  L5741 PXA.ha4  ← 无脚本:Hero spritesheets - Ars Notoria(Balmer,CC0)换色分层,旧主角选项,见源码 PXA 注释
+ars_ha5.png  2KB  L5742 PXA.ha5  ← 无脚本:Hero spritesheets - Ars Notoria(Balmer,CC0)换色分层,旧主角选项,见源码 PXA 注释
+ars_ha6.png  2KB  L5743 PXA.ha6  ← 无脚本:Hero spritesheets - Ars Notoria(Balmer,CC0)换色分层,旧主角选项,见源码 PXA 注释
+ars_ha7.png  2KB  L5744 PXA.ha7  ← 无脚本:Hero spritesheets - Ars Notoria(Balmer,CC0)换色分层,旧主角选项,见源码 PXA 注释
+ars_ha8.png  1KB  L5745 PXA.ha8  ← 无脚本:Hero spritesheets - Ars Notoria(Balmer,CC0)换色分层,旧主角选项,见源码 PXA 注释
+ars_he1.png  2KB  L5730 PXA.he1  ← 无脚本:Hero spritesheets - Ars Notoria(Balmer,CC0)换色分层,旧主角选项,见源码 PXA 注释
+ars_he2.png  2KB  L5731 PXA.he2  ← 无脚本:Hero spritesheets - Ars Notoria(Balmer,CC0)换色分层,旧主角选项,见源码 PXA 注释
+ars_he3.png  2KB  L5732 PXA.he3  ← 无脚本:Hero spritesheets - Ars Notoria(Balmer,CC0)换色分层,旧主角选项,见源码 PXA 注释
+ars_he4.png  2KB  L5733 PXA.he4  ← 无脚本:Hero spritesheets - Ars Notoria(Balmer,CC0)换色分层,旧主角选项,见源码 PXA 注释
+ars_he5.png  3KB  L5734 PXA.he5  ← 无脚本:Hero spritesheets - Ars Notoria(Balmer,CC0)换色分层,旧主角选项,见源码 PXA 注释
+ars_he6.png  2KB  L5735 PXA.he6  ← 无脚本:Hero spritesheets - Ars Notoria(Balmer,CC0)换色分层,旧主角选项,见源码 PXA 注释
+ars_he7.png  2KB  L5736 PXA.he7  ← 无脚本:Hero spritesheets - Ars Notoria(Balmer,CC0)换色分层,旧主角选项,见源码 PXA 注释
+ars_he8.png  2KB  L5737 PXA.he8  ← 无脚本:Hero spritesheets - Ars Notoria(Balmer,CC0)换色分层,旧主角选项,见源码 PXA 注释
+ars_pl.png  11KB  L5713 PXA.pl  ← 无脚本:Hero spritesheets - Ars Notoria(Balmer,CC0)换色分层,旧主角选项,见源码 PXA 注释
+ars_ro1.png  8KB  L5722 PXA.ro1  ← 无脚本:Hero spritesheets - Ars Notoria(Balmer,CC0)换色分层,旧主角选项,见源码 PXA 注释
+ars_ro2.png  8KB  L5723 PXA.ro2  ← 无脚本:Hero spritesheets - Ars Notoria(Balmer,CC0)换色分层,旧主角选项,见源码 PXA 注释
+ars_ro3.png  9KB  L5724 PXA.ro3  ← 无脚本:Hero spritesheets - Ars Notoria(Balmer,CC0)换色分层,旧主角选项,见源码 PXA 注释
+ars_ro4.png  8KB  L5725 PXA.ro4  ← 无脚本:Hero spritesheets - Ars Notoria(Balmer,CC0)换色分层,旧主角选项,见源码 PXA 注释
+ars_ro5.png  8KB  L5726 PXA.ro5  ← 无脚本:Hero spritesheets - Ars Notoria(Balmer,CC0)换色分层,旧主角选项,见源码 PXA 注释
+ars_ro6.png  8KB  L5727 PXA.ro6  ← 无脚本:Hero spritesheets - Ars Notoria(Balmer,CC0)换色分层,旧主角选项,见源码 PXA 注释
+ars_ro7.png  9KB  L5728 PXA.ro7  ← 无脚本:Hero spritesheets - Ars Notoria(Balmer,CC0)换色分层,旧主角选项,见源码 PXA 注释
+ars_ro8.png  6KB  L5729 PXA.ro8  ← 无脚本:Hero spritesheets - Ars Notoria(Balmer,CC0)换色分层,旧主角选项,见源码 PXA 注释
+ars_sh1.png  3KB  L5746 PXA.sh1  ← 无脚本:Hero spritesheets - Ars Notoria(Balmer,CC0)换色分层,旧主角选项,见源码 PXA 注释
+ars_sh2.png  3KB  L5747 PXA.sh2  ← 无脚本:Hero spritesheets - Ars Notoria(Balmer,CC0)换色分层,旧主角选项,见源码 PXA 注释
+ars_sh3.png  3KB  L5748 PXA.sh3  ← 无脚本:Hero spritesheets - Ars Notoria(Balmer,CC0)换色分层,旧主角选项,见源码 PXA 注释
+ars_sh4.png  3KB  L5749 PXA.sh4  ← 无脚本:Hero spritesheets - Ars Notoria(Balmer,CC0)换色分层,旧主角选项,见源码 PXA 注释
+ars_sh5.png  3KB  L5750 PXA.sh5  ← 无脚本:Hero spritesheets - Ars Notoria(Balmer,CC0)换色分层,旧主角选项,见源码 PXA 注释
+ars_sh6.png  4KB  L5751 PXA.sh6  ← 无脚本:Hero spritesheets - Ars Notoria(Balmer,CC0)换色分层,旧主角选项,见源码 PXA 注释
+ars_sh7.png  4KB  L5752 PXA.sh7  ← 无脚本:Hero spritesheets - Ars Notoria(Balmer,CC0)换色分层,旧主角选项,见源码 PXA 注释
+ars_sh8.png  5KB  L5753 PXA.sh8  ← 无脚本:Hero spritesheets - Ars Notoria(Balmer,CC0)换色分层,旧主角选项,见源码 PXA 注释
+bfx2_atlas.png  58KB  L6229 BFX2.D  ← art_src/bfx/build_bfx2.py
+bfx_atlas.png  27KB  L6211 BFX.D  ← art_src/bfx/build_bfx.py
+book_atlas.png  4KB  L3993 BOOK.D  ← art_src/book/build_book.py
+city8_atlas.png  128KB  L3015 CITY8.D  ← art_src/city/build_city8.py
+eq_atlas.png  15KB  L4999 EQPX.D  ← art_src/eqicon/build_eqicon.py
+fx29_atlas.png  817KB  L6242 FX29.D  ← art_src/skfx/build_fx29.py
+gh8_atlas.png  13KB  L3050 GH8.D  ← art_src/city/build_gh8.py
+gp_atlas.png  144KB  L3640 GP.D  ← art_src/myst/build_gp.py
+gsword.png  11KB  L2169 GSW.D  ← art_src/skfx/build_gsword.py
 home_bg.png  24KB  L190   ← art_src/home/build_home.py
 home_btn.png  0KB  L199 ; L204   ← art_src/home/build_home.py
 home_div.png  0KB  L194   ← art_src/home/build_home.py
 home_frame.png  0KB  L192   ← art_src/home/build_home.py
-hsw_atlas.png  3KB  L4796 HSW.D  ← art_src/lpc/build_hsw.py
-ice6_atlas.png  2KB  L5389 ICE6P.D  ← art_src/lv/build_ice6.py
-kb_atlas.png  16KB  L6032 KB.D  ← art_src/boss/build_kb.py
-lair_atlas.png  85KB  L5503 LAIR.D  ← art_src/lv/build_lair.py
-lbg_atlas.png  138KB  L5425 LBG.D  ← art_src/lbg/build_lbg.py
-lpc_atlas.png  316KB  L5731 LPC.AD  ← art_src/lpc/build_lpc.py
-ltl1.png  19KB  L5446 LTL.D  ← art_src/lv/build_ltl.py
-ltl2.png  19KB  L5447 LTL.D  ← art_src/lv/build_ltl.py
-ltl3.png  19KB  L5448 LTL.D  ← art_src/lv/build_ltl.py
-ltl4.png  18KB  L5449 LTL.D  ← art_src/lv/build_ltl.py
-ltl5.png  10KB  L5450 LTL.D  ← art_src/lv/build_ltl.py
-ltl6.png  3KB  L5451 LTL.D  ← art_src/lv/build_ltl.py
-ltl7.png  3KB  L5452 LTL.D  ← art_src/lv/build_ltl.py
-mage_atlas.png  14KB  L6011 BOS.MD  ← art_src/boss/build_mage.py
-meni_atlas.png  18KB  L172 ; L177 ; L499 MENI.D  ← art_src/ui/build_ui.py
-mfx_atlas.png  23KB  L5940 MFXD  ← art_src/mob/build_mfx.py
-mg27_atlas.png  16KB  L231 ; L6095 MG27.D  ← art_src/skfx/build_mg27.py
-mnt_atlas.png  43KB  L5993 MNT.D  ← art_src/boss/build_mnt.py
-mob_atlas.png  230KB  L5941 MOB.D  ← art_src/boss/build_bos.py, art_src/mob/build_dog2.py, art_src/mob/build_pen.py, art_src/mob/fix_dog2.py
-myst_atlas.png  87KB  L3765 MYST.D  ← art_src/myst/build_myst.py
-npc_chief.png  2KB  L5568 PXA  ← 无脚本:PXA 早期 NPC 像素图(来源见源码 PXA 注释)
-npc_erin.png  2KB  L5564 PXA  ← 无脚本:PXA 早期 NPC 像素图(来源见源码 PXA 注释)
-npc_jin.png  2KB  L5567 PXA  ← 无脚本:PXA 早期 NPC 像素图(来源见源码 PXA 注释)
-npc_kui.png  2KB  L5565 PXA  ← 无脚本:PXA 早期 NPC 像素图(来源见源码 PXA 注释)
-npc_lpc.png  24KB  L5920 LNPC.D  ← art_src/lpc_npc/build_npc_lpc.py
-npc_tie.png  2KB  L5566 PXA  ← 无脚本:PXA 早期 NPC 像素图(来源见源码 PXA 注释)
-pend.png  1KB  L5914 PEND.D  ← art_src/pend/build_pend.py
+hsw_atlas.png  3KB  L4938 HSW.D  ← art_src/lpc/build_hsw.py
+ice6_atlas.png  2KB  L5531 ICE6P.D  ← art_src/lv/build_ice6.py
+kb_atlas.png  16KB  L6174 KB.D  ← art_src/boss/build_kb.py
+lair_atlas.png  85KB  L5645 LAIR.D  ← art_src/lv/build_lair.py
+lbg_atlas.png  138KB  L5567 LBG.D  ← art_src/lbg/build_lbg.py
+lpc_atlas.png  316KB  L5873 LPC.AD  ← art_src/lpc/build_lpc.py
+ltl1.png  19KB  L5588 LTL.D  ← art_src/lv/build_ltl.py
+ltl2.png  19KB  L5589 LTL.D  ← art_src/lv/build_ltl.py
+ltl3.png  19KB  L5590 LTL.D  ← art_src/lv/build_ltl.py
+ltl4.png  18KB  L5591 LTL.D  ← art_src/lv/build_ltl.py
+ltl5.png  10KB  L5592 LTL.D  ← art_src/lv/build_ltl.py
+ltl6.png  3KB  L5593 LTL.D  ← art_src/lv/build_ltl.py
+ltl7.png  3KB  L5594 LTL.D  ← art_src/lv/build_ltl.py
+mage_atlas.png  14KB  L6153 BOS.MD  ← art_src/boss/build_mage.py
+mech_atlas.png  47KB  L3765 MECH.D  ← art_src/mech/build_mech.py
+meni_atlas.png  19KB  L172 ; L177 ; L499 MENI.D  ← art_src/ui/build_ui.py
+mfx_atlas.png  23KB  L6082 MFXD  ← art_src/mob/build_mfx.py
+mg27_atlas.png  16KB  L231 ; L6237 MG27.D  ← art_src/skfx/build_mg27.py
+mnt_atlas.png  43KB  L6135 MNT.D  ← art_src/boss/build_mnt.py
+mob_atlas.png  230KB  L6083 MOB.D  ← art_src/boss/build_bos.py, art_src/mob/build_dog2.py, art_src/mob/build_pen.py, art_src/mob/fix_dog2.py
+myst_atlas.png  87KB  L3902 MYST.D  ← art_src/myst/build_myst.py
+npc_chief.png  2KB  L5710 PXA  ← 无脚本:PXA 早期 NPC 像素图(来源见源码 PXA 注释)
+npc_erin.png  2KB  L5706 PXA  ← 无脚本:PXA 早期 NPC 像素图(来源见源码 PXA 注释)
+npc_jin.png  2KB  L5709 PXA  ← 无脚本:PXA 早期 NPC 像素图(来源见源码 PXA 注释)
+npc_kui.png  2KB  L5707 PXA  ← 无脚本:PXA 早期 NPC 像素图(来源见源码 PXA 注释)
+npc_lpc.png  24KB  L6062 LNPC.D  ← art_src/lpc_npc/build_npc_lpc.py
+npc_tie.png  2KB  L5708 PXA  ← 无脚本:PXA 早期 NPC 像素图(来源见源码 PXA 注释)
+pend.png  1KB  L6056 PEND.D  ← art_src/pend/build_pend.py
 pot_atlas.png  1KB  L469 POTI.D  ← art_src/potion/build_pot.py
-pui_atlas.png  17KB  L4467 PUI.D  ← art_src/ui/build_pui.py
-scob_atlas.png  8KB  L6011 BOS.SD  ← art_src/boss/build_scob.py
-ship10_atlas.png  84KB  L3372 SHIP10.D  ← art_src/ship/build_ship10.py
-skfx_atlas.png  305KB  L6092 SKFX.D  ← art_src/skfx/build_skfx.py
-smn_atlas.png  16KB  L5082 SMN.D  ← art_src/summon/build_smn.py
-stf_atlas.png  4KB  L4800 STF.D  ← art_src/lpc/build_staff.py
+pui_atlas.png  17KB  L4608 PUI.D  ← art_src/ui/build_pui.py
+scob_atlas.png  8KB  L6153 BOS.SD  ← art_src/boss/build_scob.py
+ship10_atlas.png  84KB  L3398 SHIP10.D  ← art_src/ship/build_ship10.py
+skfx_atlas.png  305KB  L6234 SKFX.D  ← art_src/skfx/build_skfx.py
+smn_atlas.png  16KB  L5224 SMN.D  ← art_src/summon/build_smn.py
+stf_atlas.png  4KB  L4942 STF.D  ← art_src/lpc/build_staff.py
 stn_atlas.png  1KB  L562 STNI.D  ← art_src/stone/build_stone.py
-town2_back.png  24KB  L5537 TWN.back  ← art_src/town/build_town2.py
-town2_far.png  11KB  L5537 TWN.far  ← art_src/town/build_town2.py
-town2_fg.png  12KB  L5537 TWN.fg  ← art_src/town/build_town2.py
-town2_forge.png  4KB  L5537 TWN.forge  ← art_src/town/build_town2.py
-town2_hill.png  5KB  L5537 TWN.hill  ← art_src/town/build_town2.py
-town2_main.png  60KB  L5537 TWN.main  ← art_src/town/build_town2.py
-tpx_atlas.png  14KB  L5541 TPX.D  ← art_src/town/build_tpx.py
+town2_back.png  24KB  L5679 TWN.back  ← art_src/town/build_town2.py
+town2_far.png  11KB  L5679 TWN.far  ← art_src/town/build_town2.py
+town2_fg.png  12KB  L5679 TWN.fg  ← art_src/town/build_town2.py
+town2_forge.png  4KB  L5679 TWN.forge  ← art_src/town/build_town2.py
+town2_hill.png  5KB  L5679 TWN.hill  ← art_src/town/build_town2.py
+town2_main.png  60KB  L5679 TWN.main  ← art_src/town/build_town2.py
+tpx_atlas.png  14KB  L5683 TPX.D  ← art_src/town/build_tpx.py
 ui_btn.png  0KB  L166 ; L169 ; L171   ← art_src/ui/build_ui.py
 ui_btn_on.png  0KB  L167   ← art_src/ui/build_ui.py
 ui_card.png  0KB  L179 ; L224   ← art_src/ui/build_ui.py
@@ -115,19 +116,20 @@ ui_panel.png  0KB  L164   ← art_src/ui/build_ui.py
 ui_slot.png  0KB  L182   ← art_src/ui/build_ui.py
 ui_tab.png  0KB  L168 ; L178   ← art_src/ui/build_ui.py
 ui_tip.png  0KB  L185   ← art_src/ui/build_ui.py
-vfx_atlas.png  174KB  L5963 VFX.D  ← art_src/vfx/build_vfx.py
-vol9_atlas.png  157KB  L3200 VOL9.D  ← art_src/volcano/build_vol9.py
-wing_fly.png  5KB  L5624 PXA.WGD  ← art_src/build_wing.py
-wpn_atlas.png  16KB  L5622 PXA.WPD  ← art_src/build_wpn.py
+vfx_atlas.png  174KB  L6105 VFX.D  ← art_src/vfx/build_vfx.py
+vol9_atlas.png  157KB  L3226 VOL9.D  ← art_src/volcano/build_vol9.py
+wing_fly.png  5KB  L5766 PXA.WGD  ← art_src/build_wing.py
+wpn_atlas.png  16KB  L5764 PXA.WPD  ← art_src/build_wpn.py
 
-== 图片 JPEG(@@J:)  1 个 ==
-map_bg.jpg  110KB  L6282 MAPI.D  ← art_src/map/build_map.py
+== 图片 JPEG(@@J:)  2 个 ==
+map2_bg.jpg  272KB  L6463 MAPI2.D  ← art_src/map/build_map2.py
+map_bg.jpg  110KB  L6424 MAPI.D  ← art_src/map/build_map.py
 
 == 字体(@@F:)  2 个 ==
 fpx12.woff2  65KB  L9   ← art_src/font/build_font.py
 fpx8.woff2  41KB  L10   ← art_src/font/build_font.py
 
-== 音频 OGG(@@O:)  115 个 ==
+== 音频 OGG(@@O:)  117 个 ==
 au_b_axe.ogg  6KB  L286 AUD.b_axe  ← art_src/audio/build_audio.py  [bfh1_metal_hit_02.ogg, explosion.ogg, swish-7.wav]
 au_b_gallop.ogg  7KB  L286 AUD.b_gallop  ← art_src/audio/build_audio.py  [slam_0%d.ogg, wind]
 au_b_imp1.ogg  6KB  L286 AUD.b_imp1  ← art_src/audio/build_audio.py  [impactwood11.mp3.flac, hit_02.ogg]
@@ -143,6 +145,8 @@ au_bgm10.ogg  730KB  L291 AUD.bgm10  ← art_src/audio/build_audio.py  [thunderc
 au_bgm10b.ogg  785KB  L291 AUD.bgm10b  ← art_src/audio/build_audio.py
 au_bgm11.ogg  187KB  L292 AUD.bgm11  ← art_src/audio/build_audio.py  [song21_mysterious.mp3, hard_dungeon_bpm140.ogg]
 au_bgm11b.ogg  805KB  L292 AUD.bgm11b  ← art_src/audio/build_audio.py
+au_bgm14.ogg  611KB  L292 AUD.bgm14  ← art_src/audio/build_audio.py  [Factory.ogg, hardwar.mp3]
+au_bgm14b.ogg  90KB  L292 AUD.bgm14b  ← art_src/audio/build_audio.py
 au_bgm1b.ogg  613KB  L288 AUD.bgm1b  ← art_src/audio/build_audio.py
 au_bgm2.ogg  325KB  L288 AUD.bgm2  ← art_src/audio/build_audio.py
 au_bgm2b.ogg  789KB  L288 AUD.bgm2b  ← art_src/audio/build_audio.py
@@ -161,7 +165,7 @@ au_bgm8b.ogg  793KB  L289 AUD.bgm8b  ← art_src/audio/build_audio.py
 au_bgm9.ogg  705KB  L291 AUD.bgm9  ← art_src/audio/build_audio.py  [LavaLand - One Loop.ogg, heavy_boss_battle_2_bpm110.ogg]
 au_bgm9b.ogg  806KB  L291 AUD.bgm9b  ← art_src/audio/build_audio.py
 au_blink.ogg  7KB  L284 AUD.blink  ← art_src/audio/build_audio.py
-au_boom.ogg  5KB  L284 AUD.boom  ← art_src/audio/build_audio.py
+au_boom.ogg  5KB  L284 AUD.boom  ← art_src/audio/build_audio.py, art_src/mech/build_mech.py
 au_br_bliz.ogg  15KB  L287 AUD.br_bliz  ← art_src/audio/build_audio.py  [wind, hiss]
 au_br_crash.ogg  8KB  L287 AUD.br_crash  ← art_src/audio/build_audio.py  [explosion.ogg, giant4.wav]
 au_br_growl.ogg  7KB  L287 AUD.br_growl  ← art_src/audio/build_audio.py  [giant2.wav]
@@ -247,6 +251,13 @@ au_zap.ogg  9KB  L284 AUD.zap  ← art_src/audio/build_audio.py
 == 没被源码引用的文件 0 个(可能是生成脚本的中间产物,或可以删)==
 
 == art_src 各生成脚本的说明(脚本开头注释:素材来源 / 作者 / 授权 / 用法)==
+-- art_src/audio/build_audio.py
+   音效 / BGM:从 raw/audio 的开源素材裁剪、归一化,转成单声道 OGG,输出 assets/au_<名字>.ogg(源码里用 @@O:au_名字@@ 占位)
+   用法:python art_src/audio/build_audio.py   (需要 pip install soundfile scipy numpy)
+   素材(都在 raw/audio,zip 已解压):
+   RPG Sound Pack(artisticdude,CC0)· Swishes Sound Pack(artisticdude,CC0)· 80 CC0 creature SFX / 100 CC0 SFX / 75 CC0 breaking-falling-hit SFX(rubberduck,CC0)
+   Fantasy Sound Effects Library(Little Robot Sound Factory,CC-BY 3.0)
+   BGM:Happy Adventure Loop(fluffrabbit,CC0)、Battle Theme A(cynicmusic,CC0)、Dark Shrine Loop(yd / qubodup,CC0)、Battle RPG Theme Var(CleytonRX,CC0)
 -- art_src/bfx/build_bfx.py
    怪物 / 首领特效图集(第三张特效图,VFX 里 im:3)
    素材:Magic Pack 9(ansimuz,可商用、可修改、可再分发,署名非必须)· Pixel Art Spells(DevWizard,CC0)
@@ -329,6 +340,14 @@ au_zap.ogg  9KB  L284 AUD.zap  ← art_src/audio/build_audio.py
    假人(精英陆地鬼魂伪装的路人):Streets of Fight(ansimuz,CC0)的 Enemy Punk 待机帧,压暗
    自画像素:怨婴「银太郎」(浮空的婴儿,6 帧)+ 它的巨大黑影投影、巨型鬼爪、地面鬼手(3 帧)、黑色摇篮、鬼火(4 帧)、窗后的鬼影、女神灵魂碎片
    用法:python art_src/city/build_gh8.py → assets/gh8_atlas.png + 打印 meta(贴进源码 GH8.M)
+-- art_src/eqicon/build_eqicon.py
+   装备图标图集(2026-10-13 第十八轮重做:每个系列一件不同造型,不再只是换色)
+   素材:496 pixel art icons for medieval/fantasy RPG(Henrique Lazarini / 7Soul1,CC0,https://opengameart.org/node/39455,raw/icons/7soul1/x)
+   CC0 Jewelry Icons(AntumDeluge 整理,CC0,https://opengameart.org/content/cc0-jewelry-icons,raw/icons/jewelry):
+   其中 7Soul1 的戒指 / 项链,和 Dungeon Crawl Stone Soup 的两枚戒指(urand_octoring 火焰戒、urand_robustness 银纹戒)
+   行 = 部位(sword staff head body ring ear),列 = 系列(0 旅者 1 林王 2 荒漠 3 雪原 4 机械,第四十轮),每格 34×34(图标居中);品质轮廓在运行时加
+   改动:机械系列(第四十轮)五件换成钢青色;林王的雷光剑 / 尖帽从金色 / 紫色换成翠绿;雪原的骑士盔 / 全身甲稍微偏冰蓝;其余保持原色
+   用法:python art_src/eqicon/build_eqicon.py → assets/eq_atlas.png
 -- art_src/font/build_font.py
    中文像素字体:Fusion Pixel Font(缝合像素字体,TakWolf,SIL OFL 1.1,https://github.com/TakWolf/fusion-pixel-font)
    只保留游戏源码里出现过的字(+ 全部 ASCII),输出 woff2,由 build.py 的 @@F:名字@@ 内嵌。
@@ -393,6 +412,20 @@ au_zap.ogg  9KB  L284 AUD.zap  ← art_src/audio/build_audio.py
    这里把这些牌子里的白字和描边擦掉(按牌子底色往里扩散填补),游戏运行时按 MAPS 的真实关卡名、推荐等级、锁定 / 通关状态重新写字。
    顶部「请选择关卡」横幅和「??? 尚未开放」保留原样。
    用法:python art_src/map/build_map.py <world_map_custom.webp> <输出 jpg>
+-- art_src/map/build_map2.py
+   第二张世界地图「暗黑大陆」(用户用 GPT 画的定制插画,raw/map/map2_user.webp,1614×974)→ assets/map2_bg.jpg(16:9)
+   改动:左下角原图写错的「浮岛城镇」擦掉(游戏里按用户要求重写成「返回城镇」);整张纵向压扁约 7% 变成 16:9(不裁,四角的字都留着);其余保持原样。
+   左下角的机械城 = 第十一关「齿轮要塞」入口(第四十轮);其他地点以后再开。
+   用法:python art_src/map/build_map2.py → assets/map2_bg.jpg
+-- art_src/mech/build_mech.py
+   第十一关「齿轮要塞」像素图集 MECH(第四十轮,第二张地图「暗黑大陆」左下角的机械城)
+   素材(全部外部,只用 CC0 / OGA-BY):
+   背景:Industrial Parallax Background(Luis Zuno / ansimuz,CC0,https://opengameart.org/content/industrial-parallax-background,raw/mech/parallax-industrial-pack_0)
+   地面 / 平台 / 场景道具:16x16 Industrial Tileset(0x72,CC0,https://0x72.itch.io/16x16-industrial-tileset,raw/mech/industrial_0x72)—— 原图是单色,这里按亮度换成青绿色调配合背景
+   小怪:Enemies for Platformer Pixel Art(CraftPix.net,OGA-BY 3.0,https://opengameart.org/content/enemies-for-platformer-pixel-art,raw/mech/enemies_for_platformer_pixel_art)第 4 / 5 / 6 号机器人
+   首领:Bosses Pixel Art Sprite Sheet(CraftPix.net,OGA-BY 3.0,https://opengameart.org/content/bosses-pixel-art-sprite-sheet,raw/mech/bosses-pixel-art-sprite-sheet-pack)第 2 号机甲步行坦克 + 子弹
+   爆炸:Warped City(ansimuz,CC0,raw/city/warped_city_files)enemy-explosion
+   用法:python art_src/mech/build_mech.py → assets/mech_atlas.png,打印的 meta 贴进源码 MECH.M
 -- art_src/mob/build_dog2.py
    双头狗(第七关精英)像素精灵:ansimuz「Hell Hound Character」(CC-BY 3.0,https://opengameart.org/content/hell-hound-character)
    改动:暗紫身体 + 熔岩橙换成冰蓝 / 雪白配色;把头部复制一份错位贴在后上方,做成双头;追加到 mob 图集(dog2)

@@ -1,4 +1,4 @@
-﻿# 音效 / BGM:从 raw/audio 的开源素材裁剪、归一化,转成单声道 OGG,输出 assets/au_<名字>.ogg(源码里用 @@O:au_名字@@ 占位)
+# 音效 / BGM:从 raw/audio 的开源素材裁剪、归一化,转成单声道 OGG,输出 assets/au_<名字>.ogg(源码里用 @@O:au_名字@@ 占位)
 # 用法:python art_src/audio/build_audio.py   (需要 pip install soundfile scipy numpy)
 # 素材(都在 raw/audio,zip 已解压):
 #   RPG Sound Pack(artisticdude,CC0)· Swishes Sound Pack(artisticdude,CC0)· 80 CC0 creature SFX / 100 CC0 SFX / 75 CC0 breaking-falling-hit SFX(rubberduck,CC0)
@@ -24,6 +24,7 @@ SFX={
 # 九关(2026-10-13)Lava Area Theme「LavaLand - One Loop」(wolfgang,CC-BY 4.0,https://opengameart.org/content/lava-area-theme)/ Heavy Boss Battle 2(mintodog,CC0,https://opengameart.org/content/heavy-boss-battle-2)
 # 十关(2026-10-13)Airship Thunderchild(Otto Halmén,OGA-BY 3.0,https://opengameart.org/content/airship-thunderchild)/ Blackmoor Tides(Matthew Pablo,CC-BY 3.0,https://opengameart.org/content/blackmoor-tides-epic-pirate-battle-theme)
 # 神秘地带 / 神秘副本(2026-10-13 第十二轮)Mysterious Ambience song21(cynicmusic,CC-BY 3.0,https://opengameart.org/content/mysterious-ambience-song21)/ Hard Dungeon(mintodog,CC0,https://opengameart.org/content/hard-dungeon)
+# 第十一关齿轮要塞(第四十轮,cur 14)Factory ambiance(yd,CC0,https://opengameart.org/node/16130)/ Short Industrial Style Techno Loop「hardwar」(cinameng,CC0,https://opengameart.org/content/hardwar)
 # 八关(2026-10-13)EmptyCity(yd,CC0,https://opengameart.org/content/emptycity-background-music)/ Dark Rooms and Scary Things(isaiah658,CC0,https://opengameart.org/content/dark-rooms-and-scary-things)
 G='bgm/'
 BGM={'bgm0':(G+'town.mp3',None,1),'bgm1':('happy_adventure.mp3',None,1),'bgm1b':('battleThemeA.mp3',None,1),'bgm2':('DarkShrineLoop.ogg',None,1),'bgm2b':('BattleRPGTheme.ogg',None,1),
@@ -32,7 +33,8 @@ BGM={'bgm0':(G+'town.mp3',None,1),'bgm1':('happy_adventure.mp3',None,1),'bgm1b':
  'bgm8':(G+'EmptyCity.ogg',None,1),'bgm8b':(G+'Dark Rooms and Scary Things - isaiah658_1.ogg',120,1),
  'bgm9':(G+'LavaLand - One Loop.ogg',None,1),'bgm9b':(G+'heavy_boss_battle_2_bpm110.ogg',120,1),
  'bgm10':(G+'thunderchild.ogg',120,1),'bgm10b':(G+'Blackmoor Tides.mp3',120,1),
- 'bgm11':(G+'song21_mysterious.mp3',None,1),'bgm11b':(G+'hard_dungeon_bpm140.ogg',120,1)}
+ 'bgm11':(G+'song21_mysterious.mp3',None,1),'bgm11b':(G+'hard_dungeon_bpm140.ogg',120,1),
+ 'bgm14':(G+'mech/Factory.ogg',120,1),'bgm14b':(G+'mech/hardwar.mp3',None,1)}
 def load(p,sr):
   d,s=sf.read(A+p,always_2d=True);m=d.mean(1)
   g=np.gcd(s,sr);return resample_poly(m,sr//g,s//g) if s!=sr else m
