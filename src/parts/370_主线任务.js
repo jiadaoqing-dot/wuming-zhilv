@@ -99,10 +99,10 @@ const mqDone=()=>{const q=mqCur();return !!q&&QD.ms==1&&QD.mp>=q.need};
 const mqWho=q=>q.g+(GN[q.g]?'·'+GN[q.g]:'');
 const mqObj=q=>q.ty=='col'?`收集「${q.it}」×${q.need}(${q.k.map(k=>MN[k]).join(' / ')}掉落)`:q.ty=='boss'?`击败首领「${MN[q.k[0]]}」`:`击败${q.k.map(k=>MN[k]).join(' / ')} ×${q.need}`;
 // 奖励:按关卡成长;首领任务 3 倍,并附赠强化石
-function mqRw(q){const i=Math.min(10,mqCh(q)-1),b=q.ty=='boss'?3:1;return {gold:[100,250,500,800,1200,1600,2100,2700,3400,4200,5000][i]*b,exp:[40,100,200,350,500,700,1000,1400,1900,2500,3000][i]*b,stn:q.ty=='boss'?[3,4,6,6,6,6,6,6,6,6,6][i]:0}}  // 第三十九轮修:原来只有 9 项,第十关任务的奖励是 undefined → 金币 / 经验变成 NaN  // 第十九轮:强化石最高 Lv2
+function mqRw(q){const i=Math.min(10,mqCh(q)-1),b=q.ty=='boss'?3:1;return {gold:Math.round([100,250,500,800,1200,1600,2100,2700,3400,4200,5000][i]*b*.4),exp:[40,100,200,350,500,700,1000,1400,1900,2500,3000][i]*b,stn:q.ty=='boss'?[3,4,6,6,6,6,6,6,6,6,6][i]:0}}  // 第三十九轮修:原来只有 9 项,第十关任务的奖励是 undefined → 金币 / 经验变成 NaN  // 第十九轮:强化石最高 Lv2
 const mqRwT=q=>{const r=mqRw(q);return `金币 ×${r.gold} · 经验 ×${r.exp}`+(r.stn?` · ${stnName(stnLv(r.stn),0)} ×9`:'')};
 function mqAccept(){const q=mqCur();if(!q||QD.ms||mqLock(q))return false;QD.ms=1;QD.mp=0;save();return true}
-function mqClaim(){const q=mqCur();if(!mqDone())return null;const r=mqRw(q);gold+=r.gold;exp+=r.exp;if(r.stn)STN[stnLv(r.stn)][0]+=9;lvUp();sfx('coin');QD.mi++;QD.ms=0;QD.mp=0;save();return q}
+function mqClaim(){const q=mqCur();if(!mqDone())return null;const r=mqRw(q);gold+=r.gold;exp+=r.exp;if(r.stn)STN[stnLv(r.stn)][0]+=3;lvUp();sfx('coin');QD.mi++;QD.ms=0;QD.mp=0;save();return q}
 function mqAdd(n){const q=mqCur();if(!q||QD.ms!=1||QD.mp>=q.need)return;QD.mp=Math.min(q.need,QD.mp+n);
   if(QD.mp>=q.need){tx('主线「'+q.n+'」完成!'+'按 Q'+' 领取奖励',P.x-50,P.y-58,'#ffe066');sfx('lvl')}else tx('主线 '+QD.mp+'/'+q.need,P.x-6,P.y-48,'#ffe066');save()}
 // 击败怪物时:计数,或者(收集任务)掉落任务物品

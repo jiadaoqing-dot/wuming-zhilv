@@ -1,6 +1,6 @@
 // ===== 第三十三轮:制作材料 · 洗脸券 · 增幅宝石 · 制作书 · 锻造石(熔炉)=====
 // 材料:[名称, 商城(g 金币 / k 击杀点), 价格];图标都在 MENI 图集(7Soul1 496 RPG icons,CC0,build_meni.py 第 26 格起)
-const MATD={steel:['低碳钢','g',800],rhino:['犀牛皮','g',800],silk:['绢帛','g',600],gthr:['金丝线','g',1200],flax:['亚麻','k',20],glue:['动物皮胶','k',30]};
+const MATD={steel:['低碳钢','g',4000],rhino:['犀牛皮','g',4000],silk:['绢帛','g',3000],gthr:['金丝线','g',6000],flax:['亚麻','k',40],glue:['动物皮胶','k',60]};  // 第四十五轮:材料 ×5(金币)/ ×4(击杀点)
 Object.assign(MENI.P,{steel:26,rhino:27,silk:28,gthr:29,flax:30,glue:31,wash:32,amp_cr:33,amp_atk:34,amp_hp:35,amp_def:36,book:37,fg1:38,fg2:38,fg3:38,fg4:38,fg5:38,b360:42,hwq:43});
 const FGN=['','一','二','三','四','五'];
 for(const k in MATD)MISC[k]=[MATD[k][0],`装备和其他道具的制作材料,在 🔥 熔炉制作时使用。在 🏪 商城的${MATD[k][1]=='g'?'金币':'击杀点'}商店购买。`,'',MATD[k][1]=='g'?Math.floor(MATD[k][2]/4):0];
@@ -10,16 +10,17 @@ MISC.hwq=['武器幻化券','在 🔥 熔炉「武器幻化」里使用:给剑�
 MISC.wash=['洗脸券','在 🔥 熔炉「洗练」里使用:把一件装备的 3 条绿字全部重新随机一次(种类和数值都重新随机)。击杀点商店购买。','',0];
 for(const k in AMP)MISC['amp_'+k]=[AMP[k][0],`增幅宝石:在 🔥 熔炉「增幅宝石」里镶嵌到装备、时装或翅膀上(8 个部位都能用),${AMP[k][2]} +${Math.round(AMP[k][1]*100)}%(加在基础数值上)。每件只能镶 1 颗,新的会覆盖旧的,不能拆下。击杀点商店购买。`,'',0];
 for(let k=1;k<=FGMX;k++)MISC['fg'+k]=[FGN[k]+'级锻造石',`在 🔥 熔炉「锻造」里使用:把锻造 ${k-1} 级的装备提升到 ${k} 级(白字 +${k*FGK*100}%)。用「${FGN[k]}级锻造」制作书在熔炉制作。`,'',0];
-Object.assign(KPIT,{flax:['亚麻',10,'制作材料'],glue:['动物皮胶',15,'制作材料'],wash:['洗脸券',30,'刷新一件装备的 3 条绿字'],amp_cr:['暴击宝石',200,'增幅宝石:暴击率 +15%'],amp_atk:['攻击宝石',200,'增幅宝石:攻击力 +3%'],amp_hp:['HP宝石',200,'增幅宝石:生命值 +6%'],amp_def:['防御宝石',200,'增幅宝石:防御力 +4%']});
+Object.assign(KPIT,{flax:['亚麻',40,'制作材料'],glue:['动物皮胶',60,'制作材料'],wash:['洗脸券',90,'刷新一件装备的 3 条绿字'],amp_cr:['暴击宝石',600,'增幅宝石:暴击率 +15%'],amp_atk:['攻击宝石',600,'增幅宝石:攻击力 +3%'],amp_hp:['HP宝石',600,'增幅宝石:生命值 +6%'],amp_def:['防御宝石',600,'增幅宝石:防御力 +4%']});  // 第四十五轮:×3~4
 KPFIX.push('flax','glue','wash','amp_cr','amp_atk','amp_hp','amp_def');
 // 制作书(买一次永久学会,存在 R19.rc):大师头饰 / 战甲 / 项链 / 指环 × 五种特性;一~五级锻造
 const MSL=['head','body','ear','ring'],MSN={head:'头饰',body:'战甲',ear:'项链',ring:'指环'};
-const RCP={};for(const s of MSL)for(const t of TRK)RCP['m'+s+'_'+t]={n:'大师'+MSN[s]+' · '+TRT[t][0],kp:150,s,t};for(let k=1;k<=FGMX;k++)RCP['f'+k]={n:FGN[k]+'级锻造',kp:60*k,k};
-RCP.xf_sword={n:'真~火之大剑',kp:300,fw:'sword'};RCP.xf_staff={n:'真~火之法杖',kp:300,fw:'staff'};RCP.hw={n:'武器幻化券',kp:120,hw:1};  // 第四十二轮
+const RCP={};for(const s of MSL)for(const t of TRK)RCP['m'+s+'_'+t]={n:'大师'+MSN[s]+' · '+TRT[t][0],kp:400,s,t};for(let k=1;k<=FGMX;k++)RCP['f'+k]={n:FGN[k]+'级锻造',kp:150*k,k};  // 第四十五轮:制作书 150 → 400,锻造书 60k → 150k
+RCP.xf_sword={n:'真~火之大剑',kp:800,fw:'sword'};RCP.xf_staff={n:'真~火之法杖',kp:800,fw:'staff'};RCP.hw={n:'武器幻化券',kp:320,hw:1};  // 第四十二轮
 // 配方:材料数量 + 金币(add = 合成添加剂)
-const MREC={head:{steel:2,silk:3,gthr:2,flax:4,glue:2,add:1,gold:30000},body:{steel:4,rhino:3,gthr:1,flax:3,glue:3,add:1,gold:40000},ear:{steel:1,silk:2,gthr:4,flax:2,glue:2,add:1,gold:30000},ring:{steel:3,silk:1,gthr:3,flax:2,glue:2,add:1,gold:30000}};
-const FREC=k=>({steel:2*k,rhino:k,gthr:k,glue:k,gold:3000*k});  // 第三十七轮:金币 5000k → 3000k
-const XFREC={steel:4,gthr:3,glue:3,add:2,b360:3,gold:60000},HWREC={steel:2,silk:2,gthr:2,glue:2,add:1,gold:20000};  // 第四十二轮:真~火之武器 / 武器幻化券
+// 第四十五轮(用户:一个特性的大师套要三星刷 30~40 遍):制作金币 ×20(头饰 / 项链 / 指环 60 万,战甲 80 万),一套 4 件合计约 273 万金币 + 2580 击杀点 + 4 瓶添加剂
+const MREC={head:{steel:2,silk:3,gthr:2,flax:4,glue:2,add:1,gold:600000},body:{steel:4,rhino:3,gthr:1,flax:3,glue:3,add:1,gold:800000},ear:{steel:1,silk:2,gthr:4,flax:2,glue:2,add:1,gold:600000},ring:{steel:3,silk:1,gthr:3,flax:2,glue:2,add:1,gold:600000}};
+const FREC=k=>({steel:2*k,rhino:k,gthr:k,glue:k,gold:450000*k});  // 第四十五轮:3000k → 45 万 × k(全身 6 件锻造 +1 约 281 万金币,三星刷 30~40 遍)  // 第三十七轮:金币 5000k → 3000k
+const XFREC={steel:4,gthr:3,glue:3,add:2,b360:3,gold:1200000},HWREC={steel:2,silk:2,gthr:2,glue:2,add:1,gold:400000};  // 第四十五轮 ×20  // 第四十二轮:真~火之武器 / 武器幻化券
 const recOf=id=>{const r=RCP[id];return r.s?MREC[r.s]:r.fw?XFREC:r.hw?HWREC:FREC(r.k)},rcOwn=id=>R19.rc.includes(id);
 const matHave=k=>k=='gold'?gold:MAT[k]|0,matName=k=>k=='add'?'合成添加剂':MISC[k]?MISC[k][0]:k;
 const rcIc=id=>{const r=RCP[id];return r.s?eqImg(gen(r.s,3,null,3,r.t,1)):r.fw?eqImg(gen(r.fw,3,null,4,null,1,0,2)):r.hw?mniEm('hwq'):mniEm('fg'+r.k)};

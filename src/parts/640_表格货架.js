@@ -31,5 +31,5 @@ function rMall(){const tb=(i,l)=>`<button data-p="mt${i}" class="${mallTab==i?'o
       mtTable('mr',R19.mr.L.map(k=>{const d=KPIT[k];return {ic:kpIc(k),n:d[0],d:d[2],p:'⚔️ '+d[1],a:`<b class="qn">${left}次</b>`+btn('kr_'+k,KP>=d[1]&&left>0),cl:'sp'}}),['道具说明','单价','剩余次数'])}
   const v=isVip();
   h+=`<div class="mtf"><span>💰 金币:<b>${gold}</b></span><span>⚔️ 击杀点:<b>${KP}</b></span><span title="${VIPB.join(' · ')}">👑 VIP:<b>${v?'已开通':'累计消费 '+KPS+' / '+VIPN}</b></span></div>`+
-    `<div class="tag">每次通关奖励 ${KPCL}+${KPLV}×关卡 击杀点(二星 ×1.3、三星 ×1.7${v?',VIP 再 ×1.25':''})· 每天 📅 签到 1~100 · VIP:${VIPB.map(q=>(v?'✅ ':'🔒 ')+q).join(' · ')}</div>`;
+    `<div class="tag">每次通关奖励 ${KPCL}+${KPLV}×关卡 击杀点(二星 ×1.3、三星 ×1.7${v?',VIP 再 ×1.25':''})· 每天 📅 签到 1~30 · VIP:${VIPB.map(q=>(v?'✅ ':'🔒 ')+q).join(' · ')}</div>`;
   return h}

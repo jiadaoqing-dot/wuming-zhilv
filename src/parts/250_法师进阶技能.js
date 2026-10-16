@@ -13,19 +13,20 @@ function holyBoom(b,S){const x0=clX(b.x),y0=b.y;VFX.spawn('g-burst',x0,y0,{s:2.2
   flash('255,236,170',.35);shake=Math.max(shake,.3);hitstop(.06);psx('wave','boom');ring(x0,y0,8,MGR,'#ffd43b',.45,7);ring(x0,y0,6,MGR*.8,'#f783ac',.4,5);
   burst(x0,y0,44,['#fff','#fff3bf','#ffe066','#ffd43b','#f783ac','#66d9e8'],460,{sh:1,s:2.5,l:.5,dr:2});
   hitFx=null;for(const e of allTg())if(Math.abs(e.x+e.w/2-x0)<e.w/2+115&&Math.abs(e.y+e.h/2-y0)<e.h/2+115){mkT(e);mkF(e);dealt(e,Math.round(b.dmg*rnd(.9,1.1)))}
-  MGD.push({x:x0,t:5,tk:.5,a:0,dm:Math.round(b.dmg*.13)})}
+  MGD.push({x:x0,t:5,tk:1,a:0,dm:Math.round(b.dmg*.13*HITK)})}  // 第四十五轮:领域每 1 秒一跳(原 0.5),每跳 ×1.4
 function mgBoom(g,all){const R=54;SFX5('r-burst',g.x,g.y,{s:1.3,life:.4,gr:.5});burst(g.x,g.y,22,['#fff3bf','#ffd43b','#ff922b','#ff6b35'],260,{sh:2,s:5,l:.45});
   for(const e of all)if(!e.ug&&e.hp>0&&!g.hit.has(e)&&Math.abs(e.x+e.w/2-g.x)<e.w/2+R&&Math.abs(e.y+e.h/2-g.y)<e.h/2+R){g.hit.add(e);mkF(e);dealt(e,Math.round(g.dmg*rnd(.9,1.1)),{ns:1})}}
 function mgStep0(dt,all){
   for(const d of MGD){d.t-=dt;d.a+=dt;
     for(const e of all){if(e.ug||e.hp<=0)continue;const c=e.x+e.w/2,lo=d.x-MGR+e.w/2,hi=d.x+MGR-e.w/2;if(c>d.x-MGR&&c<d.x+MGR){e.x=Math.max(lo,Math.min(hi,c))-e.w/2;e.kbv=0;e.ca=0}}  // 进了领域就出不去(首领也一样)
     if(Math.random()<dt*26)pt({x:d.x+pick([-1,1])*MGR*rnd(.85,1),y:GY-rnd(2,10),vx:0,vy:rnd(-140,-60),c:pick(['#ffd43b','#fff3bf','#ffe066','#f783ac','#66d9e8']),sh:2,s:rnd(2,3.5),l:rnd(.4,.7)});
-    d.tk-=dt;if(d.tk<=0){d.tk+=.5;for(const e of all)if(!e.ug&&e.hp>0&&Math.abs(e.x+e.w/2-d.x)<MGR+e.w/2&&e.y+e.h>GY-260)dealt(e,Math.round(d.dm*rnd(.9,1.1)),{ns:1})}}
+    d.tk-=dt;if(d.tk<=0){d.tk+=1;for(const e of all)if(!e.ug&&e.hp>0&&Math.abs(e.x+e.w/2-d.x)<MGR+e.w/2&&e.y+e.h>GY-260)dealt(e,Math.round(d.dm*rnd(.9,1.1)),{ns:1})}}
   MGD=MGD.filter(d=>d.t>0);
   if(MGT){const m=MGT;m.t-=dt;m.an+=dt;m.tk-=dt;
-    if(m.tk<=0){m.tk+=.5;const t=all.filter(e=>!e.ug&&e.hp>0&&Math.abs(e.x+e.w/2-m.x)<MGTR&&Math.abs(e.y+e.h/2-m.y)<MGTR).sort((a,b)=>Math.hypot(a.x+a.w/2-m.x,a.y-m.y)-Math.hypot(b.x+b.w/2-m.x,b.y-m.y))[0];
+    if(m.tk<=0){m.tk+=1;const t=all.filter(e=>!e.ug&&e.hp>0&&Math.abs(e.x+e.w/2-m.x)<MGTR&&Math.abs(e.y+e.h/2-m.y)<MGTR).sort((a,b)=>Math.hypot(a.x+a.w/2-m.x,a.y-m.y)-Math.hypot(b.x+b.w/2-m.x,b.y-m.y))[0];
       if(t){const tx_=t.x+t.w/2,ty=t.y+t.h/2;m.f=sgn(tx_-m.x)||m.f;const x1=m.x+m.f*26,y1=m.y-2,L=Math.hypot(tx_-x1,ty-y1)+24;psx('fire');
-        MGL.push({x1,y1,a:Math.atan2(ty-y1,tx_-x1),L,x:tx_,y:ty,dmg:m.dmg*2,hit:new Set(),t:0});SFX5('r-burst',x1,y1,{s:.8,life:.3,gr:.8})}}  // 第三十轮:张嘴喷出一道大火焰(Fire01 火焰喷流),打到的敌人 + 落点爆炸
+        MGL.push({x1,y1,a:Math.atan2(ty-y1,tx_-x1),L,x:tx_,y:ty,dmg:m.dmg*2*HITK,hit:new Set(),t:0});  // 第四十五轮:火鸟 1 秒喷一口(原 0.5 秒,用户:不能像机关枪),每口 ×1.4
+        SFX5('r-burst',x1,y1,{s:.8,life:.3,gr:.8})}}  // 第三十轮:张嘴喷出一道大火焰(Fire01 火焰喷流),打到的敌人 + 落点爆炸
     if(m.t<=0){SFX5('r-burst',m.x,m.y,{s:1.4,life:.4,gr:.5});burst(m.x,m.y,20,['#ff922b','#ffd43b','#ff6b35'],220,{sh:2,s:5,l:.45});MGT=null}}
   for(const g of MGL){g.t+=dt;const ca=Math.cos(g.a),sa=Math.sin(g.a);
     if(g.t>=.1&&!g.h){g.h=1;for(const e of all){if(e.ug||e.hp<=0)continue;const ex=e.x+e.w/2-g.x1,ey=e.y+e.h/2-g.y1,q=ex*ca+ey*sa,pp=Math.abs(-ex*sa+ey*ca);if(q>-10&&q<g.L&&pp<Math.max(e.w,e.h)/2+20){g.hit.add(e);mkF(e);dealt(e,Math.round(g.dmg*rnd(.9,1.1)),{ns:1})}}  // 火焰喷流上的敌人
@@ -34,7 +35,7 @@ function mgStep0(dt,all){
   MGL=MGL.filter(g=>g.t<.5);
   if(MGP){const p=MGP;p.t-=dt;p.a+=dt;if(p.a>.3){
       for(const e of all){if(e.ug||e.hp<=0||Math.abs(e.x+e.w/2-p.x)>MGPW+e.w/2)continue;if(e.max){if(!p.bs.has(e)){p.bs.add(e);bigStun(e,2.5)}}else{e.st=Math.max(e.st||0,.3);e.kbv=0}}  // 光柱里的小怪一直定住;首领僵直一次 2.5 秒
-      p.tk-=dt;if(p.tk<=0){p.tk+=.25;let any=0;hitFx='thunder';for(const e of all)if(!e.ug&&e.hp>0&&Math.abs(e.x+e.w/2-p.x)<MGPW+e.w/2){any=1;mkT(e);dealt(e,Math.round(p.dmg*rnd(.9,1.1)),{ns:1})}hitFx=null;if(any&&Math.random()<.4)psx('zap')}
+      p.tk-=dt;if(p.tk<=0){p.tk+=.5;let any=0;hitFx='thunder';for(const e of all)if(!e.ug&&e.hp>0&&Math.abs(e.x+e.w/2-p.x)<MGPW+e.w/2){any=1;mkT(e);dealt(e,Math.round(p.dmg*HITK*rnd(.9,1.1)),{ns:1})}hitFx=null;if(any&&Math.random()<.4)psx('zap')}
       if(Math.random()<dt*40)pt({x:p.x+rnd(-MGPW,MGPW),y:GY-rnd(0,8),vx:rnd(-20,20),vy:rnd(-300,-140),c:pick(['#e599f7','#cc5de8','#f3d9fa','#fff']),sh:1,s:rnd(2,3),l:.6})}
     if(p.t<=0)MGP=null}}
 // 平放在地上的法阵:先转再压扁(VFX.frame 是先压扁再转,会变成斜着的椭圆)

@@ -20,12 +20,12 @@ function magStart(i,S){const f=P.f,cx=P.x+12;
 const CLSK=[0,2,3,5,6,7];
 function cloneAI(c,dt,S){const tg=allTg().filter(e=>!e.ug&&e.hp>0&&Math.abs(e.x+e.w/2-(c.x+12))<480).sort((a,b)=>Math.abs(a.x+a.w/2-c.x)-Math.abs(b.x+b.w/2-c.x))[0];
   c.mv=0;c.ak=(c.ak||0)-dt;c.scd=(c.scd==null?.3:c.scd)-dt;
-  if(c.sk){const k=c.sk;k.t+=dt;cloneSkStep(c,k,S);if(k.t>=k.end){c.sk=null;c.scd=rnd(1.2,1.8)}return}
+  if(c.sk){const k=c.sk;k.t+=dt;cloneSkStep(c,k,S);if(k.t>=k.end){c.sk=null;c.scd=rnd(2.4,3.6)}return}  // 第四十五轮:分身放技能间隔翻倍
   if(c.swT!=null){c.swT+=dt;if(!c.mbd&&c.swT>=c.swD){c.mbd=1;const q=MGA[0];PB.push({x:c.f>0?c.x+P.w:c.x-10,y:c.y+14,vx:c.f*MGV,dmg:Math.round(S.atk*q[2]*CLK),r:12,lb:1,hit:new Set(),rg:MAGR})}if(c.swT>=c.swR+.15)c.swT=null;return}
   if(!tg)return;const dx=tg.x+tg.w/2-(c.x+12);c.f=sgn(dx)||c.f;
   if(Math.abs(dx)>220){c.x=clX(c.x+c.f*150*dt);c.mv=1;return}
   if(c.scd<=0){const ok=CLSK.filter(i=>!(i==6&&MGTc)&&!(i==7&&MGPc)),i=pick(ok);c.sk={id:'mc',i,t:0,T:MCT[i][0],end:MCT[i][1]};c.cs=.3;return}
-  if(c.ak<=0){c.ak=MGA[0][1]+.1;c.swT=0;c.swC='s';c.swD=MGA[0][0];c.swR=MGA[0][1];c.mbd=0}}
+  if(c.ak<=0){c.ak=(MGA[0][1]+.1)*2;c.swT=0;c.swC='s';c.swD=MGA[0][0];c.swR=MGA[0][1];c.mbd=0}}
 function cloneSkStep(c,k,S){const f=c.f,i=k.i,ox=c.x+12+f*30,oy=c.y+12,dm=j=>Math.round(skD('staff',j,S)*CLK);
   if(MCIR[i]&&!k.c&&k.t>=.12){k.c=1;VFX.spawn(MCIR[i],ox,oy,{s:.62,gr:.75,life:.72,rs:f*1.6,add:1,hold:1,fi:.15})}
   if(k.a||k.t<k.T)return;k.a=1;const near=(w)=>allTg().filter(e=>!e.ug&&e.hp>0&&(e.x+e.w/2-(c.x+12))*f>-40&&Math.abs(e.x+e.w/2-(c.x+12))<w).sort((a,b)=>Math.abs(a.x-c.x)-Math.abs(b.x-c.x))[0];
@@ -99,4 +99,5 @@ function drawPAura(back){const cx=P.x+12-cam,t=performance.now()/1000;
 function zStep(dt,S,all){VFX.step(dt);stmStep(dt,S,all);magStep(dt,S,all);mgStep(dt,all);for(const z of Z)z.t-=dt;Z=Z.filter(z=>z.t>0);
   CL=clStep(CL,dt,S,all);CL2=clStep(CL2,dt,S,all)}
 // 雷云(主角的 CL、分身的 CL2,dm = 伤害倍率)
-function clStep(C,dt,S,all){if(!C)return null;C.t-=dt;C.k-=dt;C.fk=Math.max(0,(C.fk||0)-dt);FX.dk=Math.max(FX.dk,Math.min(.38,C.t*.4));if(C.k<=0){C.k=.5;C.fk=.12;for(let n=0;n<3;n++){const c=all.filter(e=>e.x+e.w>cam&&e.x<cam+VW),e=c[Math.random()*c.length|0];C.fx=(e?e.x+e.w/2:cam+rnd(30,VW-30))-cam;bolt(e?e.x+e.w/2:cam+rnd(30,VW-30),Math.round(skD('staff',3,S)*(C.dm||1)),30,58)}}return C.t<=0?null:C}
+function clStep(C,dt,S,all){if(!C)return null;C.t-=dt;C.k-=dt;C.fk=Math.max(0,(C.fk||0)-dt);FX.dk=Math.max(FX.dk,Math.min(.38,C.t*.4));if(C.k<=0){C.k=1/3;C.fk=.12;for(let n=0;n<1;n++){  // 第四十五轮:每 0.5 秒 3 道 → 每 0.33 秒 1 道(共 15 道,每道 ×1.4)
+    const c=all.filter(e=>e.x+e.w>cam&&e.x<cam+VW),e=c[Math.random()*c.length|0];C.fx=(e?e.x+e.w/2:cam+rnd(30,VW-30))-cam;bolt(e?e.x+e.w/2:cam+rnd(30,VW-30),Math.round(skD('staff',3,S)*HITK*(C.dm||1)),30,58)}}return C.t<=0?null:C}

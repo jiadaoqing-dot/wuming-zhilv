@@ -1,5 +1,5 @@
 // o 可选:{ns:不造成僵直}。所有伤害都按暴击率判定暴击(2 倍)
-function dealt(e,dm,o){if(e.ug)return;
+function dealt(e,dm,o){if(e.pp){MWH.push(dm);return}if(e.ug)return;  // 第四十五轮:e.pp = 镜中无名的假目标(真主角),伤害记下来换回后再打(mwHit)
   if(e.k=='mir'&&!(e.tpT>0)&&Math.random()<e.mdg){e.tpT=.2;smoke(e.x+e.w/2,e.y+16);e.x=gpCl(e,e.x+sgn(e.x+e.w/2-(P.x+12))*rnd(40,70))}  // 第四十三轮:镜中无名按主角闪避率 ×5 闪开
   if(e.dg>0||e.tpT>0){if(!(e.mx>0)){e.mx=.35;tx('闪避',e.x+e.w/2,e.y-4,'#a5d8ff')}return}
   if(e.k=='gui'){if(e.hide)return;if(!(o&&o.nm)&&(e.miss>0||Math.random()<.3)){if(!(e.mx>0)){e.mx=.35;if(e.miss>0)e.miss--;tx('MISS',e.x+e.w/2,e.y-4,'#e5dbff');S10.af.push({x:e.x,y:e.y,f:e.f,t:.3})}return}e.pbx=sgn(e.x+e.w/2-(P.x+12))*90}  // 归蝇:出场后前 3 次必定 MISS,之后 30% MISS;被打中只轻微后退

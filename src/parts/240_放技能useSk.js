@@ -35,7 +35,7 @@ function mcFx(i){const cx=P.x+12,cy=P.y+16;
 function mcStep(k,dt,S){const f=P.f,i=k.i,ox=P.x+12+f*30,oy=P.y+12;
   if(MCIR[i]&&!k.c&&k.t>=.12){k.c=1;VFX.spawn(MCIR[i],ox,oy,{s:.62,gr:.75,life:.72,rs:f*1.6,add:1,hold:1,fi:.15});psx('buff')}  // 画圈开始:法阵在身前慢慢转着变大
   if(MCIR[i]&&k.c&&k.t<.62&&Math.random()<dt*40){const a=rnd(0,6.283),r=rnd(30,46);pt({x:ox+Math.cos(a)*r,y:oy+Math.sin(a)*r,vx:-Math.cos(a)*50,vy:-Math.sin(a)*50,c:pick(i==2?['#ff922b','#ffd43b','#fff3bf']:['#ffd43b','#fff3bf','#fff']),sh:2,s:rnd(2,4),l:.4})}
-  if(i==0&&!k.a&&k.t>=k.T){k.a=1;const t=E.concat(bossOn&&B.hp>0?[B]:[]).filter(e=>(e.x-P.x)*f>-40&&Math.abs(e.x-P.x)<340).sort((a,b)=>Math.abs(a.x-P.x)-Math.abs(b.x-P.x))[0];{const bx=t?t.x+t.w/2:P.x+f*160;bolt(bx,skD('staff',0,S),34,0,1);for(const o of[-90,90])bolt(bx+o,Math.round(skD('staff',0,S)*.4),26,0,0)}cloneCast(0,S)}
+  if(i==0&&!k.a&&k.t>=k.T){k.a=1;const t=E.concat(bossOn&&B.hp>0?[B]:[]).filter(e=>(e.x-P.x)*f>-40&&Math.abs(e.x-P.x)<340).sort((a,b)=>Math.abs(a.x-P.x)-Math.abs(b.x-P.x))[0];{const bx=t?t.x+t.w/2:P.x+f*160;bolt(bx,Math.round(skD('staff',0,S)*1.25),34,0,1)}cloneCast(0,S)}  // 第四十五轮:去掉两侧的小雷(用户:闪电太多),主雷 ×1.25
   if(i==2||i==5){// 火球(体积 ×1.5、速度 220)/ 圣光球:画完圈出现在身前,推出去时才飞
     if(!k.a&&k.t>=k.T){k.a=1;k.pb=i==2?{x:ox,y:oy,vx:f*.001,dmg:skD('staff',2,S),r:26,fs:3,col:'#ff6b35',sl:1,fb:1,pierce:1,hit:new Set(),mc:k}:{x:ox,y:oy,vx:f*.001,dmg:skD('staff',5,S),r:20,gl:1,rg:360,hit:new Set(),mc:k};PB.push(k.pb);
       burst(ox,oy,14,i==2?['#ff922b','#ffd43b','#fff']:['#ffd43b','#fff3bf','#fff'],150,{sh:2,s:6,l:.3,dr:4});ring(ox,oy,4,34,i==2?'#ff922b':'#ffd43b',.3,3);flash(i==2?'255,170,90':'255,236,170',.1)}

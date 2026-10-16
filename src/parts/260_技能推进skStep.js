@@ -7,7 +7,7 @@ function skStep(dt,S,all){const k=P.sk;if(!k)return;k.t+=dt;const f=P.f;if(k.id=
   if(k.id=='zap'){// 雷霆连斩(2026-10-13 第十轮):放招后主角隐身,只剩一团雷球,固定在身前斜上方(比一段跳略高);天上不再落雷,只有雷球附近的敌人受伤
     if(k.fs){zapFs(k,dt,all,S);return}  // 第三十三轮:放过 O / WW+空格后的下一次 U = 全屏雷霆(旧版:瞬间打全屏所有怪物多段伤害)
     P.vy=0;k.hid=1;zapBall(k,dt);if(k.t<.045)return;  // 2026-10-13 第十二轮:持续时间减半(间隔 .07 → .035,收尾 .25 → .13);第十三轮再 -25%(.035 → .026,收尾 .13 → .1)
-    if(k.n<ZAPN){k.tk-=dt;if(k.tk<=0){k.tk=.026;if(k.n%2==0)psx('zap');const c=all.filter(e=>e.hp>0&&!e.ug&&zapNear(e,k));
+    if(k.n<ZAPN){k.tk-=dt;if(k.tk<=0){k.tk=.055;psx('zap');zapSky(k.bx,k.by);const c=all.filter(e=>e.hp>0&&!e.ug&&zapNear(e,k));  // 第四十五轮:间隔 .026 → .055,每段一道天上的闪电
         for(const e of c){if(!k.tg.includes(e)){k.tg.push(e);if(zapGd(e))k.gd.add(e)}if(!isBig(e)){if(!e.air){e.air=1;e.ay0=GY-e.h;e.hang=0;e.s=null;e.vy=0}e.hold=Math.max(e.hold||0,.3);e.avy=0}}
         hitFx='thunder';for(const o of c)dealt(o,Math.round(skD('sword',1,S)*ZAPK*rnd(.9,1.1)),{ns:isBig(o)?0:1});hitFx=null;k.n++;if(k.n>=ZAPN)k.fin=k.t}return}
     // 结束:雷球炸开,雷球附近的敌人受终结伤害并被打落

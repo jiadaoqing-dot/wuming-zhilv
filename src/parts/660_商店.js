@@ -1,10 +1,10 @@
-// ===== 每日签到:每天一次,随机 1~100 击杀点;启动游戏时没签到会自动弹出 =====
+// ===== 每日签到:每天一次,随机 1~30 击杀点(第四十五轮:原 1~100);启动游戏时没签到会自动弹出 =====
 const dstr=d=>d.getFullYear()+'-'+(d.getMonth()+1)+'-'+d.getDate(),yday=()=>{const d=new Date();d.setDate(d.getDate()-1);return dstr(d)};
 const signed=()=>SIGN.day==today();
 let signNew=0;  // 刚签到:数字弹出动画
-function doSign(){if(signed())return;if(timeBad()){fmsg=TBMSG;return}const n=1+Math.floor(Math.random()*100);SIGN.str=SIGN.day==yday()?(SIGN.str||0)+1:1;SIGN.day=today();SIGN.n=(SIGN.n||0)+1;SIGN.last=n;KP+=n;signNew=1;sfx('coin');if(n>=80)sfx('lvl');save()}
+function doSign(){if(signed())return;if(timeBad()){fmsg=TBMSG;return}const n=1+Math.floor(Math.random()*30);SIGN.str=SIGN.day==yday()?(SIGN.str||0)+1:1;SIGN.day=today();SIGN.n=(SIGN.n||0)+1;SIGN.last=n;KP+=n;signNew=1;sfx('coin');if(n>=25)sfx('lvl');save()}
 function rSign(){const ok=signed(),st_=ok?SIGN.str:(SIGN.day==yday()?SIGN.str:0),cyc=ok?((st_-1)%7)+1:(st_%7)+1;
-  let h=hd('📅 每日签到')+fm()+`<div class="tag">每天可以签到一次,随机获得 <b>1~100</b> 击杀点(击杀点可以在 🏪 商城购买时装和翅膀,累计消费 ${VIPN} 开通 👑 VIP)。每天 0 点刷新。</div>`;
+  let h=hd('📅 每日签到')+fm()+`<div class="tag">每天可以签到一次,随机获得 <b>1~30</b> 击杀点(击杀点可以在 🏪 商城购买时装和翅膀,累计消费 ${VIPN} 开通 👑 VIP)。每天 0 点刷新。</div>`;
   h+=`<div class="sgw">`+Array.from({length:7},(_,i)=>{const d=i+1,done=d<cyc||(ok&&d==cyc);return `<div class="${done?'ok':''}${d==cyc?' td':''}"><b>${done?'✅':d==cyc?'🎁':'📦'}</b>第 ${d} 天</div>`}).join('')+`</div>`;
   h+=`<div class="sgb">`+(ok?`今天已签到,获得 <span class="${signNew?'sgr':''}" style="${signNew?'':'font-weight:900;color:#e8590c;font-size:22px'}">+${SIGN.last}</span> 击杀点<br><span class="tag">明天再来吧!</span>`:`<button data-p="sign">✍️ 签到领取击杀点</button>`)+`</div>`;
   h+=`<div class="tag" style="text-align:center">连续签到 ${st_} 天 · 累计签到 ${SIGN.n||0} 天 · 当前击杀点 ⚔️ ${KP}</div>`;signNew=0;return h}
