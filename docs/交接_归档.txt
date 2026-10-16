@@ -1,0 +1,149 @@
+《交接》归档:第四十轮(v1.40)及更早的「当前状态」和旧「下一步」(2026-10-15 从《交接》搬出来,平时不用读;要查某个旧模块时 grep 这里)
+
+- v1.40:上帝卡牌(itemUse 后面「第四十轮:上帝卡牌」:GODT / godOn / PAL 好伙计 / godHud)、第二张地图(mapHit 上面:MAPI2 / MPG / MAPS2 / drawMap2)、第十一关齿轮要塞 cur 14(宠物仓鼠上面:MECH 图集 / gbot / zdr / tank / mech / BELT14 / m14Step / m14Fx)、机械系列 SER[4]。
+  再加第二张地图的关卡:MAPS2 加一项(p 位置、cur 编号用 15 起),init 里 LM / PL / E 列表 / BHN / BDF / XPK / BXP / MHK、B 选择、怪物循环、drawE、bg、名字表、BWP、ESKN、lvsArt / lvsBoss / lvsDrops、通关处理;cur>=11 的神秘副本判断已改成 11~13,注意别再写 cur>=11。
+  问题在 docs/下次任务.txt「第四十轮」。
+- v1.39:fixNum(save 上面)防金币 / 经验 NaN;mqRw 11 项。神秘副本 2 梦魇幽驹 nmr / 3 深渊炎魔 dmn(GP 图集 + nmrStep / dmnStep / gpStep / gpFx,myStep 后面;cur 12 / 13,MYNM 3 项)。再加神秘副本 4、5 时:MYNM、LM / E 列表 / BHN / BDF / XPK / BXP 加项,B 选择、怪物循环、drawE、bg、名字表、HUD、BWP、ESKN、lvsArt / lvsBoss、通关处理。
+- v1.38:神秘副本(cur ≥ 11)首领掉装备固定林王系列(update 首领死亡那段 rollItem 第二个参数)。
+- v1.37:通关击杀点 KPCL 40 + KPLV 12 × 关卡(update 首领死亡那段);击杀点价格 COSD / KPIT / RCP kp / AMP 约减半;FREC 3000k;VIPN 2500。「练满」计算口径写在《更新记录》v1.37。
+- v1.36:EXPT 经验表(LVMAX 上面)按实测反推;GDB 3;进阶技能金币 600;MAPS 推荐等级 1~34。经济模拟脚本思路:enterLv 后每帧 P.x+5、把镜头里的怪 hp=0、首领 hp=0,卡住就跳 140 像素(第六关地形)。花销表在 docs/下次任务.txt「第三十六轮」。
+- v1.35:敌人技能冷却 + 魔力(MVK 上面「第三十五轮」:ESKN 技能数表、eskUse 判断扣费;mobStep 选招处 + update 敌人循环 ekf / ea0 取消刚选的招);首领魔力条在 HUD 韧性条下面。新敌人要在 ESKN 里加技能数;不算技能的状态加进 ESKX。问题在 docs/下次任务.txt「第三十五轮」。
+- v1.34:按第三十三轮回复改:EQE ×1.6(EQE16,存档 v9)、COSW 10% + 时装 / 翅膀锻造(cosV,c.fg)、全屏雷霆改飞雷神(zapFs / zapJump / drawZapFs,在 zapNear 下面);被动 crt / rec 图标(mkIcons 末尾 + mkCrtIcon),upSk 失败写 skMsg。第三十四轮没有新问题;docs/下次任务.txt 等新清单。
+- v1.33:装备 2.0(EQW / EQG / EQE / FGK / AMP / COSW / eqAdd / migIt v8 / cosIt,在 gen 上面)、属性 stats / pctB / crdgP(百分比只乘基础数值)、制作与熔炉(MATD / RCP / MREC / FZ / fzAct / fzGo / rFuse / rStnFuse / rcShop,在 rMallIt 下面)、背包新布局 renderBag(bw2,分页 bagPg)、tipItem;剑 U 全屏雷霆 zapFs(P.uFs);蝙蝠 e.ltx。存档字段 R19.cen / R19.rc,装备 it.gr / it.fg / it.ev / it.amp / it.ms / v8。问题在 docs/下次任务.txt「第三十三轮」。
+- v1.32:仓库 rWh / whAct / WHN(r19New 下面,R19.wh);仓库管理员桂婶 NPCS x=700、LNPC row 5(build_npc_lpc.py 只重新合成 KEEP 以外的行)。强化上限 ENMX 10、Lv3 / Lv4 强化石只从首领掉(DRX.s3 / s4);强化师不卖强化石。强化荣誉 HONR / hon() / honRow(setLv 下面,setB / setX 已删),CSS .hon。问题在 docs/下次任务.txt「第三十二轮」。
+- v1.31:书架与书籍整段在源码「第三十一轮 · 书架与书籍」(townSpots 上面:BOOK 图集 / BOOKS 正文 / BKDS / bkBuy / rBook / bookAct,R19.bk;TWN.shelf 1325);正文包在 /*NOFONT{*/ … /*}NOFONT*/ 里,像素字体统计跳过。影分身 CLNT 6 秒,分身的火鸟 / 光柱在 MGTc / MGPc(mgC 包装,mgStep0 / drawMg0)。翅膀 wing_fly.png = LPC 羽翼 jump 张开帧(build_wing.py)。凤凰去眼睛鸟喙(build_smn.py)。剧情设定(四本书的明线 / 暗线 / 谜底)写在 docs/下次任务.txt 第三十一轮;以后写主线要和书里的设定对得上。
+- v1.30:影分身 cloneAI / cloneSkStep / drawClone(cloneSwap 上面;drawClone 在 draw 里 drawP 前);法师普攻 PB.lb(mbFire、VFX.shot);火鸟喷流 MGL + drawMg;nbBeam(s10Fx 上面);FX29 新帧(build_fx29.py,raw/skfx/soluna_fx)。问题在 docs/下次任务.txt「第三十轮」(付费凤凰素材、分身时长、分身和主角共用火鸟 / 光柱)。
+- v1.29:区域掉怪 waveStep / waveDrop / WB(ZB 上面);图集 FX29(build_fx29.py,im:7,MG27 后面,FX29.S 飞弹种类 → 特效);面具法师 chain 激光(mageStep + drawE 的 mage);剑普攻判定(update 里 P.hb);法师进阶 MGL 改成火团 + mgBoom,bigStun(e,T)。问题在 docs/下次任务.txt「第二十九轮」。
+- v1.28:法师进阶技能重做(mcStep 后面「法师进阶技能」:MGD / MGT / MGP / MGL、holyBoom、mgStep(zStep 里)/ drawMg(drawMag 后)、mgG、mcFx);图集 MG27(build_mg27.py,im:6);法杖加长 STF.C / STF.E;普攻 MGA / MGV。问题在 docs/下次任务.txt「第二十八轮」。
+- v1.27:法师普攻 MGA / P.mb / mbFire(strike 下面);H / I / O 施法 MCT / mcStep(useSk 下面,P.sk.id='mc')、姿势 mcPose(heroRig 上面)、FLYWA。问题在 docs/下次任务.txt「第二十七轮」;后 4 个技能动作等用户确认。
+- v1.26:法杖 STF(build_staff.py,P.stg 握持位置)、法师普攻 STFR / STFT(STANCE 上面)、怪物飞弹放大 SHVM / SHVB / SHX / SHC / SHHK + drawShot1(drawShots 上面)。问题在 docs/下次任务.txt「第二十六轮」。
+- v1.25(已推送):小怪 / 机关预警全关(bwSkip 在 BWOFF 时一律跳过);首领前摇按招式区分 BWS / BWP / bwPose(「怪物动作(冒险岛式)」上面),新首领 / 新招要在 BWP 里加一行。小怪往回追不再受区域限制(zLo 恒为 0)。问题在 docs/下次任务.txt「第二十五轮」。
+- v1.24(已推送):首领预警开关 BWOFF / BWQ / bwSkip / BW(DZ 上面),drawE → drawE0 包装,首领特效函数包装在启动行前;首领前摇 monPose 里 bwT / bwk;BSHR(BLKD 上面);小怪追踪 MCHS(SEEKV 上面)+ mobStep;近战冷却 MMCK(mvEnd);快捷键 HOTK(keydown 上面)。
+- v1.23(已推送):小怪远程 MRNGR / MSHR / MRCD / RGAP(tok 上面,tok 里按 rg 判断;RATKT / e.rT);药水 POTF / potAmt / POTCD 8(POTD 下面);奖励 XPB / GDB / KPCL(XPK 上面,reward 和通关那段)。问题在 docs/下次任务.txt。
+- ★ 和用户交流看 docs/下次任务.txt(新任务 + 「Claude 的问题」),问题写在那里,不要只写在本文件。
+- v1.22(已推送):经验 expNeed ×0.4(lvUp 上面;loadSave 末尾把旧存档多余经验直接升级)、基础 BHP 140 / BMP 60(DGMAX 上面,stats 里 lv(BHP))、小怪攻击距离 BLKD / MATKR / MSHR / MAGR(tok 上面;tok 里非首领超距不出招,F 循环里 f.ox / f.mb 飞弹射程,PB 的 rg 法师普攻射程)。首领、法师技能射程没限制(已在下次任务.txt 问用户)。
+- v1.21(2026-10-14,已推送 GitHub)。第二十一轮:主页面美术换外部素材(art_src/home/build_home.py,raw/home:Magic Cliffs / ansimuz + Fantasy UI Borders / Kenney,均 CC0;CSS 在 style 末尾 #home);剑普攻去掉每下 0.32 秒僵直(update 里 KBV 那行,只留击退);剑 U 冷却固定 6 秒(SKCDFIX,skCd / skCdA)。
+- v1.20:第二十轮(docs/下次任务.txt 6 条全部完成):
+  主页面整段在源码末尾启动行前面「主页面」(CHLOG 更新日志 / rHome / homeAct / homeKey,HOME=1 时 loop 不跑 townUpd、keydown 只给 homeKey;HM.fresh = 打开时没有存档);#home 的 CSS 在 style 末尾(像素美术套 ui_panel / ui_btn)。发新版时在 CHLOG 最前面加一条。
+  数值:DEFP 12(dmgIn)、CRPT 60 / DGPT 30(旧值 CRPT0 / DGPT0 只给 migIt v7 换算用);小怪韧性 mobPz / MPZK 等常量在 poiseStep 上面,hitStun 只给后仰 hst;剑普攻的 KBV 击退 + 0.32 秒僵直(update 里)没改。
+  记住武器 LMODE(存档 pm,init 里给 P.mode);背包左键 lcm → openCM,showTip 在菜单打开时不弹。tests/smoke.py 开头会 closeHome()。
+【以前(2026-10-13,第十九轮完成后)】
+
+- v1.19(2026-10-13):版本号 GAMEV 在源码开头,build.py 输出 out/无名之旅_v版本.html + 根目录 index.html;存档 sv / gv + SAVEMIG(新增字段时在末尾加一步,SAVEV +1)。项目是 Git 仓库(GitHub Desktop 自带的 git:%LOCALAPPDATA%\GitHubDesktop\app-*\resources\app\git\cmd\git.exe),raw/ 和 out/ 不进仓库;发新版:改 GAMEV → build → smoke → 提交并推送(git -c credential.helper=manager push,登录已存在 Git Credential Manager),GitHub Pages 分享链接 https://jiadaoqing-dot.github.io/wuming-zhilv/ 自动更新(仓库 jiadaoqing-dot/wuming-zhilv,公开)。
+- 第十九轮(docs/下次任务.txt 14 条全部完成):源码「第十九轮 … 属性石 · 小礼袋与 NPC 好感 …」整段在 DROPK 后面(ATSD / ATSQ / atsNew、DRX + bossDrop19、R19 存档字段、MISC 新道具表 + itemUse、LKS 幸运宝石、AFFR 好感奖励 + giftBox / giftAct、rGem / gemSet 镶嵌、KPIT / 随机物品栏 mrRoll / kpBuy / rMallIt)。
+  暴击 / 闪避数值 CRPT 1223 / DGPT 300(JIDG 下面;migIt v6 换算旧装备,也把 +7 以上压回 +6);防御 DEFP 77 / DEFMX 75%(dmgIn);强化 ENMX 6;装备求和 eqSum(含属性石 it.gem)。
+  召唤物 / 精灵图集 SMN(art_src/summon/build_smn.py → assets/smn_atlas.png,素材 raw/summon19);吸引 SMLURE / smLure(e.lure)。超级生命药水 POTD.hp4(第 6 项 = 冷却 20 秒,药剂师不卖)。新道具图标追加在 MENI(17~25)。
+【以前(2026-10-13,第十八轮完成后)】
+- 第十八轮(用户在对话里提的 2 条):精灵 drawFairy 改回画进像素图层;装备系列外观 —— 图标 EQPX(build_eqicon.py,7Soul1 + Jewelry,每格 34×34,EQPX.C)、主角 LPC.keys 按系列 0~3 选不同图层(LPC.ser 上限 3)、法师手持法杖直接用 EQPX 的法杖行旋转(dollDraw 的 wpn)。
+  LPC 素材:raw/ulpc/(sheet_definitions 全套 + 用到的 spritesheets / 调色板,comp.py 的 _get 按需下载,miss.json 记 404)。
+【以前(2026-10-13,第十七轮完成后)】
+- 第十七轮(docs/下次任务.txt 全部完成):第五关首领 沙渊古神 andr、第七关首领 血月巫王 wiz(源码「第十七轮 … 沙渊古神 / 血月巫王」:ARS 图集模块、arsEnd / arsTen / arsGys / arsHz(地面招式 e.T、预警 e.Z、延迟落下的冰焰 e.R)/ arsHzDraw / andrStep / wizStep / wizImp(触灵 e.S)/ arsFx;MON.andr = MON.wiz = ARS.boss;飞弹 c:17 沙焰 / 18 冰焰 / 19 红法球 → ARS.shot)。
+  巫王形态 e.fm(1~3),变身 act morph(e.nf 目标形态,e.mo 交替进度);月亮 moon7 / 夜色 lv7Draw 跟 B.fm / B.ult。剑:HSW 模块(art_src/lpc/build_hsw.py,HSW.M 按系列 EQ.sword.g)在 LPC.dollDraw 的 wpn() 里最近邻旋转画。
+【以前(2026-10-13,第十六轮完成后)】
+- 第十六轮(docs/下次任务.txt 全部完成):星级选关(STAR / LVSTAR / STARK,源码「关卡星级」常量在 DROPK 后面;选关页 st='lvsel'、openLvSel / drawLvSel / lvsArt / lvsBoss 在 mapHit 后面;enterLv(n,星级));
+  50 级 / 5 级技能 / 新被动(PSD / PSX / critK)/ 强化 STQ.b / 经济 XPK / BXP / 怪物 MHK / 首领 BHN / BDF;剑势 QIMAX / 裂伤 BLDT / 印记 MKT / elemChk;小怪招式库 MVK / mobStep / HZ(源码「小怪招式库」,旧的小怪 step 函数已删);
+  首领:mntStep / mageStep / kingStep / scoBStep 重写,bearStep 加 pillars / aval,wolfStep 加 shadow,lzStep 扫尾沙刃,yinStep / lavaStep / guiStep 重写(旧招删除,NBA 新招保留)。原版技能代码在 docs/原版技能代码_纪念.txt。
+  规矩:新美术一律外部素材 / 已有图集(CLAUDE.md 美术规矩第 2 条);以前自画的模块(STNI / MYST / PEND / 矢量巢穴 / 猿 鸵鸟)保留,下次清单再换。
+【以前(2026-10-13,第十五轮完成后)】
+- 第十五轮:首领韧性 poiseHit / poiseStep(PZK / PZST / PZST2 / PZIM / PZRD / PZRG,hitStun 对 e.max 只给后仰;bigStun 也受免疫期限制);HUD 首领血条下的韧性条。
+  第八~十关首领新招整段在源码「第八~十关首领新招」:NBA 表(各首领 act 开头 if(NBA[a]) 分派)、NB 状态、nbStep(update 里)/ nbFx(PXL 层);伤害倍率 BDMK 在 hurt。
+  MENI 图集(art_src/ui/build_meni.py,素材 raw/icons/7soul1;raw/icons/owlish 备用没用到):CSS body.px #tb 按钮图标 + mniEm 宠物卡图标 + drawPetBar。HSPDMAX 20;DROPK 0.5。
+【以前(2026-10-13,第十四轮 6 条完成后)】
+- 第十四轮:耗魔 SKMP 纯比例(一轮 1~8 共 20%);tx(s,x,y,c,k) 在 st=='play' 时只放行数字 / k 标记的伤害,drawTX 关卡里一律 6 号小字(暴击紫 k:'c');banner() 关卡里不弹;
+  HUD 状态标签 / 首领阶段名 / 温度文字 / drawGate 文字牌 / 分身倒计时 / 雷印都去掉;剑 U(.026)/ 绝息风斩(.0236 + LSR / lsIn 范围);hitStun → HSTUN 0.3 全怪物 + e.hst 后仰(monPose),玩家 / 怪物连击保护删除;
+  宠物技能 CD 15 秒(PSK / HSKD),仓鼠嗑瓜子走冷却(hamPetStep i==0);宠物技能栏 drawPetBar / pskIc(药水栏上方)。
+- 第十三轮修 bug:归蝇开场航点(guiStep 的 W)、剑 O 不被 MISS(dealt 的 o.nm)、首领音效跟招式(BSR / bsfx)、第八~十关只剩一两只时出招间隔(tok 的 al)、空翼妖节奏、仓鼠宠物蛋图标 heggEm + 5% 掉落。
+- 第十二轮:剑 U 时长减半 / W+空格 −30%;第八~十关小怪追杀(chV / chL / zLo,tok 同时 3 只);技能耗魔 skMp / SKMP + 回魔下调;
+  神秘地带整段在源码「神秘地带 · 神秘副本」(MYS 大厅借用 st=town、twW;MYST 图集 art_src/myst/build_myst.py;cur 11 = 神秘副本 1 瓜子大王 hamStep / myStep / myFx;宠物仓鼠 HAM / hamPetStep / rHam,存档 HAM、MAT.hegg)。
+- 第十一轮:第九关首领 18000 血 / 防御 38;第十关「幽灵船」整段在源码「第十关 · 幽灵船」(PL10 / E10 / PROP10、S10 状态、s10Step 移动平台 + 风压 + 天空投射 + 竖直光束、wimpStep / eyeStep / swingStep、首领 guiStep(guiTo / guiCl / guiVan / guiShot)、SHIP10 绘制 + s10Fx);
+  图集 art_src/ship/build_ship10.py → assets/ship10_atlas.png(meta 贴进 SHIP10.M,素材 raw/ship);首领 MISS 在 dealt 里(e.miss / 30%);BSP_ gui:'g10_';女神碎片 SOULV / soulHas / MAT.sl(第四、八、十关);地图 MAPP 第 10 个在船上,按 0 进;剑 O 的剑 build_gsword.py 重做成暗黑锯齿。
+- 第十轮:剑 O 的剑换成像素图 GSW(build_gsword.py,素材 raw/giant_sword/fantasy_sword_melle);剑 U 改成隐身 + 固定位置的雷球(ZAPB / zapBall / zapNear,旧的区域判定 ZAPZ 已删);第九关不再掉女神碎片。
+- 第九轮:剑 U 改成 W+空格范围 15 连斩 + 全身闪电(ZAPZ / ZAPN / ZAPK / zapBody);道具栏 soul 判断修复;背包纸娃娃拿当前武器、背包里按 L 换武器;
+  第九关整段在源码「第九关 · 火山噩梦」(PL9 / E9 / LAVA9 / VENT9 / PROP9、V9 状态、温度 heatAdd / burnP / heatStep、impStep / fwispStep / golemStep / oniStep、首领 lavaStep + lcloneStep、VOL9 绘制 + v9Fx);
+  图集 art_src/volcano/build_vol9.py → assets/vol9_atlas.png(打印的 meta 贴进 VOL9.M);首领音效统一改成 bossVoice 按间隔随机播(sfx 开头的 SFXB 拦截 + BSI / BSP_ / PFX);女神灵魂碎片第二块(第九关首领)。
+- 第八轮:剑 U 改固定区域(ZAPZ / zapZone / inZap,没怪也能放);世界地图原晨曦镇牌子 = 第八关「幽魂都市」(MAPP 第 8 个,MAPS[7]);
+  第八关整段在源码「第八关 · 幽魂都市」(PL8 / E8 / COV8 / G8 状态、gflyStep / glandStep / yinStep / cradleStep、g8Step 场景效果、CITY8 场景 + 夜色灯光、GH8 怪物图、g8Back / g8Fx);
+  图集 art_src/city/build_city8.py → assets/city8_atlas.png(meta 打印出来贴进 CITY8.M:墙面 3200×300 一整条、远景、地面条、平台、售货机、卷帘门、路灯 / 窗户坐标),build_gh8.py → assets/gh8_atlas.png(GH8.M);
+  首领场地是地铁出口外的十字路口(ARL 2570 ~ ARR 3180 沿用);雪原系列 SER[3] / curSer;女神灵魂碎片 MAT.soul(gdDrop k:'soul');第八章主线 7 个(MQ 末尾);音频 bgm8 / bgm8b / y_*。- 第七轮:WW+空格改名「焚天炎暴」+ 火焰图标;剑 I 第二段卷浪月牙(drawGd 的 crest);S+空格不透明波浪 yrWave;雷云铺满天空(drawCloud,SKFX c-cloud0~4,CL 和 CL2 只画一层);陨石 SKFX met-rock;撞墙眩晕全部取消;六七关去掉小雪球装饰。
+- 第六轮:声音第一次按键 / 点击就初始化(auInit);循环音效 AU.lp + sfxAll()(首领死 / 回城 / 进关全停)。剑 I:GDA 72 一个普攻距离、GDR 108 = 1.5 倍,第一段消弹 gdEat,金色光爆;第二段深蓝紫斜光束 GDH 150。
+  新图集 SKFX(art_src/skfx/build_skfx.py,raw/skfx,Cethiel / Mikodrak CC0;im:5 → VFX.I5;SFX5() 叠加画,VFX.spawn 新增 hold / gr 放大 / rs 旋转 / fi / sy / fps 选项)。S+空格紫、WW+空格红(名字「霜灭冰暴」没改)、法师范围和特效加大。截图在 docs/截图_本轮。
+- 第五轮:跳跃 / W+J / S+J / 法师召唤无声;主角技能全部回旧版合成音 psx(音量 PSKV=0.6),外部 p_* 已删;
+  三~七关首领专属音效 BSX 表(源码 MVO 下面;'@招式' 出招时播,'招式:原名' 招式中替换;音量 BKV=0.75;循环音进 SUS),音频在 build_audio.py 的 MIX 末尾(k_ / sc_ / lz_ / br_ / w_);
+  剑 I 天崩地裂重做两段(skStep 的 slam / slam2、gdPull、drawGd、姿势在 heroRig;常量 GDR 范围 / GDW 等待 / GDH 剑气高 / GDP 劈地握剑),示意图在 桌面\剑的3技能改动介绍。
+  测试小技巧:Playwright 里载入后要 closeP();PAUSED=0 才会跑游戏循环(开局签到面板);1920×1080 时画布是 1280×720、左上角 (320,12)。
+- 第四轮(音效 / BGM):关卡里除首领外全部回到旧版合成音 SYN / syn(旧版 2026-10-11 的 HTML 在 用户 Downloads\无名之旅.html,可对照);首领在怪物循环里 SFXB=1 才播外部文件;BGM bgm0(主城)+ bgm1~7 / bgm1b~7b,全部 CC0,素材 raw/audio/bgm,用到时才解码(auLoad)。
+  out 文件 15MB(BGM 占大头),冒烟测试已改成等脚本加载完。
+- 第三轮清单(docs/下次任务.txt 最后一段)8 条已完成:菜单按钮点击修复(按钮 → 面板的映射在 cv pointerdown 后面那段);雷霆连斩取消击飞限制(zapTargets / zapGd,期间 tok 返回 false);
+  武器 +5(WPN5 / migIt v5);小怪索敌 seek(SEEKV 速度 / SEEKR 远程停步距离);无飞行小怪的关卡去浮空平台(FLYK,init 里过滤);
+  音效:art_src/audio/build_audio.py 的 MIX 段生成 p_*(主角)/ b_*(一关牛魔、二关法师)混合音效,新素材 raw/audio/dl2;
+  sfx(名, 音量, 秒数) 可循环 + sfxStop,怪物 esfx 换招时停声音。音效同样没人耳试听,只按素材名和波形挑的。
+- 主城 TWN(art_src/town/build_town2.py → assets/town2_*.png):宽 1600,镜头跟随,五层视差,高台 / 木栈台是平台(TWN.pl),NPCS 带 y;互动点 townSpots 要求同一高度。熔炉 x=1265 → openP('fuse')。
+- 强化石品质 = 每级强化加成(STQ.b,装备 eb);熔炉 stnFuse 3 合 1;关卡 / 商店只给普通。
+- 声音:art_src/audio/build_audio.py → assets/au_*.ogg(build.py 的 @@O: 占位),源码 AUD / SYN / sfx / bgmSet / MVO;主城和七关都有 BGM。原始素材在 raw/audio。
+- 法师影分身跟着放 H U I O(cloneCast,CLK=0.6);蛇王喷毒 / 啃咬贴地。手机端代码已全部删除。
+- 无开场 / 结局 / 漫画;第一关首领铁角牛魔(MNT);新模块 BFX2(首领特效)、LAIR(巢穴)、ICE6P(第六关地图);DRGN 已删。小怪有防御(mk 里,MDEL 精英 ×1.5)。
+- 怪物体积 szF(小怪 ×1.25 / 首领 ×2.25 玩家);关卡分区推进 WQ / waveStep(镜头锁区域,小怪 ×2.5,三点刷怪,奖励 ÷2.5)。
+- 怪物血量 EHP=7、防御 EDF=1.5;强化石 STN[级 1~4][品质 0~3](STQ / STP2 / stnLoad,存档 STN2);背包筛选 BF / bfOk,一键出售 BSA(全部)/ bsq(多余)。
+- 首领攻击像素化:DZ(地面红色魔法阵预警)、BTA(落石)、VFX 帧(沙浪 / 冰刺 / 冲击波 / 毒柱)。剩余几何:各关首领巢穴(洞穴 / 雪屋 / 岩石等)、落雪积雪团、狼人伏击光带、蛇王狂暴光圈。
+- 世界地图:玩家定制插画(MAPI / MAPP,art_src/map/build_map.py → assets/map_bg.jpg;JPEG 用 @@J:名字@@ 占位)。牌子字擦掉后游戏重写。
+- 药水:10% / 13% / 15%,冷却 10 秒(POTCD);像素图标 POTI(Pixel Potion Set 16x16,yafarida,CC0)。价格没改。
+- 关卡像素化(LTL,art_src/lv/build_ltl.py,每关 assets/ltlN.png + 源码 LTL.L[N]):七关全部完成(素材 raw/lv:SunnyLand Forest / 树木扩展包、Gothicvania Swamp、Desert Tilesets、Seasonal Platformer Tiles)。截图 docs/截图_七关地面平台大树.png。
+- 本机:Windows 11,开发包在 桌面\无名之旅\(最外层,和 CLAUDE.md、raw/ 一起);Python 3.12 在 C:\Users\24922\Python312(已进用户 PATH),
+  已装 Pillow / numpy / scipy / playwright + chromium。冒烟测试要在沙箱外跑(浏览器装在 AppData\Local\ms-playwright)。
+- 像素化第 ② 步(主城):新模块 TPX(art_src/town/build_tpx.py → assets/tpx_atlas.png):传送门(Portals,LetargicDev,CC0,换白蓝紫 + Scale3x)、
+  女神像(render_statue.py 把原版矢量石像渲染成底稿 statue_geo.png,再限色 + 描边)、宠物钢盔小鸡(Chick,AntumDeluge,CC0,换黄 + Scale2x + 自画钢盔 / 红扇子,关卡和商城预览也用)。
+  城镇背景去掉了紫石砖拱(build_town.py 加参数 arch 可画回;重建用的原图在 raw/town_jra),townPx() 要 TOWNPX 和 TPX 都加载好。对照截图:docs/截图_主城像素化.png。
+- 第 10 步:金色蛇王、北极熊、雪球换成像素(模块 KB,art_src/boss/build_kb.py,assets/kb_atlas.png),原始素材在 raw/。
+- 主角骨骼动画:用户选了方案①(像素纸娃娃,用户很满意)。LPC.parts / dollDraw / dollOn,纸娃娃画布 176×136,脚底 (88,108)。
+  已覆盖主角全部动作(dollOn() 只要 LPC 图加载好且有 P.rc 就为真);LPC 整帧只剩分身(clone)、背包纸娃娃(doll)、商城预览(pv / pvF)在用。
+  翅膀飞行按纸娃娃髋部平移 LPC 翅膀;技能光 P.rglow;在地上时裁掉地面以下。
+  大剑逐像素画:剑身 44(到 48)像素宽 7,剑柄 22 像素粗 3,护手 / 剑首金色;法杖仍用 16 方向像素图。四段普攻顺序 = 用户 4 张参考图(桌面\动作\1~4.png)。
+  测试注意:Playwright 的 keyboard.press 会在同一帧抬起按键,跑步中按攻击要 down → 等 50ms → up 才会触发冲刺直戳。
+- 逻辑分辨率 640×360,窗口取 640 整数倍。像素美术已完成:主角(LPC)、城镇 NPC(LPC)、技能特效、城镇背景(TOWNPX)、装备图标(EQPX)、界面(body.px)、关卡背景(LBG);
+  怪物和首领全部画进 PXL 像素层;像素精灵(MOB):史莱姆 / 蛇 / 蝙蝠 / 狗 / 双头狗 / 蜘蛛 / 黄黑蝎子 / 骷髅兵 / 企鹅 / 海豹;
+  首领:巨龙(DRGN)、面具法师 / 黑棘巨蝎 / 沙暴巨蜥 / 银色狼人(BOS:mage_atlas、scob_atlas、bos_atlas);飞弹和法术特效(BFX,并入 VFX.M,im:3)。
+- 模块:PXA、LPC、LNPC、PEND、VFX(图集 I / I2 / I3)、PXL、TOWNPX、TPX、EQPX、MOB、DRGN、BOS、BFX、LBG、KB、PUI;HERO() 选主角模块。注意:DRG 这个名字已被背包拖动占用。
+  生成脚本:art_src/town、eqicon、ui、mob(build_pen / build_dog2 追加)、boss(build_drg / build_bos / build_mage / build_scob)、bfx/build_bfx.py、lbg/build_lbg.py。
+  新脚本需要的原始素材没放进包(用户上传的 zip、ULPC 仓库、jam-ready-assets 的 Hell Hound / Night Town / Rocky Roads,后两者 media.githubusercontent.com 直链可下)。
+- LBG:bg() 里 LBG.on() 时用像素图层代替天空 / 云 / 远中近景;meta = sky [y,w,h,放大,横拉伸,视差] + layers [y,w,h,放大,底边 y,视差,飘移];第五关近景 LVA[5].near 临时 RS=1 重画。
+- (作废)原「漫画巨龙保持红龙、开场和漫画不改」:用户 2026-10-12 决定删除开场画面、第一关结局画面、第二关漫画,第一关首领换掉。
+- 已知问题:LPC 是 3/4 俯视侧面;狼人素材只有走路;面具法师只有待机 / 施法帧;地面、平台、首领巢穴(城堡、高塔、树洞、岩洞、冰窟)仍是矢量 Q 版。
+  仍是矢量画进像素层:猿、鸵鸟(决定保留);蛛丝、狼人冲击波、蝎子毒柱;北极熊的冲击波 / 冰刺 / 暴风雪。
+
+【下一步】
+  ★ 第四十二轮已完成(2026-10-15,v1.42),等用户回复 docs/下次任务.txt「第四十二轮」(第五块碎片、火之武器升级方式、套装数值、火焰首领素材);神秘副本 4 首领要掉火之大剑 / 火之法杖(fireW(slot,1))。
+  ★ 第四十一轮已完成(2026-10-15,v1.41),等用户回复 docs/下次任务.txt「第四十一轮」(下一关的截图 / 地点、夜王群控两层打断、技能石强度、大师装备跟随最高系列)。用户说过挑战模式先不做。
+  ★ 第三十三轮已完成(2026-10-15,v1.33),等用户回复 docs/下次任务.txt「第三十三轮」(材料配方数量 / 价格、强化固定值、白字暴击取消后暴击偏低、制作书放击杀点商店等)。第三十二轮的问题用户已回复并照做。
+  ★ 第三十轮已完成(2026-10-14,v1.30),等用户回复 docs/下次任务.txt「第三十轮」。
+  ★ 第二十九轮已完成(2026-10-14,v1.29),等用户回复 docs/下次任务.txt「第二十九轮」的 3 个问题(掉怪方式、光污染亮度、飞弹样子)。
+★ 第二十八轮已完成(2026-10-14):法师进阶技能已按用户重置的设计做完,等试玩反馈(首领是否也该被困 / 定住、伤害冷却)。
+★ 第二十二轮已完成(2026-10-14),问题见 docs/下次任务.txt「Claude 的问题」。第二十轮数值(DEFP 12 / CRPT 60 / DGPT 30 / 小怪韧性)用户已确认定下。
+★ 第二十一轮已完成(2026-10-14)。
+★ 第二十轮已完成(2026-10-14),等用户试玩反馈 / 新清单。待确认:① 防御 12 点 = 1% 后中后期明显变耐打(第十关同关史诗 +6 约 25~45%),太简单就把 DEFP 调大或 DEFMX 调小;② 暴击 / 闪避换算 60 / 30 是按属性石数值定的,要更强 / 更弱改 CRPT / DGPT(旧装备会自动按百分比换算);③ 小怪韧性 45% / 僵直 0.45 秒 / 免疫 1.6 秒(MPZK / MPZST / MPZIM);(④ 剑士普攻走韧性、⑤ 主页面参考图 —— 第二十一轮已按用户回复完成)
+★ 第十九轮 + 补充(关卡强化石只掉普通、选关页不显示掉落概率、GM 只剩 F2 F3 F1 F2 F3 F3 打开)已完成(2026-10-13),等用户试玩反馈 / 新清单。待确认:① 掉落按「首领倒下时每样判定一次」理解(属性石 30% / 12%、强化石 10% / 7%),小礼袋清单没给概率,先定首领 50% / 小怪 2%(都在 DRX 里改);② 中级属性石每条数值 ×1.2、中 / 高级幸运宝石 150 / 220 击杀点是自己定的;③ 防御改成 77 点 1% 后,同样的防御减伤比旧公式低很多,中后期会明显更疼,要不要整体下调怪物伤害;④ 双倍爆率卡 = 30 分钟,宠物饲料 = 20% 升级经验。
+★ 第十八轮已完成(2026-10-13),等用户试玩反馈 / 新清单。待看:八套新外观和新图标是否满意(雪原剑士的维京盔 / 法师的帽子颜色可在 build_lpc.py 里换);分身 / 背包纸娃娃 / 商城预览用的 LPC 整帧也跟着新外观走,但背包纸娃娃手里的武器还是旧的 PXA 武器图(用户之前决定不换)。
+   以前:第十七轮已完成(2026-10-13),等用户试玩反馈 / 新清单。待试玩:沙渊古神 / 血月巫王的难度(伤害系数在 arsTen / arsGys / F.push 的 dmg,冷却在 arsEnd)、万触破沙 / 血月仪式的安全格是否够找、流沙漩涡拉力 120;四把新剑的观感(不喜欢可以换素材里的其他剑或改 build_hsw.py 的颜色 / 尺寸)。
+   可删:build_audio.py 里狼人 / 巨蜥没再用到的音效(w_bite / w_claw / w_growl / w_land / w_lunge / w_snarl、lz_tongue / lz_climb / lz_tail / lz_spray 以外),build_bos.py 里生成 bos_atlas 的部分。
+   以前:第十六轮已完成(2026-10-13),等用户试玩反馈 / 新清单。待试玩:星级倍率(STARK)、新经验曲线快慢(expNeed / XPK / BXP)、小怪血量 MHK 和首领血量 BHN 是否合适、剑势 ×1.4 / 爆燃 ×1.5 强度、15 种小怪新招和 11 个首领新招的手感(没人手试玩,只跑过自动测试);
+   候选:把以前自画的模块换成外部素材(强化石图标 STNI、神秘地带 MYST 整套、挂件 PEND、各关矢量首领巢穴 LAIR 以外的部分、猿 / 鸵鸟矢量、通关光柱)。
+   以前:第十五轮已完成(2026-10-13),等用户试玩反馈。待试玩:12 个新招的难度和伤害(×1.82 后可能很疼,先调 nbStep 里的系数)、韧性池 7% 是否合适(PZK)、掉落减半后的收益;新菜单图标观感。
+   以前:第十四轮 6 条已完成(2026-10-13),等用户试玩反馈 / 新清单。待试玩:首领每下都僵直 0.3 秒是否太容易被压制(HSTUN,可只给首领改短)、耗魔 20%/轮(被动回魔满级时会明显更耐用)、伤害数字大小(drawTX 的 6)、绝息风斩范围 LSR、宠物技能 15 秒是每个技能各自冷却(不是全局 15 秒放一个)。
+   以前:第十二轮 4 条已完成(2026-10-13),等用户试玩反馈 / 新清单。待试玩:神秘副本瓜子大王难度(血量 / 定身 1.25 秒 / 狂暴)、宠物仓鼠强度、耗魔比例(SKMP)是否太狠、第八~十关追击速度(chV);bgm11 / bgm11b / h_* 没人耳试听;神秘副本 2~5 等第二块碎片起再做(MYNM 加名字、cur 12 起)。
+   以前:第十一轮 3 条已完成(2026-10-13)。(2026-10-13),等用户试玩反馈 / 新清单。待试玩:第十关难度(小怪数值 mk / CDMG、空翼妖冲刺速度 560、浮空平台间距)、归蝇 15000 血 + 30% MISS 是否太磨(dealt 里的 .3)、风压推力(s10Step 100)、天空放逐节奏;bgm10 / bgm10b 和 g10_* 音效(没人耳试听);剑 O 暗黑配色(技能名还是「苍蓝巨剑」,要改名告诉我)。
+   以前:第九轮 4 条已完成(2026-10-13)。待试玩:剑 U 雷球的位置和伤害范围(ZAPB)、O 的新剑观感;第九关难度(温度升降速度 heatStep、小怪 / 鬼将数值、首领 9000 血)、剑 U 15 连斩的手感和闪电遮挡程度、首领音效间隔(BSI 3~6.5 秒)、bgm9 / bgm9b 和 l9_* 音效(没人耳试听)。
+   以前:第八轮清单 5 条已完成(2026-10-13)。待试玩:第八关难度(小怪数值 mk / CDMG、首领 8000 血、哭声减益)、怨婴哭声等合成音效和两首 BGM(没人耳试听,不合适就改 build_audio.py 的 cry / BGM 表)、剑 U 固定区域的大小(ZAPZ)。
+   可继续:(雪原纸娃娃外观第十八轮已做)商店是否卖雪原、女神灵魂碎片的用途(五块收集)。
+   以前:第六轮清单 + 第七轮反馈都已完成(2026-10-12)。待用户试玩:剑 I 新距离(GDA / GDR)和特效、S+空格 / WW+空格配色、法师范围是否过强(落雷宽 ×1.8、火球溅射 40%、雷云 3 道);乌云 / 陨石 / 卷浪 / 波浪的观感。
+   第五轮:待用户试听 / 试玩:三~七关首领音效(没人耳试听,不合适就改 build_audio.py 末尾的 MIX 或源码 BSX 表)、主角技能旧版音效音量(PSKV 0.6)、剑 I 两段的手感(范围 GDR 260、击退 kbv 1150、等待 4 秒)。
+   之前待试听:主城和七关的 BGM(按曲名和风格挑的;不合适就在 build_audio.py 的 BGM 表里换文件)。
+   之前的待反馈:主城布局 / 熔炉位置、U 地面怪 50% 是否合适。如果嫌文件太大(15MB),可以把 BGM 的品质(out 的第 4 个参数 .55)或截取长度再降低。
+   继续删无用代码可考虑:「原版几何」美术开关和全部矢量兜底(量很大,要一次性规划);Ars 主角选项;旧地图 mapBG 兜底。
+A. 猿、鸵鸟保留矢量,不再找素材。
+D. 主角骨骼纸娃娃:全部动作已接入,用户满意;分身 / 背包纸娃娃 / 商城预览用户决定不换。
+E. 像素化计划(用户定的顺序):① 界面(已完成:PUI + 像素字体)→ ② 主城(已完成:TPX 传送门 / 女神像 / 钢盔小鸡,等用户看截图)→ ③ 关卡(已完成:LTL 七关地面 / 平台 / 大树;剩通关光柱自画像素):大树(SunnyLand 树木扩展包)、地面 / 浮空平台(一~三关 SunnyLand Forest/Woods,四关 Gothicvania Swamp,
+   五关 Desert Tilesets(AdebGameSoft),六七关 Seasonal Platformer Tiles(GrafxKid)),全部 CC0;通关光柱自画像素。素材由 Claude 直接从 OpenGameArt 下载到 raw/。
+   界面还可以继续:DOM 面板(背包 / 商城 / 设置)的文字也换像素字体(要注意 DOM 字号不是整数倍会糊)。
+B. 地面 / 平台 / 首领巢穴像素化:可用 Gothicvania Swamp tileset、Gothic Castle tileset、Sunny Land、Seasonal Tilesets(都已在手或可直链下载)。
+C. 剩余特效:蛛丝(狼人冲击波、蝎子毒柱已完成);可选:夜晚版城镇、技能图标换 Lucifer RPG UI。
+
+【已处理】剑 U 冷却:用户回复「改成固定 6 秒」,第二十一轮已改(SKCDFIX)。
