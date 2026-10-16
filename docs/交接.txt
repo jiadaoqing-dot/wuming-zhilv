@@ -23,7 +23,7 @@
  素材来源:ULPC 仓库(LPC 人物图层)、series-ai/jam-ready-assets(大量 CC0 素材,LFS 文件用 media 直链下载,见 fetch_assets.sh)。
 
 【当前状态(2026-10-15,第四十一轮完成后)】
-- v1.41:第十二关永夜王城 cur 15(宠物仓鼠上面「第四十一轮:第十二关」:CST 图集 art_src/castle/build_castle.py / PL15 / E15 / skwStep gobStep nwzStep / 首领 nkStep(roar 群控 nkStun,蓄力中掉 5% 血被打断 e.daze)/ c15Step c15Fx);MAPS2 第 2 项、MHK[13] / LM / BHN / BDF / XPK / BXP [15]、curSer cur>=14 → 机械。
+- v1.41:第十二关永夜王城 cur 15(宠物仓鼠上面「第四十一轮:第十二关」:CST 图集 art_src/castle/build_castle.py / PL15 / E15 / skwStep gobStep nwzStep / 首领 nkStep(roar 群控 nkStun,蓄力中掉 5% 血被打断 e.daze)/ c15Step c15Fx);MAPS2 第 2 项(地图位置 = 左边冰晶雪台,用户截图指定)、选关掉落预览有怪物技能石、MHK[13] / LM / BHN / BDF / XPK / BXP [15]、curSer cur>=14 → 机械。
   怪物技能石(godHud 下面「第四十一轮:怪物技能石」:MSS[cur] 表、MISC.ms+cur、R19.mse、蓄力 MSTC(dealt 里 mscAdd,注意 MSC 是小怪体型常量)、N 键 mscCast、MSQ 事件队列、mscDraw 虚影用 lvsBoss);首领掉落在 update 首领死亡那段。
   仓库三页(rWh / whAct,R19.whi 道具 / R19.whp 药水,itemSet);大师装备 eqK(tier,g,ms) 按 SER 最后一项算、ms=2 = 已重算(migIt),trMul 特性倍率;法师冷却 STCDK(skCd);KPCL 27 / KPLV 8;LVMAX 55(EXPT 加 5 项);上帝卡牌改剩余毫秒 + godTick(只在 update 里扣)。
   主线第十一章 MQ 里 lv:14(lv = cur,mqMap / mqCh 换算章节号和地图);机械外观 LPC.keys 系列 4(plate_cu / legs_cu / helm4 / helm5)、HSW.M[4] / STF.M[4](build_hsw.py / build_staff.py 加第 5 把)。BGM bgm15 / bgm15b 是用临时脚本单独编码的(build_audio.py 里已登记,整套重跑结果一样)。
