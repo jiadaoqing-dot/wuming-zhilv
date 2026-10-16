@@ -17,7 +17,9 @@ PICK=[None,'W_Mace003','I_Clock','I_Scroll','I_Feather02','S_Holy08','I_GoldCoin
       # 第四十轮追加(39 起):上帝卡牌 暴击升级 / 来个好伙计
       'S_Light02','S_Buff01',
       # 第四十一轮追加(41 起):怪物技能石
-      'I_Crystal02']
+      'I_Crystal02',
+      # 第四十二轮追加(42 起):360 小鸟碎片(鸟喙)/ 武器幻化券(镜子)
+      'I_BirdsBeak','I_Mirror']
 def speaker():
   im=Image.new('RGBA',(C,C));d=ImageDraw.Draw(im)
   # 喇叭:灰蓝箱体 + 喇叭口,三道黄白声波;最后统一加 1 像素黑描边

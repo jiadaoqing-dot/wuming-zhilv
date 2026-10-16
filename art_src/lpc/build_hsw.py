@@ -1,4 +1,4 @@
-﻿# 剑士手里的大剑(纸娃娃用):Fantasy Sword Set(Melissa Krautheim / melle,CC0)
+# 剑士手里的大剑(纸娃娃用):Fantasy Sword Set(Melissa Krautheim / melle,CC0)
 #   https://opengameart.org/content/fantasy-sword-set 的 sword / lightning_sword / fire_sword / ice_sword
 # 2026-10-13 第十七轮:代替原来代码逐像素画的剑。四个系列各一把:0 旅者 = 牛角护手银剑,1 林王 = 雷光剑(金色剑芯换成翠绿),
 #   2 荒漠 = 火焰剑,3 雪原 = 寒冰剑。改动:去掉外发光,缩小到剑身(护手 → 剑尖)46 像素,限 11 色 + 1 像素深色描边,剑尖转向右
@@ -10,10 +10,10 @@ from PIL import Image
 
 R = os.path.join(os.path.dirname(__file__), '..', '..')
 SRC = os.path.join(R, 'raw/giant_sword/fantasy_sword_melle')
-FILES = ['sword.png', 'lightning_sword.png', 'fire_sword.png', 'ice_sword.png', 'sword.png']  # 第四十一轮:4 机械 = 银剑换成黄铜色
+FILES = ['sword.png', 'lightning_sword.png', 'fire_sword.png', 'ice_sword.png', 'sword.png', 'fire_sword.png', 'fire_sword.png']  # 第四十一轮:4 机械 = 银剑换成黄铜色  # 第四十二轮:5 火之大剑 = 火焰剑加深成赤红烈焰,6 真~火之大剑 = 火焰剑换成蓝焰
 BL = 46  # 护手到剑尖的像素数
 
-def load(fn, green=False, brass=False):
+def load(fn, green=False, brass=False, fire=0):
     im = Image.open(os.path.join(SRC, fn)).convert('RGBA')
     a = np.array(im).astype(np.float32)
     a[..., 3] = np.where(a[..., 3] > 150, 255, 0)  # 去掉半透明外发光
@@ -30,11 +30,19 @@ def load(fn, green=False, brass=False):
             r, g, b = rgb[y, x]; h, s, v = colorsys.rgb_to_hsv(r, g, b)
             r2, g2, b2 = colorsys.hsv_to_rgb(.11 if s < .3 else .07, .55 if s < .3 else min(1, s * 1.1), v)
             a[y, x, :3] = [r2 * 255, g2 * 255, b2 * 255]
+    if fire:  # 1 赤红烈焰(橙色 → 深红、亮处 → 金黄)/ 2 蓝焰(有颜色的部分 → 蓝青,亮处发白)
+        rgb = a[..., :3] / 255
+        for y, x in zip(*np.nonzero(a[..., 3])):
+            r, g, b = rgb[y, x]; h, s, v = colorsys.rgb_to_hsv(r, g, b)
+            if s < .15: continue
+            if fire == 1: h2, s2 = (.98 + .09 * v ** 4), min(1, s * 1.25 + .1)
+            else: h2, s2 = (.62 - .1 * v ** 2), min(1, s * .95)
+            r2, g2, b2 = colorsys.hsv_to_rgb(h2 % 1, s2, v); a[y, x, :3] = [r2 * 255, g2 * 255, b2 * 255]
     im = Image.fromarray(a.astype(np.uint8)); return im.crop(im.getbbox())
 
 rows, meta, y0 = [], [], 0
 for i, fn in enumerate(FILES):
-    im = load(fn, green=(i == 1), brass=(i == 4))
+    im = load(fn, green=(i == 1), brass=(i == 4), fire=(i - 4 if i >= 5 else 0))
     al = np.array(im)[..., 3] > 0; w = al.sum(1); H = al.shape[0]
     lo = int(H * .5); guard = lo + int(np.argmax(w[lo:int(H * .85)]))      # 护手 = 下半部分最宽的一行
     gb = guard

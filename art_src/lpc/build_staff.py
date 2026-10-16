@@ -52,7 +52,13 @@ def icy(H, l, s):      # 木头 → 冰蓝;金色 → 银白
 def iron(H, l, s):     # 第四十一轮 机械:staff03 的木杖身 → 钢灰,金色 → 黄铜
     if 10 <= H < 40 and s > .15: return (210 / 360, min(.85, l * 1.2 + .05), .12)
     if s > .35 and 40 <= H <= 70: return (38 / 360, l, .6)
-L = [remap(load('holly staff.png'), silver), recolor_red_to_green(load('staff04.png')), load('holly staff.png'), remap(load('staff05.png'), icy), remap(load('staff03.png'), iron)]
+def ember(H, l, s):    # 第四十二轮 火之法杖:staff00 的木头 → 焦黑,亮处 → 熔岩红橙
+    if l > .42: return ((8 + 40 * (l - .42)) / 360, min(.85, l * 1.15), .95)
+    return (8 / 360, l * .55, .5)
+def bluefire(H, l, s): # 真~火之法杖:木头 → 深蓝,亮处 → 青白蓝焰
+    if l > .42: return ((205 - 30 * (l - .42)) / 360, min(.92, l * 1.25), .9)
+    return (228 / 360, l * .6, .55)
+L = [remap(load('holly staff.png'), silver), recolor_red_to_green(load('staff04.png')), load('holly staff.png'), remap(load('staff05.png'), icy), remap(load('staff03.png'), iron), remap(load('staff00.png'), ember), remap(load('staff00.png'), bluefire)]
 # 第二十七轮(用户):手后面那一截加长 —— 把杖尾前面一段杖身的横截面沿斜线复制 EXT 次,杖尾端整体往右下挪(格子变成 C×C)
 EXT = 12; C = 64 + EXT
 def lengthen(im):

@@ -10,12 +10,12 @@ from PIL import Image
 R = os.path.join(os.path.dirname(__file__), '..', '..')
 S7 = os.path.join(R, 'raw/icons/7soul1/x'); J = os.path.join(R, 'raw/icons/jewelry')
 PICK = {
-  'sword': ['W_Sword009', 'W_Sword015:g', 'W_Sword016', 'W_Sword018', 'W_Sword021:m'],       # 铁剑 / 雷光剑 / 火焰剑 / 冰晶剑
-  'staff': ['W_Staff01', 'W_Staff02', 'W_Staff05', 'W_Staff06', 'W_Staff07:m'],             # 木杖 / 翠叶杖 / 金环杖 / 冰晶杖
-  'head':  ['C_Elm01', 'C_Hat01:g', 'C_Elm04', 'C_Elm03:i', 'C_Elm04:m'],                 # 皮盔 / 林间尖帽 / 金边重盔 / 骑士盔
-  'body':  ['A_Armor04', 'A_Armour01', 'A_Armour03', 'A_Armour02:i', 'A_Armor05:m'],        # 板甲 / 皮甲 / 金甲 / 全身甲
-  'ring':  ['J:x7/32x32/ring_02', 'J:x7/32x32/ring_03_green', 'J:xd/32x32/ring/urand_octoring', 'J:xd/32x32/ring/urand_robustness', 'J:xd/32x32/ring/ring_07_silver:m'],
-  'ear':   ['J:x7/32x32/necklace_08', 'J:x7/32x32/necklace_06', 'J:x7/32x32/necklace_01', 'J:x7/32x32/necklace_03', 'J:x7/32x32/necklace_05:m'],
+  'sword': ['W_Sword009', 'W_Sword015:g', 'W_Sword016', 'W_Sword018', 'W_Sword021:m', 'W_Sword020:f', 'W_Sword022:b'],  # 第四十二轮:5 火之大剑 / 6 真~火之大剑       # 铁剑 / 雷光剑 / 火焰剑 / 冰晶剑
+  'staff': ['W_Staff01', 'W_Staff02', 'W_Staff05', 'W_Staff06', 'W_Staff07:m', 'W_Staff03:f', 'W_Staff04:b'],  # 5 火之法杖 / 6 真~火之法杖             # 木杖 / 翠叶杖 / 金环杖 / 冰晶杖
+  'head':  ['C_Elm01', 'C_Hat01:g', 'C_Elm04', 'C_Elm03:i', 'C_Elm04:m', 'C_Elm04:m', 'C_Elm04:m'],  # 5 / 6 只有武器,其他部位占位                 # 皮盔 / 林间尖帽 / 金边重盔 / 骑士盔
+  'body':  ['A_Armor04', 'A_Armour01', 'A_Armour03', 'A_Armour02:i', 'A_Armor05:m', 'A_Armor05:m', 'A_Armor05:m'],        # 板甲 / 皮甲 / 金甲 / 全身甲
+  'ring':  ['J:x7/32x32/ring_02', 'J:x7/32x32/ring_03_green', 'J:xd/32x32/ring/urand_octoring', 'J:xd/32x32/ring/urand_robustness', 'J:xd/32x32/ring/ring_07_silver:m', 'J:xd/32x32/ring/ring_07_silver:m', 'J:xd/32x32/ring/ring_07_silver:m'],
+  'ear':   ['J:x7/32x32/necklace_08', 'J:x7/32x32/necklace_06', 'J:x7/32x32/necklace_01', 'J:x7/32x32/necklace_03', 'J:x7/32x32/necklace_05:m', 'J:x7/32x32/necklace_05:m', 'J:x7/32x32/necklace_05:m'],
 }
 C = 34
 def load(n):
@@ -30,10 +30,12 @@ def load(n):
             if fx == 'g' and s > .08: h = .33 + (h - .12) * .3 if h < .2 else .36   # 金色 / 紫色 → 翠绿
             elif fx == 'i': h, s = .55, min(1, s * .6 + .18)                         # 偏冰蓝
             elif fx == 'm': h, s = .47, min(1, s * .45 + .12)                        # 机械系列:钢青色
+            elif fx == 'f': h, s = .98 + .09 * v ** 4, min(1, s * .7 + .5)          # 火之:赤红烈焰(亮处金黄)
+            elif fx == 'b': h, s = .62 - .1 * v ** 2, min(1, s * .6 + .4)           # 真~火之:蓝焰
             else: continue
             r2, g2, b2 = colorsys.hsv_to_rgb(h % 1, s, v); px[i, j] = (int(r2 * 255), int(g2 * 255), int(b2 * 255), a)
     return im
-out = Image.new('RGBA', (C * 5, C * 6))
+out = Image.new('RGBA', (C * 7, C * 6))
 for r, k in enumerate(PICK):
     for g, n in enumerate(PICK[k]):
         im = load(n); out.alpha_composite(im, (g * C + (C - im.width) // 2, r * C + (C - im.height) // 2))

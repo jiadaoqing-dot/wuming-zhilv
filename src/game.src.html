@@ -248,10 +248,10 @@ body.px .at2{border:2px solid transparent;border-image:url(@@A:ui_card@@) 6 fill
 <div id="wrap"><canvas id="c" width="640" height="360"></canvas><div id="tb"><button id="bb" data-l="背包" title="背包">🎒</button><button id="sb" data-l="技能" title="技能">🌟</button><button id="ib" data-l="商城" title="商城">🏪</button><button id="fb" data-l="精灵" title="精灵">🧚</button><button id="pb" data-l="宠物" title="宠物">🐤</button><button id="qb" data-l="任务" title="任务" hidden>📜</button><button id="db" data-l="签到" title="每日签到">📅<i class="rd" id="dbd"></i></button><button id="mb" data-l="声音" title="声音">🔊</button></div><div id="bag" hidden></div><div id="tip" hidden></div><div id="sk" hidden></div><div id="pn" hidden></div><div id="home" hidden></div><input type="file" id="homeF" accept=".json,application/json" hidden></div>
 <div id="cm" hidden></div><div id="dg" class="cl" hidden></div>
 <div class="sbar"><span id="fpsT" class="tag" style="margin-right:auto;align-self:center"></span><button id="setb" title="设置 (Esc)">⚙️ 设置</button></div>
-<p class="tip">← → / A D 移动(连按两次快跑) · K / ↑ 跳跃 · W+J / S+J 特殊普攻(学会二段跳后空中再按) · J 攻击(下劈 → 上挑 → 直戳 → 下劈 循环,按住蓄力重击;跑步中按 J = 冲刺直戳) · L 换武器 · H U I O 技能 · 空格 / W+空格 / S+空格 / WW+空格 剑士进阶技能(转职后) · 1 2 3 喝药水 · S 捡起地上的掉落物 · 背包 / 技能 / 商城 / 精灵 / 宠物 / 任务 / 声音:点右下角按钮(菜单快捷键已关闭;背包里左键点物品弹出菜单,装备可拖动穿戴) · 装备翅膀后空中再按跳跃=飞行(W/S 升降、A/D 方向) · Esc / ⚙️ 设置(暂停、返回城镇、帧数、全屏)</p>
+<p class="tip">← → / A D 移动(连按两次快跑) · K / ↑ 跳跃 · W+J / S+J 特殊普攻(学会二段跳后空中再按) · J 攻击(下劈 → 上挑 → 直戳 → 下劈 循环,按住蓄力重击;跑步中按 J = 冲刺直戳) · L 换武器 · H U I O 技能 · 空格 / W+空格 / S+空格 / WW+空格 剑士进阶技能(转职后) · 1 2 3 喝药水 · S 捡起地上的掉落物 · 背包 / 技能 / 商城 / 精灵 / 宠物 / 任务 / 声音:点右下角按钮(也可以用快捷键 B 背包 / T 技能 / Q 任务 / P 商城 / Y 精灵 / G 宠物 / M 声音,设置里可以关闭) · N 释放武器上的怪物技能石(背包里左键点物品弹出菜单,装备可拖动穿戴) · 装备翅膀后空中再按跳跃=飞行(W/S 升降、A/D 方向) · Esc / ⚙️ 设置(暂停、返回城镇、帧数、全屏)</p>
 <script>
 // 游戏版本:build.py 按它给输出文件命名(out/无名之旅_v版本.html),设置页也显示;每次发新版改这里
-const GAMEV='1.41';
+const GAMEV='1.42';
 // x 是当前的绘图上下文:平时是主画布;像素特效层(PXL,P2)绘制期间临时换成 640×360 的低分辨率图层
 const cv=document.getElementById('c');let x=cv.getContext('2d');const VW=640,VH=360,WW=3200,GY=300;
 // 渲染分辨率:电脑端 1920×1080(逻辑坐标仍是 640×360,整体放大 3 倍绘制,文字和像素都更清晰);手机端 1280×720
@@ -377,7 +377,7 @@ const BKV=.75,BSX={
 const BXN=new Set([].concat(...Object.values(BSX).map(Object.values)));
 // 2026-10-13 第九轮:所有首领音效改成按时间间隔播放 —— 出招时不再播;首领战中每隔 BSI 秒(区间内随机)从该首领的音效里随机挑一个播。
 // 各首领的音效按前缀从 AUD 里取(BSP_);PFX = 首领 AI 里照常播的主角反馈音;BSF=1 时强制播放(bossVoice、第八关暴走哭声循环)
-const BSI=[3,6.5],BSP_={boss:'b_',mage:'v_',king:'k_',sco:'sc_',andr:'lz_',bear:'br_',wiz:'g10_',yin:'y_',lava:'l9_',gui:'g10_',ham:'h_'},PFX={hurt:1,hit:1,blink:1,coin:1,lvl:1,win:1,lose:1};let BSF=0;
+const BSI=[3,6.5],BSP_={fk:'l9_',boss:'b_',mage:'v_',king:'k_',sco:'sc_',andr:'lz_',bear:'br_',wiz:'g10_',yin:'y_',lava:'l9_',gui:'g10_',ham:'h_'},PFX={hurt:1,hit:1,blink:1,coin:1,lvl:1,win:1,lose:1};let BSF=0;
 const BSR={nmr:['lz_growl','l9_growl'],dmn:['g10_shriek','g10_laugh','g10_flap'],gui:['g10_shriek','g10_laugh','g10_flap'],ham:['h_squeak'],andr:['lz_growl','lz_rock','l9_growl'],wiz:['g10_laugh','l9_laugh','v_shade']};  // 第十七轮:古神 / 巫王的随机叫声  // 2026-10-13 第十三轮:这两个首领随机只播叫声,招式音效跟着出招播(bsfx)
 const BSL=k=>{if(BSR[k])return BSR[k];const p=BSP_[k];return p?Object.keys(AUD).filter(n=>n.startsWith(p)&&n!='y_cryl'):[]};
 const bsfx=(n,v,d)=>{BSF=1;const h=sfx(n,v,d);BSF=0;return h};  // 首领 AI 里强制播外部音效
@@ -392,25 +392,32 @@ const MSC=1.25;  // 小怪体型放大(碰撞盒和画面一起放大)
 const VSZ={slime:[24,20],skel:[20,45],bat:[17,15],snake:[22,20],ape:[35,44],ysco:[49,33],bsco:[49,33],spi:[34,35],ost:[52,66],pen:[22,33],pen2:[25,38],seal:[54,20],seal2:[54,20],dog:[33,23],dog2:[33,33],gfly:[20,28],gfly2:[20,28],gland:[24,58],gland2:[26,58],imp:[40,58],fwisp:[30,34],
   ham:[44,40],boss:[96,96],mage:[34,63],king:[78,93],sco:[99,69],andr:[52,86],bear:[126,105],wiz:[60,90]},PSZ=Math.sqrt(32*56);
 const szF=(k,big)=>{const v=VSZ[k];return v?Math.max(1,(big?2.25:1.25)*PSZ/Math.sqrt(v[0]*v[1])):1};
-function mk(k,px,m){m=m||1;const d={slime:[28,20,20],skel:[24,34,36],bat:[26,16,12],snake:[30,14,26],ape:[28,30,40],ysco:[30,18,30],bsco:[34,20,60],spi:[26,14,28],ost:[30,44,55],pen:[24,26,30],pen2:[28,30,50],seal:[36,20,42],seal2:[40,24,66],dog:[30,18,46],dog2:[38,24,82],gfly:[22,24,30],gfly2:[24,26,52],gland:[24,40,50],gland2:[26,42,84],imp:[26,40,55],wimp:[28,26,60],eye:[28,22,50],swing:[30,28,100],fwisp:[24,24,40],golem:[44,44,150],oni:[40,70,220],gbot:[32,30,70],zdr:[30,26,55],tank:[42,42,170],skw:[30,46,80],gob:[28,32,60],nwz:[38,62,200]}[k];const e={k,x:px,w:Math.round(d[0]*MSC),h:Math.round(d[1]*MSC),vs:k=='ysco'||k=='bsco'?1:MSC,hp:Math.round(d[2]*(MHK[cur==14?12:cur==15?13:Math.min(cur,11)]||8)*STK().hp),m,dm:(1+(m-1)*.6)*STK().atk,o:px,fl:0,ph:Math.random()*6,f:-1};{const f=szF(k);if(f>1){e.w=Math.round(e.w*f);e.h=Math.round(e.h*f);e.vs*=f;e.sz=f}}e.y=k=='bat'?95+Math.random()*45:k=='gfly'||k=='gfly2'||k=='fwisp'||k=='wimp'||k=='eye'||k=='swing'||k=='zdr'?GY-e.h-rnd(110,150):GY-e.h;if(k=='gland2')e.dis=1;e.by=e.y;e.hp0=e.hp;e.zi=ZB.findIndex(b=>px<b);
+function mk(k,px,m){m=m||1;const d={slime:[28,20,20],skel:[24,34,36],bat:[26,16,12],snake:[30,14,26],ape:[28,30,40],ysco:[30,18,30],bsco:[34,20,60],spi:[26,14,28],ost:[30,44,55],pen:[24,26,30],pen2:[28,30,50],seal:[36,20,42],seal2:[40,24,66],dog:[30,18,46],dog2:[38,24,82],gfly:[22,24,30],gfly2:[24,26,52],gland:[24,40,50],gland2:[26,42,84],imp:[26,40,55],wimp:[28,26,60],eye:[28,22,50],swing:[30,28,100],fwisp:[24,24,40],golem:[44,44,150],oni:[40,70,220],gbot:[32,30,70],zdr:[30,26,55],tank:[42,42,170],skw:[30,46,80],gob:[28,32,60],nwz:[38,62,200],fwm:[34,30,70],mmt:[30,48,90],fsm:[36,60,210]}[k];const e={k,x:px,w:Math.round(d[0]*MSC),h:Math.round(d[1]*MSC),vs:k=='ysco'||k=='bsco'?1:MSC,hp:Math.round(d[2]*(MHK[cur>=14?cur-2:Math.min(cur,11)]||8)*STK().hp),m,dm:(1+(m-1)*.6)*STK().atk,o:px,fl:0,ph:Math.random()*6,f:-1};{const f=szF(k);if(f>1){e.w=Math.round(e.w*f);e.h=Math.round(e.h*f);e.vs*=f;e.sz=f}}e.y=k=='bat'?95+Math.random()*45:k=='gfly'||k=='gfly2'||k=='fwisp'||k=='wimp'||k=='eye'||k=='swing'||k=='zdr'?GY-e.h-rnd(110,150):GY-e.h;if(k=='gland2')e.dis=1;e.by=e.y;e.hp0=e.hp;e.zi=ZB.findIndex(b=>px<b);
   // 小怪防御(2026-10-12):按关卡倍率 m 递增,第一关 0;精英(黑棘蝎 / 精英企鹅 / 精英海豹 / 双头狗)×1.5。
   // 减伤 = 防御×1.5 ÷ (100 + 防御×1.5):第七关普通 13 → 约 16%,精英 20 → 约 23%,低级玩家照样打得动
   {const d=Math.round(((m-1)*1.2+STK().def)*(MDEL[k]?1.5:1));if(d>0)e.def=d}return e}
 // 第十六轮:小怪血量 = 基础值 × MHK[关卡](原来 × 关卡倍率 × EHP 7,后期怪 8~10 关太厚);按「同关精良 +5 装备普攻 5 下左右打死」校准
-const MHK=[0,8,10,20,18,30,31,32,50,56,58,30,64,74];  // 第四十一轮:[13] = 第十二关永夜王城(cur 15)  // 第四十轮:[12] = 第十一关齿轮要塞(cur 14)
-const MDEL={bsco:1,pen2:1,seal2:1,dog2:1,gfly2:1,gland2:1,oni:1,golem:1,swing:1,tank:1,nwz:1};
+const MHK=[0,8,10,20,18,30,31,32,50,56,58,30,64,74,82];  // 第四十二轮:[14] = 第十三关熔心火山(cur 16)  // 第四十一轮:[13] = 第十二关永夜王城(cur 15)  // 第四十轮:[12] = 第十一关齿轮要塞(cur 14)
+const MDEL={bsco:1,pen2:1,seal2:1,dog2:1,gfly2:1,gland2:1,oni:1,golem:1,swing:1,tank:1,nwz:1,fsm:1};
 const SL={head:['头饰','💇'],body:['战甲','🛡️'],ring:['戒指','💍'],ear:['项链','📿'],sword:['剑','🗡️'],staff:['法杖','🪄']};
 const TR=[['普通','#adb5bd',1],['精良','#51cf66',1.6],['稀有','#4dabf7',2.4],['史诗','#cc5de8',3.4]];
 // 装备系列:0 旅者(第一、二关 / 商店) · 1 林王(第三、四关) · 2 荒漠(第五关,身体部位带特性)
 // m 作用于生命/魔力/攻击,d 作用于防御(防御是减法公式,涨太快会让小怪完全打不疼,所以涨得慢一些)
 const SER=[{n:'旅者',m:1,d:1},{n:'林王',m:6,d:3},{n:'荒漠',m:13,d:6},{n:'雪原',m:22,d:10},{n:'机械',m:30,d:13}];  // 4 机械:第十一关齿轮要塞掉落(第四十轮)  // 3 雪原:第八关起掉落(2026-10-13)
 // 特性:[名称, 颜色, 说明, 2 件效果, 4 件追加效果](4 件 = 2 件效果 + 4 件追加)
-const TRT={lei:['怒雷','#fab005','暴击率',.05,.05],yu:['圣愈','#51cf66','每秒回复最大生命',.01,.015],ling:['邪灵','#9775fa','每秒回复最大魔力',.008,.012],ji:['神技','#339af0','每次连击攻击力',.01,.01],xue:['热血','#fa5252','损失生命转化攻击力',.25,.35]};
-const TRK=Object.keys(TRT),BODY=['head','body','ring','ear'];
+// 第四十二轮:圣愈 2 件 = 防御力 +15%,4 件 = 每秒回复 2% 最大生命;邪灵 2 件 = 魔力 +25%,4 件 = 技能伤害 +(最大魔力 ÷ LINGK)%(最多 +40%);两套原来的回血 / 回魔取消
+const TRT={lei:['怒雷','#fab005','暴击率',.05,.05],yu:['圣愈','#51cf66','防御力 / 回血',.15,.02],ling:['邪灵','#9775fa','魔力 / 技能伤害',.25,0],ji:['神技','#339af0','每次连击攻击力',.01,.01],xue:['热血','#fa5252','损失生命转化攻击力',.25,.35]};
+const TRK=Object.keys(TRT),BODY=['head','body','ring','ear'],TRS=BODY.concat(['sword','staff']);  // TRS:算套装件数的 6 个部位(武器用「武器幻化券」加了特性才算)
+// 6 件效果(第四十二轮):邪灵 宠物技能伤害 / 暴击伤害 +25% · 圣愈 受到伤害的 10% 反弹给最近的敌人 · 神技 关卡内每击杀 1 个敌人攻击 +0.5%(最多 +20%,被怪物打中掉 60% 层数)
+//   怒雷 敌人每受到一次暴击防御 -3%(最多 -30%)· 热血 攻击力 + 最大生命 × 3%
+const LINGK=80,LINGMX=.4,YU6=.1,JI6=.005,JI6N=40,LEI6=.03,LEI6N=10,XUE6=.03,LING6=.25;
+const TR6={lei:`敌人每受到一次暴击,防御力 -${LEI6*100}%(最多 -${LEI6*LEI6N*100}%)`,yu:`受到伤害的 ${YU6*100}% 反弹给最近的敌人`,ling:`宠物的技能伤害和暴击伤害 +${LING6*100}%`,ji:`关卡内每击杀 1 个敌人攻击力 +${JI6*100}%(最多 +${JI6*JI6N*100}%);被怪物打中时失去 60% 层数`,xue:`最大生命的 ${XUE6*100}% 转化为攻击力`};
 function trDesc(k){const q=TRT[k],pc=v=>+(v*100).toFixed(1)+'%';
-  return k=='ji'?`2 件:每次命中攻击 +1%(最多 12 层),闪避率 +${JIDG[0]}% · 4 件:每层改为 +2%(最多 15 层,即 +30%),闪避率再 +${JIDG[1]}%(合计 ${JIDG[0]+JIDG[1]}%)。2 秒没打中或自己受伤会清空连击,闪避成功不会清空`
+  return (k=='ji'?`2 件:每次命中攻击 +1%(最多 12 层),闪避率 +${JIDG[0]}% · 4 件:每层改为 +2%(最多 15 层,即 +30%),闪避率再 +${JIDG[1]}%(合计 ${JIDG[0]+JIDG[1]}%)。2 秒没打中或自己受伤会清空连击,闪避成功不会清空`
    :k=='xue'?`2 件:每损失 10% 生命,攻击 +2.5% · 4 件:每损失 10% 生命,攻击 +6%(剩 20% 血时 +48%)`
-   :`2 件:${q[2]} +${pc(q[3])} · 4 件:再 +${pc(q[4])}(合计 ${pc(q[3]+q[4])})`+(k=='lei'?',暴击造成 2 倍伤害':'')}
+   :k=='yu'?`2 件:防御力 +${pc(q[3])} · 4 件:每秒回复最大生命的 ${pc(q[4])}`
+   :k=='ling'?`2 件:魔力 +${pc(q[3])} · 4 件:技能伤害 +(最大魔力 ÷ ${LINGK})%,最多 +${pc(LINGMX)}(现在 +${pc(lingSkB())})`
+   :`2 件:${q[2]} +${pc(q[3])} · 4 件:再 +${pc(q[4])}(合计 ${pc(q[3]+q[4])})`+(k=='lei'?',暴击造成 2 倍伤害':''))+` · 6 件:${TR6[k]}`}
 // 暴击率 / 闪避率词条(百分数):发型、戒指、耳坠带暴击率,铠甲带闪避率;按品质和系列成长,强化同样 +10%/级
 const JIDG=[2,2];
 // 第十九轮:装备的暴击 / 闪避词条改成数值显示(没有 %);CRPT 点暴击 = 1% 暴击率,DGPT 点闪避 = 1% 闪避率(换算不在游戏里说明)
@@ -435,24 +442,31 @@ const COSW={fash:{def:.1,atk:.1},wing:{cr:.1,hp:.1}};
 const cosV=(t,k,fg)=>COSW[t][k]*(1+FGK*(fg||0));
 const SLR=[['发型','头饰'],['铠甲','战甲'],['耳坠','项链']],slRen=n=>SLR.reduce((s,[a,b])=>s.split(a).join(b),n);
 function eqK(tier,g,ms){if(ms)g=Math.max(g||0,SER.length-1);const t=TR[tier][2],S=SER[g||0],b=[.5,.75,1,1.25][tier]*[1,1.3,1.6,1.9,2.2][g||0];return {hp:t*S.m,mp:t*S.m,atk:t*S.m,def:t*S.d,cr:b*CRPT,dg:b*DGPT}}
-function eqWhite(slot,tier,g,ms){const K=eqK(tier,g,ms),s={};for(const [k,c] of Object.entries(EQW[slot]))s[k]=Math.max(1,Math.round(c*K[k]*(ms?MSK:1)))+(k=='atk'&&(slot=='sword'||slot=='staff')?WPN5:0);return s}
-function greenRoll(it){const K=eqK(it.tier,it.g,it.ms),ks=Object.keys(EQG).sort(()=>Math.random()-.5).slice(0,3);it.gr=ks.map(k=>{const [a,b]=EQG[k];return [k,Math.max(1,Math.round(K[k]*(a+Math.random()*(b-a))*(it.ms?MSK:1)))]})}
-const gRng=(it,k)=>{const K=eqK(it.tier,it.g,it.ms),[a,b]=EQG[k],m=it.ms?MSK:1;return [Math.max(1,Math.round(K[k]*a*m)),Math.max(1,Math.round(K[k]*b*m))]};
+// 第四十二轮:火之武器 it.fw(1 火之大剑 / 火之法杖:机械系列 ×1.1,神秘副本 4 首领掉落 · 2 真~火之:再 ×1.2,击杀点制作书 + 熔炉制作);白字 / 绿字都乘 FWK
+const FWK=[1,1.1,1.32],FWN={sword:['','火之大剑','真~火之大剑'],staff:['','火之法杖','真~火之法杖']};
+const wG=it=>it?(it.fw?4+it.fw:it.g||0):0;  // 图标 / 手持武器用第几套外观(5 火之 / 6 真~火之)
+function eqWhite(slot,tier,g,ms,fw){const K=eqK(tier,g,ms),s={};for(const [k,c] of Object.entries(EQW[slot]))s[k]=Math.max(1,Math.round(c*K[k]*(ms?MSK:1)*FWK[fw|0]))+(k=='atk'&&(slot=='sword'||slot=='staff')?WPN5:0);return s}
+function greenRoll(it){const K=eqK(it.tier,it.g,it.ms),ks=Object.keys(EQG).sort(()=>Math.random()-.5).slice(0,3);it.gr=ks.map(k=>{const [a,b]=EQG[k];return [k,Math.max(1,Math.round(K[k]*(a+Math.random()*(b-a))*(it.ms?MSK:1)*FWK[it.fw|0]))]})}
+const gRng=(it,k)=>{const K=eqK(it.tier,it.g,it.ms),[a,b]=EQG[k],m=(it.ms?MSK:1)*FWK[it.fw|0];return [Math.max(1,Math.round(K[k]*a*m)),Math.max(1,Math.round(K[k]*b*m))]};
+function fireW(slot,fw){return gen(slot,3,FWN[slot][fw],4,null,0,0,fw)}  // 史诗品质,机械系列为底
 const enV=(slot,k,q)=>Math.round(EQE[slot][1][q]*(stnLv(k)>=2?EQE2:1));  // 强化到第 k 级、用品质 q 的强化石:这一级加多少
 const wv=(it,k)=>Math.round(it.s[k]*(1+FGK*(it.fg||0)));  // 白字(含锻造)
 const eqPr=it=>Math.round((it.s.atk||0)*6+(it.s.def||0)*6+(it.s.hp||0)*.8+(it.s.mp||0)*.8+(it.s.cr||0)*.5+(it.s.dg||0)*.8)+2;
 // 一件装备给的固定属性:白字(含锻造)+ 绿字 + 强化 + 属性石
 function eqAdd(g,it){if(!it)return g;for(const k in it.s)g[k]+=wv(it,k);for(const [k,v] of it.gr||[])g[k]+=v;if(it.ev)g[EQE[it.slot][0]]+=it.ev;if(it.gem)for(const [k,v] of it.gem.a)g[k]+=v;return g}
-function gen(slot,tier,name,g,tr,fix,ms){g=g||0;const s=eqWhite(slot,tier,g,ms);
-  const it={slot,tier,s,pr:0,fg:0,ev:0,v2:1,v3:1,v4:1,v5:1,v6:1,v7:1,v8:1,v9:1,n:name||(g?TR[tier][0]+'·'+(tr?TRT[tr][0]:SER[g].n)+SL[slot][0]:TR[tier][0]+SL[slot][0])};if(g)it.g=g;if(tr)it.tr=tr;if(ms)it.ms=2;it.pr=eqPr(it);if(!fix)greenRoll(it);return it}  // fix=1:不带绿字(商店展示用,买到时再随机)
+function gen(slot,tier,name,g,tr,fix,ms,fw){g=g||0;const s=eqWhite(slot,tier,g,ms,fw);
+  const it={slot,tier,s,pr:0,fg:0,ev:0,v2:1,v3:1,v4:1,v5:1,v6:1,v7:1,v8:1,v9:1,n:name||(g?TR[tier][0]+'·'+(tr?TRT[tr][0]:SER[g].n)+SL[slot][0]:TR[tier][0]+SL[slot][0])};if(g)it.g=g;if(tr)it.tr=tr;if(ms)it.ms=2;if(fw)it.fw=fw;it.pr=eqPr(it);if(!fix)greenRoll(it);return it}  // fix=1:不带绿字(商店展示用,买到时再随机)
 // 旧装备全部按新规则重建(白字固定、随机 3 条绿字,强化按普通品质换成固定值),名字里的部位改名(发型 → 头饰、铠甲 → 战甲、耳坠 → 项链)
 function migIt(it){if(it&&it.v8&&!it.v9){it.ev=Math.round((it.ev||0)*EQE16);it.v9=1}if(it&&it.ms&&it.v8&&it.ms!=2){const o=it.s,K0=eqK(it.tier,it.g),K1=eqK(it.tier,it.g,1);it.s=eqWhite(it.slot,it.tier,it.g,1);it.gr=(it.gr||[]).map(([k,v])=>[k,Math.max(1,Math.round(v*K1[k]/K0[k]))]);it.ms=2;it.pr=eqPr(it)}/* 第四十一轮:大师装备按最高系列重算(ms=2 = 已重算)*/if(!it||it.v8)return;const en=Math.min(ENMX,it.en||0);it.s=eqWhite(it.slot,it.tier,it.g);it.fg=0;greenRoll(it);it.ev=0;for(let l=1;l<=en;l++)it.ev+=enV(it.slot,l,0);it.en=en;delete it.eb;it.pr=eqPr(it);if(it.n)it.n=slRen(it.n);it.v8=1;it.v9=1}
 const curSer=()=>cur>=14?4:cur<=2?0:cur<=4?1:cur<=7?2:3;  // 第四十轮:第十一关掉机械系列  // 第六、七关也掉荒漠系列;第八关起掉雪原系列
 // 掉落:按当前关卡掉对应系列;第五关的发型/铠甲/戒指/耳坠随机带 5 种特性之一,武器没有特性
 function rollItem(t,g){const ks=Object.keys(SL),sl=ks[Math.random()*6|0];g=g!=null?g:curSer();
   return gen(sl,t!=null?t:rollQ(STK().tq),null,g,g>=2&&BODY.includes(sl)?TRK[Math.random()*5|0]:null)}  // 第十六轮:品质概率按星级(STARK.tq)
-function setTr(){const c={};for(const k of BODY){const it=EQ[k];if(it&&it.tr)c[it.tr]=(c[it.tr]||0)+1}return c}
+function setTr(){const c={};for(const k of TRS){const it=EQ[k];if(it&&it.tr)c[it.tr]=(c[it.tr]||0)+1}return c}
 function trv(k,c){const n=(c||setTr())[k]||0,q=TRT[k];return (n>=4?q[3]+q[4]:n>=2?q[3]:0)*trMul(k)}
+const trN=(k,c)=>(c||setTr())[k]||0,tr2=(k,c)=>trN(k,c)>=2?TRT[k][3]*trMul(k):0,tr4=(k,c)=>trN(k,c)>=4?TRT[k][4]*trMul(k):0,tr6=(k,c)=>trN(k,c)>=6;
+// 邪灵 4 件:技能伤害加成(按当前最大魔力,stats 里缓存 P.mpMax)
+function lingSkB(c){c=c||setTr();if(trN('ling',c)<4)return 0;return Math.min(LINGMX,(P&&P.mpMax||0)/LINGK/100)*trMul('ling')}
 // 第四十一轮:大师制作装备的特性效果翻倍(用户:「设定为其他特性的 1 倍」= 多 100%);混穿时按这个特性里大师件数的比例:全是大师 ×2,一半 ×1.5
 function trMul(k){let n=0,m=0;for(const s of BODY){const it=EQ[s];if(it&&it.tr==k){n++;if(it.ms)m++}}return n?1+m/n:1}
 function trCnt(k){return setTr()[k]||0}
@@ -609,8 +623,8 @@ function pctB(ks){const p={hp:0,atk:0,def:0,cr:0},L=[],H=hon();for(const k in p)
 const EQKS=()=>['head','body','ring','ear',P.mode];
 function stats(){const ks=EQKS(),g=eqSum(ks),Q=pctB(ks),c=setTr();
   const fl={hp:lv(BHP)+BHPL*(lvl-1)+g.hp,mp:lv(BMP)+g.mp,atk:lv(10)+g.atk,def:lv(3)+BDEF+g.def};  // 基础数值
-  const hp=Math.round(fl.hp*(1+Q.hp)*pb('hp')+sprV('hp')),am=1+atkTr(c,hp),cp=crdgP(g,c,Q);
-  return {hp,mp:Math.round(fl.mp*pb('mp')+sprV('mp')),atk:Math.round((fl.atk*(1+Q.atk)*pb('atk')*am+sprV('atk'))*(P.pAtk>0?1+petAtk():1)*(P.wy>0?1.3:1)),def:Math.round((fl.def*(1+Q.def)*pb('def')+sprV('def'))*(P.pDef>0?1+petDef():1)),
+  const hp=Math.round(fl.hp*(1+Q.hp)*pb('hp')+sprV('hp')),am=1+atkTr(c,hp),cp=crdgP(g,c,Q),mp=Math.round(fl.mp*(1+tr2('ling',c))*pb('mp')+sprV('mp'));if(P)P.mpMax=mp;
+  return {hp,mp,atk:Math.round((fl.atk*(1+Q.atk)*pb('atk')*am+sprV('atk')+(tr6('xue',c)?hp*XUE6:0))*(P.pAtk>0?1+petAtk():1)*(P.wy>0?1.3:1)),def:Math.round((fl.def*(1+Q.def+tr2('yu',c))*pb('def')+sprV('def'))*(P.pDef>0?1+petDef():1)),
     cr:+(cp.cr.reduce((s,q)=>s+q[1],0)).toFixed(1),dg:Math.min(DGMAX,+(cp.dg.reduce((s,q)=>s+q[1],0)).toFixed(1))}}
 const BHP=220,BMP=60,BDEF=20,BHPL=20;  // 第三十三轮:基础生命 140 → 220、基础防御 +20、每升一级生命再 +20(第二十二轮:60 → 140)
 const DGMAX=35;  // 暴击率不设上限;闪避率上限 35%(第十六轮:45 → 35,闪避太高会让首领招式没有威胁)
@@ -619,7 +633,9 @@ function crdgP(g,c,Q){Q=Q||pctB(EQKS());const r=v=>+v.toFixed(1),cb=g.cr/CRPT,cr
   if(Q.cr&&cb)cr.push(['百分比加成 +'+Math.round(Q.cr*100)+'%',r(cb*Q.cr)]);if(pl('crt'))cr.push(['会心',pl('crt')*2]);if(nl)cr.push(['怒雷套',r(nl*100)]);if(sprV('cr'))cr.push(['精灵',sprV('cr')]);if(godOn('cr'))cr.push(['上帝卡牌',25]);
   if(nj>=2)dg.push(['神技套',r((nj>=4?JIDG[0]+JIDG[1]:JIDG[0])*trMul('ji'))]);if(sprV('dg'))dg.push(['精灵',sprV('dg')]);return {cr,dg}}
 function atkTr(c,hp){let a=0;const nj=c.ji||0;if(nj>=2)a+=Math.min(P.combo||0,nj>=4?15:12)*(nj>=4?.02:.01)*trMul('ji');
-  const nx=c.xue||0;if(nx>=2&&hp>0)a+=(nx>=4?.6:.25)*trMul('xue')*Math.max(0,Math.min(1,1-P.hp/hp));return a}
+  const nx=c.xue||0;if(nx>=2&&hp>0)a+=(nx>=4?.6:.25)*trMul('xue')*Math.max(0,Math.min(1,1-P.hp/hp));
+  if(nj>=6)a+=Math.min(JI6N,P.jk||0)*JI6;  // 第四十二轮:神技 6 件击杀层数
+  return a}
 // 2026-10-13 第十三轮:关卡里只飘数字(伤害 / 回复),文字提示(技能名、状态、MISS、魔力不足……)都不显示;k:'d' 伤害 · 'c' 暴击
 function tx(s,px,py,c,k){if(st=='play'&&!k&&!/^[+-]?\d+$/.test(String(s)))return;TX.push({s,x:px,y:py,t:.9,c,k})}
 function addItem(it){if(BAG.length<BAGN){BAG.push(it);tx('获得 '+it.n,P.x-20,P.y-20,it.tr?TRT[it.tr][1]:TR[it.tier][1]);return 1}tx('背包已满',P.x-14,P.y-20,'#ff8787','m');return 0}  // 第三十三轮:背包满了不自动出售、也不进仓库
@@ -675,7 +691,7 @@ const MISC={add:['合成添加剂','熔炉合成强化石时,每次合成要放 
   gift:['小礼袋','在晨曦镇和 NPC 对话打开面板后赠送,每个好感度 +1(上限 999)。好感度满 50 后,每天可以找这位 NPC 领取一次奖励。关卡里掉落,也可以在商城购买。','',5],
   food:['宠物饲料','喂给出战的钢盔小鸡:获得当前等级升级所需经验的 20%(满级后不能用)。','',0,'🍞 喂给小鸡'],
   lk1:['低级幸运宝石','强化时在强化师那里选用,本次强化成功率 +25%。','',0],lk2:['中级幸运宝石','强化时在强化师那里选用,本次强化成功率 +35%。','',0],
-  dbl:['双倍爆率卡','使用后 30 分钟内,关卡掉落几率翻倍(装备、属性石、小礼袋、强化石)。村长的好感奖励。','',0,'✨ 使用']};
+  dbl:['双倍爆率卡','使用后 30 分钟内,关卡里所有掉落物的掉落几率翻倍(装备、属性石、小礼袋、强化石、蛇蛋、上帝卡牌、合成添加剂、怪物技能石、宠物蛋、360 小鸟碎片……;必掉的东西不变)。村长的好感奖励。','',0,'✨ 使用']};
 function itemUse(id){if(!(MAT[id]>0))return '';if(/^ms\d+$/.test(id)&&MSS[id.slice(2)])return msEquip(id);
   if(id=='dbl'){R19.dbl=Math.max(Date.now(),R19.dbl)+30*60000;MAT.dbl--;sfx('lvl');save();return '✨ 双倍爆率生效,还剩 '+Math.ceil((R19.dbl-Date.now())/60000)+' 分钟'}
   if(id=='food'){if(!PET.own)return '还没有宠物(钢盔小鸡)';if(PET.lv>=20)return '小鸡已经满级了';MAT.food--;PET.exp+=Math.ceil(petNeed(PET.lv)*.2);petLv();sfx('buff');save();return '🍞 小鸡吃得很开心:Lv '+PET.lv+' · 经验 '+PET.exp+' / '+petNeed(PET.lv)}
@@ -702,7 +718,8 @@ function palDraw(){if(!PAL)return;const p=PAL,t=performance.now()/1000,sx=p.x-ca
   x.save();x.translate(Math.round(sx+(p.at>0?p.f*6:0)),GY);x.scale(p.f*.8,.8);try{lvsBoss(p.k,0,0,t)}catch(err){}x.restore();CT('好伙计 · '+PALN[p.k-1],sx,GY-86,7,'#ffe066','center',2,'#1e1829')}
 function godHud(){const L=[];if(godOn('cr'))L.push('暴击升级 '+godLeft('cr'));if(godOn('pal'))L.push('好伙计 '+godLeft('pal'));L.forEach((s,i)=>CT('上帝卡牌 · '+s,8,96+i*11,8,'#ffe066','left',2,'#1e1829'))}
 // ===== 第四十一轮:怪物技能石(关卡首领 20% 掉落,每个首领一种;神秘副本的首领不掉)=====
-// 在背包「📦 道具」里点「装备到武器」(R19.mse = 道具 id,同时只能装 1 颗,剑和法杖共用);再点一次卸下
+// 第四十二轮(用户):背包里左键点技能石 → 选「嵌入剑 / 嵌入法杖」;每把武器嵌 1 颗(存在武器上 it.mss,嵌入时消耗 1 颗,换下 / 取下的放回背包),两把武器各自蓄力(MSTC[剑 / 法杖]),N 放当前武器上的那颗
+// 旧存档 R19.mse(只能装 1 颗、不消耗)在 msMig 里换成嵌在剑上
 // 蓄力:主角自己的攻击每命中一次 +1(每 0.1 秒最多 1 次,召唤物 / 宠物 / 时装的伤害不算),攒满 MSCN 次后按 N:
 //   身后浮现那个首领的虚影(选关卡片上的像素形象),放一次它的招牌技能;伤害 = 主角攻击 × 倍率,不加连击、不再蓄力。进关卡时蓄力清零
 // MSS[关卡 cur] = [首领, 技能名, 说明, 类型, 倍率, 参数, 特效]
@@ -718,16 +735,21 @@ const MSS={1:['铁角牛魔','跃起震地','以自己为中心 260 像素内的
  9:['熔狱魔神','火山爆发','面前落下 8 颗陨石,每颗砸中 攻击×3(小范围)','meteor',3,8,'warm-explosion'],
  10:['归蝇','黑翼俯冲','虚影从屏幕一边冲到另一边,屏幕里的敌人受到 攻击×6','dash',6,0,'v-wing'],
  14:['钢铁暴君','导弹齐射','10 枚导弹砸向屏幕里的敌人,每枚 攻击×2.5(小范围)','meteor',2.5,10,'x-boom'],
- 15:['夜王','王威震慑','屏幕里所有敌人眩晕 2.5 秒并受到 攻击×4','stunall',4,2.5,'mass-release']};
-for(const k in MSS){const d=MSS[k];MISC['ms'+k]=['怪物技能石 · '+d[0],`装备到武器上(同时只能装 1 颗)。攻击敌人蓄力 ${MSCN} 次后按 <b>N</b>:召唤「${d[0]}」的虚影放出「${d[1]}」——${d[2]}。${k<=10?'第 '+k+' 关':'第 '+(k-3)+' 关'}首领 ${MSDR*100}% 掉落。`,'',0,'⚔️ 装备到武器'];MENI.P['ms'+k]=41}
-let MSTC=0,MSCT=0,MSQ=[],MSG=null;  // 蓄力次数 / 上次蓄力时间 / 排队的伤害事件 / 虚影
-const msOn=()=>R19.mse&&MSS[R19.mse.slice(2)]&&MAT[R19.mse]>0?MSS[R19.mse.slice(2)]:null;
-function msEquip(id){if(R19.mse==id){R19.mse='';save();return '卸下了 '+MISC[id][0]}R19.mse=id;MSTC=0;save();return '⚔️ '+MISC[id][0]+' 装备到了武器上:攻击敌人蓄力 '+MSCN+' 次后按 N 释放'}
-function mscAdd(){if(!msOn()||st!='play'||MSTC>=MSCN||GT-MSCT<.1)return;MSCT=GT;MSTC++;if(MSTC>=MSCN){tx('技能石蓄力完成!按 N',P.x-30,P.y-40,'#ffe066');sfx('buff')}}
+ 15:['夜王','王威震慑','屏幕里所有敌人眩晕 2.5 秒并受到 攻击×4','stunall',4,2.5,'mass-release'],
+ 16:['焚天炎君','陨火雨','10 颗火球砸向屏幕里的敌人,每颗 攻击×2.8(小范围)','meteor',2.8,10,'warm-explosion']};  // 第四十二轮
+for(const k in MSS){const d=MSS[k];MISC['ms'+k]=['怪物技能石 · '+d[0],`在背包里左键点它,选择嵌入剑或法杖(每把武器嵌 1 颗,两把武器各自蓄力)。用嵌着它的武器攻击敌人蓄力 ${MSCN} 次后按 <b>N</b>:召唤「${d[0]}」的虚影放出「${d[1]}」——${d[2]}。${k<=10?'第 '+k+' 关':'第 '+(k-3)+' 关'}首领 ${MSDR*100}% 掉落。`,'',0];MENI.P['ms'+k]=41}
+let MSTC={sword:0,staff:0},MSCT=0,MSQ=[],MSG=null;  // 两把武器各自的蓄力次数 / 上次蓄力时间 / 排队的伤害事件 / 虚影
+function msMig(){if(!R19.mse)return;const id=R19.mse,w=EQ.sword;R19.mse='';if(w&&!w.mss&&MAT[id]>0){w.mss=id;MAT[id]--}}
+const msOf=it=>it&&it.mss&&MSS[it.mss.slice(2)]?MSS[it.mss.slice(2)]:null;
+const msOn=()=>{msMig();return msOf(EQ[P.mode])};
+function msEquip(id,sl){msMig();if(!sl)return '在背包里左键点技能石,选择嵌入剑或法杖';const w=EQ[sl];if(!w)return '还没有装备'+SL[sl][0];if(!(MAT[id]>0))return '';if(w.mss==id)return '这把'+SL[sl][0]+'已经嵌着它了';
+  const old=w.mss;MAT[id]--;if(old)MAT[old]=(MAT[old]|0)+1;w.mss=id;MSTC[sl]=0;sfx('fuse');save();return '💎 '+MISC[id][0]+' 嵌入了'+SL[sl][0]+(old?'(换下的「'+MISC[old][0]+'」放回了背包)':'')+':用'+SL[sl][0]+'攻击敌人蓄力 '+MSCN+' 次后按 N 释放'}
+function msOff(it){if(!it||!it.mss)return '';const id=it.mss;delete it.mss;MAT[id]=(MAT[id]|0)+1;for(const k in MSTC)if(EQ[k]===it)MSTC[k]=0;return '取下了 '+MISC[id][0]+',放回背包'}
+function mscAdd(){const s=P.mode;if(!msOn()||st!='play'||MSTC[s]>=MSCN||GT-MSCT<.1)return;MSCT=GT;MSTC[s]++;if(MSTC[s]>=MSCN){tx('技能石蓄力完成!按 N',P.x-30,P.y-40,'#ffe066');sfx('buff')}}
 const msTg=()=>allTg().filter(e=>e.x+e.w>cam&&e.x<cam+VW),msAt=m=>Math.max(1,Math.round(stats().atk*m*rnd(.9,1.1)));
 const msAfter=(t,f)=>MSQ.push({t,f});
-function mscCast(){const d=msOn();if(!d){tx('没有装备怪物技能石',P.x-30,P.y-30,'#adb5bd');return}if(MSTC<MSCN){tx('技能石蓄力 '+MSTC+' / '+MSCN,P.x-30,P.y-30,'#adb5bd');return}
-  MSTC=0;const n=+R19.mse.slice(2),[nm_,sk,,ty,m,a,fx]=d,f=P.f,cx=P.x+12;MSG={n,t:0,x:cx-f*46,f};banner(nm_+' · '+sk);sfx('buff');flash('230,210,255',.2);
+function mscCast(){const d=msOn(),s=P.mode;if(!d){tx('当前武器没有嵌入怪物技能石',P.x-30,P.y-30,'#adb5bd','m');return}if(MSTC[s]<MSCN){tx('技能石蓄力 '+MSTC[s]+' / '+MSCN,P.x-30,P.y-30,'#adb5bd','m');return}
+  MSTC[s]=0;const n=+EQ[s].mss.slice(2),[nm_,sk,,ty,m,a,fx]=d,f=P.f,cx=P.x+12;MSG={n,t:0,x:cx-f*46,f};banner(nm_+' · '+sk);sfx('buff');flash('230,210,255',.2);
   const hit=(e,k,v)=>{if(!e||e.hp<=0||e.ug)return;VFX.spawn(k||fx,e.x+e.w/2,e.y+e.h/2,{f,s:1.4});sDeal(e,msAt(v||m))};
   const boom=(px,r)=>{VFX.spawn(fx,px,GY-14,{s:1.5});shake=Math.max(shake,.15);for(const e of msTg())if(Math.abs(e.x+e.w/2-px)<e.w/2+r)sDeal(e,msAt(m))};
   if(ty=='aoe')msAfter(.45,()=>{VFX.spawn(fx,cx,GY,{s:2.2});shake=.4;for(const e of allTg())if(Math.abs(e.x+e.w/2-cx)<a+e.w/2){sDeal(e,msAt(m));bigStun(e,1)}});
@@ -741,7 +763,7 @@ function mscCast(){const d=msOn();if(!d){tx('没有装备怪物技能石',P.x-30
   else if(ty=='dash')for(let i=0;i<6;i++)msAfter(.3+i*.08,()=>{VFX.spawn(fx,cam+(f>0?i:5-i)*VW/5,P.y,{f,s:1.6});if(i==5)for(const e of msTg())sDeal(e,msAt(m))})}
 function mscStep(dt){if(MSG){MSG.t+=dt;if(MSG.t>1.6)MSG=null}for(const q of MSQ){q.t-=dt;if(q.t<=0&&!q.d){q.d=1;try{q.f()}catch(err){}}}MSQ=MSQ.filter(q=>!q.d)}
 function mscDraw(){if(!MSG)return;const g=MSG,t=performance.now()/1000,a=g.t<.3?g.t/.3:g.t>1.2?Math.max(0,(1.6-g.t)/.4):1;x.save();x.globalAlpha=.75*a;x.translate(Math.round(g.x-cam),GY);x.scale(g.f*.8,.8);try{lvsBoss(g.n,0,0,t)}catch(err){}x.restore()}
-function mscHud(){const d=msOn();if(!d||st!='play')return;const ok=MSTC>=MSCN;CT('技能石 · '+d[0]+(ok?' · 按 N 释放!':' '+Math.floor(MSTC/MSCN*100)+'%'),8,300,8,ok?'#ffe066':'#d0bfff','left',2,'#1e1829')}
+function mscHud(){const d=msOn();if(!d||st!='play')return;const c=MSTC[P.mode],ok=c>=MSCN;CT(SL[P.mode][0]+'的技能石 · '+d[0]+(ok?' · 按 N 释放!':' '+Math.floor(c/MSCN*100)+'%'),8,300,8,ok?'#ffe066':'#d0bfff','left',2,'#1e1829')}
 // 幸运宝石:useLk = 选中的档次 1 低级 / 2 中级 / 3 高级(高级 = 原来的高级幸运石 LUCK)
 const LKS=[null,['lk1','低级幸运宝石',.25],['lk2','中级幸运宝石',.35],['luck','高级幸运宝石',.5]];
 const lkHave=i=>i==3?LUCK:MAT[LKS[i][0]]|0,lkB=()=>useLk&&lkHave(useLk)>0?LKS[useLk][2]:0,lkUse=i=>{if(i==3)LUCK--;else MAT[LKS[i][0]]--};
@@ -776,9 +798,12 @@ function rMallIt(){mrDay();const ic=k=>mniEm(k=='ats0'?'A0':k=='ats1'?'A1':k=='l
 // ===== 第三十三轮:制作材料 · 洗脸券 · 增幅宝石 · 制作书 · 锻造石(熔炉)=====
 // 材料:[名称, 商城(g 金币 / k 击杀点), 价格];图标都在 MENI 图集(7Soul1 496 RPG icons,CC0,build_meni.py 第 26 格起)
 const MATD={steel:['低碳钢','g',800],rhino:['犀牛皮','g',800],silk:['绢帛','g',600],gthr:['金丝线','g',1200],flax:['亚麻','k',20],glue:['动物皮胶','k',30]};
-Object.assign(MENI.P,{steel:26,rhino:27,silk:28,gthr:29,flax:30,glue:31,wash:32,amp_cr:33,amp_atk:34,amp_hp:35,amp_def:36,book:37,fg1:38,fg2:38,fg3:38,fg4:38,fg5:38});
+Object.assign(MENI.P,{steel:26,rhino:27,silk:28,gthr:29,flax:30,glue:31,wash:32,amp_cr:33,amp_atk:34,amp_hp:35,amp_def:36,book:37,fg1:38,fg2:38,fg3:38,fg4:38,fg5:38,b360:42,hwq:43});
 const FGN=['','一','二','三','四','五'];
 for(const k in MATD)MISC[k]=[MATD[k][0],`装备和其他道具的制作材料,在 🔥 熔炉制作时使用。在 🏪 商城的${MATD[k][1]=='g'?'金币':'击杀点'}商店购买。`,'',MATD[k][1]=='g'?Math.floor(MATD[k][2]/4):0];
+// 第四十二轮:360 小鸟碎片(第十三关首领掉落,真~火之武器的材料)· 武器幻化券(熔炉「武器幻化」:给剑 / 法杖加一种特性,只算套装件数,不加属性)
+MISC.b360=['360小鸟碎片','第十三关「熔心火山」首领 35% 掉落(双倍爆率卡翻倍)。制作「真~火之大剑 / 真~火之法杖」的材料。','',0];
+MISC.hwq=['武器幻化券','在 🔥 熔炉「武器幻化」里使用:给剑或法杖加上一种特性(怒雷 / 圣愈 / 邪灵 / 神技 / 热血,自己选),只算套装件数、不增加属性;已经有特性的武器会换成新的。用「武器幻化券」制作书在熔炉「道具制作」页制作。','',0];
 MISC.wash=['洗脸券','在 🔥 熔炉「洗练」里使用:把一件装备的 3 条绿字全部重新随机一次(种类和数值都重新随机)。击杀点商店购买。','',0];
 for(const k in AMP)MISC['amp_'+k]=[AMP[k][0],`增幅宝石:在 🔥 熔炉「增幅宝石」里镶嵌到装备、时装或翅膀上(8 个部位都能用),${AMP[k][2]} +${Math.round(AMP[k][1]*100)}%(加在基础数值上)。每件只能镶 1 颗,新的会覆盖旧的,不能拆下。击杀点商店购买。`,'',0];
 for(let k=1;k<=FGMX;k++)MISC['fg'+k]=[FGN[k]+'级锻造石',`在 🔥 熔炉「锻造」里使用:把锻造 ${k-1} 级的装备提升到 ${k} 级(白字 +${k*FGK*100}%)。用「${FGN[k]}级锻造」制作书在熔炉制作。`,'',0];
@@ -787,19 +812,24 @@ KPFIX.push('flax','glue','wash','amp_cr','amp_atk','amp_hp','amp_def');
 // 制作书(买一次永久学会,存在 R19.rc):大师头饰 / 战甲 / 项链 / 指环 × 五种特性;一~五级锻造
 const MSL=['head','body','ear','ring'],MSN={head:'头饰',body:'战甲',ear:'项链',ring:'指环'};
 const RCP={};for(const s of MSL)for(const t of TRK)RCP['m'+s+'_'+t]={n:'大师'+MSN[s]+' · '+TRT[t][0],kp:150,s,t};for(let k=1;k<=FGMX;k++)RCP['f'+k]={n:FGN[k]+'级锻造',kp:60*k,k};
+RCP.xf_sword={n:'真~火之大剑',kp:300,fw:'sword'};RCP.xf_staff={n:'真~火之法杖',kp:300,fw:'staff'};RCP.hw={n:'武器幻化券',kp:120,hw:1};  // 第四十二轮
 // 配方:材料数量 + 金币(add = 合成添加剂)
 const MREC={head:{steel:2,silk:3,gthr:2,flax:4,glue:2,add:1,gold:30000},body:{steel:4,rhino:3,gthr:1,flax:3,glue:3,add:1,gold:40000},ear:{steel:1,silk:2,gthr:4,flax:2,glue:2,add:1,gold:30000},ring:{steel:3,silk:1,gthr:3,flax:2,glue:2,add:1,gold:30000}};
 const FREC=k=>({steel:2*k,rhino:k,gthr:k,glue:k,gold:3000*k});  // 第三十七轮:金币 5000k → 3000k
-const recOf=id=>{const r=RCP[id];return r.s?MREC[r.s]:FREC(r.k)},rcOwn=id=>R19.rc.includes(id);
+const XFREC={steel:4,gthr:3,glue:3,add:2,b360:3,gold:60000},HWREC={steel:2,silk:2,gthr:2,glue:2,add:1,gold:20000};  // 第四十二轮:真~火之武器 / 武器幻化券
+const recOf=id=>{const r=RCP[id];return r.s?MREC[r.s]:r.fw?XFREC:r.hw?HWREC:FREC(r.k)},rcOwn=id=>R19.rc.includes(id);
 const matHave=k=>k=='gold'?gold:MAT[k]|0,matName=k=>k=='add'?'合成添加剂':MISC[k]?MISC[k][0]:k;
+const rcIc=id=>{const r=RCP[id];return r.s?eqImg(gen(r.s,3,null,3,r.t,1)):r.fw?eqImg(gen(r.fw,3,null,4,null,1,0,2)):r.hw?mniEm('hwq'):mniEm('fg'+r.k)};
 function rcBuy(id){const r=RCP[id];if(!r||rcOwn(id))return '';if(KP<r.kp)return '击杀点不足';KP-=r.kp;KPS+=r.kp;R19.rc.push(id);sfx('coin');save();return '📖 学会了「'+r.n+'」,去 🔥 熔炉制作'}
 function matBuy(k,n){const d=MATD[k];if(!d||d[1]!='g')return '';const c=d[2]*n;if(gold<c)return '金币不足';gold-=c;MAT[k]=(MAT[k]|0)+n;sfx('coin');save();return '购买了 '+d[0]+' ×'+n+',放进背包「📦 道具」页'}
 // 商城(击杀点)里的制作书货架:大师装备 4 部位 × 5 特性 + 一~五级锻造
 function rcShop(){const b=id=>{const r=RCP[id],o=rcOwn(id);return `<button data-p="rb_${id}" ${o||KP<r.kp?'disabled':''} title="${r.n}">${r.t?`<b style="color:${TRT[r.t][1]}">${TRT[r.t][0]}</b>`:FGN[r.k]+'级'} ${o?'✓':'⚔️ '+r.kp}</button>`};
   return `<h4>📖 制作书 <span class="tag">买一次永久学会,在 🔥 熔炉制作</span></h4>`+MSL.map(s=>`<div class="row"><span>${mniEm('book')}<b>大师${MSN[s]}</b></span><span style="margin-left:auto">${TRK.map(t=>b('m'+s+'_'+t)).join(' ')}</span></div>`).join('')+
-    `<div class="row"><span>${mniEm('book')}<b>锻造</b></span><span class="tag">制作锻造石(提升白字)</span><span style="margin-left:auto">${[1,2,3,4,5].map(k=>b('f'+k)).join(' ')}</span></div>`}
+    `<div class="row"><span>${mniEm('book')}<b>锻造</b></span><span class="tag">制作锻造石(提升白字)</span><span style="margin-left:auto">${[1,2,3,4,5].map(k=>b('f'+k)).join(' ')}</span></div>`+
+    `<div class="row"><span>${mniEm('book')}<b>真~火之武器</b></span><span class="tag">比火之武器强 20%(火之武器 = 机械史诗 +10%),要 360 小鸟碎片</span><span style="margin-left:auto">${['xf_sword','xf_staff'].map(id=>`<button data-p="rb_${id}" ${rcOwn(id)||KP<RCP[id].kp?'disabled':''}>${SL[RCP[id].fw][0]} ${rcOwn(id)?'✓':'⚔️ '+RCP[id].kp}</button>`).join(' ')}</span></div>`+
+    `<div class="row"><span>${mniEm('book')}<b>武器幻化券</b></span><span class="tag">给剑 / 法杖加一种特性(凑 6 件套),不加属性</span><span style="margin-left:auto"><button data-p="rb_hw" ${rcOwn('hw')||KP<RCP.hw.kp?'disabled':''}>${rcOwn('hw')?'✓ 已学会':'⚔️ '+RCP.hw.kp}</button></span></div>`}
 // 熔炉界面状态:t 页签 · rc 选中的配方 · e 选中的装备(b序号 / e:部位 / k:时装id)· a 选中的增幅宝石 · pg 配方页码 · ok 覆盖确认
-const FZ={t:0,rc:null,e:null,a:null,pg:0,ok:0},FZT=['装备制作','锻造石制作','锻造','洗练','增幅宝石','属性石','强化石合成'];
+const FZ={t:0,rc:null,e:null,a:null,pg:0,ok:0},FZT=['装备制作','道具制作','锻造','洗练','增幅宝石','属性石','强化石合成','武器幻化'];
 function fzAct(r){if(!/^z[a-z]/.test(r))return 0;
   if(r.startsWith('zt')){FZ.t=+r.slice(2);FZ.rc=null;FZ.e=null;FZ.a=null;FZ.pg=0;FZ.ok=0}
   else if(r.startsWith('zs_')){FZ.rc=r.slice(3);FZ.ok=0}else if(r.startsWith('zp'))FZ.pg=Math.max(0,FZ.pg+(+r.slice(2)))
@@ -808,9 +838,13 @@ function fzAct(r){if(!/^z[a-z]/.test(r))return 0;
   else if(r=='zgo')fmsg=fzGo();return 1}
 function fzGo(){const t=FZ.t;
   if(t<=1){const id=FZ.rc,R=id&&RCP[id];if(!R)return '先在右边选一个配方';if(!rcOwn(id))return '还没学会「'+R.n+'」(在 🏪 商城击杀点商店购买制作书)';const q=recOf(id);for(const k in q)if(matHave(k)<q[k])return matName(k=='gold'?'':k)+(k=='gold'?'金币':'')+'不足';
-    if(R.s&&BAG.length>=BAGN)return '背包已满';for(const k in q){if(k=='gold')gold-=q[k];else MAT[k]-=q[k]}
+    if((R.s||R.fw)&&BAG.length>=BAGN)return '背包已满';for(const k in q){if(k=='gold')gold-=q[k];else MAT[k]-=q[k]}
+    if(R.fw){const it=fireW(R.fw,2);BAG.push(it);sfx('fuse');save();return '🔥 制作成功:'+it.n+'(已放进背包)'}
+    if(R.hw){MAT.hwq=(MAT.hwq|0)+1;sfx('fuse');save();return '🔥 制作成功:武器幻化券(在「武器幻化」页使用)'}
     if(R.s){const it=gen(R.s,3,'大师'+MSN[R.s]+'·'+TRT[R.t][0],3,R.t,0,1);BAG.push(it);sfx('fuse');save();return '🔥 制作成功:'+it.n+'(已放进背包)'}MAT['fg'+R.k]=(MAT['fg'+R.k]|0)+1;sfx('fuse');save();return '🔥 制作成功:'+MISC['fg'+R.k][0]}
   const it=fIt(FZ.e);if(!it)return '先在右边选一件装备';
+  if(t==7){if(it.cos||(it.slot!='sword'&&it.slot!='staff'))return '只能幻化剑或法杖';const a=FZ.a;if(!a||!TRT[a])return '先选一种特性';if(it.tr==a)return '这把武器已经是「'+TRT[a][0]+'」了';if(!(MAT.hwq>0))return '需要 1 张武器幻化券';if(it.tr&&!FZ.ok){FZ.ok=1;return ''}
+    MAT.hwq--;it.tr=a;FZ.ok=0;sfx('fuse');save();return '✨ 幻化成功:'+nm(it)+' 带上了「'+TRT[a][0]+'」特性(套装件数 +1)'}
   if(t==2){const k=(it.fg||0)+1;if(k>FGMX)return '已经锻造到最高 '+FGMX+' 级';if(!(MAT['fg'+k]>0))return '需要 1 颗'+MISC['fg'+k][0];MAT['fg'+k]--;it.fg=k;sfx('fuse');save();return '🔨 锻造成功:'+nm(it)+' 锻造 '+k+' 级('+(it.cos?cosW(it.slot,k):'白字 +'+k*FGK*100+'%')+')'}
   if(t==3){if(it.cos)return '时装 / 翅膀没有绿字';if(!(MAT.wash>0))return '需要 1 张洗脸券';MAT.wash--;greenRoll(it);sfx('buff');save();return '🧼 洗练完成:'+it.gr.map(([k,v])=>NM[k]+' +'+v).join(' · ')}
   if(t==4){const a=FZ.a;if(!a||!AMP[a])return '先选一种增幅宝石';if(!(MAT['amp_'+a]>0))return '没有'+AMP[a][0];if(it.amp&&!FZ.ok){FZ.ok=1;return ''}MAT['amp_'+a]--;it.amp=a;FZ.ok=0;sfx('fuse');save();return '💎 镶嵌成功:'+nm(it)+' '+AMP[a][0]}
@@ -822,14 +856,17 @@ function rFuse(){const t=FZ.t;let h=hd('🔥 熔炉')+fm()+`<div class="fzt">${F
   const ring=(center,mats,goldN,btn,note)=>{const n=mats.length;return `<div class="fzl"><div class="ring">${mats.map((m,i)=>{const a=-Math.PI/2+i*2*Math.PI/Math.max(n,1),ok=m.have>=m.need;return `<div class="rm" style="left:${50+40*Math.cos(a)}%;top:${50+40*Math.sin(a)}%"><span class="cl">${m.ic}<i class="cn ${ok?'':'no'}">${m.have}/${m.need}</i></span><small>${m.n}</small></div>`}).join('')}<div class="rcn"><span class="cl">${center||''}</span></div></div>`+
     `<div class="fzg">${goldN?`需要金币 <b style="color:${gold>=goldN?'inherit':'#c92a2a'}">${goldN}</b>`:'&nbsp;'}</div><div class="fzb">${btn}<button data-p="zbuy">🏪 购买</button></div>${note?`<div class="tag">${note}</div>`:''}</div>`};
   let L='',R='';
-  if(t<=1){const ids=Object.keys(RCP).filter(id=>t==0?RCP[id].s:RCP[id].k),PG=4,np=Math.ceil(ids.length/PG);FZ.pg=Math.min(FZ.pg,np-1);
-    const cic=id=>{const r=RCP[id];return r.s?eqImg(gen(r.s,3,null,3,r.t,1)):mniEm('fg'+r.k)};
+  if(t<=1){const ids=Object.keys(RCP).filter(id=>t==0?RCP[id].s||RCP[id].fw:RCP[id].k||RCP[id].hw),PG=4,np=Math.ceil(ids.length/PG);FZ.pg=Math.min(FZ.pg,np-1);
+    const cic=rcIc;
     R=`<div class="fzcs">${ids.slice(FZ.pg*PG,FZ.pg*PG+PG).map(id=>`<button class="fzc${FZ.rc==id?' on':''}" data-p="zs_${id}"><b>${RCP[id].n}</b><span class="fzi">${cic(id)}</span><span class="tag">${rcOwn(id)?'✅ 已学会':'🔒 未学会 · 制作书 ⚔️ '+RCP[id].kp}</span></button>`).join('')}</div><div class="fzpg"><button data-p="zp-1" ${FZ.pg>0?'':'disabled'}>上一页</button> ${FZ.pg+1} / ${np} <button data-p="zp1" ${FZ.pg<np-1?'':'disabled'}>下一页</button></div>`;
     const id=FZ.rc,q=id?recOf(id):null;
     L=ring(id?cic(id):'',q?Object.keys(q).filter(k=>k!='gold').map(k=>({ic:k=='add'?mniEm('add'):mniEm(k),n:matName(k),have:matHave(k),need:q[k]})):[],q?q.gold:0,`<button data-p="zgo" ${id&&rcOwn(id)?'':'disabled'}>🔨 制作</button>`,
-      id?(rcOwn(id)?(t==0?'大师装备:史诗品质,白字和绿字是同级(雪原史诗)的 1.2 倍,带「'+TRT[RCP[id].t][0]+'」特性。':'锻造石:在「锻造」页把装备的白字提升一级。'):'还没学会,先在 🏪 商城击杀点商店买「'+RCP[id].n+'」制作书。'):'在右边选一个配方。制作书买一次永久学会;材料在商城购买(低碳钢 / 犀牛皮 / 绢帛 / 金丝线:金币商店 · 亚麻 / 动物皮胶:击杀点商店)。')}
+      id?(rcOwn(id)?(RCP[id].fw?'真~火之武器:史诗品质,白字和绿字是机械史诗的 1.32 倍(火之武器的 1.2 倍)。':RCP[id].hw?'武器幻化券:在「武器幻化」页给剑 / 法杖加一种特性。':t==0?'大师装备:史诗品质,白字和绿字是最高系列史诗的 1.2 倍,带「'+TRT[RCP[id].t][0]+'」特性。':'锻造石:在「锻造」页把装备的白字提升一级。'):'还没学会,先在 🏪 商城击杀点商店买「'+RCP[id].n+'」制作书。'):'在右边选一个配方。制作书买一次永久学会;材料在商城购买(低碳钢 / 犀牛皮 / 绢帛 / 金丝线:金币商店 · 亚麻 / 动物皮胶:击杀点商店)。')}
   else{const it=fIt(FZ.e),pk=(q,r)=>`<button class="pk${FZ.e==r?' on':''}" data-p="ze_${r}" style="border-color:${q.cos?'#f783ac':TR[q.tier][1]}" title="${nm(q)}">${q.cos?'<span style="font-size:22px">'+COSD[q.cos].ic+'</span>':eqImg(q)}${q.en?'<sup>+'+q.en+'</sup>':''}${t==2&&q.fg?`<i class="tm" style="background:#fab005">锻${q.fg}</i>`:''}${t==4&&q.amp?'<i class="tm" style="background:#e64980">◆</i>':''}</button>`;
-    R=`<div class="tag">已穿戴</div><div class="row" style="border:0">${ALL.map(k=>EQ[k]?pk(EQ[k],'e:'+k):'').join('')||'<span class="tag">无</span>'}</div>`+(t==4||t==2?`<div class="tag">时装 / 翅膀</div><div class="row" style="border:0">${OWN.map(id=>pk(cosIt(id),'k:'+id)).join('')||'<span class="tag">无</span>'}</div>`:'')+`<div class="tag">背包</div><div class="row" style="border:0">${BAG.map((q,i)=>pk(q,'b'+i)).join('')||'<span class="tag">空</span>'}</div>`+(it?`<p><b style="color:${it.cos?'#f783ac':TR[it.tier][1]}">${nm(it)}</b><br>${ST(it)}</p>`:'');
+    const wOK=q=>t!=7||q.slot=='sword'||q.slot=='staff';  // 武器幻化:只列剑 / 法杖
+    R=`<div class="tag">已穿戴</div><div class="row" style="border:0">${ALL.map(k=>EQ[k]&&wOK(EQ[k])?pk(EQ[k],'e:'+k):'').join('')||'<span class="tag">无</span>'}</div>`+(t==4||t==2?`<div class="tag">时装 / 翅膀</div><div class="row" style="border:0">${OWN.map(id=>pk(cosIt(id),'k:'+id)).join('')||'<span class="tag">无</span>'}</div>`:'')+`<div class="tag">背包</div><div class="row" style="border:0">${BAG.map((q,i)=>wOK(q)?pk(q,'b'+i):'').join('')||'<span class="tag">空</span>'}</div>`+(it?`<p><b style="color:${it.cos?'#f783ac':TR[it.tier][1]}">${nm(it)}</b><br>${ST(it)}</p>`:'');
+    if(t==7){const a=FZ.a,w=it&&!it.cos&&(it.slot=='sword'||it.slot=='staff');R=`<div class="row" style="border:0">${TRK.map(k=>`<button class="${a==k?'on':''}" data-p="za_${k}"><b style="color:${TRT[k][1]}">${TRT[k][0]}</b></button>`).join('')} <span class="tag">选一种特性</span></div>`+(a&&TRT[a]?`<div class="tag">${trDesc(a)}</div>`:'')+R;
+      L=ring(w?eqImg(it):'',w?[{ic:mniEm('hwq'),n:'武器幻化券',have:MAT.hwq|0,need:1}]:[],0,`<button data-p="zgo" ${w&&a&&MAT.hwq>0?'':'disabled'}>${w&&it.tr&&FZ.ok?'确定替换':'✨ 幻化'}</button>`,w&&it.tr&&FZ.ok?`<b style="color:#c92a2a">这把武器已经是「${TRT[it.tr][0]}」,幻化后会换成新的特性,确定吗?</b>`:'给剑或法杖加上一种特性:只算套装件数(头饰 / 战甲 / 戒指 / 项链 + 剑 + 法杖,最多 6 件),不增加任何属性。武器幻化券用制作书在「道具制作」页制作。')}
     if(t==2){const k=it?(it.fg||0)+1:0,ok=k&&k<=FGMX;L=ring(it?(it.cos?'<span style="font-size:30px">'+COSD[it.cos].ic+'</span>':eqImg(it)):'',ok?[{ic:mniEm('fg'+k),n:MISC['fg'+k][0],have:MAT['fg'+k]|0,need:1}]:[],0,`<button data-p="zgo" ${ok&&MAT['fg'+k]>0?'':'disabled'}>🔨 锻造</button>`,it?(it.cos&&ok?`锻造 ${k-1} → ${k} 级:白字百分比 ×${(1+k*FGK).toFixed(1)}(${cosW(it.slot,k)};最高 ${FGMX} 级)。`:ok?`锻造 ${k-1} → ${k} 级:白字 +${k*FGK*100}%(最高 ${FGMX} 级)。锻造石在「锻造石制作」页制作。`:'已经锻造到最高级。'):'在右边选一件装备 / 时装 / 翅膀。锻造只提升白字,每级 +10%,最高 5 级(时装 / 翅膀:10% → 15%)。')}
     if(t==3)L=ring(it&&!it.cos?eqImg(it):'',it&&!it.cos?[{ic:mniEm('wash'),n:'洗脸券',have:MAT.wash|0,need:1}]:[],0,`<button data-p="zgo" ${it&&!it.cos&&MAT.wash>0?'':'disabled'}>🧼 洗练</button>`,it?(it.cos?'时装 / 翅膀没有绿字。':'消耗 1 张洗脸券,3 条绿字的种类和数值全部重新随机(不能只刷一条)。'):'在右边选一件装备。洗脸券在 🏪 商城击杀点商店购买。');
     if(t==4){const a=FZ.a;R=`<div class="row" style="border:0">${Object.keys(AMP).map(k=>`<button class="pk${a==k?' on':''}" data-p="za_${k}" title="${AMP[k][0]}">${mniEm('amp_'+k)}<i class="cn">${MAT['amp_'+k]|0}</i></button>`).join('')} <span class="tag">选一种增幅宝石</span></div>`+R;
@@ -851,24 +888,28 @@ const rollQ=p=>{const r=Math.random();let a=0;for(let i=0;i<p.length;i++){a+=p[i
 // 校准:同关一星打一遍约升 1/3 级,二星 1/2 级,三星 3/4 级
 // 第二十三轮:经验 XPB ×1.5(同关一星一遍约 1.2 级)、金币 GDB ×1.5;通关击杀点 KPCL 10 → 20(二星 / 三星 26 / 32)
 const XPB=1.5,GDB=3,KPCL=27,KPLV=8;  // 第四十一轮:通关击杀点降 1/3(40 + 12N → 27 + 8N)  // 第三十六轮:金币再翻倍(GDB 1.5 → 3)
-const XPK=[0,1,1.8,2.6,3.4,4.2,5,5.8,6.6,7.4,8.2,3.4,6.6,8.2,9.4,10.6],BXP=[0,30,200,550,1000,1550,2200,2900,3700,4500,5400,1000,4440,6480,6900,7900];  // [14] = 第十一关齿轮要塞(第四十轮)
-function reward(e){VFX.spawn('smoke-puff',e.x+e.w/2,e.y+e.h/2,{s:e.max?2.2:1});const t0={slime:[8,5,.22],bat:[6,4,.18],skel:[14,9,.4],boss:[120,100,0],mage:[300,250,0],snake:[10,6,.2],ape:[16,10,.35],king:[600,500,0],ysco:[16,10,.3],bsco:[22,14,.4],sco:[1000,800,0],spi:[18,12,.3],ost:[26,18,.4],andr:[1500,1200,0],pen:[30,20,.35],pen2:[42,28,.45],seal:[34,22,.4],seal2:[46,30,.5],bear:[2200,1800,0],dog:[38,24,.4],dog2:[52,34,.5],wiz:[2600,2100,0],gfly:[46,30,.45],gfly2:[64,42,.55],gland:[50,32,.45],gland2:[70,46,.6],yin:[3200,2600,0],cradle:[60,0,0],imp:[80,52,.45],fwisp:[76,50,.45],golem:[130,90,.6],oni:[600,420,1],lava:[3800,3000,0],lclone:[60,0,0],wimp:[96,62,.45],eye:[100,64,.45],swing:[700,480,1],gui:[4600,3600,0],ham:[1000,800,0],nmr:[1000,800,0],dmn:[1000,800,0],gbot:[110,70,.5],zdr:[104,66,.5],tank:[180,120,.7],mech:[1000,800,0],skw:[124,78,.5],gob:[118,74,.5],nwz:[210,136,.7],nk:[1000,800,0]}[e.k],K=STK(),ci=cur,lk=XPK[ci]||1,sm=e.sum?.25:1;
+const XPK=[0,1,1.8,2.6,3.4,4.2,5,5.8,6.6,7.4,8.2,3.4,6.6,8.2,9.4,10.6,11.8],BXP=[0,30,200,550,1000,1550,2200,2900,3700,4500,5400,1000,4440,6480,6900,7900,8900];  // [16] = 第十三关熔心火山(第四十二轮)  // [14] = 第十一关齿轮要塞(第四十轮)
+function reward(e){VFX.spawn('smoke-puff',e.x+e.w/2,e.y+e.h/2,{s:e.max?2.2:1});const t0={slime:[8,5,.22],bat:[6,4,.18],skel:[14,9,.4],boss:[120,100,0],mage:[300,250,0],snake:[10,6,.2],ape:[16,10,.35],king:[600,500,0],ysco:[16,10,.3],bsco:[22,14,.4],sco:[1000,800,0],spi:[18,12,.3],ost:[26,18,.4],andr:[1500,1200,0],pen:[30,20,.35],pen2:[42,28,.45],seal:[34,22,.4],seal2:[46,30,.5],bear:[2200,1800,0],dog:[38,24,.4],dog2:[52,34,.5],wiz:[2600,2100,0],gfly:[46,30,.45],gfly2:[64,42,.55],gland:[50,32,.45],gland2:[70,46,.6],yin:[3200,2600,0],cradle:[60,0,0],imp:[80,52,.45],fwisp:[76,50,.45],golem:[130,90,.6],oni:[600,420,1],lava:[3800,3000,0],lclone:[60,0,0],wimp:[96,62,.45],eye:[100,64,.45],swing:[700,480,1],gui:[4600,3600,0],ham:[1000,800,0],nmr:[1000,800,0],dmn:[1000,800,0],gbot:[110,70,.5],zdr:[104,66,.5],tank:[180,120,.7],mech:[1000,800,0],skw:[124,78,.5],gob:[118,74,.5],nwz:[210,136,.7],nk:[1000,800,0],fwm:[128,80,.5],mmt:[136,86,.5],fsm:[220,142,.7],fk:[1000,800,0]}[e.k],K=STK(),ci=cur,lk=XPK[ci]||1,sm=e.sum?.25:1;
   let xp0,gd0;if(e.max){xp0=BXP[ci]||500;gd0=Math.round(xp0*1.2)}else{xp0=Math.max(1,Math.round(t0[0]*lk*sm/WMUL));gd0=Math.round(t0[1]*lk*sm/WMUL)}
   const t=[Math.round(xp0*K.xp*XPB),Math.round(gd0*K.gd*GDB),e.sum||e.max?0:t0[2]/WMUL*K.dr],xp=isVip()?Math.round(t[0]*1.1):t[0];exp+=xp;gold+=t[1]+(Math.random()*3|0);  // VIP 经验 +10%
   if(petOn()&&PET.lv<20){PET.exp+=t[0];petLv()}
-  mqKill(e);tx('+'+xp+'经验',e.x,e.y-14,'#ffd43b');if(e.k=='snake'&&Math.random()<DROPK*K.dr)gdDrop(e,{k:'egg',n:1});if(Math.random()<t[2]*DROPK*DBLK())gdDrop(e,{k:'eq',it:rollItem()});if(!e.sum&&!e.max&&Math.random()<DRX.giftM*DBLK())gdDrop(e,{k:'gift',n:1});  // 装备和道具掉在地上,按 S 捡起
+  mqKill(e);if(!e.sum&&st=='play')P.jk=Math.min(JI6N,(P.jk|0)+1);tx('+'+xp+'经验',e.x,e.y-14,'#ffd43b');if(e.k=='snake'&&Math.random()<DROPK*K.dr*DBLK())gdDrop(e,{k:'egg',n:1});if(Math.random()<t[2]*DROPK*DBLK())gdDrop(e,{k:'eq',it:rollItem()});if(!e.sum&&!e.max&&Math.random()<DRX.giftM*DBLK())gdDrop(e,{k:'gift',n:1});  // 装备和道具掉在地上,按 S 捡起
   lvUp();save()}
 // ===== 地面掉落:装备、蛇蛋、强化石掉在地上(带品质光柱),站在旁边按 S(手机方向盘 ▼)捡起 =====
 let GD=[],RTP=0;  // RTP:通关后选择「继续关卡」,首领位置出现回城传送门
-function gdDrop(e,o){const lo=bossOn?2585:12,hi=bossOn?xMax()+10:WW-12;GD.push({...o,x:Math.max(lo,Math.min(hi,e.x+e.w/2+rnd(-8,8))),y:Math.min(GY,e.y+e.h/2),vx:rnd(-1,1)*(e.max?150:50),vy:rnd(-340,-230),t:0,land:0,bn:0,on:null})}
-function gdStep(dt){for(const g of GD){g.t+=dt;if(g.land){if(g.on&&g.on.gone){g.land=0;g.on=null}continue}
-    const py=g.y;g.vy+=900*dt;g.x+=g.vx*dt;g.y+=g.vy*dt;if(g.vy<=0)continue;let sy=null,pp=null;
-    for(const p of PL)if(!p.gone&&py<=p.y+1&&g.y>=p.y&&g.x>p.x&&g.x<p.x+p.w){sy=p.y;pp=p;break}if(sy==null&&g.y>=GY)sy=GY;
+// 第四十二轮(用户:打完首领掉落物有时弹到地图外捡不到):首领战里的掉落物(bd)只在当前画面里弹,碰到画面两边弹回来、只落在地面上(不落浮空平台);
+// 落地 1.5 秒后自动飞到主角身上捡起(背包满了的装备落在主角脚下,按 S 再捡)
+function gdDrop(e,o){const bd=bossOn||e===B,lo=bd?Math.max(12,cam+16):12,hi=bd?Math.min(WW-12,cam+VW-16):WW-12;GD.push({...o,x:Math.max(lo,Math.min(hi,e.x+e.w/2+rnd(-8,8))),y:Math.max(30,Math.min(GY,e.y+e.h/2)),vx:rnd(-1,1)*(e.max?150:50),vy:rnd(-340,-230),t:0,land:0,bn:0,on:null,lo,hi,bd:bd?1:0})}
+function gdStep(dt){for(const g of GD){g.t+=dt;
+    if(g.bd&&g.land&&!g.nm&&g.t>1.5&&st=='play'&&P.hp>0){const dx=P.x+12-g.x,dy=P.y+P.h-4-g.y,d=Math.hypot(dx,dy);if(d<14){if(!pickUp(1,g)){g.nm=1;g.land=0;g.vx=0;g.vy=0}}else{const v=Math.min(d,(240+g.t*90)*dt);g.x+=dx/d*v;g.y+=dy/d*v}continue}
+    if(g.land){if(g.on&&g.on.gone){g.land=0;g.on=null}continue}
+    const py=g.y;g.vy+=900*dt;g.x+=g.vx*dt;g.y+=g.vy*dt;if(g.lo!=null&&(g.x<g.lo||g.x>g.hi)){g.x=Math.max(g.lo,Math.min(g.hi,g.x));g.vx=-g.vx*.5}if(g.vy<=0)continue;let sy=null,pp=null;
+    if(!g.bd)for(const p of PL)if(!p.gone&&py<=p.y+1&&g.y>=p.y&&g.x>p.x&&g.x<p.x+p.w){sy=p.y;pp=p;break}if(sy==null&&g.y>=GY)sy=GY;
     if(sy!=null){g.y=sy;if(!g.bn&&g.vy>160){g.bn=1;g.vy=-g.vy*.32;g.vx*=.5}else{g.vy=0;g.vx=0;g.land=1;g.on=pp}}}}
 const gdNear=g=>Math.abs(g.x-(P.x+12))<44&&g.y>P.y-14&&g.y<P.y+P.h+30;
 const gdName=g=>g.k=='add'?'合成添加剂':g.k=='gc'?MISC[g.id][0]:g.k=='ats'?ATSQ[g.it.q].n+'('+atsTxt(g.it)+')':g.k=='gift'?'小礼袋':g.k=='eq'?g.it.n:g.k=='qi'?g.nm+'(主线)':g.k=='egg'?'蛇蛋':g.k=='hegg'?'仓鼠宠物蛋':g.k=='job'?'转职凭证':g.k=='soul'?'女神灵魂碎片':g.k=='stn'?stnName(g.lv,g.q||0):'高级幸运石';
-function pickUp(all){if(st!='play'||(busy()&&!all))return 0;let n=0,full=0;  // all=1:通关时把地上的东西全部捡起
-  for(let i=GD.length-1;i>=0;i--){const g=GD[i];if(!all&&!gdNear(g))continue;
+function pickUp(all,only){if(st!='play'||(busy()&&!all))return 0;let n=0,full=0;  // all=1:通关时把地上的东西全部捡起 · only:只捡这一个(首领掉落自动飞到身上)
+  for(let i=GD.length-1;i>=0;i--){const g=GD[i];if(only&&g!==only)continue;if(!all&&!gdNear(g))continue;
     if(g.k=='eq'){if(BAG.length>=BAGN){full=1;continue}BAG.push(g.it)}else if(g.k=='egg')MAT.egg=(MAT.egg||0)+g.n;else if(g.k=='hegg')MAT.hegg=(MAT.hegg||0)+g.n;else if(g.k=='stn')STN[g.lv][g.q||0]+=g.n;else if(g.k=='ats')R19.ats.push(g.it);else if(g.k=='gift')MAT.gift=(MAT.gift|0)+g.n;else if(g.k=='luck')LUCK+=g.n;else if(g.k=='add')MAT.add=(MAT.add|0)+g.n;else if(g.k=='gc')MAT[g.id]=(MAT[g.id]|0)+g.n;else if(g.k=='qi')mqAdd(g.n);else if(g.k=='job'){MAT.job=(MAT.job||0)+g.n;tx('打开技能栏(T)即可转职!',P.x-40,P.y-60,'#ffd43b')}else if(g.k=='soul'){MAT.soul=(MAT.soul||0)+g.n;soulHas(0);if(!MAT.sl.includes(g.lv||8))MAT.sl.push(g.lv||8);tx('女神的力量在碎片里微微发光……',P.x-50,P.y-60,'#e5dbff')}
     tx('获得 '+gdName(g)+(g.n>1?' ×'+g.n:''),P.x-20,P.y-20-n*13,g.k=='eq'?(g.it.tr?TRT[g.it.tr][1]:TR[g.it.tier][1]):g.k=='stn'?STQ[g.q||0].c:g.k=='ats'?ATSQ[g.it.q].c:g.k=='qi'||g.k=='job'?'#ffe066':g.k=='soul'?'#e5dbff':'#fff3bf');GD.splice(i,1);n++}
   if(n){sfx('coin');burst(P.x+12,P.y+P.h-4,8,['#ffe066','#fff'],120,{sh:1,s:2,l:.25});save()}if(full)tx('背包已满',P.x-14,P.y-34-n*13,'#ff8787','m');return n}  // 第三十三轮:背包满了装备留在地上,只提示(k='m' 关卡里也显示)
@@ -945,11 +986,12 @@ function init(full){
   if(full)LMODE='sword';
   P={x:60,y:GY-32,w:24,h:32,vx:0,vy:0,f:1,at:0,cd:0,inv:0,gr:true,an:0,py:0,hit:new Set(),mode:LMODE,cmb:0,ct:0,ch:0,hb:null,sk:null};
   sfxAll();const S=stats();P.hp=S.hp;P.mp=S.mp;
-  const LM=[1,2.2,4,6,8,10,12,14,16,18,6,14,18,21,23][cur-1];PL=cur==15?PL15.map(p=>({...p})):cur==14?PL14.map(p=>({...p})):cur>=11?[{x:0,y:GY,w:WW}]:cur==10?PL10.map(p=>({...p,x0:p.x,y0:p.y})):cur==9?PL9.map(p=>({...p})):cur==8?PL8.map(p=>({...p})):cur==7?PL7.map(p=>({...p})):cur==6?lv6Plats():[PL1,PL2,PL3,PL4,PL5][cur-1];if(![E1,E2,E3,E4,E5,E6,E7,E8,E9,E10,[],[],[],E14,E15][cur-1].some(a=>FLYK[a[0]]))PL=PL.filter(p=>p.y>=GY||p.blk||p.x>=ARL);/* 没有飞行小怪的关卡去掉浮空平台(冰墙、首领场地里的保留)*/LDM=1+(LM-1)*.6;MOONK=1;MOONR=0;DOOR7=0;HOWLT=9;{const W_=mkWQ([E1,E2,E3,E4,E5,E6,E7,E8,E9,E10,[],[],[],E14,E15][cur-1]);WQ=W_.q;WB=[];WT=1.2;WI=0;WLM=LM;E=W_.rest.map(a=>mk(a[0],a[1],LM))}WZ=[];HZ=[];SNW={t:3,L:[]};g8Init();g9Init();s10Init();if(cur==9){WQ[1].push('oni');WQ[2].push('oni')}if(cur==10){WQ[1].push('swing');WQ[2].push('swing');WQ[3].push('swing')}P.cryT=0;P.heat=0;P.ovh=0;P.burn=0;
+  const LM=[1,2.2,4,6,8,10,12,14,16,18,6,14,18,21,23,25][cur-1];PL=cur==16?[{x:0,y:GY,w:WW}]:cur==15?PL15.map(p=>({...p})):cur==14?PL14.map(p=>({...p})):cur>=11?[{x:0,y:GY,w:WW}]:cur==10?PL10.map(p=>({...p,x0:p.x,y0:p.y})):cur==9?PL9.map(p=>({...p})):cur==8?PL8.map(p=>({...p})):cur==7?PL7.map(p=>({...p})):cur==6?lv6Plats():[PL1,PL2,PL3,PL4,PL5][cur-1];if(![E1,E2,E3,E4,E5,E6,E7,E8,E9,E10,[],[],[],E14,E15,E16][cur-1].some(a=>FLYK[a[0]]))PL=PL.filter(p=>p.y>=GY||p.blk||p.x>=ARL);/* 没有飞行小怪的关卡去掉浮空平台(冰墙、首领场地里的保留)*/LDM=1+(LM-1)*.6;MOONK=1;MOONR=0;DOOR7=0;HOWLT=9;{const W_=mkWQ([E1,E2,E3,E4,E5,E6,E7,E8,E9,E10,[],[],[],E14,E15,E16][cur-1]);WQ=W_.q;WB=[];WT=1.2;WI=0;WLM=LM;E=W_.rest.map(a=>mk(a[0],a[1],LM))}WZ=[];HZ=[];SNW={t:3,L:[]};g8Init();g9Init();s10Init();if(cur==9){WQ[1].push('oni');WQ[2].push('oni')}if(cur==10){WQ[1].push('swing');WQ[2].push('swing');WQ[3].push('swing')}P.cryT=0;P.heat=0;P.ovh=0;P.burn=0;
   // 第十六轮:首领生命 BHN × EHP 7 × 星级倍率(按「同关精良 +5 装备打 60~90 秒」校准:1600 / 2000 / 2850 … 9000),防御 BDF + 星级加值;攻击 = 关卡倍率 × 星级倍率
-  const BHN=[0,450,1000,1600,2000,2850,3850,4850,6300,7700,9000,2000,7560,10800,10800,12400],BDF=[0,0,0,10,15,18,22,25,28,30,32,15,34,38,38,42],ci=cur;  // [15] = 第十二关永夜王城(第四十一轮)  // [14] = 第十一关齿轮要塞(第四十轮,约第十关 ×1.2)  // 第三十九轮:神秘副本 2 / 3 = 第八 / 第十关 ×1.2
+  const BHN=[0,450,1000,1600,2000,2850,3850,4850,6300,7700,9000,2000,7560,10800,10800,12400,14200],BDF=[0,0,0,10,15,18,22,25,28,30,32,15,34,38,38,42,46],ci=cur;  // [16] = 第十三关熔心火山(第四十二轮)  // [15] = 第十二关永夜王城(第四十一轮)  // [14] = 第十一关齿轮要塞(第四十轮,约第十关 ×1.2)  // 第三十九轮:神秘副本 2 / 3 = 第八 / 第十关 ×1.2
   const bh=()=>({hp:Math.round(BHN[ci]*EHP*STK().hp),max:Math.round(BHN[ci]*EHP*STK().hp)});
-  B=cur==15?{k:'nk',x:2940,y:GY-100,w:70,h:100,...bh(),fl:0,f:-1,cd:1.6,act:null,dm:1,lm:LM}  // 第十二关:夜王
+  B=cur==16?{k:'fk',x:2940,y:GY-110,w:64,h:110,...bh(),fl:0,f:-1,cd:1.6,act:null,dm:1,lm:LM}  // 第十三关:焚天炎君
+   :cur==15?{k:'nk',x:2940,y:GY-100,w:70,h:100,...bh(),fl:0,f:-1,cd:1.6,act:null,dm:1,lm:LM}  // 第十二关:夜王
    :cur==14?{k:'mech',x:2940,y:GY-110,w:130,h:110,...bh(),fl:0,f:-1,cd:1.6,act:null,dm:1,lm:LM}  // 第十一关:钢铁暴君
    :cur==13?{k:'dmn',x:2960,y:GY-170,w:64,h:100,...bh(),fl:0,f:-1,cd:1.8,act:null,dm:1,lm:LM}  // 神秘副本 3:深渊炎魔(飞行)
    :cur==12?{k:'nmr',x:2940,y:GY-100,w:120,h:100,...bh(),fl:0,f:-1,cd:1.6,act:null,dm:1,lm:LM}  // 神秘副本 2:梦魇幽驹
@@ -962,14 +1004,14 @@ function init(full){
    :cur==5?{k:'andr',x:2960,y:GY-86,w:52,h:86,...bh(),fl:0,f:-1,cd:1.4,act:null,dm:1,sa:0,T:[],Z:[],R:[],q:[],stc:0}
    :cur==4?{k:'sco',x:2960,y:GY-56,w:120,h:56,...bh(),fl:0,f:-1,cd:1/BSP.sco,act:null,bf:0,sh:0,shT:0,dm:1}
    :cur==3?{k:'king',x:2960,y:GY-64,w:96,h:64,...bh(),fl:0,f:-1,cd:1.6/BSP.king,act:null,bf:0,dm:1}:cur==2?{k:'mage',x:2960,y:GY-72,w:34,h:60,...bh(),fl:0,f:-1,fire:1,tp:3.5,tpT:0,ph:0,al:1,cd:1.2,zn:[],cl:[]}:{k:'boss',x:2960,y:GY-92,w:64,h:92,...bh(),fl:0,f:-1,cd:1.5,act:null,pz:null,dm:1};
-  B.gy=B.y;B.dm=LDM*STK().atk;B.def=BDF[ci]+STK().def;if(cur>=12&&cur<=13)B.dm*=1.2;mkClr();c15Clr();MSTC=0;MSQ=[];MSG=null;palInit();B.star=LVSTAR;{const f=szF(B.k,1);if(f>1){const gap=GY-(B.y+B.h);B.w=Math.round(B.w*f);B.h=Math.round(B.h*f);B.y=GY-gap-B.h;B.gy=B.y;B.bsz=f}}
+  B.gy=B.y;B.dm=LDM*STK().atk;B.def=BDF[ci]+STK().def;if(cur>=12&&cur<=13)B.dm*=1.2;mkClr();c15Clr();f16Clr();MSTC={sword:0,staff:0};MSQ=[];MSG=null;palInit();B.star=LVSTAR;{const f=szF(B.k,1);if(f>1){const gap=GY-(B.y+B.h);B.w=Math.round(B.w*f);B.h=Math.round(B.h*f);B.y=GY-gap-B.h;B.gy=B.y;B.bsz=f}}
   F=[];I=[];PB=[];TX=[];Z=[];CL=null;CL2=null;PT=[];RG=[];SLS=[];GH=[];CRK=[];DEC=[];PIL=[];FX={fl:0,fc:'255,255,255',hs:0,dk:0};hitFx=null;GZ=0;CLRP=0;CD={sword:Array(8).fill(0),staff:Array(8).fill(0)};SM={bird:null,vine:null};GD=[];RTP=0;DECOY=0;uq=dq=0;P.run=0;sq=-1;skOpen=false;$('sk').hidden=true;bossOn=false;endT=0;cam=0;jq=ah=ar=lq=0;bagOpen=false;$('bag').hidden=true;
   TOR=[];STM=[];SQI=[];CLN=null;WE=[];MET=[];MGD=[];MGT=null;MGP=null;MGTc=null;MGPc=null;MGL=[];P.shd=P.shdT=P.met=P.wy=0;LCK=null;XYN=0;XYT=0;PF=[];SPRP={x:P.x-4,y:P.y-8};STARP={x:P.x-18,y:P.y+4};PETS={x:P.x-30,y:GY-20,vy:0,f:1,an:0,g:0,wv:0,cd:{atk:2,def:5,fan:1,slow:3}};
   HSH=[];HCL=[];HPS=[];HCP=[];HMP={x:P.x-40,y:GY-16,vy:0,f:1,g:0,wv:0,cd:{0:0,1:3,2:2,3:1},mv:0};P.hsh=P.hshT=P.hdr=0;if(cur>=11&&cur<=13){P.x=2650;bossOn=true;cam=WW-VW}  // 神秘副本:直接在首领场地开打
 }
 const sgn=v=>v<0?-1:1;
 // o 可选:{kb:水平击退速度, inv:受击后无敌时间(连击用短无敌)}
-const CDMG={slime:6,bat:5,skel:8,boss:14,mage:10,snake:7,ape:9,king:12,ysco:7,bsco:8,sco:12,spi:6,ost:8,andr:12,pen:7,pen2:8,seal:8,seal2:9,bear:14,dog:9,dog2:10,wiz:15,gfly:8,gfly2:9,gland:9,gland2:10,yin:14,cradle:0,imp:10,fwisp:9,golem:12,oni:15,lava:16,lclone:0,wimp:9,eye:8,swing:12,gui:14,ham:14,nmr:18,dmn:16,gbot:10,zdr:8,tank:12,mech:18,skw:11,gob:9,nwz:13,nk:19};
+const CDMG={slime:6,bat:5,skel:8,boss:14,mage:10,snake:7,ape:9,king:12,ysco:7,bsco:8,sco:12,spi:6,ost:8,andr:12,pen:7,pen2:8,seal:8,seal2:9,bear:14,dog:9,dog2:10,wiz:15,gfly:8,gfly2:9,gland:9,gland2:10,yin:14,cradle:0,imp:10,fwisp:9,golem:12,oni:15,lava:16,lclone:0,wimp:9,eye:8,swing:12,gui:14,ham:14,nmr:18,dmn:16,gbot:10,zdr:8,tank:12,mech:18,skw:11,gob:9,nwz:13,nk:19,fwm:10,mmt:12,fsm:14,fk:20};
 let noCombo=0;
 // 防御(第十九轮重做):每 DEFP 点防御减伤 1%,最多 DEFMX(75%)。旧公式(递减减伤)删除
 // 第二十轮重算 77 → 12:按「同关稀有 / 史诗 +3~+6 装备 + 等级 + 属性石」的防御,第一~二关约 1~2%,第五关约 15%,第七关约 25%,
@@ -980,7 +1022,7 @@ function hurt(b,o){if(DECOY||GM.god||P.inv>0||(P.sk&&P.sk.inv))return false;cons
   if(Math.random()<S.dg/100){P.inv=.4;tx('闪避成功!',P.x-8,P.y-10,'#a5d8ff');ghost('#a5d8ff',.3);syn('blink');return false}
   let d=dmgIn(b*EATK*BDMK(),S.def);  // BDMK:第八~十关首领战 ×1.35 ×1.35(第十五轮)
   if(P.hshT>0){if(P.hdr)d=Math.max(1,Math.round(d*(1-P.hdr)));if(P.hsh>0){const a=Math.min(P.hsh,d);P.hsh-=a;d-=a;tx('护盾 -'+a,P.x+4,P.y-14,'#ffe8a3');if(d<=0){P.inv=.5;shake=.1;sfx('hit');mfxHit();return true}}}  // 宠物仓鼠的瓜子壳护盾 + 减伤
-  if(P.shdT>0&&P.shd>0){const a=Math.min(P.shd,d);P.shd-=a;d-=a;tx('🪨 -'+a,P.x+4,P.y-14,'#e0b984');if(d<=0){P.inv=.5;shake=.1;sfx('hit');mfxHit();return true}}P.hp-=d;mfxHit();P.combo=0;P.inv=o&&o.inv!=null?o.inv:1.2;P.vy=-250;if(o&&o.kb)P.kbx=o.kb;shake=.25;tx('-'+d,P.x+12,P.y-6,'#fff','d');sfx('hurt');
+  if(P.shdT>0&&P.shd>0){const a=Math.min(P.shd,d);P.shd-=a;d-=a;tx('🪨 -'+a,P.x+4,P.y-14,'#e0b984');if(d<=0){P.inv=.5;shake=.1;sfx('hit');mfxHit();return true}}P.hp-=d;mfxHit();P.combo=0;if(P.jk)P.jk=Math.floor(P.jk*.4);{const c=setTr();if(tr6('yu',c)&&st=='play'){const t=nearE(allTg(),P.x+12,P.y+16,320);if(t)xDeal(t,Math.max(1,Math.round(d*YU6)))}}  // 第四十二轮:神技 6 件掉 60% 层数 · 圣愈 6 件反伤P.inv=o&&o.inv!=null?o.inv:1.2;P.vy=-250;if(o&&o.kb)P.kbx=o.kb;shake=.25;tx('-'+d,P.x+12,P.y-6,'#fff','d');sfx('hurt');
   // 受击僵直 0.3 秒(和怪物相同);2026-10-13 第十三轮取消连击保护(原来 2.5 秒内第 3 次僵直后 2 秒霸体)。技能给的霸体(P.ar)照旧
   if(!(P.ar>0)&&!(P.sk&&P.sk.id=='mc')){P.stun=HSTUN;if(P.sk&&P.sk.id=='giant'&&!P.sk.formed){burst(P.x+12,P.y-60,24,['#9d4edd','#c77dff'],220,{sh:2,s:5,l:.4,g:300})}P.sk=null}
   return true}
@@ -1044,7 +1086,7 @@ function mAtk(e){const s=e.s;if(MVK[e.k]){const a=s&&MVK[e.k].at?MVK[e.k].at[s]:
   case 'fwisp':return s=='fbw'?2:0;case 'wimp':return s&&s!='up'?1:0;case 'eye':return s=='bw'||s=='bm'||s=='obw'?2:0;case 'swing':return s=='app'||s=='dash'?1:0;
   case 'golem':return s=='cmb'?1:0;
   case 'oni':return s&&s!='rec'?1:0;
-  case 'gbot':return s=='spw'||s=='spin'?1:0;case 'zdr':return s=='zw'||s=='zap'?1:0;case 'tank':return s=='aim'||s=='fire'?2:0;case 'skw':return s=='sw'||s=='sl'?1:0;case 'gob':return s=='aim'||s=='thr'?2:s=='stw'||s=='stb'?1:0;case 'nwz':return s=='cw'||s=='cs'?1:s=='ww'||s=='ws'?2:0;
+  case 'gbot':return s=='spw'||s=='spin'?1:0;case 'zdr':return s=='zw'||s=='zap'?1:0;case 'tank':return s=='aim'||s=='fire'?2:0;case 'skw':return s=='sw'||s=='sl'?1:0;case 'fwm':return s=='aim'||s=='sh'?2:s=='bw'||s=='bt'?1:0;case 'mmt':return s=='mw'||s=='mp'?1:0;case 'fsm':return s=='cw'||s=='cs'?1:s=='ww'||s=='ws'?2:0;case 'gob':return s=='aim'||s=='thr'?2:s=='stw'||s=='stb'?1:0;case 'nwz':return s=='cw'||s=='cs'?1:s=='ww'||s=='ws'?2:0;
   case 'seal':case 'seal2':return s=='in'?2:s=='pop'||s=='slp'||s=='cu'||s=='ball'?1:0;
   default:return 0}}
 // 申请出招:拿到「攻击令牌」才能开始一次攻击;拿不到就继续走位,稍后再试。被召唤物吸引时不受限制
@@ -1096,8 +1138,8 @@ function mobStep(e,dt){const M=MVK[e.k];e.cd=(e.cd==null?rnd(.6,1.4):e.cd)-dt;e.
 // 每个敌人每个技能各自冷却:放完一个技能,这个技能要等 CD 结束才能再放;技能越多的敌人 CD 越长(小怪 ESC0 + ESC1 × 技能数,首领 ESB0 + ESB1 × 技能数)
 // 魔力:满 100,每放一个技能扣 ESMP(首领 ESMPB);不够扣时进入回蓝:每秒回 ESRG,回到 15%(ESRT)才继续放技能(回蓝期间只走动 / 追人,不出招)
 // 小怪(招式库 MVK)在 mobStep 选招时判断;其他小怪和首领在 update 的敌人循环里判断(新动作刚开始时不满足就取消,过一会儿再选)
-const ESKN={slime:2,bat:2,skel:3,snake:3,ape:3,ysco:5,bsco:5,spi:5,ost:3,pen:4,pen2:4,seal:4,seal2:4,dog:5,dog2:5,gfly:3,gfly2:3,gland:3,gland2:3,imp:2,fwisp:1,golem:1,oni:3,wimp:2,eye:2,swing:1,gbot:1,zdr:1,tank:1,skw:1,gob:2,nwz:2,
-  king:5,mage:4,sco:5,bear:9,wiz:8,andr:7,boss:5,yin:3,lava:5,gui:5,ham:4,nmr:4,dmn:5,mech:4,nk:4};
+const ESKN={slime:2,bat:2,skel:3,snake:3,ape:3,ysco:5,bsco:5,spi:5,ost:3,pen:4,pen2:4,seal:4,seal2:4,dog:5,dog2:5,gfly:3,gfly2:3,gland:3,gland2:3,imp:2,fwisp:1,golem:1,oni:3,wimp:2,eye:2,swing:1,gbot:1,zdr:1,tank:1,skw:1,gob:2,nwz:2,fwm:2,mmt:1,fsm:2,
+  king:5,mage:4,sco:5,bear:9,wiz:8,andr:7,boss:5,yin:3,lava:5,gui:5,ham:4,nmr:4,dmn:5,mech:4,nk:4,fk:5};
 const ESC0=1.2,ESC1=1,ESB0=2,ESB1=.9,ESMP=10,ESMPB=8,ESRG=6,ESRT=15;
 const ESKX={rec:1,hid:1,rest:1,up:1,morph:1,intro:1};  // 不算技能的状态(收招 / 隐身 / 休息 / 变身)
 const eskCd=e=>{const n=ESKN[e.k]||(e.max?5:2);return e.max?ESB0+ESB1*n:ESC0+ESC1*n};
@@ -1243,7 +1285,7 @@ function forceAtk(e){tx('霸体·反击!',e.x+e.w/2,e.y-18,'#ff922b');const dx=P
     case 'boss':case 'king':case 'sco':case 'andr':case 'bear':case 'wiz':if(!e.act)e.cd=0;break;
     case 'dog':case 'dog2':if(!e.s)e.cd=0;break;
     case 'gfly':case 'gfly2':case 'gland':case 'gland2':if(!e.s&&!e.dis)e.cd=0;break;case 'yin':case 'lava':case 'ham':if(!e.act)e.cd=0;break;case 'cradle':case 'lclone':break;
-    case 'imp':case 'fwisp':case 'golem':case 'oni':if(!e.s)e.cd=0;break;case 'wimp':case 'eye':if(!e.s)e.cd=0;break;case 'gbot':case 'zdr':case 'tank':case 'skw':case 'gob':case 'nwz':if(!e.s)e.cd=0;break;case 'mech':case 'nk':if(!e.act)e.cd=0;break;case 'swing':break;case 'gui':if(!e.act&&e.intro==2)e.cd=0;break;
+    case 'imp':case 'fwisp':case 'golem':case 'oni':if(!e.s)e.cd=0;break;case 'wimp':case 'eye':if(!e.s)e.cd=0;break;case 'gbot':case 'zdr':case 'tank':case 'skw':case 'gob':case 'nwz':case 'fwm':case 'mmt':case 'fsm':if(!e.s)e.cd=0;break;case 'mech':case 'nk':case 'fk':if(!e.act)e.cd=0;break;case 'swing':break;case 'gui':if(!e.act&&e.intro==2)e.cd=0;break;
     case 'pen':case 'pen2':case 'seal':case 'seal2':if(!e.s){e.cd=0;e.rec=0}break;
     default:e.f=f;e.sw=0;e.rec=0;e.wu=.35;e.acd=1.6}
   if(e.x+e.w>cam&&e.x<cam+VW)sfx('eatk')}
@@ -1251,8 +1293,10 @@ function forceAtk(e){tx('霸体·反击!',e.x+e.w/2,e.y-18,'#ff922b');const dx=P
 function dealt(e,dm,o){if(e.ug)return;
   if(e.dg>0||e.tpT>0){if(!(e.mx>0)){e.mx=.35;tx('闪避',e.x+e.w/2,e.y-4,'#a5d8ff')}return}
   if(e.k=='gui'){if(e.hide)return;if(!(o&&o.nm)&&(e.miss>0||Math.random()<.3)){if(!(e.mx>0)){e.mx=.35;if(e.miss>0)e.miss--;tx('MISS',e.x+e.w/2,e.y-4,'#e5dbff');S10.af.push({x:e.x,y:e.y,f:e.f,t:.3})}return}e.pbx=sgn(e.x+e.w/2-(P.x+12))*90}  // 归蝇:出场后前 3 次必定 MISS,之后 30% MISS;被打中只轻微后退
-  if(!(o&&o.ns))hitStun(e);sfx('hit');let cr=0;if(!noCombo){P.combo=(P.combo||0)+1;P.cbT=2;mscAdd()}if(Math.random()<stats().cr/100){dm=Math.round(dm*critK());cr=1}
-  if(e.def)dm=Math.max(1,Math.round(dm*100/(100+e.def*EDF*(e.bf>0||e.shd>0?2:1)*(P.apen>0?.5:1))));  // 蛇王蜕皮 shd:防御翻倍
+  if(!(o&&o.ns))hitStun(e);sfx('hit');let cr=0;if(!noCombo){P.combo=(P.combo||0)+1;P.cbT=2;mscAdd()}
+  {const c=setTr();if(!noCombo&&!NRMH&&!ELX){const b=lingSkB(c);if(b)dm=Math.round(dm*(1+b))}if(PETX&&tr6('ling',c))dm=Math.round(dm*(1+LING6));  // 第四十二轮:邪灵 4 件技能伤害 / 6 件宠物伤害
+    if(Math.random()<stats().cr/100){dm=Math.round(dm*critK()*(PETX&&tr6('ling',c)?1+LING6:1));cr=1;if(tr6('lei',c))e.lsh=Math.min(LEI6N,(e.lsh|0)+1)}}  // 怒雷 6 件:暴击叠破防
+  if(e.def)dm=Math.max(1,Math.round(dm*100/(100+e.def*EDF*(e.bf>0||e.shd>0?2:1)*(P.apen>0?.5:1)*(1-LEI6*(e.lsh|0)))));  // 蛇王蜕皮 shd:防御翻倍
   if(P.mode=='sword'&&st=='play'){if(e.bld>0)dm=Math.round(dm*BLDK);if(!noCombo&&GT-(P.qiT||0)>.2){P.qiT=GT;P.qi=Math.min(QIMAX,(P.qi|0)+1)}}  // 第十六轮:裂伤 +15%;剑势每 0.2 秒 +1 层
   if(e.fsh>0){dm=Math.max(1,Math.round(dm*.5));heatAdd(5)}  // 炎狱鬼将的爆炎护体:伤害减半,打它的人自己升温
   if(GM.ko){e.sh=0;dm=Math.max(dm,Math.ceil(e.hp))}
@@ -1443,6 +1487,8 @@ function summon(k,S){const q=SMD[k];if(SM[k]){tx(q.n+'还在战斗',P.x-16,P.y-1
   else{const vx=Math.max(bossOn?2570:10,Math.min(xMax()+10,P.x+12+P.f*55));SM.vine={k,x:vx-10,y:GY-52,w:20,h:52,hp,max:hp,atk:S.atk,t:q.life,cd:.6,wh:0,gw:0,f:P.f,inv:0};
     ring(vx,GY-2,4,46,'#cc5de8',.4,4,.3);for(let i=0;i<14;i++)pt({x:vx+rnd(-20,20),y:GY-2,vx:rnd(-40,40),vy:rnd(-160,-60),g:400,c:pick(['#8d5524','#cc5de8','#2f9e44']),ad:0,s:rnd(2,4),l:.6})}
   smLure(k)}
+let NRMH=0,PETX=0;  // 第四十二轮:NRMH = 普攻命中(邪灵 4 件只加技能伤害)· PETX = 宠物的伤害(邪灵 6 件)
+const pDeal=(e,d,fx)=>{PETX=1;xDeal(e,d,fx);PETX=0};
 const sDeal=(e,d)=>{noCombo=1;hitFx=null;dealt(e,d);noCombo=0};
 const xDeal=(e,d,fx)=>{noCombo=1;hitFx=fx||null;dealt(e,d,{ns:1});hitFx=null;noCombo=0};  // 时装 / 宠物伤害:不加连击、不打僵
 function nearE(all,cx,cy,r,f){let b=null,bd=r;for(const e of all){if(e.ug||e.hp<=0)continue;const ex=e.x+e.w/2,ey=e.y+e.h/2,d=Math.hypot(ex-cx,ey-cy);if(d<bd&&(!f||f(e))){bd=d;b=e}}return b}
@@ -1986,7 +2032,7 @@ function petStep(dt,S,all){if(!petOn())return;const p=PETS;p.an+=dt;p.g-=dt;p.wv
   for(let i=PF.length-1;i>=0;i--){const q=PF[i];q.t+=dt;q.a+=dt*25;
     if(q.st=='out'){q.x+=q.vx*dt;q.y+=q.vy*dt;if(q.t>.6){q.st='back';q.hit=new Set()}}
     else{const ddx=p.x+11-q.x,ddy=p.y+8-q.y,d=Math.hypot(ddx,ddy)||1,m=Math.min(d,440*dt);q.x+=ddx/d*m;q.y+=ddy/d*m;if(d<14||q.t>3){PF.splice(i,1);continue}}
-    for(const e of all)if(!e.ug&&e.hp>0&&!q.hit.has(e)&&ov({x:q.x-10,y:q.y-10,w:20,h:20},e)){q.hit.add(e);xDeal(e,Math.round(q.dmg*rnd(.9,1.1)));sfx('peck')}}
+    for(const e of all)if(!e.ug&&e.hp>0&&!q.hit.has(e)&&ov({x:q.x-10,y:q.y-10,w:20,h:20},e)){q.hit.add(e);pDeal(e,Math.round(q.dmg*rnd(.9,1.1)));sfx('peck')}}
   if(st!='play')return;for(const k in p.cd)p.cd[k]-=dt;if(p.g>0)return;
   const near=all.filter(e=>!e.ug&&e.hp>0&&Math.abs(e.x+e.w/2-(P.x+12))<360);if(!near.length)return;
   for(const k of PET.sk){if(p.cd[k]>0)continue;p.cd[k]=PSK[k][2];p.g=1.2;p.wv=.5;const cx=P.x+12,cy=P.y+16;
@@ -2156,22 +2202,22 @@ function update(dt){
   P.kbx=(P.kbx||0)*Math.max(0,1-dt*7);flyPhys(dt,S);if(P.lv){if(!P.gr||P.sk)P.lv=0;else{P.lv*=Math.exp(-6*dt);if(Math.abs(P.lv)<6)P.lv=0}}P.x+=(P.vx+P.kbx+(P.lv||0))*dt;P.x=Math.max(bossOn?2570:0,Math.min(xMax(),P.x));
   P.py=P.y;P.y+=P.vy*dt;P.gr=false;if(P.fly){const top=cur==5&&bossOn?CY+4:6;if(P.y<top){P.y=top;P.vy=0}}
   P.onP=null;for(const p of PL)if(!p.gone&&P.vy>=0&&P.py+P.h<=p.y+1&&P.y+P.h>=p.y&&P.x+P.w>p.x&&P.x<p.x+p.w){P.y=p.y-P.h;P.vy=0;P.gr=true;P.dj=0;P.fly=0;P.onP=p}
-  if(!INTOWN){if(cur==6){lv6Player(dt);snowStep(dt)}if(cur==7)lv7Update(dt);if(cur==8)g8Step(dt);if(cur==9)v9Step(dt);if(cur==10)s10Step(dt);nbStep(dt);if(cur>=11&&cur<=13)myStep(dt);if(cur==14)m14Step(dt);if(cur==15)c15Step(dt)}
+  if(!INTOWN){if(cur==6){lv6Player(dt);snowStep(dt)}if(cur==7)lv7Update(dt);if(cur==8)g8Step(dt);if(cur==9)v9Step(dt);if(cur==10)s10Step(dt);nbStep(dt);if(cur>=11&&cur<=13)myStep(dt);if(cur==14)m14Step(dt);if(cur==15)c15Step(dt);if(cur==16)f16Step(dt)}
   if(P.gr&&!P.onP){P.sfX=P.x;P.sfY=P.y}  // 记下最近一次站在地面的位置(复活用)
   if(P.y>VH+100)P.hp=0;
-  P.at-=dt;P.cd-=dt;P.ujc=Math.max(0,(P.ujc||0)-dt);P.sjc=Math.max(0,(P.sjc||0)-dt);P.inv-=dt;P.ct-=dt;P.an+=dt*(d&&P.gr?(P.run?1.8:1):0);P.mp=GM.mp?S.mp:Math.min(S.mp,P.mp+(1+S.mp*.003*pl('rec'))*dt);{const c=setTr();if(P.hp>0)P.hp+=S.hp*(.004*pl('rec')+trv('yu',c))*dt;if(!GM.mp)P.mp=Math.min(S.mp,P.mp+S.mp*trv('ling',c)*dt)}P.hp=Math.min(P.hp,S.hp);P.cbT=(P.cbT||0)-dt;if(P.cbT<=0)P.combo=0;
+  P.at-=dt;P.cd-=dt;P.ujc=Math.max(0,(P.ujc||0)-dt);P.sjc=Math.max(0,(P.sjc||0)-dt);P.inv-=dt;P.ct-=dt;P.an+=dt*(d&&P.gr?(P.run?1.8:1):0);P.mp=GM.mp?S.mp:Math.min(S.mp,P.mp+(1+S.mp*.003*pl('rec'))*dt);{const c=setTr();if(P.hp>0)P.hp+=S.hp*(.004*pl('rec')+tr4('yu',c))*dt}P.hp=Math.min(P.hp,S.hp);P.cbT=(P.cbT||0)-dt;if(P.cbT<=0)P.combo=0;
   waveStep(dt);{const z=gateZ();if(z>GZ&&st=='play'){tx(z>=ZB.length?'前往首领的巢穴!':'区域已清除!继续前进 →',P.x-30,P.y-40,'#d0bfff');sfx('buff');flash('200,180,255',.15)}GZ=z}
   if(P.x>2700&&!RTP)bossOn=true;
   const all=bossOn&&B.hp>0?[...E,B]:E;
   skStep(dt,S,all);zStep(dt,S,all);smStep(dt,all);godTick(dt);mscStep(dt);palStep(dt,all);fashStep(dt,S,all);petStep(dt,S,all);hamPetStep(dt,S,all);sprStep(dt);starStep(dt);
   if(P.mode=='sword'&&P.at>0&&P.hb&&!(P.swT!=null&&P.swT<P.hbW)){const h=P.hb,hb={x:P.f>0?P.x-6:P.x-h.w,y:P.y+h.y,w:h.w+P.w+6,h:h.h};  // 第二十九轮:判定框往后盖住主角身体,和主角重叠的怪也打得到(原来从身体前沿才开始算)
-    for(const e of all)if(!P.hit.has(e)&&ov(hb,e)){P.hit.add(e);hitFx=P.cmb==-1?'heavy':null;dealt(e,Math.round(S.atk*h.m*(.9+Math.random()*.2)));hitFx=null;if(!isBig(e)&&!e.ug){const K=P.cmb==3||P.cmb==-1?2:1;e.kbv=P.f*KBV*K*(iceAt(e.x+e.w/2)?1.6:1)}}}  // 击退(第四段 / 重击加倍);第二十一轮:每下 0.32 秒僵直取消,僵直改走小怪韧性 mobPz(和法师一样),击退只推开怪物、不打断它的动作
+    for(const e of all)if(!P.hit.has(e)&&ov(hb,e)){P.hit.add(e);hitFx=P.cmb==-1?'heavy':null;NRMH=1;dealt(e,Math.round(S.atk*h.m*(.9+Math.random()*.2)));NRMH=0;hitFx=null;if(!isBig(e)&&!e.ug){const K=P.cmb==3||P.cmb==-1?2:1;e.kbv=P.f*KBV*K*(iceAt(e.x+e.w/2)?1.6:1)}}}  // 击退(第四段 / 重击加倍);第二十一轮:每下 0.32 秒僵直取消,僵直改走小怪韧性 mobPz(和法师一样),击退只推开怪物、不打断它的动作
   for(let i=PB.length-1;i>=0;i--){const b=PB[i];if(b.mc&&P.sk!==b.mc&&Math.abs(b.vx)<1)b.vx=sgn(b.vx)*220;if(b.x0==null)b.x0=b.x;b.x+=b.vx*dt;if(b.fb)weAbs(b.x,b.y,'fire');let gone=b.x<cam-30||b.x>cam+VW+30||(b.rg&&Math.abs(b.x-b.x0)>b.rg);const d=sgn(b.vx);
     if(b.gl){if(Math.random()<.6)pt({x:b.x-d*6,y:b.y+rnd(-5,5),vx:-d*rnd(20,60),vy:rnd(-30,30),c:pick(['#ffd43b','#fff3bf','#fff']),sh:2,s:rnd(3,5),l:.3});if(Math.abs(b.vx)>=1&&(gone||all.some(e=>!e.ug&&e.hp>0&&ov({x:b.x-b.r,y:b.y-b.r,w:2*b.r,h:2*b.r},e)))){holyBoom(b,S);PB.splice(i,1)}continue}  // 第二十七轮 W空 圣光球:碰到第一个敌人或飞到尽头就炸开
     if(b.wv)for(let n=0;n<2;n++)pt({x:b.x-d*rnd(10,30),y:b.y+rnd(-28,28),vx:-d*rnd(60,160),vy:rnd(-30,30),c:pick(['#ffe066','#fff3bf']),sh:1,s:2,l:.25});
     if(b.fb){for(let n=0;n<2;n++)pt({x:b.x-d*6+rnd(-4,4),y:b.y+rnd(-4,4),vx:-d*rnd(20,70),vy:rnd(-70,-10),c:pick(['#ff922b','#ffd43b','#ff6b35']),sh:2,s:rnd(6,10),l:rnd(.25,.45)});if(Math.random()<.25)pt({x:b.x-d*10,y:b.y,vx:-d*20,vy:-40,c:'rgba(70,64,60,.45)',ad:0,s:5,gr:1.5,l:.6})}
     if(b.lb&&Math.random()<(b.big?.9:.5))pt({x:b.x-d*rnd(4,14),y:b.y+rnd(-8,8),vx:-d*rnd(20,80),vy:rnd(-50,50),c:pick(['#fff','#e7f5ff','#a5d8ff','#d0bfff']),sh:1,s:rnd(1.5,3),l:.25});
-    for(const e of all)if(!b.hit.has(e)&&ov({x:b.x-b.r,y:b.y-b.r,w:2*b.r,h:2*b.r},e)){b.hit.add(e);hitFx=b.wv?'wave':b.lb?'thunder':null;if(b.fb)mkF(e);dealt(e,Math.round(b.dmg*(.9+Math.random()*.2)));hitFx=null;if(b.lb&&b.big){VFX.spawn('x-star',e.x+e.w/2,e.y+e.h/2,{s:1.1,life:.6,add:1,gr:.5});shake=Math.max(shake,.12)}if(b.fb){explode(b.x+d*6,b.y);SFX5('r-burst',e.x+e.w/2,e.y+e.h/2,{s:1,life:.4,gr:.4});for(const o of all)if(o!==e&&!b.hit.has(o)&&!o.ug&&Math.abs(o.x+o.w/2-(e.x+e.w/2))<o.w/2+80&&Math.abs(o.y+o.h/2-(e.y+e.h/2))<90){mkF(o);dealt(o,Math.round(b.dmg*.4),{ns:1})}}if(b.sl)e.sl=2;if(!b.big&&!b.pierce)gone=true}
+    for(const e of all)if(!b.hit.has(e)&&ov({x:b.x-b.r,y:b.y-b.r,w:2*b.r,h:2*b.r},e)){b.hit.add(e);hitFx=b.wv?'wave':b.lb?'thunder':null;if(b.fb)mkF(e);NRMH=b.lb?1:0;dealt(e,Math.round(b.dmg*(.9+Math.random()*.2)));NRMH=0;hitFx=null;if(b.lb&&b.big){VFX.spawn('x-star',e.x+e.w/2,e.y+e.h/2,{s:1.1,life:.6,add:1,gr:.5});shake=Math.max(shake,.12)}if(b.fb){explode(b.x+d*6,b.y);SFX5('r-burst',e.x+e.w/2,e.y+e.h/2,{s:1,life:.4,gr:.4});for(const o of all)if(o!==e&&!b.hit.has(o)&&!o.ug&&Math.abs(o.x+o.w/2-(e.x+e.w/2))<o.w/2+80&&Math.abs(o.y+o.h/2-(e.y+e.h/2))<90){mkF(o);dealt(o,Math.round(b.dmg*.4),{ns:1})}}if(b.sl)e.sl=2;if(!b.big&&!b.pierce)gone=true}
     if(gone)PB.splice(i,1)}
   for(const e of all){SFXB=e.max?1:0;  // 首领 AI 里的音效走外部素材
     e.fl-=dt;e.hst=(e.hst||0)-dt;if(e.pzm)poiseStep(e,dt);e.mx=(e.mx||0)-dt;e.sl=(e.sl||0)-dt;e.ms=(e.ms||0)-dt;const ed=(e.sl>0?dt*.5:e.ms>0?dt*.6:dt)*STK().sp;  // 第十六轮:二 / 三星怪物动作快 6% / 12%
@@ -2189,7 +2235,7 @@ function update(dt){
     else if(e.k=='gfly'||e.k=='gfly2')gflyStep(e,ed);else if(e.k=='gland'||e.k=='gland2')glandStep(e,ed);else if(e.k=='yin')yinStep(e,ed);else if(e.k=='cradle')cradleStep(e,ed);
     else if(e.k=='imp')impStep(e,ed);else if(e.k=='fwisp')fwispStep(e,ed);else if(e.k=='golem')golemStep(e,ed);else if(e.k=='oni')oniStep(e,ed);else if(e.k=='lava')lavaStep(e,ed);else if(e.k=='lclone')lcloneStep(e,ed);
     else if(e.k=='wimp')wimpStep(e,ed);else if(e.k=='eye')eyeStep(e,ed);else if(e.k=='swing')swingStep(e,ed);else if(e.k=='gui')guiStep(e,ed);else if(e.k=='ham')hamStep(e,ed);else if(e.k=='nmr')nmrStep(e,ed);else if(e.k=='dmn')dmnStep(e,ed);
-    else if(e.k=='gbot')gbotStep(e,ed);else if(e.k=='zdr')zdrStep(e,ed);else if(e.k=='tank')tankStep(e,ed);else if(e.k=='mech')mechStep(e,ed);else if(e.k=='skw')skwStep(e,ed);else if(e.k=='gob')gobStep(e,ed);else if(e.k=='nwz')nwzStep(e,ed);else if(e.k=='nk')nkStep(e,ed);
+    else if(e.k=='gbot')gbotStep(e,ed);else if(e.k=='zdr')zdrStep(e,ed);else if(e.k=='tank')tankStep(e,ed);else if(e.k=='mech')mechStep(e,ed);else if(e.k=='skw')skwStep(e,ed);else if(e.k=='gob')gobStep(e,ed);else if(e.k=='nwz')nwzStep(e,ed);else if(e.k=='nk')nkStep(e,ed);else if(e.k=='fwm')fwmStep(e,ed);else if(e.k=='mmt')mmtStep(e,ed);else if(e.k=='fsm')fsmStep(e,ed);else if(e.k=='fk')fkStep(e,ed);
     if(!MVK[e.k]&&!ea0&&e[ekf]&&!eskUse(e,e[ekf])){e[ekf]=null;e.t=0;e.at=0;e.cd=Math.max(e.cd||0,.3)}  // 第三十五轮:技能冷却 / 魔力不够,取消刚选的招
     seek(e,sx0,ed);
     if(dc){P.x=px0;P.y=py0;DECOY=0}
@@ -2209,8 +2255,8 @@ function update(dt){
   for(const w of WZ)w.t-=dt;WZ=WZ.filter(w=>w.t>0);hzStep(dt);
   gdStep(dt);
   for(let i=I.length-1;i>=0;i--)if(ov(P,I[i])){P.hp=Math.min(S.hp,P.hp+15);sfx('coin');tx('+15',P.x,P.y-6,'#69db7c');I.splice(i,1)}
-  if(bossOn&&B.hp<=0&&!endT){endT=-1;CLRP=1;sfxAll();B.sh=null;B.gl=null;sfx('win');tx('站到通关光柱上按 W 完成关卡',P.x-50,P.y-62,'#ffe066');F=[];TOR=[];LCK=null;{const g=kpGain(Math.round((KPCL+KPLV*(cur>=14?cur-3:Math.min(cur,10)))*(1+(STK().gd-1)*.5)));KP+=g;tx('+'+g+' 击杀点'+(isVip()?'(VIP)':''),P.x-14,P.y-76,'#ff8787')}reward(B);if(cur==6&&!JOB&&!(MAT.job>0)&&!GD.some(g=>g.k=='job'))gdDrop(B,{k:'job',n:1});{const K=STK();for(let j=0;j<2;j++)if(!j||Math.random()<DROPK*K.dr*DBLK())gdDrop(B,{k:'eq',it:rollItem(rollQ(K.bq),cur==11?1:null)});if(cur==12&&Math.random()<GODDR)gdDrop(B,{k:'gc',id:pick(['gc1','gc2']),n:1});if((cur==13&&Math.random()<.35)||(cur>=14&&Math.random()<.3))gdDrop(B,{k:'add',n:1});if(MSS[cur]&&Math.random()<MSDR*DBLK())gdDrop(B,{k:'gc',id:'ms'+cur,n:1});  // 第四十轮:神秘副本 2 掉上帝卡牌 25% · 副本 3 掉合成添加剂 35% · 第十一关 30%  // 第三十八轮:神秘副本 1 瓜子大王掉林王系列(副本 2 / 3 掉雪原系列)  // 第十六轮:首领必掉 1 件(品质按星级 bq),第 2 件看掉落率
-      bossDrop19(K);tx('首领掉落了战利品,按 S 捡起',P.x-50,P.y-48,'#d0bfff')}if(cur==5||cur==7){B.T=[];B.Z=[];B.R=[];B.S=[];B.ult=0;B.act=null;B.ug=0;F=F.filter(f=>!(f.c>=17&&f.c<=19))}if(cur==6){B.wv=[];B.sp=[];B.zn=[];B.blz=0;B.act=null}if(cur==7){E=E.filter(e=>!e.sum);W7E=performance.now()}if(cur==8){B.act=null;B.ug=0;E=E.filter(e=>!e.sum);G8.cr=[];G8.hd=[];G8.cl=[];G8.ds=[];G8.vis=0;G8.lampOff=0;G8.wn=0;G8.bk=0;}if(cur==9){B.act=null;E=E.filter(e=>!e.sum);V9.pl=[];V9.rw=[];V9.cz=[];V9.ch=null;V9.gp=null;P.heat=0;P.ovh=0;P.burn=0;banner('熔岩冷却了……魔神化成了黑石')}if(cur==10){B.act=null;B.ug=0;B.hide=0;S10.sb=[];S10.bm=[];S10.af=[];S10.wind=0;F=[];banner('归蝇的黑翼散成了羽毛……幽灵船慢慢降到了海面上')}if(cur==14){B.act=null;mkClr();E=E.filter(e=>!e.sum);banner('钢铁暴君冒着黑烟停了下来……要塞的齿轮慢慢停转')}else if(cur==15){B.act=null;c15Clr();banner('夜王跪倒在王座前……永夜王城的钟声停了')}else if(cur>=11){B.act=null;HSH=[];HCL=[];gpClr();if(cur>=12)banner(cur==12?'梦魇幽驹的鬼火熄灭了……原地只剩一副空马鞍':'深渊炎魔坠进了自己的火里……裂缝慢慢合上了');else if(Math.random()<.05){gdDrop(B,{k:'hegg',n:1});banner('瓜子大王倒下了……留下了一颗暖乎乎的蛋!')}else banner('瓜子大王倒下了……这次没有留下蛋(5% 掉落)')}if(SOULV[cur]&&!soulHas(cur)&&!GD.some(g=>g.k=='soul')){gdDrop(B,{k:'soul',n:1,lv:cur});banner(SOULV[cur])}P.grab=0;P.frz=0;P.fzA=0;P.slw=P.sand=0;P.ps=0;qBoss()}
+  if(bossOn&&B.hp<=0&&!endT){endT=-1;CLRP=1;sfxAll();B.sh=null;B.gl=null;sfx('win');tx('站到通关光柱上按 W 完成关卡',P.x-50,P.y-62,'#ffe066');F=[];TOR=[];LCK=null;{const g=kpGain(Math.round((KPCL+KPLV*(cur>=14?cur-3:Math.min(cur,10)))*(1+(STK().gd-1)*.5)));KP+=g;tx('+'+g+' 击杀点'+(isVip()?'(VIP)':''),P.x-14,P.y-76,'#ff8787')}reward(B);if(cur==6&&!JOB&&!(MAT.job>0)&&!GD.some(g=>g.k=='job'))gdDrop(B,{k:'job',n:1});{const K=STK();for(let j=0;j<2;j++)if(!j||Math.random()<DROPK*K.dr*DBLK())gdDrop(B,{k:'eq',it:rollItem(rollQ(K.bq),cur==11?1:null)});if(cur==12&&Math.random()<GODDR*DBLK())gdDrop(B,{k:'gc',id:pick(['gc1','gc2']),n:1});if((cur==13&&Math.random()<.35*DBLK())||(cur>=14&&Math.random()<.3*DBLK()))gdDrop(B,{k:'add',n:1});if(MSS[cur]&&Math.random()<MSDR*DBLK())gdDrop(B,{k:'gc',id:'ms'+cur,n:1});if(cur==16&&Math.random()<.35*DBLK())gdDrop(B,{k:'gc',id:'b360',n:1});  // 第四十二轮:360 小鸟碎片  // 第四十轮:神秘副本 2 掉上帝卡牌 25% · 副本 3 掉合成添加剂 35% · 第十一关 30%  // 第三十八轮:神秘副本 1 瓜子大王掉林王系列(副本 2 / 3 掉雪原系列)  // 第十六轮:首领必掉 1 件(品质按星级 bq),第 2 件看掉落率
+      bossDrop19(K);tx('首领掉落了战利品,落地后会自动飞到你身上',P.x-60,P.y-48,'#d0bfff')}if(cur==5||cur==7){B.T=[];B.Z=[];B.R=[];B.S=[];B.ult=0;B.act=null;B.ug=0;F=F.filter(f=>!(f.c>=17&&f.c<=19))}if(cur==6){B.wv=[];B.sp=[];B.zn=[];B.blz=0;B.act=null}if(cur==7){E=E.filter(e=>!e.sum);W7E=performance.now()}if(cur==8){B.act=null;B.ug=0;E=E.filter(e=>!e.sum);G8.cr=[];G8.hd=[];G8.cl=[];G8.ds=[];G8.vis=0;G8.lampOff=0;G8.wn=0;G8.bk=0;}if(cur==9){B.act=null;E=E.filter(e=>!e.sum);V9.pl=[];V9.rw=[];V9.cz=[];V9.ch=null;V9.gp=null;P.heat=0;P.ovh=0;P.burn=0;banner('熔岩冷却了……魔神化成了黑石')}if(cur==10){B.act=null;B.ug=0;B.hide=0;S10.sb=[];S10.bm=[];S10.af=[];S10.wind=0;F=[];banner('归蝇的黑翼散成了羽毛……幽灵船慢慢降到了海面上')}if(cur==14){B.act=null;mkClr();E=E.filter(e=>!e.sum);banner('钢铁暴君冒着黑烟停了下来……要塞的齿轮慢慢停转')}else if(cur==15){B.act=null;c15Clr();banner('夜王跪倒在王座前……永夜王城的钟声停了')}else if(cur==16){B.act=null;f16Clr();banner('焚天炎君的火焰熄灭了……火山口慢慢冷却下来')}else if(cur>=11){B.act=null;HSH=[];HCL=[];gpClr();if(cur>=12)banner(cur==12?'梦魇幽驹的鬼火熄灭了……原地只剩一副空马鞍':'深渊炎魔坠进了自己的火里……裂缝慢慢合上了');else if(Math.random()<.05*DBLK()){gdDrop(B,{k:'hegg',n:1});banner('瓜子大王倒下了……留下了一颗暖乎乎的蛋!')}else banner('瓜子大王倒下了……这次没有留下蛋(5% 掉落)')}if(SOULV[cur]&&!soulHas(cur)&&!GD.some(g=>g.k=='soul')){gdDrop(B,{k:'soul',n:1,lv:cur});banner(SOULV[cur])}P.grab=0;P.frz=0;P.fzA=0;P.slw=P.sand=0;P.ps=0;qBoss()}
   for(const t of TX){t.t-=dt;t.y-=22*dt}TX=TX.filter(t=>t.t>0);
   if(P.hp<=0){st='dead';CHI=1;sfx('lose')}
   if(INTOWN)cam=Math.max(0,Math.min(twW()-VW,P.x+12-VW/2));else{const tc=bossOn?WW-VW:Math.max(0,Math.min(WW-VW,gateX()-VW,P.x-VW/2+12));cam=bossOn||Math.abs(tc-cam)>40?cam+(tc-cam)*Math.min(1,dt*(bossOn?5:6)):tc}shake=Math.max(0,shake-dt);fxStep(dt);
@@ -2280,7 +2326,7 @@ function draw(){
   x.save();if(shake>0)x.translate((Math.random()-.5)*6,(Math.random()-.5)*6);
   bg();PXL.run(drawFXBack,DEC.length+CRK.length+GH.length>0);
   drawPickups();drawRP();drawCP();drawGate();
-  PXL.run(()=>{if(cur==8)g8Back();E.forEach(drawE);if(bossOn&&B.hp>0)drawE(B);if(cur==8)g8Fx();if(cur==9)v9Fx();if(cur==10)s10Fx();if(cur>=8&&cur<=10)nbFx();if(cur>=11&&cur<=13)myFx();if(cur==14)m14Fx();if(cur==15)c15Fx();palDraw();mscDraw()});drawSM();PXL.run(drawTor,TOR.length>0||!!LCK);drawPet();drawHamPet();
+  PXL.run(()=>{if(cur==8)g8Back();E.forEach(drawE);if(bossOn&&B.hp>0)drawE(B);if(cur==8)g8Fx();if(cur==9)v9Fx();if(cur==10)s10Fx();if(cur>=8&&cur<=10)nbFx();if(cur>=11&&cur<=13)myFx();if(cur==14)m14Fx();if(cur==15)c15Fx();if(cur==16)f16Fx();palDraw();mscDraw()});drawSM();PXL.run(drawTor,TOR.length>0||!!LCK);drawPet();drawHamPet();
   if(FX.dk>0){x.fillStyle='rgba(8,12,28,'+FX.dk+')';x.fillRect(0,0,VW,VH)}
   PXL.run(drawShots);
   drawGD();drawStarF(cam);PXL.run(trailDraw,SWTR.length>1);drawClone();drawP();drawHamShd();PXL.run(thrDraw,THR.length>0);drawGDHint();PXL.run(()=>drawFairy(x,SPRP.x-cam,SPRP.y,performance.now()/1000,1,P.f),!!(SPR.own&&SPR.on));
@@ -2318,7 +2364,7 @@ function qBoss(){qDay();const d=QD.d[2];if(d.s==1&&d.p<2){d.p++;tx('首领猎人
 // g:委托人(城镇 NPC 的职业名),s:委托时的剧情,d:完成后的后记
 // =====================================================================
 const GN={'技能导师':'艾琳','药剂师':'小葵','装备商人':'老金','强化师':'铁叔','村长':'','仓库管理员':'桂婶'};
-const MN={slime:'史莱姆',skel:'骷髅兵',bat:'蝙蝠',snake:'小蛇',ape:'猿猴',ysco:'黄蝎',bsco:'黑棘蝎',spi:'沙蛛',ost:'鸵鸟',pen:'企鹅',pen2:'精英企鹅',seal:'海豹',seal2:'精英海豹',boss:'铁角牛魔',mage:'面具法师',king:'金色蛇王',sco:'黑棘巨蝎',andr:'沙渊古神',bear:'北极熊',dog:'雪原狼犬',dog2:'双头犬',wiz:'血月巫王',gfly:'游魂',gfly2:'厉鬼',gland:'提灯幽魂',gland2:'伪装的怨灵',yin:'怨婴·银太郎',cradle:'黑色摇篮',imp:'炎牙魔',fwisp:'熔火鬼',golem:'熔岩魔',oni:'炎狱鬼将',lava:'熔狱魔神',lclone:'炎魔分身',wimp:'翼魔',eye:'浮游眼魔',swing:'空翼妖',gui:'归蝇',gbot:'齿轮巡逻兵',zdr:'电击无人机',tank:'穹顶坦克',mech:'钢铁暴君',skw:'骷髅卫兵',gob:'哥布林投弹手',nwz:'夜巫',nk:'夜王',ham:'瓜子大王',nmr:'梦魇幽驹',dmn:'深渊炎魔'};
+const MN={slime:'史莱姆',skel:'骷髅兵',bat:'蝙蝠',snake:'小蛇',ape:'猿猴',ysco:'黄蝎',bsco:'黑棘蝎',spi:'沙蛛',ost:'鸵鸟',pen:'企鹅',pen2:'精英企鹅',seal:'海豹',seal2:'精英海豹',boss:'铁角牛魔',mage:'面具法师',king:'金色蛇王',sco:'黑棘巨蝎',andr:'沙渊古神',bear:'北极熊',dog:'雪原狼犬',dog2:'双头犬',wiz:'血月巫王',gfly:'游魂',gfly2:'厉鬼',gland:'提灯幽魂',gland2:'伪装的怨灵',yin:'怨婴·银太郎',cradle:'黑色摇篮',imp:'炎牙魔',fwisp:'熔火鬼',golem:'熔岩魔',oni:'炎狱鬼将',lava:'熔狱魔神',lclone:'炎魔分身',wimp:'翼魔',eye:'浮游眼魔',swing:'空翼妖',gui:'归蝇',gbot:'齿轮巡逻兵',zdr:'电击无人机',tank:'穹顶坦克',mech:'钢铁暴君',skw:'骷髅卫兵',gob:'哥布林投弹手',nwz:'夜巫',nk:'夜王',fwm:'火蠕虫',mmt:'熔岩牛头人',fsm:'炎术士',fk:'焚天炎君',ham:'瓜子大王',nmr:'梦魇幽驹',dmn:'深渊炎魔'};
 const MQ=[
  // ——— 第一章 · 牛魔古堡 ———
  {lv:1,g:'技能导师',n:'出发之前',ty:'kill',k:['slime'],need:5,s:'你就是要去讨伐铁角牛魔的无名吧?我是镇上的技能导师艾琳。自从铁角牛魔在原野北边的古堡住下,它身上的魔力让史莱姆疯长,一夜之间就把镇外的麦田啃成了泥坑。先去清理 5 只史莱姆,让我看看你的身手。对了,你身上同时带着剑与魔法两种形态:同一个你,换上不同的装备,按 L 键就能切换——剑士近身强攻,法师远程施法,两套装备和技能是分开成长的。',d:'剑术不错。去找药剂师小葵吧,镇上的伤员需要她。'},
@@ -2422,7 +2468,7 @@ function mqAdd(n){const q=mqCur();if(!q||QD.ms!=1||QD.mp>=q.need)return;QD.mp=Ma
   if(QD.mp>=q.need){tx('主线「'+q.n+'」完成!'+'按 Q'+' 领取奖励',P.x-50,P.y-58,'#ffe066');sfx('lvl')}else tx('主线 '+QD.mp+'/'+q.need,P.x-6,P.y-48,'#ffe066');save()}
 // 击败怪物时:计数,或者(收集任务)掉落任务物品
 function mqKill(e){const q=mqCur();if(!q||e.sum||QD.ms!=1||cur!=q.lv||!q.k.includes(e.k)||QD.mp>=q.need)return;
-  if(q.ty=='col'){if(QD.mp+GD.filter(g=>g.k=='qi').length<q.need&&Math.random()<q.rate)gdDrop(e,{k:'qi',n:1,nm:q.it});return}
+  if(q.ty=='col'){if(QD.mp+GD.filter(g=>g.k=='qi').length<q.need&&Math.random()<q.rate*DBLK())gdDrop(e,{k:'qi',n:1,nm:q.it});return}
   mqAdd(1)}
 // 和委托人对话:有新的主线就讲剧情并接取;任务完成了就打开任务栏领奖
 function mqLines(q){const L=[],ps=q.s.match(/[^。!?!?]+[。!?!?」”]*/g)||[q.s];let cur_='';for(const p of ps){if(cur_&&(cur_+p).length>60){L.push([q.g,cur_]);cur_=p}else cur_+=p}if(cur_)L.push([q.g,cur_]);return L}
@@ -3163,7 +3209,7 @@ function g8Fx(){const t=performance.now()/1000;
   if(B&&B.k=='yin'&&bossOn&&B.act=='tp'&&B.ug&&B.h2){const a=Math.min(1,(B.at-.25)/.5);x.globalAlpha=.7*a;GH8.fr(x,'babyS',0,B.tx+B.w/2-cam-21,B.ty+B.h-45+8,1.5,1);x.globalAlpha=1}}
 // 女神灵魂碎片(地面掉落)
 // 女神灵魂碎片:第四、八、十关首领各掉一块(这张地图共 3 块);MAT.sl = 已拿到碎片的关卡(旧存档有碎片 = 第八关那块)
-const SOULV={4:'巨蝎的甲壳裂开了……一块发光的碎片滚了出来',8:'银太郎的哭声停了……一块发光的碎片落了下来',10:'归蝇的黑羽散尽……一块发光的碎片落了下来'};
+const SOULV={4:'巨蝎的甲壳裂开了……一块发光的碎片滚了出来',8:'银太郎的哭声停了……一块发光的碎片落了下来',10:'归蝇的黑羽散尽……一块发光的碎片落了下来',16:'炎君的灰烬里……一块发光的碎片滚了出来'};  // 第四十二轮:第十三关
 function soulHas(l){if(!MAT.sl)MAT.sl=MAT.soul>0?[8]:[];return MAT.sl.includes(l)}
 function soulDraw(c,px,py,t){c.save();c.globalCompositeOperation='lighter';C_(c,px,py,12,RGD(c,px,py,12,['rgba(208,191,255,.7)','rgba(0,0,0,0)']),0);c.restore();const m=GH8.M.shard;if(GH8.I)GH8.fr(c,'shard',0,px-9,py-12+Math.sin(t*3)*1.5,1.5,1);else CT('💠',px,py+4,11,'#fff','center',0)}
 // =====================================================================
@@ -3975,6 +4021,105 @@ const CST={I:null,D:'@@A:cst_atlas@@',M:{"bg":[0,0,960,304],"wz_idle":[0,305,136
       x.drawImage(I,m[0],m[1],16,24,px,y,16,24);for(let q=16;q<w-16;q+=16){const c=Math.min(16,w-16-q);x.drawImage(I,m[0]+16,m[1],c,24,px+q,y,c,24)}x.drawImage(I,m[0]+32,m[1],16,24,px+w-16,y,16,24)}},
   over(){x.fillStyle='rgba(60,30,90,.07)';x.fillRect(0,0,VW,VH)}};
 CST.init();
+// ===== 第四十二轮:第十三关「熔心火山」(第二张地图「暗黑大陆」左上角的火山(用户截图指定),cur = 16)=====
+// 图集 FIRE(art_src/fire13/build_fire13.py):远景 Volcano Background(cubbic,CC-BY 3.0,天空改成暗红烟尘)· 地面 Tio Aimar 火山包(CC0)·
+//   首领 焚天炎君 fk = Evil Wizard · 精英 炎术士 fsm = Wizard Pack · 小怪 火蠕虫 fwm = Fire Worm(三个都是 LuizMelo,CC0)· 小怪 熔岩牛头人 mmt(zaphgames,CC-BY 3.0)
+// 数值约 = 第十二关 ×1.15(LM 25 · MHK 82 · BHN 14200 · BDF 46);掉落和前两关一样(机械系列、合成添加剂 30%、怪物技能石),另外 360 小鸟碎片 35%、女神灵魂碎片
+// 首领招式:烈焰吐息 brth(面前 170 像素持续喷火)· 陨火雨 rain(主角附近落下 7 颗火球,二阶段 11 颗)· 熔岩潮 wave(两道贴地火浪,跳过去)·
+//   炎遁 tele(消失后出现在主角身后,接着喷火)· 焚天炎爆 nova(蓄力 1.6 秒后 260 像素内爆炸,跑远躲开)。半血以下二阶段:动作快 20%
+const E16=[['fwm',360],['mmt',480],['fwm',620],['fsm',820],['mmt',1000],['fwm',1160],['mmt',1300],['fsm',1500],['fwm',1660],['mmt',1820],['fwm',1960],['fsm',2140],['mmt',2260],['fwm',2380],['fsm',2520]];
+const FIRE={I:null,D:'@@A:fire13_atlas@@',M:{"bg":[0,0,640,160],"gnd":[641,0,256,64],"ew_idle":[898,0,768,71,96,8],"ew_move":[0,161,768,71,96,8],"ew_attack":[769,161,768,71,96,8],"ew_hurt":[1538,161,384,71,96,4],"ew_death":[0,233,480,71,96,5],"wp_idle":[481,233,1128,138,188,6],"wp_run":[0,372,1504,138,188,8],"wp_attack1":[0,511,1504,138,188,8],"wp_attack2":[0,650,1504,138,188,8],"wp_hurt":[0,789,752,138,188,4],"wp_death":[0,928,1316,138,188,7],"fw_idle":[1317,928,702,56,78,9],"fw_walk":[0,1067,702,56,78,9],"fw_attack":[703,1067,1248,56,78,16],"fw_hurt":[0,1124,234,56,78,3],"fw_death":[235,1124,624,56,78,8],"fb_move":[860,1124,228,34,38,6],"fb_boom":[1089,1124,266,34,38,7],"mt_walk":[1356,1124,236,95,59,4],"mt_atk":[1593,1124,236,95,59,4]},
+  A:{ew:[28.0,55,68],wp:[67.5,86,137],fw:[30.5,41,55],fb:[14.0,12,22],mt:[23.5,92,93]},
+  P:{fwm:'fw',mmt:'mt',fsm:'wp',fk:'ew'},
+  init(){const im=new Image();im.onload=()=>{this.I=im};im.src=this.D},
+  on(e){return !!this.I&&!!this.P[e.k]},
+  fr(c,k,i,X,Y,s,f){const m=this.M[k];if(!m||!this.I)return;const fw=m[4]||m[2],n=m[5]||1;i=((Math.floor(i)%n)+n)%n;s=s||1;c.save();c.imageSmoothingEnabled=false;c.translate(Math.round(X),Math.round(Y));if(f<0){c.translate(fw*s,0);c.scale(-1,1)}c.drawImage(this.I,m[0]+i*fw,m[1],fw,m[3],0,0,fw*s,m[3]*s);c.restore()},
+  // 怪物:c 已经平移到脚底中间、按朝向翻转(面朝右);素材本来就朝右
+  draw(c,e,t){const k=e.k,p=this.P[k],A=this.A[p],H=e.h/(e.max?1.1*(e.bsz||1):(e.vs||1)),s=H/A[1];let row=p=='mt'?'mt_walk':p+'_idle',fi=p=='mt'?0:t*8+(e.ph||0)*3;c.save();if(FLW)c.filter='brightness(2.6)';
+    if(k=='fk'){const a=e.act,T=e.at||0;fi=t*8;
+      if(a=='brth'||(a=='tele'&&e.n)){row='ew_attack';fi=T<.5?Math.min(3,T/.12):4+(t*10)%4}
+      else if(a=='rain'||a=='nova'){row='ew_attack';fi=T<.3?T/.15:1;const lim=a=='nova'?1.6:.8;if(T<lim&&!FLW){const k_=Math.min(1,T/lim);c.filter='brightness('+(1+k_*.8)+') saturate('+(1+k_)+')'}}
+      else if(a=='wave'){row='ew_attack';fi=T<.6?Math.min(3,T/.15):Math.min(7,4+(T-.6)/.06)}
+      else if(a=='tele'){row='ew_move';fi=t*12;if(!FLW)c.globalAlpha=Math.max(.15,Math.abs(1-T/.35))}
+      else if(e.st>0){row='ew_hurt';fi=t*10}else if(e.mv){row='ew_move';fi=t*10}}
+    else{const st=e.s;
+      if(k=='fwm'){if(st=='aim'||st=='bw'){row='fw_attack';fi=Math.min(8,e.t/.07)}else if(st=='sh'||st=='bt'){row='fw_attack';fi=9+Math.min(6,e.t/.05)}}
+      else if(k=='mmt'){if(st=='mw'){row='mt_atk';fi=Math.min(1,e.t/.25)}else if(st=='mp'){row='mt_atk';fi=2+Math.min(1,e.t/.1)}else if(e.mv)fi=t*8}
+      else if(k=='fsm'){if(st=='cw'||st=='ww'){row=st=='cw'?'wp_attack1':'wp_attack2';fi=Math.min(3,e.t/.15)}else if(st=='cs'||st=='ws'){row=st=='cs'?'wp_attack1':'wp_attack2';fi=4+Math.min(3,e.t/.07)}}
+      if(row==p+'_idle'){if(e.st>0){row=p+'_hurt';fi=0}else if(e.mv){row=p+(p=='fw'?'_walk':'_run');fi=t*10}}}
+    this.fr(c,row,fi,-A[0]*s,-A[2]*s,s,1);c.restore()},
+  // 场景:暗红烟尘天空(纯色补底)+ 火山远景(视差)+ 火山地面
+  bg(){const g=x.createLinearGradient(0,0,0,GY);g.addColorStop(0,'#2a0d08');g.addColorStop(1,'#6b2410');x.fillStyle=g;x.fillRect(0,0,VW,VH);const I=this.I,M=this.M;if(!I)return;x.imageSmoothingEnabled=false;
+    {const m=M.bg,sc=1.6,w=m[2]*sc,h=m[3]*sc;for(let px=-(((cam*.3)%w)+w)%w;px<VW;px+=w)x.drawImage(I,m[0],m[1],m[2],m[3],Math.floor(px),Math.round(GY+10-h),Math.ceil(w),h)}
+    {const m=M.gnd;for(let px=Math.floor((cam-4)/m[2])*m[2];px<cam+VW+4;px+=m[2])x.drawImage(I,m[0],m[1],m[2],m[3],Math.round(px-cam),GY-8,m[2],m[3])}},
+  over(){x.fillStyle='rgba(255,90,20,.05)';x.fillRect(0,0,VW,VH)}};
+FIRE.init();
+let F16B=[],F16M=[],F16W=[];  // 火球(火蠕虫 / 炎术士 / 首领)· 陨火雨 · 贴地火浪
+function f16Clr(){F16B=[];F16M=[];F16W=[]}
+const f16Shot=(x0,y0,vx,dm,s,d)=>{F16B.push({x:x0,y:y0,vx,dm,s:s||1,d:d||10,tr:0,t:0});syn('proj')};
+// ---- 火蠕虫:保持距离吐火球(直线);被贴身就咬一口 ----
+function fwmStep(e,dt){const dm=e.dm,cx=e.x+e.w/2,pc=P.x+12,dx=pc-cx,ad=Math.abs(dx),lo=g8Lo(e),hi=g8Hi(e),cl=v=>Math.max(lo,Math.min(hi-e.w,v));
+  e.cd=(e.cd==null?rnd(1,2):e.cd)-dt;e.pz=null;e.mv=0;const s=e.s;if(s)e.t+=dt;
+  if(s=='aim'){e.pz='w';e.f=sgn(dx)||e.f;if(e.t>=.6){e.s='sh';e.t=0;f16Shot(cx+e.f*e.w*.6,e.y+e.h*.45,e.f*250,dm,1,10)}return}
+  if(s=='sh'){e.pz='s';if(e.t>.3){e.s='rec';e.t=0}return}
+  if(s=='bw'){e.pz='w';if(e.t>=.4){e.s='bt';e.t=0;e.hd=0}return}
+  if(s=='bt'){e.pz='s';if(!e.hd&&ov(P,{x:e.f>0?cx:cx-46,y:e.y,w:46,h:e.h})&&hurt(9*dm,{kb:e.f*200}))e.hd=1;if(e.t>.3){e.s='rec';e.t=0}return}
+  if(s=='rec'){if(e.t>.6){e.s=null;e.cd=rnd(1.3,2.1)}return}
+  e.f=sgn(dx)||e.f;if(ad>220){e.x=cl(e.x+e.f*chV(50,ad)*dt);e.mv=1}else if(ad<110&&ad>50){e.x=cl(e.x-e.f*40*dt);e.mv=1}
+  if(e.cd<=0){if(ad<50){if(!tok(e)){e.cd=.3;return}e.s='bw';e.t=0}else if(ad<MRNGR+20){if(!tok(e,1)){e.cd=.4;return}e.s='aim';e.t=0}}}
+// ---- 熔岩牛头人:走近 → 全身熔岩化蓄力 → 火拳(打中后脚下炸开火花)----
+function mmtStep(e,dt){const dm=e.dm,cx=e.x+e.w/2,pc=P.x+12,dx=pc-cx,ad=Math.abs(dx),lo=g8Lo(e),hi=g8Hi(e),cl=v=>Math.max(lo,Math.min(hi-e.w,v));
+  e.cd=(e.cd==null?rnd(.6,1.4):e.cd)-dt;e.pz=null;e.mv=0;const s=e.s;if(s)e.t+=dt;
+  if(s=='mw'){e.pz='w';e.f=sgn(dx)||e.f;if(e.t>=.5){e.s='mp';e.t=0;e.hd=0}return}
+  if(s=='mp'){e.pz='s';e.x=cl(e.x+e.f*120*dt);if(!e.hd&&e.t>.05){e.hd=1;VFX.spawn('warm-explosion',cx+e.f*34,e.y+e.h*.45,{s:.8});if(ov(P,{x:e.f>0?cx:cx-64,y:e.y-6,w:64,h:e.h+6}))hurt(13*dm,{kb:e.f*300})}if(e.t>.3){e.s='rec';e.t=0}return}
+  if(s=='rec'){if(e.t>.6){e.s=null;e.cd=rnd(.8,1.4)}return}
+  e.f=sgn(dx)||e.f;if(ad>e.w/2+34){e.x=cl(e.x+e.f*chV(62,ad)*dt);e.mv=1}
+  if(e.cd<=0&&ad<e.w/2+60&&Math.abs(P.y+P.h-(e.y+e.h))<70){if(!tok(e)){e.cd=.3;return}e.s='mw';e.t=0}}
+// ---- 炎术士(精英):火焰法球(近,大范围)/ 大火球(远)----
+function fsmStep(e,dt){const dm=e.dm,cx=e.x+e.w/2,pc=P.x+12,dx=pc-cx,ad=Math.abs(dx),lo=g8Lo(e),hi=g8Hi(e),cl=v=>Math.max(lo,Math.min(hi-e.w,v));
+  e.cd=(e.cd==null?rnd(1,2):e.cd)-dt;e.pz=null;e.mv=0;const s=e.s;if(s)e.t+=dt;
+  if(s=='cw'||s=='ww'){e.pz='w';e.f=sgn(dx)||e.f;if(e.t>=.6){e.s=s=='cw'?'cs':'ws';e.t=0;e.hd=0;if(s=='ww')f16Shot(cx+e.f*40,e.y+e.h*.4,e.f*230,dm,1.6,12)}return}
+  if(s=='cs'){e.pz='s';if(!e.hd&&e.t>.06){e.hd=1;VFX.spawn('warm-explosion',cx+e.f*60,e.y+e.h*.45,{s:1.5});if(ov(P,{x:e.f>0?cx:cx-110,y:e.y-20,w:110,h:e.h+20}))hurt(14*dm,{kb:e.f*320})}if(e.t>.35){e.s='rec';e.t=0}return}
+  if(s=='ws'){e.pz='s';if(e.t>.35){e.s='rec';e.t=0}return}
+  if(s=='rec'){if(e.t>.7){e.s=null;e.cd=rnd(1.4,2.2)}return}
+  e.f=sgn(dx)||e.f;if(ad>90){e.x=cl(e.x+e.f*chV(44,ad)*dt);e.mv=1}
+  if(e.cd<=0&&Math.abs(P.y+P.h-(e.y+e.h))<90){if(ad<110){if(!tok(e)){e.cd=.3;return}e.s='cw';e.t=0}else if(ad<MRNGR+40){if(!tok(e,1)){e.cd=.4;return}e.s='ww';e.t=0}}}
+// ---- 首领:焚天炎君 ----
+function fkEnd(e,x_){e.act=null;e.mv=0;e.n=0;e.cd=(e.p2?.75:1.05)+Math.random()*.5+(x_||0)}
+function fkStep(e,dt){const pc=P.x+12,cx=e.x+e.w/2,dx=pc-cx,ad=Math.abs(dx),lo=e.hp<e.max*.5,sp=lo?1.2:1;e.pz=null;
+  if(!e.intro){e.intro=1;banner('焚天炎君 · 熔心火山的主人')}
+  if(lo&&!e.p2){e.p2=1;flash('255,140,60',.3)}
+  if(!e.act){e.mv=0;e.cd-=dt*sp;e.f=sgn(dx)||e.f;if(ad>140){e.mv=1;e.x=gpCl(e,e.x+e.f*76*sp*dt)}
+    if(e.cd>0)return;const Q=ad<170?['brth','brth','wave','nova','tele']:['rain','wave','tele','rain','nova'];if(e.p2)Q.push('rain','tele');let a=pick(Q);if(a==e.la&&Math.random()<.7)a=pick(Q);
+    if(a=='nova'&&(e.nc||0)>0)a=ad<170?'brth':'rain';
+    e.act=a;e.la=a;e.at=0;e.hd=0;e.n=0;e.tk=0;return}
+  e.at+=dt*sp;const T=e.at,a=e.act;e.nc=Math.max(0,(e.nc||0)-dt);
+  if(a=='tele'){if(!e.n){e.pz='w';if(T>=.35){const nx=gpCl(e,pc-e.w/2-P.f*120);e.x=nx;e.f=sgn(pc-(nx+e.w/2))||e.f;VFX.spawn('warm-explosion',nx+e.w/2,e.y+e.h*.5,{s:1.4});syn('blink');e.n=1;e.at=0}return}
+    }  // 现身后直接接烈焰吐息
+  if(a=='brth'||a=='tele'){const T2=e.at;if(T2<.5){e.pz='w';e.f=sgn(pc-(e.x+e.w/2))||e.f;return}e.pz='s';const c2=e.x+e.w/2;
+    e.tk-=dt;if(e.tk<=0){e.tk=.22;VFX.spawn('warm-explosion',c2+e.f*rnd(50,160),e.y+e.h*rnd(.35,.6),{s:rnd(.7,1.1)});if(ov(P,{x:e.f>0?c2+10:c2-180,y:e.y+e.h*.2,w:170,h:e.h*.6}))hurt(8*e.dm,{kb:e.f*160,inv:.35})}
+    if(T2>1.5)fkEnd(e);return}
+  if(a=='rain'){if(T<.8){e.pz='w';return}
+    if(!e.hd){e.hd=1;e.pz='s';syn('boom');const n=e.p2?11:7;for(let i=0;i<n;i++)F16M.push({x:Math.max(cam+20,Math.min(cam+VW-20,pc+rnd(-200,200)*(i?1:0))),t:-i*.22-.6,dm:e.dm})}
+    if(T>2.2)fkEnd(e);return}
+  if(a=='wave'){if(T<.6){e.pz='w';return}if(!e.hd){e.hd=1;e.pz='s';shake=.3;syn('boom');VFX.spawn('earth-rupture',cx,GY,{s:1.4});for(const d of [-1,1])F16W.push({x:cx,d,tr:0,hit:0,dm:e.dm,sp:300})}
+    if(T>1.4)fkEnd(e);return}
+  if(a=='nova'){if(T<1.6){e.pz='w';if(Math.random()<dt*16)pt({x:cx+rnd(-60,60),y:e.y+rnd(0,e.h),vx:rnd(-30,30),vy:rnd(-80,-30),c:pick(['#ffa94d','#ff6b6b','#ffe066']),s:2,l:.4});return}
+    if(!e.hd){e.hd=1;e.nc=lo?7:10;VFX.spawn('warm-explosion',cx,e.y+e.h*.5,{s:3.2});flash('255,150,60',.35);shake=.5;syn('boom');ring(cx,e.y+e.h*.5,10,260,'#ff922b',.5,6);if(Math.hypot(pc-cx,P.y+P.h/2-(e.y+e.h/2))<260)hurt(20*e.dm,{kb:sgn(pc-cx)*420})}
+    if(T>2.1)fkEnd(e,.2);return}
+  fkEnd(e)}
+// 场上的东西:火球(直线飞,最多飞 MSHR,首领的不限)、陨火雨(先出预警圈再落下)、贴地火浪
+function f16Step(dt){const pc=P.x+12,gr=P.y+P.h>=GY-4;
+  for(const b of F16B){b.t+=dt;b.x+=b.vx*dt;b.tr+=Math.abs(b.vx)*dt;const r=9*b.s;if(ov(P,{x:b.x-r,y:b.y-r,w:2*r,h:2*r})){b.dd=1;hurt(b.d*b.dm,{kb:sgn(b.vx)*240})}if(b.tr>MSHR+60||b.x<cam-40||b.x>cam+VW+40)b.dd=1;if(b.dd)VFX.spawn('warm-explosion',b.x,b.y,{s:.7*b.s})}F16B=F16B.filter(b=>!b.dd);
+  for(const m of F16M){m.t+=dt;if(m.t>=0&&!m.dd){m.dd=1;VFX.spawn('warm-explosion',m.x,GY-16,{s:1.5});syn('boom');shake=Math.max(shake,.15);if(Math.abs(pc-m.x)<40&&P.y+P.h>GY-70)hurt(14*m.dm,{kb:sgn(pc-m.x)*260})}}F16M=F16M.filter(m=>!m.dd||m.t<.3);
+  for(const w of F16W){w.x+=w.d*w.sp*dt;w.tr+=w.sp*dt;w.ft=(w.ft||0)-dt;if(w.ft<=0){w.ft=.07;VFX.spawn('warm-explosion',w.x,GY-12,{s:.6})}
+    if(!w.hit&&gr&&Math.abs(pc-w.x)<20&&hurt(12*w.dm,{kb:w.d*300}))w.hit=1}F16W=F16W.filter(w=>w.tr<440&&w.x>0&&w.x<WW)}
+// 画面(PXL 层,怪物之后画):火球;陨火雨落点和焚天炎爆范围的地面法阵(DZ)
+function f16Fx(){const M=FIRE;if(!M.I)return;const t=performance.now()/1000,e=B;
+  for(const m of F16M)if(m.t<0&&m.t>-.7)DZ.zone(m.x-40-cam,80);
+  if(e&&e.k=='fk'&&e.hp>0&&e.act=='nova'&&(e.at||0)<1.6)DZ.zone(e.x+e.w/2-260-cam,520);
+  for(const b of F16B){const s=.9*b.s;M.fr(x,'fb_move',Math.floor(t*14),b.x-cam-17*s,b.y-19*s,s,b.vx<0?-1:1)}
+  for(const m of F16M)if(m.t<0&&m.t>-.45){const k=(m.t+.45)/.45,s=1.4;x.save();x.translate(m.x-cam,(GY-16)*k-30*(1-k));x.rotate(Math.PI/2);M.fr(x,'fb_move',Math.floor(t*14),-17*s,-19*s,s,1);x.restore()}}
 let C15B=[],C15W=[],C15S=[];  // 哥布林的炸弹 / 夜巫和夜王的贴地暗影波 / 夜王跃空斩的冲击波
 function c15Clr(){C15B=[];C15W=[];C15S=[]}
 // ---- 骷髅卫兵:举剑 → 一记重斩 ----
@@ -4069,7 +4214,7 @@ function hamPetStep(dt,S,all){if(!hamOn())return;const p=HMP;p.g-=dt;p.wv-=dt;
   p.vy+=1200*dt;p.y+=p.vy*dt;if(p.y>=GY-16){p.y=GY-16;p.vy=mv?-120:0}
   const cm=()=>Math.random()<hamB('cr')/100?1.5:1;
   for(const q of HPS){q.t+=dt;q.a+=dt*16;const e=q.e,ex=e.x+e.w/2,ey=e.y+e.h/2,dd=Math.hypot(ex-q.x,ey-q.y)||1,m=Math.min(dd,420*dt);q.x+=(ex-q.x)/dd*m;q.y+=(ey-q.y)/dd*m;
-    if(dd<10||e.hp<=0||q.t>1.5){q.d=1;if(e.hp>0&&all.includes(e)&&!e.ug){xDeal(e,Math.round(q.dmg*cm()*rnd(.9,1.1)));burst(q.x,q.y,5,['#3a3640','#e9e4dc'],120,{s:2,l:.3})}}}HPS=HPS.filter(q=>!q.d);
+    if(dd<10||e.hp<=0||q.t>1.5){q.d=1;if(e.hp>0&&all.includes(e)&&!e.ug){pDeal(e,Math.round(q.dmg*cm()*rnd(.9,1.1)));burst(q.x,q.y,5,['#3a3640','#e9e4dc'],120,{s:2,l:.3})}}}HPS=HPS.filter(q=>!q.d);
   for(const c of HCP){c.t+=dt;const e=c.e;if(e.hp>0){c.x=e.x+e.w/2;c.y=e.y+e.h}if(c.t>=.25&&!c.h){c.h=1;sfx('peck');if(e.hp>0&&all.includes(e)&&!e.ug){xDeal(e,Math.round(c.dmg*cm()*rnd(.9,1.1)));e.st=Math.max(e.st||0,isBig(e)?.6:1.5);tx('罩住了!',c.x-12,e.y-16,'#ffe066')}}}HCP=HCP.filter(c=>c.t<1.4);
   if(st!='play')return;
   for(const k in p.cd)p.cd[k]-=dt;if(p.g>0)return;
@@ -4253,13 +4398,14 @@ const cosTip=id=>{const d=COSD[id],c=cosIt(id);return `<b style="color:#f783ac;f
   `<span style="color:#fff">${cosW(d.t,c.fg)}</span> <span class="tg">(加在基础数值上${c.fg?',锻造 '+c.fg+' 级':''})</span><br>${c.ev?`<span style="color:#ff922b">强化 +${c.en}:${NM[EQE[d.t][0]]} +${c.ev}</span>`:`<span class="tg">强化:每级 ${NM[EQE[d.t][0]]} +固定值</span>`}<br>${c.amp?ampTxt(c.amp):'<span class="tg">增幅宝石:未镶嵌</span>'}<hr>${d.d}<hr><b style="color:#ffd43b">${d.tr}</b>`};
 // 装备悬停说明(用户第三十三轮给的顺序):名字 / 锻造等级 / 部位 / 品质 / 强化是否上限 —— 白色属性 / 绿色属性 / 强化属性 / 增幅宝石 —— 属性石 / 装备介绍
 function tipItem(it,from){const q=TR[it.tier],ek=EQE[it.slot][0];
-  let h=`${eqImg(it,'eqt')}<b style="color:${it.tr?TRT[it.tr][1]:q[1]};font-size:13.5px">${nm(it)}</b><br><span class="tg">锻造:${it.fg?'<b style="color:#ffd43b">'+it.fg+' 级</b>':'未锻造'}(最高 ${FGMX} 级)<br>部位:${SL[it.slot][0]}<br>品质:${q[0]} · ${it.ms?'大师制作':SER[it.g||0].n+'系列'}<br>强化:${it.en?'+'+it.en:'未强化'}${(it.en||0)>=ENMAX()?' <b style="color:#ff922b">(已达上限)</b>':'(上限 +'+ENMAX()+')'}</span><hr>`;
+  let h=`${eqImg(it,'eqt')}<b style="color:${it.tr?TRT[it.tr][1]:q[1]};font-size:13.5px">${nm(it)}</b><br><span class="tg">锻造:${it.fg?'<b style="color:#ffd43b">'+it.fg+' 级</b>':'未锻造'}(最高 ${FGMX} 级)<br>部位:${SL[it.slot][0]}<br>品质:${q[0]} · ${it.ms?'大师制作':it.fw?'火焰武器(机械史诗 ×'+FWK[it.fw]+')':SER[it.g||0].n+'系列'}<br>强化:${it.en?'+'+it.en:'未强化'}${(it.en||0)>=ENMAX()?' <b style="color:#ff922b">(已达上限)</b>':'(上限 +'+ENMAX()+')'}</span><hr>`;
   h+=Object.keys(it.s).map(k=>`<span style="color:#fff">${NM[k]} +${wv(it,k)}</span>${it.fg?` <span class="tg">(锻造 +${it.fg*FGK*100}%)</span>`:''}`).join('<br>');
   h+='<br>'+(it.gr&&it.gr.length?it.gr.map(([k,v])=>{const r=gRng(it,k);return `<span style="color:#69db7c">${NM[k]} +${v}</span> <span class="tg">(${r[0]} ~ ${r[1]})</span>`}).join('<br>'):'<span class="tg">绿字:到手时随机 3 条</span>');
   h+='<br>'+(it.ev?`<span style="color:#ff922b">强化 +${it.en}:${NM[ek]} +${it.ev}</span>`:`<span class="tg">强化:每级 ${NM[ek]} +固定值</span>`);
   h+='<br>'+(it.amp?ampTxt(it.amp):'<span class="tg">增幅宝石:未镶嵌</span>')+'<hr>';
   h+=(it.gem?gemTxt(it,'#74c0fc'):'<span class="tg">属性石:未镶嵌</span>');
-  if(it.tr)h+=`<br><b style="color:${TRT[it.tr][1]}">【${TRT[it.tr][0]}】${TRT[it.tr][2]}</b><br><span class="tg">${trDesc(it.tr)}</span><br><span class="tg">当前穿戴 ${TRT[it.tr][0]} ×${trCnt(it.tr)}${it.ms?' · <b style="color:#ffd43b">大师特性:效果翻倍</b>(混穿时按大师件数比例,当前 ×'+trMul(it.tr).toFixed(2).replace(/\.?0+$/,'')+')':''}</span>`;
+  if(it.mss&&MISC[it.mss])h+=`<br><b style="color:#b197fc">💎 嵌着 ${MISC[it.mss][0]}</b>`;  // 第四十二轮
+  if(it.tr)h+=`<br><b style="color:${TRT[it.tr][1]}">【${TRT[it.tr][0]}】${TRT[it.tr][2]}</b><br><span class="tg">${trDesc(it.tr)}</span><br><span class="tg">当前穿戴 ${TRT[it.tr][0]} ×${trCnt(it.tr)}(头饰 / 战甲 / 戒指 / 项链 + 剑 + 法杖都算,武器用「武器幻化券」加特性)${it.ms?' · <b style="color:#ffd43b">大师特性:效果翻倍</b>(混穿时按大师件数比例,当前 ×'+trMul(it.tr).toFixed(2).replace(/\.?0+$/,'')+')':''}</span>`;
   h+=`<br><span class="tg">${it.ms?'大师工艺:用制作书在熔炉打造,按最高系列计算、白字和绿字再 ×1.2,是目前最强的装备;特性效果翻倍。':SER[it.g||0].n+'系列'+SL[it.slot][0]+'。'}白字只能用锻造石提升,绿字只能用洗脸券一起刷新。</span>`;
   const e=EQ[it.slot];if(from=='b'&&e)h+=`<hr><span class="tg">已穿戴:</span><br><b style="color:${TR[e.tier][1]}">${nm(e)}</b><br><span class="tg">${ST(e)}</span>`;
   h+=`<hr><span class="tg">售价 ${sellPr(it)} 金币 · ${from=='b'?'左键:穿戴 / 出售 · 双击直接穿戴 · 可拖到左边部位穿戴':'左键:卸下 / 出售 · 双击直接卸下 · 可拖到右边卸下'}</span>`;return h}
@@ -4271,7 +4417,7 @@ function trSum(){const c=setTr(),ks=Object.keys(c);if(!ks.length)return '';
 // 道具背包里的条目:蛇蛋、高级幸运石、各级强化石(同种叠放在一格)
 function itemList(){const L=[];if(MAT.soul>0)L.push(['soul','💠','女神灵魂碎片',MAT.soul]);if(MAT.job>0)L.push(['job','⚜️','转职凭证',MAT.job]);if(MAT.hegg>0)L.push(['hegg',heggEm(),'仓鼠宠物蛋',MAT.hegg]);if(MAT.egg>0)L.push(['egg','🥚','蛇蛋',MAT.egg]);if(LUCK>0)L.push(['luck',mniEm('luck'),'高级幸运宝石',LUCK]);
   for(const k in MISC)if(MAT[k]>0)L.push([k,mniEm(k),MISC[k][0],MAT[k]]);R19.ats.forEach((g,i)=>L.push(['T'+i,mniEm('A'+g.q),ATSQ[g.q].n,1]));for(let l=1;l<=2;l++)for(let q=3;q>=0;q--)if(STN[l][q]>0)L.push(['s'+l+q,stnEm(l,q),stnName(l,q),STN[l][q]]);return L}
-const itemDesc=id=>id[0]=='T'?(g=>g?`${ATSQ[g.q].n}:<b style="color:#1c7ed6">${atsTxt(g)}</b>。在 🔥 熔炉镶嵌到装备上(每件装备 1 颗,新的会替换旧的;不能拆下,出售装备不返还)。出售价格 ${ATSQ[g.q].pr} 金币。`:'')(R19.ats[+id.slice(1)]):MISC[id]?MISC[id][1]+(id=='dbl'&&dblOn()?`<br><b>生效中,还剩 ${Math.ceil((R19.dbl-Date.now())/60000)} 分钟</b>`:'')+(/^ms\d+$/.test(id)&&R19.mse==id?'<br><b>已装备在武器上(再点一次卸下)</b>':'')+((id=='gc1'&&godOn('cr'))||(id=='gc2'&&godOn('pal'))?`<br><b>生效中,还剩 ${godLeft(id=='gc1'?'cr':'pal')}${id=='gc2'?'('+PALN[godOf().pk-1]+')':''}</b>`:''):id=='hegg'?'神秘地带「瓜子大王」掉落(5% 几率)。打开顶栏 🐤 宠物界面,花 10 分钟孵化成宠物仓鼠(已经有仓鼠时,多孵出来的小仓鼠会让它多嗑 3 次瓜子)。不能出售。':id=='soul'?'女神灵魂碎片:第四关首领「黑棘巨蝎」、第八关首领「怨婴 · 银太郎」、第十关首领「归蝇」各掉落一块(这张地图一共 3 块)。碎片里封着女神被夺走的一缕灵魂,在黑暗里会发出淡紫色的光。收集齐全后或许能让城里的女神像重新苏醒……不能出售。':id=='job'?'第六关首领「北极熊」掉落。打开技能栏(T),在剑士或法师页面里选择转职(只能转职一次)。不能出售。':id=='egg'?'迷雾森林的蛇掉落的蛋。每日任务会用到,也可以卖掉(每个 3 金币)。':id=='luck'?'强化时在强化师那里选用,本次强化成功率 +50%。完成每日任务或在商城随机物品栏购买。':`用于把装备强化到 +${id[1]*3-2} ~ +${id[1]*3}(每次消耗 1 颗),在强化师处使用。品质「${STQ[+id[2]].n}」:强化成功时这一级 +${Math.round(STQ[+id[2]].b*100)}% 装备属性(3 颗可在熔炉合成高一档品质)。出售价格 ${itemPr(id)} 金币 / 颗。`;
+const itemDesc=id=>id[0]=='T'?(g=>g?`${ATSQ[g.q].n}:<b style="color:#1c7ed6">${atsTxt(g)}</b>。在 🔥 熔炉镶嵌到装备上(每件装备 1 颗,新的会替换旧的;不能拆下,出售装备不返还)。出售价格 ${ATSQ[g.q].pr} 金币。`:'')(R19.ats[+id.slice(1)]):MISC[id]?MISC[id][1]+(id=='dbl'&&dblOn()?`<br><b>生效中,还剩 ${Math.ceil((R19.dbl-Date.now())/60000)} 分钟</b>`:'')+(/^ms\d+$/.test(id)?['sword','staff'].filter(k=>EQ[k]&&EQ[k].mss==id).map(k=>'<br><b>'+SL[k][0]+'上嵌着一颗</b>').join(''):'')+((id=='gc1'&&godOn('cr'))||(id=='gc2'&&godOn('pal'))?`<br><b>生效中,还剩 ${godLeft(id=='gc1'?'cr':'pal')}${id=='gc2'?'('+PALN[godOf().pk-1]+')':''}</b>`:''):id=='hegg'?'神秘地带「瓜子大王」掉落(5% 几率)。打开顶栏 🐤 宠物界面,花 10 分钟孵化成宠物仓鼠(已经有仓鼠时,多孵出来的小仓鼠会让它多嗑 3 次瓜子)。不能出售。':id=='soul'?'女神灵魂碎片:第四关首领「黑棘巨蝎」、第八关首领「怨婴 · 银太郎」、第十关首领「归蝇」、暗黑大陆第十三关首领「焚天炎君」各掉落一块。碎片里封着女神被夺走的一缕灵魂,在黑暗里会发出淡紫色的光。收集齐全后或许能让城里的女神像重新苏醒……不能出售。':id=='job'?'第六关首领「北极熊」掉落。打开技能栏(T),在剑士或法师页面里选择转职(只能转职一次)。不能出售。':id=='egg'?'迷雾森林的蛇掉落的蛋。每日任务会用到,也可以卖掉(每个 3 金币)。':id=='luck'?'强化时在强化师那里选用,本次强化成功率 +50%。完成每日任务或在商城随机物品栏购买。':`用于把装备强化到 +${id[1]*3-2} ~ +${id[1]*3}(每次消耗 1 颗),在强化师处使用。品质「${STQ[+id[2]].n}」:强化成功时这一级 +${Math.round(STQ[+id[2]].b*100)}% 装备属性(3 颗可在熔炉合成高一档品质)。出售价格 ${itemPr(id)} 金币 / 颗。`;
 const itemPr=id=>id[0]=='T'?(R19.ats[+id.slice(1)]?ATSQ[R19.ats[+id.slice(1)].q].pr:0):MISC[id]?MISC[id][3]:id=='egg'?3:id=='luck'||id=='job'||id=='soul'||id=='hegg'?0:Math.floor(STP2[+id[1]]*STQ[+id[2]].p/2);
 const itemCnt=id=>id[0]=='T'?(R19.ats[+id.slice(1)]?1:0):MISC[id]?MAT[id]|0:id=='hegg'?MAT.hegg||0:id=='soul'?MAT.soul||0:id=='job'?MAT.job||0:id=='egg'?MAT.egg||0:id=='luck'?LUCK:STN[+id[1]][+id[2]]||0;
 const potTip=k=>{const d=POTD[k];return `<b style="color:${d[1]};font-size:13.5px">${d[0]}</b><br><span class="tg">药水 · 持有 ${POT[k]||0} 瓶${QS.includes(k)?' · 快捷栏 '+(QS.indexOf(k)+1):''}</span><hr>${d[2]=='rev'?'倒下时使用:原地复活,恢复 50% 生命和魔力,2.5 秒无敌':'立即恢复 '+potAmt(k)+' · 同类药水 '+POTCD+' 秒冷却'}<hr><span class="tg">左键:使用 / 放到快捷栏 / 出售${d[2]=='rev'?'':' · 双击使用'}</span>`};
@@ -4323,7 +4469,7 @@ function renderBag(){
 function bagAct(a,r){const it=itOf(r);hideTip();CSC=0;let keep=0;
   if(a=='eq'&&it&&r[0]=='b'){const i=+r.slice(1),old=EQ[it.slot];EQ[it.slot]=it;BAG.splice(i,1);if(old)BAG.push(old);bmsg='已穿戴 '+nm(it)}
   else if(a=='un'&&it&&r[0]=='e'){if(BAG.length<BAGN){BAG.push(it);EQ[r.slice(2)]=null;bmsg='已卸下 '+nm(it)}else bmsg='装备栏满了,先整理一下背包'}
-  else if(a=='sell'&&it&&/^(b\d|e:)/.test(r)){const c=sellPr(it);gold+=c;if(r[0]=='b')BAG.splice(+r.slice(1),1);else EQ[r.slice(2)]=null;bmsg='出售 '+nm(it)+',获得 '+c+' 金币';sfx('coin')}
+  else if(a=='sell'&&it&&/^(b\d|e:)/.test(r)){const c=sellPr(it);if(it.mss)msOff(it);gold+=c;if(r[0]=='b')BAG.splice(+r.slice(1),1);else EQ[r.slice(2)]=null;bmsg='出售 '+nm(it)+',获得 '+c+' 金币';sfx('coin')}
   else if(a=='cw'||a=='cu'){const id=cosId(r);if(id){wearC(id,a=='cw');bmsg=(a=='cw'?'已穿戴「':'已卸下「')+COSD[id].n+'」'}}
   else if(a=='csell'){const id=cosId(r);if(id&&OWN.includes(id)){if(WEAR[COSD[id].t]==id)wearC(id,false);OWN=OWN.filter(q=>q!=id);gold+=COSSELL;sfx('coin');bmsg='出售「'+COSD[id].n+'」,获得 '+COSSELL+' 金币'}}
   else if(a=='pu'&&r.startsWith('p:')){keep=1;const k=r.slice(2);if(potUse(k))bmsg='使用了 '+POTD[k][0];else bmsg=POTD[k][2]=='hp'&&P.hp>=stats().hp?'生命已满,不需要喝药':POTD[k][2]=='mp'&&P.mp>=stats().mp?'魔力已满,不需要喝药':'现在不能使用'}
@@ -4331,14 +4477,18 @@ function bagAct(a,r){const it=itOf(r);hideTip();CSC=0;let keep=0;
   else if((a=='ps1'||a=='psa')&&r.startsWith('p:')){keep=1;const k=r.slice(2),g=potSell(k,a=='ps1'?1:POT[k]||0);if(g)bmsg='出售 '+POTD[k][0]+',获得 '+g+' 金币'}
   else if((a=='is1'||a=='isa')&&r.startsWith('i:')){keep=1;const id=r.slice(2),pr=itemPr(id),n=Math.min(a=='is1'?1:1e9,itemCnt(id));if(pr&&n>0){if(id=='egg')MAT.egg-=n;else if(id[0]=='T'){R19.ats.splice(+id.slice(1),1);sel=null}else if(MISC[id])MAT[id]-=n;else STN[+id[1]][+id[2]]-=n;gold+=pr*n;sfx('coin');bmsg='出售 '+n+' 个,获得 '+pr*n+' 金币'}}
   else if(a=='iu'&&r.startsWith('i:')){keep=1;bmsg=itemUse(r.slice(2))}
+  else if(/^ms_/.test(a)&&r.startsWith('i:')){keep=1;bmsg=msEquip(r.slice(2),a.slice(3))}
+  else if(a=='msx'&&it)bmsg=msOff(it);
   if(!keep)sel=null;else if(sel!=r)sel=r;const S=stats();P.hp=Math.min(P.hp,S.hp);P.mp=Math.min(P.mp,S.mp);save();renderBag()}
 // ===== 物品菜单(第二十轮:左键单击弹出;右键也照样能用)=====
 let CMR=null,CMF=0,cmT=0;
 function cmItems(r){const it=itOf(r);
-  if(/^b\d/.test(r)&&it)return [['🛡️ 穿戴','eq'],['💰 出售 +'+sellPr(it)+' 金币','sell']];
-  if(/^e:/.test(r)&&it)return [['📤 卸下','un'],['💰 出售 +'+sellPr(it)+' 金币','sell']];
+  const mx=it&&it.mss?[['📤 取下技能石「'+MSS[it.mss.slice(2)][0]+'」','msx']]:[];
+  if(/^b\d/.test(r)&&it)return [['🛡️ 穿戴','eq'],['💰 出售 +'+sellPr(it)+' 金币','sell'],...mx];
+  if(/^e:/.test(r)&&it)return [['📤 卸下','un'],['💰 出售 +'+sellPr(it)+' 金币','sell'],...mx];
   const id=cosId(r);if(id){const on=WEAR[COSD[id].t]==id;return [[on?'📤 卸下':'👘 穿戴',on?'cu':'cw'],['💰 出售 +'+COSSELL+' 金币','csell']]}
   if(r&&r.startsWith('p:')){const k=r.slice(2);if(!POT[k])return null;const L=POTD[k][2]=='rev'?[]:[['🧪 使用','pu']];for(let i=0;i<3;i++)L.push(['⌨️ 放到快捷栏 '+(i+1)+(QS[i]==k?' ✓':''),'q'+i]);L.push(['💰 出售 1 瓶 +'+Math.floor(POTD[k][4]/2),'ps1']);return L}
+  if(r&&r.startsWith('i:')&&/^ms\d+$/.test(r.slice(2))&&MSS[r.slice(4)])return ['sword','staff'].filter(k=>EQ[k]).map(k=>['💎 嵌入'+SL[k][0]+(EQ[k].mss?'(替换「'+MSS[EQ[k].mss.slice(2)][0]+'」)':''),'ms_'+k]);  // 第四十二轮:怪物技能石
   if(r&&r.startsWith('i:')){const id=r.slice(2),pr=itemPr(id);return pr?[['💰 出售 1 个 +'+pr,'is1'],['💰 全部出售 +'+pr*itemCnt(id),'isa']]:null}
   return null}
 function cmName(r){const it=itOf(r);if(it)return `<b style="color:${TR[it.tier][1]}">${nm(it)}</b>`;const id=cosId(r);if(id)return `<b style="color:#f783ac">${COSD[id].ic} ${COSD[id].n}</b>`;if(r.startsWith('p:'))return '<b>'+POTD[r.slice(2)][0]+'</b>';const q=itemList().find(v=>'i:'+v[0]==r);return q?'<b>'+q[2]+'</b>':''}
@@ -4392,8 +4542,8 @@ function bagDbl(r){const it=itOf(r);if(!it)return;hideTip();
 $('bag').addEventListener('click',e=>{if(performance.now()-dragT<250||performance.now()-cmT<700)return;const t=e.target.closest('[data-r]');if(!t)return;const r=t.dataset.r;
   if(r[0]=='F'&&r.length>1&&'tgr'.includes(r[1])){const v=r.slice(2);if(r[1]=='t')BF.t=+v;else if(r[1]=='g')BF.g=+v;else BF.tr=v;sel=null;bagPg=0;bsq=null;BSA=null;bmsg='';renderBag();return}
   if(r=='auto'){bsq=autoPlan();BSA=BAG.map((q,i)=>i).filter(i=>bfOk(BAG[i]));bmsg='';sel=null;renderBag();$('bag').querySelector('.dt').scrollIntoView({block:'nearest',behavior:'smooth'});return}
-  if(r=='autoy'){const ids=bsq||[];let g=0;for(const i of [...ids].sort((a,b)=>b-a)){g+=sellPr(BAG[i]);BAG.splice(i,1)}gold+=g;bsq=null;sel=null;bmsg='已出售 '+ids.length+' 件,获得 '+g+' 金币。';save();renderBag();return}
-  if(r=='ally'){const ids=BSA||[];let g=0;for(const i of [...ids].sort((a,b)=>b-a)){g+=sellPr(BAG[i]);BAG.splice(i,1)}gold+=g;sfx('coin');bsq=null;BSA=null;sel=null;bmsg='已出售 '+ids.length+' 件装备,获得 '+g+' 金币。';save();renderBag();return}
+  if(r=='autoy'){const ids=bsq||[];let g=0;for(const i of [...ids].sort((a,b)=>b-a)){g+=sellPr(BAG[i]);msOff(BAG[i]);BAG.splice(i,1)}gold+=g;bsq=null;sel=null;bmsg='已出售 '+ids.length+' 件,获得 '+g+' 金币。';save();renderBag();return}
+  if(r=='ally'){const ids=BSA||[];let g=0;for(const i of [...ids].sort((a,b)=>b-a)){g+=sellPr(BAG[i]);msOff(BAG[i]);BAG.splice(i,1)}gold+=g;sfx('coin');bsq=null;BSA=null;sel=null;bmsg='已出售 '+ids.length+' 件装备,获得 '+g+' 金币。';save();renderBag();return}
   bsq=null;BSA=null;bmsg='';if(r=='auton'){renderBag();return}
   if(r=='x'){toggleBag();return}
   if(r=='-')return;
@@ -4521,6 +4671,7 @@ function rSet(){const fb=(v)=>`<button data-p="fps${v}" class="${SET.fps==v?'on'
     <b>怪物飞弹、火鸟身上的火光、圣光球、光柱上的魔焰、第九关火焰链</b>:<a href="https://codemanu.itch.io/pixelart-effect-pack" target="_blank" rel="noopener noreferrer">Free Pixel Effects Pack</a>(作者 <b>CodeManu / Davit Masia</b>,<a href="https://creativecommons.org/publicdomain/zero/1.0/" target="_blank" rel="noopener noreferrer">CC0</a>),每隔几帧取一帧、裁掉空白。<br>
     <b>第十一关 齿轮要塞(暗黑大陆)</b>:背景用 <a href="https://opengameart.org/content/industrial-parallax-background" target="_blank" rel="noopener noreferrer">Industrial Parallax Background</a>(作者 <b>ansimuz</b>,<a href="https://creativecommons.org/publicdomain/zero/1.0/" target="_blank" rel="noopener noreferrer">CC0</a>),原样;地面钢板、桁架和传送带用 <a href="https://0x72.itch.io/16x16-industrial-tileset" target="_blank" rel="noopener noreferrer">16x16 Industrial Tileset</a>(作者 <b>0x72</b>,<a href="https://creativecommons.org/publicdomain/zero/1.0/" target="_blank" rel="noopener noreferrer">CC0</a>),原图是单色,按亮度换成青绿色;齿轮巡逻兵、电击无人机、穹顶坦克用 <a href="https://opengameart.org/content/enemies-for-platformer-pixel-art" target="_blank" rel="noopener noreferrer">Enemies for Platformer Pixel Art</a>(作者 <b>CraftPix.net</b>,<a href="https://opengameart.org/content/oga-by-30-faq" target="_blank" rel="noopener noreferrer">OGA-BY 3.0</a>),首领「钢铁暴君」和机枪子弹 / 导弹用 <a href="https://opengameart.org/content/bosses-pixel-art-sprite-sheet" target="_blank" rel="noopener noreferrer">Bosses Pixel Art Sprite Sheet</a>(作者 <b>CraftPix.net</b>,<a href="https://opengameart.org/content/oga-by-30-faq" target="_blank" rel="noopener noreferrer">OGA-BY 3.0</a>),都是原样;爆炸用 Warped City(ansimuz,CC0)。BGM <a href="https://opengameart.org/node/16130" target="_blank" rel="noopener noreferrer">Factory ambiance</a>(作者 <b>yd</b>,<a href="https://creativecommons.org/publicdomain/zero/1.0/" target="_blank" rel="noopener noreferrer">CC0</a>)/ <a href="https://opengameart.org/content/hardwar" target="_blank" rel="noopener noreferrer">Short Industrial Style Techno Loop</a>(作者 <b>cinameng</b>,<a href="https://creativecommons.org/publicdomain/zero/1.0/" target="_blank" rel="noopener noreferrer">CC0</a>)。第二张世界地图「暗黑大陆」是玩家定制的插画(左下角的字改成「返回城镇」,纵向压扁约 7%)。机械系列装备图标、上帝卡牌图标用 496 pixel art icons(7Soul1,CC0),机械系列换成钢青色。<br>
     <b>第十二关 永夜王城(暗黑大陆)· 第四十一轮</b>:场景用 <a href="https://ansimuz.itch.io/gothicvania-patreon-collection" target="_blank" rel="noopener noreferrer">Old Dark Castle Interior Tileset</a>(作者 <b>ansimuz</b>,<a href="https://creativecommons.org/publicdomain/zero/1.0/" target="_blank" rel="noopener noreferrer">CC0</a>),背景原样,地面用石柱块横向拼接;首领「夜王」用 <a href="https://luizmelo.itch.io/medieval-king-pack-2" target="_blank" rel="noopener noreferrer">Medieval King Pack 2</a>、精英「夜巫」用 <a href="https://luizmelo.itch.io/evil-wizard-2" target="_blank" rel="noopener noreferrer">EVil Wizard 2</a>、骷髅卫兵 / 哥布林投弹手和炸弹用 <a href="https://luizmelo.itch.io/monsters-creatures-fantasy" target="_blank" rel="noopener noreferrer">Monsters Creatures Fantasy</a>(作者都是 <b>LuizMelo</b>,<a href="https://creativecommons.org/publicdomain/zero/1.0/" target="_blank" rel="noopener noreferrer">CC0</a>),只裁掉空白。BGM <a href="https://opengameart.org/node/122922" target="_blank" rel="noopener noreferrer">Abandoned Castle Music (Loop)</a>(作者 <b>StarNinjas</b>,CC0)/ <a href="https://opengameart.org/node/84428" target="_blank" rel="noopener noreferrer">Boss Battle #2 [Symphonic Metal]</a>(作者 <b>nene</b>,CC0)。<br>
+    <b>第十三关 熔心火山(暗黑大陆)· 第四十二轮</b>:远景用 <a href="https://opengameart.org/content/volcano-background" target="_blank" rel="noopener noreferrer">Volcano Background</a>(作者 <b>cubbic</b>,<a href="https://creativecommons.org/licenses/by/3.0/" target="_blank" rel="noopener noreferrer">CC-BY 3.0</a>;原作同时提供 CC-BY-SA 3.0,这里按 CC-BY 3.0 使用),我们缩小一半、把蓝天白云换成暗红烟尘;地面用 <a href="https://opengameart.org/content/2d-platformer-volcano-pack-11" target="_blank" rel="noopener noreferrer">2D Platformer Volcano Pack 1.1</a>(<b>Tio Aimar</b>,<a href="https://creativecommons.org/publicdomain/zero/1.0/" target="_blank" rel="noopener noreferrer">CC0</a>)的地表块;首领「焚天炎君」用 <a href="https://luizmelo.itch.io/evil-wizard" target="_blank" rel="noopener noreferrer">Evil Wizard</a>、精英「炎术士」用 <a href="https://luizmelo.itch.io/wizard-pack" target="_blank" rel="noopener noreferrer">Wizard Pack</a>(法袍换色)、小怪「火蠕虫」和火球用 <a href="https://luizmelo.itch.io/fire-worm" target="_blank" rel="noopener noreferrer">Fire Worm</a>(三个都是 <b>LuizMelo</b>,<a href="https://creativecommons.org/publicdomain/zero/1.0/" target="_blank" rel="noopener noreferrer">CC0</a>);小怪「熔岩牛头人」用 <a href="https://opengameart.org/content/molten-tileset" target="_blank" rel="noopener noreferrer">Molten Tileset</a> 里的 molten minotaur(作者 <b>zaphgames</b>,<a href="https://creativecommons.org/licenses/by/3.0/" target="_blank" rel="noopener noreferrer">CC-BY 3.0</a>),只取朝右的一行。火之 / 真~火之武器:手里的剑用 Fantasy Sword Set 的火焰剑换成赤红 / 蓝焰,法杖用 Staff [64x64](LordNeo,<a href="https://creativecommons.org/publicdomain/zero/1.0/" target="_blank" rel="noopener noreferrer">CC0</a>)的 staff00 换色,图标用 7Soul1 的剑 / 法杖图标换色;360 小鸟碎片(鸟喙)和武器幻化券(镜子)图标也来自 7Soul1(<a href="https://creativecommons.org/publicdomain/zero/1.0/" target="_blank" rel="noopener noreferrer">CC0</a>)。<br>
     <b>机械系列外观 · 第四十一轮</b>:剑士黄铜板甲、黄铜腿甲用 ULPC 的 plate armour / legs armour(原作 Redshrike 等,<a href="https://opengameart.org/content/oga-by-30-faq" target="_blank" rel="noopener noreferrer">OGA-BY 3.0</a>,换成 brass 色),头盔 Xeon helmet(<b>Stephen Challener (Redshrike)</b>、JaidynReiman,OGA-BY 3.0,剑士黄铜色 / 法师铁色);机械剑是 Fantasy Sword Set(melle,CC0)的银剑换成黄铜色;机械法杖是 Staff [64x64](LordNeo,CC0)的 staff03,木杖身换成钢灰。怪物技能石图标是 496 pixel art icons(7Soul1,CC0)的 I_Crystal02。<br>
     <b>第九关 火山噩梦</b>:场景(红色天空、山脉、地面、浮空石台、熔岩、枯树、喷气孔、岩石、晶体)用 <a href="https://opengameart.org/content/2d-platformer-volcano-pack-11" target="_blank" rel="noopener noreferrer">2D Platformer Volcano Pack 1.1</a>(作者 <b>Tio Aimar</b>,<a href="https://creativecommons.org/publicdomain/zero/1.0/" target="_blank" rel="noopener noreferrer">CC0</a>),缩小到 1/4、限色,背景重新上色成红色天空 / 暗红山脉;炎牙魔、炎狱鬼将(换成黑曜石身体 + 火焰铠甲)、炎柱、熔火鬼、火球、首领「熔狱魔神」(翅膀换成熔岩色、斗篷加熔岩裂纹、头换成黑岩 + 三只燃烧的眼睛)和熔岩拳的火焰用 <a href="https://opengameart.org/content/gothicvania-patreons-collection" target="_blank" rel="noopener noreferrer">Gothicvania Patreon's Collection</a>(作者 <b>ansimuz</b>,<a href="https://creativecommons.org/publicdomain/zero/1.0/" target="_blank" rel="noopener noreferrer">CC0</a>)的 Hell Beast / Fire Skull / Flying Demon;熔岩魔用 <a href="https://opengameart.org/content/golem-animations" target="_blank" rel="noopener noreferrer">Golem animations</a>(作者 <b>irmirx</b>,<a href="https://creativecommons.org/licenses/by/3.0/" target="_blank" rel="noopener noreferrer">CC-BY 3.0</a>),缩小到 1/6、限色,换成黑色玄武岩 + 发光熔岩裂纹。火山内部的洞壁 / 钟乳石、熔岩祭坛、喷发的火山、燃烧的弯刀、地面火焰、熔岩裂缝、地狱之握的黑手是自画的。<br>
     <b>第十关 幽灵船</b>:夜空(天空、星星、月亮、云)用 <a href="https://opengameart.org/content/moon-and-sea-pixel-art-background" target="_blank" rel="noopener noreferrer">Moon and Sea Pixel Art Background</a>(作者 <b>CraftPix.net 2D Game Assets</b>,<a href="https://opengameart.org/content/oga-by-30-faq" target="_blank" rel="noopener noreferrer">OGA-BY 3.0</a>),缩小到 1/2,云换成青绿色;远处的幽灵船用 <a href="https://opengameart.org/content/old-fashioned-pirate-ship" target="_blank" rel="noopener noreferrer">Old-fashioned pirate ship</a>(作者 <b>KokoroReflections</b>,<a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener noreferrer">CC-BY 4.0</a>),缩小到 1/6,换成半透明青绿色剪影;甲板、浮空木板、木桶、大炮用 <a href="https://opengameart.org/content/pirate-bomb" target="_blank" rel="noopener noreferrer">Pirate Bomb</a>(作者 <b>Pixel Frog</b>,<a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener noreferrer">CC-BY 4.0</a>),缩小到 1/2,换成朽木色;翼魔、空翼妖用 <a href="https://opengameart.org/content/lpc-imp-2" target="_blank" rel="noopener noreferrer">LPC Imp 2</a>(作者 <b>William.Thompsonj</b>,<a href="https://creativecommons.org/licenses/by/3.0/" target="_blank" rel="noopener noreferrer">CC-BY 3.0</a>),空翼妖换成暗紫色 + 青色眼睛;浮游眼魔用 <a href="https://opengameart.org/content/flying-eye-monster-eye" target="_blank" rel="noopener noreferrer">Flying Eye Monster</a>(作者 <b>Lil Pie</b>,<a href="https://creativecommons.org/licenses/by/3.0/" target="_blank" rel="noopener noreferrer">CC-BY 3.0</a>),原色;首领「归蝇」用 <a href="https://opengameart.org/content/fallen-angel" target="_blank" rel="noopener noreferrer">Fallen Angel</a>(作者 <b>BlackSwordo</b>,<a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener noreferrer">CC-BY 4.0</a>),缩小到 1/2、去掉影子,剑光换成紫色,翅膀拆开单独扇动。桅杆和破帆、幽灵灯笼、栏杆、归蝇的第二对手臂 / 长尾 / 漂浮碎片、魔法弹是自画的。<br>神秘地带 / 神秘副本(2026-10-13):石砌大厅、石柱、石像鬼、张嘴石狮头、石灯柱、铁火盆和火焰、首领「瓜子大王」和宠物仓鼠、瓜子 / 瓜子壳、宠物蛋全部是自画的像素图(仓鼠配色参考了 <a href="https://opengameart.org/content/worlds-strongest-hamster-in-the-underground-empire-gfx" target="_blank" rel="noopener noreferrer">World's Strongest Hamster in The Underground Empire GFX</a>,作者 <b>mutantleg</b>,<a href="https://creativecommons.org/publicdomain/zero/1.0/" target="_blank" rel="noopener noreferrer">CC0</a>,没有直接使用原图)。<br>
@@ -4563,7 +4714,8 @@ function rSet(){const fb=(v)=>`<button data-p="fps${v}" class="${SET.fps==v?'on'
     <b>村长</b>:使用 <a href="https://opengameart.org/content/old-man-32x32-overflow-sprite-from-lightstone" target="_blank" rel="noopener noreferrer">Old Man 32x32 Overflow Sprite (Lightstone)</a>,作者 <b>Syrsly(Josh Maines)</b>。授权:<a href="https://creativecommons.org/publicdomain/zero/1.0/" target="_blank" rel="noopener noreferrer">CC0</a> 与 <a href="https://opengameart.org/content/oga-by-30-faq" target="_blank" rel="noopener noreferrer">OGA-BY 3.0</a>。我们没有做改动。<br>
     <b>城镇 NPC(艾琳、小葵、铁叔、老金)</b>:使用并修改自 <a href="https://opengameart.org/content/sara-wizard" target="_blank" rel="noopener noreferrer">Sara - Wizard</a> 与 <a href="https://opengameart.org/content/trevor-fighter" target="_blank" rel="noopener noreferrer">Trevor Fighter</a>,作者 <b>Mandi Paugh</b>(由用户 bart 上传到 <a href="https://opengameart.org" target="_blank" rel="noopener noreferrer">OpenGameArt.org</a>)。授权:<a href="https://creativecommons.org/licenses/by/3.0/" target="_blank" rel="noopener noreferrer">CC-BY 3.0</a>。我们做的改动:去除背景色、整体换色、为铁叔和老金添加了胡须。<br>
     <span class="tag">素材来自 opengameart.org · 链接:opengameart.org/content/hero-spritesheets-ars-notoria · opengameart.org/content/old-man-32x32-overflow-sprite-from-lightstone · opengameart.org/content/16x16-weapon-rpg-icons · opengameart.org/content/lpc-wings-new-animations · github.com/LiberatedPixelCup/Universal-LPC-Spritesheet-Character-Generator · nerijs.itch.io/pvfx-foundry · opengameart.org/content/pixel-art-spells · opengameart.org/content/spell-effects-by-starsteelgaming · opengameart.org/content/sara-wizard · opengameart.org/content/trevor-fighter · creativecommons.org/licenses/by/3.0/</span></div>
-   <b>声音</b><div class="row"><button data-p="snd">${['🔊 全开','🔉 只开音效','🔇 静音'][AU.mode]}</button><span class="tag">点击切换(快捷键 M)。目前只有第一、二关有背景音乐</span></div></div>`}
+   <b>声音</b><div class="row"><button data-p="snd">${['🔊 全开','🔉 只开音效','🔇 静音'][AU.mode]}</button><span class="tag">点击切换(快捷键 M)。目前只有第一、二关有背景音乐</span></div>
+   <b>菜单快捷键</b><div class="row"><button data-p="hkon" class="${HOTK_()?'on':''}">开启</button><button data-p="hkoff" class="${HOTK_()?'':'on'}">关闭</button><span class="tag">B 背包 · T 技能 · Q 任务 · P 商城 · Y 精灵 · G 宠物 · M 声音。经常误按就关掉,改用右下角的按钮</span></div></div>`}
 function applyRS(n){RS=n;LBG.vn=null;cv.width=VW*RS;cv.height=VH*RS;x.setTransform(RS,0,0,RS,0,0);for(const k in BGC)delete BGC[k];MAPBG=null;HHC.k=''}
 // 窗口模式:画面宽度取 640 的整数倍(按物理像素算),像素才不会忽大忽小。1080p 显示器上默认 1280 宽(2 倍);
 // 窗口太小放不下 2 倍时,退回按窗口大小自适应。全屏仍然铺满(由 CSS 的 body.fs 规则控制)
@@ -4585,6 +4737,7 @@ function mallAct(r){
   if(r=='pause'){closeP();PAUSED=1;return 2}
   if(r=='home'){if(st=='play'){closeP();toTown()}return 2}
   if(r=='fps60'||r=='fps120'){SET.fps=+r.slice(3);saveSet();fmsg='帧数上限:'+SET.fps;return 1}
+  if(r=='hkon'||r=='hkoff'){SET.hotk=r=='hkon'?1:0;saveSet();fmsg=SET.hotk?'菜单快捷键已开启(B T Q P Y G M)':'菜单快捷键已关闭';return 1}
   if(r=='sfps'){SET.sf=SET.sf?0:1;saveSet();if(!SET.sf)$('fpsT').textContent='';return 1}
   if(r=='fs'){try{if(document.fullscreenElement)document.exitFullscreen();else document.documentElement.requestFullscreen()}catch(e){}return 1}
   if(r=='snd'){auCycle();return 1}
@@ -4645,7 +4798,7 @@ function rGM(){const sel=(id,o)=>`<select id="${id}">${o}</select>`,nums=(d)=>Ar
   `<h4>资源</h4><div class="row"><button data-g="g1000">金币 +1000</button><button data-g="g10000">金币 +10000</button><button data-g="g0">金币清零</button><button data-g="st10">每级强化石 +10</button><button data-g="it19">第十九轮新道具</button></div>`+
   `<h4>等级与技能</h4><div class="row"><button data-g="lv1">升 1 级</button><button data-g="lv10">升 10 级</button><span>设为 Lv <input id="gml" type="number" min="1" max="99" value="${lvl}" style="width:64px"></span><button data-g="lvset">设置</button><button data-g="sp5">技能点 +5</button><button data-g="skall">全部技能满级</button><button data-g="job1">转职凭证 +1</button><button data-g="job0">重置转职</button><button data-g="psall">被动技能全满</button></div>`+
   `<h4>装备</h4><div class="row">${sel('gms',ALL.map(k=>`<option value="${k}">${SL[k][1]} ${SL[k][0]}</option>`).join(''))}${sel('gmt',TR.map((t,i)=>`<option value="${i}">${t[0]}</option>`).join(''))}${sel('gmg',SER.map((q,i)=>`<option value="${i}">${q.n}系列</option>`).join(''))}${sel('gmr','<option value="">无特性</option>'+TRK.map(k=>`<option value="${k}">${TRT[k][0]}</option>`).join(''))}<span>+</span>${sel('gme',nums(0))}<button data-g="give">放入背包</button><button data-g="bagclr">清空背包</button></div>`+
-  `<div class="row"><button data-g="epic">全身换成史诗装备</button><button data-g="epic5">全身换成史诗荒漠套(用上面选的特性,未选则 2+2 混搭)</button><span>已穿戴装备全部设为 +</span>${sel('gmn',nums(5))}<button data-g="enall">执行</button></div>`+
+  `<div class="row"><button data-g="epic">全身换成史诗装备</button><button data-g="epic5">全身换成史诗荒漠套(用上面选的特性,未选则 2+2 混搭)</button><button data-g="firew">火之 / 真~火之武器各一把 + 小鸟碎片 / 幻化券 ×5</button><span>已穿戴装备全部设为 +</span>${sel('gmn',nums(5))}<button data-g="enall">执行</button></div>`+
   `<h4>开关</h4><div class="row">${tg('god','无敌')}${tg('ko','一击必杀')}${tg('mp','无限魔力')}${tg('luck','强化必成功')}</div>`+
   `<h4>关卡</h4><div class="row"><button data-g="heal">回满生命和魔力</button><button data-g="go1">进入第一关</button><button data-g="go2">进入第二关</button><button data-g="unl">解锁第二关</button><button data-g="clr2">标记第二关已通关(出现女神像)</button><button data-g="go3">进入第三关</button><button data-g="unl3">解锁第三关</button><button data-g="clr3">标记第三关已通关(出现村长)</button><button data-g="tk0">重置村长对话</button><button data-g="go4">进入第四关</button><button data-g="unl4">解锁第四关</button><button data-g="clr4">标记第四关已通关</button><button data-g="go5">进入第五关</button><button data-g="unl5">解锁第五关</button><button data-g="go6">进入第六关</button><button data-g="unl6">解锁第六关</button><button data-g="go7">进入第七关</button><button data-g="unl7">解锁第七关</button><button data-g="boss" ${st=='play'?'':'disabled'}>传送到首领前</button></div>`+
   `<h4>任务与材料</h4><div class="row"><button data-g="egg">蛇蛋 +10</button><button data-g="lk5">高级幸运宝石 +5</button><button data-g="mqf">当前主线一键达成</button><button data-g="mqn">跳过当前主线</button><button data-g="mqb">主线退回上一个</button><button data-g="mq0">重置主线</button><button data-g="qfin">已接的每日任务一键达成</button><button data-g="qrst">刷新每日任务</button></div>`+
@@ -4669,6 +4822,7 @@ function gmAct(a){fmsg='';const full=()=>{const S=stats();P.hp=S.hp;P.mp=S.mp};i
   else if(a=='lv1'||a=='lv10'||a=='lvset'){const n=a=='lvset'?Math.max(1,Math.min(99,(+$('gml').value|0)||1)):Math.min(99,lvl+(a=='lv1'?1:10));sp+=Math.max(0,n-lvl);lvl=n;exp=0;full();fmsg='等级已设为 Lv'+lvl}
   else if(a=='give'){if(BAG.length>=BAGN)fmsg='背包已满';else{const sl=$('gms').value,g=+$('gmg').value,r=$('gmr').value;const it=gen(sl,+$('gmt').value,null,g,g==2&&BODY.includes(sl)&&r?r:null);it.en=+$('gme').value||0;BAG.push(it);fmsg='已放入背包:'+nm(it)}}
   else if(a=='bagclr'){BAG=[];fmsg='背包已清空'}
+  else if(a=='firew'){for(const s of ['sword','staff'])for(const f of [1,2])BAG.push(fireW(s,f));MAT.b360=(MAT.b360|0)+5;MAT.hwq=(MAT.hwq|0)+5;fmsg='火之武器 4 把放进背包;360 小鸟碎片、武器幻化券各 +5'}
   else if(a=='epic5'){const r=$('gmr').value;BODY.forEach((k,i)=>EQ[k]=gen(k,3,null,2,r||(i<2?'lei':'xue')));EQ.sword=gen('sword',3,null,2);EQ.staff=gen('staff',3,null,2);full();fmsg='已换成史诗荒漠套 '+(r?TRT[r][0]+'×4':'怒雷×2 + 热血×2')}
   else if(a=='epic'){for(const k of ALL)EQ[k]=gen(k,3);full();fmsg='全身已换成史诗装备'}
   else if(a=='enall'){const n=+$('gmn').value;for(const k of ALL)if(EQ[k]){EQ[k].en=n;EQ[k].ev=0;for(let l=1;l<=n;l++)EQ[k].ev+=enV(k,l,0)}full();fmsg='已穿戴装备全部设为 +'+n}
@@ -4724,22 +4878,23 @@ $('pn').addEventListener('click',e=>{const g=e.target.closest('[data-g]');if(g){
 const KM={ArrowLeft:'l',a:'l',A:'l',ArrowRight:'r',d:'r',D:'r'},JK=['k','K','ArrowUp'],AK=['j','J','x','X'],UK=['w','W'],DK=['s','S'];
 // 双击方向键快跑:280 毫秒内同方向按两次
 function tapDir(k){const t=performance.now();if(t-TAP[k]<280&&(st=='play'||st=='town'))P.run=1;TAP[k]=t}
-// 第二十四轮:用户经常误按,菜单快捷键(B 背包 / T 技能 / Q 任务 / P 商城 / Y 精灵 / G 宠物 / M 声音)全部关掉,改用右下角按钮;HOTK=1 可恢复。Esc(关面板 / 暂停 / 设置)和战斗按键照旧
-const HOTK=0;
+// 第二十四轮:用户经常误按,菜单快捷键(B 背包 / T 技能 / Q 任务 / P 商城 / Y 精灵 / G 宠物 / M 声音)全部关掉,改用右下角按钮。Esc(关面板 / 暂停 / 设置)和战斗按键照旧
+// 第四十二轮:恢复菜单快捷键,默认开启;设置页「菜单快捷键」可以关掉(SET.hotk = 0)
+const HOTK_=()=>SET.hotk!==0;
 addEventListener('keydown',e=>{
   if(HOME){homeKey(e);return}  // 主页面打开时,游戏按键都不响应
   if(e.key=='F1'||e.key=='F2'||e.key=='F3'){e.preventDefault();const t=performance.now();if(t-GMSQ.t>3000)GMSQ.s='';GMSQ.t=t;GMSQ.s=(GMSQ.s+e.key[1]).slice(-6);if(GMSQ.s=='231233'){GMSQ.s='';toggleP('gm')}return}
-  if(HOTK&&(e.key=='m'||e.key=='M')&&!e.repeat&&!(document.activeElement&&document.activeElement.tagName=='INPUT')){auCycle();return}
+  if(HOTK_()&&(e.key=='m'||e.key=='M')&&!e.repeat&&!(document.activeElement&&document.activeElement.tagName=='INPUT')){auCycle();return}
   if(DLG&&st=='town'&&!busy()){e.preventDefault();if(e.key=='Escape')dlgSkip();else if(['Enter',' ','j','J','k','K'].includes(e.key)&&!e.repeat)dlgNext();return}
   if(st=='lvsel'){e.preventDefault();lvsKey(e);return}
-  if(st=='map'&&MPG==1){e.preventDefault();if(e.key=='Escape')MPG=0;else if(e.key=='Enter'||e.key=='1')map2Go(0);else if(e.key=='2')map2Go(1);return}
+  if(st=='map'&&MPG==1){e.preventDefault();if(e.key=='Escape')MPG=0;else if(e.key=='Enter'||e.key=='1')map2Go(0);else if(e.key=='2')map2Go(1);else if(e.key=='3')map2Go(2);return}
   if(st=='map'){e.preventDefault();if(e.key=='Tab'&&map2Open()){MPG=1;return}if(e.key=='Escape')st='town';else if(e.key.length==1&&'1234567890'.includes(e.key)){const i=e.key=='0'?9:+e.key-1;if(MAPS[i].lock())say('通关上一关后解锁');else openLvSel(i)}else if(e.key=='Enter')openLvSel(0);return}
   if(st=='town'&&(e.key=='w'||e.key=='W')&&!busy()){e.preventDefault();if(!e.repeat){wTap();if(!P.fly&&townSpot())townAct()}keys.u=1;return}
   if(e.key=='Escape'){if(!$('cm').hidden)closeCM();else if(pn)closeP();else if(skOpen)toggleSk();else if(bagOpen)toggleBag();else if(PAUSED)PAUSED=0;else if((st=='play'||st=='town')&&!DLG)openP('set');return}
-  if(HOTK&&(e.key=='b'||e.key=='B')){e.preventDefault();toggleBag();return}
-  if(HOTK&&(e.key=='t'||e.key=='T')){e.preventDefault();toggleSk();return}
-  if(HOTK&&(e.key=='q'||e.key=='Q')){e.preventDefault();toggleP('quest');return}
-  if(HOTK&&!(document.activeElement&&document.activeElement.tagName=='INPUT')){const pk={p:'mall',y:'spr',g:'pet'}[e.key.toLowerCase()];if(pk&&!e.repeat){e.preventDefault();toggleP(pk);return}}
+  if(HOTK_()&&(e.key=='b'||e.key=='B')){e.preventDefault();toggleBag();return}
+  if(HOTK_()&&(e.key=='t'||e.key=='T')){e.preventDefault();toggleSk();return}
+  if(HOTK_()&&(e.key=='q'||e.key=='Q')){e.preventDefault();toggleP('quest');return}
+  if(HOTK_()&&!(document.activeElement&&document.activeElement.tagName=='INPUT')){const pk={p:'mall',y:'spr',g:'pet'}[e.key.toLowerCase()];if(pk&&!e.repeat){e.preventDefault();toggleP(pk);return}}
   if((e.key=='n'||e.key=='N')&&!e.repeat&&st=='play'&&!pn&&!bagOpen&&!skOpen){e.preventDefault();mscCast();return}  // 第四十一轮:怪物技能石
   if(bagOpen&&(e.key=='l'||e.key=='L')&&!e.repeat){P.mode=LMODE=P.mode=='sword'?'staff':'sword';P.ch=0;sel=null;bmsg='已切换为'+SL[P.mode][0];renderBag();return}  // 背包里按 L 也能切换武器,属性和纸娃娃立刻刷新
   if(busy())return;
@@ -5120,11 +5275,11 @@ const WPAL=[['#ffffff','#cfdbe8','#6f86a3','#a5d8ff'],['#f4fff0','#8ce99a','#2b8
 const SWL=55,SWB=9;  // 剑尖 / 剑刃起点到握把的距离
 // 第十七轮:纸娃娃手里的大剑 = Fantasy Sword Set(melle,CC0)像素化(art_src/lpc/build_hsw.py);一行一把,按系列 0 旅者 / 1 林王 / 2 荒漠 / 3 雪原
 // M = [y, 宽, 高, 握把 x, 中线 y],剑尖朝右
-const HSW={D:'@@A:hsw_atlas@@',M:[[0,72,21,19,10],[21,72,21,20,10],[42,74,19,22,9],[61,79,23,22,11],[84,72,21,19,10]],I:null,
+const HSW={D:'@@A:hsw_atlas@@',M:[[0,72,21,19,10],[21,72,21,20,10],[42,74,19,22,9],[61,79,23,22,11],[84,72,21,19,10],[105,74,19,22,9],[124,74,19,22,9]],I:null,  // 第四十二轮:5 火之大剑 / 6 真~火之大剑
   init(){const im=new Image();im.onload=()=>{this.I=im};im.src=this.D}};
 HSW.init();
 // 第二十六轮:纸娃娃手里的法杖 = Staff [64x64](LordNeo,CC0);一格 64×64 一把(杖头朝左上),M = [杖尾 x, 杖尾 y, 杖头 x, 杖头 y],按系列 0 旅者 / 1 林王 / 2 荒漠 / 3 雪原
-const STF={D:'@@A:stf_atlas@@',C:76,E:12,M:[[72,71,4,3],[73,72,11,12],[72,71,4,3],[73,72,11,12],[73,73,8,6]],I:null,  // 第二十七轮:杖尾加长 E 像素(格子 C×C),握持位置仍按加长前的杖身算
+const STF={D:'@@A:stf_atlas@@',C:76,E:12,M:[[72,71,4,3],[73,72,11,12],[72,71,4,3],[73,72,11,12],[73,73,8,6],[66,69,7,6],[66,69,7,6]],I:null,  // 第四十二轮:5 火之法杖 / 6 真~火之法杖  // 第二十七轮:杖尾加长 E 像素(格子 C×C),握持位置仍按加长前的杖身算
   init(){const im=new Image();im.onload=()=>{this.I=im};im.src=this.D}};
 STF.init();
 // —— 武器:原点在握把(前手)处,沿 +x 方向。剑柄从 -14 到 +6(手握在中间偏上),护手 6~9,剑刃 9~55
@@ -5182,8 +5337,8 @@ function drawEarIc(c,g,col){const b=BANDC[g],gem=RGD(c,-1,4,9,['#ffffff',col,'#1
 const EQIC={},EQIM={};
 // 像素美术下的装备图标(第十八轮):7Soul1 的 496 RPG icons + CC0 Jewelry Icons,每个系列一件不同造型(art_src/eqicon/build_eqicon.py);行 = 部位,列 = 系列,每格 34×34;品质轮廓在这里加(精良起,史诗再加一圈斜角光晕)
 const EQPX={I:null,D:'@@A:eq_atlas@@',C:34,R:{sword:0,staff:1,head:2,body:3,ring:4,ear:5}};{const im=new Image();im.onload=()=>{EQPX.I=im};im.src=EQPX.D}
-const eqKey=it=>(SET.art!==0&&EQPX.I&&EQPX.R[it.slot]!=null?'p':'')+it.slot+(it.g||0)+'_'+it.tier;
-function eqIconPx(c,it,col){const C=EQPX.C,sx=Math.min(4,it.g||0)*C,sy=EQPX.R[it.slot]*C,S=2,N=C*2,o=(96-N)/2;c.imageSmoothingEnabled=false;
+const eqKey=it=>(SET.art!==0&&EQPX.I&&EQPX.R[it.slot]!=null?'p':'')+it.slot+wG(it)+'_'+it.tier;
+function eqIconPx(c,it,col){const C=EQPX.C,sx=Math.min(6,wG(it))*C,sy=EQPX.R[it.slot]*C,S=2,N=C*2,o=(96-N)/2;c.imageSmoothingEnabled=false;
   if(it.tier>0){const t=document.createElement('canvas');t.width=t.height=C;const q=t.getContext('2d');q.drawImage(EQPX.I,sx,sy,C,C,0,0,C,C);q.globalCompositeOperation='source-in';q.fillStyle=col;q.fillRect(0,0,C,C);
     if(it.tier>=3){c.globalAlpha=.55;for(const [dx,dy] of [[-1,-1],[1,1],[-1,1],[1,-1],[-2,0],[2,0],[0,-2],[0,2]])c.drawImage(t,o+dx*S,o+dy*S,N,N);c.globalAlpha=1}
     for(const [dx,dy] of [[-1,0],[1,0],[0,-1],[0,1]])c.drawImage(t,o+dx*S,o+dy*S,N,N)}
@@ -5462,7 +5617,7 @@ function drawE0(e){if(e.x+e.w<cam-200||e.x>cam+VW+200)return;const t=performance
   FLW=e.fl>0?1:0;x.save();x.translate(Math.round(cx*RS)/RS,e.y+e.h);{const vs=e.max?1.1*(e.bsz||1):(e.vs||1);x.scale(e.f*vs,vs)}
   {const q=monPose(e,t);if(q.dx)x.translate(q.dx,0);if(q.dy)x.translate(0,q.dy);if(q.lean)x.rotate(q.lean);if(q.sx!=1||q.sy!=1)x.scale(q.sx,q.sy)}
   if(e._sk&&!e._psk)mfxSwing(e);e._psk=e._sk;
-  if(CST.on(e))CST.draw(x,e,t);else if(MECH.on(e))MECH.draw(x,e,t);else if(GP.on(e))GP.draw(x,e,t);else if(MYST.on(e))MYST.draw(x,e,t);else if(SHIP10.on(e))SHIP10.draw(x,e,t);else if(VOL9.on(e))VOL9.draw(x,e,t);else if(GH8.on(e))GH8.draw(x,e,t);else if(MNT.on(e))MNT.draw(x,e,t);else if(MOB.on(e))MOB.draw(x,e,t);else(e.k=='sco'?MON.sco_b:e.k=='ysco'||e.k=='bsco'?MON.sco:MON[e.k]||MON.boss)(x,e,t);x.restore();FLW=0;
+  if(FIRE.on(e))FIRE.draw(x,e,t);else if(CST.on(e))CST.draw(x,e,t);else if(MECH.on(e))MECH.draw(x,e,t);else if(GP.on(e))GP.draw(x,e,t);else if(MYST.on(e))MYST.draw(x,e,t);else if(SHIP10.on(e))SHIP10.draw(x,e,t);else if(VOL9.on(e))VOL9.draw(x,e,t);else if(GH8.on(e))GH8.draw(x,e,t);else if(MNT.on(e))MNT.draw(x,e,t);else if(MOB.on(e))MOB.draw(x,e,t);else(e.k=='sco'?MON.sco_b:e.k=='ysco'||e.k=='bsco'?MON.sco:MON[e.k]||MON.boss)(x,e,t);x.restore();FLW=0;
   if(e.k=='sco'&&e.sh>0&&BFX.ok())VFX.frame(x,'b-shield',Math.floor(t*10)%6,cx,e.y+22,2.6,1,0,.35+.08*Math.sin(t*8));else if(e.k=='sco'&&e.sh>0){x.strokeStyle='rgba(116,192,252,'+(.65+.25*Math.sin(t*8))+')';x.lineWidth=3;x.beginPath();x.ellipse(cx,e.y+18,72,50,0,0,7);x.stroke();x.fillStyle='rgba(116,192,252,.12)';x.fill()}
   // 小怪血条(受伤后显示)
   if(!e.max&&!e.ug){if(e.mh==null)e.mh=e.hp;if(e.hp<e.mh){const bw=Math.max(22,e.w),bx=cx-bw/2,by=e.y-(e.k=='ost'?16:9);RR(x,bx-1,by-1,bw+2,5,2,'#2b1a12',0);RR(x,bx,by,bw*Math.max(0,e.hp)/e.mh,3,1.5,LG(x,0,by,0,by+3,['#ffb347','#e8590c']),0)}}}
@@ -5494,7 +5649,7 @@ const BWP={
   lava:{brth:'aim',spout:'hop',hunt:'sink',met:'rise',tsu:'sway',crs:'crouch',nova:'roar'},
   gui:{swoop:'back',fan:'aim',pull:'spin',fth:'roar',xb:'rise',ecl:'crouch'},
   ham:{eat:'hop',shell:'crouch',trap:'sink',throw:'aim'},
-  nmr:{chg:'back',stp:'crouch',skl:'roar',nova:'rise'},dmn:{brth:'aim',rain:'rise',dive:'back',hnd:'roar',ecl:'aim'},mech:{msl:'rise',gun:'aim',jmp:'crouch',call:'roar'},nk:{cmb:'aim',dash:'back',leap:'crouch',roar:'rise'}};
+  nmr:{chg:'back',stp:'crouch',skl:'roar',nova:'rise'},dmn:{brth:'aim',rain:'rise',dive:'back',hnd:'roar',ecl:'aim'},mech:{msl:'rise',gun:'aim',jmp:'crouch',call:'roar'},nk:{cmb:'aim',dash:'back',leap:'crouch',roar:'rise'},fk:{brth:'aim',rain:'rise',wave:'crouch',nova:'roar',tele:'back'}};
 // ===== 怪物动作(冒险岛式):走路一颠一颠、出招前后仰蓄力(压扁)、出招时前扑拉长、收招回弹、挨打后仰 =====
 const MWUP={king:{bite:[.5,.75],charge:[.6,9],spit:[.5,.7],buff:[.5,.8],tail:[.5,.7],shed:[.8,1]},sco:{claw:[.45,.65],sweep:[.4,.65],sting:[.6,.75],buff:[.5,.8]}};
 function monPose(e,t){const now=performance.now()/1000,o={lean:0,sx:1,sy:1,dy:0},big=e.max?.45:1;
@@ -5800,7 +5955,7 @@ function lvArt(){if(BGC[cur])return BGC[cur];const A=LVA[cur],W=960;const o={far
   fog:A.fog?mkL(VW,120,c=>{c.fillStyle=LG(c,0,180,0,300,['rgba(120,200,150,0)','rgba(150,90,200,.22)','rgba(120,200,150,.28)']);c.fillRect(0,180,VW,120)},180):null,
   clouds:mkL(W,160,(c,w)=>{W3(w,o2=>{for(let i=0;i<5;i++)cloudP(c,i*w/5+o2+30,40+((i*37)%70),.9+((i*13)%5)/10,cur==2?'#4b3a78':cur==4?'#2f5a45':cur==7?'#3a4470':'#fff',cur==2?'rgba(20,10,40,.6)':cur==4||cur==7?'rgba(10,20,40,.6)':null)})})};
   return BGC[cur]=o}
-function bg(){if(cur==15){CST.bg();return}if(cur==14){MECH.bg();return}if(cur>=11){const t=performance.now()/1000;if(cur==12)GP.arena2(t);else if(cur==13)GP.arena3(t);else MYST.arena(t);return}if(cur==10){if(SHIP10.I)SHIP10.bg();else{x.fillStyle='#0b1420';x.fillRect(0,0,VW,VH)}return}  // 第十关:像素场景 SHIP10
+function bg(){if(cur==16){FIRE.bg();return}if(cur==15){CST.bg();return}if(cur==14){MECH.bg();return}if(cur>=11){const t=performance.now()/1000;if(cur==12)GP.arena2(t);else if(cur==13)GP.arena3(t);else MYST.arena(t);return}if(cur==10){if(SHIP10.I)SHIP10.bg();else{x.fillStyle='#0b1420';x.fillRect(0,0,VW,VH)}return}  // 第十关:像素场景 SHIP10
   if(cur==9){if(VOL9.I)VOL9.bg();else{x.fillStyle='#1c0507';x.fillRect(0,0,VW,VH)}return}  // 第九关:像素场景 VOL9
   if(cur==8){if(CITY8.I)CITY8.bg();else{x.fillStyle='#07060f';x.fillRect(0,0,VW,VH)}return}  // 第八关:像素场景 CITY8(没有矢量兜底)
   const A=LVA[cur]||LVA[1],L=lvArt(),t=performance.now()/1000;
@@ -6163,14 +6318,14 @@ const LPC={I:null,M:null,S:{},LK:{},
     const wpn=()=>{const hx=X(HF),hy2=Y(HF),c0=Math.cos(p.wa),s0=Math.sin(p.wa);
       const dot=(t,s,col)=>{g.fillStyle=col;g.fillRect(Math.round(hx+c0*t-s0*s),Math.round(hy2+s0*t+c0*s),1,1)};
       const band=(t0,t1,wf,colf)=>{for(let t=t0;t<=t1;t+=.5){const w=wf(t);for(let s=-w;s<=w;s+=.5)dot(t,s,colf(t,s,w))}};
-      if(m!='sword'){if(glow){const q=STF.M[Math.max(0,Math.min(4,EQ.staff?EQ.staff.g||0:0))],hd=STF.I?(.8-(P.stg==null?.25:P.stg))*Math.hypot(q[2]-q[0],q[3]-q[1]):25;g.globalAlpha=.75;band(hd-6,hd+4,t=>Math.max(.5,4.5-Math.abs(t-hd+1)*.8),()=>glow);g.globalAlpha=1}
+      if(m!='sword'){if(glow){const q=STF.M[Math.min(STF.M.length-1,wG(EQ.staff))],hd=STF.I?(.8-(P.stg==null?.25:P.stg))*Math.hypot(q[2]-q[0],q[3]-q[1]):25;g.globalAlpha=.75;band(hd-6,hd+4,t=>Math.max(.5,4.5-Math.abs(t-hd+1)*.8),()=>glow);g.globalAlpha=1}
         // 第十八轮:手里的法杖 = 装备图标里四个系列各自的法杖(7Soul1,CC0),图标里杖头朝左上、握在右下 (24,24),按握持角度最近邻旋转
         // 第二十六轮:换成 Staff [64x64](LordNeo,CC0,art_src/lpc/build_staff.py);普攻 / 蓄力时双手握中段(P.stg 平滑过渡),平时像剑一样握在下段
-        if(STF.I){const sg=Math.max(0,Math.min(4,EQ.staff?EQ.staff.g||0:0)),q=STF.M[sg],ax=q[2]-q[0],ay=q[3]-q[1],th=Math.atan2(ay,ax),f=P.stg==null?.25:P.stg,vx=q[0]-STF.E,vy=q[1]-STF.E,Gx=vx+(q[2]-vx)*f,Gy=vy+(q[3]-vy)*f;
+        if(STF.I){const sg=Math.min(STF.M.length-1,wG(EQ.staff)),q=STF.M[sg],ax=q[2]-q[0],ay=q[3]-q[1],th=Math.atan2(ay,ax),f=P.stg==null?.25:P.stg,vx=q[0]-STF.E,vy=q[1]-STF.E,Gx=vx+(q[2]-vx)*f,Gy=vy+(q[3]-vy)*f;
           g.save();g.translate(hx,hy2);g.rotate(p.wa-th);g.drawImage(STF.I,sg*STF.C,0,STF.C,STF.C,-Gx,-Gy,STF.C,STF.C);g.restore();return}
         if(EQPX.I){const C=EQPX.C,sg=Math.max(0,Math.min(3,EQ.staff?EQ.staff.g||0:0));g.save();g.translate(hx,hy2);g.rotate(p.wa+Math.PI*.75);g.drawImage(EQPX.I,sg*C,EQPX.R.staff*C,C,C,-24,-24,C,C);g.restore();return}
         if(PXA.WI)g.drawImage(PXA.wc(PXA.wrow(m),PXA.wdir(p.wa),tier),hx-28,hy2-28);return}
-      const sg=Math.max(0,Math.min(4,EQ.sword?EQ.sword.g||0:0)),W0=WPAL[Math.min(3,sg)];
+      const sg=Math.min(HSW.M.length-1,wG(EQ.sword)),W0=WPAL[Math.min(3,sg)];
       const bw=t=>t>42?Math.max(.5,3-(t-42)*.45):3;
       if(glow){g.globalAlpha=.55;band(4,52,t=>bw(t)+3,()=>glow);g.globalAlpha=1}
       if(HSW.I){const q=HSW.M[sg];g.save();g.translate(hx,hy2);g.rotate(p.wa);g.drawImage(HSW.I,0,q[0],q[1],q[2],-q[3],-q[4],q[1],q[2]);g.restore();return}  // 第十七轮:外部素材的剑(最近邻旋转,像素不糊)
@@ -6649,7 +6804,8 @@ const MAPI2={I:null,D:'@@J:map2_bg@@'};{const im=new Image();im.onload=()=>{MAPI
 let MPG=0;  // 0 = 第一张地图 · 1 = 暗黑大陆
 const map2Open=()=>CLR.includes(10);
 const MAPS2=[{n:'第十一关 · 齿轮要塞',d:['钢铁暴君镇守的机械城','推荐 Lv50'],cur:14,lock:()=>!CLR.includes(10),p:[66,258],w:56,h:44},
-  {n:'第十二关 · 永夜王城',d:['冰晶雪台上的夜王之城','推荐 Lv52'],cur:15,lock:()=>!CLR.includes(14),p:[62,186],w:56,h:44}];  // 用户发截图:放在左边的冰晶雪台(齿轮要塞上面)  // 第四十一轮
+  {n:'第十二关 · 永夜王城',d:['冰晶雪台上的夜王之城','推荐 Lv52'],cur:15,lock:()=>!CLR.includes(14),p:[62,186],w:56,h:44},
+  {n:'第十三关 · 熔心火山',d:['火山深处的焚天炎君','推荐 Lv54'],cur:16,lock:()=>!CLR.includes(15),p:[84,108],w:50,h:32}];  // 第四十二轮:用户截图 = 左上角的火山  // 用户发截图:放在左边的冰晶雪台(齿轮要塞上面)  // 第四十一轮
 const M2B=[504,6,130,26],M2T=[8,322,104,32],M2C=[548,300,90,58];  // 第一张地图上的「暗黑大陆」按钮 · 返回城镇 · 挑战模式
 const inR=(mx,my,r)=>mx>r[0]&&mx<r[0]+r[2]&&my>r[1]&&my<r[1]+r[3];
 function map2Btn(t){const hv=inR(MX_,MY_,M2B);RR(x,M2B[0],M2B[1],M2B[2],M2B[3],12,LG(x,0,M2B[1],0,M2B[1]+M2B[3],hv?['#9775fa','#5f3dc4']:['#7048e8','#3b1f8f']),1.8);CT('暗黑大陆 ▶',M2B[0]+M2B[2]/2,M2B[1]+18,12,'#fff','center',2.6,'#1e1030')}
@@ -6659,7 +6815,7 @@ function map2Click(mx,my){const i=map2Hit(mx,my);if(i>=0){map2Go(i);return}if(in
 function drawMap2(t){x.imageSmoothingEnabled=true;x.drawImage(MAPI2.I,0,0,VW,VH);
   MAPS2.forEach((m,i)=>{const [a,b]=m.p,hv=map2Hit(MX_,MY_)==i,lk=m.lock(),n=m.cur;
     x.save();x.globalCompositeOperation='lighter';E_(x,a,b,58+Math.sin(t*4)*3,40,RGD(x,a,b,58,[hv?'rgba(150,242,215,.55)':'rgba(120,220,200,.32)','rgba(0,0,0,0)']),0);x.restore();
-    RR(x,a-42,b+30,84,28,5,lk?'rgba(18,20,30,.75)':'rgba(10,30,40,.82)',1.4);CT(m.n.split(' · ')[1],a,b+43,12,'#fff','center',2.6,'#0b2a2e');CT(lk?'🔒 通关第十关后解锁':m.d[1],a,b+54,8,'#c3fae8','center',2,'#0b2a2e');
+    RR(x,a-42,b+30,84,28,5,lk?'rgba(18,20,30,.75)':'rgba(10,30,40,.82)',1.4);CT(m.n.split(' · ')[1],a,b+43,12,'#fff','center',2.6,'#0b2a2e');CT(lk?(n==14?'🔒 通关第十关后解锁':'🔒 通关上一关后解锁'):m.d[1],a,b+54,8,'#c3fae8','center',2,'#0b2a2e');
     {const sn=starOf(n);for(let k=0;k<sn;k++)CT('★',a+28+k*10,b+28,10,STARK[sn].c,'center',2.4,'#5a2e08')}});
   {const hv=inR(MX_,MY_,M2T);CT('返回城镇',M2T[0]+M2T[2]/2,M2T[1]+22,17,hv?'#ffe066':'#fff','center',3.4,'#16213e')}
   {const hv=inR(MX_,MY_,[504,6,130,26]);RR(x,504,6,130,26,12,LG(x,0,6,0,32,hv?['#ffb84d','#e8590c']:['#e8590c','#a63f08']),1.8);CT('◀ 第一张地图',569,24,12,'#fff','center',2.6,'#3a1d0a')}
@@ -6685,7 +6841,7 @@ function lvsDrops(n){const L=[],ser=n>=14?4:n==11?1:n<=2?0:n<=4?1:n<=7?2:3;
   for(const [k,nm_,c] of [['A0','属性石',ATSQ[0].c],['gift','小礼袋','#ffd43b']])L.push({d:(cx,cy)=>{if(MENI.I){x.save();x.imageSmoothingEnabled=false;x.drawImage(MENI.I,MENI.P[k]*34,0,34,34,Math.round(cx-11),Math.round(cy-11),22,22);x.restore()}},n:nm_,c})
   if(n==3)L.push({e:'🥚',n:'蛇蛋',c:'#ffe8a3'});if(n==6)L.push({e:'📜',n:'转职凭证',c:'#ffd43b'});if(SOULV[n])L.push({d:(cx,cy)=>soulDraw(x,cx,cy,performance.now()/1000),n:'女神碎片',c:'#d0bfff'});if(n==11)L.push({e:'🥚',n:'仓鼠宠物蛋',c:'#ffe8a3'});
   const mi=k=>(cx,cy)=>{if(MENI.I){x.save();x.imageSmoothingEnabled=false;x.drawImage(MENI.I,MENI.P[k]*34,0,34,34,Math.round(cx-11),Math.round(cy-11),22,22);x.restore()}};
-  if(n==12)L.push({d:mi('gc1'),n:'上帝卡牌',c:'#ffe066'});if(MSS[n])L.push({d:mi('ms'+n),n:'怪物技能石',c:'#b197fc'});if(n>=13)L.push({d:mi('add'),n:'合成添加剂',c:'#96f2d7'});  // 第四十轮
+  if(n==12)L.push({d:mi('gc1'),n:'上帝卡牌',c:'#ffe066'});if(MSS[n])L.push({d:mi('ms'+n),n:'怪物技能石',c:'#b197fc'});if(n>=13)L.push({d:mi('add'),n:'合成添加剂',c:'#96f2d7'});if(n==16)L.push({d:mi('b360'),n:'360小鸟碎片',c:'#ffa94d'});  // 第四十轮
   return L}
 // 卡片缩略图(全部用已有的外部图集,不自己画):背景 = 该关的像素天空层(LBG / CITY8 / VOL9 / SHIP10 / MYST 大厅),前景 = 该关首领的像素形象
 function lvsArt(n,X,Y,W,H,t){x.save();x.beginPath();x.rect(X,Y,W,H);x.clip();x.imageSmoothingEnabled=false;x.fillStyle=['#1a2140','#9bd0f0','#2b1f4a','#9ee07a','#123524','#ffd8a8','#c2e0fa','#2b3a67','#1a1428','#6e1410','#0b1a2e','#2b2440'][n]||'#1a2140';x.fillRect(X,Y,W,H);
@@ -6694,6 +6850,7 @@ function lvsArt(n,X,Y,W,H,t){x.save();x.beginPath();x.rect(X,Y,W,H);x.clip();x.i
     else if(n==8&&CITY8.I){const m=CITY8.M.sky;x.drawImage(CITY8.I,m[0],m[1],m[2],m[3],X,Y,W,H)}
     else if(n==9&&VOL9.I){const m=VOL9.M.sky;x.drawImage(VOL9.I,0,m[0],m[1],m[2],X,Y,W,H)}
     else if(n==10&&SHIP10.I){const m=SHIP10.M.sky;x.drawImage(SHIP10.I,0,m[0],m[1],m[2],X,Y,W,H)}
+    else if(n==16&&FIRE.I){const m=FIRE.M.bg;x.fillStyle='#2a0d08';x.fillRect(X,Y,W,H);x.drawImage(FIRE.I,m[0]+200,m[1],300,m[3],X,Y,W,H)}
     else if(n==15&&CST.I){const m=CST.M.bg;x.fillStyle='#0f1f2a';x.fillRect(X,Y,W,H);x.drawImage(CST.I,m[0]+300,m[1],360,m[3],X,Y,W,H)}
     else if(n==14&&MECH.I){const m=MECH.M.bg,b=MECH.M.bld;x.drawImage(MECH.I,m[0],m[1],m[2],m[3],X,Y,W,H);x.drawImage(MECH.I,b[0],b[1],b[2],b[3],X,Y+H-b[3]*W/b[2],W,b[3]*W/b[2])}
     else if(n==12&&GP.I){const m=GP.M.bg2;x.drawImage(GP.I,m[0]+250,m[1],460,m[3],X,Y,W,H)}
@@ -6712,6 +6869,7 @@ function lvsBoss(n,bx,by,t){x.save();x.translate(bx,by);const fl0=FLW;FLW=0;try{
   else if(n==9)VOL9.draw(x,{k:'lava',max:1,bsz:1,h:70,pz:null,at:0,ph:0},t);
   else if(n==10)SHIP10.draw(x,{k:'gui',max:1,bsz:1,h:77,act:null,pz:null,hide:0,at:0},t);
   else if(n==15)CST.draw(x,{k:'nk',h:70,max:1,bsz:1,act:null,mv:0,st:0},t);
+  else if(n==16)FIRE.draw(x,{k:'fk',h:78,max:1,bsz:1,act:null,mv:0,st:0},t);
   else if(n==14)MECH.draw(x,{k:'mech',h:66,max:1,bsz:1,act:null,mv:0,st:0},t);
   else if(n==12){x.scale(.9,.9);GP.draw(x,{k:'nmr',act:null,at:0,run:0},t)}
   else if(n==13){x.scale(.75,.75);GP.draw(x,{k:'dmn',act:null,at:0},t)}
@@ -6787,7 +6945,7 @@ function hud(){const S=stats(),t=performance.now()/1000,px=PUI.on();
     if(B.pzm){const k=B.pim>0?1:Math.max(0,B.po/B.pzm),yy=by+(px?13:17);x.fillStyle='rgba(20,12,24,.85)';x.fillRect(bx,yy,bw,3);x.fillStyle=B.pim>0?'rgba(173,181,189,'+(.45+.25*Math.sin(t*10))+')':'#ffc038';x.fillRect(bx,yy,Math.round(bw*k),3)}
     if(B.emp!=null){const yy=by+(px?17:21);x.fillStyle='rgba(20,12,24,.85)';x.fillRect(bx,yy,bw,3);x.fillStyle=B.erg?'rgba(116,192,252,'+(.45+.25*Math.sin(t*8))+')':'#4dabf7';x.fillRect(bx,yy,Math.round(bw*B.emp/100),3);x.fillStyle='rgba(255,255,255,.6)';x.fillRect(Math.round(bx+bw*ESRT/100),yy,1,3)}  // 第三十五轮:首领魔力条(蓝色,回蓝中闪烁;白色刻度 = 15%)
   // 韧性条(第十五轮):金色 = 剩余韧性,灰色闪烁 = 破韧后的免疫期
-    if(px)PUI.img(x,'dia1',bx-20,by-6);else RR(x,bx-14,by-8,30,30,15,LG(x,0,by-8,0,by+22,['#ff6b6b','#a61e1e']),1.8);CT('👑',px?bx-5:bx+1,by+12,13,'#fff','center',0);CT((['铁角牛魔','面具法师','金色蛇王','黑棘巨蝎','沙渊古神','北极熊','血月巫王','怨婴·银太郎','熔狱魔神','归蝇','瓜子大王','梦魇幽驹','深渊炎魔','钢铁暴君','夜王'][cur-1]||'')+' '+'★'.repeat(LVSTAR),bx+22,by+2,10,B.bf>0?'#ff8787':'#fff3bf','left',2.6,'#1e1829')}}  // 第十六轮:名字后面画本次的星级  // 第十三轮:首领名后面不再写阶段 / 状态文字
+    if(px)PUI.img(x,'dia1',bx-20,by-6);else RR(x,bx-14,by-8,30,30,15,LG(x,0,by-8,0,by+22,['#ff6b6b','#a61e1e']),1.8);CT('👑',px?bx-5:bx+1,by+12,13,'#fff','center',0);CT((['铁角牛魔','面具法师','金色蛇王','黑棘巨蝎','沙渊古神','北极熊','血月巫王','怨婴·银太郎','熔狱魔神','归蝇','瓜子大王','梦魇幽驹','深渊炎魔','钢铁暴君','夜王','焚天炎君'][cur-1]||'')+' '+'★'.repeat(LVSTAR),bx+22,by+2,10,B.bf>0?'#ff8787':'#fff3bf','left',2.6,'#1e1829')}}  // 第十六轮:名字后面画本次的星级  // 第十三轮:首领名后面不再写阶段 / 状态文字
 // 技能栏(左下角):金框技能格 + 图标 + 冷却扇形
 const SKIMG={};function skImg(id){let m=SKIMG[id];if(!m){m=SKIMG[id]=new Image();m.src=ICON[id]}return m}
 function drawSkBar(){const m=P.mode,px=PUI.on();if(px)PUI.ns(x,'pA',20,14,20,14,0,VH-50,166,50);else PG(x,[[2,VH-46],[160,VH-46],[170,VH-2],[2,VH-2]],LG(x,0,VH-46,0,VH,['#3d3352','#1e1829']),1.8);
@@ -6850,6 +7008,7 @@ function pvImg(k){const t=.3,c=document.createElement('canvas'),g=c.getContext('
 // 主页面打开时 HOME=1:主城画面停住当背景(loop 里不跑 townUpd),键盘只认 Enter(继续 / 新游戏)和 Esc(从操作说明返回)
 // 更新日志 CHLOG:[版本, 日期, [条目...]],新版本加在最前面(和 GAMEV 一起改)
 const CHLOG=[
+ ['1.42','2026-10-15',['暗黑大陆第十三关「熔心火山」(地图左上角的火山,通关第十二关后开放):火蠕虫 / 熔岩牛头人 / 炎术士,首领「焚天炎君」;掉落和前两关一样,另外掉 360 小鸟碎片和女神灵魂碎片','怪物技能石改成在背包里左键点它,嵌入剑或法杖:每把武器一颗,各自蓄力,N 放当前武器上的那颗','套装改版:圣愈 2 件防御 / 4 件回血,邪灵 2 件魔力 / 4 件按魔力加技能伤害;五套都有 6 件效果(武器用「武器幻化券」加特性后也算件数)','击杀点商店新制作书:真~火之大剑 / 真~火之法杖(比火之武器强 20%)、武器幻化券','首领的掉落物不会再飞出地图,落地后自动飞到你身上;双倍爆率卡对所有掉落物生效','菜单快捷键恢复(B T Q P Y G M),设置里可以关闭']],
  ['1.41','2026-10-15',['暗黑大陆第十二关「永夜王城」(地图左边的冰晶雪台,齿轮要塞上面,通关第十一关后开放):骷髅卫兵 / 哥布林投弹手 / 夜巫,首领「夜王」会「王威震慑」——蓄力后范围内眩晕 1 秒并打断你的技能;蓄力时打掉它 5% 生命就能打断它','怪物技能石:关卡首领 20% 掉落(每个首领一种,神秘副本不掉),在背包道具里装备到武器;攻击敌人蓄力满后按 N 召唤首领虚影放出它的技能','关卡选择页的掉落预览补上怪物技能石','第十一关加入主线剧情(第十一章 7 个任务),等级上限提高到 55','仓库可以存道具和药水;桂婶的好感奖励是合成添加剂;上帝卡牌改成只在关卡里计时','大师制作装备按最高系列计算(目前最强),特性效果翻倍;法师技能冷却加长;通关击杀点减少 1/3;机械系列有了自己的外观(黄铜板甲、Xeon 机甲盔、黄铜剑、钢杖)']],
  ['1.40','2026-10-15',['新地图「暗黑大陆」:通关第十关后,在世界地图右上角进入。左下角的机械城是第十一关「齿轮要塞」(齿轮巡逻兵 / 电击无人机 / 穹顶坦克,首领钢铁暴君),掉落新的机械系列装备、合成添加剂、小礼袋、强化石、属性石','神秘副本 2 首领 25% 掉落上帝卡牌(随机一张,持续 2 小时):「暴击升级」暴击率 +25%、暴击伤害 +20%;「来个好伙计」第一张地图的十个首领随机一个(50 级)变成你的打手','神秘副本 3 首领 35% 掉落合成添加剂']],
  ['1.39','2026-10-15',['新增神秘副本 2「梦魇幽驹」和神秘副本 3「深渊炎魔」:拥有第 2 / 第 3 块女神碎片后开放,难度比掉碎片的那一关高 20%','修复:领取第十关主线任务奖励后金币和经验变成 NaN(金币显示 NaN、买东西不扣钱、经验不再增长);出问题的存档读档时金币 / 经验归零']],
