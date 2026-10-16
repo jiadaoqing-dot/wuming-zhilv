@@ -62,6 +62,7 @@ $('pn').addEventListener('click',e=>{const g=e.target.closest('[data-g]');if(g){
   if(whAct(r)){save();renderP();return}
   if(fzAct(r)){save();renderP();return}
   {const m=mallAct(r);if(m==2)return;if(m){save();renderP();return}}
+  {const m=canQAct(r);if(m!=null){fmsg=m;save();renderP();return}}  // 第四十七轮:循环任务「讨伐灿灿一号」
   if(r=='mqa'){const q=mqCur();if(mqAccept())fmsg='✅ 已接受主线:'+q.n}
   else if(r=='mqc'){const q0=mqCur(),rt=q0&&mqRwT(q0),q=mqClaim();if(q)fmsg=`🎁 主线「${q.n}」完成:${rt}<br><span class="tag" style="font-weight:normal">后记:${q.d}</span>`}
   else if((r.startsWith('qa')||r.startsWith('qc'))&&timeBad())fmsg=TBMSG;

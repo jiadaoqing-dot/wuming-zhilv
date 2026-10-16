@@ -3,7 +3,7 @@
 // g:委托人(城镇 NPC 的职业名),s:委托时的剧情,d:完成后的后记
 // =====================================================================
 const GN={'技能导师':'艾琳','药剂师':'小葵','装备商人':'老金','强化师':'铁叔','村长':'','仓库管理员':'桂婶'};
-const MN={slime:'史莱姆',skel:'骷髅兵',bat:'蝙蝠',snake:'小蛇',ape:'猿猴',ysco:'黄蝎',bsco:'黑棘蝎',spi:'沙蛛',ost:'鸵鸟',pen:'企鹅',pen2:'精英企鹅',seal:'海豹',seal2:'精英海豹',boss:'铁角牛魔',mage:'面具法师',king:'金色蛇王',sco:'黑棘巨蝎',andr:'沙渊古神',bear:'北极熊',dog:'雪原狼犬',dog2:'双头犬',wiz:'血月巫王',gfly:'游魂',gfly2:'厉鬼',gland:'提灯幽魂',gland2:'伪装的怨灵',yin:'怨婴·银太郎',cradle:'黑色摇篮',imp:'炎牙魔',fwisp:'熔火鬼',golem:'熔岩魔',oni:'炎狱鬼将',lava:'熔狱魔神',lclone:'炎魔分身',wimp:'翼魔',eye:'浮游眼魔',swing:'空翼妖',gui:'归蝇',gbot:'齿轮巡逻兵',zdr:'电击无人机',tank:'穹顶坦克',mech:'钢铁暴君',skw:'骷髅卫兵',gob:'哥布林投弹手',nwz:'夜巫',nk:'夜王',fwm:'火蠕虫',mmt:'熔岩牛头人',fsm:'炎术士',fk:'焚天炎君',ham:'瓜子大王',nmr:'梦魇幽驹',dmn:'深渊炎魔',mir:'镜中无名'};
+const MN={slime:'史莱姆',skel:'骷髅兵',bat:'蝙蝠',snake:'小蛇',ape:'猿猴',ysco:'黄蝎',bsco:'黑棘蝎',spi:'沙蛛',ost:'鸵鸟',pen:'企鹅',pen2:'精英企鹅',seal:'海豹',seal2:'精英海豹',boss:'铁角牛魔',mage:'面具法师',king:'金色蛇王',sco:'黑棘巨蝎',andr:'沙渊古神',bear:'北极熊',dog:'雪原狼犬',dog2:'双头犬',wiz:'血月巫王',gfly:'游魂',gfly2:'厉鬼',gland:'提灯幽魂',gland2:'伪装的怨灵',yin:'怨婴·银太郎',cradle:'黑色摇篮',imp:'炎牙魔',fwisp:'熔火鬼',golem:'熔岩魔',oni:'炎狱鬼将',lava:'熔狱魔神',lclone:'炎魔分身',wimp:'翼魔',eye:'浮游眼魔',swing:'空翼妖',gui:'归蝇',gbot:'齿轮巡逻兵',zdr:'电击无人机',tank:'穹顶坦克',mech:'钢铁暴君',skw:'骷髅卫兵',gob:'哥布林投弹手',nwz:'夜巫',nk:'夜王',fwm:'火蠕虫',mmt:'熔岩牛头人',fsm:'炎术士',fk:'焚天炎君',nja:'影忍',nsh:'飞镖忍',ron:'浪人',nb:'影主·胧',ham:'瓜子大王',nmr:'梦魇幽驹',dmn:'深渊炎魔',mir:'镜中无名'};
 const MQ=[
  // ——— 第一章 · 牛魔古堡 ———
  {lv:1,g:'技能导师',n:'出发之前',ty:'kill',k:['slime'],need:5,s:'你就是要去讨伐铁角牛魔的无名吧?我是镇上的技能导师艾琳。自从铁角牛魔在原野北边的古堡住下,它身上的魔力让史莱姆疯长,一夜之间就把镇外的麦田啃成了泥坑。先去清理 5 只史莱姆,让我看看你的身手。对了,你身上同时带着剑与魔法两种形态:同一个你,换上不同的装备,按 L 键就能切换——剑士近身强攻,法师远程施法,两套装备和技能是分开成长的。',d:'剑术不错。去找药剂师小葵吧,镇上的伤员需要她。'},
@@ -127,7 +127,7 @@ function rQuest(){qDay();const bar=(a,b)=>`<div class="qbar"><i style="width:${M
   h+=`<h4>每日任务 <span class="tag">每天 0 点刷新</span></h4>`+QDEF.map((q,i)=>{const d=QD.d[i],pr=d.s==2?q.need:q.prog(),ok=pr>=q.need;
     const b=d.s==2?'<button disabled>✓ 已完成</button>':d.s==0?`<button data-p="qa${i}">接受任务</button>`:ok?`<button data-p="qc${i}">🎁 领取奖励</button>`:'<button disabled>进行中</button>';
     return `<div class="qc${d.s==2?' done':''}"><b>${q.n}</b><div class="tag">${q.t}</div>${bar(d.s?pr:0,q.need)}<div class="row" style="border:0"><span class="tag">进度 ${d.s?pr:0}/${q.need} · 奖励:${q.rw}</span><span style="margin-left:auto">${b}</span></div></div>`}).join('');
-  return h}
+  return h+canQHtml(bar)}
 const CH1=[['村长','年轻人,请留步!我是晨曦镇的村长。'],['村长','前几天我去森林里采蛇蛋,突然看见一条金色的大蛇王……吓得我赶紧躲进了草丛。'],['村长','然后我就看见你一个人把那条蛇王打倒了!真是了不起的勇士啊!'],['无名','原来那时候躲在草丛里的人是您。'],
  ['村长','镇上的女神像你也看到了吧?古书上记载,女神的灵魂碎片一共有五块。'],['村长','只有把五块碎片全部找回来,女神才能从石像中苏醒过来。'],['无名','……我一定会把碎片全部找回来。'],
  ['村长','好孩子!村子里还有很多事情需要人帮忙,我把委托都写进任务栏里了。'],['村长','点击上方的 📜 就能查看和接取任务。拜托你了!']];

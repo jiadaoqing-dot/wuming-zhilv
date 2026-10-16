@@ -20,13 +20,14 @@ function starStep(dt){if(!(WEAR.wing=='xyw'||(WEAR.wing=='fhw'&&SET.art!==0)))re
 // 翅膀挂件(不飞行时):像素美术下是自绘的像素丝带 / 四角星,原版几何画法仍是矢量四角星(丝带画在身上)
 function drawStarF(cx){if(P.fly)return;const t=performance.now()/1000;if(SET.art!==0&&PEND.I&&(WEAR.wing=='xyw'||WEAR.wing=='fhw'))PEND.draw(x,WEAR.wing=='xyw'?1:0,STARP.x-cx,STARP.y,t,P.f);else if(WEAR.wing=='xyw')drawStar4(x,STARP.x-cx,STARP.y,5,t)}
 // 雷云(2026-10-12 第七轮):乌云铺满整个天空 —— Clouds(Igor Gundarev,CC0)换成暗紫灰风暴色(图集 SKFX c-cloud0~4),三层横向循环飘动,全屏大雨,云里闪光
-// 第四十六轮:雷云只盖住施法处左右各 CLW / 2(裁剪,两边淡出)
-function drawCloud(CL){const t=performance.now()/1000,a=Math.max(0,Math.min(1,CL.t*2,(5-CL.t)*4)),cx0=CL.x-cam-CLW/2;x.save();x.beginPath();x.rect(Math.round(cx0),0,CLW,GY+4);x.clip();x.globalAlpha=a;
-  x.fillStyle=LG(x,0,0,0,170,['rgba(12,10,24,.8)','rgba(28,26,46,.5)','rgba(0,0,0,0)']);x.fillRect(0,0,VW,170);
-  x.strokeStyle='rgba(165,190,230,.45)';x.lineWidth=1;x.beginPath();for(let i=0;i<90;i++){const rx=(i*71.3+t*60)%VW,ry=50+((t*560+i*37)%(GY-50));x.moveTo(rx,ry);x.lineTo(rx-4,ry+12)}x.stroke();
-  if(CL.fk>0||Math.random()<.04){x.save();x.globalCompositeOperation='lighter';const fx=CL.fx!=null&&CL.fk>0?CL.fx:rnd(40,VW-40),g=x.createRadialGradient(fx,40,0,fx,40,110);g.addColorStop(0,'rgba(200,225,255,.85)');g.addColorStop(1,'rgba(0,0,0,0)');x.fillStyle=g;x.fillRect(fx-110,-70,220,220);x.restore()}
-  for(const [r,sp,s,y0] of [[0,9,1.05,8],[1,-14,1.25,34],[2,20,1.45,62]])for(let i=0;i<6;i++){const n='c-cloud'+((i+r*2)%5),m=VFX.M[n];if(!m)continue;const W=m.w*s,span=VW+W*1.2,xx=((i*span/6+t*sp+r*57)%span+span)%span-W*.6;
-    VFX.frame(x,n,0,xx,y0+Math.sin(t*.7+i*1.3)*2,s,i%2?-1:1,0,1)}
+// 第四十六轮:雷云只盖住施法处左右各 CLW / 2。第四十七轮(用户:裁剪的边太生硬):不再裁剪,改成一整团完整的乌云 ——
+// 两层共 9 朵完整的 c-cloud 叠成一团(中间高两边低,压暗成风暴色,慢慢翻滚),雨和闪光只在云下面
+function drawCloud(CL){const t=performance.now()/1000,a=Math.max(0,Math.min(1,CL.t*2,(5-CL.t)*4)),cx=CL.x-cam,h=CLW/2,cy=50;x.save();x.globalAlpha=a;
+  x.strokeStyle='rgba(165,190,230,.45)';x.lineWidth=1;x.beginPath();for(let i=0;i<40;i++){const u=((i*.618)%1)*2-1,rx=cx+u*h*.92+((t*30)%12),ry=cy+30+((t*560+i*37)%(GY-cy-30));if(Math.abs(rx-cx)<h*(1-Math.abs(u)*.15)){x.moveTo(rx,ry);x.lineTo(rx-4,ry+12)}}x.stroke();
+  if(CL.fk>0||Math.random()<.04){x.save();x.globalCompositeOperation='lighter';const fx=CL.fx!=null&&CL.fk>0?CL.fx:cx+rnd(-h*.7,h*.7),g=x.createRadialGradient(fx,cy+8,0,fx,cy+8,70);g.addColorStop(0,'rgba(200,225,255,.7)');g.addColorStop(1,'rgba(0,0,0,0)');x.fillStyle=g;x.fillRect(fx-70,cy-62,140,140);x.restore()}
+  x.filter='brightness(.4) saturate(.7)';
+  for(const [r,n,s,dy] of [[0,4,1.6,-6],[1,5,1.3,10]])for(let i=0;i<n;i++){const nm='c-cloud'+((i*2+r)%5),m=VFX.M[nm];if(!m)continue;const u=n>1?i/(n-1)*2-1:0,k=s*(1-Math.abs(u)*.25),ox=u*(h-m.w*k*.38)+Math.sin(t*.6+i*1.7)*4,
+    yy=cy+dy+Math.abs(u)*8+Math.sin(t*.9+i)*1.5;VFX.frame(x,nm,0,cx+ox-m.w*k/2,yy-m.h*k/2,k,(i+r)%2?-1:1,0,.95)}
   x.restore()}
 function drawSk(){const m=P.mode,k=P.sk;
   if(k&&k.id=='bolt'){x.save();x.globalCompositeOperation='lighter';const g=x.createRadialGradient(P.x+12-cam,P.y+16,4,P.x+12-cam,P.y+16,44);g.addColorStop(0,'rgba(165,216,255,.75)');g.addColorStop(1,'rgba(0,0,0,0)');x.fillStyle=g;x.fillRect(P.x-cam-34,P.y-30,92,92);

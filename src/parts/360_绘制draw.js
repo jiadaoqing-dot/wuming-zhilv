@@ -14,7 +14,7 @@ function draw(){
   x.save();if(shake>0)x.translate((Math.random()-.5)*6,(Math.random()-.5)*6);
   bg();PXL.run(drawFXBack,DEC.length+CRK.length+GH.length>0);
   drawPickups();drawRP();drawCP();drawGate();
-  PXL.run(()=>{if(cur==8)g8Back();E.forEach(drawE);if(bossOn&&B.hp>0)drawE(B);if(cur==8)g8Fx();if(cur==9)v9Fx();if(cur==10)s10Fx();if(cur>=8&&cur<=10)nbFx();if(isMy(cur))myFx();if(cur==14)m14Fx();if(cur==15)c15Fx();if(cur==16)f16Fx();palDraw();mscDraw()});drawSM();PXL.run(drawTor,TOR.length>0||!!LCK);drawPet();drawHamPet();
+  PXL.run(()=>{if(cur==8)g8Back();E.forEach(drawE);if(bossOn&&B.hp>0)drawE(B);if(cur==8)g8Fx();if(cur==9)v9Fx();if(cur==10)s10Fx();if(cur>=8&&cur<=10)nbFx();if(isMy(cur))myFx();if(cur==14)m14Fx();if(cur==15)c15Fx();if(cur==16)f16Fx();if(cur==18)n18Fx();palDraw();mscDraw()});drawSM();PXL.run(drawTor,TOR.length>0||!!LCK);drawPet();drawHamPet();
   if(FX.dk>0){x.fillStyle='rgba(8,12,28,'+FX.dk+')';x.fillRect(0,0,VW,VH)}
   PXL.run(drawShots);
   drawGD();drawStarF(cam);PXL.run(trailDraw,SWTR.length>1);drawClone();if(cur==MY4&&bossOn&&B&&B.k=='mir'&&B.hp>0&&st=='play')drawMir(B,mirAlpha(B));drawP();drawHamShd();PXL.run(thrDraw,THR.length>0);drawGDHint();PXL.run(()=>drawFairy(x,SPRP.x-cam,SPRP.y,performance.now()/1000,1,P.f),!!(SPR.own&&SPR.on));
@@ -43,7 +43,7 @@ const QDEF=[
  {n:'❓ 镜中的自己',t:'击败「神秘副本 4」的首领「镜中无名」(拥有 4 块女神碎片后开放)。',need:1,prog:()=>QD.d[1].p,rw:'高级幸运宝石 ×1(强化成功率 +50%)',give(){LUCK++}},
  {n:'⚔️ 首领猎人',t:'接取后击败任意 2 个首领,任何关卡的 Boss 都算。',need:2,prog:()=>QD.d[2].p,rw:'金币 ×300 · 普通 Lv2 强化石 ×2',give(){gold+=300;STN[2][0]+=2}},
  {n:'👾 小怪清扫',t:'接取后击败 20 只小怪,任何关卡都算(Boss 不算)。',need:20,prog:()=>QD.d[3].p,rw:'技能点 ×1',give(){sp++}},
- {n:'🤖 人造人灿灿一号',t:'神秘副本 4 打倒镜中无名之后别急着走……在场地里等一等。击败隐藏首领「人造人·灿灿一号」。',need:1,prog:()=>QD.d[4].p,rw:'星界财宝 ×1(金币 + 击杀点)',give(){MAT.astr=(MAT.astr|0)+1}}];  // 第四十六轮
+ {n:'🤖 人造人灿灿一号',t:'神秘副本 4 打倒镜中无名之后别急着走……在场地里等一等。击败隐藏首领「人造人·灿灿一号」。',need:1,prog:()=>QD.d[4].p,rw:'星界财宝 ×1(在主城部落图腾开启)',give(){MAT.astr=(MAT.astr|0)+1}}];  // 第四十六轮
 function qDay(){const t=today();if(QD.day!=t&&!timeBad()){QD.day=t;QD.d=QDEF.map(()=>({s:0,p:0}))}while(QD.d.length<QDEF.length)QD.d.push({s:0,p:0})}
 function qKill(){qDay();const d=QD.d[3];if(d.s==1&&d.p<20){d.p++;if(d.p==20)tx('小怪清扫 20/20 完成!',P.x-30,P.y-62,'#ffd43b')}}
 function qBoss(){qDay();const d=QD.d[2];if(d.s==1&&d.p<2){d.p++;tx('首领猎人 '+d.p+'/2',P.x-20,P.y-62,'#ffd43b')}}

@@ -38,7 +38,7 @@ const MSS={1:['铁角牛魔','跃起震地','以自己为中心 260 像素内的
  15:['夜王','王威震慑','屏幕里所有敌人眩晕 2.5 秒并受到 攻击×4','stunall',4,2.5,'mass-release'],
  16:['焚天炎君','陨火雨','10 颗火球砸向屏幕里的敌人,每颗 攻击×2.8(小范围)','meteor',2.8,10,'warm-explosion']};  // 第四十二轮
 for(const k in MSS){const d=MSS[k];MISC['ms'+k]=['怪物技能石 · '+d[0],`在背包里左键点它,选择嵌入剑或法杖(每把武器嵌 1 颗,两把武器各自蓄力)。用嵌着它的武器攻击敌人蓄力 ${MSCN} 次后按 <b>N</b>:召唤「${d[0]}」的虚影放出「${d[1]}」——${d[2]}。${k<=10?'第 '+k+' 关':'第 '+(k-3)+' 关'}首领 ${MSDR*100}% 掉落。`,'',0];MENI.P['ms'+k]=41}
-let MSTC={sword:0,staff:0},MSCT=0,MSQ=[],MSG=null;  // 两把武器各自的蓄力次数 / 上次蓄力时间 / 排队的伤害事件 / 虚影
+let MSTC={sword:0,staff:0},MSCT=0,MSQ=[],MSG=null,MSH=null,MSV=null;  // MSH / MSV = 灿灿技能石的黑洞 / 无敌空间(第四十七轮)  // 两把武器各自的蓄力次数 / 上次蓄力时间 / 排队的伤害事件 / 虚影
 function msMig(){if(!R19.mse)return;const id=R19.mse,w=EQ.sword;R19.mse='';if(w&&!w.mss&&MAT[id]>0){w.mss=id;MAT[id]--}}
 const msOf=it=>it&&it.mss&&MSS[it.mss.slice(2)]?MSS[it.mss.slice(2)]:null;
 const msOn=()=>{msMig();return msOf(EQ[P.mode])};
@@ -60,9 +60,11 @@ function mscCast(){const d=msOn(),s=P.mode;if(!d){tx('当前武器没有嵌入�
   else if(ty=='zone'){const x0=f>0?cx:cx-a;for(let i=0;i<10;i++)msAfter(.4+i*.4,()=>{VFX.spawn(fx,x0+rnd(20,a-20),GY-20,{s:1.4});for(const e of msTg())if(e.x+e.w>x0&&e.x<x0+a)sDeal(e,msAt(m))})}
   else if(ty=='storm'){for(let i=0;i<a;i++)msAfter(.4+i*.3,()=>{VFX.spawn(fx,cam+rnd(40,VW-40),rnd(80,GY-40),{s:1.2});for(const e of msTg()){sDeal(e,msAt(m));e.ms=Math.max(e.ms||0,.5)}})}
   else if(ty=='stunall')msAfter(.5,()=>{VFX.spawn(fx,cx,P.y+P.h/2,{s:2.6});flash('200,180,255',.3);for(const e of msTg()){sDeal(e,msAt(m));bigStun(e,a)}});
+  else if(ty=='hole'){const L=msTg().sort((p,q)=>Math.abs(p.x-cx)-Math.abs(q.x-cx)),e=L[0];MSH={x:e?e.x+e.w/2:cx+f*150,y:GY-60,t:-.4,tk:0,m,a};psx('cloud')}  // 第四十七轮:灿灿的技能石(535)
+  else if(ty=='inv'){MSV={t:0,T:a};P.inv=Math.max(P.inv,a);psx('buff');flash('110,170,255',.2)}
   else if(ty=='dash')for(let i=0;i<6;i++)msAfter(.3+i*.08,()=>{VFX.spawn(fx,cam+(f>0?i:5-i)*VW/5,P.y,{f,s:1.6});if(i==5)for(const e of msTg())sDeal(e,msAt(m))})}
-function mscStep(dt){if(MSG){MSG.t+=dt;if(MSG.t>1.6)MSG=null}for(const q of MSQ){q.t-=dt;if(q.t<=0&&!q.d){q.d=1;try{q.f()}catch(err){}}}MSQ=MSQ.filter(q=>!q.d)}
-function mscDraw(){if(!MSG)return;const g=MSG,t=performance.now()/1000,a=g.t<.3?g.t/.3:g.t>1.2?Math.max(0,(1.6-g.t)/.4):1;x.save();x.globalAlpha=.75*a;x.translate(Math.round(g.x-cam),GY);x.scale(g.f*.8,.8);try{lvsBoss(g.n,0,0,t)}catch(err){}x.restore()}
+function mscStep(dt){if(MSG){MSG.t+=dt;if(MSG.t>1.6)MSG=null}canMsStep(dt);for(const q of MSQ){q.t-=dt;if(q.t<=0&&!q.d){q.d=1;try{q.f()}catch(err){}}}MSQ=MSQ.filter(q=>!q.d)}
+function mscDraw(){canMsDraw();if(!MSG)return;const g=MSG,t=performance.now()/1000,a=g.t<.3?g.t/.3:g.t>1.2?Math.max(0,(1.6-g.t)/.4):1;x.save();x.globalAlpha=.75*a;x.translate(Math.round(g.x-cam),GY);x.scale(g.f*.8,.8);try{lvsBoss(g.n,0,0,t)}catch(err){}x.restore()}
 // 第四十六轮(用户):蓄力显示移到左上状态栏下面(金币右边),不写数字:三个从小到大的菱形格(PUI 图集 dia0 缩小 + 染色),
 // 没蓄到的是白色,蓄到的变紫(当前那格按进度从左往右变紫);蓄满后后面出现紫色的 N
 const MSHC={};

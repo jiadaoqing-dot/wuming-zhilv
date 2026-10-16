@@ -24,7 +24,7 @@ function setLv(){let m=99;for(const k of ALL){const it=EQ[k];m=Math.min(m,it?(it
 // 按最低等级取下表一档(不累加):hp 生命 · cr 暴击率 · def 防御 · atk 攻击(都是最终值 ×(1+x),暴击率按全部来源合计 ×(1+x))· mv 移动力(每点 +HMV 移动速度)
 const HONR={4:{hp:.1},5:{hp:.15,cr:.1},6:{hp:.15,cr:.15,mv:1},7:{hp:.15,atk:.2,def:.05,mv:1},8:{hp:.2,cr:.25,def:.07,mv:1},9:{hp:.2,cr:.25,def:.1,atk:.05,mv:1},10:{hp:.27,cr:.25,def:.15,atk:.32,mv:2}},HMV=.05;
 const mvK=()=>pb('spd')*(1+(hon().mv||0)*HMV);  // 移动速度倍率(被动疾风 × 强化荣誉移动力)
-const honLv=()=>{const m=Math.min(ENMX,setLv());return m>=4?m:0},hon=()=>HONR[honLv()]||{};  // 第三十三轮:+7~+10 留给以后(表先保留),现在只到强化上限 ENMX
+const honLv=()=>{const m=Math.min(ENMX,setLv());return m>=4?m:0},hon=()=>HONR[honLv()]||{};  // 只到强化上限 ENMX(第四十七轮放开到 +9;+10 那档表先保留)
 const honTxt=l=>{const h=HONR[l],p=v=>Math.round(v*100)+'%',a=[];if(h.hp)a.push('提高生命值'+p(h.hp));if(h.cr)a.push('提高暴击率'+p(h.cr));if(h.def)a.push('提高防御力'+p(h.def));if(h.atk)a.push('提高攻击力'+p(h.atk));if(h.mv)a.push('提升'+h.mv+'点移动力');return a};
 // 强化荣誉徽章(+4~+10 一排;达到的亮起,鼠标移上去显示这一档的效果,样式见 CSS .hon)
 const honRow=()=>{const L=honLv();return `<div class="hon">${[4,5,6,7,8,9,10].filter(l=>l<=ENMX).map(l=>`<span class="hb${l==L?' on':l<L?' ok':''}">+${l}<span class="ht"><b>强化荣誉+${l}</b>${honTxt(l).join(' ')}</span></span>`).join('')}</div>`};

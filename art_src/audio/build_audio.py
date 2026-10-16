@@ -37,7 +37,17 @@ BGM={'bgm0':(G+'town.mp3',None,1),'bgm1':('happy_adventure.mp3',None,1),'bgm1b':
  'bgm14':(G+'mech/Factory.ogg',120,1),'bgm14b':(G+'mech/hardwar.mp3',None,1),
  # 第十二关永夜王城(第四十一轮,cur 15)Abandoned Castle Music (Loop)(StarNinjas,CC0,https://opengameart.org/node/122922)/ Boss Battle #2 [Symphonic Metal](nene,CC0,https://opengameart.org/node/84428;
  #   包里的文件名写反了,真正的循环段是 opening.wav)
- 'bgm15':(G+'castle12/abandoned_castle.ogg',None,1),'bgm15b':(G+'castle12/boss2/boss_battle_#2_metal_opening.wav',120,1)}
+ 'bgm15':(G+'castle12/abandoned_castle.ogg',None,1),'bgm15b':(G+'castle12/boss2/boss_battle_#2_metal_opening.wav',120,1),
+ # 第四十七轮(用户:每一关都要有专属 BGM;raw/audio/bgm/r47):
+ #   神秘副本 2(cur 12)A Wonderful Nightmare(SpiderDave,CC0,https://opengameart.org/content/a-wonderful-nightmare)/ Endless Pain of Nightmares(nene,CC0,https://opengameart.org/content/endless-pain-of-nightmares)
+ #   神秘副本 3(cur 13)The 9th Circle(Joth,CC0,https://opengameart.org/content/the-9th-circle)/ Demon Lord(Scrabbit,CC-BY 4.0,https://opengameart.org/content/demon-lord)
+ #   第十三关熔心火山(cur 16)Shrine to the Smoldering Volcano(Mega Pixel Music Lab,CC-BY 3.0,https://opengameart.org/content/shrine-to-the-smoldering-volcano)/ The Demon King(congusbongus,CC-BY 4.0,https://opengameart.org/content/the-demon-king)
+ #   神秘副本 4(cur 17)Reflections Upon the Black Mirror(HitCtrl,CC-BY 3.0,https://opengameart.org/content/reflections-upon-the-black-mirror)/ 镜中无名 Determination(HydroGene,CC0,https://opengameart.org/content/determination-anime-style-music)
+ #     / 灿灿 bgm17c = Welcome to Com-Mecha(Matthew Pablo,CC-BY 3.0,https://opengameart.org/content/theme-of-com-mecha)
+ #   第十四关月影忍城(cur 18)Samurai Nights(Majadroid,CC-BY 4.0,https://opengameart.org/content/samurai-nights,用 Demo 整曲)/ Japanese Samurai Ninja Battle Trailer(ISAo,OGA-BY 3.0,https://opengameart.org/content/japanese-samurai-ninja-battle-trailer)
+ 'bgm12':(G+'r47/46b.ogg',120,1),'bgm12b':(G+'r47/Endless Pain of Nightmares.WAV',120,1),'bgm13':(G+'r47/The 9th Circle V2.mp3',120,1),'bgm13b':(G+'r47/demon lord_0.mp3',120,1),
+ 'bgm16':(G+'r47/Shrine to the Smoldering Volcano_0.mp3',120,1),'bgm16b':(G+'r47/the_demon_king_loop_0.ogg',120,1),'bgm17':(G+'r47/Reflections Upon the Black Mirror.ogg',None,1),'bgm17b':(G+'r47/determination_1.mp3',None,1),
+ 'bgm17c':(G+'r47/Welcome to Com-Mecha.mp3',120,1),'bgm18':(G+'r47/samurai/Samurai-Nights-Demo.mp3',None,1),'bgm18b':(G+'r47/oga_japanese_hacks_0.mp3',None,1)}
 def load(p,sr):
   d,s=sf.read(A+p,always_2d=True);m=d.mean(1)
   g=np.gcd(s,sr);return resample_poly(m,sr//g,s//g) if s!=sr else m

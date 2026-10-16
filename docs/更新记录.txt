@@ -1,3 +1,10 @@
+【v1.47 · 2026-10-16 · 第四十七轮】
+- 第十四关「月影忍城」cur 18(565 分块):NJA 图集 art_src/ninja14(Martial Hero 1/2/3 LuizMelo CC0、飞镖 Loel、苦无 kungfu4000、木头 Gothul、远景 = 用户附图);小怪 njaStep 隐身 + 突进 / nshStep 飞镖 + 铁蒺藜 N18T / ronStep 精英;首领 oboStep(nbStep、nbEnd 已被占用)kun / dash / tp / iai / aoe / cln + 替身术(e.lhp / e.subC,N18L 木头),场上 N18S / N18C / N18W,n18Step / n18Fx;各表 [18] 已加,MAPS2 第 4 项 p:[205,98]。
+- 星界财宝改到主城部落图腾开启(537 分块,TOTEM 图集 art_src/totem,TOTX 1090,totemGo / totemStep / totemDraw,ASTRR 奖励表);背包里只提示。
+- 强化上限 ENMX 6 → 9;Lv3 强化石 STDR 第 4 项(第八~十关 .25、第二张地图 .5),熔炉 / 选关预览显示 Lv3。
+- 灿灿:无敌空间不再护主角,CNR 70 → 105;循环任务 canQHtml / canQAct(R19.canq),技能石 MSS[90] hole / MSS[91] inv(mscCast 新类型,MSH / MSV,canMsStep / canMsDraw,虚影 lvsBoss 90/91 用 CANT)。
+- 法师 O drawCloud 改成整团云(不裁剪);BGM 新增 bgm12/12b/13/13b/16/16b/17/17b/17c/18/18b(build_audio.py r47,raw/audio/bgm/r47),灿灿用 bgm17c,BGMF 清空。像素字体重新生成。冒烟 0 错误。
+
 【v1.46 · 2026-10-16 · 第四十六轮】
 - 神秘副本 4 隐藏首领「人造人·灿灿一号」(535 分块):镜中无名死后 10 秒出现第二道光柱 CNS(canTick / canGo,按 W 进入,HP / MP 不回复);灿灿 = B.k 'mir' + B.can,复用 MW 技能 AI(mwRun 里换 LN / JOB = 她的 canLN,CANSK 剑 1 4 5 6 8 / 法 1 2 3 5 7,分身只放她会的),黑洞 e.bh(拉人 + 跳伤)/ 无敌空间 act 'fld'(领域里双方都无敌,mc-blue + b-shield),canDie 掉落 7 种(无装备);每日任务 QD.d[4]。
 - 外观:LPC 女性图层 body_f / head_f / hair_f / shirt_f / skirt_f / boots_f / cape_f(build_lpc.py 第 4 项 = 体型),LPC.keys(m,'can');drawMir 对灿灿不染色、不忽隐忽现。

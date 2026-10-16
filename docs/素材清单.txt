@@ -1,7 +1,7 @@
 assets/ 素材清单(tools/assets_index.py 自动生成,build.py 每次构建时更新;不要手改)
 格式:文件  大小  源码引用(src/parts 分块序号:该文件里的行号 所在函数/对象.键)  ← 生成脚本  [音频:用到的原始素材]
 
-== 图片 PNG(@@A:)  120 个 ==
+== 图片 PNG(@@A:)  122 个 ==
 ars_ar1.png  4KB  880:44 PXA.ar1  ← 无脚本:Hero spritesheets - Ars Notoria(Balmer,CC0)换色分层,旧主角选项,见源码 PXA 注释
 ars_ar2.png  4KB  880:45 PXA.ar2  ← 无脚本:Hero spritesheets - Ars Notoria(Balmer,CC0)换色分层,旧主角选项,见源码 PXA 注释
 ars_ar3.png  4KB  880:46 PXA.ar3  ← 无脚本:Hero spritesheets - Ars Notoria(Balmer,CC0)换色分层,旧主角选项,见源码 PXA 注释
@@ -88,6 +88,7 @@ mg27_atlas.png  16KB  000:231 ; 940:10 MG27.D  ← art_src/skfx/build_mg27.py
 mnt_atlas.png  43KB  910:3 MNT.D  ← art_src/boss/build_mnt.py
 mob_atlas.png  230KB  900:29 MOB.D  ← art_src/boss/build_bos.py, art_src/mob/build_dog2.py, art_src/mob/build_pen.py, art_src/mob/fix_dog2.py
 myst_atlas.png  87KB  560:206 MYST.D  ← art_src/myst/build_myst.py
+nja_atlas.png  220KB  565:10 NJA.D  ← art_src/ninja14/build_ninja14.py
 npc_chief.png  2KB  880:40 PXA  ← 无脚本:PXA 早期 NPC 像素图(来源见源码 PXA 注释)
 npc_erin.png  2KB  880:36 PXA  ← 无脚本:PXA 早期 NPC 像素图(来源见源码 PXA 注释)
 npc_jin.png  2KB  880:39 PXA  ← 无脚本:PXA 早期 NPC 像素图(来源见源码 PXA 注释)
@@ -103,6 +104,7 @@ skfx_atlas.png  305KB  940:7 SKFX.D  ← art_src/skfx/build_skfx.py
 smn_atlas.png  16KB  780:83 SMN.D  ← art_src/summon/build_smn.py
 stf_atlas.png  6KB  760:158 STF.D  ← art_src/lpc/build_staff.py
 stn_atlas.png  1KB  060:15 STNI.D  ← art_src/stone/build_stone.py
+totem_atlas.png  2KB  537:4 TOTEM.D  ← art_src/totem/build_totem.py
 town2_back.png  24KB  880:9 TWN.back  ← art_src/town/build_town2.py
 town2_far.png  11KB  880:9 TWN.far  ← art_src/town/build_town2.py
 town2_fg.png  12KB  880:9 TWN.fg  ← art_src/town/build_town2.py
@@ -131,7 +133,7 @@ map_bg.jpg  110KB  950:75 MAPI.D  ← art_src/map/build_map.py
 fpx12.woff2  66KB  000:9   ← art_src/font/build_font.py
 fpx8.woff2  42KB  000:10   ← art_src/font/build_font.py
 
-== 音频 OGG(@@O:)  119 个 ==
+== 音频 OGG(@@O:)  130 个 ==
 au_b_axe.ogg  6KB  020:7 AUD.b_axe  ← art_src/audio/build_audio.py  [bfh1_metal_hit_02.ogg, explosion.ogg, swish-7.wav]
 au_b_gallop.ogg  7KB  020:7 AUD.b_gallop  ← art_src/audio/build_audio.py  [slam_0%d.ogg, wind]
 au_b_imp1.ogg  6KB  020:7 AUD.b_imp1  ← art_src/audio/build_audio.py  [impactwood11.mp3.flac, hit_02.ogg]
@@ -147,10 +149,21 @@ au_bgm10.ogg  730KB  020:12 AUD.bgm10  ← art_src/audio/build_audio.py  [thunde
 au_bgm10b.ogg  785KB  020:12 AUD.bgm10b  ← art_src/audio/build_audio.py
 au_bgm11.ogg  187KB  020:13 AUD.bgm11  ← art_src/audio/build_audio.py  [song21_mysterious.mp3, hard_dungeon_bpm140.ogg]
 au_bgm11b.ogg  805KB  020:13 AUD.bgm11b  ← art_src/audio/build_audio.py
+au_bgm12.ogg  764KB  020:13 AUD.bgm12  ← art_src/audio/build_audio.py  [46b.ogg, The 9th Circle V2.mp3, demon lord_0.mp3]
+au_bgm12b.ogg  930KB  020:13 AUD.bgm12b  ← art_src/audio/build_audio.py
+au_bgm13.ogg  835KB  020:13 AUD.bgm13  ← art_src/audio/build_audio.py
+au_bgm13b.ogg  773KB  020:13 AUD.bgm13b  ← art_src/audio/build_audio.py
 au_bgm14.ogg  611KB  020:13 AUD.bgm14  ← art_src/audio/build_audio.py  [Factory.ogg, hardwar.mp3]
 au_bgm14b.ogg  90KB  020:13 AUD.bgm14b  ← art_src/audio/build_audio.py
 au_bgm15.ogg  193KB  020:13 AUD.bgm15  ← art_src/audio/build_audio.py  [abandoned_castle.ogg, boss_battle_#2_metal_opening.wav]
 au_bgm15b.ogg  175KB  020:13 AUD.bgm15b  ← art_src/audio/build_audio.py
+au_bgm16.ogg  503KB  020:13 AUD.bgm16  ← art_src/audio/build_audio.py  [Shrine to the Smoldering Volcano_0.mp3, the_demon_king_loop_0.ogg, Reflections Upon the Black Mirror.ogg, determination_1.mp3]
+au_bgm16b.ogg  886KB  020:13 AUD.bgm16b  ← art_src/audio/build_audio.py
+au_bgm17.ogg  748KB  020:13 AUD.bgm17  ← art_src/audio/build_audio.py
+au_bgm17b.ogg  464KB  020:13 AUD.bgm17b  ← art_src/audio/build_audio.py
+au_bgm17c.ogg  761KB  020:13 AUD.bgm17c  ← art_src/audio/build_audio.py  [Welcome to Com-Mecha.mp3, Samurai-Nights-Demo.mp3, oga_japanese_hacks_0.mp3]
+au_bgm18.ogg  410KB  020:13 AUD.bgm18  ← art_src/audio/build_audio.py
+au_bgm18b.ogg  726KB  020:13 AUD.bgm18b  ← art_src/audio/build_audio.py
 au_bgm1b.ogg  613KB  020:9 AUD.bgm1b  ← art_src/audio/build_audio.py
 au_bgm2.ogg  325KB  020:9 AUD.bgm2  ← art_src/audio/build_audio.py
 au_bgm2b.ogg  789KB  020:9 AUD.bgm2b  ← art_src/audio/build_audio.py
@@ -496,6 +509,17 @@ au_zap.ogg  9KB  020:5 AUD.zap  ← art_src/audio/build_audio.py
    参考:用户给的页游截图(神秘地带的石狮入口);仓鼠造型参考 World's Strongest Hamster in The Underground Empire GFX
    (mutantleg,CC0,https://opengameart.org/content/worlds-strongest-hamster-in-the-underground-empire-gfx,raw/hamster;只看了配色,没有直接取图)
    用法:python art_src/myst/build_myst.py → assets/myst_atlas.png,打印 meta(贴进源码 MYST.M:[x, y, 帧宽, 帧高, 帧数])
+-- art_src/ninja14/build_ninja14.py
+   第十四关「月影忍里」图集 NJA(第四十七轮,cur 18)
+   素材:
+   首领 影主·胧 = Martial Hero(LuizMelo,CC0,https://luizmelo.itch.io/martial-hero)
+   小怪 影忍 / 飞镖忍 = Martial Hero 2(LuizMelo,CC0,https://luizmelo.itch.io/martial-hero-2;飞镖忍在游戏里用 filter 换色)
+   精英 浪人 = Martial Hero 3(LuizMelo,CC0,https://luizmelo.itch.io/martial-hero-3)
+   飞镖 = Shuriken pixel art(Loel,CC0,https://opengameart.org/content/shuriken-pixel-art)· 苦无 = Ninja Throwing Items Kit 32x32(kungfu4000,CC0,https://opengameart.org/content/ninja-throwing-items-kit-32x32)
+   替身术的木头 = 32x32 Dark Forest Combat Pack 的 Nature_Logs_01(Gothul,OGA-BY 4.0,https://opengameart.org/content/32x32-dark-forest-combat-pack)
+   远景 = 用户提供的「夜色中的蓝瓦城郭」像素图(raw/ninja14/user_bg_castle.png,第四十七轮任务附图)
+   改动:人物帧只裁掉上下空白(帧宽不变);飞镖从 Loel 的图里裁出一枚;其他原样
+   用法:python art_src/ninja14/build_ninja14.py <raw> <输出 png>   打印 M / A(贴进 src/parts/565_第十四关月影忍里.js 的 NJA)
 -- art_src/pend/build_pend.py
    自绘像素挂件:第 0 行 风华剑仙丝带(蝴蝶结 + 两条飘带),第 1 行 学院法师四角星;每帧 20×20,6 帧
 -- art_src/potion/build_pot.py
@@ -569,6 +593,14 @@ au_zap.ogg  9KB  020:5 AUD.zap  ← art_src/audio/build_audio.py
    改动:只裁帧、去掉底色 / 格线,原样排进一张图;食人花取朝右的那一排(待机 4 帧、攻击 7 帧、死亡 10 帧)。
    用法:python art_src/summon/build_smn.py <raw/summon19> <输出 png>
    布局:第 0 行(高 32):凤凰飞行 6 帧 + 精灵 4 帧,每格 32;第 1~3 行(每行高 64):食人花 待机 / 攻击 / 死亡,每格 64
+-- art_src/totem/build_totem.py
+   主城部落图腾 + 星界财宝宝箱(模块 TOTEM,第四十七轮)
+   素材:
+   图腾 = 32x32 Dark Forest Combat Pack(Gothul,OGA-BY 4.0,https://opengameart.org/content/32x32-dark-forest-combat-pack,raw/darkforest32)的 Totem_Off_01 / Totem_On_01~03
+   宝箱 = Sunny Land Forest(Ansimuz,CC0,raw/lv/sunny-land-forest-files)的 chest-1 / chest-2
+   改动:原样拼图,不改像素(游戏里画的时候放大 2 倍,宝箱用 filter 染成星空蓝紫)
+   用法:python art_src/totem/build_totem.py <raw> <输出 png>
+   布局:y=0 一排图腾 4 帧 32×32(x = 0 / 32 / 64 / 96:熄灭 / 亮 1~3);y=32 宝箱 36×25(x = 0 关 / 36 开)
 -- art_src/town/build_town.py
    晨曦镇像素背景(640×360,地面线 GY=300):Sunny Land(ansimuz,CC0)+ Seasonal Tilesets(GrafxKid,CC0)+ 16x16 RPG Item Pack(Alex's Assets,CC0)
    用法:python3 art_src/town/build_town.py <素材目录(fetch_assets.sh 的 jra)> <输出 png>

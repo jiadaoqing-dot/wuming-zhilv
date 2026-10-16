@@ -21,10 +21,10 @@ function bookAct(r){if(r.startsWith('bbk')){fmsg=bkBuy(+r.slice(3));return 1}if(
 function bkTop(){setTimeout(()=>{const e=document.querySelector('#pn .bh');if(e)e.scrollIntoView({block:'start'})},0)}
 // 主城可互动的点:站在上面按 W(手机按方向盘 ▲)
 function townSpots(){const L=[];if(MYS){L.push({x:44,y:GY,n:'回城光柱',go:mystOut,v:'返回晨曦镇',bh:190});for(let i=0;i<myOpen();i++)L.push({x:MYLX[i],y:GY,n:'神秘副本 '+(i+1),go:()=>mystGo(i),v:'进入「'+MYNM[i]+'」',bh:204});return L}if(CLR.includes(3))L.push({x:TWN.chief,y:GY,n:'村长',go:talkChief});for(const n of NPCS)L.push({x:n.x,y:n.y,n:n.n,go:()=>mqTalk(n.n)?0:n.n=='技能导师'?toggleSk():openP({'装备商人':'shop','药剂师':'pot','仓库管理员':'wh'}[n.n]||'forge')});
-  L.push({x:TWN.forge,y:GY,n:'熔炉',go:()=>openP('fuse'),v:'合成强化石'});L.push({x:TWN.shelf,y:GY,n:'书架',go:()=>{BKR=null;openP('book')},v:'阅读书籍'});L.push({x:TWN.portal[0],y:TWN.portal[1],n:'传送门',go:openMap,v:'打开世界地图'});if(soulN()>0)L.push({x:MYTP[0],y:MYTP[1],n:'神秘光柱',go:mystIn,v:'进入神秘地带',bh:190});return L}
+  L.push({x:TWN.forge,y:GY,n:'熔炉',go:()=>openP('fuse'),v:'合成强化石'});L.push({x:TWN.shelf,y:GY,n:'书架',go:()=>{BKR=null;openP('book')},v:'阅读书籍'});L.push({x:TWN.portal[0],y:TWN.portal[1],n:'传送门',go:openMap,v:'打开世界地图'});L.push({x:TOTX,y:GY,n:'部落图腾',go:totemGo,v:'开启星界财宝'});if(soulN()>0)L.push({x:MYTP[0],y:MYTP[1],n:'神秘光柱',go:mystIn,v:'进入神秘地带',bh:190});return L}
 function townSpot(){const px=P.x+12;let b=null,bd=30;for(const q of townSpots()){const d=Math.abs(px-q.x);if(d<bd&&Math.abs(P.y+P.h-q.y)<6){bd=d;b=q}}return P.gr?b:null}
 function townAct(){if(DLG){dlgNext();return}const q=townSpot();if(q)q.go()}
 // 城镇:和关卡里用同一套移动 / 攻击 / 技能(走路、双击快跑、普攻、蓄力、特殊普攻、技能、飞行都一样),只是没有怪物;生命和魔力一直是满的
 let INTOWN=0;
-function townUpd(dt){if(busy())return;if(DLG){DLG.t+=dt;P.at=0;ah=0;ar=0;sq=-1;return}
+function townUpd(dt){totemStep(dt);if(busy())return;if(DLG){DLG.t+=dt;P.at=0;ah=0;ar=0;sq=-1;return}
   INTOWN=1;try{update(dt)}finally{INTOWN=0}const S=stats();P.hp=S.hp;if(!P.fly)P.mp=S.mp;P.x=Math.max(10,P.x)}

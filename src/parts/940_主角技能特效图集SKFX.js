@@ -65,6 +65,7 @@ function drawTown(){const t=performance.now()/1000,c0=Math.round(cam),I=TWN.I;
   // NPC(y 不在地面的 NPC 整体平移过去画)
   for(const n of NPCS){const dy=n.y-GY;x.save();x.translate(0,dy);drawNPC(x,n.x,NPCLOOK[n.n],t+n.x,P.x+12<n.x?-1:1,n.n);const px_=PXA.has(n.n)||LNPC.on(n.n);PLQ(x,n.x,GY-(px_?64:76),n.n,{'技能导师':'学习 / 升级技能','药剂师':'购买药水','装备商人':'买卖装备','强化师':'强化装备','仓库管理员':'存取物品'}[n.n]);if(mqGiver(n.n))CT(mqDone()?'❓':'❗',n.x,GY-(px_?84:96)+Math.sin(t*5)*3,16,'#ffd43b','center',3);x.restore()}
   if(CLR.includes(3))drawChief();
+  totemDraw(t);  // 第四十七轮:部落图腾 + 星界财宝
   x.restore();if(soulN()>0)MYST.pillar(MYTP[0],MYTP[1],t,'177,151,252','神秘光柱','神秘地带')}  // 神秘光柱:技能导师树屋高台右端
   drawSM();PXL.run(drawTor,TOR.length>0||!!LCK);drawPet();drawHamPet();PXL.run(drawShots);drawStarF(cam);PXL.run(trailDraw,SWTR.length>1);drawP();drawHamShd();PXL.run(thrDraw,THR.length>0);PXL.run(()=>drawFairy(x,SPRP.x-cam,SPRP.y,t,1,P.f),!!(SPR.own&&SPR.on));
   // 前景(草丛、垂下的叶丛)盖在人物前面,显出前后层次
