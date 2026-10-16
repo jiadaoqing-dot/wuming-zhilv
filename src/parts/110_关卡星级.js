@@ -1,0 +1,23 @@
+// ===== 关卡星级(2026-10-13 第十六轮)=====
+// STAR[关卡号] = 已通关的最高星级(1~3);LVSTAR = 本次进关选的星级;通关一星才开二星,通关二星才开三星
+// STARK[星级]:hp 怪物生命 · atk 怪物攻击 · def 怪物防御加值 · sp 怪物动作速度 · xp / gd 经验 / 金币倍率 · dr 掉落率倍率
+//   tq 小怪装备品质概率 [普通, 精良, 稀有, 史诗] · bq 首领装备品质概率 · sq 强化石品质概率 [普通, 精良, 史诗, 卓越]
+// 参考常见 ARPG 的难度分层(每档生命约 ×1.8、伤害 ×1.4、掉落品质整体上移一档):一星 = 当前等级正常推进,二星 = 同等级满强化 / 高一级装备,三星 = 刷装备的挑战难度
+// 第四十四轮(用户选 C):一星 / 二星不再掉史诗(原来的史诗几率并进稀有);三星首领史诗 55% → 30%,三星小怪史诗 14% → 8%;带特性的装备只在三星掉(rollItem)
+const STARK=[null,{n:'一星',hp:1,atk:1,def:0,sp:1,xp:1,gd:1,dr:1,tq:[.6,.28,.12,0],bq:[0,.45,.55,0],sq:[1,0,0,0],c:'#ffd43b'},
+ {n:'二星',hp:1.8,atk:1.4,def:8,sp:1.06,xp:1.6,gd:1.6,dr:1.3,tq:[.42,.33,.25,0],bq:[0,.2,.8,0],sq:[.65,.35,0,0],c:'#ff922b'},
+ {n:'三星',hp:3.2,atk:1.9,def:18,sp:1.12,xp:2.4,gd:2.4,dr:1.6,tq:[.26,.34,.32,.08],bq:[0,0,.7,.3],sq:[.35,.45,.2,0],c:'#ff6b6b'}];
+let STAR={},LVSTAR=1;const STK=()=>STARK[LVSTAR]||STARK[1];
+const starOf=n=>STAR[n]|0,starOpen=(n,s)=>s<=1||starOf(n)>=s-1;
+const rollQ=p=>{const r=Math.random();let a=0;for(let i=0;i<p.length;i++){a+=p[i];if(r<a)return i}return p.length-1};
+// 第十六轮经济:小怪经验 / 金币 = 基础表 × XPK[关卡] ÷ 2.5(分区刷怪 ×2.5 的还原);首领固定 BXP[关卡](约等于该关推荐等级升一级所需经验的 12%);都再乘星级倍率
+// 校准:同关一星打一遍约升 1/3 级,二星 1/2 级,三星 3/4 级
+// 第二十三轮:经验 XPB ×1.5(同关一星一遍约 1.2 级)、金币 GDB ×1.5;通关击杀点 KPCL 10 → 20(二星 / 三星 26 / 32)
+const XPB=1.5,GDB=3,KPCL=27,KPLV=8;  // 第四十一轮:通关击杀点降 1/3(40 + 12N → 27 + 8N)  // 第三十六轮:金币再翻倍(GDB 1.5 → 3)
+const XPK=[0,1,1.8,2.6,3.4,4.2,5,5.8,6.6,7.4,8.2,3.4,6.6,8.2,9.4,10.6,11.8,13],BXP=[0,30,200,550,1000,1550,2200,2900,3700,4500,5400,1000,4440,6480,6900,7900,8900,10000];  // [17] = 神秘副本 4(第四十三轮)  // [16] = 第十三关熔心火山(第四十二轮)  // [14] = 第十一关齿轮要塞(第四十轮)
+function reward(e){VFX.spawn('smoke-puff',e.x+e.w/2,e.y+e.h/2,{s:e.max?2.2:1});const t0={slime:[8,5,.22],bat:[6,4,.18],skel:[14,9,.4],boss:[120,100,0],mage:[300,250,0],snake:[10,6,.2],ape:[16,10,.35],king:[600,500,0],ysco:[16,10,.3],bsco:[22,14,.4],sco:[1000,800,0],spi:[18,12,.3],ost:[26,18,.4],andr:[1500,1200,0],pen:[30,20,.35],pen2:[42,28,.45],seal:[34,22,.4],seal2:[46,30,.5],bear:[2200,1800,0],dog:[38,24,.4],dog2:[52,34,.5],wiz:[2600,2100,0],gfly:[46,30,.45],gfly2:[64,42,.55],gland:[50,32,.45],gland2:[70,46,.6],yin:[3200,2600,0],cradle:[60,0,0],imp:[80,52,.45],fwisp:[76,50,.45],golem:[130,90,.6],oni:[600,420,1],lava:[3800,3000,0],lclone:[60,0,0],wimp:[96,62,.45],eye:[100,64,.45],swing:[700,480,1],gui:[4600,3600,0],ham:[1000,800,0],nmr:[1000,800,0],dmn:[1000,800,0],mir:[1000,800,0],gbot:[110,70,.5],zdr:[104,66,.5],tank:[180,120,.7],mech:[1000,800,0],skw:[124,78,.5],gob:[118,74,.5],nwz:[210,136,.7],nk:[1000,800,0],fwm:[128,80,.5],mmt:[136,86,.5],fsm:[220,142,.7],fk:[1000,800,0]}[e.k],K=STK(),ci=cur,lk=XPK[ci]||1,sm=e.sum?.25:1;
+  let xp0,gd0;if(e.max){xp0=BXP[ci]||500;gd0=Math.round(xp0*1.2)}else{xp0=Math.max(1,Math.round(t0[0]*lk*sm/WMUL));gd0=Math.round(t0[1]*lk*sm/WMUL)}
+  const t=[Math.round(xp0*K.xp*XPB),Math.round(gd0*K.gd*GDB),e.sum||e.max?0:t0[2]/WMUL*K.dr],xp=isVip()?Math.round(t[0]*1.1):t[0];exp+=xp;gold+=t[1]+(Math.random()*3|0);  // VIP 经验 +10%
+  if(petOn()&&PET.lv<20){PET.exp+=t[0];petLv()}
+  mqKill(e);if(!e.sum&&st=='play')P.jk=Math.min(JI6N,(P.jk|0)+1);tx('+'+xp+'经验',e.x,e.y-14,'#ffd43b');if(e.k=='snake'&&Math.random()<DROPK*K.dr*DBLK())gdDrop(e,{k:'egg',n:1});if(Math.random()<t[2]*DROPK*DBLK())gdDrop(e,{k:'eq',it:rollItem()});if(!e.sum&&!e.max&&Math.random()<DRX.giftM*DBLK())gdDrop(e,{k:'gift',n:1});  // 装备和道具掉在地上,按 S 捡起
+  lvUp();save()}

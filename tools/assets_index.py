@@ -3,8 +3,10 @@
 #                         最后附各 art_src 生成脚本开头的说明(素材来源、作者、授权)
 #   docs/原始素材索引.txt raw/ 里每个素材包的目录结构摘要(文件名按「前缀 + 编号」合并)、zip、被哪个 art_src 脚本用到
 # 目的:找素材 / 换素材时先读这两份文件,不用再列目录、不用打开图片或音频
-import os,re,glob,collections
+import os,re,glob,collections,sys
 D=os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+sys.path.insert(0,os.path.join(D,'tools'));import srcparts
+SP=None  # 分块文件的行号范围(srcparts.load 的 spans)
 J=lambda *p:os.path.join(D,*p)
 rel=lambda p:os.path.relpath(p,D).replace('\\','/')
 def kb(n):return f'{n/1024:.0f}KB' if n<1024*1024 else f'{n/1048576:.1f}MB'
@@ -42,7 +44,8 @@ def asset_list(src,S):
         for m in re.finditer(r'@@([AOJF]):([\w$]+)@@',l):
             pre=l[max(0,m.start()-60):m.start()]
             km=re.search(r"([\w$]+)\s*:\s*['\"`]?$",pre)
-            refs[(m.group(2),m.group(1))].append(f'L{i+1} {defs[i]}'+(f'.{km.group(1)}' if km else ''))
+            f,ln=srcparts.loc(SP,i) if SP else ('',i+1)
+            refs[(m.group(2),m.group(1))].append((i,f'{f.split("_")[0]}:{ln}' if f else f'L{ln}',f'{defs[i]}'+(f'.{km.group(1)}' if km else '')))
     # 生成脚本:在脚本里找文件名(音频按去掉 au_ 的键名找)
     def gen(name,t):
         hit=[p for p,s in S.items() if name+'.'+EXT[t] in s or f"'{name}'" in s or f'"{name}"' in s]
@@ -56,7 +59,7 @@ def asset_list(src,S):
             if b!=name:hit=[p for p,s in S.items() if b in s]
         if not hit:  # 源码引用处往上 12 行内的注释写了生成脚本
             for r in refs[(name,t)][:1]:
-                i=int(r.split()[0][1:])-1
+                i=r[0]
                 for l in reversed(L[max(0,i-12):i+1]):
                     m=re.search(r'art_src/[\w/]+\.py',l)
                     if m:hit=[m.group(0)];break
@@ -76,13 +79,13 @@ def asset_list(src,S):
     for p in glob.glob(J('assets','*')):
         n,e=os.path.splitext(os.path.basename(p));files[(n,e[1:])]=os.path.getsize(p)
     out=['assets/ 素材清单(tools/assets_index.py 自动生成,build.py 每次构建时更新;不要手改)',
-         '格式:文件  大小  源码引用(行号 所在函数/对象.键)  ← 生成脚本  [音频:用到的原始素材]','']
+         '格式:文件  大小  源码引用(src/parts 分块序号:该文件里的行号 所在函数/对象.键)  ← 生成脚本  [音频:用到的原始素材]','']
     used=set()
     for t,title in [('A','图片 PNG(@@A:)'),('J','图片 JPEG(@@J:)'),('F','字体(@@F:)'),('O','音频 OGG(@@O:)')]:
         ks=sorted(k for k in refs if k[1]==t);out.append(f'== {title}  {len(ks)} 个 ==')
         for n,_ in ks:
             e=EXT[t];used.add((n,e));sz=files.get((n,e))
-            g=gen(n,t);r=refs[(n,t)]
+            g=gen(n,t);r=[f'{a} {b}' for _,a,b in refs[(n,t)]]
             line=f'{n}.{e}  {kb(sz) if sz is not None else "缺文件!"}  {"; ".join(r[:3])}{" …" if len(r)>3 else ""}  ← {", ".join(g) if g else "?"}'
             if t=='O':
                 s=ausrc(n[3:]);line+=f'  [{s}]' if s else ''
@@ -145,8 +148,10 @@ def raw_index(S):
         out.append('')
     open(J('docs','原始素材索引.txt'),'w',encoding='utf8').write('\n'.join(out)+'\n')
 
-def main(src=None):
-    src=src or open(J('src','game.src.html'),encoding='utf8').read()
+def main(src=None,spans=None):
+    global SP
+    if src is None:src,spans=srcparts.load()
+    SP=spans
     S=scripts();n,u=asset_list(src,S);raw_index(S)
     return n,u
 if __name__=='__main__':print('assets index',*main())

@@ -2,7 +2,7 @@
 (旧的网页版流程:把这段整段发给 Claude,并上传「无名之旅_开发包.zip」)
 
 我在做单文件 HTML5 Canvas 横版 RPG《无名之旅》。开发包里:
-  src/game.src.html  源码(图片已抽出,用 @@A:名字@@ 占位)   assets/  内嵌图片(png)
+  src/parts/*.js     源码(第四十四轮起按系统 / 关卡分成 102 个小文件,tools/srcparts.py 拼接;素材用 @@A:名字@@ 占位)   assets/  内嵌图片 / 音频
   tools/build.py     拼成单文件 out/无名之旅.html,并生成 CODEMAP.txt(函数 / 模块 → 行号)
   tools/split.py     反向:把单文件拆回 src + assets      tools/fetch_assets.sh  重新下载美术素材源
   tests/smoke.py     冒烟测试(只测默认配置:1920×1080、像素美术、LPC、剑士;只收集控制台错误)
@@ -22,7 +22,10 @@
  旧的云端环境只能访问 GitHub / npm / pypi,opengameart、itch 访问不了。
  素材来源:ULPC 仓库(LPC 人物图层)、series-ai/jam-ready-assets(大量 CC0 素材,LFS 文件用 media 直链下载,见 fetch_assets.sh)。
 
-【当前状态(2026-10-15,第四十三轮完成后)】
+【当前状态(2026-10-15,第四十四轮完成后)】
+- v1.44(第四十四轮):源码在 src/parts/(srcparts.load / loc / split;CODEMAP 按文件列行号;素材清单写「分块序号:行号」),src/game.src.html 已删。新系统 / 新关卡 = 新建分块文件,序号插在相邻两块之间(按数字排序)。
+  index.html = 分享版(re.sub 占位 → assets/xxx,不内嵌,约 1.2 MB;本地 file:// 打不开音频,要走 http);out/ 单文件照旧全部内嵌。
+  难度:bsaStep(BSAT / BSAK / BSAH,update 敌人循环里 e===B 调用;dealt 里 saT 期间不 hitStun / poiseHit;HUD 刻度 + 红条)· pdMark / pdChk(PDW / PDT / PDK;hurt 开头,doJump / tapDir / 法师闪现打点;dealt 乘 1+PDK)· bLate(BLN / BLW / BLH / BLA,init 里乘 B.max / B.dm)· STARK tq / bq 去史诗、rollItem 特性 LVSTAR>=3 · 镜中无名 MIRS[星级](mirNew)。
 - v1.43(第四十三轮):表格货架 mtTable / mtQB / mtAct / MCAT / TBL(rMall 上面「第四十三轮:表格货架」,CSS .mtb .mth .mtr .mtf .msp .mt2 在 style 末尾):商城 rMall 两列表格 + 分类 tc_ + 翻页 tp_ + 数量 tq_(kpBuyN 一次买多个)+ 特殊购买(原随机物品栏)+ 底栏货币;仓库 rWh 装备页左背包右仓库(one 单列表),道具 / 药水页两列。rcShop / rMallIt / vipBox 已删(rcDesc / kpIc / kpHave 代替)。
   真~火之武器 = 火之武器 + 材料升级(fwSrc 找背包 / 身上的火之武器,fzGo 里替换并保留 en / ev / gem / mss / fg / amp / tr;熔炉圈里多一格火之武器)。
   神秘副本 4「镜中无名」cur = MY4 = 17(gpFx 后面「第四十三轮:神秘副本 4」:mirNew / mirStep / mirD / mirTp / mirZStep / mirFx / drawMir / mirAlpha,MIRK 倍率,MIRFW 火之武器掉率 40%);isMy(c) / isM2(c) 判断神秘副本 / 第二张地图,myIdx / myCur 换算副本序号;每日任务 QD.d[1]「镜中的自己」。
@@ -47,5 +50,5 @@
   测试注意:Playwright 的 keyboard.press 会在同一帧抬起按键,跑步中按攻击要 down → 等 50ms → up 才会触发冲刺直戳。
 
 【下一步】
-  ★ 第四十三轮已完成(2026-10-15,v1.43),等用户回复 docs/下次任务.txt「第四十三轮」:① 难度设计(后期无脑通关)给了 A~E 几个方向,等用户选;② 文件体积 / 上下文:已把《交接》瘦身,源码拆文件、git 历史压缩等要用户点头;③ 镜中无名的强度(MIRK 倍率)等试玩。
+  ★ 第四十四轮已完成(2026-10-15,v1.44),等用户回复 docs/下次任务.txt「第四十四轮」:霸体阶段要不要限关卡 / 星级、三星后期首领攻击是否太疼、完美闪避窗口、要不要清 git 旧历史。
   更早的待确认事项都在 docs/交接_归档.txt【下一步】。
