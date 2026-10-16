@@ -42,7 +42,8 @@ const QDEF=[
  {n:'🥚 蛇蛋收集',t:'在第三关「迷雾森林」收集 10 个蛇蛋(每条小蛇必掉 1 个)。交任务时上交 10 个蛇蛋。',need:10,prog:()=>Math.min(MAT.egg||0,10),rw:'金币 ×500 · 经验 ×300',give(){MAT.egg-=10;gold+=500;exp+=300;lvUp()}},
  {n:'❓ 镜中的自己',t:'击败「神秘副本 4」的首领「镜中无名」(拥有 4 块女神碎片后开放)。',need:1,prog:()=>QD.d[1].p,rw:'高级幸运宝石 ×1(强化成功率 +50%)',give(){LUCK++}},
  {n:'⚔️ 首领猎人',t:'接取后击败任意 2 个首领,任何关卡的 Boss 都算。',need:2,prog:()=>QD.d[2].p,rw:'金币 ×300 · 普通 Lv2 强化石 ×2',give(){gold+=300;STN[2][0]+=2}},
- {n:'👾 小怪清扫',t:'接取后击败 20 只小怪,任何关卡都算(Boss 不算)。',need:20,prog:()=>QD.d[3].p,rw:'技能点 ×1',give(){sp++}}];
+ {n:'👾 小怪清扫',t:'接取后击败 20 只小怪,任何关卡都算(Boss 不算)。',need:20,prog:()=>QD.d[3].p,rw:'技能点 ×1',give(){sp++}},
+ {n:'🤖 人造人灿灿一号',t:'神秘副本 4 打倒镜中无名之后别急着走……在场地里等一等。击败隐藏首领「人造人·灿灿一号」。',need:1,prog:()=>QD.d[4].p,rw:'星界财宝 ×1(金币 + 击杀点)',give(){MAT.astr=(MAT.astr|0)+1}}];  // 第四十六轮
 function qDay(){const t=today();if(QD.day!=t&&!timeBad()){QD.day=t;QD.d=QDEF.map(()=>({s:0,p:0}))}while(QD.d.length<QDEF.length)QD.d.push({s:0,p:0})}
 function qKill(){qDay();const d=QD.d[3];if(d.s==1&&d.p<20){d.p++;if(d.p==20)tx('小怪清扫 20/20 完成!',P.x-30,P.y-62,'#ffd43b')}}
 function qBoss(){qDay();const d=QD.d[2];if(d.s==1&&d.p<2){d.p++;tx('首领猎人 '+d.p+'/2',P.x-20,P.y-62,'#ffd43b')}}

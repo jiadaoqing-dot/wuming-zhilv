@@ -22,7 +22,10 @@
  旧的云端环境只能访问 GitHub / npm / pypi,opengameart、itch 访问不了。
  素材来源:ULPC 仓库(LPC 人物图层)、series-ai/jam-ready-assets(大量 CC0 素材,LFS 文件用 media 直链下载,见 fetch_assets.sh)。
 
-【当前状态(2026-10-15,第四十五轮完成后)】
+【当前状态(2026-10-16,第四十六轮完成后)】
+- v1.46(第四十六轮):灿灿 = 535_神秘副本4灿灿.js(CNS 第二道光柱 / canGo / canNew / canLN / canStep 黑洞 + 无敌空间 / canFx / canDie / 新道具 ATSQ[2]、MISC.astr);和镜中无名共用 530 的 MW 机制(e.can 分支:mwNew(can)、mwRun 换 LN / JOB / WEAR.fash='can'、mwPick 用 CANSK、drawMir 不染色)。update 首领死亡:B.can → canDie,镜中无名死 → canArm。
+  LPC 图集加女性图层(*_f,build_lpc.py 第 4 项体型 'female';改了 build_lpc.py 要把 lpc_meta.json 整段贴回 890 的 META)。MENI 44 A2 / 45 astr。CLW(250 分块)= 法师 O / 火鸟 / 火球范围。技能石 HUD = msCell / mscHud(090)。BGMF(020)给没有 BGM 的关卡借曲。
+  问题在 docs/下次任务.txt「第四十六轮」(星界财宝效果、高级属性石、+7~+9、无敌空间是否也护主角、灿灿强度、新 BGM)。
 - v1.45(第四十五轮):镜中无名用主角技能 = 530 分块「第四十五轮」:MW(镜像自己的 P / CD / PB / CL / MGD / MGT / MGP / MGL / STM / SQI / MET / WE / CLN / Z)+ mwRun 换全局(E=[],B = 假目标 MW.px,F=[],WEAR 无)→ 直接调用 useSk / skStep / pbStep / stmStep / magStep / mgStep / clStep;dealt 开头 e.pp 记进 MWH,换回后 mwHit → hurt。mwPick / MWR 出手距离,mwDraw 在 draw 里画。新加的技能如果用了别的全局状态,要加进 mwRun 的交换列表。
   pbStep(dt,all,S) = 主角飞弹循环(从 update 拆出来)。技能:SKCDK 1.35(skCd)、HITK 1.4;ZAPN 7 / zapSky / drawZapCloud(ZCY)/ ZFT .09;LSN 15;疾风 1 回旋 + 1 十字;炎暴 .3;落雷去两侧;clStep 1/3 秒 1 道;火鸟 1 秒;光柱 .5;圣光领域 1 秒。
   经济:GKL(cur) 金币递减(reward 里乘)、KPCL 10 / KPLV 3、签到 1~30、主线金币 ×0.4 / 强化石 3、每日 300 + 2;STDR / rollN(bossDrop19)首领掉强化石 / 添加剂;MATD / KPIT / RCP / MREC / FREC / XFREC / HWREC / COSD 涨价。模拟办法:Playwright 里 enterLv(c,s) 后对 E + WQ 全部 mk + reward、再 reward(B),统计金币 / 击杀点(见《下次任务》第四十五轮的数字)。

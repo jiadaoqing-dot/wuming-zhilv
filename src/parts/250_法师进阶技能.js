@@ -8,7 +8,9 @@ let MGTc=null,MGPc=null;
 function mgC(fn){const d=MGD,l=MGL,t=MGT,p=MGP;MGT=MGTc;MGP=MGPc;MGD=[];MGL=[];try{fn()}finally{MGTc=MGT;MGPc=MGP;MGT=t;MGP=p;MGD=d;MGL=l.concat(MGL)}}
 function mgStep(dt,all){mgStep0(dt,all);mgC(()=>mgStep0(dt,all))}
 function drawMg(){drawMg0();mgC(drawMg0)}
-const MGR=135,MGTR=300,MGPW=80,MGFV=420;  // 领域半径、图腾射程、光柱半宽、火团速度
+// 第四十六轮(用户:法师 O 范围缩小 2/3,S空 火鸟和 I 火球的范围和 O 一样):O 雷云只覆盖施法处左右各 CLW / 2(原来整个画面);火鸟图腾射程 CLW / 2;火球飞 CLW 就消失
+const CLW=Math.round(VW/3);
+const MGR=135,MGTR=CLW/2,MGPW=80,MGFV=420;  // 领域半径、图腾射程、光柱半宽、火团速度(第四十六轮:图腾射程 300 → 和 O 雷云一样 CLW / 2)
 function holyBoom(b,S){const x0=clX(b.x),y0=b.y;VFX.spawn('g-burst',x0,y0,{s:2.2});SFX5('g-orb',x0,y0,{s:2.4,life:.4,gr:1});VFX.spawn('x-nebula',x0,y0,{s:1.6,life:.5,add:1,gr:1.2});VFX.spawn('x-bubble',x0,y0,{s:2.2,life:.7,add:1,gr:.8});
   flash('255,236,170',.35);shake=Math.max(shake,.3);hitstop(.06);psx('wave','boom');ring(x0,y0,8,MGR,'#ffd43b',.45,7);ring(x0,y0,6,MGR*.8,'#f783ac',.4,5);
   burst(x0,y0,44,['#fff','#fff3bf','#ffe066','#ffd43b','#f783ac','#66d9e8'],460,{sh:1,s:2.5,l:.5,dr:2});
@@ -63,6 +65,6 @@ function cloneCast(i,S){return;  // 第三十轮:分身不再跟着主角放技�
   burst(cx,cy,10,['#b197fc','#e5dbff'],140,{s:2.5,l:.3});
   if(i==0){const t=E.concat(bossOn&&B.hp>0?[B]:[]).filter(e=>(e.x+e.w/2-cx)*f>-40&&Math.abs(e.x+e.w/2-cx)<340).sort((a,b)=>Math.abs(a.x-cx)-Math.abs(b.x-cx))[0];bolt(t?t.x+t.w/2:cx+f*160,dm(0),34,0,0)}
   else if(i==1){const ox=cx;c.x=clX(c.x+f*170);c.land=0;c.vy=0;c.vx=0;VFX.spawn('foldstep',ox,cy);VFX.spawn('foldstep',c.x+12,cy);ring(c.x+12,cy,4,40,'#9775fa',.35,4)}
-  else if(i==2)PB.push({x:f>0?c.x+P.w:c.x-10,y:c.y+14,vx:f*320,dmg:dm(2),r:12,col:'#ff6b35',sl:1,fb:1,pierce:1,hit:new Set()});
+  else if(i==2)PB.push({x:f>0?c.x+P.w:c.x-10,y:c.y+14,vx:f*320,dmg:dm(2),r:12,col:'#ff6b35',sl:1,fb:1,pierce:1,rg:CLW,hit:new Set()});
   else if(i==3)CL2={x:cx,t:5,k:0,fk:0,dm:CLK}}
 function zline(x1,y1,x2,y2){const p=[[x1,y1]],n=6;for(let i=1;i<n;i++){const k=i/n;p.push([x1+(x2-x1)*k+rnd(-10,10),y1+(y2-y1)*k+rnd(-12,12)])}p.push([x2,y2]);return p}

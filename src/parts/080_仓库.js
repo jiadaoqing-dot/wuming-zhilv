@@ -1,7 +1,7 @@
 // ===== 第十九轮(2026-10-13):属性石 · 小礼袋与 NPC 好感 · 合成添加剂 · 幸运宝石 · 双倍爆率卡 · 宠物饲料 · 商城道具与随机物品栏 =====
 // 属性石:低级 1 条、中级 2 条随机词条(同一颗不重复);中级每条数值 ×1.2(清单没给中级数值,先这样)。在熔炉镶嵌,每件装备 1 颗,新的替换旧的,不能拆,出售装备不返还
 const ATSD={atk:['攻击',10,15],mp:['魔力',200,220],def:['防御',20,30],cr:['暴击',80,90],dg:['闪避',50,60]},ATSQ=[{n:'低级属性石',c:'#4dabf7',m:1,pr:50},{n:'中级属性石',c:'#9775fa',m:1.2,pr:120}];
-function atsNew(q){const ks=Object.keys(ATSD).sort(()=>Math.random()-.5).slice(0,q?2:1);return {q,a:ks.map(k=>{const d=ATSD[k];return [k,Math.round((d[1]+Math.random()*(d[2]-d[1]))*ATSQ[q].m)]})}}
+function atsNew(q){const ks=Object.keys(ATSD).sort(()=>Math.random()-.5).slice(0,q+1);return {q,a:ks.map(k=>{const d=ATSD[k];return [k,Math.round((d[1]+Math.random()*(d[2]-d[1]))*ATSQ[q].m)]})}}
 const atsTxt=g=>g.a.map(([k,v])=>ATSD[k][0]+' +'+v).join(' · ');
 // 关卡掉落(首领倒下时每样判定一次;双倍爆率卡 ×2):低级属性石 30% · 中级 12% · 小礼袋 50%(小怪 2%) · Lv1 强化石 10% · 第七~十关再判定 Lv2 强化石 7%
 const DRX={a0:.3,a1:.12,gift:.5,giftM:.02};
@@ -56,7 +56,7 @@ const MISC={add:['合成添加剂','熔炉合成强化石时,每次合成要放 
   food:['宠物饲料','喂给出战的钢盔小鸡:获得当前等级升级所需经验的 20%(满级后不能用)。','',0,'🍞 喂给小鸡'],
   lk1:['低级幸运宝石','强化时在强化师那里选用,本次强化成功率 +25%。','',0],lk2:['中级幸运宝石','强化时在强化师那里选用,本次强化成功率 +35%。','',0],
   dbl:['双倍爆率卡','使用后 30 分钟内,关卡里所有掉落物的掉落几率翻倍(装备、属性石、小礼袋、强化石、蛇蛋、上帝卡牌、合成添加剂、怪物技能石、宠物蛋、360 小鸟碎片……;必掉的东西不变)。村长的好感奖励。','',0,'✨ 使用']};
-function itemUse(id){if(!(MAT[id]>0))return '';if(/^ms\d+$/.test(id)&&MSS[id.slice(2)])return msEquip(id);
+function itemUse(id){if(!(MAT[id]>0))return '';if(id=='astr')return astrOpen();if(/^ms\d+$/.test(id)&&MSS[id.slice(2)])return msEquip(id);
   if(id=='dbl'){R19.dbl=Math.max(Date.now(),R19.dbl)+30*60000;MAT.dbl--;sfx('lvl');save();return '✨ 双倍爆率生效,还剩 '+Math.ceil((R19.dbl-Date.now())/60000)+' 分钟'}
   if(id=='food'){if(!PET.own)return '还没有宠物(钢盔小鸡)';if(PET.lv>=20)return '小鸡已经满级了';MAT.food--;PET.exp+=Math.ceil(petNeed(PET.lv)*.2);petLv();sfx('buff');save();return '🍞 小鸡吃得很开心:Lv '+PET.lv+' · 经验 '+PET.exp+' / '+petNeed(PET.lv)}
   if(id=='gc1'||id=='gc2'){const G=godOf(),k=id=='gc1'?'cr':'pal',on=godOn(k);G[k]=Math.max(0,G[k]||0)+GODT;if(k=='pal'&&(!on||!G.pk))G.pk=1+Math.floor(Math.random()*10);MAT[id]--;sfx('buff');save();

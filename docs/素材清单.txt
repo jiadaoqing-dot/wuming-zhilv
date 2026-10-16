@@ -72,7 +72,7 @@ ice6_atlas.png  2KB  840:3 ICE6P.D  ← art_src/lv/build_ice6.py
 kb_atlas.png  16KB  920:4 KB.D  ← art_src/boss/build_kb.py
 lair_atlas.png  85KB  870:6 LAIR.D  ← art_src/lv/build_lair.py
 lbg_atlas.png  138KB  850:5 LBG.D  ← art_src/lbg/build_lbg.py
-lpc_atlas.png  342KB  890:7 LPC.AD  ← art_src/lpc/build_lpc.py
+lpc_atlas.png  398KB  890:7 LPC.AD  ← art_src/lpc/build_lpc.py
 ltl1.png  19KB  860:5 LTL.D  ← art_src/lv/build_ltl.py
 ltl2.png  19KB  860:6 LTL.D  ← art_src/lv/build_ltl.py
 ltl3.png  19KB  860:7 LTL.D  ← art_src/lv/build_ltl.py
@@ -82,7 +82,7 @@ ltl6.png  3KB  860:10 LTL.D  ← art_src/lv/build_ltl.py
 ltl7.png  3KB  860:11 LTL.D  ← art_src/lv/build_ltl.py
 mage_atlas.png  14KB  910:21 BOS.MD  ← art_src/boss/build_mage.py
 mech_atlas.png  47KB  540:10 MECH.D  ← art_src/mech/build_mech.py
-meni_atlas.png  20KB  000:172 ; 000:177 ; 040:41 MENI.D  ← art_src/ui/build_ui.py
+meni_atlas.png  21KB  000:172 ; 000:177 ; 040:41 MENI.D  ← art_src/ui/build_ui.py
 mfx_atlas.png  23KB  900:28 MFXD  ← art_src/mob/build_mfx.py
 mg27_atlas.png  16KB  000:231 ; 940:10 MG27.D  ← art_src/skfx/build_mg27.py
 mnt_atlas.png  43KB  910:3 MNT.D  ← art_src/boss/build_mnt.py
@@ -129,7 +129,7 @@ map_bg.jpg  110KB  950:75 MAPI.D  ← art_src/map/build_map.py
 
 == 字体(@@F:)  2 个 ==
 fpx12.woff2  66KB  000:9   ← art_src/font/build_font.py
-fpx8.woff2  41KB  000:10   ← art_src/font/build_font.py
+fpx8.woff2  42KB  000:10   ← art_src/font/build_font.py
 
 == 音频 OGG(@@O:)  119 个 ==
 au_b_axe.ogg  6KB  020:7 AUD.b_axe  ← art_src/audio/build_audio.py  [bfh1_metal_hit_02.ogg, explosion.ogg, swish-7.wav]

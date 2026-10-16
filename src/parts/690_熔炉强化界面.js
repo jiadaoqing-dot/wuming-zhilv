@@ -15,6 +15,6 @@ function rForge(){
   return h}
 // 熔炉:强化石 3 合 1(同级、同品质 → 高一档品质)
 function rStnFuse(){let h=`<h4>强化石合成</h4><div class="tag">把 3 颗同等级、同品质的强化石 + 1 瓶合成添加剂放进熔炉,炼成 1 颗高一档品质的强化石:普通 → 精良 → 史诗 → 卓越,必定成功。品质越高,强化时这一级加的固定数值越多。合成添加剂只在 🏪 商城的随机物品栏出现 · 持有 <b>${MAT.add|0}</b> 瓶</div>`;
-  for(let l=1;l<=2;l++){h+=`<h4>Lv${l} 强化石(用于 ${stnUse(l)})</h4>`;
+  for(let l=1;l<=3;l++){if(l==3&&!stnTot(3))continue;h+=`<h4>Lv${l} 强化石(用于 ${stnUse(l)})</h4>`;
     for(let q=0;q<3;q++){const n=STN[l][q],k=Math.min(Math.floor(n/3),MAT.add|0);h+=`<div class="row"><span>${stnEm(l,q)} ${STQ[q].n} ×${n}</span><span class="tag">3 颗 + 1 瓶添加剂 → 1 颗 ${stnEm(l,q+1)} ${STQ[q+1].n}(持有 ${STN[l][q+1]})</span><span style="margin-left:auto"><button data-p="F${l}${q}1" ${k?'':'disabled'}>合成 1 次</button> <button data-p="F${l}${q}0" ${k>1?'':'disabled'}>全部合成(${k} 次)</button></span></div>`}}
   return h}

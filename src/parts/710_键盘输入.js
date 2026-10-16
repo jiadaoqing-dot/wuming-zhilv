@@ -25,7 +25,7 @@ addEventListener('keydown',e=>{
   if(chOn()&&chKey(e))return;
   if(e.key==' '&&(st=='play'||st=='town')){e.preventDefault();if(!e.repeat)sq=keys.ww?7:keys.u?5:keys.dn?6:4;return}  // 空格 / W+空格 / S+空格 / WW+空格:剑士进阶技能
   if(e.key=='Enter'||(e.key==' '&&st!='play')){e.preventDefault();advance();return}
-  if(UK.includes(e.key)){e.preventDefault();if(!e.repeat)wTap();if(!e.repeat&&clearGo())return;if(!e.repeat&&nearRP()){toTown();return}keys.u=1;return}if(DK.includes(e.key)){e.preventDefault();if(!e.repeat&&st=='play')pickUp();keys.dn=1;return}
+  if(UK.includes(e.key)){e.preventDefault();if(!e.repeat)wTap();if(!e.repeat&&(canGo()||clearGo()))return;if(!e.repeat&&nearRP()){toTown();return}keys.u=1;return}if(DK.includes(e.key)){e.preventDefault();if(!e.repeat&&st=='play')pickUp();keys.dn=1;return}
   if(KM[e.key]){e.preventDefault();if(!e.repeat&&!keys[KM[e.key]])tapDir(KM[e.key]);keys[KM[e.key]]=1}
   else if(JK.includes(e.key)){e.preventDefault();keys.jh=1;if(!e.repeat)jq=1}
   else if(e.key=='l'||e.key=='L'){if(!e.repeat)lq=1}

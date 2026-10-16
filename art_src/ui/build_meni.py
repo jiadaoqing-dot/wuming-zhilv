@@ -19,7 +19,9 @@ PICK=[None,'W_Mace003','I_Clock','I_Scroll','I_Feather02','S_Holy08','I_GoldCoin
       # 第四十一轮追加(41 起):怪物技能石
       'I_Crystal02',
       # 第四十二轮追加(42 起):360 小鸟碎片(鸟喙)/ 武器幻化券(镜子)
-      'I_BirdsBeak','I_Mirror']
+      'I_BirdsBeak','I_Mirror',
+      # 第四十六轮追加(44 起):高级属性石(I_Sapphire 色相转成橙金)/ 星界财宝(I_Chest01 色相转成紫色)
+      'hue:I_Sapphire:110','hue:I_Chest01:180']
 def speaker():
   im=Image.new('RGBA',(C,C));d=ImageDraw.Draw(im)
   # 喇叭:灰蓝箱体 + 喇叭口,三道黄白声波;最后统一加 1 像素黑描边
@@ -34,7 +36,10 @@ def speaker():
   return o
 out=Image.new('RGBA',(C*len(PICK),C))
 for i,n in enumerate(PICK):
-  t=speaker() if n is None else Image.open(os.path.join(D,'..','..','owlish','x',n[7:]+'.png') if n.startswith('owlish:') else os.path.join(D,n+'.png')).convert('RGBA')
+  if n and n.startswith('hue:'):
+    _,nm,h=n.split(':');t=Image.open(os.path.join(D,nm+'.png')).convert('RGBA');hs=t.convert('HSV');H,S_,V=hs.split();H=H.point(lambda v:(v+int(h))%256);t2=Image.merge('HSV',(H,S_,V)).convert('RGBA');t2.putalpha(t.getchannel('A'));t=t2
+  else:
+   t=speaker() if n is None else Image.open(os.path.join(D,'..','..','owlish','x',n[7:]+'.png') if n.startswith('owlish:') else os.path.join(D,n+'.png')).convert('RGBA')
   if t.width>C or t.height>C:t.thumbnail((C,C),Image.NEAREST)
   out.alpha_composite(t,(i*C+(C-t.width)//2,(C-t.height)//2))
 out.save(sys.argv[2]);print('meni',out.size)

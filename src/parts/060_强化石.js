@@ -5,7 +5,7 @@ const STP2=[0,40,170,560,1800];  // 强化石参考价(只用于出售道具;第
 const stnLv=k=>Math.ceil(k/3),stnUse=l=>l>=4?'+10':'+'+(l*3-2)+'~+'+l*3;
 function stnNew(){return [null,[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0]]}
 // 读档:新存档 STN2;旧存档 STN[k](k = 强化等级)换成对应等级的普通强化石
-function stnLoad(d){const S=stnNew();if(Array.isArray(d.STN2)){for(let l=1;l<=2;l++)for(let q=0;q<4;q++)S[l][q]=+(d.STN2[l]&&d.STN2[l][q])||0}else if(Array.isArray(d.STN))d.STN.forEach((n,k)=>{if(k&&n>0)S[stnLv(Math.min(ENMX,k))][0]+=n});return S}  // 第十九轮:旧存档的 Lv3 / Lv4 强化石直接删除
+function stnLoad(d){const S=stnNew();if(Array.isArray(d.STN2)){for(let l=1;l<=3;l++)for(let q=0;q<4;q++)S[l][q]=+(d.STN2[l]&&d.STN2[l][q])||0}else if(Array.isArray(d.STN))d.STN.forEach((n,k)=>{if(k&&n>0)S[stnLv(Math.min(ENMX,k))][0]+=n});return S}  // 第十九轮:旧存档的 Lv3 / Lv4 强化石直接删除(第四十六轮:灿灿掉 Lv3,读档保留 Lv3)
 const stnTot=l=>STN[l].reduce((a,b)=>a+b,0);
 const stnRollQ=()=>0;  // 关卡只掉普通品质
 // 熔炉合成(免费):3 颗同级同品质 → 1 颗高一档品质(卓越最高);n = 合成次数(0 = 能合多少合多少)

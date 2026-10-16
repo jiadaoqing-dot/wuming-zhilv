@@ -56,10 +56,19 @@ L={
  'legs_fe':('legs/legs_armour.json',None,'iron'),
  'helm4':('headwear/helmets/helmets/hat_helmet_xeon.json',None,'brass'),
  'helm5':('headwear/helmets/helmets/hat_helmet_xeon.json',None,'iron'),
+ # 第四十六轮:神秘副本 4 隐藏首领「人造人·灿灿一号」= 和主角相像的女性(第 4 项 = LPC 体型 female;授权同上面同名图层,取 OGA-BY 3.0)
+ 'body_f':('body/body.json',None,'light','female'),
+ 'head_f':('head/heads/human/heads_human_female.json',None,None,'female'),
+ 'hair_f':('hair/braids/hair_high_ponytail.json',None,'chestnut','female'),
+ 'shirt_f':('torso/shirts/longsleeve/torso_clothes_longsleeve2.json',None,'navy','female'),
+ 'skirt_f':('legs/skirts/legs_skirts_plain.json',None,'blue','female'),
+ 'boots_f':('feet/boots/feet_boots_basic.json',None,'brown','female'),
+ 'cape_f':('torso/cape/cape_solid.json',None,'red','female'),
 }
 rows=[];meta={'anims':[[a,START[a],n] for a,n in A],'nf':NF,'layers':{}}
-for key,(dp,var,col) in L.items():
-    ls,d=layers(dp,'teen',var,col)
+for key,v in L.items():
+    dp,var,col=v[:3]
+    ls,d=layers(dp,v[3] if len(v)>3 else 'teen',var,col)
     ls=[x for x in ls if not x['ca']]
     for j,Ly in enumerate(ls):
         strip=Image.new('RGBA',(NF*64,64));has=[]

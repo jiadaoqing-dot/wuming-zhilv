@@ -11,6 +11,8 @@ const AUD={swing:'@@O:au_swing@@',dash:'@@O:au_dash@@',zap:'@@O:au_zap@@',blink:
   y_cry:'@@O:au_y_cry@@',y_cryl:'@@O:au_y_cryl@@',y_laugh:'@@O:au_y_laugh@@',y_tp:'@@O:au_y_tp@@',y_claw:'@@O:au_y_claw@@',y_hand:'@@O:au_y_hand@@',y_sum:'@@O:au_y_sum@@',y_crawl:'@@O:au_y_crawl@@',y_ult:'@@O:au_y_ult@@',y_cradle:'@@O:au_y_cradle@@',
   bgm9:'@@O:au_bgm9@@',bgm9b:'@@O:au_bgm9b@@',l9_roar:'@@O:au_l9_roar@@',l9_growl:'@@O:au_l9_growl@@',l9_fire:'@@O:au_l9_fire@@',l9_chain:'@@O:au_l9_chain@@',l9_punch:'@@O:au_l9_punch@@',l9_erupt:'@@O:au_l9_erupt@@',l9_laugh:'@@O:au_l9_laugh@@',bgm10:'@@O:au_bgm10@@',bgm10b:'@@O:au_bgm10b@@',g10_shriek:'@@O:au_g10_shriek@@',g10_flap:'@@O:au_g10_flap@@',g10_wind:'@@O:au_g10_wind@@',g10_tele:'@@O:au_g10_tele@@',g10_orb:'@@O:au_g10_orb@@',g10_laugh:'@@O:au_g10_laugh@@',
   bgm11:'@@O:au_bgm11@@',bgm11b:'@@O:au_bgm11b@@',bgm14:'@@O:au_bgm14@@',bgm14b:'@@O:au_bgm14b@@',bgm15:'@@O:au_bgm15@@',bgm15b:'@@O:au_bgm15b@@',h_squeak:'@@O:au_h_squeak@@',h_angry:'@@O:au_h_angry@@',h_eat:'@@O:au_h_eat@@',h_shell:'@@O:au_h_shell@@',h_throw:'@@O:au_h_throw@@',h_clap:'@@O:au_h_clap@@'};
+// 第四十六轮:没有自己 BGM 的关卡用别的关卡的(神秘副本 2 / 3 / 4 用神秘地带的 bgm11,第十三关火山用第九关的 bgm9);以前会去请求不存在的 bgm17 等
+const BGMF={12:11,13:11,16:9,17:11};
 function auLoad(k){if(AU.buf[k]||AU.ld[k]||!AU.ctx)return;AU.ld[k]=1;const c=AU.ctx;
   fetch(AUD[k]).then(r=>r.arrayBuffer()).then(b=>c.decodeAudioData(b)).then(d=>{AU.buf[k]=d;AU.ld[k]=0;if(AU.trk==k)bgmPlay()}).catch(()=>{AU.ld[k]=0})}
 // 第一次有按键 / 点击时建 AudioContext 并解码音效(data URI → ArrayBuffer → AudioBuffer);BGM 用到时才解码

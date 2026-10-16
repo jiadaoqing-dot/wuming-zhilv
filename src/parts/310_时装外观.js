@@ -20,7 +20,8 @@ function starStep(dt){if(!(WEAR.wing=='xyw'||(WEAR.wing=='fhw'&&SET.art!==0)))re
 // 翅膀挂件(不飞行时):像素美术下是自绘的像素丝带 / 四角星,原版几何画法仍是矢量四角星(丝带画在身上)
 function drawStarF(cx){if(P.fly)return;const t=performance.now()/1000;if(SET.art!==0&&PEND.I&&(WEAR.wing=='xyw'||WEAR.wing=='fhw'))PEND.draw(x,WEAR.wing=='xyw'?1:0,STARP.x-cx,STARP.y,t,P.f);else if(WEAR.wing=='xyw')drawStar4(x,STARP.x-cx,STARP.y,5,t)}
 // 雷云(2026-10-12 第七轮):乌云铺满整个天空 —— Clouds(Igor Gundarev,CC0)换成暗紫灰风暴色(图集 SKFX c-cloud0~4),三层横向循环飘动,全屏大雨,云里闪光
-function drawCloud(CL){const t=performance.now()/1000,a=Math.max(0,Math.min(1,CL.t*2,(5-CL.t)*4));x.save();x.globalAlpha=a;
+// 第四十六轮:雷云只盖住施法处左右各 CLW / 2(裁剪,两边淡出)
+function drawCloud(CL){const t=performance.now()/1000,a=Math.max(0,Math.min(1,CL.t*2,(5-CL.t)*4)),cx0=CL.x-cam-CLW/2;x.save();x.beginPath();x.rect(Math.round(cx0),0,CLW,GY+4);x.clip();x.globalAlpha=a;
   x.fillStyle=LG(x,0,0,0,170,['rgba(12,10,24,.8)','rgba(28,26,46,.5)','rgba(0,0,0,0)']);x.fillRect(0,0,VW,170);
   x.strokeStyle='rgba(165,190,230,.45)';x.lineWidth=1;x.beginPath();for(let i=0;i<90;i++){const rx=(i*71.3+t*60)%VW,ry=50+((t*560+i*37)%(GY-50));x.moveTo(rx,ry);x.lineTo(rx-4,ry+12)}x.stroke();
   if(CL.fk>0||Math.random()<.04){x.save();x.globalCompositeOperation='lighter';const fx=CL.fx!=null&&CL.fk>0?CL.fx:rnd(40,VW-40),g=x.createRadialGradient(fx,40,0,fx,40,110);g.addColorStop(0,'rgba(200,225,255,.85)');g.addColorStop(1,'rgba(0,0,0,0)');x.fillStyle=g;x.fillRect(fx-110,-70,220,220);x.restore()}

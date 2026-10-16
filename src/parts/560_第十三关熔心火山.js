@@ -251,7 +251,7 @@ const MYST={I:null,D:'@@A:myst_atlas@@',M:{"hall":[0,0,768,300,1],"floor":[769,0
   arena(t){const ox=(ARL+ARR)/2-384;this.hall(ox);this.braz(ARL+40,t);this.braz(ARR-20,t)}};
 MYST.init();
 // 神秘副本的招式画面(PXL 层,怪物之后画)
-function myFx(){const t=performance.now()/1000,e=B;if(cur==MY4)mirFx();if(cur>=12){gpFx();return}
+function myFx(){const t=performance.now()/1000,e=B;if(cur==MY4){mirFx();canFx()}if(cur>=12){gpFx();return}
   if(e&&e.hp>0&&e.act=='trap'&&e.at<.85){const k=Math.min(1,e.at/.85);DZ.zone(e.tx-36-cam,72);x.save();x.globalAlpha=.35+.4*k;MYST.clam(e.tx,0,.5);x.restore()}
   for(const c of HCL){if(c.t<0){DZ.zone(c.x-36-cam,72);continue}const k=Math.min(1,c.t/.25);MYST.clam(c.x,k,c.t>1.3?Math.max(0,(1.6-c.t)/.3):1)}
   for(const s of HSH){x.save();x.translate(Math.round(s.x-cam),Math.round(s.y));x.rotate(s.a);MYST.fr(x,'shell',0,-12,-7,2);x.restore()}}

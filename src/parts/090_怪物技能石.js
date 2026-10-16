@@ -63,7 +63,15 @@ function mscCast(){const d=msOn(),s=P.mode;if(!d){tx('当前武器没有嵌入�
   else if(ty=='dash')for(let i=0;i<6;i++)msAfter(.3+i*.08,()=>{VFX.spawn(fx,cam+(f>0?i:5-i)*VW/5,P.y,{f,s:1.6});if(i==5)for(const e of msTg())sDeal(e,msAt(m))})}
 function mscStep(dt){if(MSG){MSG.t+=dt;if(MSG.t>1.6)MSG=null}for(const q of MSQ){q.t-=dt;if(q.t<=0&&!q.d){q.d=1;try{q.f()}catch(err){}}}MSQ=MSQ.filter(q=>!q.d)}
 function mscDraw(){if(!MSG)return;const g=MSG,t=performance.now()/1000,a=g.t<.3?g.t/.3:g.t>1.2?Math.max(0,(1.6-g.t)/.4):1;x.save();x.globalAlpha=.75*a;x.translate(Math.round(g.x-cam),GY);x.scale(g.f*.8,.8);try{lvsBoss(g.n,0,0,t)}catch(err){}x.restore()}
-function mscHud(){const d=msOn();if(!d||st!='play')return;const c=MSTC[P.mode],ok=c>=MSCN;CT(SL[P.mode][0]+'的技能石 · '+d[0]+(ok?' · 按 N 释放!':' '+Math.floor(c/MSCN*100)+'%'),8,300,8,ok?'#ffe066':'#d0bfff','left',2,'#1e1829')}
+// 第四十六轮(用户):蓄力显示移到左上状态栏下面(金币右边),不写数字:三个从小到大的菱形格(PUI 图集 dia0 缩小 + 染色),
+// 没蓄到的是白色,蓄到的变紫(当前那格按进度从左往右变紫);蓄满后后面出现紫色的 N
+const MSHC={};
+function msCell(sz,col){const k=sz+col;if(MSHC[k])return MSHC[k];const c=document.createElement('canvas');c.width=c.height=sz;const g=c.getContext('2d'),[sx,sy,sw,sh]=PUI.M.dia0;
+  g.imageSmoothingEnabled=true;g.drawImage(PUI.I,sx,sy,sw,sh,0,0,sz,sz);g.globalCompositeOperation='source-atop';g.fillStyle=col;g.fillRect(0,0,sz,sz);return MSHC[k]=c}
+function mscHud(){const d=msOn();if(!d||st!='play'||!PUI.I)return;const c=MSTC[P.mode],ok=c>=MSCN,W='rgba(255,255,255,.72)',V='rgba(174,62,230,.68)',cy=72;let gx=102;
+  for(let i=0;i<3;i++){const sz=10+i*2,y0=Math.round(cy-sz/2),f=Math.max(0,Math.min(1,c/MSCN*3-i));x.drawImage(msCell(sz,W),gx,y0);
+    if(f>0){const w=Math.max(1,Math.round(sz*f));x.drawImage(msCell(sz,V),0,0,w,sz,gx,y0,w,sz)}gx+=sz+3}
+  if(ok)CT('N',gx+4,cy+5,12,'#cc5de8','center',2,'#1e1829')}
 // 幸运宝石:useLk = 选中的档次 1 低级 / 2 中级 / 3 高级(高级 = 原来的高级幸运石 LUCK)
 const LKS=[null,['lk1','低级幸运宝石',.25],['lk2','中级幸运宝石',.35],['luck','高级幸运宝石',.5]];
 const lkHave=i=>i==3?LUCK:MAT[LKS[i][0]]|0,lkB=()=>useLk&&lkHave(useLk)>0?LKS[useLk][2]:0,lkUse=i=>{if(i==3)LUCK--;else MAT[LKS[i][0]]--};

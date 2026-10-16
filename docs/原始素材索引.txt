@@ -1263,8 +1263,8 @@ snowball.png  1KB
     belt_belly.json, belt_double.json, belt_formal.json, belt_leather.json, belt_leather2.json, belt_loose.json, belt_mage.json, belt_robe.json, belt_sash.json, belt_sash_narrow.json, belt_waistband.json, buckles.json, meta_waist.json
   ulpc/sheet_definitions/torso/waist/obi/  4 个 4KB  用到:art_src/boss/build_mage.py, art_src/lpc/build_lpc.py, art_src/lpc_npc/build_npc_lpc.py
     belt_obi.json, belt_obi_knot_left.json, belt_obi_knot_right.json, meta_obi.json
-  ulpc/spritesheets/body/bodies/female/  1 个 4KB  用到:art_src/lpc_npc/build_npc_lpc.py
-    idle.png
+  ulpc/spritesheets/body/bodies/female/  10 个 44KB  用到:art_src/lpc/build_lpc.py, art_src/lpc_npc/build_npc_lpc.py
+    backslash.png, combat_idle.png, halfslash.png, idle.png, jump.png, run.png, slash.png, spellcast.png, thrust.png, walk.png
   ulpc/spritesheets/body/bodies/teen/  10 个 87KB  用到:art_src/lpc/build_lpc.py, art_src/lpc_npc/build_npc_lpc.py, art_src/vfx/build_vfx.py
     backslash.png, combat_idle.png, halfslash.png, idle.png, jump.png, run.png, slash.png, spellcast.png, thrust.png, walk.png
   ulpc/spritesheets/body/wings/feathered/adult/bg/emote/  1 个 3KB  用到:art_src/build_wing.py, art_src/mob/build_mob.py
@@ -1371,7 +1371,7 @@ snowball.png  1KB
     white.png
   ulpc/spritesheets/hat/cloth/leather_cap/feather/adult/walk/  1 个 1KB  用到:art_src/boss/build_bos.py, art_src/boss/build_mage.py, art_src/boss/build_scob.py, art_src/castle/build_castle.py, art_src/city/build_city8.py, art_src/fire13/build_fire13.py, art_src/lpc/build_lpc.py, art_src/lpc_npc/build_npc_lpc.py, art_src/mob/build_dog2.py, art_src/mob/build_mob.py, art_src/mob/build_pen.py, art_src/myst/build_myst.py, art_src/ship/build_ship10.py, art_src/town/build_tpx.py, art_src/volcano/build_vol9.py
     white.png
-  ulpc/spritesheets/hat/helmet/barbuta/female/  10 个 22KB  用到:art_src/lpc_npc/build_npc_lpc.py
+  ulpc/spritesheets/hat/helmet/barbuta/female/  10 个 22KB  用到:art_src/lpc/build_lpc.py, art_src/lpc_npc/build_npc_lpc.py
     backslash.png, combat_idle.png, halfslash.png, idle.png, jump.png, run.png, slash.png, spellcast.png, thrust.png, walk.png
   ulpc/spritesheets/hat/helmet/legion/adult/  10 个 16KB  用到:art_src/build_wing.py, art_src/mob/build_mob.py
     backslash.png, combat_idle.png, halfslash.png, idle.png, jump.png, run.png, slash.png, spellcast.png, thrust.png, walk.png
@@ -1419,8 +1419,8 @@ snowball.png  1KB
     maroon.png
   ulpc/spritesheets/hat/magic/celestial_moon/adult/walk/  1 个 7KB  用到:art_src/boss/build_bos.py, art_src/boss/build_mage.py, art_src/boss/build_scob.py, art_src/castle/build_castle.py, art_src/city/build_city8.py, art_src/fire13/build_fire13.py, art_src/lpc/build_lpc.py, art_src/lpc_npc/build_npc_lpc.py, art_src/mob/build_dog2.py, art_src/mob/build_mob.py, art_src/mob/build_pen.py, art_src/myst/build_myst.py, art_src/ship/build_ship10.py, art_src/town/build_tpx.py, art_src/volcano/build_vol9.py
     maroon.png
-  ulpc/spritesheets/head/heads/human/female/  1 个 1KB  用到:art_src/lpc_npc/build_npc_lpc.py
-    idle.png
+  ulpc/spritesheets/head/heads/human/female/  10 个 15KB  用到:art_src/lpc/build_lpc.py, art_src/lpc_npc/build_npc_lpc.py
+    backslash.png, combat_idle.png, halfslash.png, idle.png, jump.png, run.png, slash.png, spellcast.png, thrust.png, walk.png
   ulpc/spritesheets/head/heads/human/male/  10 个 16KB  用到:art_src/boss/build_mage.py, art_src/lpc/build_lpc.py, art_src/lpc/comp.py, art_src/lpc_npc/build_npc_lpc.py
     backslash.png, combat_idle.png, halfslash.png, idle.png, jump.png, run.png, slash.png, spellcast.png, thrust.png, walk.png
   ulpc/spritesheets/legs/armour/plate/thin/  6 个 22KB  用到:art_src/audio/build_audio.py
@@ -1435,10 +1435,10 @@ snowball.png  1KB
     backslash.png, combat_idle.png, halfslash.png, idle.png, jump.png, run.png, slash.png, spellcast.png, thrust.png, walk.png
   ulpc/spritesheets/torso/armour/plate/teen/  10 个 41KB  用到:art_src/lpc/build_lpc.py, art_src/lpc_npc/build_npc_lpc.py, art_src/vfx/build_vfx.py
     backslash.png, combat_idle.png, halfslash.png, idle.png, jump.png, run.png, slash.png, spellcast.png, thrust.png, walk.png
-  ulpc/spritesheets/torso/chainmail/female/  7 个 62KB  用到:art_src/lpc_npc/build_npc_lpc.py
+  ulpc/spritesheets/torso/chainmail/female/  7 个 62KB  用到:art_src/lpc/build_lpc.py, art_src/lpc_npc/build_npc_lpc.py
     idle.png, jump.png, run.png, slash.png, spellcast.png, thrust.png, walk.png
-  ulpc/spritesheets/torso/clothes/longsleeve/longsleeve2/female/  1 个 1KB  用到:art_src/lpc_npc/build_npc_lpc.py
-    idle.png
+  ulpc/spritesheets/torso/clothes/longsleeve/longsleeve2/female/  10 个 32KB  用到:art_src/lpc/build_lpc.py, art_src/lpc_npc/build_npc_lpc.py
+    backslash.png, combat_idle.png, halfslash.png, idle.png, jump.png, run.png, slash.png, spellcast.png, thrust.png, walk.png
   ulpc/spritesheets/torso/clothes/longsleeve/longsleeve2/teen/  10 个 23KB  用到:art_src/lpc/build_lpc.py, art_src/lpc_npc/build_npc_lpc.py, art_src/vfx/build_vfx.py
     backslash.png, combat_idle.png, halfslash.png, idle.png, jump.png, run.png, slash.png, spellcast.png, thrust.png, walk.png
   ulpc/spritesheets/torso/jacket/tabard/female/slash/  2 个 4KB  用到:art_src/lpc/build_lpc.py, art_src/lpc/comp.py, art_src/mob/build_mfx.py, art_src/mob/build_mob.py, art_src/vfx/build_vfx.py

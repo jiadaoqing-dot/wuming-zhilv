@@ -46,7 +46,7 @@ function hamStep(e,dt){const pc=P.x+12,cx=e.x+e.w/2,dx=pc-cx,ad=Math.abs(dx),hp=
     if(T>=.9)hamEnd(e);return}
   hamEnd(e)}
 // 场景里的东西:瓜子壳飞行 / 大瓜子壳合拢
-function myStep(dt){const pc=P.x+12;if(cur>=12)gpStep(dt);if(cur==MY4)mirZStep(dt);
+function myStep(dt){const pc=P.x+12;if(cur>=12)gpStep(dt);if(cur==MY4){mirZStep(dt);canTick(dt)}
   for(const s of HSH){s.vy+=650*dt;s.x+=s.vx*dt;s.y+=s.vy*dt;s.a+=dt*14;
     if(!s.d&&ov(P,{x:s.x-10,y:s.y-8,w:20,h:16})){s.d=1;hurt(8*s.dm,{kb:sgn(s.vx)*160})}
     if(s.y>=GY-4){s.d=1;burst(s.x,GY-4,5,['#3a3640','#e9e4dc'],100,{s:2,l:.3,g:500})}}HSH=HSH.filter(s=>!s.d);
