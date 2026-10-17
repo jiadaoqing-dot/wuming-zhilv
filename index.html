@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>无名之旅 v1.49</title>
+<title>无名之旅 v1.50</title>
 <style>
 /* 中文像素字体:Fusion Pixel Font(TakWolf,SIL OFL 1.1),按游戏用字裁剪(art_src/font/build_font.py) */
 @font-face{font-family:FPX12;src:url(assets/fpx12.woff2) format('woff2')}
@@ -274,7 +274,7 @@ body.px .at2{border:2px solid transparent;border-image:url(assets/ui_card.png) 6
 <p class="tip">← → / A D 移动(连按两次快跑) · K / ↑ 跳跃 · W+J / S+J 特殊普攻(学会二段跳后空中再按) · J 攻击(下劈 → 上挑 → 直戳 → 下劈 循环,按住蓄力重击;跑步中按 J = 冲刺直戳) · L 换武器 · H U I O 技能 · 空格 / W+空格 / S+空格 / WW+空格 剑士进阶技能(转职后) · 1 2 3 喝药水 · S 捡起地上的掉落物 · 背包 / 技能 / 商城 / 精灵 / 宠物 / 任务 / 声音:点右下角按钮(也可以用快捷键 B 背包 / T 技能 / Q 任务 / P 商城 / Y 精灵 / G 宠物 / M 声音,设置里可以关闭) · N 释放武器上的怪物技能石(背包里左键点物品弹出菜单,装备可拖动穿戴) · 装备翅膀后空中再按跳跃=飞行(W/S 升降、A/D 方向) · Esc / ⚙️ 设置(暂停、返回城镇、帧数、全屏)</p>
 <script>
 // 游戏版本:build.py 按它给输出文件命名(out/无名之旅_v版本.html),设置页也显示;每次发新版改这里
-const GAMEV='1.49';
+const GAMEV='1.50';
 // x 是当前的绘图上下文:平时是主画布;像素特效层(PXL,P2)绘制期间临时换成 640×360 的低分辨率图层
 const cv=document.getElementById('c');let x=cv.getContext('2d');const VW=640,VH=360,WW=3200,GY=300;
 // 渲染分辨率:电脑端 1920×1080(逻辑坐标仍是 640×360,整体放大 3 倍绘制,文字和像素都更清晰);手机端 1280×720
@@ -431,6 +431,7 @@ const TR=[['普通','#adb5bd',1],['精良','#51cf66',1.6],['稀有','#4dabf7',2.
 const SER=[{n:'旅者',m:1,d:1},{n:'林王',m:6,d:3},{n:'荒漠',m:13,d:6},{n:'雪原',m:22,d:10},{n:'机械',m:30,d:13}];  // 4 机械:第十一关齿轮要塞掉落(第四十轮)  // 3 雪原:第八关起掉落(2026-10-13)
 // 特性:[名称, 颜色, 说明, 2 件效果, 4 件追加效果](4 件 = 2 件效果 + 4 件追加)
 // 第四十二轮:圣愈 2 件 = 防御力 +15%,4 件 = 每秒回复 2% 最大生命;邪灵 2 件 = 魔力 +25%,4 件 = 技能伤害 +(最大魔力 ÷ LINGK)%(最多 +40%);两套原来的回血 / 回魔取消
+const YUTK=3;  // 第五十轮:圣愈 4 件改成每 3 秒回一次(原来每秒)
 const TRT={lei:['怒雷','#fab005','暴击率',.05,.05],yu:['圣愈','#51cf66','防御力 / 回血',.15,.02],ling:['邪灵','#9775fa','魔力 / 技能伤害',.25,0],ji:['神技','#339af0','每次连击攻击力',.01,.01],xue:['热血','#fa5252','损失生命转化攻击力',.25,.35]};
 const TRK=Object.keys(TRT),BODY=['head','body','ring','ear'],TRS=BODY.concat(['sword','staff']);  // TRS:算套装件数的 6 个部位(武器用「武器幻化券」加了特性才算)
 // 6 件效果(第四十二轮):邪灵 宠物技能伤害 / 暴击伤害 +25% · 圣愈 受到伤害的 10% 反弹给最近的敌人 · 神技 关卡内每击杀 1 个敌人攻击 +0.5%(最多 +20%,被怪物打中掉 60% 层数)
@@ -440,7 +441,7 @@ const TR6={lei:`敌人每受到一次暴击,防御力 -${LEI6*100}%(最多 -${LE
 function trDesc(k){const q=TRT[k],pc=v=>+(v*100).toFixed(1)+'%';
   return (k=='ji'?`2 件:每次命中攻击 +1%(最多 12 层),闪避率 +${JIDG[0]}% · 4 件:每层改为 +2%(最多 15 层,即 +30%),闪避率再 +${JIDG[1]}%(合计 ${JIDG[0]+JIDG[1]}%)。2 秒没打中或自己受伤会清空连击,闪避成功不会清空`
    :k=='xue'?`2 件:每损失 10% 生命,攻击 +2.5% · 4 件:每损失 10% 生命,攻击 +6%(剩 20% 血时 +48%)`
-   :k=='yu'?`2 件:防御力 +${pc(q[3])} · 4 件:每秒回复最大生命的 ${pc(q[4])}`
+   :k=='yu'?`2 件:防御力 +${pc(q[3])} · 4 件:每 ${YUTK} 秒回复最大生命的 ${pc(q[4])}`
    :k=='ling'?`2 件:魔力 +${pc(q[3])} · 4 件:技能伤害 +(最大魔力 ÷ ${LINGK})%,最多 +${pc(LINGMX)}(现在 +${pc(lingSkB())})`
    :`2 件:${q[2]} +${pc(q[3])} · 4 件:再 +${pc(q[4])}(合计 ${pc(q[3]+q[4])})`+(k=='lei'?',暴击造成 2 倍伤害':''))+` · 6 件:${TR6[k]}`}
 // 暴击率 / 闪避率词条(百分数):发型、戒指、耳坠带暴击率,铠甲带闪避率;按品质和系列成长,强化同样 +10%/级
@@ -1077,19 +1078,23 @@ let noCombo=0;
 // 防御(第十九轮重做):每 DEFP 点防御减伤 1%,最多 DEFMX(75%)。旧公式(递减减伤)删除
 // 第二十轮重算 77 → 12:按「同关稀有 / 史诗 +3~+6 装备 + 等级 + 属性石」的防御,第一~二关约 1~2%,第五关约 15%,第七关约 25%,
 // 第十关约 45%,满级满配(史诗雪原 +6、五颗防御石、精灵防御点满)才碰到 75% 上限。77 时全程只有 0~10%,防御形同虚设
-const DEFP=12,DEFMX=.75,defR=def=>Math.min(DEFMX,Math.max(0,def)/DEFP/100),dmgIn=(raw,def)=>Math.max(1,Math.round(raw*(1-defR(def))));
+// 第五十轮暗改:减伤到 50% 之后,每 1% 要的防御翻倍(前 600 点每 12 点 1%,之后每 24 点 1%)
+const DEFP=12,DEFMX=.75,DEFH=.5,defR=def=>{const r=Math.max(0,def)/DEFP/100;return Math.min(DEFMX,r<=DEFH?r:DEFH+(r-DEFH)/2)},dmgIn=(raw,def)=>Math.max(1,Math.round(raw*(1-defR(def))));
+// 第五十轮(用户要求):完美闪避删除(pdChk 直接返回 false,代码留着)
 // 第四十四轮(用户选 D):完美闪避 —— 首领战里,跳跃 / 二段跳 / 双击跑步 / 法师闪现之后 PDW 秒内本来要挨的一下改成闪开(之后 PDT 秒伤害 +PDK,金色粒子)
 // 这样「看准首领出招的前一刻再跳 / 闪」最赚;一次闪避动作只算一次(P.dgT 用掉就清空)。闪现本身无敌,所以放在 P.inv 判断前面
 const PDW=.2,PDT=3,PDK=.5;
 function pdMark(){P.dgT=GT}
-function pdChk(){if(!(bossOn&&B&&B.hp>0&&P.dgT!=null&&GT-P.dgT<=PDW))return false;P.dgT=null;P.pdT=PDT;P.inv=Math.max(P.inv,.35);
+function pdChk(){return false;if(!(bossOn&&B&&B.hp>0&&P.dgT!=null&&GT-P.dgT<=PDW))return false;P.dgT=null;P.pdT=PDT;P.inv=Math.max(P.inv,.35);
   ghost('#ffd43b',.45);ring(P.x+12,P.y+16,8,70,'#ffd43b',.4,4);burst(P.x+12,P.y+16,18,['#ffd43b','#fff3bf','#fff'],220,{sh:1,s:2,l:.4});flash('255,224,140',.18);hitstop(.12);syn('blink');return true}
+// 第五十轮(用户要求):删除受击后的无敌(原来 1.2 秒),只留 HITI 0.1 秒,防止同一下攻击在连续几帧里重复判定;身体碰撞伤害每只怪单独 0.6 秒冷却(update 里 e.bcT)
+const HITI=.1;
 function hurt(b,o){if(DECOY||GM.god)return false;if(pdChk())return false;if(P.inv>0||(P.sk&&P.sk.inv))return false;const S=stats();
   // 闪避:按闪避率完全躲开这次伤害(不清连击),之后 0.4 秒无敌,避免贴身判定连续触发
   if(Math.random()<S.dg/100){P.inv=.4;tx('闪避成功!',P.x-8,P.y-10,'#a5d8ff');ghost('#a5d8ff',.3);syn('blink');return false}
   let d=dmgIn(b*EATK*BDMK(),S.def);  // BDMK:第八~十关首领战 ×1.35 ×1.35(第十五轮)
-  if(P.hshT>0&&!bossOn){if(P.hdr)d=Math.max(1,Math.round(d*(1-P.hdr)));if(P.hsh>0){const a=Math.min(P.hsh,d);P.hsh-=a;d-=a;tx('护盾 -'+a,P.x+4,P.y-14,'#ffe8a3');if(d<=0){P.inv=.5;shake=.1;sfx('hit');mfxHit();return true}}}  // 宠物仓鼠的瓜子壳护盾 + 减伤
-  if(P.shdT>0&&P.shd>0){const a=Math.min(P.shd,d);P.shd-=a;d-=a;tx('🪨 -'+a,P.x+4,P.y-14,'#e0b984');if(d<=0){P.inv=.5;shake=.1;sfx('hit');mfxHit();return true}}P.hp-=d;mfxHit();P.combo=0;if(P.jk)P.jk=Math.floor(P.jk*.4);{const c=setTr();if(tr6('yu',c)&&st=='play'){const t=nearE(allTg(),P.x+12,P.y+16,320);if(t)xDeal(t,Math.max(1,Math.round(d*YU6)))}}P.inv=o&&o.inv!=null?o.inv:1.2;P.vy=-250;if(o&&o.kb)P.kbx=o.kb;shake=.25;tx('-'+d,P.x+12,P.y-6,'#fff','d');sfx('hurt');  // 第四十二轮:神技 6 件掉 60% 层数 · 圣愈 6 件反伤(第四十五轮修:这段注释原来写在中间,把受击无敌 / 击退 / 伤害数字 / 受击音效都注释掉了)
+  if(P.hshT>0&&!bossOn){if(P.hdr)d=Math.max(1,Math.round(d*(1-P.hdr)));if(P.hsh>0){const a=Math.min(P.hsh,d);P.hsh-=a;d-=a;tx('护盾 -'+a,P.x+4,P.y-14,'#ffe8a3');if(d<=0){P.inv=HITI;shake=.1;sfx('hit');mfxHit();return true}}}  // 宠物仓鼠的瓜子壳护盾 + 减伤
+  if(P.shdT>0&&P.shd>0){const a=Math.min(P.shd,d);P.shd-=a;d-=a;tx('🪨 -'+a,P.x+4,P.y-14,'#e0b984');if(d<=0){P.inv=HITI;shake=.1;sfx('hit');mfxHit();return true}}P.hp-=d;mfxHit();P.combo=0;if(P.jk)P.jk=Math.floor(P.jk*.4);{const c=setTr();if(tr6('yu',c)&&st=='play'){const t=nearE(allTg(),P.x+12,P.y+16,320);if(t)xDeal(t,Math.max(1,Math.round(d*YU6)))}}P.inv=Math.min(HITI,o&&o.inv!=null?o.inv:HITI);P.vy=-250;if(o&&o.kb)P.kbx=o.kb;shake=.25;tx('-'+d,P.x+12,P.y-6,'#fff','d');sfx('hurt');  // 第四十二轮:神技 6 件掉 60% 层数 · 圣愈 6 件反伤(第四十五轮修:这段注释原来写在中间,把受击无敌 / 击退 / 伤害数字 / 受击音效都注释掉了)
   // 受击僵直 0.3 秒(和怪物相同);2026-10-13 第十三轮取消连击保护(原来 2.5 秒内第 3 次僵直后 2 秒霸体)。技能给的霸体(P.ar)照旧
   if(!(P.ar>0)&&!(P.sk&&P.sk.id=='mc')){P.stun=HSTUN;if(P.sk&&P.sk.id=='giant'&&!P.sk.formed){burst(P.x+12,P.y-60,24,['#9d4edd','#c77dff'],220,{sh:2,s:5,l:.4,g:300})}P.sk=null}
   if(peqOn('wch')&&P.hp>0&&P.hp<S.hp*.9&&!(GT<(P.wchT||-99))){P.wchT=GT+PWCD;P.inv=Math.max(P.inv,3);P.wchI=3;tx('⏱ 怀表:3 秒不可选取',P.x-40,P.y-40,'#ffe066');syn('blink')}  // 第四十八轮:宠物装备「怀表」
@@ -2309,7 +2314,7 @@ function update(dt){
   if(!INTOWN){if(cur==6){lv6Player(dt);snowStep(dt)}if(cur==7)lv7Update(dt);if(cur==8)g8Step(dt);if(cur==9)v9Step(dt);if(cur==10)s10Step(dt);nbStep(dt);if(isMy(cur))myStep(dt);if(cur==14)m14Step(dt);if(cur==15)c15Step(dt);if(cur==16)f16Step(dt);if(cur==18)n18Step(dt);if(cur==19)a19Step(dt)}
   if(P.gr&&!P.onP){P.sfX=P.x;P.sfY=P.y}  // 记下最近一次站在地面的位置(复活用)
   if(P.y>VH+100)P.hp=0;
-  P.at-=dt;P.cd-=dt;P.ujc=Math.max(0,(P.ujc||0)-dt);P.sjc=Math.max(0,(P.sjc||0)-dt);P.inv-=dt;P.ct-=dt;P.an+=dt*(d&&P.gr?(P.run?1.8:1):0);P.mp=GM.mp?S.mp:Math.min(S.mp,P.mp+(1+S.mp*RECM*pl('rec'))*dt);{const c=setTr();if(P.hp>0)P.hp+=S.hp*(RECH*pl('rec')+tr4('yu',c))*dt}P.hp=Math.min(P.hp,S.hp);P.cbT=(P.cbT||0)-dt;if(P.cbT<=0)P.combo=0;
+  P.at-=dt;P.cd-=dt;P.ujc=Math.max(0,(P.ujc||0)-dt);P.sjc=Math.max(0,(P.sjc||0)-dt);P.inv-=dt;P.ct-=dt;P.an+=dt*(d&&P.gr?(P.run?1.8:1):0);P.mp=GM.mp?S.mp:Math.min(S.mp,P.mp+(1+S.mp*RECM*pl('rec'))*dt);{const c=setTr();if(P.hp>0){P.hp+=S.hp*RECH*pl('rec')*dt;const y=tr4('yu',c);if(y){P.yuT=(P.yuT||0)+dt;if(P.yuT>=YUTK){P.yuT-=YUTK;P.hp+=S.hp*y}}else P.yuT=0}}P.hp=Math.min(P.hp,S.hp);P.cbT=(P.cbT||0)-dt;if(P.cbT<=0)P.combo=0;
   waveStep(dt);{const z=gateZ();if(z>GZ&&st=='play'){tx(z>=ZB.length?'前往首领的巢穴!':'区域已清除!继续前进 →',P.x-30,P.y-40,'#d0bfff');sfx('buff');flash('200,180,255',.15)}GZ=z}
   if(P.x>2700&&!RTP)bossOn=true;
   const all=bossOn&&B.hp>0?[...E,B]:E;
@@ -2340,7 +2345,7 @@ function update(dt){
     seek(e,sx0,ed);
     if(dc){P.x=px0;P.y=py0;DECOY=0}
     esfx(e);
-    if(atkOn(e)&&ov(P,atkBox(e))&&!(e.tpT>0)&&!(e.dg>0)&&!e.ug&&!e.lp&&hurt(CDMG[e.k]*(e.dm||1))&&e.k=='ysco')poison(4,.025);
+    if(atkOn(e)&&ov(P,atkBox(e))&&!(e.tpT>0)&&!(e.dg>0)&&!e.ug&&!e.lp&&!(e.bcT>GT)&&hurt(CDMG[e.k]*(e.dm||1))&&(e.bcT=GT+.6)&&e.k=='ysco')poison(4,.025);
   }
   SFXB=0;zClampAll();bossVoice(dt);
   if(P.ps>0){P.ps-=dt;P.pt-=dt;if(P.pt<=0){P.pt+=.5;if(!GM.god){const d=Math.max(1,Math.round(S.hp*P.pp));P.hp-=d;tx('-'+d,P.x+6,P.y-6,'#8ce99a')}}}

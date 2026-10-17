@@ -49,10 +49,12 @@ let noCombo=0;
 // 防御(第十九轮重做):每 DEFP 点防御减伤 1%,最多 DEFMX(75%)。旧公式(递减减伤)删除
 // 第二十轮重算 77 → 12:按「同关稀有 / 史诗 +3~+6 装备 + 等级 + 属性石」的防御,第一~二关约 1~2%,第五关约 15%,第七关约 25%,
 // 第十关约 45%,满级满配(史诗雪原 +6、五颗防御石、精灵防御点满)才碰到 75% 上限。77 时全程只有 0~10%,防御形同虚设
-const DEFP=12,DEFMX=.75,defR=def=>Math.min(DEFMX,Math.max(0,def)/DEFP/100),dmgIn=(raw,def)=>Math.max(1,Math.round(raw*(1-defR(def))));
+// 第五十轮暗改:减伤到 50% 之后,每 1% 要的防御翻倍(前 600 点每 12 点 1%,之后每 24 点 1%)
+const DEFP=12,DEFMX=.75,DEFH=.5,defR=def=>{const r=Math.max(0,def)/DEFP/100;return Math.min(DEFMX,r<=DEFH?r:DEFH+(r-DEFH)/2)},dmgIn=(raw,def)=>Math.max(1,Math.round(raw*(1-defR(def))));
+// 第五十轮(用户要求):完美闪避删除(pdChk 直接返回 false,代码留着)
 // 第四十四轮(用户选 D):完美闪避 —— 首领战里,跳跃 / 二段跳 / 双击跑步 / 法师闪现之后 PDW 秒内本来要挨的一下改成闪开(之后 PDT 秒伤害 +PDK,金色粒子)
 // 这样「看准首领出招的前一刻再跳 / 闪」最赚;一次闪避动作只算一次(P.dgT 用掉就清空)。闪现本身无敌,所以放在 P.inv 判断前面
 const PDW=.2,PDT=3,PDK=.5;
 function pdMark(){P.dgT=GT}
-function pdChk(){if(!(bossOn&&B&&B.hp>0&&P.dgT!=null&&GT-P.dgT<=PDW))return false;P.dgT=null;P.pdT=PDT;P.inv=Math.max(P.inv,.35);
+function pdChk(){return false;if(!(bossOn&&B&&B.hp>0&&P.dgT!=null&&GT-P.dgT<=PDW))return false;P.dgT=null;P.pdT=PDT;P.inv=Math.max(P.inv,.35);
   ghost('#ffd43b',.45);ring(P.x+12,P.y+16,8,70,'#ffd43b',.4,4);burst(P.x+12,P.y+16,18,['#ffd43b','#fff3bf','#fff'],220,{sh:1,s:2,l:.4});flash('255,224,140',.18);hitstop(.12);syn('blink');return true}
