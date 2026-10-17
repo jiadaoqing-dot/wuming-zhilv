@@ -47,7 +47,9 @@ function rHome(){const sv=homeSave(),esc=s=>String(s).replace(/[&<>]/g,c=>({'&':
   $('home').innerHTML=`<div class="hl"><h1>无名之旅</h1><div class="hv"><b>v${GAMEV}</b>${HM.v=='help'?'操作说明':'更新日志'}</div><div class="hs">${L}</div></div>
     <div class="hr">${B('cont','▶ 继续游戏',sv?'Lv '+sv.lv+' · '+sv.m:'还没有存档',!sv,!!sv)}${B('new','✦ 开始新游戏','',0,!sv)}${B('exp','📤 提取存档','导出成文件备份',!sv)}${B('imp','📥 添加存档','从文件导入')}${B('help','📖 操作说明')}<div class="hm">${m}</div></div>`}
 function openHome(){HOME=1;HM.v='log';HM.cf=0;HM.imp=null;HM.msg='';keys.l=keys.r=0;$('home').hidden=false;rHome()}
-function closeHome(){HOME=0;$('home').hidden=true;HM.imp=null;HM.cf=0;if(!signed())openP('sign')}
+function closeHome(){HOME=0;$('home').hidden=true;HM.imp=null;HM.cf=0;if(!signed())openP('sign');if(CPUR&&!closeHome.w){closeHome.w=1;setTimeout(()=>banner('浏览器没有开启硬件加速,画面会卡顿:Edge 设置 → 系统和性能 → 打开「使用图形加速」后重启浏览器'),600)}}
+// 第五十一轮:检测浏览器是不是没用显卡画图(硬件加速关闭 / 显卡被屏蔽),是的话回城时提示一次
+const CPUR=(()=>{try{const g=document.createElement('canvas').getContext('webgl');if(!g)return 1;const d=g.getExtension('WEBGL_debug_renderer_info'),r=d?String(g.getParameter(d.UNMASKED_RENDERER_WEBGL)):'';const l=g.getExtension('WEBGL_lose_context');if(l)l.loseContext();return /SwiftShader|Basic Render|llvmpipe|Software/i.test(r)?1:0}catch(e){return 0}})();
 function homeAct(a){HM.msg='';
   if(a=='cont'){if(homeSave())closeHome();return}
   if(a=='new'){HM.imp=null;if(homeSave()&&!HM.cf){HM.cf=1;HM.msg='⚠️ 重新开始会删除当前存档(等级、装备、道具全部清空)。<br>想留着的话,先点「提取存档」备份成文件。'}else homeAct('newY');rHome();return}

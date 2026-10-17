@@ -13,7 +13,7 @@ function drawPet(){if(!petOn())return;const p=PETS,t=performance.now()/1000;
   // 像素:画进 PXL 像素层(旋转的扇子也对齐像素格);走路时也保留原版的小跳
   if(TPX.on()){PXL.run(()=>{const m=TPX.M.chick,f=TPX.M.fan,hop=p.mv?-Math.round(Math.abs(Math.sin(t*12))*2):0;x.save();x.translate(Math.round(p.x+11-cam),Math.round(p.y+20));SHD(x,0,0,12);
     x.scale(p.f,1);x.imageSmoothingEnabled=false;TPX.spr(x,'chick',TPX.chickF(t,{wave:p.wv,mv:p.mv}),-m.ax,-m.ay+hop);x.restore();
-    for(const q of PF){x.save();x.translate(Math.round(q.x-cam),Math.round(q.y));x.rotate(q.a);x.imageSmoothingEnabled=false;x.drawImage(TPX.I,f.x,f.y,f.w,f.h,-f.ax,-f.ay,f.w,f.h);x.restore()}});return}
+    for(const q of PF){x.save();x.translate(Math.round(q.x-cam),Math.round(q.y));x.rotate(q.a);x.imageSmoothingEnabled=false;x.drawImage(TPX.I,f.x,f.y,f.w,f.h,-f.ax,-f.ay,f.w,f.h);x.restore()}},true,PXL.bb([[p.x+11-cam,p.y+20],...PF.map(q=>[q.x-cam,q.y])],56));return}
   x.save();x.translate(p.x+11-cam,p.y+20);x.scale(p.f*1.3,1.3);SHD(x,0,0,9);drawChick(x,t,{wave:p.wv,mv:p.mv});x.restore();
   for(const q of PF){x.save();x.translate(q.x-cam,q.y);x.rotate(q.a);x.beginPath();x.moveTo(0,0);x.arc(0,0,10,-Math.PI*.9,-Math.PI*.1);x.closePath();FS_(x,'#e03131',1.1);
     for(let a=.2;a<.85;a+=.17)LN_(x,[[0,0],[Math.cos(-a*Math.PI)*10,Math.sin(-a*Math.PI)*10]],'#fff',.8);x.restore()}}

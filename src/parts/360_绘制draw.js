@@ -4,11 +4,14 @@
 var PXL={cv:null,g:null,act:0,q:[],
   on(){return SET.art!==0},
   // need=false 表示这一层这一帧肯定没有东西要画,直接跳过(省掉一次清屏和放大叠加)
-  run(fn,need){if(need===false)return;if(!this.on()||this.act){fn();return}
+  // 第五十一轮(卡顿优化):R = [x0,y0,x1,y1](屏幕逻辑坐标)时只把这一块放大贴回去(宠物 / 小仙子这种小东西不用整屏贴一次);PXL.bb 按点算范围
+  bb(pts,pad){let a=1e9,b=1e9,c=-1e9,d=-1e9;for(const [px,py] of pts){if(px<a)a=px;if(py<b)b=py;if(px>c)c=px;if(py>d)d=py}return [a-pad,b-pad,c+pad,d+pad]},
+  run(fn,need,R){if(need===false)return;if(!this.on()||this.act){fn();return}
     if(!this.cv){this.cv=document.createElement('canvas');this.cv.width=VW;this.cv.height=VH;this.g=this.cv.getContext('2d')}
     const m=x,g=this.g;g.setTransform(1,0,0,1,0,0);g.globalAlpha=1;g.globalCompositeOperation='source-over';g.clearRect(0,0,VW,VH);
     this.act=1;x=g;try{fn()}finally{x=m;this.act=0}
-    m.save();m.globalAlpha=1;m.globalCompositeOperation='source-over';m.imageSmoothingEnabled=false;m.drawImage(this.cv,0,0,VW,VH);m.restore();
+    m.save();m.globalAlpha=1;m.globalCompositeOperation='source-over';m.imageSmoothingEnabled=false;
+    if(R){const x0=Math.max(0,Math.floor(R[0])),y0=Math.max(0,Math.floor(R[1])),x1=Math.min(VW,Math.ceil(R[2])),y1=Math.min(VH,Math.ceil(R[3]));if(x1>x0&&y1>y0)m.drawImage(this.cv,x0,y0,x1-x0,y1-y0,x0,y0,x1-x0,y1-y0)}else m.drawImage(this.cv,0,0,VW,VH);m.restore();
     if(this.q.length){const q=this.q;this.q=[];for(const a of q)CT(...a)}}};
 function draw(){
   x.save();if(shake>0)x.translate((Math.random()-.5)*6,(Math.random()-.5)*6);
@@ -16,8 +19,8 @@ function draw(){
   drawPickups();drawRP();drawCP();drawGate();
   PXL.run(()=>{if(cur==8)g8Back();E.forEach(drawE);if(bossOn&&B.hp>0)drawE(B);if(cur==8)g8Fx();if(cur==9)v9Fx();if(cur==10)s10Fx();if(cur>=8&&cur<=10)nbFx();if(isMy(cur))myFx();if(cur==14)m14Fx();if(cur==15)c15Fx();if(cur==16)f16Fx();if(cur==18)n18Fx();if(cur==19)a19Fx();palDraw();mscDraw()});drawSM();PXL.run(drawTor,TOR.length>0||!!LCK);drawPet();drawHamPet();
   if(FX.dk>0){x.fillStyle='rgba(8,12,28,'+FX.dk+')';x.fillRect(0,0,VW,VH)}
-  PXL.run(drawShots);
-  drawGD();drawStarF(cam);PXL.run(trailDraw,SWTR.length>1);drawClone();if(cur==MY4&&bossOn&&B&&B.k=='mir'&&B.hp>0&&st=='play')drawMir(B,mirAlpha(B));drawP();drawHamShd();PXL.run(thrDraw,THR.length>0);drawGDHint();PXL.run(()=>drawFairy(x,SPRP.x-cam,SPRP.y,performance.now()/1000,1,P.f),!!(SPR.own&&SPR.on));
+  PXL.run(drawShots,F.length+PB.length>0);
+  drawGD();drawStarF(cam);PXL.run(trailDraw,SWTR.length>1);drawClone();if(cur==MY4&&bossOn&&B&&B.k=='mir'&&B.hp>0&&st=='play')drawMir(B,mirAlpha(B));drawP();drawHamShd();PXL.run(thrDraw,THR.length>0);drawGDHint();PXL.run(()=>drawFairy(x,SPRP.x-cam,SPRP.y,performance.now()/1000,1,P.f),!!(SPR.own&&SPR.on),PXL.bb([[SPRP.x-cam,SPRP.y]],48));
   if(P.sand>0){const k=Math.min(1,P.sand/.3),px=P.x+12-cam,py=P.y+16,g=x.createRadialGradient(px,py,36,px,py,150);g.addColorStop(0,'rgba(110,80,35,0)');g.addColorStop(1,'rgba(110,80,35,'+.94*k+')');x.fillStyle=g;x.fillRect(0,0,VW,VH)}
   PXL.run(()=>{drawSk();drawFX();VFX.draw()});if(cur==MY4)mwDraw();drawSkBar();  // 第四十五轮:镜中无名的技能画面
   if(cur==6){blizDraw();if(P.frz>0){x.fillStyle='rgba(165,216,255,.18)';x.fillRect(0,0,VW,VH)}}

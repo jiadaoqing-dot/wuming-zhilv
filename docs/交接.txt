@@ -22,7 +22,8 @@
  旧的云端环境只能访问 GitHub / npm / pypi,opengameart、itch 访问不了。
  素材来源:ULPC 仓库(LPC 人物图层)、series-ai/jam-ready-assets(大量 CC0 素材,LFS 文件用 media 直链下载,见 fetch_assets.sh)。
 
-【当前状态(2026-10-17,第五十轮完成后)】
+【当前状态(2026-10-17,第五十一轮完成后)】
+- v1.51(卡顿排查):用户 Edge 关了硬件加速(Local State hardware_acceleration_mode enabled:false,.html 默认 MSEdgeHTM)。性能测试:Playwright 加 --use-angle=d3d11 --enable-gpu --ignore-gpu-blocklist 才走真显卡,不加就是 SwiftShader(= 用户的情况)。瓶颈 = PXL.run 整屏放大贴图;PUI.text 有缓存 TXC(渐变填色 / 旋转时不走缓存);glowS 光晕贴图;PXL.run(fn,need,R) 局部贴 + PXL.bb;CPUR 检测提示(SWR 名字已被占用)。
 - v1.50(第四十九轮回复):受击无敌删除 → hurt 里 P.inv 最多 HITI 0.1(150 分块);新写的持续判定伤害必须自己做单次 / 计时标记(e.hd / tick),不能再靠受击无敌兜底;身体碰撞 e.bcT 0.6 秒。完美闪避关掉(pdChk 首句 return false)。防御暗改 DEFH .5(140)。圣愈 4 件 YUTK 3 秒一跳(020 / 340 P.yuT)。
 - v1.49(第四十八轮回复):远程小怪死区 bug —— tok(e,1) 只在 ad ≤ MRNGR(170)给令牌,新写远程怪的「走近」阈值必须 ≤ 150(ckr / nsh / 560 两种已改)。千钟之主第二版 ALDM 55 / 74 / 112,新招 dash(e.dp / e.d2)/ lunge(nH = 1 + 形态),hop 连跳 e.hn;draw 里 dash / lunge 蓄力(pz 'w')显示 alarm、出招显示 walk。仓鼠护盾 bossOn 不放不生效(暗改)。回春 RECH / RECM = .001(070)。测试脚本思路:mk 一只怪 zi=0 放在主角 230 外,冻结主角逐帧推 6 秒看 e.x 和 e.s。
 - v1.48(第四十八轮):第十五关不眠钟楼 cur 19 = 567 分块(ALC 图集 art_src/clock19/build_clock19.py,Master484 Cute Sprites Pack 1 CC-BY;改了要把打印的 M / A 贴回 ALC)。小怪 ckb / ckr(ckbStep / ckrStep,复活 almRev + almWake:e.rev / e.s 'slp' / 'wak' / e.ug);首领 alm(almStep / almEnd,三条命 almMorph → act 'morph' → almGrow,ALHP / ALDM / ALSZ / ALNM;毒海 B.seaT / seaCd,a19Step / a19Fx,A19S / A19F / A19W)。

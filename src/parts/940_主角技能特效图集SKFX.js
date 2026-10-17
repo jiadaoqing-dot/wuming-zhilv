@@ -67,7 +67,7 @@ function drawTown(){const t=performance.now()/1000,c0=Math.round(cam),I=TWN.I;
   if(CLR.includes(3))drawChief();
   totemDraw(t);  // 第四十七轮:部落图腾 + 星界财宝
   x.restore();if(soulN()>0)MYST.pillar(MYTP[0],MYTP[1],t,'177,151,252','神秘光柱','神秘地带')}  // 神秘光柱:技能导师树屋高台右端
-  drawSM();PXL.run(drawTor,TOR.length>0||!!LCK);drawPet();drawHamPet();PXL.run(drawShots);drawStarF(cam);PXL.run(trailDraw,SWTR.length>1);drawP();drawHamShd();PXL.run(thrDraw,THR.length>0);PXL.run(()=>drawFairy(x,SPRP.x-cam,SPRP.y,t,1,P.f),!!(SPR.own&&SPR.on));
+  drawSM();PXL.run(drawTor,TOR.length>0||!!LCK);drawPet();drawHamPet();PXL.run(drawShots,F.length+PB.length>0);drawStarF(cam);PXL.run(trailDraw,SWTR.length>1);drawP();drawHamShd();PXL.run(thrDraw,THR.length>0);PXL.run(()=>drawFairy(x,SPRP.x-cam,SPRP.y,t,1,P.f),!!(SPR.own&&SPR.on),PXL.bb([[SPRP.x-cam,SPRP.y]],48));
   // 前景(草丛、垂下的叶丛)盖在人物前面,显出前后层次
   if(TWN.ready()&&!MYS){x.imageSmoothingEnabled=false;x.drawImage(I.fg,-c0,0);x.imageSmoothingEnabled=true}
   if(FX.dk>0){x.fillStyle='rgba(8,12,28,'+FX.dk+')';x.fillRect(0,0,VW,VH)}PXL.run(()=>{drawSk();drawFX();VFX.draw()});drawSkBar();if(FX.fl>0){x.fillStyle='rgba('+FX.fc+','+FX.fl+')';x.fillRect(-10,-10,VW+20,VH+20)}drawTX();x.globalAlpha=1;

@@ -45,7 +45,7 @@ function atkTr(c,hp){let a=0;const nj=c.ji||0;if(nj>=2)a+=Math.min(P.combo||0,nj
   if(nj>=6)a+=Math.min(JI6N,P.jk||0)*JI6;  // 第四十二轮:神技 6 件击杀层数
   return a}
 // 2026-10-13 第十三轮:关卡里只飘数字(伤害 / 回复),文字提示(技能名、状态、MISS、魔力不足……)都不显示;k:'d' 伤害 · 'c' 暴击
-function tx(s,px,py,c,k){if(st=='play'&&!k&&!/^[+-]?\d+$/.test(String(s)))return;TX.push({s,x:px,y:py,t:.9,c,k})}
+function tx(s,px,py,c,k){if(st=='play'&&!k&&!/^[+-]?\d+$/.test(String(s)))return;if(TX.length>=80)TX.shift();TX.push({s,x:px,y:py,t:.9,c,k})}  // 第五十一轮:飘字同时最多 80 个
 function addItem(it){if(BAG.length<BAGN){BAG.push(it);tx('获得 '+it.n,P.x-20,P.y-20,it.tr?TRT[it.tr][1]:TR[it.tier][1]);return 1}tx('背包已满',P.x-14,P.y-20,'#ff8787','m');return 0}  // 第三十三轮:背包满了不自动出售、也不进仓库
 // 第十五轮:关卡掉落率减半(小怪装备 / 蛇蛋、首领的装备和强化石);主线任务物品、转职凭证、女神碎片、仓鼠宠物蛋不受影响
 const DROPK=.5;

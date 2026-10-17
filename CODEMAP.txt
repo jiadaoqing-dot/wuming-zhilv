@@ -327,26 +327,26 @@
    12  loadSave           
    24  clearSave          
 == src/parts/220_技能特效系统.js
-    1  ■ 技能特效系统:粒子、光环、刀光、残影、地裂、焦痕、光柱、闪屏、压暗、顿帧
-    2  PT                 ===== 技能特效系统:粒子、光环、刀光、残影、地裂、焦痕、光柱、闪屏、压暗、顿帧 =====
-    3  rnd                
-    4  pt                 
-    5  burst              
-    6  ring               
-    7  slash              
-    8  ghost              
-    9  pillar             
-   10  flash              
-   11  hitstop            
-   12  crack              
-   13  zpath              
-   15  fxStep             
-   19  poly               
-   21  drawFXBack         画在角色后面:焦痕、地裂、残影
-   26  drawFX             画在最上层(叠加发光):光柱、光环、刀光、粒子
-   44  HST                命中特效:每次命中都有火花;暴击金色光环;重击/技能有顿帧
-   45  hitFX              
-   53  explode            
+    3  ■ 技能特效系统:粒子、光环、刀光、残影、地裂、焦痕、光柱、闪屏、压暗、顿帧
+    4  PT                 ===== 技能特效系统:粒子、光环、刀光、残影、地裂、焦痕、光柱、闪屏、压暗、顿帧 =====
+    5  rnd                
+    6  pt                 
+    7  burst              
+    8  ring               
+    9  slash              
+   10  ghost              
+   11  pillar             
+   12  flash              
+   13  hitstop            
+   14  crack              
+   15  zpath              
+   17  fxStep             
+   21  poly               
+   23  drawFXBack         画在角色后面:焦痕、地裂、残影
+   28  drawFX             画在最上层(叠加发光):光柱、光环、刀光、粒子
+   46  HST                命中特效:每次命中都有火花;暴击金色光环;重击/技能有顿帧
+   47  hitFX              
+   55  explode            
 == src/parts/230_召唤物.js
     1  ■ W+J / S+J 特殊普攻
     4  bigStun            苍蓝巨剑命中:极高僵直(小怪 3 秒、鸵鸟 2 秒、首领 1.2 秒),期间不会霸体反击
@@ -478,14 +478,14 @@
 == src/parts/360_绘制draw.js
     1  ■ 统一像素管线(T1 = P2 分层):技能特效、飞弹、剑光、粒子先画到 640×360 的低分辨率图层,
     4  PXL                设置里切回「原版几何」时不走这一层,特效和原来完全一样。图层里调用的 CT(文字)会推迟到图层叠上去之后用高清画
-   13  draw               
-   32  autoPlan           
-   39  qNew               
-   40  today              
-   41  QDEF               
-   47  qDay               
-   48  qKill              
-   49  qBoss              
+   16  draw               
+   35  autoPlan           
+   42  qNew               
+   43  today              
+   44  QDEF               
+   50  qDay               
+   51  qKill              
+   52  qBoss              
 == src/parts/370_主线任务.js
     1  ■ 主线任务:56 个,按关卡顺序串成一条剧情线(每关 7 个;第七关开始是第二部)
     5  GN                 =====================================================================
@@ -983,9 +983,9 @@
     1  ■ 像素界面 PUI:Tiny RPG - Mana Soul GUI(tiopalada,CC0)的九宫格面板 / 血条框 / 按钮 / 菱形格 / 羊皮纸标题,
     2  ■ 加中文像素字体 Fusion Pixel(TakWolf,OFL 1.1)。art_src/ui/build_pui.py 生成图集;设置里「美术」切回原版几何
     4  PUI                =====================================================================
-   48  CT                 
-   49  CTG                
-   51  PLQ                圆角标牌(NPC 名字、地图地名)
+   59  CT                 
+   60  CTG                
+   62  PLQ                圆角标牌(NPC 名字、地图地名)
 == src/parts/740_Q版角色.js
     1  ■ Q 版角色(主角 / NPC / 漫画人物通用):原点在脚底中间,面朝右
     3  chLeg              =====================================================================
@@ -1218,6 +1218,7 @@
    42  rHome              
    49  openHome           
    50  closeHome          
-   51  homeAct            
-   71  homeKey            
+   52  CPUR               第五十一轮:检测浏览器是不是没用显卡画图(硬件加速关闭 / 显卡被屏蔽),是的话回城时提示一次
+   53  homeAct            
+   73  homeKey            
 == src/parts/1010_结尾.html

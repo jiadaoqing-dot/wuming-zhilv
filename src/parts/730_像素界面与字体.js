@@ -10,9 +10,20 @@ const PUI={I:null,D:'@@A:pui_atlas@@',fr:0,
   on(){return SET.art!==0&&!!this.I},
   fon(){return SET.art!==0&&this.fr},
   // 字号吸附:像素字体只有「屏幕像素 = 字体像素的整数倍」时才清晰;在 12px / 8px 两套字里找离目标字号最近的清晰字号
-  fnt(sz){let b=null;for(const [fm,base] of [['FPX12',12],['FPX8',8]])for(let n=1;n<=10;n++){const s=n*base/RS,d=Math.abs(s-sz)+(base==8?.35:0);if(!b||d<b[2])b=[fm,s,d,base]}return b},
+  fnt(sz){const K=sz+'|'+RS;let b=this.FNC.get(K);if(b)return b;for(const [fm,base] of [['FPX12',12],['FPX8',8]])for(let n=1;n<=10;n++){const s=n*base/RS,d=Math.abs(s-sz)+(base==8?.35:0);if(!b||d<b[2])b=[fm,s,d,base]}this.FNC.set(K,b);return b},FNC:new Map(),
+  // 第五十一轮(卡顿优化):描边像素字每次要 9 次 fillText,伤害数字一多每帧几百次。改成把「文字 + 描边」画进小画布缓存(TXC,最近用过的 TXN 条),之后每次只 drawImage 一次
+  //   渐变填色(CTG)或画布有旋转 / 斜切时照旧直接画
+  TXC:new Map(),TXP:[],TXN:600,
+  txR(s,fm,fs,u,fill,ow,oc,bl,k){const cv=this.TXP.pop()||document.createElement('canvas'),g=cv.getContext('2d');g.font=fs+'px '+fm;const w=g.measureText(s).width,ox=2*u,oy=1.5*fs+u;
+    cv.width=Math.max(1,Math.ceil((w+4*u)*k));cv.height=Math.max(1,Math.ceil((3*fs+2*u)*k));g.setTransform(k,0,0,k,0,0);g.font=fs+'px '+fm;g.textAlign='left';g.textBaseline=bl;
+    if(ow!==0){g.fillStyle=oc||'#3a1d0a';const D=ow!=null&&ow<2?[[-1,0],[1,0],[0,-1],[0,1]]:[[-1,0],[1,0],[0,-1],[0,1],[-1,-1],[1,-1],[-1,1],[1,1]];for(const [dx,dy] of D)g.fillText(s,ox+dx*u,oy+dy*u)}
+    g.fillStyle=fill;g.fillText(s,ox,oy);return {cv,w,ox,oy,cw:cv.width/k,ch:cv.height/k}},
   // 像素字:按字体像素描边(4 或 8 个方向错开一格),起点对齐屏幕像素
-  text(c,s,px,py,sz,fill,al,ow,oc){const [fm,fs,,base]=this.fnt(sz),u=fs/base;c.font=fs+'px '+fm;c.textAlign='left';
+  text(c,s,px,py,sz,fill,al,ow,oc){const [fm,fs,,base]=this.fnt(sz),u=fs/base;
+    if(typeof fill=='string'){const m=c.getTransform(),k=m.a;if(k>0&&!m.b&&!m.c&&Math.abs(m.d-k)<1e-6){const bl=c.textBaseline,key=s+'|'+fs+fm+'|'+fill+'|'+(ow===0?0:(oc||'#3a1d0a')+(ow!=null&&ow<2?4:8))+'|'+bl+'|'+k;let e=this.TXC.get(key);
+      if(e){this.TXC.delete(key);this.TXC.set(key,e)}else{e=this.txR(String(s),fm,fs,u,fill,ow,oc,bl,k);this.TXC.set(key,e);if(this.TXC.size>this.TXN){const k0=this.TXC.keys().next().value;this.TXP.push(this.TXC.get(k0).cv);this.TXC.delete(k0)}}
+      let lx=al=='right'?px-e.w:al=='left'?px:px-e.w/2;lx=Math.round(lx*RS)/RS;py=Math.round(py*RS)/RS;c.drawImage(e.cv,lx-e.ox,py-e.oy,e.cw,e.ch);return}}
+    c.font=fs+'px '+fm;c.textAlign='left';
     const w=c.measureText(s).width;let lx=al=='right'?px-w:al=='left'?px:px-w/2;lx=Math.round(lx*RS)/RS;py=Math.round(py*RS)/RS;
     if(ow!==0){c.fillStyle=oc||'#3a1d0a';const D=ow!=null&&ow<2?[[-1,0],[1,0],[0,-1],[0,1]]:[[-1,0],[1,0],[0,-1],[0,1],[-1,-1],[1,-1],[-1,1],[1,1]];for(const [dx,dy] of D)c.fillText(s,lx+dx*u,py+dy*u)}
     c.fillStyle=fill;c.fillText(s,lx,py)},

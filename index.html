@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>无名之旅 v1.50</title>
+<title>无名之旅 v1.51</title>
 <style>
 /* 中文像素字体:Fusion Pixel Font(TakWolf,SIL OFL 1.1),按游戏用字裁剪(art_src/font/build_font.py) */
 @font-face{font-family:FPX12;src:url(assets/fpx12.woff2) format('woff2')}
@@ -274,7 +274,7 @@ body.px .at2{border:2px solid transparent;border-image:url(assets/ui_card.png) 6
 <p class="tip">← → / A D 移动(连按两次快跑) · K / ↑ 跳跃 · W+J / S+J 特殊普攻(学会二段跳后空中再按) · J 攻击(下劈 → 上挑 → 直戳 → 下劈 循环,按住蓄力重击;跑步中按 J = 冲刺直戳) · L 换武器 · H U I O 技能 · 空格 / W+空格 / S+空格 / WW+空格 剑士进阶技能(转职后) · 1 2 3 喝药水 · S 捡起地上的掉落物 · 背包 / 技能 / 商城 / 精灵 / 宠物 / 任务 / 声音:点右下角按钮(也可以用快捷键 B 背包 / T 技能 / Q 任务 / P 商城 / Y 精灵 / G 宠物 / M 声音,设置里可以关闭) · N 释放武器上的怪物技能石(背包里左键点物品弹出菜单,装备可拖动穿戴) · 装备翅膀后空中再按跳跃=飞行(W/S 升降、A/D 方向) · Esc / ⚙️ 设置(暂停、返回城镇、帧数、全屏)</p>
 <script>
 // 游戏版本:build.py 按它给输出文件命名(out/无名之旅_v版本.html),设置页也显示;每次发新版改这里
-const GAMEV='1.50';
+const GAMEV='1.51';
 // x 是当前的绘图上下文:平时是主画布;像素特效层(PXL,P2)绘制期间临时换成 640×360 的低分辨率图层
 const cv=document.getElementById('c');let x=cv.getContext('2d');const VW=640,VH=360,WW=3200,GY=300;
 // 渲染分辨率:电脑端 1920×1080(逻辑坐标仍是 640×360,整体放大 3 倍绘制,文字和像素都更清晰);手机端 1280×720
@@ -667,7 +667,7 @@ function atkTr(c,hp){let a=0;const nj=c.ji||0;if(nj>=2)a+=Math.min(P.combo||0,nj
   if(nj>=6)a+=Math.min(JI6N,P.jk||0)*JI6;  // 第四十二轮:神技 6 件击杀层数
   return a}
 // 2026-10-13 第十三轮:关卡里只飘数字(伤害 / 回复),文字提示(技能名、状态、MISS、魔力不足……)都不显示;k:'d' 伤害 · 'c' 暴击
-function tx(s,px,py,c,k){if(st=='play'&&!k&&!/^[+-]?\d+$/.test(String(s)))return;TX.push({s,x:px,y:py,t:.9,c,k})}
+function tx(s,px,py,c,k){if(st=='play'&&!k&&!/^[+-]?\d+$/.test(String(s)))return;if(TX.length>=80)TX.shift();TX.push({s,x:px,y:py,t:.9,c,k})}  // 第五十一轮:飘字同时最多 80 个
 function addItem(it){if(BAG.length<BAGN){BAG.push(it);tx('获得 '+it.n,P.x-20,P.y-20,it.tr?TRT[it.tr][1]:TR[it.tier][1]);return 1}tx('背包已满',P.x-14,P.y-20,'#ff8787','m');return 0}  // 第三十三轮:背包满了不自动出售、也不进仓库
 // 第十五轮:关卡掉落率减半(小怪装备 / 蛇蛋、首领的装备和强化石);主线任务物品、转职凭证、女神碎片、仓鼠宠物蛋不受影响
 const DROPK=.5;
@@ -1492,6 +1492,8 @@ function loadSave(){try{const d=JSON.parse(localStorage.getItem(SK_KEY));if(d&&d
     SIGN=Object.assign({day:'',n:0,str:0,last:0,prev:''},d.SIGN);TMX=d.TMX||0;JOB=d.JOB||null;LMODE=d.pm=='staff'?'staff':'sword';if(P)P.mode=LMODE;for(const w of ['sword','staff']){LN[w]=LN[w]||[];while(LN[w].length<8)LN[w].push(0)}if(!d.sw01){const a=LN.staff;[a[0],a[1]]=[a[1],a[0]]}while(lvl<LVMAX&&exp>=expNeed(lvl)){exp-=expNeed(lvl);lvl++;sp+=SPLV}if(lvl>=LVMAX)exp=0;fixNum();return true}}catch(e){}return false}  // 第二十二轮:经验曲线变短,旧存档攒着的经验读档时直接升级(return true 前的 while)
 function clearSave(){try{localStorage.removeItem(SK_KEY)}catch(e){}}
 try{hasSave=!!localStorage.getItem(SK_KEY)}catch(e){}
+// 第五十一轮(卡顿优化):光晕贴图缓存 —— 每种颜色画一张 64×64 的径向渐变,粒子直接缩放贴上
+const GLWC=new Map();function glowS(c){let v=GLWC.get(c);if(v)return v;v=document.createElement('canvas');v.width=v.height=64;const g=v.getContext('2d'),q=g.createRadialGradient(32,32,0,32,32,32);q.addColorStop(0,c);q.addColorStop(1,'rgba(0,0,0,0)');g.fillStyle=q;g.fillRect(0,0,64,64);if(GLWC.size<300)GLWC.set(c,v);return v}
 // ===== 技能特效系统:粒子、光环、刀光、残影、地裂、焦痕、光柱、闪屏、压暗、顿帧 =====
 let PT=[],RG=[],SLS=[],GH=[],CRK=[],DEC=[],PIL=[],FX={fl:0,fc:'255,255,255',hs:0,dk:0},hitFx=null;
 const rnd=(a,b)=>a+Math.random()*(b-a),pick=a=>a[Math.random()*a.length|0];
@@ -1530,7 +1532,7 @@ function drawFX(){HST=HST.filter(h=>(h.l-=1/60)>0);for(const h of HST){const k=1
     x.globalAlpha=a;x.strokeStyle='#fff';x.lineWidth=Math.max(1,s.w*.6);x.beginPath();x.arc(s.x-cam,s.y,s.r,st,en,ccw);x.stroke()}
   for(const p of PT){const a=Math.max(0,p.l/p.m);x.globalAlpha=a;const add=p.sh==2&&p.ad;x.globalCompositeOperation=add?'lighter':'source-over';
     if(p.sh==1){x.strokeStyle=p.c;x.lineWidth=p.s;x.beginPath();x.moveTo(p.x-cam,p.y);x.lineTo(p.x-cam-p.vx*.035,p.y-p.vy*.035);x.stroke()}
-    else if(p.sh==2){const r=p.s*(1+(1-a)*(p.gr||0)),g=x.createRadialGradient(p.x-cam,p.y,0,p.x-cam,p.y,r);g.addColorStop(0,p.c);g.addColorStop(1,'rgba(0,0,0,0)');x.fillStyle=g;x.fillRect(p.x-cam-r,p.y-r,2*r,2*r)}
+    else if(p.sh==2){const r=p.s*(1+(1-a)*(p.gr||0));x.drawImage(glowS(p.c),p.x-cam-r,p.y-r,2*r,2*r)}  // 第五十一轮:光晕粒子改用缓存贴图(原来每个粒子每帧新建一个径向渐变)
     else{x.fillStyle=p.c;const z=p.s*(p.gr?1+(1-a)*p.gr:1);x.fillRect(p.x-cam-z/2,p.y-z/2,z,z)}
   }
   x.restore()}
@@ -2424,11 +2426,14 @@ function txt(s,px,py,sz,c,al){x.font='bold '+sz+'px "Noto Sans SC","PingFang SC"
 var PXL={cv:null,g:null,act:0,q:[],
   on(){return SET.art!==0},
   // need=false 表示这一层这一帧肯定没有东西要画,直接跳过(省掉一次清屏和放大叠加)
-  run(fn,need){if(need===false)return;if(!this.on()||this.act){fn();return}
+  // 第五十一轮(卡顿优化):R = [x0,y0,x1,y1](屏幕逻辑坐标)时只把这一块放大贴回去(宠物 / 小仙子这种小东西不用整屏贴一次);PXL.bb 按点算范围
+  bb(pts,pad){let a=1e9,b=1e9,c=-1e9,d=-1e9;for(const [px,py] of pts){if(px<a)a=px;if(py<b)b=py;if(px>c)c=px;if(py>d)d=py}return [a-pad,b-pad,c+pad,d+pad]},
+  run(fn,need,R){if(need===false)return;if(!this.on()||this.act){fn();return}
     if(!this.cv){this.cv=document.createElement('canvas');this.cv.width=VW;this.cv.height=VH;this.g=this.cv.getContext('2d')}
     const m=x,g=this.g;g.setTransform(1,0,0,1,0,0);g.globalAlpha=1;g.globalCompositeOperation='source-over';g.clearRect(0,0,VW,VH);
     this.act=1;x=g;try{fn()}finally{x=m;this.act=0}
-    m.save();m.globalAlpha=1;m.globalCompositeOperation='source-over';m.imageSmoothingEnabled=false;m.drawImage(this.cv,0,0,VW,VH);m.restore();
+    m.save();m.globalAlpha=1;m.globalCompositeOperation='source-over';m.imageSmoothingEnabled=false;
+    if(R){const x0=Math.max(0,Math.floor(R[0])),y0=Math.max(0,Math.floor(R[1])),x1=Math.min(VW,Math.ceil(R[2])),y1=Math.min(VH,Math.ceil(R[3]));if(x1>x0&&y1>y0)m.drawImage(this.cv,x0,y0,x1-x0,y1-y0,x0,y0,x1-x0,y1-y0)}else m.drawImage(this.cv,0,0,VW,VH);m.restore();
     if(this.q.length){const q=this.q;this.q=[];for(const a of q)CT(...a)}}};
 function draw(){
   x.save();if(shake>0)x.translate((Math.random()-.5)*6,(Math.random()-.5)*6);
@@ -2436,8 +2441,8 @@ function draw(){
   drawPickups();drawRP();drawCP();drawGate();
   PXL.run(()=>{if(cur==8)g8Back();E.forEach(drawE);if(bossOn&&B.hp>0)drawE(B);if(cur==8)g8Fx();if(cur==9)v9Fx();if(cur==10)s10Fx();if(cur>=8&&cur<=10)nbFx();if(isMy(cur))myFx();if(cur==14)m14Fx();if(cur==15)c15Fx();if(cur==16)f16Fx();if(cur==18)n18Fx();if(cur==19)a19Fx();palDraw();mscDraw()});drawSM();PXL.run(drawTor,TOR.length>0||!!LCK);drawPet();drawHamPet();
   if(FX.dk>0){x.fillStyle='rgba(8,12,28,'+FX.dk+')';x.fillRect(0,0,VW,VH)}
-  PXL.run(drawShots);
-  drawGD();drawStarF(cam);PXL.run(trailDraw,SWTR.length>1);drawClone();if(cur==MY4&&bossOn&&B&&B.k=='mir'&&B.hp>0&&st=='play')drawMir(B,mirAlpha(B));drawP();drawHamShd();PXL.run(thrDraw,THR.length>0);drawGDHint();PXL.run(()=>drawFairy(x,SPRP.x-cam,SPRP.y,performance.now()/1000,1,P.f),!!(SPR.own&&SPR.on));
+  PXL.run(drawShots,F.length+PB.length>0);
+  drawGD();drawStarF(cam);PXL.run(trailDraw,SWTR.length>1);drawClone();if(cur==MY4&&bossOn&&B&&B.k=='mir'&&B.hp>0&&st=='play')drawMir(B,mirAlpha(B));drawP();drawHamShd();PXL.run(thrDraw,THR.length>0);drawGDHint();PXL.run(()=>drawFairy(x,SPRP.x-cam,SPRP.y,performance.now()/1000,1,P.f),!!(SPR.own&&SPR.on),PXL.bb([[SPRP.x-cam,SPRP.y]],48));
   if(P.sand>0){const k=Math.min(1,P.sand/.3),px=P.x+12-cam,py=P.y+16,g=x.createRadialGradient(px,py,36,px,py,150);g.addColorStop(0,'rgba(110,80,35,0)');g.addColorStop(1,'rgba(110,80,35,'+.94*k+')');x.fillStyle=g;x.fillRect(0,0,VW,VH)}
   PXL.run(()=>{drawSk();drawFX();VFX.draw()});if(cur==MY4)mwDraw();drawSkBar();  // 第四十五轮:镜中无名的技能画面
   if(cur==6){blizDraw();if(P.frz>0){x.fillStyle='rgba(165,216,255,.18)';x.fillRect(0,0,VW,VH)}}
@@ -4631,7 +4636,7 @@ function myFx(){const t=performance.now()/1000,e=B;if(cur==MY4){mirFx();canFx()}
 function drawHamPet(){if(!hamOn()||!MYST.I)return;const p=HMP,t=performance.now()/1000;
   PXL.run(()=>{const hop=p.mv?-Math.round(Math.abs(Math.sin(t*12))*2):0,fi=p.wv>0?7:p.mv?2+Math.floor(t*10)%2:Math.floor(t*2)%2;x.save();x.translate(Math.round(p.x+11-cam),Math.round(p.y+16));SHD(x,0,0,10);x.scale(p.f,1);MYST.fr(x,'ham',fi,-16,-28+hop,.5);x.restore();
     for(const q of HPS){x.save();x.translate(Math.round(q.x-cam),Math.round(q.y));x.rotate(q.a);MYST.fr(x,'shell',0,-6,-3,1);x.restore()}
-    for(const c of HCP){const k=Math.min(1,c.t/.25),a=c.t>1.1?Math.max(0,(1.4-c.t)/.3):1,o=Math.round(26*(1-k));x.save();x.globalAlpha=a;x.translate(Math.round(c.x-cam),Math.round(c.y));MYST.fr(x,'bshell',0,o,-32,.5);MYST.fr(x,'bshell',0,-24-o,-32,.5,-1);x.restore()}})}
+    for(const c of HCP){const k=Math.min(1,c.t/.25),a=c.t>1.1?Math.max(0,(1.4-c.t)/.3):1,o=Math.round(26*(1-k));x.save();x.globalAlpha=a;x.translate(Math.round(c.x-cam),Math.round(c.y));MYST.fr(x,'bshell',0,o,-32,.5);MYST.fr(x,'bshell',0,-24-o,-32,.5,-1);x.restore()}},true,PXL.bb([[p.x+11-cam,p.y+16],...HPS.map(q=>[q.x-cam,q.y]),...HCP.map(c=>[c.x-cam,c.y])],56))}
 function drawHamShd(){if(!(P.hshT>0&&P.hsh>0))return;const t=performance.now()/1000,px=P.x+12-cam,py=P.y+16;x.save();x.globalCompositeOperation='lighter';x.globalAlpha=.45+.15*Math.sin(t*6);x.strokeStyle='#ffe8a3';x.lineWidth=1.6;x.beginPath();x.ellipse(px,py,20,26,0,0,7);x.stroke();x.restore()}
 let HEGG='';function heggEm(){if(!HEGG&&MYST.I){const c=document.createElement('canvas');c.width=36;c.height=44;const g=c.getContext('2d');MYST.fr(g,'egg',0,0,0,2);HEGG=c.toDataURL()}  // 仓鼠宠物蛋图标(背包 / 宠物界面)
   return HEGG?`<img src="${HEGG}" alt="" style="width:1.1em;height:1.35em;image-rendering:pixelated;vertical-align:-.25em">`:'🥚'}
@@ -5626,9 +5631,20 @@ const PUI={I:null,D:'assets/pui_atlas.png',fr:0,
   on(){return SET.art!==0&&!!this.I},
   fon(){return SET.art!==0&&this.fr},
   // 字号吸附:像素字体只有「屏幕像素 = 字体像素的整数倍」时才清晰;在 12px / 8px 两套字里找离目标字号最近的清晰字号
-  fnt(sz){let b=null;for(const [fm,base] of [['FPX12',12],['FPX8',8]])for(let n=1;n<=10;n++){const s=n*base/RS,d=Math.abs(s-sz)+(base==8?.35:0);if(!b||d<b[2])b=[fm,s,d,base]}return b},
+  fnt(sz){const K=sz+'|'+RS;let b=this.FNC.get(K);if(b)return b;for(const [fm,base] of [['FPX12',12],['FPX8',8]])for(let n=1;n<=10;n++){const s=n*base/RS,d=Math.abs(s-sz)+(base==8?.35:0);if(!b||d<b[2])b=[fm,s,d,base]}this.FNC.set(K,b);return b},FNC:new Map(),
+  // 第五十一轮(卡顿优化):描边像素字每次要 9 次 fillText,伤害数字一多每帧几百次。改成把「文字 + 描边」画进小画布缓存(TXC,最近用过的 TXN 条),之后每次只 drawImage 一次
+  //   渐变填色(CTG)或画布有旋转 / 斜切时照旧直接画
+  TXC:new Map(),TXP:[],TXN:600,
+  txR(s,fm,fs,u,fill,ow,oc,bl,k){const cv=this.TXP.pop()||document.createElement('canvas'),g=cv.getContext('2d');g.font=fs+'px '+fm;const w=g.measureText(s).width,ox=2*u,oy=1.5*fs+u;
+    cv.width=Math.max(1,Math.ceil((w+4*u)*k));cv.height=Math.max(1,Math.ceil((3*fs+2*u)*k));g.setTransform(k,0,0,k,0,0);g.font=fs+'px '+fm;g.textAlign='left';g.textBaseline=bl;
+    if(ow!==0){g.fillStyle=oc||'#3a1d0a';const D=ow!=null&&ow<2?[[-1,0],[1,0],[0,-1],[0,1]]:[[-1,0],[1,0],[0,-1],[0,1],[-1,-1],[1,-1],[-1,1],[1,1]];for(const [dx,dy] of D)g.fillText(s,ox+dx*u,oy+dy*u)}
+    g.fillStyle=fill;g.fillText(s,ox,oy);return {cv,w,ox,oy,cw:cv.width/k,ch:cv.height/k}},
   // 像素字:按字体像素描边(4 或 8 个方向错开一格),起点对齐屏幕像素
-  text(c,s,px,py,sz,fill,al,ow,oc){const [fm,fs,,base]=this.fnt(sz),u=fs/base;c.font=fs+'px '+fm;c.textAlign='left';
+  text(c,s,px,py,sz,fill,al,ow,oc){const [fm,fs,,base]=this.fnt(sz),u=fs/base;
+    if(typeof fill=='string'){const m=c.getTransform(),k=m.a;if(k>0&&!m.b&&!m.c&&Math.abs(m.d-k)<1e-6){const bl=c.textBaseline,key=s+'|'+fs+fm+'|'+fill+'|'+(ow===0?0:(oc||'#3a1d0a')+(ow!=null&&ow<2?4:8))+'|'+bl+'|'+k;let e=this.TXC.get(key);
+      if(e){this.TXC.delete(key);this.TXC.set(key,e)}else{e=this.txR(String(s),fm,fs,u,fill,ow,oc,bl,k);this.TXC.set(key,e);if(this.TXC.size>this.TXN){const k0=this.TXC.keys().next().value;this.TXP.push(this.TXC.get(k0).cv);this.TXC.delete(k0)}}
+      let lx=al=='right'?px-e.w:al=='left'?px:px-e.w/2;lx=Math.round(lx*RS)/RS;py=Math.round(py*RS)/RS;c.drawImage(e.cv,lx-e.ox,py-e.oy,e.cw,e.ch);return}}
+    c.font=fs+'px '+fm;c.textAlign='left';
     const w=c.measureText(s).width;let lx=al=='right'?px-w:al=='left'?px:px-w/2;lx=Math.round(lx*RS)/RS;py=Math.round(py*RS)/RS;
     if(ow!==0){c.fillStyle=oc||'#3a1d0a';const D=ow!=null&&ow<2?[[-1,0],[1,0],[0,-1],[0,1]]:[[-1,0],[1,0],[0,-1],[0,1],[-1,-1],[1,-1],[-1,1],[1,1]];for(const [dx,dy] of D)c.fillText(s,lx+dx*u,py+dy*u)}
     c.fillStyle=fill;c.fillText(s,lx,py)},
@@ -6389,7 +6405,7 @@ function drawSM(){const t=performance.now()/1000;
   PXL.run(()=>{const b=SM.bird;if(b&&!(b.t<2&&Math.floor(t*8)%2)){x.globalAlpha=b.inv>.45?.55:1;SMN.fr(x,'b',Math.floor(t*(b.st=='dive'?14:10))%6,b.x+b.w/2-cam,b.y+b.h/2,1,b.f);x.globalAlpha=1;bar(b)}
     const v=SM.vine;if(v&&!(v.t<2&&Math.floor(t*8)%2)){const bx=v.x+10-cam;x.globalAlpha=v.inv>.45?.55:1;
       if(v.wh>0)SMN.fr(x,'pa',Math.min(6,Math.floor((1-v.wh/.3)*7)),bx,GY,1.5,v.f,v.gw);else SMN.fr(x,'pi',Math.floor(t*6)%4,bx,GY,1.5,v.f,v.gw);x.globalAlpha=1;bar(v)}
-    SMX=SMX.filter(q=>(q.t+=1/60)<.9);for(const q of SMX)SMN.fr(x,'pd',Math.min(9,Math.floor(q.t/.09)),q.x-cam,GY,1.5,q.f)})}
+    SMX=SMX.filter(q=>(q.t+=1/60)<.9);for(const q of SMX)SMN.fr(x,'pd',Math.min(9,Math.floor(q.t/.09)),q.x-cam,GY,1.5,q.f)},!!(SM.bird||SM.vine||SMX.length))}  // 第五十一轮:没有召唤物时跳过这一层
 
 // =====================================================================
 // ===== 场景:分层视差背景(预先画到离屏画布,运行时只贴图)=====
@@ -7308,7 +7324,7 @@ function drawTown(){const t=performance.now()/1000,c0=Math.round(cam),I=TWN.I;
   if(CLR.includes(3))drawChief();
   totemDraw(t);  // 第四十七轮:部落图腾 + 星界财宝
   x.restore();if(soulN()>0)MYST.pillar(MYTP[0],MYTP[1],t,'177,151,252','神秘光柱','神秘地带')}  // 神秘光柱:技能导师树屋高台右端
-  drawSM();PXL.run(drawTor,TOR.length>0||!!LCK);drawPet();drawHamPet();PXL.run(drawShots);drawStarF(cam);PXL.run(trailDraw,SWTR.length>1);drawP();drawHamShd();PXL.run(thrDraw,THR.length>0);PXL.run(()=>drawFairy(x,SPRP.x-cam,SPRP.y,t,1,P.f),!!(SPR.own&&SPR.on));
+  drawSM();PXL.run(drawTor,TOR.length>0||!!LCK);drawPet();drawHamPet();PXL.run(drawShots,F.length+PB.length>0);drawStarF(cam);PXL.run(trailDraw,SWTR.length>1);drawP();drawHamShd();PXL.run(thrDraw,THR.length>0);PXL.run(()=>drawFairy(x,SPRP.x-cam,SPRP.y,t,1,P.f),!!(SPR.own&&SPR.on),PXL.bb([[SPRP.x-cam,SPRP.y]],48));
   // 前景(草丛、垂下的叶丛)盖在人物前面,显出前后层次
   if(TWN.ready()&&!MYS){x.imageSmoothingEnabled=false;x.drawImage(I.fg,-c0,0);x.imageSmoothingEnabled=true}
   if(FX.dk>0){x.fillStyle='rgba(8,12,28,'+FX.dk+')';x.fillRect(0,0,VW,VH)}PXL.run(()=>{drawSk();drawFX();VFX.draw()});drawSkBar();if(FX.fl>0){x.fillStyle='rgba('+FX.fc+','+FX.fl+')';x.fillRect(-10,-10,VW+20,VH+20)}drawTX();x.globalAlpha=1;
@@ -7675,7 +7691,7 @@ function drawPet(){if(!petOn())return;const p=PETS,t=performance.now()/1000;
   // 像素:画进 PXL 像素层(旋转的扇子也对齐像素格);走路时也保留原版的小跳
   if(TPX.on()){PXL.run(()=>{const m=TPX.M.chick,f=TPX.M.fan,hop=p.mv?-Math.round(Math.abs(Math.sin(t*12))*2):0;x.save();x.translate(Math.round(p.x+11-cam),Math.round(p.y+20));SHD(x,0,0,12);
     x.scale(p.f,1);x.imageSmoothingEnabled=false;TPX.spr(x,'chick',TPX.chickF(t,{wave:p.wv,mv:p.mv}),-m.ax,-m.ay+hop);x.restore();
-    for(const q of PF){x.save();x.translate(Math.round(q.x-cam),Math.round(q.y));x.rotate(q.a);x.imageSmoothingEnabled=false;x.drawImage(TPX.I,f.x,f.y,f.w,f.h,-f.ax,-f.ay,f.w,f.h);x.restore()}});return}
+    for(const q of PF){x.save();x.translate(Math.round(q.x-cam),Math.round(q.y));x.rotate(q.a);x.imageSmoothingEnabled=false;x.drawImage(TPX.I,f.x,f.y,f.w,f.h,-f.ax,-f.ay,f.w,f.h);x.restore()}},true,PXL.bb([[p.x+11-cam,p.y+20],...PF.map(q=>[q.x-cam,q.y])],56));return}
   x.save();x.translate(p.x+11-cam,p.y+20);x.scale(p.f*1.3,1.3);SHD(x,0,0,9);drawChick(x,t,{wave:p.wv,mv:p.mv});x.restore();
   for(const q of PF){x.save();x.translate(q.x-cam,q.y);x.rotate(q.a);x.beginPath();x.moveTo(0,0);x.arc(0,0,10,-Math.PI*.9,-Math.PI*.1);x.closePath();FS_(x,'#e03131',1.1);
     for(let a=.2;a<.85;a+=.17)LN_(x,[[0,0],[Math.cos(-a*Math.PI)*10,Math.sin(-a*Math.PI)*10]],'#fff',.8);x.restore()}}
@@ -7738,7 +7754,9 @@ function rHome(){const sv=homeSave(),esc=s=>String(s).replace(/[&<>]/g,c=>({'&':
   $('home').innerHTML=`<div class="hl"><h1>无名之旅</h1><div class="hv"><b>v${GAMEV}</b>${HM.v=='help'?'操作说明':'更新日志'}</div><div class="hs">${L}</div></div>
     <div class="hr">${B('cont','▶ 继续游戏',sv?'Lv '+sv.lv+' · '+sv.m:'还没有存档',!sv,!!sv)}${B('new','✦ 开始新游戏','',0,!sv)}${B('exp','📤 提取存档','导出成文件备份',!sv)}${B('imp','📥 添加存档','从文件导入')}${B('help','📖 操作说明')}<div class="hm">${m}</div></div>`}
 function openHome(){HOME=1;HM.v='log';HM.cf=0;HM.imp=null;HM.msg='';keys.l=keys.r=0;$('home').hidden=false;rHome()}
-function closeHome(){HOME=0;$('home').hidden=true;HM.imp=null;HM.cf=0;if(!signed())openP('sign')}
+function closeHome(){HOME=0;$('home').hidden=true;HM.imp=null;HM.cf=0;if(!signed())openP('sign');if(CPUR&&!closeHome.w){closeHome.w=1;setTimeout(()=>banner('浏览器没有开启硬件加速,画面会卡顿:Edge 设置 → 系统和性能 → 打开「使用图形加速」后重启浏览器'),600)}}
+// 第五十一轮:检测浏览器是不是没用显卡画图(硬件加速关闭 / 显卡被屏蔽),是的话回城时提示一次
+const CPUR=(()=>{try{const g=document.createElement('canvas').getContext('webgl');if(!g)return 1;const d=g.getExtension('WEBGL_debug_renderer_info'),r=d?String(g.getParameter(d.UNMASKED_RENDERER_WEBGL)):'';const l=g.getExtension('WEBGL_lose_context');if(l)l.loseContext();return /SwiftShader|Basic Render|llvmpipe|Software/i.test(r)?1:0}catch(e){return 0}})();
 function homeAct(a){HM.msg='';
   if(a=='cont'){if(homeSave())closeHome();return}
   if(a=='new'){HM.imp=null;if(homeSave()&&!HM.cf){HM.cf=1;HM.msg='⚠️ 重新开始会删除当前存档(等级、装备、道具全部清空)。<br>想留着的话,先点「提取存档」备份成文件。'}else homeAct('newY');rHome();return}

@@ -1,3 +1,5 @@
+// 第五十一轮(卡顿优化):光晕贴图缓存 —— 每种颜色画一张 64×64 的径向渐变,粒子直接缩放贴上
+const GLWC=new Map();function glowS(c){let v=GLWC.get(c);if(v)return v;v=document.createElement('canvas');v.width=v.height=64;const g=v.getContext('2d'),q=g.createRadialGradient(32,32,0,32,32,32);q.addColorStop(0,c);q.addColorStop(1,'rgba(0,0,0,0)');g.fillStyle=q;g.fillRect(0,0,64,64);if(GLWC.size<300)GLWC.set(c,v);return v}
 // ===== 技能特效系统:粒子、光环、刀光、残影、地裂、焦痕、光柱、闪屏、压暗、顿帧 =====
 let PT=[],RG=[],SLS=[],GH=[],CRK=[],DEC=[],PIL=[],FX={fl:0,fc:'255,255,255',hs:0,dk:0},hitFx=null;
 const rnd=(a,b)=>a+Math.random()*(b-a),pick=a=>a[Math.random()*a.length|0];
@@ -36,7 +38,7 @@ function drawFX(){HST=HST.filter(h=>(h.l-=1/60)>0);for(const h of HST){const k=1
     x.globalAlpha=a;x.strokeStyle='#fff';x.lineWidth=Math.max(1,s.w*.6);x.beginPath();x.arc(s.x-cam,s.y,s.r,st,en,ccw);x.stroke()}
   for(const p of PT){const a=Math.max(0,p.l/p.m);x.globalAlpha=a;const add=p.sh==2&&p.ad;x.globalCompositeOperation=add?'lighter':'source-over';
     if(p.sh==1){x.strokeStyle=p.c;x.lineWidth=p.s;x.beginPath();x.moveTo(p.x-cam,p.y);x.lineTo(p.x-cam-p.vx*.035,p.y-p.vy*.035);x.stroke()}
-    else if(p.sh==2){const r=p.s*(1+(1-a)*(p.gr||0)),g=x.createRadialGradient(p.x-cam,p.y,0,p.x-cam,p.y,r);g.addColorStop(0,p.c);g.addColorStop(1,'rgba(0,0,0,0)');x.fillStyle=g;x.fillRect(p.x-cam-r,p.y-r,2*r,2*r)}
+    else if(p.sh==2){const r=p.s*(1+(1-a)*(p.gr||0));x.drawImage(glowS(p.c),p.x-cam-r,p.y-r,2*r,2*r)}  // 第五十一轮:光晕粒子改用缓存贴图(原来每个粒子每帧新建一个径向渐变)
     else{x.fillStyle=p.c;const z=p.s*(p.gr?1+(1-a)*p.gr:1);x.fillRect(p.x-cam-z/2,p.y-z/2,z,z)}
   }
   x.restore()}

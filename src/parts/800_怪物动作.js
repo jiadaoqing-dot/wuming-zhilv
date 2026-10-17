@@ -93,6 +93,6 @@ function drawSM(){const t=performance.now()/1000;
   PXL.run(()=>{const b=SM.bird;if(b&&!(b.t<2&&Math.floor(t*8)%2)){x.globalAlpha=b.inv>.45?.55:1;SMN.fr(x,'b',Math.floor(t*(b.st=='dive'?14:10))%6,b.x+b.w/2-cam,b.y+b.h/2,1,b.f);x.globalAlpha=1;bar(b)}
     const v=SM.vine;if(v&&!(v.t<2&&Math.floor(t*8)%2)){const bx=v.x+10-cam;x.globalAlpha=v.inv>.45?.55:1;
       if(v.wh>0)SMN.fr(x,'pa',Math.min(6,Math.floor((1-v.wh/.3)*7)),bx,GY,1.5,v.f,v.gw);else SMN.fr(x,'pi',Math.floor(t*6)%4,bx,GY,1.5,v.f,v.gw);x.globalAlpha=1;bar(v)}
-    SMX=SMX.filter(q=>(q.t+=1/60)<.9);for(const q of SMX)SMN.fr(x,'pd',Math.min(9,Math.floor(q.t/.09)),q.x-cam,GY,1.5,q.f)})}
+    SMX=SMX.filter(q=>(q.t+=1/60)<.9);for(const q of SMX)SMN.fr(x,'pd',Math.min(9,Math.floor(q.t/.09)),q.x-cam,GY,1.5,q.f)},!!(SM.bird||SM.vine||SMX.length))}  // 第五十一轮:没有召唤物时跳过这一层
 
 // =====================================================================
