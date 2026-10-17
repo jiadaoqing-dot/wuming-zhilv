@@ -44,7 +44,7 @@ function update(dt){
   if(!INTOWN){if(cur==6){lv6Player(dt);snowStep(dt)}if(cur==7)lv7Update(dt);if(cur==8)g8Step(dt);if(cur==9)v9Step(dt);if(cur==10)s10Step(dt);nbStep(dt);if(isMy(cur))myStep(dt);if(cur==14)m14Step(dt);if(cur==15)c15Step(dt);if(cur==16)f16Step(dt);if(cur==18)n18Step(dt);if(cur==19)a19Step(dt)}
   if(P.gr&&!P.onP){P.sfX=P.x;P.sfY=P.y}  // 记下最近一次站在地面的位置(复活用)
   if(P.y>VH+100)P.hp=0;
-  P.at-=dt;P.cd-=dt;P.ujc=Math.max(0,(P.ujc||0)-dt);P.sjc=Math.max(0,(P.sjc||0)-dt);P.inv-=dt;P.ct-=dt;P.an+=dt*(d&&P.gr?(P.run?1.8:1):0);P.mp=GM.mp?S.mp:Math.min(S.mp,P.mp+(1+S.mp*.003*pl('rec'))*dt);{const c=setTr();if(P.hp>0)P.hp+=S.hp*(.004*pl('rec')+tr4('yu',c))*dt}P.hp=Math.min(P.hp,S.hp);P.cbT=(P.cbT||0)-dt;if(P.cbT<=0)P.combo=0;
+  P.at-=dt;P.cd-=dt;P.ujc=Math.max(0,(P.ujc||0)-dt);P.sjc=Math.max(0,(P.sjc||0)-dt);P.inv-=dt;P.ct-=dt;P.an+=dt*(d&&P.gr?(P.run?1.8:1):0);P.mp=GM.mp?S.mp:Math.min(S.mp,P.mp+(1+S.mp*RECM*pl('rec'))*dt);{const c=setTr();if(P.hp>0)P.hp+=S.hp*(RECH*pl('rec')+tr4('yu',c))*dt}P.hp=Math.min(P.hp,S.hp);P.cbT=(P.cbT||0)-dt;if(P.cbT<=0)P.combo=0;
   waveStep(dt);{const z=gateZ();if(z>GZ&&st=='play'){tx(z>=ZB.length?'前往首领的巢穴!':'区域已清除!继续前进 →',P.x-30,P.y-40,'#d0bfff');sfx('buff');flash('200,180,255',.15)}GZ=z}
   if(P.x>2700&&!RTP)bossOn=true;
   const all=bossOn&&B.hp>0?[...E,B]:E;

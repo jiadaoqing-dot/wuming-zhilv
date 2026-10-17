@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>无名之旅 v1.48</title>
+<title>无名之旅 v1.49</title>
 <style>
 /* 中文像素字体:Fusion Pixel Font(TakWolf,SIL OFL 1.1),按游戏用字裁剪(art_src/font/build_font.py) */
 @font-face{font-family:FPX12;src:url(assets/fpx12.woff2) format('woff2')}
@@ -274,7 +274,7 @@ body.px .at2{border:2px solid transparent;border-image:url(assets/ui_card.png) 6
 <p class="tip">← → / A D 移动(连按两次快跑) · K / ↑ 跳跃 · W+J / S+J 特殊普攻(学会二段跳后空中再按) · J 攻击(下劈 → 上挑 → 直戳 → 下劈 循环,按住蓄力重击;跑步中按 J = 冲刺直戳) · L 换武器 · H U I O 技能 · 空格 / W+空格 / S+空格 / WW+空格 剑士进阶技能(转职后) · 1 2 3 喝药水 · S 捡起地上的掉落物 · 背包 / 技能 / 商城 / 精灵 / 宠物 / 任务 / 声音:点右下角按钮(也可以用快捷键 B 背包 / T 技能 / Q 任务 / P 商城 / Y 精灵 / G 宠物 / M 声音,设置里可以关闭) · N 释放武器上的怪物技能石(背包里左键点物品弹出菜单,装备可拖动穿戴) · 装备翅膀后空中再按跳跃=飞行(W/S 升降、A/D 方向) · Esc / ⚙️ 设置(暂停、返回城镇、帧数、全屏)</p>
 <script>
 // 游戏版本:build.py 按它给输出文件命名(out/无名之旅_v版本.html),设置页也显示;每次发新版改这里
-const GAMEV='1.48';
+const GAMEV='1.49';
 // x 是当前的绘图上下文:平时是主画布;像素特效层(PXL,P2)绘制期间临时换成 640×360 的低分辨率图层
 const cv=document.getElementById('c');let x=cv.getContext('2d');const VW=640,VH=360,WW=3200,GY=300;
 // 渲染分辨率:电脑端 1920×1080(逻辑坐标仍是 640×360,整体放大 3 倍绘制,文字和像素都更清晰);手机端 1280×720
@@ -632,11 +632,12 @@ const shopIt=(i,j,rnd_)=>{const k=ALL[i];return gen(k,j,null,shopSer,shopSer==2&
 const STR=it=>Object.keys(it.s).map(k=>NM[k]+'+'+wv(it,k)).join(' ')+' + 随机 3 条绿字';  // 商店展示:白字固定,绿字买到时随机
 const lv=b=>b*(1+.12*(lvl-1));  // 第十六轮:每级 +12%(50 级 ×6.9),让等级本身更有分量
 // 被动技能(2026-10-13 第十六轮重做,全部 5 级):[键, 名称, 说明, 满级, 每级主数值]。多效果的被动在 PSX 里写全文
-// 体魄 生命 +6%/级 · 锐利 攻击 +5%/级 · 坚韧 防御 +6%/级 · 会心 暴击率 +2%、暴击伤害 +8%/级 · 羁绊(第四十八轮,原疾风)宠物冷却缩短上限 +1%/级 · 回春 每秒回生命 0.4%、魔力 0.3%/级 · 法力 魔力 +6%、耗魔 -4%/级
+// 体魄 生命 +6%/级 · 锐利 攻击 +5%/级 · 坚韧 防御 +6%/级 · 会心 暴击率 +2%、暴击伤害 +8%/级 · 羁绊(第四十八轮,原疾风)宠物冷却缩短上限 +1%/级 · 回春 每秒回生命 / 魔力各 0.1%/级(第四十九轮从 0.4% / 0.3% 降下来) · 法力 魔力 +6%、耗魔 -4%/级
 const LNMAX=5;
-const PSD=[['dj','二段跳','在空中可以再跳一次',1,0],['hp','体魄','最大生命',5,.06],['atk','锐利','攻击力',5,.05],['def','坚韧','防御力',5,.06],['crt','会心','暴击率 / 暴击伤害',5,.02],['spd','羁绊','宠物技能冷却',5,0],['rec','回春','每秒回复生命 / 魔力',5,.004],['mp','法力','最大魔力 / 技能耗魔',5,.06]];
+const PSD=[['dj','二段跳','在空中可以再跳一次',1,0],['hp','体魄','最大生命',5,.06],['atk','锐利','攻击力',5,.05],['def','坚韧','防御力',5,.06],['crt','会心','暴击率 / 暴击伤害',5,.02],['spd','羁绊','宠物技能冷却',5,0],['rec','回春','每秒回复生命 / 魔力',5,.001],['mp','法力','最大魔力 / 技能耗魔',5,.06]];
 const PSV=Object.fromEntries(PSD.map(q=>[q[0],q[4]])),pl=k=>PS[k]|0,pb=k=>1+pl(k)*PSV[k];
-const PSX=(k,l)=>k=='dj'?'在空中可以再跳一次':k=='crt'?`暴击率 +${l*2}% · 暴击伤害 +${l*8}%(${(1.8+l*.08).toFixed(2)} 倍)`:k=='spd'?`钢盔小鸡技能冷却 -${l}% · 仓鼠「灵巧」冷却缩短上限 +${l}%(${20+l}%)`:k=='rec'?`每秒回复最大生命 ${(l*.4).toFixed(1)}% · 最大魔力 ${(l*.3).toFixed(1)}%`:k=='mp'?`最大魔力 +${l*6}% · 技能耗魔 -${l*4}%`:`${PSD.find(q=>q[0]==k)[2]} +${Math.round(l*PSV[k]*100)}%`;
+const RECH=.001,RECM=.001;  // 回春每级:每秒回最大生命 / 最大魔力的比例
+const PSX=(k,l)=>k=='dj'?'在空中可以再跳一次':k=='crt'?`暴击率 +${l*2}% · 暴击伤害 +${l*8}%(${(1.8+l*.08).toFixed(2)} 倍)`:k=='spd'?`钢盔小鸡技能冷却 -${l}% · 仓鼠「灵巧」冷却缩短上限 +${l}%(${20+l}%)`:k=='rec'?`每秒回复最大生命 ${(l*RECH*100).toFixed(1)}% · 最大魔力 ${(l*RECM*100).toFixed(1)}%`:k=='mp'?`最大魔力 +${l*6}% · 技能耗魔 -${l*4}%`:`${PSD.find(q=>q[0]==k)[2]} +${Math.round(l*PSV[k]*100)}%`;
 const critK=()=>1.8+pl('crt')*.08+(godOn('cr')?.2:0);  // 第四十轮:上帝卡牌「暴击升级」+0.2  // 暴击倍率:基础 1.8 倍,会心每级 +0.08
 // 装备固定属性合计(白字含锻造 + 绿字 + 强化 + 属性石);穿着的时装 / 翅膀再加它们的强化值(时装防御 / 翅膀暴击)
 function eqSum(ks){const g={hp:0,mp:0,atk:0,def:0,cr:0,dg:0};for(const k of ks)eqAdd(g,EQ[k]);for(const t of ['fash','wing']){const c=WEAR[t]&&cosIt(WEAR[t]);if(c&&c.ev)g[EQE[t][0]]+=c.ev}return g}
@@ -1087,7 +1088,7 @@ function hurt(b,o){if(DECOY||GM.god)return false;if(pdChk())return false;if(P.in
   // 闪避:按闪避率完全躲开这次伤害(不清连击),之后 0.4 秒无敌,避免贴身判定连续触发
   if(Math.random()<S.dg/100){P.inv=.4;tx('闪避成功!',P.x-8,P.y-10,'#a5d8ff');ghost('#a5d8ff',.3);syn('blink');return false}
   let d=dmgIn(b*EATK*BDMK(),S.def);  // BDMK:第八~十关首领战 ×1.35 ×1.35(第十五轮)
-  if(P.hshT>0){if(P.hdr)d=Math.max(1,Math.round(d*(1-P.hdr)));if(P.hsh>0){const a=Math.min(P.hsh,d);P.hsh-=a;d-=a;tx('护盾 -'+a,P.x+4,P.y-14,'#ffe8a3');if(d<=0){P.inv=.5;shake=.1;sfx('hit');mfxHit();return true}}}  // 宠物仓鼠的瓜子壳护盾 + 减伤
+  if(P.hshT>0&&!bossOn){if(P.hdr)d=Math.max(1,Math.round(d*(1-P.hdr)));if(P.hsh>0){const a=Math.min(P.hsh,d);P.hsh-=a;d-=a;tx('护盾 -'+a,P.x+4,P.y-14,'#ffe8a3');if(d<=0){P.inv=.5;shake=.1;sfx('hit');mfxHit();return true}}}  // 宠物仓鼠的瓜子壳护盾 + 减伤
   if(P.shdT>0&&P.shd>0){const a=Math.min(P.shd,d);P.shd-=a;d-=a;tx('🪨 -'+a,P.x+4,P.y-14,'#e0b984');if(d<=0){P.inv=.5;shake=.1;sfx('hit');mfxHit();return true}}P.hp-=d;mfxHit();P.combo=0;if(P.jk)P.jk=Math.floor(P.jk*.4);{const c=setTr();if(tr6('yu',c)&&st=='play'){const t=nearE(allTg(),P.x+12,P.y+16,320);if(t)xDeal(t,Math.max(1,Math.round(d*YU6)))}}P.inv=o&&o.inv!=null?o.inv:1.2;P.vy=-250;if(o&&o.kb)P.kbx=o.kb;shake=.25;tx('-'+d,P.x+12,P.y-6,'#fff','d');sfx('hurt');  // 第四十二轮:神技 6 件掉 60% 层数 · 圣愈 6 件反伤(第四十五轮修:这段注释原来写在中间,把受击无敌 / 击退 / 伤害数字 / 受击音效都注释掉了)
   // 受击僵直 0.3 秒(和怪物相同);2026-10-13 第十三轮取消连击保护(原来 2.5 秒内第 3 次僵直后 2 秒霸体)。技能给的霸体(P.ar)照旧
   if(!(P.ar>0)&&!(P.sk&&P.sk.id=='mc')){P.stun=HSTUN;if(P.sk&&P.sk.id=='giant'&&!P.sk.formed){burst(P.x+12,P.y-60,24,['#9d4edd','#c77dff'],220,{sh:2,s:5,l:.4,g:300})}P.sk=null}
@@ -2308,7 +2309,7 @@ function update(dt){
   if(!INTOWN){if(cur==6){lv6Player(dt);snowStep(dt)}if(cur==7)lv7Update(dt);if(cur==8)g8Step(dt);if(cur==9)v9Step(dt);if(cur==10)s10Step(dt);nbStep(dt);if(isMy(cur))myStep(dt);if(cur==14)m14Step(dt);if(cur==15)c15Step(dt);if(cur==16)f16Step(dt);if(cur==18)n18Step(dt);if(cur==19)a19Step(dt)}
   if(P.gr&&!P.onP){P.sfX=P.x;P.sfY=P.y}  // 记下最近一次站在地面的位置(复活用)
   if(P.y>VH+100)P.hp=0;
-  P.at-=dt;P.cd-=dt;P.ujc=Math.max(0,(P.ujc||0)-dt);P.sjc=Math.max(0,(P.sjc||0)-dt);P.inv-=dt;P.ct-=dt;P.an+=dt*(d&&P.gr?(P.run?1.8:1):0);P.mp=GM.mp?S.mp:Math.min(S.mp,P.mp+(1+S.mp*.003*pl('rec'))*dt);{const c=setTr();if(P.hp>0)P.hp+=S.hp*(.004*pl('rec')+tr4('yu',c))*dt}P.hp=Math.min(P.hp,S.hp);P.cbT=(P.cbT||0)-dt;if(P.cbT<=0)P.combo=0;
+  P.at-=dt;P.cd-=dt;P.ujc=Math.max(0,(P.ujc||0)-dt);P.sjc=Math.max(0,(P.sjc||0)-dt);P.inv-=dt;P.ct-=dt;P.an+=dt*(d&&P.gr?(P.run?1.8:1):0);P.mp=GM.mp?S.mp:Math.min(S.mp,P.mp+(1+S.mp*RECM*pl('rec'))*dt);{const c=setTr();if(P.hp>0)P.hp+=S.hp*(RECH*pl('rec')+tr4('yu',c))*dt}P.hp=Math.min(P.hp,S.hp);P.cbT=(P.cbT||0)-dt;if(P.cbT<=0)P.combo=0;
   waveStep(dt);{const z=gateZ();if(z>GZ&&st=='play'){tx(z>=ZB.length?'前往首领的巢穴!':'区域已清除!继续前进 →',P.x-30,P.y-40,'#d0bfff');sfx('buff');flash('200,180,255',.15)}GZ=z}
   if(P.x>2700&&!RTP)bossOn=true;
   const all=bossOn&&B.hp>0?[...E,B]:E;
@@ -4408,7 +4409,7 @@ function fwmStep(e,dt){const dm=e.dm,cx=e.x+e.w/2,pc=P.x+12,dx=pc-cx,ad=Math.abs
   if(s=='bw'){e.pz='w';if(e.t>=.4){e.s='bt';e.t=0;e.hd=0}return}
   if(s=='bt'){e.pz='s';if(!e.hd&&ov(P,{x:e.f>0?cx:cx-46,y:e.y,w:46,h:e.h})&&hurt(9*dm,{kb:e.f*200}))e.hd=1;if(e.t>.3){e.s='rec';e.t=0}return}
   if(s=='rec'){if(e.t>.6){e.s=null;e.cd=rnd(1.3,2.1)}return}
-  e.f=sgn(dx)||e.f;if(ad>220){e.x=cl(e.x+e.f*chV(50,ad)*dt);e.mv=1}else if(ad<110&&ad>50){e.x=cl(e.x-e.f*40*dt);e.mv=1}
+  e.f=sgn(dx)||e.f;if(ad>150){e.x=cl(e.x+e.f*chV(50,ad)*dt);e.mv=1}else if(ad<110&&ad>50){e.x=cl(e.x-e.f*40*dt);e.mv=1}
   if(e.cd<=0){if(ad<50){if(!tok(e)){e.cd=.3;return}e.s='bw';e.t=0}else if(ad<MRNGR+20){if(!tok(e,1)){e.cd=.4;return}e.s='aim';e.t=0}}}
 // ---- 熔岩牛头人:走近 → 全身熔岩化蓄力 → 火拳(打中后脚下炸开火花)----
 function mmtStep(e,dt){const dm=e.dm,cx=e.x+e.w/2,pc=P.x+12,dx=pc-cx,ad=Math.abs(dx),lo=g8Lo(e),hi=g8Hi(e),cl=v=>Math.max(lo,Math.min(hi-e.w,v));
@@ -4482,7 +4483,7 @@ function gobStep(e,dt){const dm=e.dm,cx=e.x+e.w/2,pc=P.x+12,dx=pc-cx,ad=Math.abs
   if(s=='stw'){e.pz='w';if(e.t>=.4){e.s='stb';e.t=0;e.hd=0}return}
   if(s=='stb'){e.pz='s';if(!e.hd&&ov(P,{x:e.f>0?cx:cx-44,y:e.y,w:44,h:e.h})&&hurt(9*dm,{kb:e.f*200}))e.hd=1;if(e.t>.25){e.s='rec';e.t=0}return}
   if(s=='rec'){if(e.t>.6){e.s=null;e.cd=rnd(1.3,2.1)}return}
-  e.f=sgn(dx)||e.f;if(ad>220){e.x=cl(e.x+e.f*chV(60,ad)*dt);e.mv=1}else if(ad<110&&ad>50){e.x=cl(e.x-e.f*46*dt);e.mv=1}
+  e.f=sgn(dx)||e.f;if(ad>150){e.x=cl(e.x+e.f*chV(60,ad)*dt);e.mv=1}else if(ad<110&&ad>50){e.x=cl(e.x-e.f*46*dt);e.mv=1}
   if(e.cd<=0){if(ad<50){if(!tok(e)){e.cd=.3;return}e.s='stw';e.t=0}else if(ad<MRNGR+20){if(!tok(e,1)){e.cd=.4;return}e.s='aim';e.t=0}}}
 // ---- 夜巫(精英):暗影挥斩(近,大范围)/ 暗影波(贴地,远,跳过去)----
 function nwzStep(e,dt){const dm=e.dm,cx=e.x+e.w/2,pc=P.x+12,dx=pc-cx,ad=Math.abs(dx),lo=g8Lo(e),hi=g8Hi(e),cl=v=>Math.max(lo,Math.min(hi-e.w,v));
@@ -4564,7 +4565,7 @@ function hamPetStep(dt,S,all){if(!hamOn())return;const p=HMP;p.g-=dt;p.wv-=dt;
   const near=all.filter(e=>!e.ug&&e.hp>0&&Math.abs(e.x+e.w/2-(P.x+12))<360);if(!near.length)return;
   for(const i of [0,1,2,3]){if(p.cd[i]>0)continue;
     if(i==0){hamFeed(1);burst(p.x+11,p.y+6,6,['#e9e4dc','#3a3640'],90,{s:2,l:.3})}
-    else if(i==1){if(P.hshT>0)continue;P.hsh=Math.round(S.hp*hamShP()/100);P.hshT=6;P.hdr=.15;ring(P.x+12,P.y+16,4,40,'#e9e4dc',.4,4);tx('瓜子壳护盾!',P.x-14,P.y-30,'#ffe066');sfx('buff')}
+    else if(i==1){if(P.hshT>0||bossOn)continue;P.hsh=Math.round(S.hp*hamShP()/100);P.hshT=6;P.hdr=.15;ring(P.x+12,P.y+16,4,40,'#e9e4dc',.4,4);tx('瓜子壳护盾!',P.x-14,P.y-30,'#ffe066');sfx('buff')}
     else if(i==2){const e=nearE(near,p.x+11,p.y+8,300);if(!e)continue;HCP.push({e,x:e.x+e.w/2,y:e.y+e.h,t:0,dmg:S.atk*hamDmP(120)/100})}
     else{const e=nearE(near,p.x+11,p.y+8,400)||near[0];p.f=sgn(e.x+e.w/2-p.x-11);HPS.push({e,x:p.x+11,y:p.y+4,t:0,a:0,dmg:S.atk*hamDmP(60)/100});sfx('swing')}
     p.cd[i]=hamCd(HSKD[i][2]);p.g=1;p.wv=.45;break}}
@@ -4702,7 +4703,7 @@ function nshStep(e,dt){const dm=e.dm,cx=e.x+e.w/2,pc=P.x+12,dx=pc-cx,ad=Math.abs
       else{N18T.push({x:Math.max(lo+10,Math.min(hi-10,pc)),t:0,arm:.5,life:9,dm});syn('proj')}}return}
   if(s=='sh'||s=='tp'){e.pz='s';if(e.t>.3){e.s='rec';e.t=0}return}
   if(s=='rec'){if(e.t>.6){e.s=null;e.cd=rnd(1.3,2.2)}return}
-  e.f=sgn(dx)||e.f;if(ad>260){e.x=cl(e.x+e.f*chV(52,ad)*dt);e.mv=1}else if(ad<150){e.x=cl(e.x-e.f*48*dt);e.mv=1}
+  e.f=sgn(dx)||e.f;if(ad>150){e.x=cl(e.x+e.f*chV(52,ad)*dt);e.mv=1}else if(ad<100){e.x=cl(e.x-e.f*48*dt);e.mv=1}  // 第四十九轮修:170~260 之间原来不走也不打
   if(e.cd<=0&&ad<MRNGR+40){if(!tok(e,1)){e.cd=.4;return}e.s=N18T.length<6&&Math.random()<.4?'tw':'aim';e.t=0}}
 // ---- 浪人(精英):两连斩 / 居合突进 ----
 function ronStep(e,dt){const dm=e.dm,cx=e.x+e.w/2,pc=P.x+12,dx=pc-cx,ad=Math.abs(dx),lo=g8Lo(e),hi=g8Hi(e),cl=v=>Math.max(lo,Math.min(hi-e.w,v));
@@ -4776,12 +4777,12 @@ MISC.ms18=['怪物技能石 · 影主·胧',`在背包里左键点它,选择嵌�
 // 小怪:瞌睡钟 ckb(蓝,近身:翻滚冲撞 / 铃震)· 怒铃钟 ckr(红,远程:电铃弹 / 火铃抛射);被打倒后原地睡 1.6 秒再响铃复活一次(满血),第二次倒下才真正死亡
 // 首领「千钟之主」alm:三条命,每次被打倒就睡下 → 响铃 → 变成更大的新闹钟形态(蓝 → 红 → 绿毒钟),伤害一次比一次高;从这一关起首领没有魔力限制,只有技能冷却(ESNM)
 //   校准(用户第四十八轮,参考配置:翅膀时装、全身锻造 +2 / 强化 +6、大师套、火之武器、精灵满攻击、技能全 +5;实测法师一套技能 ≈ 13.7 万):
-//   生命 2 / 5 / 8 套技能 = ALHP;参考主角生命 9423、防御 823,首领一招(基础 15)打掉 1/12、1/9、1/6 = ALDM
+//   生命 2 / 5 / 8 套技能 = ALHP;参考主角生命 9423、防御 823,首领一招(基础 15)打掉 1/12、1/9、1/6 = ALDM(第四十九轮第二版再 ×1.35:用户觉得伤害不够)
 // 首领招式:铃震 ring(身边一圈冲击)· 弹跳砸 hop(跳到主角头上砸地,二形态起两道冲击波)· 电铃弹 bolt(扇形 3 / 5 / 7 发)·
 //   火铃雨 fire(二形态起:天上落火球,地面有预警)· 叫醒 call(二形态起:叫来 2 只闹钟)· 毒海 sea(第三形态:地面全被毒雾盖住 8 秒,站在地上每 0.5 秒掉 1% 最大生命,飞起来或站平台上躲开)
 const E19=[['ckb',360],['ckr',520],['ckb',660],['ckb',840],['ckr',980],['ckb',1120],['ckr',1280],['ckb',1440],['ckb',1580],['ckr',1720],['ckb',1880],['ckr',2020],['ckb',2160],['ckr',2300],['ckb',2440],['ckb',2540]];
 const PL19=[{x:0,y:GY,w:WW},{x:2680,y:206,w:110},{x:2960,y:206,w:110}];  // 首领场地两侧的浮台(躲毒海)
-const ALHP=[274000,685000,1100000],ALDM=[41,55,83],ALSZ=[1,1.3,1.6],ALNM=['千钟之主 · 晨钟','千钟之主 · 怒钟','千钟之主 · 末日之钟'];
+const ALHP=[274000,685000,1100000],ALDM=[55,74,112],ALSZ=[1,1.3,1.6],ALNM=['千钟之主 · 晨钟','千钟之主 · 怒钟','千钟之主 · 末日之钟'];
 const ALC={I:null,D:'assets/alc_atlas.png',M:{"b_stand":[0,0,32,32,32,1],"b_walk":[0,33,128,32,32,4],"b_alarm":[0,66,64,32,32,2],"b_damage":[0,99,32,32,32,1],"b_death":[0,132,32,32,32,1],"b_sleep":[0,165,32,32,32,1],"r_stand":[0,198,32,32,32,1],"r_walk":[0,231,128,32,32,4],"r_alarm":[0,264,64,32,32,2],"r_damage":[0,297,32,32,32,1],"r_death":[0,330,32,32,32,1],"r_sleep":[0,363,32,32,32,1],"g_stand":[0,396,32,32,32,1],"g_walk":[0,429,128,32,32,4],"g_alarm":[0,462,64,32,32,2],"g_damage":[0,495,32,32,32,1],"g_death":[0,528,32,32,32,1],"g_sleep":[0,561,32,32,32,1],"z":[0,594,24,8,8,3],"el":[0,603,32,16,16,2],"fb":[0,620,48,16,16,3],"p0":[0,637,160,192,160,1],"p1":[0,830,128,192,128,1],"p2":[0,1023,128,192,128,1],"p3":[0,1216,80,192,80,1],"p4":[0,1409,64,192,64,1],"col":[0,1602,114,190,114,1],"gnd":[0,1793,48,40,48,1],"gnd2":[0,1834,48,41,48,1],"gclk":[0,1876,96,96,32,3]},
   A:[14.5,30,32],  // 身体中心 x / 身体高 / 脚底 y
   init(){const im=new Image();im.onload=()=>{this.I=im};im.src=this.D},
@@ -4792,9 +4793,9 @@ const ALC={I:null,D:'assets/alc_atlas.png',M:{"b_stand":[0,0,32,32,32,1],"b_walk
   draw(c,e,t){const p=this.col(e),A=this.A,H=e.h/(e.max?1.1*(e.bsz||1):(e.vs||1)),s=H/A[1];let row='stand',fi=0;const s_=e.s,a=e.act,T=e.at||0;c.save();if(FLW)c.filter='brightness(2.6)';
     if(s_=='slp'||a=='morph'&&T<1.6){const tt=a=='morph'?T:e.t;row=tt<.4?'death':'sleep'}
     else if(s_=='wak'||a=='morph'){row='alarm';fi=t*16}
-    else if(e.k=='alm'&&a&&a!='hop'&&T<.9){row='alarm';fi=t*14}
+    else if(e.k=='alm'&&a&&a!='hop'&&(e.pz=='w'||a!='dash'&&a!='lunge'&&T<.9)){row='alarm';fi=t*14}
     else if(s_=='aim'||s_=='rg'){row='alarm';fi=t*14}
-    else if(e.st>0){row='damage'}else if(e.mv||s_=='ds'||a=='hop'){row='walk';fi=t*10}
+    else if(e.st>0){row='damage'}else if(e.mv||s_=='ds'||a=='hop'||a=='dash'||a=='lunge'){row='walk';fi=t*(a=='dash'?18:10)}
     this.fr(c,p+'_'+row,fi,-A[0]*s,-A[2]*s,s,1);c.restore()},
   // 场景(第四十八轮,用户要钟楼背景):GothicVania Church(ansimuz,CC0)的哥特窗 / 烛台墙 / 祭坛 / 石像鬼面板拼成远景墙(视差 .3)+ 骷髅石柱(视差 .6)+ LPC 落地钟(摆锤 3 帧,视差 .8)+ 石地砖
   bg(){const I=this.I,M=this.M,t=performance.now()/1000;x.fillStyle='#272638';x.fillRect(0,0,VW,VH);if(!I)return;x.imageSmoothingEnabled=false;
@@ -4829,11 +4830,11 @@ function ckrStep(e,dt){if(almWake(e,dt))return;const dm=e.dm,cx=e.x+e.w/2,pc=P.x
       if(Math.random()<.6){const n=Math.random()<.4?3:1;for(let i=0;i<n;i++)a19Shot(cx+e.f*14,y0,e.f*280,(i-(n-1)/2)*60,dm,'el',10)}
       else{const T=.9,vx=(pc-cx)/T;a19Shot(cx,y0,vx,-300,dm,'fb',12,660)}}return}
   if(s=='rec'){e.pz=e.t<.2?'s':null;if(e.t>.8){e.s=null;e.cd=rnd(1.3,2.2)}return}
-  e.f=sgn(dx)||e.f;if(ad>260){e.x=cl(e.x+e.f*chV(54,ad)*dt);e.mv=1}else if(ad<140){e.x=cl(e.x-e.f*46*dt);e.mv=1}
+  e.f=sgn(dx)||e.f;if(ad>150){e.x=cl(e.x+e.f*chV(54,ad)*dt);e.mv=1}else if(ad<100){e.x=cl(e.x-e.f*46*dt);e.mv=1}  // 第四十九轮修:远程令牌只在 MRNGR(170)以内给,原来 170~260 之间不走也不打
   if(e.cd<=0&&ad<MRNGR+40){if(!tok(e,1)){e.cd=.4;return}e.s='aim';e.t=0}}
 // ---- 首领:千钟之主 ----
 function almInit(){const K=STK();B.form=1;B.esnm=1;B.hp=B.max=Math.round(ALHP[0]*K.hp);B.dm=ALDM[0]*K.atk}  // 防御 = init 里的 BDF[19] + 星级加值
-function almEnd(e,x_){e.act=null;e.mv=0;e.n=0;e.cd=[1.2,.95,.75][e.form-1]+Math.random()*.4+(x_||0)}
+function almEnd(e,x_){e.act=null;e.mv=0;e.n=0;e.hn=0;e.cd=[1.2,.95,.75][e.form-1]+Math.random()*.4+(x_||0)}
 // 打倒:还有命就进入变身(e.ug 打不到),hp 先留 1 防止被当成死亡
 function almMorph(){const e=B;if(!(e.form<3))return;e.hp=1;e.ug=1;e.act='morph';e.at=0;e.mv=0;e.y=e.gy||e.y;A19F=[];e.seaT=0;sfxAll();flash('255,240,200',.3);banner('叮铃铃铃——!千钟之主又醒了过来……')}
 function almGrow(e){const K=STK(),f=++e.form,k=ALSZ[f-1]/ALSZ[f-2],bot=e.y+e.h;e.w=Math.round(e.w*k);e.h=Math.round(e.h*k);e.bsz=(e.bsz||1)*k;e.y=bot-e.h;e.gy=e.y;e.x=gpCl(e,e.x);
@@ -4843,7 +4844,7 @@ function almStep(e,dt){const pc=P.x+12,cx=e.x+e.w/2,dx=pc-cx,ad=Math.abs(dx),F=e
   e.seaCd=(e.seaCd||0)-dt;
   if(e.act=='morph'){e.at+=dt;const T=e.at;if(T>=1.6&&!e.n){e.n=1;syn('blink')}if(T>=2.4)almGrow(e);return}
   if(!e.act){e.mv=0;e.cd-=dt;e.f=sgn(dx)||e.f;if(ad>130){e.mv=1;e.x=gpCl(e,e.x+e.f*(66+F*14)*dt)}
-    if(e.cd>0)return;const Q=ad<170?['ring','hop','bolt','ring']:['bolt','hop','bolt'];if(F>=2)Q.push('fire','fire','call');if(F>=3&&e.seaCd<=0)Q.push('sea','sea','sea');let a=pick(Q);if(a==e.la&&Math.random()<.7)a=pick(Q);
+    if(e.cd>0)return;const Q=ad<170?['ring','lunge','lunge','hop','dash']:['dash','dash','hop','bolt'];if(F>=2)Q.push('fire','call');if(F>=3&&e.seaCd<=0)Q.push('sea','sea','sea');let a=pick(Q);if(a==e.la&&Math.random()<.7)a=pick(Q);  // 第二版:物理招为主(冲撞 / 指针连斩 / 连跳砸),电铃弹、火铃雨少出
     if(a=='call'&&E.filter(q=>q.sum&&q.hp>0).length>=4)a='bolt';e.act=a;e.la=a;e.at=0;e.hd=0;e.n=0;return}
   e.at+=dt;const T=e.at,a=e.act;
   if(a=='ring'){e.pz=T<.7?'w':'s';if(T>=.7&&!e.hd){e.hd=1;const R=160+F*40;syn('boom');shake=.35;ring(cx,e.y+e.h/2,10,R,'#ffe066',.45,6);if(F>=2)ring(cx,e.y+e.h/2,8,R*.7,'#ff8787',.35,5);
@@ -4852,7 +4853,17 @@ function almStep(e,dt){const pc=P.x+12,cx=e.x+e.w/2,dx=pc-cx,ad=Math.abs(dx),F=e
     if(T<1.05){const u=(T-.35)/.7;e.pz='s';e.x=e.x0+(e.hx-e.x0)*u;e.y=gy-Math.sin(u*Math.PI)*(120+F*20);return}
     if(!e.hd){e.hd=1;e.y=gy;shake=.5;syn('boom');VFX.spawn('earth-rupture',e.x+e.w/2,GY,{s:1.2+F*.3});ring(e.x+e.w/2,GY-20,10,130+F*30,'#ffd43b',.4,6);const c2=e.x+e.w/2;
       if(Math.abs(pc-c2)<e.w/2+60&&P.y+P.h>GY-80)hurt(18*dm,{kb:sgn(pc-c2)*420});if(F>=2)for(const d of [-1,1])A19W.push({x:c2,d,tr:0,hit:0,dm,sp:300+F*30})}
-    e.y=gy;if(T>1.5)almEnd(e,.1);return}
+    e.y=gy;if(T>1.25&&(e.hn||0)<F-1){e.hn=(e.hn||0)+1;e.at=0;e.hd=0;return}if(T>1.5){e.hn=0;almEnd(e,.1)}return}  // 第二版:二形态连跳 2 次、三形态 3 次
+  // 冲撞(第二版):蓄力后贴地横冲,撞墙震地;二形态来回 2 趟、三形态 3 趟
+  if(a=='dash'){if(T<.55){e.pz='w';e.f=sgn(dx)||e.f;e.dp=0;e.d2=0;e.hd=0;return}
+    e.d2+=dt;if(e.d2<0){e.pz='w';return}e.pz='s';e.mv=1;const gx=e.x+e.f*(430+F*60)*dt,nx=gpCl(e,gx);e.x=nx;e.ft=(e.ft||0)-dt;if(e.ft<=0){e.ft=.06;VFX.spawn('smoke-puff',e.x+e.w/2-e.f*e.w*.4,GY-10,{s:.9,a:.8})}
+    if(!e.hd&&ov(P,{x:e.x+6,y:e.y+e.h*.2,w:e.w-12,h:e.h*.8})&&hurt(16*dm,{kb:e.f*480}))e.hd=1;
+    if(nx!==gx||e.d2>1.2){if(nx!==gx){shake=.3;syn('boom');VFX.spawn('earth-rupture',e.f>0?e.x+e.w:e.x,GY,{s:1})}if(++e.dp>=F)almEnd(e,.3);else{e.f=sgn(pc-(e.x+e.w/2))||-e.f;e.d2=-.35;e.hd=0}}return}
+  // 指针连斩(第二版):贴身往前踏步连砍 1 + 形态数 段,最后一下最重;连段中间只给 0.3 秒无敌,站着不动会吃满
+  if(a=='lunge'){const nH=1+F,D=.42;if(T<.45){e.pz='w';e.f=sgn(dx)||e.f;return}const k=Math.floor((T-.45)/D),u=T-.45-k*D;
+    if(k>=nH){e.pz=null;if(u>.4)almEnd(e,.2);return}e.pz='s';if(u<.05)e.f=sgn(dx)||e.f;if(u<.16){e.mv=1;e.x=gpCl(e,e.x+e.f*260*dt)}
+    if(e.n<=k&&u>=.12){e.n=k+1;const L=k==nH-1,c2=e.x+e.w/2,W=56+e.w*.35;VFX.spawn(L?'m-claw2':'m-claw',c2+e.f*(e.w*.3+20),e.y+e.h*.5,{f:e.f,s:1.3+F*.3});sfx('eatk');if(L){shake=.25}
+      if(ov(P,{x:e.f>0?c2:c2-W-e.w*.2,y:e.y,w:W+e.w*.2,h:e.h}))hurt((L?13:9)*dm,L?{kb:e.f*420}:{kb:e.f*200,inv:.3})}return}
   if(a=='bolt'){e.pz=T<.6?'w':'s';if(T<.6)e.f=sgn(dx)||e.f;const vol=F;
     for(let v=0;v<vol;v++)if(T>=.6+v*.35&&e.n<=v){e.n=v+1;const n=1+F*2,y0=e.y+e.h*.45,ang=Math.atan2(P.y+P.h/2-y0,dx);for(let i=0;i<n;i++){const q=ang+(i-(n-1)/2)*.14;a19Shot(cx+e.f*20,y0,Math.cos(q)*(300+F*30),Math.sin(q)*(300+F*30),dm,'el',13)}}
     if(T>.9+vol*.35)almEnd(e);return}

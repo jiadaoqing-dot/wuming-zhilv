@@ -4,12 +4,12 @@
 // 小怪:瞌睡钟 ckb(蓝,近身:翻滚冲撞 / 铃震)· 怒铃钟 ckr(红,远程:电铃弹 / 火铃抛射);被打倒后原地睡 1.6 秒再响铃复活一次(满血),第二次倒下才真正死亡
 // 首领「千钟之主」alm:三条命,每次被打倒就睡下 → 响铃 → 变成更大的新闹钟形态(蓝 → 红 → 绿毒钟),伤害一次比一次高;从这一关起首领没有魔力限制,只有技能冷却(ESNM)
 //   校准(用户第四十八轮,参考配置:翅膀时装、全身锻造 +2 / 强化 +6、大师套、火之武器、精灵满攻击、技能全 +5;实测法师一套技能 ≈ 13.7 万):
-//   生命 2 / 5 / 8 套技能 = ALHP;参考主角生命 9423、防御 823,首领一招(基础 15)打掉 1/12、1/9、1/6 = ALDM
+//   生命 2 / 5 / 8 套技能 = ALHP;参考主角生命 9423、防御 823,首领一招(基础 15)打掉 1/12、1/9、1/6 = ALDM(第四十九轮第二版再 ×1.35:用户觉得伤害不够)
 // 首领招式:铃震 ring(身边一圈冲击)· 弹跳砸 hop(跳到主角头上砸地,二形态起两道冲击波)· 电铃弹 bolt(扇形 3 / 5 / 7 发)·
 //   火铃雨 fire(二形态起:天上落火球,地面有预警)· 叫醒 call(二形态起:叫来 2 只闹钟)· 毒海 sea(第三形态:地面全被毒雾盖住 8 秒,站在地上每 0.5 秒掉 1% 最大生命,飞起来或站平台上躲开)
 const E19=[['ckb',360],['ckr',520],['ckb',660],['ckb',840],['ckr',980],['ckb',1120],['ckr',1280],['ckb',1440],['ckb',1580],['ckr',1720],['ckb',1880],['ckr',2020],['ckb',2160],['ckr',2300],['ckb',2440],['ckb',2540]];
 const PL19=[{x:0,y:GY,w:WW},{x:2680,y:206,w:110},{x:2960,y:206,w:110}];  // 首领场地两侧的浮台(躲毒海)
-const ALHP=[274000,685000,1100000],ALDM=[41,55,83],ALSZ=[1,1.3,1.6],ALNM=['千钟之主 · 晨钟','千钟之主 · 怒钟','千钟之主 · 末日之钟'];
+const ALHP=[274000,685000,1100000],ALDM=[55,74,112],ALSZ=[1,1.3,1.6],ALNM=['千钟之主 · 晨钟','千钟之主 · 怒钟','千钟之主 · 末日之钟'];
 const ALC={I:null,D:'@@A:alc_atlas@@',M:{"b_stand":[0,0,32,32,32,1],"b_walk":[0,33,128,32,32,4],"b_alarm":[0,66,64,32,32,2],"b_damage":[0,99,32,32,32,1],"b_death":[0,132,32,32,32,1],"b_sleep":[0,165,32,32,32,1],"r_stand":[0,198,32,32,32,1],"r_walk":[0,231,128,32,32,4],"r_alarm":[0,264,64,32,32,2],"r_damage":[0,297,32,32,32,1],"r_death":[0,330,32,32,32,1],"r_sleep":[0,363,32,32,32,1],"g_stand":[0,396,32,32,32,1],"g_walk":[0,429,128,32,32,4],"g_alarm":[0,462,64,32,32,2],"g_damage":[0,495,32,32,32,1],"g_death":[0,528,32,32,32,1],"g_sleep":[0,561,32,32,32,1],"z":[0,594,24,8,8,3],"el":[0,603,32,16,16,2],"fb":[0,620,48,16,16,3],"p0":[0,637,160,192,160,1],"p1":[0,830,128,192,128,1],"p2":[0,1023,128,192,128,1],"p3":[0,1216,80,192,80,1],"p4":[0,1409,64,192,64,1],"col":[0,1602,114,190,114,1],"gnd":[0,1793,48,40,48,1],"gnd2":[0,1834,48,41,48,1],"gclk":[0,1876,96,96,32,3]},
   A:[14.5,30,32],  // 身体中心 x / 身体高 / 脚底 y
   init(){const im=new Image();im.onload=()=>{this.I=im};im.src=this.D},
@@ -20,9 +20,9 @@ const ALC={I:null,D:'@@A:alc_atlas@@',M:{"b_stand":[0,0,32,32,32,1],"b_walk":[0,
   draw(c,e,t){const p=this.col(e),A=this.A,H=e.h/(e.max?1.1*(e.bsz||1):(e.vs||1)),s=H/A[1];let row='stand',fi=0;const s_=e.s,a=e.act,T=e.at||0;c.save();if(FLW)c.filter='brightness(2.6)';
     if(s_=='slp'||a=='morph'&&T<1.6){const tt=a=='morph'?T:e.t;row=tt<.4?'death':'sleep'}
     else if(s_=='wak'||a=='morph'){row='alarm';fi=t*16}
-    else if(e.k=='alm'&&a&&a!='hop'&&T<.9){row='alarm';fi=t*14}
+    else if(e.k=='alm'&&a&&a!='hop'&&(e.pz=='w'||a!='dash'&&a!='lunge'&&T<.9)){row='alarm';fi=t*14}
     else if(s_=='aim'||s_=='rg'){row='alarm';fi=t*14}
-    else if(e.st>0){row='damage'}else if(e.mv||s_=='ds'||a=='hop'){row='walk';fi=t*10}
+    else if(e.st>0){row='damage'}else if(e.mv||s_=='ds'||a=='hop'||a=='dash'||a=='lunge'){row='walk';fi=t*(a=='dash'?18:10)}
     this.fr(c,p+'_'+row,fi,-A[0]*s,-A[2]*s,s,1);c.restore()},
   // 场景(第四十八轮,用户要钟楼背景):GothicVania Church(ansimuz,CC0)的哥特窗 / 烛台墙 / 祭坛 / 石像鬼面板拼成远景墙(视差 .3)+ 骷髅石柱(视差 .6)+ LPC 落地钟(摆锤 3 帧,视差 .8)+ 石地砖
   bg(){const I=this.I,M=this.M,t=performance.now()/1000;x.fillStyle='#272638';x.fillRect(0,0,VW,VH);if(!I)return;x.imageSmoothingEnabled=false;
@@ -57,11 +57,11 @@ function ckrStep(e,dt){if(almWake(e,dt))return;const dm=e.dm,cx=e.x+e.w/2,pc=P.x
       if(Math.random()<.6){const n=Math.random()<.4?3:1;for(let i=0;i<n;i++)a19Shot(cx+e.f*14,y0,e.f*280,(i-(n-1)/2)*60,dm,'el',10)}
       else{const T=.9,vx=(pc-cx)/T;a19Shot(cx,y0,vx,-300,dm,'fb',12,660)}}return}
   if(s=='rec'){e.pz=e.t<.2?'s':null;if(e.t>.8){e.s=null;e.cd=rnd(1.3,2.2)}return}
-  e.f=sgn(dx)||e.f;if(ad>260){e.x=cl(e.x+e.f*chV(54,ad)*dt);e.mv=1}else if(ad<140){e.x=cl(e.x-e.f*46*dt);e.mv=1}
+  e.f=sgn(dx)||e.f;if(ad>150){e.x=cl(e.x+e.f*chV(54,ad)*dt);e.mv=1}else if(ad<100){e.x=cl(e.x-e.f*46*dt);e.mv=1}  // 第四十九轮修:远程令牌只在 MRNGR(170)以内给,原来 170~260 之间不走也不打
   if(e.cd<=0&&ad<MRNGR+40){if(!tok(e,1)){e.cd=.4;return}e.s='aim';e.t=0}}
 // ---- 首领:千钟之主 ----
 function almInit(){const K=STK();B.form=1;B.esnm=1;B.hp=B.max=Math.round(ALHP[0]*K.hp);B.dm=ALDM[0]*K.atk}  // 防御 = init 里的 BDF[19] + 星级加值
-function almEnd(e,x_){e.act=null;e.mv=0;e.n=0;e.cd=[1.2,.95,.75][e.form-1]+Math.random()*.4+(x_||0)}
+function almEnd(e,x_){e.act=null;e.mv=0;e.n=0;e.hn=0;e.cd=[1.2,.95,.75][e.form-1]+Math.random()*.4+(x_||0)}
 // 打倒:还有命就进入变身(e.ug 打不到),hp 先留 1 防止被当成死亡
 function almMorph(){const e=B;if(!(e.form<3))return;e.hp=1;e.ug=1;e.act='morph';e.at=0;e.mv=0;e.y=e.gy||e.y;A19F=[];e.seaT=0;sfxAll();flash('255,240,200',.3);banner('叮铃铃铃——!千钟之主又醒了过来……')}
 function almGrow(e){const K=STK(),f=++e.form,k=ALSZ[f-1]/ALSZ[f-2],bot=e.y+e.h;e.w=Math.round(e.w*k);e.h=Math.round(e.h*k);e.bsz=(e.bsz||1)*k;e.y=bot-e.h;e.gy=e.y;e.x=gpCl(e,e.x);
@@ -71,7 +71,7 @@ function almStep(e,dt){const pc=P.x+12,cx=e.x+e.w/2,dx=pc-cx,ad=Math.abs(dx),F=e
   e.seaCd=(e.seaCd||0)-dt;
   if(e.act=='morph'){e.at+=dt;const T=e.at;if(T>=1.6&&!e.n){e.n=1;syn('blink')}if(T>=2.4)almGrow(e);return}
   if(!e.act){e.mv=0;e.cd-=dt;e.f=sgn(dx)||e.f;if(ad>130){e.mv=1;e.x=gpCl(e,e.x+e.f*(66+F*14)*dt)}
-    if(e.cd>0)return;const Q=ad<170?['ring','hop','bolt','ring']:['bolt','hop','bolt'];if(F>=2)Q.push('fire','fire','call');if(F>=3&&e.seaCd<=0)Q.push('sea','sea','sea');let a=pick(Q);if(a==e.la&&Math.random()<.7)a=pick(Q);
+    if(e.cd>0)return;const Q=ad<170?['ring','lunge','lunge','hop','dash']:['dash','dash','hop','bolt'];if(F>=2)Q.push('fire','call');if(F>=3&&e.seaCd<=0)Q.push('sea','sea','sea');let a=pick(Q);if(a==e.la&&Math.random()<.7)a=pick(Q);  // 第二版:物理招为主(冲撞 / 指针连斩 / 连跳砸),电铃弹、火铃雨少出
     if(a=='call'&&E.filter(q=>q.sum&&q.hp>0).length>=4)a='bolt';e.act=a;e.la=a;e.at=0;e.hd=0;e.n=0;return}
   e.at+=dt;const T=e.at,a=e.act;
   if(a=='ring'){e.pz=T<.7?'w':'s';if(T>=.7&&!e.hd){e.hd=1;const R=160+F*40;syn('boom');shake=.35;ring(cx,e.y+e.h/2,10,R,'#ffe066',.45,6);if(F>=2)ring(cx,e.y+e.h/2,8,R*.7,'#ff8787',.35,5);
@@ -80,7 +80,17 @@ function almStep(e,dt){const pc=P.x+12,cx=e.x+e.w/2,dx=pc-cx,ad=Math.abs(dx),F=e
     if(T<1.05){const u=(T-.35)/.7;e.pz='s';e.x=e.x0+(e.hx-e.x0)*u;e.y=gy-Math.sin(u*Math.PI)*(120+F*20);return}
     if(!e.hd){e.hd=1;e.y=gy;shake=.5;syn('boom');VFX.spawn('earth-rupture',e.x+e.w/2,GY,{s:1.2+F*.3});ring(e.x+e.w/2,GY-20,10,130+F*30,'#ffd43b',.4,6);const c2=e.x+e.w/2;
       if(Math.abs(pc-c2)<e.w/2+60&&P.y+P.h>GY-80)hurt(18*dm,{kb:sgn(pc-c2)*420});if(F>=2)for(const d of [-1,1])A19W.push({x:c2,d,tr:0,hit:0,dm,sp:300+F*30})}
-    e.y=gy;if(T>1.5)almEnd(e,.1);return}
+    e.y=gy;if(T>1.25&&(e.hn||0)<F-1){e.hn=(e.hn||0)+1;e.at=0;e.hd=0;return}if(T>1.5){e.hn=0;almEnd(e,.1)}return}  // 第二版:二形态连跳 2 次、三形态 3 次
+  // 冲撞(第二版):蓄力后贴地横冲,撞墙震地;二形态来回 2 趟、三形态 3 趟
+  if(a=='dash'){if(T<.55){e.pz='w';e.f=sgn(dx)||e.f;e.dp=0;e.d2=0;e.hd=0;return}
+    e.d2+=dt;if(e.d2<0){e.pz='w';return}e.pz='s';e.mv=1;const gx=e.x+e.f*(430+F*60)*dt,nx=gpCl(e,gx);e.x=nx;e.ft=(e.ft||0)-dt;if(e.ft<=0){e.ft=.06;VFX.spawn('smoke-puff',e.x+e.w/2-e.f*e.w*.4,GY-10,{s:.9,a:.8})}
+    if(!e.hd&&ov(P,{x:e.x+6,y:e.y+e.h*.2,w:e.w-12,h:e.h*.8})&&hurt(16*dm,{kb:e.f*480}))e.hd=1;
+    if(nx!==gx||e.d2>1.2){if(nx!==gx){shake=.3;syn('boom');VFX.spawn('earth-rupture',e.f>0?e.x+e.w:e.x,GY,{s:1})}if(++e.dp>=F)almEnd(e,.3);else{e.f=sgn(pc-(e.x+e.w/2))||-e.f;e.d2=-.35;e.hd=0}}return}
+  // 指针连斩(第二版):贴身往前踏步连砍 1 + 形态数 段,最后一下最重;连段中间只给 0.3 秒无敌,站着不动会吃满
+  if(a=='lunge'){const nH=1+F,D=.42;if(T<.45){e.pz='w';e.f=sgn(dx)||e.f;return}const k=Math.floor((T-.45)/D),u=T-.45-k*D;
+    if(k>=nH){e.pz=null;if(u>.4)almEnd(e,.2);return}e.pz='s';if(u<.05)e.f=sgn(dx)||e.f;if(u<.16){e.mv=1;e.x=gpCl(e,e.x+e.f*260*dt)}
+    if(e.n<=k&&u>=.12){e.n=k+1;const L=k==nH-1,c2=e.x+e.w/2,W=56+e.w*.35;VFX.spawn(L?'m-claw2':'m-claw',c2+e.f*(e.w*.3+20),e.y+e.h*.5,{f:e.f,s:1.3+F*.3});sfx('eatk');if(L){shake=.25}
+      if(ov(P,{x:e.f>0?c2:c2-W-e.w*.2,y:e.y,w:W+e.w*.2,h:e.h}))hurt((L?13:9)*dm,L?{kb:e.f*420}:{kb:e.f*200,inv:.3})}return}
   if(a=='bolt'){e.pz=T<.6?'w':'s';if(T<.6)e.f=sgn(dx)||e.f;const vol=F;
     for(let v=0;v<vol;v++)if(T>=.6+v*.35&&e.n<=v){e.n=v+1;const n=1+F*2,y0=e.y+e.h*.45,ang=Math.atan2(P.y+P.h/2-y0,dx);for(let i=0;i<n;i++){const q=ang+(i-(n-1)/2)*.14;a19Shot(cx+e.f*20,y0,Math.cos(q)*(300+F*30),Math.sin(q)*(300+F*30),dm,'el',13)}}
     if(T>.9+vol*.35)almEnd(e);return}

@@ -61,7 +61,7 @@ function nshStep(e,dt){const dm=e.dm,cx=e.x+e.w/2,pc=P.x+12,dx=pc-cx,ad=Math.abs
       else{N18T.push({x:Math.max(lo+10,Math.min(hi-10,pc)),t:0,arm:.5,life:9,dm});syn('proj')}}return}
   if(s=='sh'||s=='tp'){e.pz='s';if(e.t>.3){e.s='rec';e.t=0}return}
   if(s=='rec'){if(e.t>.6){e.s=null;e.cd=rnd(1.3,2.2)}return}
-  e.f=sgn(dx)||e.f;if(ad>260){e.x=cl(e.x+e.f*chV(52,ad)*dt);e.mv=1}else if(ad<150){e.x=cl(e.x-e.f*48*dt);e.mv=1}
+  e.f=sgn(dx)||e.f;if(ad>150){e.x=cl(e.x+e.f*chV(52,ad)*dt);e.mv=1}else if(ad<100){e.x=cl(e.x-e.f*48*dt);e.mv=1}  // 第四十九轮修:170~260 之间原来不走也不打
   if(e.cd<=0&&ad<MRNGR+40){if(!tok(e,1)){e.cd=.4;return}e.s=N18T.length<6&&Math.random()<.4?'tw':'aim';e.t=0}}
 // ---- 浪人(精英):两连斩 / 居合突进 ----
 function ronStep(e,dt){const dm=e.dm,cx=e.x+e.w/2,pc=P.x+12,dx=pc-cx,ad=Math.abs(dx),lo=g8Lo(e),hi=g8Hi(e),cl=v=>Math.max(lo,Math.min(hi-e.w,v));

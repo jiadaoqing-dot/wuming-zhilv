@@ -42,7 +42,7 @@ function fwmStep(e,dt){const dm=e.dm,cx=e.x+e.w/2,pc=P.x+12,dx=pc-cx,ad=Math.abs
   if(s=='bw'){e.pz='w';if(e.t>=.4){e.s='bt';e.t=0;e.hd=0}return}
   if(s=='bt'){e.pz='s';if(!e.hd&&ov(P,{x:e.f>0?cx:cx-46,y:e.y,w:46,h:e.h})&&hurt(9*dm,{kb:e.f*200}))e.hd=1;if(e.t>.3){e.s='rec';e.t=0}return}
   if(s=='rec'){if(e.t>.6){e.s=null;e.cd=rnd(1.3,2.1)}return}
-  e.f=sgn(dx)||e.f;if(ad>220){e.x=cl(e.x+e.f*chV(50,ad)*dt);e.mv=1}else if(ad<110&&ad>50){e.x=cl(e.x-e.f*40*dt);e.mv=1}
+  e.f=sgn(dx)||e.f;if(ad>150){e.x=cl(e.x+e.f*chV(50,ad)*dt);e.mv=1}else if(ad<110&&ad>50){e.x=cl(e.x-e.f*40*dt);e.mv=1}
   if(e.cd<=0){if(ad<50){if(!tok(e)){e.cd=.3;return}e.s='bw';e.t=0}else if(ad<MRNGR+20){if(!tok(e,1)){e.cd=.4;return}e.s='aim';e.t=0}}}
 // ---- 熔岩牛头人:走近 → 全身熔岩化蓄力 → 火拳(打中后脚下炸开火花)----
 function mmtStep(e,dt){const dm=e.dm,cx=e.x+e.w/2,pc=P.x+12,dx=pc-cx,ad=Math.abs(dx),lo=g8Lo(e),hi=g8Hi(e),cl=v=>Math.max(lo,Math.min(hi-e.w,v));
@@ -116,7 +116,7 @@ function gobStep(e,dt){const dm=e.dm,cx=e.x+e.w/2,pc=P.x+12,dx=pc-cx,ad=Math.abs
   if(s=='stw'){e.pz='w';if(e.t>=.4){e.s='stb';e.t=0;e.hd=0}return}
   if(s=='stb'){e.pz='s';if(!e.hd&&ov(P,{x:e.f>0?cx:cx-44,y:e.y,w:44,h:e.h})&&hurt(9*dm,{kb:e.f*200}))e.hd=1;if(e.t>.25){e.s='rec';e.t=0}return}
   if(s=='rec'){if(e.t>.6){e.s=null;e.cd=rnd(1.3,2.1)}return}
-  e.f=sgn(dx)||e.f;if(ad>220){e.x=cl(e.x+e.f*chV(60,ad)*dt);e.mv=1}else if(ad<110&&ad>50){e.x=cl(e.x-e.f*46*dt);e.mv=1}
+  e.f=sgn(dx)||e.f;if(ad>150){e.x=cl(e.x+e.f*chV(60,ad)*dt);e.mv=1}else if(ad<110&&ad>50){e.x=cl(e.x-e.f*46*dt);e.mv=1}
   if(e.cd<=0){if(ad<50){if(!tok(e)){e.cd=.3;return}e.s='stw';e.t=0}else if(ad<MRNGR+20){if(!tok(e,1)){e.cd=.4;return}e.s='aim';e.t=0}}}
 // ---- 夜巫(精英):暗影挥斩(近,大范围)/ 暗影波(贴地,远,跳过去)----
 function nwzStep(e,dt){const dm=e.dm,cx=e.x+e.w/2,pc=P.x+12,dx=pc-cx,ad=Math.abs(dx),lo=g8Lo(e),hi=g8Hi(e),cl=v=>Math.max(lo,Math.min(hi-e.w,v));
@@ -198,7 +198,7 @@ function hamPetStep(dt,S,all){if(!hamOn())return;const p=HMP;p.g-=dt;p.wv-=dt;
   const near=all.filter(e=>!e.ug&&e.hp>0&&Math.abs(e.x+e.w/2-(P.x+12))<360);if(!near.length)return;
   for(const i of [0,1,2,3]){if(p.cd[i]>0)continue;
     if(i==0){hamFeed(1);burst(p.x+11,p.y+6,6,['#e9e4dc','#3a3640'],90,{s:2,l:.3})}
-    else if(i==1){if(P.hshT>0)continue;P.hsh=Math.round(S.hp*hamShP()/100);P.hshT=6;P.hdr=.15;ring(P.x+12,P.y+16,4,40,'#e9e4dc',.4,4);tx('瓜子壳护盾!',P.x-14,P.y-30,'#ffe066');sfx('buff')}
+    else if(i==1){if(P.hshT>0||bossOn)continue;P.hsh=Math.round(S.hp*hamShP()/100);P.hshT=6;P.hdr=.15;ring(P.x+12,P.y+16,4,40,'#e9e4dc',.4,4);tx('瓜子壳护盾!',P.x-14,P.y-30,'#ffe066');sfx('buff')}
     else if(i==2){const e=nearE(near,p.x+11,p.y+8,300);if(!e)continue;HCP.push({e,x:e.x+e.w/2,y:e.y+e.h,t:0,dmg:S.atk*hamDmP(120)/100})}
     else{const e=nearE(near,p.x+11,p.y+8,400)||near[0];p.f=sgn(e.x+e.w/2-p.x-11);HPS.push({e,x:p.x+11,y:p.y+4,t:0,a:0,dmg:S.atk*hamDmP(60)/100});sfx('swing')}
     p.cd[i]=hamCd(HSKD[i][2]);p.g=1;p.wv=.45;break}}
