@@ -1,6 +1,7 @@
 function mallAct(r){
   {const b=bookAct(r);if(b)return b}
   if(mtAct(r))return 1;
+  if(peqAct(r))return 1;  // 第四十八轮:宠物装备
   if(r.startsWith('kb_')||r.startsWith('kr_')){const k=r.slice(3);fmsg=r[1]=='r'?kpBuy(k,1):kpBuyN(k,mtQ(k));return 1}
   if(r.startsWith('rb_')){fmsg=rcBuy(r.slice(3));return 1}
   if(r.startsWith('gm_')){const [,k,n]=r.split('_');fmsg=matBuy(k,+n);return 1}

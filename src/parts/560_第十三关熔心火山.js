@@ -172,15 +172,15 @@ function c15Fx(){const M=CST;if(!M.I)return;const t=performance.now()/1000,e=B;
 const hamNew=()=>({own:0,on:0,ht:0,b:{pow:0,shd:0,spd:0,cr:0},n:0});
 let HAM=hamNew(),HMP={x:0,y:GY-16,vy:0,f:1,g:0,wv:0,cd:{},mv:0,ate:0},HPS=[],HCP=[],HSEL=-1;  // HMP:宠物仓鼠位置;HPS:丢出的瓜子壳;HCP:罩住怪物的大瓜子壳;HSEL:宠物界面选中的技能
 const HKS={pow:['力气','技能伤害',1,3],shd:['壳硬','护盾量',1,3],spd:['灵巧','技能冷却缩短',.5,1.5],cr:['眼力','暴击率',.5,1.5]};  // [名称, 加什么, 每次最少, 最多](百分比)
-const HSPDMAX=20,hamOn=()=>HAM.own&&HAM.on&&!petOn(),hamB=k=>+Math.min(k=='spd'?HSPDMAX:1e9,HAM.b[k]||0).toFixed(1);
-const hamDmP=v=>Math.round(v*(1+hamB('pow')/100)),hamShP=()=>+(8*(1+hamB('shd')/100)).toFixed(1),hamCd=c=>+(c*(1-Math.min(HSPDMAX,hamB('spd'))/100)).toFixed(1);
+const HSPM=()=>20+pl('spd'),hamOn=()=>HAM.own&&HAM.on&&!petOn(),hamB=k=>+Math.min(k=='spd'?HSPM():1e9,HAM.b[k]||0).toFixed(1);
+const hamDmP=v=>Math.round(v*(1+hamB('pow')/100)),hamShP=()=>+(8*(1+hamB('shd')/100)).toFixed(1),hamCd=c=>+(c*(1-Math.min(HSPM(),hamB('spd'))/100)).toFixed(1);
 const hamBT=()=>Object.keys(HKS).map(k=>HKS[k][0]+'('+HKS[k][1]+')+'+hamB(k)+'%').join(' · ');
 const HSKD=[['嗑瓜子',()=>`关卡里(含神秘副本)遇到敌人时嗑一次瓜子,随机永久提升仓鼠自己的一项属性,一直叠加。<br>已嗑 ${HAM.n} 次:${hamBT()}`,15],  // 第十三轮:不再每关一次,正常走冷却
   ['瓜子壳护盾',()=>`给无名套上瓜子壳:护盾 = 最大生命的 ${hamShP()}%(6 秒),期间受到的伤害 -15%`,15],
   ['瓜子拍打',()=>`两片大瓜子壳把附近的一只敌人罩住:${hamDmP(120)}% 攻击力伤害并定身 1.5 秒(首领 0.6 秒)`,15],
   ['丢瓜子壳',()=>`朝最近的敌人丢瓜子壳:${hamDmP(60)}% 攻击力伤害`,15]];
-// 第十五轮:灵巧(冷却缩短)最多 20%(HSPDMAX);到顶后嗑瓜子只在其他三项里随机,不在游戏里写出上限
-function hamFeed(n,quiet){const L=[];for(let i=0;i<n;i++){const k=pick(Object.keys(HKS).filter(k=>k!='spd'||hamB('spd')<HSPDMAX)),q=HKS[k];let v=Math.round(rnd(q[2],q[3])*10)/10;if(k=='spd')v=Math.min(v,+(HSPDMAX-hamB('spd')).toFixed(1));HAM.b[k]=+((HAM.b[k]||0)+v).toFixed(1);HAM.n++;L.push(q[0]+' +'+v+'%')}
+// 第十五轮:灵巧(冷却缩短)最多 20%(HSPM(),第四十八轮起被动「羁绊」每级 +1%);到顶后嗑瓜子只在其他三项里随机,不在游戏里写出上限
+function hamFeed(n,quiet){const L=[];for(let i=0;i<n;i++){const k=pick(Object.keys(HKS).filter(k=>k!='spd'||hamB('spd')<HSPM())),q=HKS[k];let v=Math.round(rnd(q[2],q[3])*10)/10;if(k=='spd')v=Math.min(v,+(HSPM()-hamB('spd')).toFixed(1));HAM.b[k]=+((HAM.b[k]||0)+v).toFixed(1);HAM.n++;L.push(q[0]+' +'+v+'%')}
   if(!quiet&&P)tx('仓鼠嗑了瓜子:'+L.join(' '),P.x-50,P.y-70,'#ffe066');save();return L}
 function hamHatchT(){return HAM.ht?Math.max(0,HAM.ht-Date.now()):-1}
 function hamHatchChk(){if(HAM.ht&&Date.now()>=HAM.ht){HAM.ht=0;if(!HAM.own){HAM.own=1;HAM.on=1;PET.on=0;fmsg='🐹 蛋壳裂开了!仓鼠出生了,已经设为出战宠物'}else{const L=hamFeed(3,1);fmsg='🐹 又孵出一只小仓鼠,它把瓜子全塞给了大仓鼠:'+L.join(' · ')}sfx('lvl');save();return 1}return 0}

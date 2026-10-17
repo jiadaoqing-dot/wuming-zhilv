@@ -1,7 +1,8 @@
 assets/ 素材清单(tools/assets_index.py 自动生成,build.py 每次构建时更新;不要手改)
 格式:文件  大小  源码引用(src/parts 分块序号:该文件里的行号 所在函数/对象.键)  ← 生成脚本  [音频:用到的原始素材]
 
-== 图片 PNG(@@A:)  122 个 ==
+== 图片 PNG(@@A:)  123 个 ==
+alc_atlas.png  12KB  567:13 ALC.D  ← art_src/clock19/build_clock19.py
 ars_ar1.png  4KB  880:44 PXA.ar1  ← 无脚本:Hero spritesheets - Ars Notoria(Balmer,CC0)换色分层,旧主角选项,见源码 PXA 注释
 ars_ar2.png  4KB  880:45 PXA.ar2  ← 无脚本:Hero spritesheets - Ars Notoria(Balmer,CC0)换色分层,旧主角选项,见源码 PXA 注释
 ars_ar3.png  4KB  880:46 PXA.ar3  ← 无脚本:Hero spritesheets - Ars Notoria(Balmer,CC0)换色分层,旧主角选项,见源码 PXA 注释
@@ -82,7 +83,7 @@ ltl6.png  3KB  860:10 LTL.D  ← art_src/lv/build_ltl.py
 ltl7.png  3KB  860:11 LTL.D  ← art_src/lv/build_ltl.py
 mage_atlas.png  14KB  910:21 BOS.MD  ← art_src/boss/build_mage.py
 mech_atlas.png  47KB  540:10 MECH.D  ← art_src/mech/build_mech.py
-meni_atlas.png  21KB  000:172 ; 000:177 ; 040:41 MENI.D  ← art_src/ui/build_ui.py
+meni_atlas.png  24KB  000:172 ; 000:177 ; 040:41 MENI.D  ← art_src/ui/build_ui.py
 mfx_atlas.png  23KB  900:28 MFXD  ← art_src/mob/build_mfx.py
 mg27_atlas.png  16KB  000:231 ; 940:10 MG27.D  ← art_src/skfx/build_mg27.py
 mnt_atlas.png  43KB  910:3 MNT.D  ← art_src/boss/build_mnt.py
@@ -130,7 +131,7 @@ map2_bg.jpg  272KB  960:4 MAPI2.D  ← art_src/map/build_map2.py
 map_bg.jpg  110KB  950:75 MAPI.D  ← art_src/map/build_map.py
 
 == 字体(@@F:)  2 个 ==
-fpx12.woff2  66KB  000:9   ← art_src/font/build_font.py
+fpx12.woff2  67KB  000:9   ← art_src/font/build_font.py
 fpx8.woff2  42KB  000:10   ← art_src/font/build_font.py
 
 == 音频 OGG(@@O:)  130 个 ==
@@ -367,6 +368,12 @@ au_zap.ogg  9KB  020:5 AUD.zap  ← art_src/audio/build_audio.py
    假人(精英陆地鬼魂伪装的路人):Streets of Fight(ansimuz,CC0)的 Enemy Punk 待机帧,压暗
    自画像素:怨婴「银太郎」(浮空的婴儿,6 帧)+ 它的巨大黑影投影、巨型鬼爪、地面鬼手(3 帧)、黑色摇篮、鬼火(4 帧)、窗后的鬼影、女神灵魂碎片
    用法:python art_src/city/build_gh8.py → assets/gh8_atlas.png + 打印 meta(贴进源码 GH8.M)
+-- art_src/clock19/build_clock19.py
+   第十五关「不眠钟楼」图集 ALC(第四十八轮,cur 19)
+   素材:Cute Sprites Pack 1(Master484,CC-BY 3.0 / OGA-BY 3.0,https://opengameart.org/content/cute-sprites-pack-1,raw/clock19/Monsters2.zip)
+   闹钟怪 AlarmClock 蓝 / 红(站立、行走 4 帧、响铃 2 帧、受伤、倒地、睡觉)· 睡觉的 Z(SleepZ)· 子弹 Electro(电铃弹)/ Fireball(火铃雨)
+   改动:原图的灰紫底色抠成透明;只用朝右的帧(朝左在游戏里翻转);第三套「绿色毒钟」= 红色闹钟色相旋转成毒绿(首领第三形态);其他原样
+   用法:python art_src/clock19/build_clock19.py <raw> <输出 png>   打印 M / A(贴进 src/parts/567_第十五关不眠钟楼.js 的 ALC)
 -- art_src/eqicon/build_eqicon.py
    装备图标图集(2026-10-13 第十八轮重做:每个系列一件不同造型,不再只是换色)
    素材:496 pixel art icons for medieval/fantasy RPG(Henrique Lazarini / 7Soul1,CC0,https://opengameart.org/node/39455,raw/icons/7soul1/x)

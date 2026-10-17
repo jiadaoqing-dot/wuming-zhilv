@@ -18,6 +18,7 @@ function rMall(){const tb=(i,l)=>`<button data-p="mt${i}" class="${mallTab==i?'o
   if(!mallTab){
     add('pal',{ic:mtImg(pvImg('spr'),1),n:'🧚 精灵',d:'跟随在身边;吸收装备升级,每级 1 个分配点(生命 / 魔力 / 暴击 / 闪避 / 攻击 / 防御),满级 50。只买一次',p:'💰 '+SPRP_,a:SPR.own?'✓ 已拥有':btn('bspr',gold>=SPRP_),cl:SPR.own?'own':''});
     add('pal',{ic:mtImg(pvImg('pet'),1),n:'🐤 钢盔小鸡',d:'宠物,跟着打怪升级;满级 20,每 5 级随机领悟一个技能。只买一次',p:'💰 '+PETP_,a:PET.own?'✓ 已拥有':btn('bpet',gold>=PETP_),cl:PET.own?'own':''});
+    for(const k in PEQD){const o=peqOwn(k);add('pal',{ic:mniEm('peq_'+k),n:'🐾 '+PEQD[k][0],d:'宠物装备:'+PEQD[k][1]+'<br><span class="tag">钢盔小鸡或仓鼠出战时生效 · 只买一次</span>',p:'💰 '+PEQP,a:o?'✓ 已拥有':btn('pqb_'+k,gold>=PEQP),cl:o?'own':''})}  // 第四十八轮
     BOOKS.forEach((b,i)=>add('book',{ic:mtImg(BOOK.U[i],1),n:'📖 '+b.n,d:BKDS[i]+'<br><span class="tag">放在主城书架上,站在书架前按 W 阅读</span>',p:'💰 '+BKP,a:bkOwn(i)?'✓ 已在书架':btn('bbk'+i,gold>=BKP),cl:bkOwn(i)?'own':''}));
     for(const k of Object.keys(MATD).filter(k=>MATD[k][1]=='g')){const d=MATD[k],q=mtQ(k);add('mat',{ic:mniEm(k),n:d[0],d:'制作材料(🔥 熔炉制作大师装备 / 锻造石)<br><span class="tag">持有 '+(MAT[k]|0)+'</span>',p:'💰 '+d[2],a:mtQB(k)+btn(`gm_${k}_${q}`,gold>=d[2]*q)})}}
   else{

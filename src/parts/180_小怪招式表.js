@@ -2,16 +2,17 @@
 // 每个敌人每个技能各自冷却:放完一个技能,这个技能要等 CD 结束才能再放;技能越多的敌人 CD 越长(小怪 ESC0 + ESC1 × 技能数,首领 ESB0 + ESB1 × 技能数)
 // 魔力:满 100,每放一个技能扣 ESMP(首领 ESMPB);不够扣时进入回蓝:每秒回 ESRG,回到 15%(ESRT)才继续放技能(回蓝期间只走动 / 追人,不出招)
 // 小怪(招式库 MVK)在 mobStep 选招时判断;其他小怪和首领在 update 的敌人循环里判断(新动作刚开始时不满足就取消,过一会儿再选)
-const ESKN={slime:2,bat:2,skel:3,snake:3,ape:3,ysco:5,bsco:5,spi:5,ost:3,pen:4,pen2:4,seal:4,seal2:4,dog:5,dog2:5,gfly:3,gfly2:3,gland:3,gland2:3,imp:2,fwisp:1,golem:1,oni:3,wimp:2,eye:2,swing:1,gbot:1,zdr:1,tank:1,skw:1,gob:2,nwz:2,fwm:2,mmt:1,fsm:2,nja:2,nsh:2,ron:2,
-  king:5,mage:4,sco:5,bear:9,wiz:8,andr:7,boss:5,yin:3,lava:5,gui:5,ham:4,nmr:4,dmn:5,mech:4,nk:4,fk:5,nb:6};
+const ESKN={slime:2,bat:2,skel:3,snake:3,ape:3,ysco:5,bsco:5,spi:5,ost:3,pen:4,pen2:4,seal:4,seal2:4,dog:5,dog2:5,gfly:3,gfly2:3,gland:3,gland2:3,imp:2,fwisp:1,golem:1,oni:3,wimp:2,eye:2,swing:1,gbot:1,zdr:1,tank:1,skw:1,gob:2,nwz:2,fwm:2,mmt:1,fsm:2,nja:2,nsh:2,ron:2,ckb:2,ckr:2,
+  king:5,mage:4,sco:5,bear:9,wiz:8,andr:7,boss:5,yin:3,lava:5,gui:5,ham:4,nmr:4,dmn:5,mech:4,nk:4,fk:5,nb:6,alm:6};
 const ESC0=1.2,ESC1=1,ESB0=2,ESB1=.9,ESMP=10,ESMPB=8,ESRG=6,ESRT=15;
 const ESKX={rec:1,hid:1,rest:1,up:1,morph:1,intro:1};  // 不算技能的状态(收招 / 隐身 / 休息 / 变身)
 const eskCd=e=>{const n=ESKN[e.k]||(e.max?5:2);return e.max?ESB0+ESB1*n:ESC0+ESC1*n};
-function eskStep(e,dt){if(e.emp==null){e.emp=100;e.ekc={}}for(const k in e.ekc)e.ekc[k]-=dt;if(e.erg){e.emp=Math.min(100,e.emp+ESRG*dt);if(e.emp>=ESRT)e.erg=0}}
+function eskStep(e,dt){if(e.ekc==null){if(!e.esnm)e.emp=100;e.ekc={}}if(e.esnm){for(const k in e.ekc)e.ekc[k]-=dt;return}for(const k in e.ekc)e.ekc[k]-=dt;if(e.erg){e.emp=Math.min(100,e.emp+ESRG*dt);if(e.emp>=ESRT)e.erg=0}}
 // 能不能放技能 a:能就扣魔力、开始冷却,返回 true
-function eskUse(e,a){if(ESKX[a]||GM.ko)return true;if(e.emp==null)eskStep(e,0);if(e.erg||(e.ekc[a]||0)>0)return false;const c=e.max?ESMPB:ESMP;if(e.emp<c){e.erg=1;return false}
+function eskUse(e,a){if(ESKX[a]||GM.ko)return true;if(e.ekc==null)eskStep(e,0);if(e.esnm){if((e.ekc[a]||0)>0)return false;e.ekc[a]=eskCd(e);return true}  // 第四十八轮:第十五关起首领只有技能冷却
+  if(e.erg||(e.ekc[a]||0)>0)return false;const c=e.max?ESMPB:ESMP;if(e.emp<c){e.erg=1;return false}
   e.emp-=c;e.ekc[a]=eskCd(e);if(e.emp<c)e.erg=1;return true}
-function eskBack(e,a){if(ESKX[a]||GM.ko||!e.ekc)return;e.ekc[a]=0;e.emp=Math.min(100,e.emp+(e.max?ESMPB:ESMP));if(e.emp>=(e.max?ESMPB:ESMP)&&e.emp>=ESRT)e.erg=0}  // 拿不到攻击令牌:退回
+function eskBack(e,a){if(ESKX[a]||GM.ko||!e.ekc)return;if(e.esnm){e.ekc[a]=0;return}e.ekc[a]=0;e.emp=Math.min(100,e.emp+(e.max?ESMPB:ESMP));if(e.emp>=(e.max?ESMPB:ESMP)&&e.emp>=ESRT)e.erg=0}  // 拿不到攻击令牌:退回
 const MVK={};
 // 史莱姆:弹跳撞(三连跳,每次落地小范围伤害,跳起或后退躲)· 黏液喷射(抛物线,落地留黏液 2.5 秒,站上去减速)
 MVK.slime={idle(e,dt,dx,ad){if(ad<300)mvWalk(e,dt,42,40,dx,ad);else mvPatrol(e,dt,30)},
@@ -149,7 +150,7 @@ function forceAtk(e){tx('霸体·反击!',e.x+e.w/2,e.y-18,'#ff922b');const dx=P
     case 'boss':case 'king':case 'sco':case 'andr':case 'bear':case 'wiz':if(!e.act)e.cd=0;break;
     case 'dog':case 'dog2':if(!e.s)e.cd=0;break;
     case 'gfly':case 'gfly2':case 'gland':case 'gland2':if(!e.s&&!e.dis)e.cd=0;break;case 'yin':case 'lava':case 'ham':if(!e.act)e.cd=0;break;case 'cradle':case 'lclone':break;
-    case 'imp':case 'fwisp':case 'golem':case 'oni':if(!e.s)e.cd=0;break;case 'wimp':case 'eye':if(!e.s)e.cd=0;break;case 'gbot':case 'zdr':case 'tank':case 'skw':case 'gob':case 'nwz':case 'fwm':case 'mmt':case 'fsm':case 'nja':case 'nsh':case 'ron':if(!e.s)e.cd=0;break;case 'mech':case 'nk':case 'fk':case 'nb':if(!e.act)e.cd=0;break;case 'swing':break;case 'gui':if(!e.act&&e.intro==2)e.cd=0;break;
+    case 'imp':case 'fwisp':case 'golem':case 'oni':if(!e.s)e.cd=0;break;case 'wimp':case 'eye':if(!e.s)e.cd=0;break;case 'gbot':case 'zdr':case 'tank':case 'skw':case 'gob':case 'nwz':case 'fwm':case 'mmt':case 'fsm':case 'nja':case 'nsh':case 'ron':case 'ckb':case 'ckr':if(!e.s)e.cd=0;break;case 'mech':case 'nk':case 'fk':case 'nb':case 'alm':if(!e.act)e.cd=0;break;case 'swing':break;case 'gui':if(!e.act&&e.intro==2)e.cd=0;break;
     case 'pen':case 'pen2':case 'seal':case 'seal2':if(!e.s){e.cd=0;e.rec=0}break;
     default:e.f=f;e.sw=0;e.rec=0;e.wu=.35;e.acd=1.6}
   if(e.x+e.w>cam&&e.x<cam+VW)sfx('eatk')}

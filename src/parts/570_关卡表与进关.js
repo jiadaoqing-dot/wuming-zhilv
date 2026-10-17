@@ -11,6 +11,6 @@ const MAPS=[
  {n:'第八关 · 幽魂都市',d:['怨婴哭声回荡的旧都','推荐 Lv28 起'],lock:()=>!CLR.includes(7),art(px){R(px+4,80,172,110,'#1a1428');for(let i=0;i<6;i++){R(px+10+i*28,110+(i%3)*14,22,80-(i%3)*14,'#2e2a38');for(let j=0;j<3;j++)R(px+14+i*28,118+(i%3)*14+j*16,5,6,j==1&&i%2?'#f3c76a':'#121118')}R(px+4,176,172,14,'#3a3d46')}},
  {n:'第九关 · 火山噩梦',d:['熔狱魔神沉睡的火山','推荐 Lv31 起'],lock:()=>!CLR.includes(8),art(px){R(px+4,80,172,110,'#6e1410');for(let i=0;i<172;i+=6){const t=176-Math.max(0,60-Math.abs(i-86)*1.1);R(px+4+i,t,6,190-t,'#2c0b10')}R(px+80,114,16,6,'#ffb03a');R(px+4,176,172,14,'#ff6a10')}},
  {n:'第十关 · 幽灵船',d:['归蝇盘旋的夜空','推荐 Lv34 起'],lock:()=>!CLR.includes(9),art(px){R(px+4,80,172,110,'#0b1a2e');for(let i=0;i<10;i++)R(px+10+(i*37)%160,86+(i*23)%40,2,2,'#e7f5ff');R(px+50,150,90,18,'#2f4544');R(px+92,104,4,46,'#1c2a2e');R(px+74,110,40,30,'rgba(157,184,170,.7)');R(px+4,176,172,14,'#163a44')}}];
-function enterLv(n,s){cur=n;LVSTAR=s||1;init();st='play';lvT=performance.now()}  // s = 星级(第十六轮;不传 = 一星)
+function enterLv(n,s){cur=n;LVSTAR=s||1;init();st='play';lvT=performance.now();peqEnter()}  // s = 星级(第十六轮;不传 = 一星)
 function enter1(){enterLv(1)}
 function openMap(){st='map';MPG=isM2(cur)&&map2Open()?1:0;msgU=0;keys.l=keys.r=0}

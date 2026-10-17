@@ -20,7 +20,7 @@ RCP.xf_sword={n:'真~火之大剑',kp:800,fw:'sword'};RCP.xf_staff={n:'真~火�
 // 第四十五轮(用户:一个特性的大师套要三星刷 30~40 遍):制作金币 ×20(头饰 / 项链 / 指环 60 万,战甲 80 万),一套 4 件合计约 273 万金币 + 2580 击杀点 + 4 瓶添加剂
 const MREC={head:{steel:2,silk:3,gthr:2,flax:4,glue:2,add:1,gold:600000},body:{steel:4,rhino:3,gthr:1,flax:3,glue:3,add:1,gold:800000},ear:{steel:1,silk:2,gthr:4,flax:2,glue:2,add:1,gold:600000},ring:{steel:3,silk:1,gthr:3,flax:2,glue:2,add:1,gold:600000}};
 const FREC=k=>({steel:2*k,rhino:k,gthr:k,glue:k,gold:450000*k});  // 第四十五轮:3000k → 45 万 × k(全身 6 件锻造 +1 约 281 万金币,三星刷 30~40 遍)  // 第三十七轮:金币 5000k → 3000k
-const XFREC={steel:4,gthr:3,glue:3,add:2,b360:3,gold:1200000},HWREC={steel:2,silk:2,gthr:2,glue:2,add:1,gold:400000};  // 第四十五轮 ×20  // 第四十二轮:真~火之武器 / 武器幻化券
+const XFREC={steel:4,gthr:3,glue:3,add:10,b360:30,gold:1200000},HWREC={steel:2,silk:2,gthr:2,glue:2,add:1,gold:400000};  // 第四十八轮:小鸟碎片 3 → 30、添加剂 2 → 10  // 第四十五轮 ×20  // 第四十二轮:真~火之武器 / 武器幻化券
 const recOf=id=>{const r=RCP[id];return r.s?MREC[r.s]:r.fw?XFREC:r.hw?HWREC:FREC(r.k)},rcOwn=id=>R19.rc.includes(id);
 const matHave=k=>k=='gold'?gold:MAT[k]|0,matName=k=>k=='add'?'合成添加剂':MISC[k]?MISC[k][0]:k;
 const rcIc=id=>{const r=RCP[id];return r.s?eqImg(gen(r.s,3,null,3,r.t,1)):r.fw?eqImg(gen(r.fw,3,null,4,null,1,0,2)):r.hw?mniEm('hwq'):mniEm('fg'+r.k)};

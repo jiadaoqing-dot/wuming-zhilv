@@ -16,7 +16,7 @@ function rSpr(){if(!SPR.own)return hd('🧚 精灵')+fm()+`<p>你还没有精灵
   return h}
 const sprExp=it=>Math.round(it.pr*EM(it));
 const COSEXP=3000;let SPC=0;  // 时装 / 翅膀被精灵吸收得到的经验;SPC:吸收已穿戴装备 / 时装的二次确认
-function rPet(){hamHatchChk();return rChick()+rHam()}
+function rPet(){hamHatchChk();return rChick()+rPeq()+rHam()}
 function rChick(){if(!PET.own)return hd('🐤 宠物')+fm()+`<p>你还没有宠物。钢盔小鸡可以在 🏪 商城的金币商店购买(💰 ${PETP_})。</p><button data-p="gomall">前往商城</button>`;
   const need=petNeed(PET.lv),pm=PET.lv>=20;
   let h=hd('🐤 宠物')+fm()+`<img class="pv" src="${pvImg('pet')}" alt=""><b>钢盔小鸡 · Lv ${PET.lv}/20</b> <button data-p="pon">${PET.on?'✅ 出战中':'⬜ 休息中'}</button><br><span class="tag">${pm?'已满级':'经验 '+PET.exp+' / '+need+'(出战时,击败怪物获得和无名相同的经验)'}</span><div class="xb"><i style="width:${pm?100:Math.round(PET.exp/need*100)}%"></i></div><span class="tag">Lv 5 / 10 / 15 / 20 各随机领悟一个还没学会的技能;技能在关卡里自动释放,数值随宠物等级提升。</span>`;

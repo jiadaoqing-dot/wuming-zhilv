@@ -16,7 +16,7 @@ function mAtk(e){const s=e.s;if(MVK[e.k]){const a=s&&MVK[e.k].at?MVK[e.k].at[s]:
   case 'fwisp':return s=='fbw'?2:0;case 'wimp':return s&&s!='up'?1:0;case 'eye':return s=='bw'||s=='bm'||s=='obw'?2:0;case 'swing':return s=='app'||s=='dash'?1:0;
   case 'golem':return s=='cmb'?1:0;
   case 'oni':return s&&s!='rec'?1:0;
-  case 'gbot':return s=='spw'||s=='spin'?1:0;case 'zdr':return s=='zw'||s=='zap'?1:0;case 'tank':return s=='aim'||s=='fire'?2:0;case 'skw':return s=='sw'||s=='sl'?1:0;case 'fwm':return s=='aim'||s=='sh'?2:s=='bw'||s=='bt'?1:0;case 'mmt':return s=='mw'||s=='mp'?1:0;case 'fsm':return s=='cw'||s=='cs'?1:s=='ww'||s=='ws'?2:0;case 'nja':return s=='aim'||s=='ds'?1:0;case 'nsh':return s=='aim'||s=='sh'||s=='tw'||s=='tp'?2:0;case 'ron':return s=='w1'||s=='s1'||s=='s2'||s=='wi'||s=='si'?1:0;case 'gob':return s=='aim'||s=='thr'?2:s=='stw'||s=='stb'?1:0;case 'nwz':return s=='cw'||s=='cs'?1:s=='ww'||s=='ws'?2:0;
+  case 'gbot':return s=='spw'||s=='spin'?1:0;case 'zdr':return s=='zw'||s=='zap'?1:0;case 'tank':return s=='aim'||s=='fire'?2:0;case 'skw':return s=='sw'||s=='sl'?1:0;case 'fwm':return s=='aim'||s=='sh'?2:s=='bw'||s=='bt'?1:0;case 'mmt':return s=='mw'||s=='mp'?1:0;case 'fsm':return s=='cw'||s=='cs'?1:s=='ww'||s=='ws'?2:0;case 'nja':return s=='aim'||s=='ds'?1:0;case 'ckb':return s=='aim'||s=='ds'||s=='rg'?1:0;case 'ckr':return s=='aim'?2:0;case 'nsh':return s=='aim'||s=='sh'||s=='tw'||s=='tp'?2:0;case 'ron':return s=='w1'||s=='s1'||s=='s2'||s=='wi'||s=='si'?1:0;case 'gob':return s=='aim'||s=='thr'?2:s=='stw'||s=='stb'?1:0;case 'nwz':return s=='cw'||s=='cs'?1:s=='ww'||s=='ws'?2:0;
   case 'seal':case 'seal2':return s=='in'?2:s=='pop'||s=='slp'||s=='cu'||s=='ball'?1:0;
   default:return 0}}
 // 申请出招:拿到「攻击令牌」才能开始一次攻击;拿不到就继续走位,稍后再试。被召唤物吸引时不受限制

@@ -26,5 +26,5 @@ function townSpot(){const px=P.x+12;let b=null,bd=30;for(const q of townSpots())
 function townAct(){if(DLG){dlgNext();return}const q=townSpot();if(q)q.go()}
 // 城镇:和关卡里用同一套移动 / 攻击 / 技能(走路、双击快跑、普攻、蓄力、特殊普攻、技能、飞行都一样),只是没有怪物;生命和魔力一直是满的
 let INTOWN=0;
-function townUpd(dt){totemStep(dt);if(busy())return;if(DLG){DLG.t+=dt;P.at=0;ah=0;ar=0;sq=-1;return}
+function townUpd(dt){totemStep(dt);memStep(dt);if(busy())return;if(DLG){DLG.t+=dt;P.at=0;ah=0;ar=0;sq=-1;return}
   INTOWN=1;try{update(dt)}finally{INTOWN=0}const S=stats();P.hp=S.hp;if(!P.fly)P.mp=S.mp;P.x=Math.max(10,P.x)}

@@ -12,7 +12,7 @@ function bossDrop19(K){const dk=DBLK(),r=v=>Math.random()<v*dk;if(r(DRX.a0))gdDr
   {const d=STDR(cur),m=K.dr/1.6*dk,a=rollN(d[0]*m),b=rollN(d[1]*m),c=rollN(d[2]*m),e3=rollN(d[3]*m);if(e3)gdDrop(B,{k:'stn',lv:3,q:0,n:e3});if(a)gdDrop(B,{k:'stn',lv:1,q:0,n:a});if(b)gdDrop(B,{k:'stn',lv:2,q:0,n:b});if(c)gdDrop(B,{k:'add',n:c})}}  // 关卡只掉普通品质(高品质只能熔炉合成)
 // 存档字段 R19:aff 好感 {NPC 名:{v 好感, d 今天领过的日期}} · ats 背包里的属性石 · dbl 双倍爆率卡到期时间 · mr 商城随机物品栏 {day, n 今天买了几次, L 三个货}
 let R19=r19New(),skMsg='',GSEL={e:null,s:-1,ok:0};
-function r19New(){return {aff:{},ats:[],dbl:0,mr:{day:'',n:0,L:[]},wh:[],cen:{},rc:[],god:{cr:0,pal:0,pk:0},mse:''}}  // 第四十轮:god 上帝卡牌  // 第三十三轮:cen 时装 / 翅膀的强化与增幅宝石 · rc 已学会的制作书
+function r19New(){return {aff:{},ats:[],dbl:0,mr:{day:'',n:0,L:[]},wh:[],cen:{},rc:[],god:{cr:0,pal:0,pk:0},mse:'',peq:{own:[],on:[]},mem:{c:-1,L:[],ok:-1}}}  // 第四十八轮:peq 宠物装备 · mem 记忆晶片  // 第四十轮:god 上帝卡牌  // 第三十三轮:cen 时装 / 翅膀的强化与增幅宝石 · rc 已学会的制作书
 // ===== 第三十二轮:仓库(主城仓库管理员桂婶)=====
 // 装备可以在背包和仓库之间存取(仓库 WHN 格,存在 R19.wh);关卡里背包满了只提示「背包已满」(第三十三轮)
 // 第四十一轮:仓库分三页 装备 / 道具 / 药水(WHT);道具存在 R19.whi {id:数量}(id 和 itemList 一样:MISC 道具 / egg / luck / s+级+品质 强化石),药水存在 R19.whp {药水:数量};道具和药水不限数量
@@ -47,7 +47,7 @@ function whAct(r){if(!/^W[adtIOPQ]/.test(r))return 0;const W=R19.wh,I=R19.whi||(
   else if(r[1]=='d'){if(BAG[i]&&W.length<WHN){const it=BAG.splice(i,1)[0];W.push(it);fmsg='已存入 '+nm(it)}}
   else if(W[i]&&BAG.length<BAGN){const it=W.splice(i,1)[0];BAG.push(it);fmsg='已取出 '+nm(it)}
   return 1}
-const dblOn=()=>R19.dbl>Date.now(),DBLK=()=>dblOn()?2:1;
+const dblOn=()=>R19.dbl>Date.now(),DBLK=()=>dblOn()?2:1+DICEB;  // 第四十八轮:幸运骰子(和双倍爆率卡不叠加)
 // 新道具放在 MAT 里:[名称, 说明, (占位), 出售价, 使用按钮文字]
 const MISC={add:['合成添加剂','熔炉合成强化石时,每次合成要放 1 瓶(3 颗同级同品质 + 1 瓶 → 1 颗高一档品质)。神秘副本 3 首领 35%、第十一关首领 30% 掉落,也会在 🏪 商城的随机物品栏出现。','',0],
   gc1:['上帝卡牌 · 暴击升级','使用后 2 小时内:暴击率 +25%、暴击伤害 +20%。神秘副本 2(梦魇幽驹)首领 25% 掉落(两张卡随机一张)。只在关卡里计时,再用一张会叠加时长。','',0,'🃏 使用'],

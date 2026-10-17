@@ -1,3 +1,9 @@
+【v1.48 · 2026-10-17 · 第四十八轮】
+- 第十五关「不眠钟楼」cur 19(567 分块,ALC 图集 art_src/clock19,Master484 Cute Sprites Pack 1 CC-BY 3.0):小怪瞌睡钟 / 怒铃钟倒下后原地复活一次(almRev);首领千钟之主三条命 almMorph / almGrow(蓝 → 红 → 绿),毒海 seaT;按参考配置实测校准(法师一套 ≈ 13.7 万,生命 2 / 5 / 8 套,一招 1/12、1/9、1/6 血)。
+- 第十五关起首领没有魔力(e.esnm,eskStep / eskUse / eskBack);各表 [19] 已加,地图位置 p:[300,200] 占位;BGM 借第十一关(BGMF[19])。
+- 宠物装备(655 分块):无尽 / 汲取 / 怀表 / 幸运骰子 / 记忆晶片,金币 10 万,3 格,MENI 46~50(7Soul1 CC0)。
+- 被动疾风 → 羁绊(仓鼠灵巧上限 HSPM());剑士破甲 50% → 5%;真~火之武器 小鸟碎片 30 / 添加剂 10;主线第十四章 2 个任务。像素字体重新生成,冒烟 0 错误。
+
 【v1.47 · 2026-10-16 · 第四十七轮】
 - 第十四关「月影忍城」cur 18(565 分块):NJA 图集 art_src/ninja14(Martial Hero 1/2/3 LuizMelo CC0、飞镖 Loel、苦无 kungfu4000、木头 Gothul、远景 = 用户附图);小怪 njaStep 隐身 + 突进 / nshStep 飞镖 + 铁蒺藜 N18T / ronStep 精英;首领 oboStep(nbStep、nbEnd 已被占用)kun / dash / tp / iai / aoe / cln + 替身术(e.lhp / e.subC,N18L 木头),场上 N18S / N18C / N18W,n18Step / n18Fx;各表 [18] 已加,MAPS2 第 4 项 p:[205,98]。
 - 星界财宝改到主城部落图腾开启(537 分块,TOTEM 图集 art_src/totem,TOTX 1090,totemGo / totemStep / totemDraw,ASTRR 奖励表);背包里只提示。

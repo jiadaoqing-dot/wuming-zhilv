@@ -21,7 +21,9 @@ PICK=[None,'W_Mace003','I_Clock','I_Scroll','I_Feather02','S_Holy08','I_GoldCoin
       # 第四十二轮追加(42 起):360 小鸟碎片(鸟喙)/ 武器幻化券(镜子)
       'I_BirdsBeak','I_Mirror',
       # 第四十六轮追加(44 起):高级属性石(I_Sapphire 色相转成橙金)/ 星界财宝(I_Chest01 色相转成紫色)
-      'hue:I_Sapphire:110','hue:I_Chest01:180']
+      'hue:I_Sapphire:110','hue:I_Chest01:180',
+      # 第四十八轮追加(46 起):宠物装备 无尽(勋章)/ 汲取(獠牙)/ 怀表(I_Clock 色相转成金色)/ 幸运骰子(四叶草)/ 记忆晶片(I_Crystal01 色相转成青色)
+      'Ac_Medal02','I_Fang','hue:I_Clock:30','I_Clover','hue:I_Crystal01:140']
 def speaker():
   im=Image.new('RGBA',(C,C));d=ImageDraw.Draw(im)
   # 喇叭:灰蓝箱体 + 喇叭口,三道黄白声波;最后统一加 1 像素黑描边

@@ -245,29 +245,29 @@
    11  BLN                三星倍率(相对原来):第九关 生命 ×1.02 攻击 ×1.10 · 第十关 ×1.09 / ×1.23 · 第十一关 ×1.14 / ×1
    13  bLate              
    14  init               
-   46  CDMG               o 可选:{kb:水平击退速度, inv:受击后无敌时间(连击用短无敌)}
-   55  pdMark             
-   56  pdChk              
+   47  CDMG               o 可选:{kb:水平击退速度, inv:受击后无敌时间(连击用短无敌)}
+   56  pdMark             
+   57  pdChk              
 == src/parts/150_关卡分区.js
     1  hurt               
-   11  slowP              减速(蛛丝):移动速度 -40%;沙尘:减速 + 视野变暗
-   12  sandP              
-   13  ■ 关卡分区:把关卡切成 4 个区域,当前区域(及之前)的小怪全部击败后,前方的能量屏障才会消失
-   14  ZB                 ===== 关卡分区:把关卡切成 4 个区域,当前区域(及之前)的小怪全部击败后,前方的能量屏障才会消失 =====
-   17  gateZ              
-   19  mkWQ               按原来的出怪表分区,每区数量 ×2.5(种类轮流);首领场地里的怪(x ≥ 最后一道边界)照旧直接放
-   22  WB                 刷怪(第二十九轮改):玩家走进这个区域才刷这个区域的怪(其他区域不刷);分两次从天上掉下来:先掉一半,这一半全部打完再掉剩下的
-   23  waveDrop           
-   26  waveStep           
-   30  gateX              
-   31  xMax               
-   33  drawGate           
-   35  poison             中毒:持续 t 秒,每 0.5 秒扣除最大生命的 p 比例(无视防御)
-   39  hitStun            第二十轮:小怪也改用韧性(mobPz),挨打只有后仰动作(hst)、照常掉血、继续往前推进,不再每下都僵直 —— 法师普攻频率高,原来能把小
-   44  poiseHit           
-   49  mobPz              
-   54  bsaStep            
-   57  poiseStep          
+   12  slowP              减速(蛛丝):移动速度 -40%;沙尘:减速 + 视野变暗
+   13  sandP              
+   14  ■ 关卡分区:把关卡切成 4 个区域,当前区域(及之前)的小怪全部击败后,前方的能量屏障才会消失
+   15  ZB                 ===== 关卡分区:把关卡切成 4 个区域,当前区域(及之前)的小怪全部击败后,前方的能量屏障才会消失 =====
+   18  gateZ              
+   20  mkWQ               按原来的出怪表分区,每区数量 ×2.5(种类轮流);首领场地里的怪(x ≥ 最后一道边界)照旧直接放
+   23  WB                 刷怪(第二十九轮改):玩家走进这个区域才刷这个区域的怪(其他区域不刷);分两次从天上掉下来:先掉一半,这一半全部打完再掉剩下的
+   24  waveDrop           
+   27  waveStep           
+   31  gateX              
+   32  xMax               
+   34  drawGate           
+   36  poison             中毒:持续 t 秒,每 0.5 秒扣除最大生命的 p 比例(无视防御)
+   40  hitStun            第二十轮:小怪也改用韧性(mobPz),挨打只有后仰动作(hst)、照常掉血、继续往前推进,不再每下都僵直 —— 法师普攻频率高,原来能把小
+   45  poiseHit           
+   50  mobPz              
+   55  bsaStep            
+   58  poiseStep          
 == src/parts/160_怪物群攻击协调.js
     1  ■ 怪物群攻击协调:同一时间最多 2 只小怪在出招(首领战时 1 只),远程攻击同时只允许 1 只,两次出招至少错开 0.35 秒
     4  mAtk               怪物此刻是否在一套攻击动作里:0 没有 · 1 近战 · 2 远程
@@ -293,13 +293,13 @@
     8  ESKX               
    10  eskStep            
    12  eskUse             能不能放技能 a:能就扣魔力、开始冷却,返回 true
-   14  eskBack            
-   15  MVK                
-  134  atkOn              怪物此刻是否在"出招":不出招时身体碰到不会掉血
-  142  forceAtk           
+   15  eskBack            
+   16  MVK                
+  135  atkOn              怪物此刻是否在"出招":不出招时身体碰到不会掉血
+  143  forceAtk           
 == src/parts/190_伤害结算dealt.js
     2  dealt              o 可选:{ns:不造成僵直}。所有伤害都按暴击率判定暴击(2 倍)
-   20  elemChk            
+   22  elemChk            
 == src/parts/200_技能体系.js
     2  threat             Boss 闪避:玩家蓄力重击、放技能或子弹飞来时,有几率向后跳开(靠墙则从玩家头上跃过)
     5  bDodge             
@@ -464,9 +464,9 @@
 == src/parts/340_主循环update.js
     2  pbStep             主角的飞弹(普攻球形闪电、火球、圣光球……):飞行 + 命中 all 里的敌人(第四十五轮从 update 里拆出来,镜中无名 mwRun 
    11  update             
-  100  rf                 
-  101  R                  
-  103  blade              
+  102  rf                 
+  103  R                  
+  105  blade              
 == src/parts/350_苍蓝巨剑.js
     1  ■ 苍蓝巨剑:巨大的幻影之剑悬在身后上空(剑柄朝后上、剑尖斜指前下方约 35°),蓄满后沿剑身方向刺落插进地面
     4  gGeo               
@@ -491,24 +491,24 @@
     5  GN                 =====================================================================
     6  MN                 
     7  MQ                 
-   95  mqCur              
-   98  mqDone             
-  102  mqRw               奖励:按关卡成长;首领任务 3 倍,并附赠强化石
-  104  mqAccept           
-  105  mqClaim            
-  106  mqAdd              
-  109  mqKill             击败怪物时:计数,或者(收集任务)掉落任务物品
-  113  mqLines            和委托人对话:有新的主线就讲剧情并接取;任务完成了就打开任务栏领奖
-  114  mqTalk             
-  118  rMQ                
-  125  rQuest             
-  131  CH1                
-  134  CH2                
-  137  chiefNew           
-  138  talkChief          
-  139  startTalk          
-  140  dlgNext            
-  141  dlgSkip            
+   97  mqCur              
+  100  mqDone             
+  104  mqRw               奖励:按关卡成长;首领任务 3 倍,并附赠强化石
+  106  mqAccept           
+  107  mqClaim            
+  108  mqAdd              
+  111  mqKill             击败怪物时:计数,或者(收集任务)掉落任务物品
+  115  mqLines            和委托人对话:有新的主线就讲剧情并接取;任务完成了就打开任务栏领奖
+  116  mqTalk             
+  120  rMQ                
+  127  rQuest             
+  133  CH1                
+  136  CH2                
+  139  chiefNew           
+  140  talkChief          
+  141  startTalk          
+  142  dlgNext            
+  143  dlgSkip            
 == src/parts/380_第二三关首领.js
     2  NPCS               主城 NPC(2026-10-12 扩图后分散摆放;y = 脚底高度,技能导师站在树屋高台上)
     3  toTown             
@@ -805,9 +805,10 @@
   168  c15Fx              画面(PXL 层,怪物之后画):炸弹;跃空斩落点预警(首领)
   172  hamNew             ---- 宠物仓鼠 ----
   174  HKS                
+  175  HSPM               
   177  hamBT              
   178  HSKD               
-  183  hamFeed            第十五轮:灵巧(冷却缩短)最多 20%(HSPDMAX);到顶后嗑瓜子只在其他三项里随机,不在游戏里写出上限
+  183  hamFeed            第十五轮:灵巧(冷却缩短)最多 20%(HSPM(),第四十八轮起被动「羁绊」每级 +1%);到顶后嗑瓜子只在其他三项里随机,不在游戏里写出
   185  hamHatchT          
   186  hamHatchChk        
   187  hamPetStep         
@@ -831,6 +832,27 @@
    81  oboStep            
   112  n18Step            场上的东西:飞镖 / 苦无(直线飞)、铁蒺藜(落地 0.5 秒后生效,踩到受伤 + 减速)、首领分身(出现 → 突进 → 消失)、替身木头、
   121  n18Fx              画面(PXL 层,怪物之后画):飞镖(转)/ 苦无(朝飞行方向)· 铁蒺藜(地上 3 枚小飞镖,没生效时半透明)· 分身(半透明紫色)· 替
+== src/parts/567_第十五关不眠钟楼.js
+    1  ■ 第四十八轮:第十五关「不眠钟楼」(第二张地图「暗黑大陆」,cur = 19)闹钟关卡,难度质变
+   10  E19                火铃雨 fire(二形态起:天上落火球,地面有预警)· 叫醒 call(二形态起:叫来 2 只闹钟)· 毒海 sea(第三形态:地面全被毒雾
+   11  PL19               
+   12  ALHP               
+   13  ALC                
+   31  A19S               
+   32  a19Clr             
+   33  a19Shot            
+   35  almRev             ---- 复活:小怪倒下 → 原地睡 1.6 秒(打不到)→ 响铃 0.5 秒 → 满血复活(只一次)----
+   36  almWake            
+   39  ckbStep            ---- 瞌睡钟(蓝,近身):翻滚冲撞 / 铃震 ----
+   48  ckrStep            ---- 怒铃钟(红,远程):电铃弹(直线,一次 1~3 发)/ 火铃抛射(落地小范围)----
+   57  almInit            ---- 首领:千钟之主 ----
+   58  almEnd             
+   60  almMorph           打倒:还有命就进入变身(e.ug 打不到),hp 先留 1 防止被当成死亡
+   61  almGrow            
+   63  almStep            
+   87  LMNOW              
+   89  a19Step            场上的东西:电铃弹 / 火铃弹、天上落的火铃(落点预警)、贴地冲击波(跳过去)、毒海(站在地上持续掉血)
+   98  a19Fx              画面(PXL 层,怪物之后画):电铃弹 / 火铃弹 · 落下的火铃 + 地面预警 · 睡觉的 Z · 毒海(Ninja Adventure 
 == src/parts/570_关卡表与进关.js
     1  MAPS               
    14  enterLv            
@@ -902,6 +924,16 @@
     1  rSpr               
    19  rPet               
    20  rChick             
+== src/parts/655_宠物装备.js
+    1  ■ 第四十八轮:宠物装备(金币商店 10 万一件;宠物身上 PEQN 格,钢盔小鸡或仓鼠出战时生效)
+    6  PEQD               图标:MENI 46~50(build_meni.py 第四十八轮追加,7Soul1 CC0)
+   12  peqInf             
+   13  peqBuy             
+   14  peqAct             
+   19  peqEnter           进关卡 / 回主城
+   23  peqTown            
+   27  memStep            主城重放:一招放完再放下一招(冷却清零,模式不对的跳过)
+   32  rPeq               宠物界面里的「宠物装备」一节
 == src/parts/660_商店.js
     1  ■ 每日签到:每天一次,随机 1~30 击杀点(第四十五轮:原 1~100);启动游戏时没签到会自动弹出
     3  signed             
@@ -915,10 +947,10 @@
    10  potBuy             
    14  potSell            
    15  rSet               
-   98  applyRS            
-  101  fitWrap            窗口太小放不下 2 倍时,退回按窗口大小自适应。全屏仍然铺满(由 CSS 的 body.fs 规则控制)
-  104  uiScale            
-  107  setFsCls           
+  100  applyRS            
+  103  fitWrap            窗口太小放不下 2 倍时,退回按窗口大小自适应。全屏仍然铺满(由 CSS 的 body.fs 规则控制)
+  106  uiScale            
+  109  setFsCls           
 == src/parts/680_商城操作.js
     1  mallAct            
 == src/parts/690_熔炉强化界面.js
@@ -1140,14 +1172,14 @@
     4  MAPI2              右上角「◀ 第一张地图」返回;其他地点和右下角的挑战模式尚未开放
     6  map2Open           
     7  MAPS2              
-   11  M2B                
-   12  inR                
-   13  map2Btn            
-   14  map2Hit            
-   15  map2Go             
-   16  map2Click          
-   17  drawMap2           
-   26  mapHit             
+   12  M2B                
+   13  inR                
+   14  map2Btn            
+   15  map2Hit            
+   16  map2Go             
+   17  map2Click          
+   18  drawMap2           
+   27  mapHit             
 == src/parts/970_关卡星级选择页.js
     1  ■ 关卡星级选择页(2026-10-13 第十六轮):点地图牌子 / 神秘副本石狮头后先进这里
     4  LVS                LVS:i = 关卡下标(0 起,10 = 神秘副本 1)· s = 选中的星级 · m = 从神秘地带进来(返回时回大厅)
@@ -1160,8 +1192,8 @@
    11  lvsKey             
    14  lvsDrops           本关掉落预览:装备 6 个部位(按本关系列;一星画精良、二星稀有、三星史诗的图标)、首领的强化石、特殊掉落
    23  lvsArt             卡片缩略图(全部用已有的外部图集,不自己画):背景 = 该关的像素天空层(LBG / CITY8 / VOL9 / SHIP10 / MYS
-   37  lvsBoss            
-   57  drawLvSel          
+   38  lvsBoss            
+   59  drawLvSel          
 == src/parts/980_HUD.js
     1  ■ HUD:头像 + 血蓝条 + 金币 + 连击 + 状态 + Boss 血条
     3  HHC                =====================================================================
@@ -1182,10 +1214,10 @@
 == src/parts/1000_主页面.js
     1  ■ 主页面(第二十轮):打开游戏后的第一页 —— 左边版本号 + 更新日志(或操作说明),右边 开始新游戏 / 继续游戏 / 提取存档 / 添加存档 / 操作说明
     4  CHLOG              更新日志 CHLOG:[版本, 日期, [条目...]],新版本加在最前面(和 GAMEV 一起改)
-   40  homeSave           
-   41  rHome              
-   48  openHome           
-   49  closeHome          
-   50  homeAct            
-   70  homeKey            
+   41  homeSave           
+   42  rHome              
+   49  openHome           
+   50  closeHome          
+   51  homeAct            
+   71  homeKey            
 == src/parts/1010_结尾.html
