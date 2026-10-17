@@ -893,10 +893,11 @@
 == src/parts/620_物品菜单.js
     1  ■ 物品菜单(第二十轮:左键单击弹出;右键也照样能用)
     3  cmItems            
-   12  cmName             
-   13  openCM             
-   14  drawCM             
-   18  closeCM            
+   12  itSellL            
+   13  cmName             
+   14  openCM             
+   16  drawCM             
+   20  closeCM            
 == src/parts/630_鼠标拖动.js
     1  ■ 鼠标拖动:背包装备 → 左边部位(穿戴);已穿戴 → 右边格子(卸下);时装 / 翅膀同理
     5  dragTargets        

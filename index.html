@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>无名之旅 v1.51</title>
+<title>无名之旅 v1.52</title>
 <style>
 /* 中文像素字体:Fusion Pixel Font(TakWolf,SIL OFL 1.1),按游戏用字裁剪(art_src/font/build_font.py) */
 @font-face{font-family:FPX12;src:url(assets/fpx12.woff2) format('woff2')}
@@ -274,7 +274,7 @@ body.px .at2{border:2px solid transparent;border-image:url(assets/ui_card.png) 6
 <p class="tip">← → / A D 移动(连按两次快跑) · K / ↑ 跳跃 · W+J / S+J 特殊普攻(学会二段跳后空中再按) · J 攻击(下劈 → 上挑 → 直戳 → 下劈 循环,按住蓄力重击;跑步中按 J = 冲刺直戳) · L 换武器 · H U I O 技能 · 空格 / W+空格 / S+空格 / WW+空格 剑士进阶技能(转职后) · 1 2 3 喝药水 · S 捡起地上的掉落物 · 背包 / 技能 / 商城 / 精灵 / 宠物 / 任务 / 声音:点右下角按钮(也可以用快捷键 B 背包 / T 技能 / Q 任务 / P 商城 / Y 精灵 / G 宠物 / M 声音,设置里可以关闭) · N 释放武器上的怪物技能石(背包里左键点物品弹出菜单,装备可拖动穿戴) · 装备翅膀后空中再按跳跃=飞行(W/S 升降、A/D 方向) · Esc / ⚙️ 设置(暂停、返回城镇、帧数、全屏)</p>
 <script>
 // 游戏版本:build.py 按它给输出文件命名(out/无名之旅_v版本.html),设置页也显示;每次发新版改这里
-const GAMEV='1.51';
+const GAMEV='1.52';
 // x 是当前的绘图上下文:平时是主画布;像素特效层(PXL,P2)绘制期间临时换成 640×360 的低分辨率图层
 const cv=document.getElementById('c');let x=cv.getContext('2d');const VW=640,VH=360,WW=3200,GY=300;
 // 渲染分辨率:电脑端 1920×1080(逻辑坐标仍是 640×360,整体放大 3 倍绘制,文字和像素都更清晰);手机端 1280×720
@@ -5027,7 +5027,9 @@ function trSum(){const c=setTr(),ks=Object.keys(c);if(!ks.length)return '';
 function itemList(){const L=[];if(MAT.soul>0)L.push(['soul','💠','女神灵魂碎片',MAT.soul]);if(MAT.job>0)L.push(['job','⚜️','转职凭证',MAT.job]);if(MAT.hegg>0)L.push(['hegg',heggEm(),'仓鼠宠物蛋',MAT.hegg]);if(MAT.egg>0)L.push(['egg','🥚','蛇蛋',MAT.egg]);if(LUCK>0)L.push(['luck',mniEm('luck'),'高级幸运宝石',LUCK]);
   for(const k in MISC)if(MAT[k]>0)L.push([k,mniEm(k),MISC[k][0],MAT[k]]);R19.ats.forEach((g,i)=>L.push(['T'+i,mniEm('A'+g.q),ATSQ[g.q].n,1]));for(let l=1;l<=3;l++)for(let q=3;q>=0;q--)if(STN[l][q]>0)L.push(['s'+l+q,stnEm(l,q),stnName(l,q),STN[l][q]]);return L}
 const itemDesc=id=>id[0]=='T'?(g=>g?`${ATSQ[g.q].n}:<b style="color:#1c7ed6">${atsTxt(g)}</b>。在 🔥 熔炉镶嵌到装备上(每件装备 1 颗,新的会替换旧的;不能拆下,出售装备不返还)。出售价格 ${ATSQ[g.q].pr} 金币。`:'')(R19.ats[+id.slice(1)]):MISC[id]?MISC[id][1]+(id=='dbl'&&dblOn()?`<br><b>生效中,还剩 ${Math.ceil((R19.dbl-Date.now())/60000)} 分钟</b>`:'')+(/^ms\d+$/.test(id)?['sword','staff'].filter(k=>EQ[k]&&EQ[k].mss==id).map(k=>'<br><b>'+SL[k][0]+'上嵌着一颗</b>').join(''):'')+((id=='gc1'&&godOn('cr'))||(id=='gc2'&&godOn('pal'))?`<br><b>生效中,还剩 ${godLeft(id=='gc1'?'cr':'pal')}${id=='gc2'?'('+PALN[godOf().pk-1]+')':''}</b>`:''):id=='hegg'?'神秘地带「瓜子大王」掉落(5% 几率)。打开顶栏 🐤 宠物界面,花 10 分钟孵化成宠物仓鼠(已经有仓鼠时,多孵出来的小仓鼠会让它多嗑 3 次瓜子)。不能出售。':id=='soul'?'女神灵魂碎片:第四关首领「黑棘巨蝎」、第八关首领「怨婴 · 银太郎」、第十关首领「归蝇」、暗黑大陆第十三关首领「焚天炎君」各掉落一块。碎片里封着女神被夺走的一缕灵魂,在黑暗里会发出淡紫色的光。收集齐全后或许能让城里的女神像重新苏醒……不能出售。':id=='job'?'第六关首领「北极熊」掉落。打开技能栏(T),在剑士或法师页面里选择转职(只能转职一次)。不能出售。':id=='egg'?'迷雾森林的蛇掉落的蛋。每日任务会用到,也可以卖掉(每个 3 金币)。':id=='luck'?'强化时在强化师那里选用,本次强化成功率 +50%。完成每日任务或在商城随机物品栏购买。':`用于把装备强化到 +${id[1]*3-2} ~ +${id[1]*3}(每次消耗 1 颗),在强化师处使用。品质「${STQ[+id[2]].n}」:强化成功时这一级 +${Math.round(STQ[+id[2]].b*100)}% 装备属性(3 颗可在熔炉合成高一档品质)。出售价格 ${itemPr(id)} 金币 / 颗。`;
-const itemPr=id=>id[0]=='T'?(R19.ats[+id.slice(1)]?ATSQ[R19.ats[+id.slice(1)].q].pr:0):MISC[id]?MISC[id][3]:id=='egg'?3:id=='luck'||id=='job'||id=='soul'||id=='hegg'?0:Math.floor(STP2[+id[1]]*STQ[+id[2]].p/2);
+// 第五十二轮修:原来售价 0 的道具都卖不掉,补上售价(说明里写「不能出售」的剧情道具仍然不能卖)
+const ITPR=id=>/^ms\d+$/.test(id)?1500:/^fg\d$/.test(id)?300*+id.slice(2):/^amp_/.test(id)?1000:({add:300,gc1:2000,gc2:2000,food:50,lk1:200,lk2:500,dbl:1000,flax:500,glue:500,b360:800,hwq:1500,wash:500,astr:2000})[id]||0;
+const itemPr=id=>id[0]=='T'?(R19.ats[+id.slice(1)]?ATSQ[R19.ats[+id.slice(1)].q].pr:0):MISC[id]?(MISC[id][3]||ITPR(id)):id=='egg'?3:id=='luck'||id=='job'||id=='soul'||id=='hegg'?0:Math.floor(STP2[+id[1]]*STQ[+id[2]].p/2);
 const itemCnt=id=>id[0]=='T'?(R19.ats[+id.slice(1)]?1:0):MISC[id]?MAT[id]|0:id=='hegg'?MAT.hegg||0:id=='soul'?MAT.soul||0:id=='job'?MAT.job||0:id=='egg'?MAT.egg||0:id=='luck'?LUCK:STN[+id[1]][+id[2]]||0;
 const potTip=k=>{const d=POTD[k];return `<b style="color:${d[1]};font-size:13.5px">${d[0]}</b><br><span class="tg">药水 · 持有 ${POT[k]||0} 瓶${QS.includes(k)?' · 快捷栏 '+(QS.indexOf(k)+1):''}</span><hr>${d[2]=='rev'?'倒下时使用:原地复活,恢复 50% 生命和魔力,2.5 秒无敌':'立即恢复 '+potAmt(k)+' · 同类药水 '+POTCD+' 秒冷却'}<hr><span class="tg">左键:使用 / 放到快捷栏 / 出售${d[2]=='rev'?'':' · 双击使用'}</span>`};
 const COSSELL=2000;let CSC=0;  // 出售时装 / 翅膀:二次确认
@@ -5097,11 +5099,13 @@ function cmItems(r){const it=itOf(r);
   if(/^e:/.test(r)&&it)return [['📤 卸下','un'],['💰 出售 +'+sellPr(it)+' 金币','sell'],...mx];
   const id=cosId(r);if(id){const on=WEAR[COSD[id].t]==id;return [[on?'📤 卸下':'👘 穿戴',on?'cu':'cw'],['💰 出售 +'+COSSELL+' 金币','csell']]}
   if(r&&r.startsWith('p:')){const k=r.slice(2);if(!POT[k])return null;const L=POTD[k][2]=='rev'?[]:[['🧪 使用','pu']];for(let i=0;i<3;i++)L.push(['⌨️ 放到快捷栏 '+(i+1)+(QS[i]==k?' ✓':''),'q'+i]);L.push(['💰 出售 1 瓶 +'+Math.floor(POTD[k][4]/2),'ps1']);return L}
-  if(r&&r.startsWith('i:')&&/^ms\d+$/.test(r.slice(2))&&MSS[r.slice(4)])return ['sword','staff'].filter(k=>EQ[k]).map(k=>['💎 嵌入'+SL[k][0]+(EQ[k].mss?'(替换「'+MSS[EQ[k].mss.slice(2)][0]+'」)':''),'ms_'+k]);  // 第四十二轮:怪物技能石
-  if(r&&r.startsWith('i:')){const id=r.slice(2),pr=itemPr(id);return pr?[['💰 出售 1 个 +'+pr,'is1'],['💰 全部出售 +'+pr*itemCnt(id),'isa']]:null}
+  if(r&&r.startsWith('i:')&&/^ms\d+$/.test(r.slice(2))&&MSS[r.slice(4)])return [...['sword','staff'].filter(k=>EQ[k]).map(k=>['💎 嵌入'+SL[k][0]+(EQ[k].mss?'(替换「'+MSS[EQ[k].mss.slice(2)][0]+'」)':''),'ms_'+k]),...itSellL(r.slice(2))];  // 第四十二轮:怪物技能石
+  if(r&&r.startsWith('i:')){const id=r.slice(2);return [...(MISC[id]&&MISC[id][4]?[[MISC[id][4],'iu']]:[]),...itSellL(id)]}  // 第五十二轮修:原来只有出售,售价 0 的道具(上帝卡牌、双倍爆率卡、饲料)点了没反应、用不了
   return null}
+function itSellL(id){const pr=itemPr(id),n=itemCnt(id);return pr?[['💰 出售 1 个 +'+pr,'is1'],...(n>1?[['💰 全部出售 +'+pr*n,'isa']]:[])]:[]}
 function cmName(r){const it=itOf(r);if(it)return `<b style="color:${TR[it.tier][1]}">${nm(it)}</b>`;const id=cosId(r);if(id)return `<b style="color:#f783ac">${COSD[id].ic} ${COSD[id].n}</b>`;if(r.startsWith('p:'))return '<b>'+POTD[r.slice(2)][0]+'</b>';const q=itemList().find(v=>'i:'+v[0]==r);return q?'<b>'+q[2]+'</b>':''}
-function openCM(r,cx,cy){const L=cmItems(r);if(!L)return;hideTip();CMR=r;CMF=0;CSC=0;sel=r;renderBag();drawCM(cx,cy)}
+function openCM(r,cx,cy){const L=cmItems(r);if(!L)return;if(!L.length){hideTip();closeCM();sel=r;renderBag();return}  // 没有可做的操作(不能出售的剧情道具):只选中,显示说明
+ hideTip();CMR=r;CMF=0;CSC=0;sel=r;renderBag();drawCM(cx,cy)}
 function drawCM(cx,cy){const m=$('cm');let h=`<div class="cmh">${cmName(CMR)}</div>`;
   if(CMF){const id=cosId(CMR);h+=`<div class="cmw">确定出售「${COSD[id].n}」吗?<br>获得 ${COSSELL} 金币,出售后要重新用击杀点购买。</div><button data-c="csell">✔ 确定出售</button><button data-c="x">取消</button>`}
   else h+=cmItems(CMR).map(([l,a])=>`<button data-c="${a=='csell'?'csell?':a}">${l}</button>`).join('');
