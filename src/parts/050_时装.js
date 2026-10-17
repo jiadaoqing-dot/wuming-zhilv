@@ -18,6 +18,7 @@ const petAtk=()=>(10+PET.lv*.5)/100,petDef=()=>(10+PET.lv*.5)/100,fanM=()=>.6+PE
 const PSK={atk:['鼓舞·攻',()=>`挥扇为无名加油:攻击力 +${Math.round(petAtk()*100)}%,持续 8 秒`,15],def:['鼓舞·守',()=>`挥扇为无名加油:防御力 +${Math.round(petDef()*100)}%,持续 8 秒`,15],
   fan:['回旋扇',()=>`掷出扇子飞向敌人再旋回,去程、回程各造成一次 ${Math.round(fanM()*100)}% 攻击力伤害`,15],slow:['迟缓之风',()=>'给场上随机一只怪物施加减速,5 秒内移动和出招速度减半',15]};
 const PSKK=Object.keys(PSK);
+const petCd=k=>+(PSK[k][2]*(1-.01*pl('spd'))).toFixed(1);  // 第四十八轮(用户):被动「羁绊」每级小鸡技能冷却 -1%
 function sprGain(n){if(!SPR.own)return;SPR.exp+=n;let up=0;while(SPR.lv<50&&SPR.exp>=sprNeed(SPR.lv)){SPR.exp-=sprNeed(SPR.lv);SPR.lv++;up++}if(SPR.lv>=50)SPR.exp=0;return up}
 function petLv(){let up=0;while(PET.lv<20&&PET.exp>=petNeed(PET.lv)){PET.exp-=petNeed(PET.lv);PET.lv++;up++;
     if(PET.lv%5==0){const left=PSKK.filter(k=>!PET.sk.includes(k));if(left.length){const k=pick(left);PET.sk.push(k);if(P)tx('小鸡领悟了「'+PSK[k][0]+'」!',P.x-30,P.y-90,'#ffd43b')}}}

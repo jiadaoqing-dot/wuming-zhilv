@@ -1,6 +1,6 @@
 // ===== 第四十八轮:第十五关「不眠钟楼」(第二张地图「暗黑大陆」,cur = 19)闹钟关卡,难度质变 =====
 // 图集 ALC(art_src/clock19/build_clock19.py):闹钟怪 / 电铃弹 / 火铃弹 = Cute Sprites Pack 1(Master484,CC-BY 3.0);第三形态绿钟 = 红钟色相旋转
-//   场景借第十一关 MECH 的齿轮工业远景 / 地面,压成黄铜色(钟楼内部)
+//   场景(用户要钟楼背景)= GothicVania Church(ansimuz,CC0)面板 / 石柱 / 地砖 + LPC 落地钟(Sharm / William.Thompsonj,CC-BY 3.0);BGM bgm19 / bgm19b
 // 小怪:瞌睡钟 ckb(蓝,近身:翻滚冲撞 / 铃震)· 怒铃钟 ckr(红,远程:电铃弹 / 火铃抛射);被打倒后原地睡 1.6 秒再响铃复活一次(满血),第二次倒下才真正死亡
 // 首领「千钟之主」alm:三条命,每次被打倒就睡下 → 响铃 → 变成更大的新闹钟形态(蓝 → 红 → 绿毒钟),伤害一次比一次高;从这一关起首领没有魔力限制,只有技能冷却(ESNM)
 //   校准(用户第四十八轮,参考配置:翅膀时装、全身锻造 +2 / 强化 +6、大师套、火之武器、精灵满攻击、技能全 +5;实测法师一套技能 ≈ 13.7 万):
@@ -10,7 +10,7 @@
 const E19=[['ckb',360],['ckr',520],['ckb',660],['ckb',840],['ckr',980],['ckb',1120],['ckr',1280],['ckb',1440],['ckb',1580],['ckr',1720],['ckb',1880],['ckr',2020],['ckb',2160],['ckr',2300],['ckb',2440],['ckb',2540]];
 const PL19=[{x:0,y:GY,w:WW},{x:2680,y:206,w:110},{x:2960,y:206,w:110}];  // 首领场地两侧的浮台(躲毒海)
 const ALHP=[274000,685000,1100000],ALDM=[41,55,83],ALSZ=[1,1.3,1.6],ALNM=['千钟之主 · 晨钟','千钟之主 · 怒钟','千钟之主 · 末日之钟'];
-const ALC={I:null,D:'@@A:alc_atlas@@',M:{"b_stand":[0,0,32,32,32,1],"b_walk":[0,33,128,32,32,4],"b_alarm":[0,66,64,32,32,2],"b_damage":[0,99,32,32,32,1],"b_death":[0,132,32,32,32,1],"b_sleep":[0,165,32,32,32,1],"r_stand":[0,198,32,32,32,1],"r_walk":[0,231,128,32,32,4],"r_alarm":[0,264,64,32,32,2],"r_damage":[0,297,32,32,32,1],"r_death":[0,330,32,32,32,1],"r_sleep":[0,363,32,32,32,1],"g_stand":[0,396,32,32,32,1],"g_walk":[0,429,128,32,32,4],"g_alarm":[0,462,64,32,32,2],"g_damage":[0,495,32,32,32,1],"g_death":[0,528,32,32,32,1],"g_sleep":[0,561,32,32,32,1],"z":[0,594,24,8,8,3],"el":[0,603,32,16,16,2],"fb":[0,620,48,16,16,3]},
+const ALC={I:null,D:'@@A:alc_atlas@@',M:{"b_stand":[0,0,32,32,32,1],"b_walk":[0,33,128,32,32,4],"b_alarm":[0,66,64,32,32,2],"b_damage":[0,99,32,32,32,1],"b_death":[0,132,32,32,32,1],"b_sleep":[0,165,32,32,32,1],"r_stand":[0,198,32,32,32,1],"r_walk":[0,231,128,32,32,4],"r_alarm":[0,264,64,32,32,2],"r_damage":[0,297,32,32,32,1],"r_death":[0,330,32,32,32,1],"r_sleep":[0,363,32,32,32,1],"g_stand":[0,396,32,32,32,1],"g_walk":[0,429,128,32,32,4],"g_alarm":[0,462,64,32,32,2],"g_damage":[0,495,32,32,32,1],"g_death":[0,528,32,32,32,1],"g_sleep":[0,561,32,32,32,1],"z":[0,594,24,8,8,3],"el":[0,603,32,16,16,2],"fb":[0,620,48,16,16,3],"p0":[0,637,160,192,160,1],"p1":[0,830,128,192,128,1],"p2":[0,1023,128,192,128,1],"p3":[0,1216,80,192,80,1],"p4":[0,1409,64,192,64,1],"col":[0,1602,114,190,114,1],"gnd":[0,1793,48,40,48,1],"gnd2":[0,1834,48,41,48,1],"gclk":[0,1876,96,96,32,3]},
   A:[14.5,30,32],  // 身体中心 x / 身体高 / 脚底 y
   init(){const im=new Image();im.onload=()=>{this.I=im};im.src=this.D},
   on(e){return !!this.I&&(e.k=='ckb'||e.k=='ckr'||e.k=='alm')},
@@ -24,9 +24,15 @@ const ALC={I:null,D:'@@A:alc_atlas@@',M:{"b_stand":[0,0,32,32,32,1],"b_walk":[0,
     else if(s_=='aim'||s_=='rg'){row='alarm';fi=t*14}
     else if(e.st>0){row='damage'}else if(e.mv||s_=='ds'||a=='hop'){row='walk';fi=t*10}
     this.fr(c,p+'_'+row,fi,-A[0]*s,-A[2]*s,s,1);c.restore()},
-  // 场景:借 MECH 的齿轮工业远景 / 地面 / 浮台,滤成黄铜色(钟楼内部)
-  bg(){x.save();x.filter='sepia(.85) saturate(1.5) hue-rotate(-12deg) brightness(.82)';try{MECH.bg()}catch(err){}x.restore()},
-  over(){x.fillStyle='rgba(120,80,20,.07)';x.fillRect(0,0,VW,VH);if(B&&B.k=='alm'&&(B.seaT||0)>0){x.fillStyle='rgba(60,140,40,.10)';x.fillRect(0,0,VW,VH)}}};
+  // 场景(第四十八轮,用户要钟楼背景):GothicVania Church(ansimuz,CC0)的哥特窗 / 烛台墙 / 祭坛 / 石像鬼面板拼成远景墙(视差 .3)+ 骷髅石柱(视差 .6)+ LPC 落地钟(摆锤 3 帧,视差 .8)+ 石地砖
+  bg(){const I=this.I,M=this.M,t=performance.now()/1000;x.fillStyle='#272638';x.fillRect(0,0,VW,VH);if(!I)return;x.imageSmoothingEnabled=false;
+    {const seq=['p0','p1','p3','p2','p1','p4'],s=1.5,L=seq.reduce((a,k)=>a+M[k][2]*s,0),o=((cam*.3)%L+L)%L;for(let px=-o,i=0;px<VW;i++){const m=M[seq[i%seq.length]],w=m[2]*s;if(px+w>0)x.drawImage(I,m[0],m[1],m[2],m[3],Math.floor(px),GY-m[3]*s+4,Math.ceil(w),m[3]*s);px+=w}}
+    x.fillStyle='rgba(20,16,30,.35)';x.fillRect(0,0,VW,GY);
+    {const m=M.gclk,s=1.6,gap=230,o=((cam*.8)%gap+gap)%gap,f=[0,1,2,1][Math.floor(t*2.4)%4];for(let px=-o+60;px<VW+40;px+=gap)x.drawImage(I,m[0]+f*32,m[1],32,96,Math.round(px),GY-96*s+2,32*s,96*s)}
+    {const m=M.col,s=1.35,gap=340,o=((cam*.6)%gap+gap)%gap;x.save();x.filter='brightness(.8)';for(let px=-o-40;px<VW+120;px+=gap)x.drawImage(I,m[0],m[1],m[2],m[3],Math.round(px),GY-m[3]*s+6,m[2]*s,m[3]*s);x.restore()}
+    {const m=M.gnd;for(let px=Math.floor((cam-4)/48)*48;px<cam+VW+4;px+=48)x.drawImage(I,m[0],m[1],48,40,Math.round(px-cam),GY-6,48,40)}
+    {const m=M.gnd2;for(const p of PL)if(p.y<GY&&p.x-cam<VW+20&&p.x+p.w-cam>-20){for(let q=0;q<p.w;q+=48){const w=Math.min(48,p.w-q);x.drawImage(I,m[0],m[1],w,20,Math.round(p.x+q-cam),Math.round(p.y-4),w,20)}}}},
+  over(){x.fillStyle='rgba(60,40,90,.06)';x.fillRect(0,0,VW,VH);if(B&&B.k=='alm'&&(B.seaT||0)>0){x.fillStyle='rgba(60,140,40,.10)';x.fillRect(0,0,VW,VH)}}};
 ALC.init();
 let A19S=[],A19F=[],A19W=[];  // 电铃弹 / 火铃弹(直线 / 抛射)· 天上落下的火铃 · 贴地冲击波
 function a19Clr(){A19S=[];A19F=[];A19W=[]}

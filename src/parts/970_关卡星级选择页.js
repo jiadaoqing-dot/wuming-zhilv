@@ -26,7 +26,7 @@ function lvsArt(n,X,Y,W,H,t){x.save();x.beginPath();x.rect(X,Y,W,H);x.clip();x.i
     else if(n==8&&CITY8.I){const m=CITY8.M.sky;x.drawImage(CITY8.I,m[0],m[1],m[2],m[3],X,Y,W,H)}
     else if(n==9&&VOL9.I){const m=VOL9.M.sky;x.drawImage(VOL9.I,0,m[0],m[1],m[2],X,Y,W,H)}
     else if(n==10&&SHIP10.I){const m=SHIP10.M.sky;x.drawImage(SHIP10.I,0,m[0],m[1],m[2],X,Y,W,H)}
-    else if(n==19&&MECH.I){const m=MECH.M.bg,b=MECH.M.bld;x.filter='sepia(.85) saturate(1.5) hue-rotate(-12deg) brightness(.82)';x.drawImage(MECH.I,m[0],m[1],m[2],m[3],X,Y,W,H);x.drawImage(MECH.I,b[0],b[1],b[2],b[3],X,Y+H-b[3]*W/b[2],W,b[3]*W/b[2]);x.filter='none'}
+    else if(n==19&&ALC.I){const m=ALC.M.p0;x.fillStyle='#272638';x.fillRect(X,Y,W,H);x.drawImage(ALC.I,m[0],m[1]+20,m[2],m[3]-20,X,Y,W,H)}
     else if(n==18&&NJA.I){const m=NJA.M.bg;x.drawImage(NJA.I,m[0],m[1]+30,m[2],m[3]-70,X,Y,W,H)}
     else if(n==16&&FIRE.I){const m=FIRE.M.bg;x.fillStyle='#2a0d08';x.fillRect(X,Y,W,H);x.drawImage(FIRE.I,m[0]+200,m[1],300,m[3],X,Y,W,H)}
     else if(n==15&&CST.I){const m=CST.M.bg;x.fillStyle='#0f1f2a';x.fillRect(X,Y,W,H);x.drawImage(CST.I,m[0]+300,m[1],360,m[3],X,Y,W,H)}

@@ -2,7 +2,7 @@ assets/ 素材清单(tools/assets_index.py 自动生成,build.py 每次构建时
 格式:文件  大小  源码引用(src/parts 分块序号:该文件里的行号 所在函数/对象.键)  ← 生成脚本  [音频:用到的原始素材]
 
 == 图片 PNG(@@A:)  123 个 ==
-alc_atlas.png  12KB  567:13 ALC.D  ← art_src/clock19/build_clock19.py
+alc_atlas.png  40KB  567:13 ALC.D  ← art_src/clock19/build_clock19.py
 ars_ar1.png  4KB  880:44 PXA.ar1  ← 无脚本:Hero spritesheets - Ars Notoria(Balmer,CC0)换色分层,旧主角选项,见源码 PXA 注释
 ars_ar2.png  4KB  880:45 PXA.ar2  ← 无脚本:Hero spritesheets - Ars Notoria(Balmer,CC0)换色分层,旧主角选项,见源码 PXA 注释
 ars_ar3.png  4KB  880:46 PXA.ar3  ← 无脚本:Hero spritesheets - Ars Notoria(Balmer,CC0)换色分层,旧主角选项,见源码 PXA 注释
@@ -134,7 +134,7 @@ map_bg.jpg  110KB  950:75 MAPI.D  ← art_src/map/build_map.py
 fpx12.woff2  67KB  000:9   ← art_src/font/build_font.py
 fpx8.woff2  42KB  000:10   ← art_src/font/build_font.py
 
-== 音频 OGG(@@O:)  130 个 ==
+== 音频 OGG(@@O:)  132 个 ==
 au_b_axe.ogg  6KB  020:7 AUD.b_axe  ← art_src/audio/build_audio.py  [bfh1_metal_hit_02.ogg, explosion.ogg, swish-7.wav]
 au_b_gallop.ogg  7KB  020:7 AUD.b_gallop  ← art_src/audio/build_audio.py  [slam_0%d.ogg, wind]
 au_b_imp1.ogg  6KB  020:7 AUD.b_imp1  ← art_src/audio/build_audio.py  [impactwood11.mp3.flac, hit_02.ogg]
@@ -165,6 +165,8 @@ au_bgm17b.ogg  464KB  020:13 AUD.bgm17b  ← art_src/audio/build_audio.py
 au_bgm17c.ogg  761KB  020:13 AUD.bgm17c  ← art_src/audio/build_audio.py  [Welcome to Com-Mecha.mp3, Samurai-Nights-Demo.mp3, oga_japanese_hacks_0.mp3]
 au_bgm18.ogg  410KB  020:13 AUD.bgm18  ← art_src/audio/build_audio.py
 au_bgm18b.ogg  726KB  020:13 AUD.bgm18b  ← art_src/audio/build_audio.py
+au_bgm19.ogg  972KB  020:13 AUD.bgm19  ← art_src/audio/build_audio.py  [clockwork_jester.flac, Heart of Machine.ogg]
+au_bgm19b.ogg  950KB  020:13 AUD.bgm19b  ← art_src/audio/build_audio.py
 au_bgm1b.ogg  613KB  020:9 AUD.bgm1b  ← art_src/audio/build_audio.py
 au_bgm2.ogg  325KB  020:9 AUD.bgm2  ← art_src/audio/build_audio.py
 au_bgm2b.ogg  789KB  020:9 AUD.bgm2b  ← art_src/audio/build_audio.py
@@ -370,6 +372,8 @@ au_zap.ogg  9KB  020:5 AUD.zap  ← art_src/audio/build_audio.py
    用法:python art_src/city/build_gh8.py → assets/gh8_atlas.png + 打印 meta(贴进源码 GH8.M)
 -- art_src/clock19/build_clock19.py
    第十五关「不眠钟楼」图集 ALC(第四十八轮,cur 19)
+   场景:GothicVania Church Pack(ansimuz,CC0,https://opengameart.org/content/gothicvania-church-pack,raw/clock19/church)背景面板 / 石柱 / 地砖,原样;
+   落地钟 = [LPC] Clock Animation(Lanea Zimmerman (Sharm) / William.Thompsonj,CC-BY 3.0,https://opengameart.org/content/lpc-clock-animation,raw/clock19/lpc_clock),原样
    素材:Cute Sprites Pack 1(Master484,CC-BY 3.0 / OGA-BY 3.0,https://opengameart.org/content/cute-sprites-pack-1,raw/clock19/Monsters2.zip)
    闹钟怪 AlarmClock 蓝 / 红(站立、行走 4 帧、响铃 2 帧、受伤、倒地、睡觉)· 睡觉的 Z(SleepZ)· 子弹 Electro(电铃弹)/ Fireball(火铃雨)
    改动:原图的灰紫底色抠成透明;只用朝右的帧(朝左在游戏里翻转);第三套「绿色毒钟」= 红色闹钟色相旋转成毒绿(首领第三形态);其他原样

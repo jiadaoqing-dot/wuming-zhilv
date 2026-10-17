@@ -13,7 +13,7 @@ function petStep(dt,S,all){if(!petOn())return;const p=PETS;p.an+=dt;p.g-=dt;p.wv
     for(const e of all)if(!e.ug&&e.hp>0&&!q.hit.has(e)&&ov({x:q.x-10,y:q.y-10,w:20,h:20},e)){q.hit.add(e);pDeal(e,Math.round(q.dmg*rnd(.9,1.1)));sfx('peck')}}
   if(st!='play')return;for(const k in p.cd)p.cd[k]-=dt;if(p.g>0)return;
   const near=all.filter(e=>!e.ug&&e.hp>0&&Math.abs(e.x+e.w/2-(P.x+12))<360);if(!near.length)return;
-  for(const k of PET.sk){if(p.cd[k]>0)continue;p.cd[k]=PSK[k][2];p.g=1.2;p.wv=.5;const cx=P.x+12,cy=P.y+16;
+  for(const k of PET.sk){if(p.cd[k]>0)continue;p.cd[k]=petCd(k);p.g=1.2;p.wv=.5;const cx=P.x+12,cy=P.y+16;
     if(k=='atk'){P.pAtk=8;ring(cx,cy,4,44,'#ff922b',.4,4);burst(cx,cy,12,['#ffd43b','#ff922b'],180,{sh:1,s:2,l:.35});tx('攻击 +'+Math.round(petAtk()*100)+'%',P.x-10,P.y-30,'#ff922b');sfx('buff')}
     else if(k=='def'){P.pDef=8;ring(cx,cy,4,44,'#4dabf7',.4,4);burst(cx,cy,12,['#a5d8ff','#4dabf7'],180,{sh:1,s:2,l:.35});tx('防御 +'+Math.round(petDef()*100)+'%',P.x-10,P.y-30,'#4dabf7');sfx('buff')}
     else if(k=='fan'){const e=nearE(near,p.x+11,p.y+8,400)||near[0],ex=e.x+e.w/2,ey=e.y+e.h/2,d=sgn(ex-(p.x+11));p.f=d;PF.push({x:p.x+11,y:p.y+6,vx:d*Math.max(260,Math.abs(ex-p.x-11)/.6),vy:(ey-p.y-6)/.6,t:0,a:0,st:'out',hit:new Set(),dmg:S.atk*fanM()});sfx('swing')}

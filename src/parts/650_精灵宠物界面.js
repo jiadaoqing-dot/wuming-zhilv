@@ -20,5 +20,5 @@ function rPet(){hamHatchChk();return rChick()+rPeq()+rHam()}
 function rChick(){if(!PET.own)return hd('🐤 宠物')+fm()+`<p>你还没有宠物。钢盔小鸡可以在 🏪 商城的金币商店购买(💰 ${PETP_})。</p><button data-p="gomall">前往商城</button>`;
   const need=petNeed(PET.lv),pm=PET.lv>=20;
   let h=hd('🐤 宠物')+fm()+`<img class="pv" src="${pvImg('pet')}" alt=""><b>钢盔小鸡 · Lv ${PET.lv}/20</b> <button data-p="pon">${PET.on?'✅ 出战中':'⬜ 休息中'}</button><br><span class="tag">${pm?'已满级':'经验 '+PET.exp+' / '+need+'(出战时,击败怪物获得和无名相同的经验)'}</span><div class="xb"><i style="width:${pm?100:Math.round(PET.exp/need*100)}%"></i></div><span class="tag">Lv 5 / 10 / 15 / 20 各随机领悟一个还没学会的技能;技能在关卡里自动释放,数值随宠物等级提升。</span>`;
-  h+=`<h4>技能</h4><div class="psk">`+[0,1,2,3].map(i=>{const k=PET.sk[i];return k?`<div>${mniEm(k)}<b>${PSK[k][0]}</b> <span class="tag">冷却 ${PSK[k][2]} 秒</span><br><span class="tag">${PSK[k][1]()}</span></div>`:`<div class="lk"><b>🔒 未领悟</b><br><span class="tag">Lv ${(i+1)*5} 随机领悟</span></div>`}).join('')+'</div>';
+  h+=`<h4>技能</h4><div class="psk">`+[0,1,2,3].map(i=>{const k=PET.sk[i];return k?`<div>${mniEm(k)}<b>${PSK[k][0]}</b> <span class="tag">冷却 ${petCd(k)} 秒</span><br><span class="tag">${PSK[k][1]()}</span></div>`:`<div class="lk"><b>🔒 未领悟</b><br><span class="tag">Lv ${(i+1)*5} 随机领悟</span></div>`}).join('')+'</div>';
   return h}

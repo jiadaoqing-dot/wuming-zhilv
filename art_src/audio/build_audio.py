@@ -47,7 +47,9 @@ BGM={'bgm0':(G+'town.mp3',None,1),'bgm1':('happy_adventure.mp3',None,1),'bgm1b':
  #   第十四关月影忍城(cur 18)Samurai Nights(Majadroid,CC-BY 4.0,https://opengameart.org/content/samurai-nights,用 Demo 整曲)/ Japanese Samurai Ninja Battle Trailer(ISAo,OGA-BY 3.0,https://opengameart.org/content/japanese-samurai-ninja-battle-trailer)
  'bgm12':(G+'r47/46b.ogg',120,1),'bgm12b':(G+'r47/Endless Pain of Nightmares.WAV',120,1),'bgm13':(G+'r47/The 9th Circle V2.mp3',120,1),'bgm13b':(G+'r47/demon lord_0.mp3',120,1),
  'bgm16':(G+'r47/Shrine to the Smoldering Volcano_0.mp3',120,1),'bgm16b':(G+'r47/the_demon_king_loop_0.ogg',120,1),'bgm17':(G+'r47/Reflections Upon the Black Mirror.ogg',None,1),'bgm17b':(G+'r47/determination_1.mp3',None,1),
- 'bgm17c':(G+'r47/Welcome to Com-Mecha.mp3',120,1),'bgm18':(G+'r47/samurai/Samurai-Nights-Demo.mp3',None,1),'bgm18b':(G+'r47/oga_japanese_hacks_0.mp3',None,1)}
+ 'bgm17c':(G+'r47/Welcome to Com-Mecha.mp3',120,1),'bgm18':(G+'r47/samurai/Samurai-Nights-Demo.mp3',None,1),'bgm18b':(G+'r47/oga_japanese_hacks_0.mp3',None,1),
+ # 第四十八轮 第十五关不眠钟楼(cur 19,raw/audio/bgm/r48)Clockwork Jester(Arold Valda,CC-BY 4.0,https://opengameart.org/content/clockwork-jester)/ Heart of Machine(Alexandr Zhelanov,CC-BY 3.0,https://opengameart.org/content/heart-of-machine)
+ 'bgm19':(G+'r48/clockwork_jester.flac',150,1),'bgm19b':(G+'r48/Heart of Machine.ogg',150,1)}
 def load(p,sr):
   d,s=sf.read(A+p,always_2d=True);m=d.mean(1)
   g=np.gcd(s,sr);return resample_poly(m,sr//g,s//g) if s!=sr else m

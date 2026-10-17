@@ -24,10 +24,10 @@
 
 【当前状态(2026-10-17,第四十八轮完成后)】
 - v1.48(第四十八轮):第十五关不眠钟楼 cur 19 = 567 分块(ALC 图集 art_src/clock19/build_clock19.py,Master484 Cute Sprites Pack 1 CC-BY;改了要把打印的 M / A 贴回 ALC)。小怪 ckb / ckr(ckbStep / ckrStep,复活 almRev + almWake:e.rev / e.s 'slp' / 'wak' / e.ug);首领 alm(almStep / almEnd,三条命 almMorph → act 'morph' → almGrow,ALHP / ALDM / ALSZ / ALNM;毒海 B.seaT / seaCd,a19Step / a19Fx,A19S / A19F / A19W)。
-  各表 [19]:LM 59 / E19 / PL19 / BHN BDF / BLN 15(BLH / BLA[15] 只为开霸体)/ XPK BXP / MHK[17] 200 / mk 尺寸 / CDMG / ESKN / 160 令牌 / 180 forceAtk / reward 表 / MN 名字 / 800 姿势 / 790 ALC.on / bg / MAPS2 第 5 项(p:[300,200] 占位)/ 970 缩略图 + lvsBoss / 980 首领名(按形态)/ MSS[19] / BGMF[19]=14 借曲 / 击杀点 cur==19?15。首领 e.esnm = 没有魔力(180 eskStep / eskUse / eskBack),以后的关卡首领也要设 esnm。
+  各表 [19]:LM 59 / E19 / PL19 / BHN BDF / BLN 15(BLH / BLA[15] 只为开霸体)/ XPK BXP / MHK[17] 200 / mk 尺寸 / CDMG / ESKN / 160 令牌 / 180 forceAtk / reward 表 / MN 名字 / 800 姿势 / 790 ALC.on / bg / MAPS2 第 5 项(p:[214,196] = 用户截图的蓝色符文塔)/ 970 缩略图 + lvsBoss / 980 首领名(按形态)/ MSS[19] / BGM bgm19 / bgm19b(build_audio.py r48)/ 场景 ALC.bg = GothicVania Church 面板 p0~p4 + col + gnd / gnd2 + LPC 落地钟 gclk / 击杀点 cur==19?15。首领 e.esnm = 没有魔力(180 eskStep / eskUse / eskBack),以后的关卡首领也要设 esnm。
   难度校准脚本思路:Playwright 里搭参考配置(lvl 55、大师套 ling、火之武器、全身 fg 2 / en 6、xy + xyw、精灵 atk 50、技能全 5),enterLv 后冻结首领,逐个 useSk + 推 7 秒统计掉血 = 一套技能(法师 ≈ 13.7 万)。
   宠物装备 = 655 分块(PEQD / R19.peq {own,on} / PEQN 3 / peqOn 要宠物出战;无尽 peqInf、汲取在 dealt、怀表在 hurt 末尾 P.wchT、骰子 DICEB 进 DBLK(双倍卡开着时按 ×2)、记忆晶片 useSk 外包一层记 MEMR → toTown 存 R19.mem,城里 memStep 重放 → R19.mem.ok,进关 peqEnter 设 MEMB);MENI 46~50。
-  羁绊 = PSD 'spd'(仓鼠灵巧上限 HSPM() = 20 + 等级);破甲 P.apen 改 .95;XFREC 小鸟碎片 30 / 添加剂 10;主线第十四章 MQ lv:18 两条。问题在 docs/下次任务.txt「第四十八轮」。
+  羁绊 = PSD 'spd'(仓鼠灵巧上限 HSPM() = 20 + 等级;小鸡冷却 petCd(k) 每级 -1%);破甲 P.apen 改 .95;XFREC 小鸟碎片 30 / 添加剂 10;主线第十四章 MQ lv:18 两条。问题在 docs/下次任务.txt「第四十八轮」。
 - v1.47(第四十七轮):第十四关月影忍城 cur 18 = 565 分块(NJA 图集 art_src/ninja14/build_ninja14.py,改了要把打印的 M 贴回 NJA.M;首领函数叫 oboStep / oboEnd / oboBehind,因为 nbStep / nbEnd 已被第八~十关占用)。各表 [18]:LM / E 列表 / BHN / BDF / XPK / BXP / MHK[16] / BLN / CDMG / mk / reward / 名字 / ESKN / 160 令牌 / 180 forceAtk / 800 BWP / bg / MAPS2 / 970 缩略图 + lvsBoss / 980 首领名 / MSS[18]。第二张地图下一关从 cur 19 起。
   主城部落图腾 + 星界财宝 = 537 分块(TOTEM 图集 art_src/totem)。强化 ENMX 9、STDR 第 4 项 = Lv3。灿灿循环任务 / 技能石 MSS[90] / [91] 在 535 末尾(mscCast 的 hole / inv 类型在 090)。BGM r47 一共 11 首(build_audio.py 末尾登记,单独编码过,整套重跑一样)。
   测试技巧:截图要逐帧推进(update 包一层 __frz,手动 __U(1/60));别把测试函数挂成 window.ST(游戏里 ST 已被占用)。问题在 docs/下次任务.txt「第四十七轮」。
@@ -65,6 +65,6 @@
   测试注意:Playwright 的 keyboard.press 会在同一帧抬起按键,跑步中按攻击要 down → 等 50ms → up 才会触发冲刺直戳。
 
 【下一步】
-  ★ 第四十八轮已完成(2026-10-17,v1.48),等用户回复 docs/下次任务.txt「第四十八轮」:第十五关地图位置截图、首领要不要第 4 条命、无尽的换算、怀表冷却 / 格子数、羁绊对小鸡、钟楼背景 / BGM。
+  ★ 第四十八轮已完成(2026-10-17,v1.48),用户已回复 docs/下次任务.txt「第四十八轮」并全部处理完(地图位置、小鸡冷却、钟楼背景 / BGM;3 条命 / 无尽 / 怀表维持)。等下一轮任务。
   ★ 第四十五轮(2026-10-15,v1.45)的问题见 docs/下次任务.txt「第四十五轮」:技能段数减半后的伤害补偿、前期金币够不够、要不要按 DNF 分开刷资源、镜像强度。
   更早的待确认事项都在 docs/交接_归档.txt【下一步】。

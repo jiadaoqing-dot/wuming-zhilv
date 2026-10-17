@@ -42,7 +42,7 @@ const MENI={I:null,D:'@@A:meni_atlas@@',P:{atk:9,def:10,fan:11,slow:12,0:13,1:14
   init(){const im=new Image();im.onload=()=>{this.I=im};im.src=this.D}};MENI.init();
 Object.assign(MENI.P,{A0:17,A1:18,add:19,gift:20,food:21,lk1:22,lk2:23,luck:24,dbl:25,gc1:39,gc2:40});  // 第十九轮道具图标(build_meni.py 追加)
 const mniEm=k=>`<i class="mni" style="background-position:-${MENI.P[k]*34}px 0"></i>`;  // 宠物界面技能卡上的图标
-function drawPetBar(){const L=hamOn()?[0,1,2,3].map(i=>[i,HMP.cd[i]||0,hamCd(HSKD[i][2])]):petOn()?PET.sk.map(k=>[k,PETS.cd[k]||0,PSK[k][2]]):[];if(!L.length)return;const px=PUI.on(),s=22;
+function drawPetBar(){const L=hamOn()?[0,1,2,3].map(i=>[i,HMP.cd[i]||0,hamCd(HSKD[i][2])]):petOn()?PET.sk.map(k=>[k,PETS.cd[k]||0,petCd(k)]):[];if(!L.length)return;const px=PUI.on(),s=22;
   L.forEach(([k,cd,mx],i)=>{const bx=178+i*25,by=VH-72;if(px)PUI.ns(x,'pC',5,5,5,5,bx,by,s,s);else RR(x,bx,by,s,s,5,LG(x,0,by,0,by+s,['#5c4a7a','#2a1f3c']),1.2);
     if(MENI.I){x.save();x.imageSmoothingEnabled=false;x.drawImage(MENI.I,MENI.P[k]*34,0,34,34,bx+2.5,by+2.5,17,17);x.restore()}  // 34 像素原图画成 17 逻辑像素 = 屏幕 1:1(RS=2)
     if(st=='play'&&cd>0){const q=Math.min(1,cd/mx);x.save();x.beginPath();x.rect(bx+2,by+2,s-4,s-4);x.clip();x.fillStyle='rgba(10,8,20,.62)';x.beginPath();x.moveTo(bx+s/2,by+s/2);x.arc(bx+s/2,by+s/2,16,-Math.PI/2,-Math.PI/2+q*6.2832);x.closePath();x.fill();x.restore();CT(String(Math.ceil(cd)),bx+s/2,by+s/2+3,6,'#fff','center',1)}})}
