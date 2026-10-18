@@ -1222,4 +1222,7 @@
    52  CPUR               第五十一轮:检测浏览器是不是没用显卡画图(硬件加速关闭 / 显卡被屏蔽),是的话回城时提示一次
    53  homeAct            
    73  homeKey            
+== src/parts/1005_移动端触屏.js
+    8  mobKey             
+    9  mobInit            
 == src/parts/1010_结尾.html
