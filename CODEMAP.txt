@@ -1223,6 +1223,15 @@
    53  homeAct            
    73  homeKey            
 == src/parts/1005_移动端触屏.js
-    8  mobKey             
-    9  mobInit            
+    9  mobKey             
+   11  MKF                可以分配给按钮的功能:[键, 按钮上显示的键名, 说明]
+   16  MKDEF              默认布局:中心点距屏幕边缘的距离(单位 vh,和手机高度成比例);底部 15% 留给画面里的技能栏 / 菜单栏
+   18  lsGet              
+   22  mkReset            恢复默认:pos=1 只恢复位置;否则功能 / 位置 / 大小全部恢复(原地改对象,按钮闭包里拿的是同一个对象)
+   23  MOBP               
+   24  mobInit            
+== src/parts/1006_手机版活动兑换码.js
+   10  CDK                
+   16  cdkDone            
+   17  cdkGo              
 == src/parts/1010_结尾.html
