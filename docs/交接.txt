@@ -22,7 +22,8 @@
  旧的云端环境只能访问 GitHub / npm / pypi,opengameart、itch 访问不了。
  素材来源:ULPC 仓库(LPC 人物图层)、series-ai/jam-ready-assets(大量 CC0 素材,LFS 文件用 media 直链下载,见 fetch_assets.sh)。
 
-【当前状态(2026-10-17,第五十二轮完成后)】
+【当前状态(2026-10-18,v1.52 手机纪念版完成后)】
+- 手机纪念版(用户要求只做这一次,以后只做电脑端):代码只在分支 mobile-v1.52(1005_移动端触屏.js,TCH = pointer:coarse 或 ?touch=1;MOB 名字已被占用)。main 里的 mobile/ 是冻结的网页 + assets 副本,主线 build 不会动它,不要删、也不要再往 main 合并手机代码。
 - v1.52(道具 bug):背包道具左键菜单 cmItems('i:') 现在 = 使用(MISC[id][4] → 'iu')+ itSellL 出售;返回 [] 时 openCM 只选中。新加有「使用」的道具记得在 MISC 第 5 项写按钮文字;售价 0 的走 ITPR(600)补价。
 - v1.51(卡顿排查):用户 Edge 关了硬件加速(Local State hardware_acceleration_mode enabled:false,.html 默认 MSEdgeHTM)。性能测试:Playwright 加 --use-angle=d3d11 --enable-gpu --ignore-gpu-blocklist 才走真显卡,不加就是 SwiftShader(= 用户的情况)。瓶颈 = PXL.run 整屏放大贴图;PUI.text 有缓存 TXC(渐变填色 / 旋转时不走缓存);glowS 光晕贴图;PXL.run(fn,need,R) 局部贴 + PXL.bb;CPUR 检测提示(SWR 名字已被占用)。
 - v1.50(第四十九轮回复):受击无敌删除 → hurt 里 P.inv 最多 HITI 0.1(150 分块);新写的持续判定伤害必须自己做单次 / 计时标记(e.hd / tick),不能再靠受击无敌兜底;身体碰撞 e.bcT 0.6 秒。完美闪避关掉(pdChk 首句 return false)。防御暗改 DEFH .5(140)。圣愈 4 件 YUTK 3 秒一跳(020 / 340 P.yuT)。
