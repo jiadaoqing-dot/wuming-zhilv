@@ -54,5 +54,6 @@ function bagAct(a,r){const it=itOf(r);hideTip();CSC=0;let keep=0;
   else if(a=='iu'&&r.startsWith('i:')){keep=1;bmsg=itemUse(r.slice(2))}
   else if(/^ms_/.test(a)&&r.startsWith('i:')){keep=1;bmsg=msEquip(r.slice(2),a.slice(3))}
   else if(/^cz_/.test(a)&&r.startsWith('i:')){keep=1;bmsg=curseUse(r.slice(2),a.slice(3))}
+  else if((a=='czy'||a=='czn')&&r.startsWith('i:')){keep=1;bmsg=cursePick(a=='czy')}
   else if(a=='msx'&&it)bmsg=msOff(it);
   if(!keep)sel=null;else if(sel!=r)sel=r;const S=stats();P.hp=Math.min(P.hp,S.hp);P.mp=Math.min(P.mp,S.mp);save();renderBag()}

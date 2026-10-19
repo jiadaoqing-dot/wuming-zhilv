@@ -58,7 +58,7 @@ bfx_atlas.png  27KB  930:3 BFX.D  ← art_src/bfx/build_bfx.py
 book_atlas.png  4KB  580:6 BOOK.D  ← art_src/book/build_book.py
 city8_atlas.png  128KB  470:138 CITY8.D  ← art_src/city/build_city8.py
 cst_atlas.png  155KB  550:10 CST.D  ← art_src/castle/build_castle.py
-dmn_atlas.png  210KB  571:27 DMN.D  ← art_src/demon/build_dmn.py
+dmn_atlas.png  426KB  571:31 DMN.D  ← art_src/demon/build_dmn.py
 eq_atlas.png  17KB  770:4 EQPX.D  ← art_src/eqicon/build_eqicon.py
 fire13_atlas.png  160KB  560:8 FIRE.D  ← art_src/fire13/build_fire13.py
 fx29_atlas.png  817KB  940:15 FX29.D  ← art_src/skfx/build_fx29.py
@@ -137,7 +137,7 @@ map_bg.jpg  110KB  950:75 MAPI.D  ← art_src/map/build_map.py
 fpx12.woff2  69KB  000:9   ← art_src/font/build_font.py
 fpx8.woff2  43KB  000:10   ← art_src/font/build_font.py
 
-== 音频 OGG(@@O:)  136 个 ==
+== 音频 OGG(@@O:)  142 个 ==
 au_b_axe.ogg  6KB  020:7 AUD.b_axe  ← art_src/audio/build_audio.py  [bfh1_metal_hit_02.ogg, explosion.ogg, swish-7.wav]
 au_b_gallop.ogg  7KB  020:7 AUD.b_gallop  ← art_src/audio/build_audio.py  [slam_0%d.ogg, wind]
 au_b_imp1.ogg  6KB  020:7 AUD.b_imp1  ← art_src/audio/build_audio.py  [impactwood11.mp3.flac, hit_02.ogg]
@@ -176,6 +176,12 @@ au_bgm20.ogg  985KB  020:13 AUD.bgm20  ← art_src/audio/build_audio.py  [Cyborg
 au_bgm20b.ogg  923KB  020:13 AUD.bgm20b  ← art_src/audio/build_audio.py
 au_bgm21.ogg  959KB  020:13 AUD.bgm21  ← art_src/audio/build_audio.py  [Tower of Lava.mp3, lava_dungeon_8-bit.mp3]
 au_bgm21b.ogg  187KB  020:13 AUD.bgm21b  ← art_src/audio/build_audio.py
+au_bgm22b.ogg  720KB  020:13 AUD.bgm22b  ← art_src/audio/build_audio.py  [heavy_boss_battle_1_bpm200_0.ogg, major_bruise_loop.ogg, a_champions_will.mp3]
+au_bgm23b.ogg  642KB  020:13 AUD.bgm23b  ← art_src/audio/build_audio.py
+au_bgm24b.ogg  994KB  020:13 AUD.bgm24b  ← art_src/audio/build_audio.py
+au_bgm25b.ogg  360KB  020:13 AUD.bgm25b  ← art_src/audio/build_audio.py  [the_devils_allure.ogg, Chapel of Hate v0_8.mp3, Revenge (Boss Battle).mp3]
+au_bgm26b.ogg  976KB  020:13 AUD.bgm26b  ← art_src/audio/build_audio.py
+au_bgm27b.ogg  935KB  020:13 AUD.bgm27b  ← art_src/audio/build_audio.py
 au_bgm2b.ogg  789KB  020:9 AUD.bgm2b  ← art_src/audio/build_audio.py
 au_bgm3.ogg  511KB  020:9 AUD.bgm3  ← art_src/audio/build_audio.py  [Forest Whisper.ogg, final_hour.ogg, tribal.mp3, fight_looped.ogg]
 au_bgm3b.ogg  884KB  020:9 AUD.bgm3b  ← art_src/audio/build_audio.py
@@ -275,10 +281,7 @@ au_y_tp.ogg  8KB  020:11 AUD.y_tp  ← art_src/audio/build_audio.py  [swish-9.wa
 au_y_ult.ogg  24KB  020:11 AUD.y_ult  ← art_src/audio/build_audio.py  [rumble]
 au_zap.ogg  9KB  020:5 AUD.zap  ← art_src/audio/build_audio.py
 
-== 没被源码引用的文件 3 个(可能是生成脚本的中间产物,或可以删)==
-au_bgm22b.ogg  720KB  ← art_src/audio/build_audio.py
-au_bgm23b.ogg  642KB  ← art_src/audio/build_audio.py
-au_bgm24b.ogg  994KB  ← art_src/audio/build_audio.py
+== 没被源码引用的文件 0 个(可能是生成脚本的中间产物,或可以删)==
 
 == art_src 各生成脚本的说明(脚本开头注释:素材来源 / 作者 / 授权 / 用法)==
 -- art_src/audio/build_audio.py

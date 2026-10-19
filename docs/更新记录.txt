@@ -1,3 +1,11 @@
+【v1.57 · 2026-10-20 · 第五十六轮:十二魔 4~6 + 诅咒固定值 + BGM 修复】
+- 571 分块 DMOPEN 6:阿斯莫德 asmo(魅惑 P.chm → 340 update 左右颠倒;DMK 魅惑之吻、DMT 锁链、love 地面)· 贝利亚 beli(DML 真假光圈 sh 金 / 紫、od 颠倒;guard 用 e.ghp 锁血 + 反噬)· 阿斯塔罗特 asta(P.rot 腐蚀 → 150 hurt ×(1+.06 层)、DMC 净化光圈、fore 预判 e.mk)。dmStep2 / dmFx 新颜色 love / holy / rot(DMSP / DMZF / DMPF)。
+- 图集 DMN 加三行(build_dmn.py):chierit 的 Water Priestess(色相 +95° 玫红)/ Fire Knight(HOLY 金)/ Frost Guardian(ROT 腐绿,翻转),CC-BY 4.0,raw/demon/water / fireknight / frost;DMDK 画面放大(帧外框含特效)。场地 ALC / CST / NJA 压色。
+- 强度:一阶固定 DMHP / DMDM(dmInit 不再乘星级),BDF[22..27] 44;dmsGo 直接 enterLv(…,3),不进星级页。各表补到 cur 33(LM / E / BHN / BDF / XPK / BXP / BLN)。
+- 诅咒:部位 wpn / head / body / cos / ear / ring(CUG,cuIt 取装备或 cosIt);数值固定 cuV(eqAdd / eqSum 都用);已有诅咒 → R19.cuP + 菜单 czy / czn(620 点完自动再弹出);时装翅膀共用(cuSet 移走另一件)。
+- BGM 修复:AUD 表没登记 bgm22b~24b,选曲又只认 bgm+cur → 现在 isDm 直接用 bgm<cur>b;新曲 bgm25b The Devil's Allure(CC0)/ 26b Chapel of Hate(CC-BY 3.0)/ 27b Revenge(CC-BY 3.0),r56。
+- 字体重建(新字 净吻呆堂挣爱玫粉驾魅);主页更新日志 1.57;设置页致谢补上。冒烟 0 错误。
+
 【v1.56 · 2026-10-19 · 第五十四轮新任务:十二魔封印 + 诅咒之力】
 - 新分块 571_十二魔封印.js:cur 22~33(DM0 22,isDm / dmI),先开 3 个 = 巴尔 baal / 达贡 dagon / 摩洛克 molo(DMST 分派,dmNew / dmInit 用 IGHP·IGDM × DMHK / DMAK)。场上 DMZ 地火水洼 / DMP 柱 / DMM 落弹 / DMW 冲击波,dmStep / dmFx;场地 dmBg 借 GP / FIRE。
 - 图集 DMN(art_src/demon/build_dmn.py):chierit 的 Boss: Demon Slime / FREE Cthulu / Boss: Minotaur(CC-BY 4.0,itch 免费版,raw/demon);M = [x,y,帧宽,帧高,帧数,脚底x,脚底y]。

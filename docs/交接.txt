@@ -22,7 +22,10 @@
  旧的云端环境只能访问 GitHub / npm / pypi,opengameart、itch 访问不了。
  素材来源:ULPC 仓库(LPC 人物图层)、series-ai/jam-ready-assets(大量 CC0 素材,LFS 文件用 media 直链下载,见 fetch_assets.sh)。
 
-【当前状态(2026-10-19,v1.56)】
+【当前状态(2026-10-20,v1.57)】
+- v1.57(第五十五轮回复):十二魔开到 6 个(DMOPEN 6,cur 25 asmo / 26 beli / 27 asta),表已补到 cur 33(LM / E / BHN / BDF / XPK / BXP / BLN),k 键表(reward t0 / CDMG / ESKN / 180 解僵直 / MN / 800 BWP)按 k 加。再开新恶魔:DMD.k + build_dmn.py D(+TINT / HUE / FLIP)→ 打印的 M 贴回 DMN.M + DMZS(+DMDK)+ DMN.draw 分支 + dmBg + xxStep → DMST + k 键表 + lvsArt + BGM bgm<cur>b(AUD 表也要登记!v1.56 漏了导致没声音)。
+  一阶强度 = DMHP / DMDM 固定(dmInit),不分星级(dmsGo 直接 enterLv(…,3));二阶(i ≥ 6)暂用旧公式,等做到再定。诅咒:CUG 部位组 / cuIt / cuV 固定值 / R19.cuP 待选 + czy / czn;时装翅膀的诅咒存在 R19.cen[id].cu(eqSum 加)。
+  新机制:P.chm 魅惑(340 update 方向乘 -1,只在 isDm)· P.rot 腐蚀(150 hurt 乘)· dmClr 会清。问题在 docs/下次任务.txt「第五十六轮」。
 - v1.56(第五十四轮新任务):十二魔封印 = 571 分块,cur 22~33(DM0,isDm(c),DMD[12] 名字 / 部位 / 传说,DMOPEN 3)。新恶魔:DMD[i].k + DMN 图集行 + DMZS 尺寸 + DMHK / DMAK + DMST[k] 步进函数 + dmBg 场地 + DMN.draw 动作帧 + MISC['cz'+i](循环里按 DMOPEN 生成)+ BGM bgm(22+i)b;各表已经按 cur 22~24 补过:LM / E 列表 / BHN / BDF / BLN / XPK / BXP / reward t0 / CDMG / ESKN / 180 解僵直 / 800 BWP / MN / HUD 名字(isDm 分支)/ lvsName / lvsArt / lvsBoss / lvsDrops。再开 25 起要把这些数组继续补长。主线下一关从 cur 34 起(22~33 留给恶魔)。
   诅咒:it.cu = {k 属性, v 数值, t 阶, d 恶魔};curseUse(id, 部位);CUV / CUW / CUK。恶魔选择页 st 'dms'(590 点击 / 绘制 / BGM,710 键盘);星级页 LVS.m = 2。itch 免费包下载:POST /<page>/file/<upload_id>?source=view_game&as_props=1&after_download_lightbox=1(带首页 csrf_token)直接给 url。
   问题在 docs/下次任务.txt「第五十五轮」。
@@ -78,6 +81,7 @@
   测试注意:Playwright 的 keyboard.press 会在同一帧抬起按键,跑步中按攻击要 down → 等 50ms → up 才会触发冲刺直戳。
 
 【下一步】
+  ★ v1.57 的问题在 docs/下次任务.txt「第五十六轮」:三个新恶魔的手感 / 强度、二阶 6 个的强度怎么定、后面 6 个是否继续按每轮 3 个做。
   ★ v1.55 的问题在 docs/下次任务.txt「第五十四轮」:第十七关地图位置、地火 / 首领强度。
   ★ 第四十八轮已完成(2026-10-17,v1.48),用户已回复 docs/下次任务.txt「第四十八轮」并全部处理完(地图位置、小鸡冷却、钟楼背景 / BGM;3 条命 / 无尽 / 怀表维持)。等下一轮任务。
   ★ 第四十五轮(2026-10-15,v1.45)的问题见 docs/下次任务.txt「第四十五轮」:技能段数减半后的伤害补偿、前期金币够不够、要不要按 DNF 分开刷资源、镜像强度。

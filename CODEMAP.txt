@@ -901,43 +901,56 @@
    16  openMap            
 == src/parts/571_十二魔封印.js
     1  ■ 第五十五轮:十二魔封印(第二张地图「暗黑大陆」右上方、四根封魔柱围着的浮空石台,cur 22 ~ 33)
-   13  DMD                12 个恶魔:n 名字 · en 原名 · k 图集名(null = 还没做)· sl 诅咒的部位(前 6 个一阶,后 6 个二阶,部位和前
-   26  DMHK               
-   27  DMN                
-   44  dmBg               场地:借已有图集,再整体压一层颜色
-   49  DMZ                ---- 场上的东西:地面火 / 深渊水洼 DMZ · 火柱 / 水柱 DMP · 天降火球 / 水球 DMM · 贴地冲击波 DMW(跳过
-   50  dmClr              
-   52  dmZone             
-   53  dmPil              
-   54  dmMet              
-   55  dmWave             
-   56  dmSplash           
-   57  dmBoom             
-   58  dmStep             
-   65  dmFx               
-   74  dmEnd              ---- 三个恶魔共用 ----
-   75  dmOdChk            
-   76  dmHit              
-   77  dmNew              
-   78  dmInit             
-   80  baalStep           ---- 巴尔:屠刀斩 cleave · 跃击 leap · 业火陨落 meteor · 炎浪 wave(往两边推开)· 王冠烈焰 crow
-   98  dagStep            深渊雨 rain(天上落水球,落地留下水洼)· 俯冲 dive(贴地横冲到墙,沿路留水洼)· 二阶段「深渊涨潮」:每 6 秒脚下涌一根水柱 
-  117  moloStep           震地 quake(冲击波往两边推开,跳过去)· 烙印 brand(二阶段:天降火球)· 二阶段「狂怒」:走得更快 ----
-  132  DMST               
-  134  dmDrop             首领倒下:诅咒之力(必掉 1 个,再按掉落率多掉 1 个)
-  136  ■ 诅咒之力:诅咒装备(用户:增益相当于精良强化石 +12;每次诅咒随机一种属性;前 6 个恶魔一阶,后 6 个二阶 = 一阶 ×1.5;每个恶魔只能诅咒自己对应的
-  139  CUNM               闪避单独压低(用户:闪避不能堆太高):90 点 = 3%,出现几率也最低;每次诅咒在 60% ~ 100% 之间随机,新的诅咒替换旧的(可以
-  140  cuRoll             
-  142  cuRng              
-  143  curseUse           
-  149  ■ 恶魔选择页 st = 'dms'
-  150  DMS                ===== 恶魔选择页 st = 'dms' =====
-  153  openDms            
-  154  dmsHit             
-  155  dmsGo              
-  156  dmsClick           
-  157  dmsKey             
-  158  drawDms            
+   15  DMD                12 个恶魔:n 名字 · en 原名 · k 图集名(null = 还没做)· sl 诅咒的部位(第五十六轮用户定:武器 / 头饰 / 战
+   29  DMHP               一阶 6 个的生命 / 伤害倍率(三星忍者首领 ≈ 63 万 / 90.6,一星闹钟首领 = 27.4 万 × 3 条命 ≈ 82 万 / 
+   30  DMHK               
+   31  DMN                
+   54  dmBg               场地:借已有图集,再整体压一层颜色
+   63  DMZ                第五十六轮:DMK 魅惑之吻(飞行)· DML 贝利亚的真假光圈 · DMC 净化光圈 · DMT 阿斯莫德的锁链;P.chm 魅惑(左右颠
+   64  dmClr              
+   66  DMSP               颜色 c:fire 火 · rock 岩 · sea 水 · love 魅惑(粉紫星)· holy 伪光(金)· rot 腐息(绿)—— 后
+   69  dmZone             
+   70  dmPil              
+   71  dmMet              
+   72  dmWave             
+   73  dmSplash           
+   74  dmBoom             
+   75  dmStep             
+   85  dmCharm            ---- 第五十六轮:魅惑 / 腐蚀 / 魅惑之吻 / 真假光圈 / 净化光圈 / 锁链 ----
+   86  dmRot              
+   87  dmKiss             
+   88  dmStep2            
+   99  dmFx               
+  117  dmEnd              ---- 三个恶魔共用 ----
+  118  dmOdChk            
+  119  dmHit              
+  120  dmNew              
+  121  dmInit             
+  123  baalStep           ---- 巴尔:屠刀斩 cleave · 跃击 leap · 业火陨落 meteor · 炎浪 wave(往两边推开)· 王冠烈焰 crow
+  141  dagStep            深渊雨 rain(天上落水球,落地留下水洼)· 俯冲 dive(贴地横冲到墙,沿路留水洼)· 二阶段「深渊涨潮」:每 6 秒脚下涌一根水柱 
+  160  moloStep           震地 quake(冲击波往两边推开,跳过去)· 烙印 brand(二阶段:天降火球)· 二阶段「狂怒」:走得更快 ----
+  178  asmoStep           二阶段「色欲之域」:每 8 秒从场地两边各飞来一个魅惑之吻,锁链吸得更多 ----
+  197  beliStep           天罚 judge(往前一大片光爆 + 主角身边三根光柱)· 连斩 combo · 二阶段「谎言之王」:光圈颜色颠倒、一次三个 ----
+  218  astaStep           二阶段「知晓过去与未来」:预知连落三次,吐息留下腐土 ----
+  236  DMST               
+  238  dmDrop             首领倒下:诅咒之力(必掉 1 个,再按掉落率多掉 1 个)
+  240  ■ 诅咒之力:诅咒装备(用户:增益相当于精良强化石 +12;每次诅咒随机一种属性;前 6 个恶魔一阶,后 6 个二阶 = 一阶 ×1.5;每个恶魔只能诅咒自己对应的
+  245  CUNM               部位:wpn = 武器(剑 / 法杖各自可以诅咒)· cos = 时装 / 翅膀共用一个部位(同一时间只有一件带诅咒,诅咒另一件会把这件的诅
+  246  CUG                
+  249  cuRoll             
+  251  cuRng              
+  252  curseUse           
+  257  cuSet              
+  258  cursePick          
+  261  cuMenu             背包左键菜单(620 cmItems 调用):有没选完的那次 → 两个选项;否则 = 每个可以诅咒的部位一个按钮
+  268  ■ 恶魔选择页 st = 'dms'
+  269  DMS                ===== 恶魔选择页 st = 'dms' =====
+  272  openDms            
+  273  dmsHit             
+  274  dmsGo              
+  275  dmsClick           
+  276  dmsKey             
+  277  drawDms            
 == src/parts/580_书架与书籍.js
     1  ■ 第三十一轮 · 书架与书籍
     6  BOOK               
@@ -1028,10 +1041,10 @@
    10  potBuy             
    14  potSell            
    15  rSet               
-  103  applyRS            
-  106  fitWrap            窗口太小放不下 2 倍时,退回按窗口大小自适应。全屏仍然铺满(由 CSS 的 body.fs 规则控制)
-  109  uiScale            
-  112  setFsCls           
+  105  applyRS            
+  108  fitWrap            窗口太小放不下 2 倍时,退回按窗口大小自适应。全屏仍然铺满(由 CSS 的 body.fs 规则控制)
+  111  uiScale            
+  114  setFsCls           
 == src/parts/680_商城操作.js
     1  mallAct            
 == src/parts/690_熔炉强化界面.js
@@ -1295,12 +1308,12 @@
 == src/parts/1000_主页面.js
     1  ■ 主页面(第二十轮):打开游戏后的第一页 —— 左边版本号 + 更新日志(或操作说明),右边 开始新游戏 / 继续游戏 / 提取存档 / 添加存档 / 操作说明
     4  CHLOG              更新日志 CHLOG:[版本, 日期, [条目...]],新版本加在最前面(和 GAMEV 一起改)
-   49  homeSave           
-   50  rHome              
-   57  openHome           
-   58  closeHome          
-   61  twnReload          离屏缓存的画布也会被清空(实测头像、数字、背景缓存都没了),所以恢复时一律存档后刷新页面(关卡里会回到主城,只丢这一关的进度);页面在后台超
-   65  CPUR               第五十一轮:检测浏览器是不是没用显卡画图(硬件加速关闭 / 显卡被屏蔽),是的话回城时提示一次
-   66  homeAct            
-   86  homeKey            
+   50  homeSave           
+   51  rHome              
+   58  openHome           
+   59  closeHome          
+   62  twnReload          离屏缓存的画布也会被清空(实测头像、数字、背景缓存都没了),所以恢复时一律存档后刷新页面(关卡里会回到主城,只丢这一关的进度);页面在后台超
+   66  CPUR               第五十一轮:检测浏览器是不是没用显卡画图(硬件加速关闭 / 显卡被屏蔽),是的话回城时提示一次
+   67  homeAct            
+   87  homeKey            
 == src/parts/1010_结尾.html

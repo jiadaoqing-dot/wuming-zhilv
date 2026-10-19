@@ -34,6 +34,8 @@ raw/ 原始素材索引(tools/assets_index.py 自动生成;不打包进游戏)
     Tower of Lava.mp3, lava_dungeon_8-bit.mp3
   audio/bgm/r55/  3 个 8.7MB  用到:art_src/audio/build_audio.py
     a_champions_will.mp3, heavy_boss_battle_1_bpm200_0.ogg, major_bruise_loop.ogg
+  audio/bgm/r56/  3 个 11.3MB  用到:art_src/audio/build_audio.py
+    Chapel of Hate v0_8.mp3, Revenge (Boss Battle).mp3, the_devils_allure.ogg
   audio/creature/  80 个 1.9MB  用到:art_src/audio/build_audio.py, art_src/castle/build_castle.py
     alien_01~06.ogg, barking_01~02.ogg, breath.ogg, bug_01~04.ogg, burble_01~02.ogg, burp_01~02.ogg, cough_01~03.ogg, cute_01~10.ogg, eat_01~04.ogg, grunt_01~05.ogg, howl.ogg, hurt_01~05.ogg, misc_01~09.ogg, monster_01~07.ogg, nose.ogg, ooh.ogg, roar_01~03.ogg, scream_01~02.ogg, snore.ogg, spit_01~03.ogg, troll_01~03.ogg, weird_01~05.ogg
   audio/dl2/  18 个 12.3MB  用到:art_src/audio/build_audio.py
@@ -459,6 +461,60 @@ raw/ 原始素材索引(tools/assets_index.py 自动生成;不打包进游戏)
     walk_1~9.png
   demon/cthulu/x/free_cthulu/animations/gif_samples/  9 个 1.1MB  用到:art_src/build_wing.py, art_src/demon/build_dmn.py, art_src/volcano/build_vol9.py
     1atk.gif, 2atk.gif, _all_animations.gif, _banner.gif, death.gif, fly.gif, hurt.gif, idle.gif, walk.gif
+  demon/fireknight/  1 个 1.4MB  用到:art_src/demon/build_dmn.py
+    zip: Elementals_fire_knight_FREE_v1.1.zip(1.4MB)
+  demon/fireknight/x/Elementals_fire_knight_FREE_v1.1/  1 个 1KB  用到:art_src/demon/build_dmn.py
+    fire_knight.png
+  demon/fireknight/x/Elementals_fire_knight_FREE_v1.1/aseprite/  1 个 199KB  用到:art_src/demon/build_dmn.py
+    fire_FREE_v1.1.aseprite
+  demon/fireknight/x/Elementals_fire_knight_FREE_v1.1/gifs/  16 个 1018KB  用到:art_src/demon/build_dmn.py
+    00_all_animations_fire_FREE.gif, 01_idle.gif, 02_run.gif, 03_jump.gif, 03_jump_down.gif, 03_jump_up.gif, 04_roll.gif, 05_1_atk.gif, 06_2_atk.gif, 07_3_atk.gif, 08_sp_atk.gif, 09_defend.gif, 10_take_hit.gif, 11_death.gif, air_atk_.gif, air_atk_sample.gif
+  demon/fireknight/x/Elementals_fire_knight_FREE_v1.1/png/fire_knight/01_idle/  8 个 16KB  用到:art_src/demon/build_dmn.py
+    idle_1~8.png
+  demon/fireknight/x/Elementals_fire_knight_FREE_v1.1/png/fire_knight/02_run/  8 个 16KB  用到:art_src/demon/build_dmn.py
+    run_1~8.png
+  demon/fireknight/x/Elementals_fire_knight_FREE_v1.1/png/fire_knight/03_jump/  20 个 41KB  用到:art_src/demon/build_dmn.py
+    jump_1~9.png
+  demon/fireknight/x/Elementals_fire_knight_FREE_v1.1/png/fire_knight/03_jump_down/  3 个 6KB  用到:art_src/demon/build_dmn.py
+    jump_down_1~3.png
+  demon/fireknight/x/Elementals_fire_knight_FREE_v1.1/png/fire_knight/03_jump_up/  3 个 6KB  用到:art_src/demon/build_dmn.py
+    jump_up_1~3.png
+  demon/fireknight/x/Elementals_fire_knight_FREE_v1.1/png/fire_knight/04_roll/  8 个 16KB  用到:art_src/demon/build_dmn.py
+    roll_1~8.png
+  demon/fireknight/x/Elementals_fire_knight_FREE_v1.1/png/fire_knight/05_1_atk/  11 个 25KB  用到:art_src/demon/build_dmn.py
+    1_atk_1~9.png
+  demon/fireknight/x/Elementals_fire_knight_FREE_v1.1/png/fire_knight/06_2_atk/  19 个 41KB  用到:art_src/demon/build_dmn.py
+    2_atk_1~9.png
+  demon/fireknight/x/Elementals_fire_knight_FREE_v1.1/png/fire_knight/07_3_atk/  28 个 69KB  用到:art_src/demon/build_dmn.py
+    3_atk_1~9.png
+  demon/fireknight/x/Elementals_fire_knight_FREE_v1.1/png/fire_knight/08_sp_atk/  18 个 60KB  用到:art_src/demon/build_dmn.py
+    sp_atk_1~9.png
+  demon/fireknight/x/Elementals_fire_knight_FREE_v1.1/png/fire_knight/09_defend/  10 个 20KB  用到:art_src/demon/build_dmn.py
+    defend_1~9.png
+  demon/fireknight/x/Elementals_fire_knight_FREE_v1.1/png/fire_knight/10_take_hit/  6 个 13KB  用到:art_src/demon/build_dmn.py
+    take_hit_1~6.png
+  demon/fireknight/x/Elementals_fire_knight_FREE_v1.1/png/fire_knight/11_death/  13 个 21KB  用到:art_src/demon/build_dmn.py
+    death_1~9.png
+  demon/fireknight/x/Elementals_fire_knight_FREE_v1.1/png/fire_knight/air_atk/  8 个 14KB  用到:art_src/demon/build_dmn.py
+    air_atk_1~8.png
+  demon/fireknight/x/Elementals_fire_knight_FREE_v1.1/spritesheets/  1 个 277KB  用到:art_src/boss/build_ars.py, art_src/boss/build_mage.py, art_src/lpc/comp.py, art_src/lpc_npc/build_npc_lpc.py, art_src/mob/build_mob.py, art_src/vfx/build_vfx.py
+    fire_FREE_SpriteSheet_288x128.png
+  demon/frost/  1 个 770KB  用到:art_src/demon/build_dmn.py, art_src/vfx/build_vfx.py
+    zip: Frost_Guardian_FREE_v1.0.zip(770KB)
+  demon/frost/x/Frost_Guardian_FREE_v1.0/  2 个 272KB  用到:art_src/demon/build_dmn.py
+    frost_guardian_free.aseprite, frost_guardian_free_192x128_SpriteSheet.png
+  demon/frost/x/Frost_Guardian_FREE_v1.0/PNG files/1_atk/  14 个 58KB  用到:art_src/demon/build_dmn.py
+    1_atk_1~9.png
+  demon/frost/x/Frost_Guardian_FREE_v1.0/PNG files/death/  16 个 44KB  用到:art_src/audio/build_audio.py, art_src/castle/build_castle.py, art_src/clock19/build_clock19.py, art_src/fire13/build_fire13.py, art_src/ninja14/build_ninja14.py
+    death_1~9.png
+  demon/frost/x/Frost_Guardian_FREE_v1.0/PNG files/idle/  6 个 27KB  用到:art_src/boss/build_bos.py, art_src/boss/build_mage.py, art_src/castle/build_castle.py, art_src/city/build_gh8.py, art_src/demon/build_dmn.py, art_src/fire13/build_fire13.py, art_src/lpc/build_lpc.py, art_src/lpc_npc/build_npc_lpc.py, art_src/mob/build_dog2.py, art_src/mob/build_mob.py, art_src/mob/build_pen.py, art_src/myst/build_gp.py, art_src/myst/build_myst.py, art_src/ninja14/build_ninja14.py, art_src/volcano/build_vol9.py
+    idle_1~6.png
+  demon/frost/x/Frost_Guardian_FREE_v1.0/PNG files/take_hit/  7 个 39KB  用到:art_src/demon/build_dmn.py
+    take_hit_1~7.png
+  demon/frost/x/Frost_Guardian_FREE_v1.0/PNG files/walk/  10 个 43KB  用到:art_src/boss/build_bos.py, art_src/boss/build_mage.py, art_src/boss/build_scob.py, art_src/castle/build_castle.py, art_src/city/build_city8.py, art_src/clock19/build_clock19.py, art_src/demon/build_dmn.py, art_src/fire13/build_fire13.py, art_src/lpc/build_lpc.py, art_src/lpc_npc/build_npc_lpc.py, art_src/mob/build_dog2.py, art_src/mob/build_mob.py, art_src/mob/build_pen.py, art_src/myst/build_myst.py, art_src/ship/build_ship10.py, art_src/town/build_tpx.py, art_src/volcano/build_vol9.py
+    walk_1~9.png
+  demon/frost/x/Frost_Guardian_FREE_v1.0/gif samples/  5 个 368KB  用到:art_src/demon/build_dmn.py
+    1_atk.gif, death.gif, idle.gif, take_hit.gif, walk.gif
   demon/mino/  1 个 709KB  用到:art_src/boss/build_mnt.py, art_src/demon/build_dmn.py, art_src/fire13/build_fire13.py
     zip: mino_v1.1_free.zip(709KB)
   demon/mino/x/mino_v1.1_free/  1 个 115KB  用到:art_src/demon/build_dmn.py
@@ -493,6 +549,42 @@ raw/ 原始素材索引(tools/assets_index.py 自动生成;不打包进游戏)
     demon_death_1~9.png
   demon/slime/x/boss_demon_slime_FREE_v1.0/spritesheets/  1 个 157KB  用到:art_src/boss/build_ars.py, art_src/boss/build_mage.py, art_src/lpc/comp.py, art_src/lpc_npc/build_npc_lpc.py, art_src/mob/build_mob.py, art_src/vfx/build_vfx.py
     demon_slime_FREE_v1.0_288x160_spritesheet.png
+  demon/water/  1 个 1.2MB  用到:art_src/demon/build_dmn.py, art_src/mob/build_mfx.py
+    zip: Elementals_water_priestess_FREE_v1.1.zip(1.2MB)
+  demon/water/x/Elementals_water_priestess_FREE_v1.1/  3 个 428KB  用到:art_src/demon/build_dmn.py
+    water_FREE_SpriteSheet_288x128.png, water_priestess.png, water_priestess_FREE_v1.1.aseprite
+  demon/water/x/Elementals_water_priestess_FREE_v1.1/gifs/  17 个 914KB  用到:art_src/demon/build_dmn.py
+    00_all_animations_FREE.gif, 01_idle.gif, 02_walk.gif, 03_surf.gif, 04_j_up.gif, 05_j_down.gif, 06_tumble.gif, 07_1_atk.gif, 08_2_atk.gif, 09_3_atk.gif, 10_sp_atk.gif, 11_heal.gif, 12_defend.gif, 13_take_hit.gif, 14_death.gif, air_atk.gif, air_atk_sample.gif
+  demon/water/x/Elementals_water_priestess_FREE_v1.1/png/01_idle/  8 个 13KB  用到:art_src/demon/build_dmn.py
+    idle_1~8.png
+  demon/water/x/Elementals_water_priestess_FREE_v1.1/png/02_walk/  10 个 16KB  用到:art_src/demon/build_dmn.py
+    walk_1~9.png
+  demon/water/x/Elementals_water_priestess_FREE_v1.1/png/03_surf/  8 个 16KB  用到:art_src/demon/build_dmn.py
+    surf_1~8.png
+  demon/water/x/Elementals_water_priestess_FREE_v1.1/png/04_j_up/  3 个 5KB  用到:art_src/demon/build_dmn.py
+    j_up_1~3.png
+  demon/water/x/Elementals_water_priestess_FREE_v1.1/png/05_j_down/  3 个 5KB  用到:art_src/demon/build_dmn.py
+    j_down_1~3.png
+  demon/water/x/Elementals_water_priestess_FREE_v1.1/png/06_tumble/  6 个 11KB  用到:art_src/demon/build_dmn.py
+    tumble_1~6.png
+  demon/water/x/Elementals_water_priestess_FREE_v1.1/png/07_1_atk/  7 个 11KB  用到:art_src/demon/build_dmn.py
+    1_atk_1~7.png
+  demon/water/x/Elementals_water_priestess_FREE_v1.1/png/08_2_atk/  21 个 33KB  用到:art_src/demon/build_dmn.py
+    2_atk_1~9.png
+  demon/water/x/Elementals_water_priestess_FREE_v1.1/png/09_3_atk/  27 个 50KB  用到:art_src/demon/build_dmn.py
+    3_atk_1~9.png
+  demon/water/x/Elementals_water_priestess_FREE_v1.1/png/10_sp_atk/  32 个 82KB  用到:art_src/demon/build_dmn.py
+    sp_atk_1~9.png
+  demon/water/x/Elementals_water_priestess_FREE_v1.1/png/11_heal/  12 个 15KB  用到:art_src/demon/build_dmn.py
+    heal_1~9.png
+  demon/water/x/Elementals_water_priestess_FREE_v1.1/png/12_defend/  12 个 26KB  用到:art_src/demon/build_dmn.py
+    defend_1~9.png
+  demon/water/x/Elementals_water_priestess_FREE_v1.1/png/13_take_hit/  7 个 11KB  用到:art_src/demon/build_dmn.py
+    take_hit_1~7.png
+  demon/water/x/Elementals_water_priestess_FREE_v1.1/png/14_death/  16 个 21KB  用到:art_src/demon/build_dmn.py
+    death_1~9.png
+  demon/water/x/Elementals_water_priestess_FREE_v1.1/png/air_atk/  8 个 16KB  用到:art_src/demon/build_dmn.py
+    air_atk_1~8.png
 
 ## raw/fire13
   fire13/  5 个 319KB  用到:art_src/fire13/build_fire13.py
@@ -953,9 +1045,9 @@ lpc_animals_2022_v1.1.zip  411KB
     Enemy-Death-Preview.gif, Enemy-Death.ase
   lv/swamp/Gothicvania Swamp files/Sprites/Enemy-Death/Explosion/  6 个 4KB  用到:art_src/fire13/build_fire13.py, art_src/mob/build_mfx.py, art_src/skfx/build_fx29.py
     Enemy-Death1~6.png
-  lv/swamp/Gothicvania Swamp files/Sprites/Fire/  2 个 1KB  用到:art_src/audio/build_audio.py, art_src/bfx/build_bfx.py, art_src/clock19/build_clock19.py, art_src/fire13/build_fire13.py, art_src/myst/build_gp.py, art_src/skfx/build_fx29.py, art_src/skfx/build_skfx.py, art_src/ui/build_meni.py, art_src/vfx/build_vfx.py, art_src/volcano/build_vol9.py
+  lv/swamp/Gothicvania Swamp files/Sprites/Fire/  2 个 1KB  用到:art_src/audio/build_audio.py, art_src/bfx/build_bfx.py, art_src/clock19/build_clock19.py, art_src/demon/build_dmn.py, art_src/fire13/build_fire13.py, art_src/myst/build_gp.py, art_src/skfx/build_fx29.py, art_src/skfx/build_skfx.py, art_src/ui/build_meni.py, art_src/vfx/build_vfx.py, art_src/volcano/build_vol9.py
     fire-preview.gif, fire.ase
-  lv/swamp/Gothicvania Swamp files/Sprites/Fire/fire/  2 个 0KB  用到:art_src/audio/build_audio.py, art_src/bfx/build_bfx.py, art_src/city/build_gh8.py, art_src/fire13/build_fire13.py, art_src/fire21/build_fire21.py, art_src/lpc/build_hsw.py, art_src/lpc/build_staff.py, art_src/myst/build_gp.py, art_src/myst/build_myst.py, art_src/skfx/build_fx29.py, art_src/skfx/build_mg27.py, art_src/skfx/build_skfx.py, art_src/vfx/build_vfx.py, art_src/volcano/build_vol9.py
+  lv/swamp/Gothicvania Swamp files/Sprites/Fire/fire/  2 个 0KB  用到:art_src/audio/build_audio.py, art_src/bfx/build_bfx.py, art_src/city/build_gh8.py, art_src/demon/build_dmn.py, art_src/fire13/build_fire13.py, art_src/fire21/build_fire21.py, art_src/lpc/build_hsw.py, art_src/lpc/build_staff.py, art_src/myst/build_gp.py, art_src/myst/build_myst.py, art_src/skfx/build_fx29.py, art_src/skfx/build_mg27.py, art_src/skfx/build_skfx.py, art_src/vfx/build_vfx.py, art_src/volcano/build_vol9.py
     fire1~2.png
   lv/swamp/Gothicvania Swamp files/Sprites/Ghost/  2 个 4KB  用到:art_src/city/build_gh8.py
     Ghost-peview.gif, Ghost.ase

@@ -19,7 +19,7 @@ const RECH=.001,RECM=.001;  // 回春每级:每秒回最大生命 / 最大魔力
 const PSX=(k,l)=>k=='dj'?'在空中可以再跳一次':k=='crt'?`暴击率 +${l*2}% · 暴击伤害 +${l*8}%(${(1.8+l*.08).toFixed(2)} 倍)`:k=='spd'?`钢盔小鸡技能冷却 -${l}% · 仓鼠「灵巧」冷却缩短上限 +${l}%(${20+l}%)`:k=='rec'?`每秒回复最大生命 ${(l*RECH*100).toFixed(1)}% · 最大魔力 ${(l*RECM*100).toFixed(1)}%`:k=='mp'?`最大魔力 +${l*6}% · 技能耗魔 -${l*4}%`:`${PSD.find(q=>q[0]==k)[2]} +${Math.round(l*PSV[k]*100)}%`;
 const critK=()=>1.8+pl('crt')*.08+(godOn('cr')?.2:0);  // 第四十轮:上帝卡牌「暴击升级」+0.2  // 暴击倍率:基础 1.8 倍,会心每级 +0.08
 // 装备固定属性合计(白字含锻造 + 绿字 + 强化 + 属性石);穿着的时装 / 翅膀再加它们的强化值(时装防御 / 翅膀暴击)
-function eqSum(ks){const g={hp:0,mp:0,atk:0,def:0,cr:0,dg:0};for(const k of ks)eqAdd(g,EQ[k]);for(const t of ['fash','wing']){const c=WEAR[t]&&cosIt(WEAR[t]);if(c&&c.ev)g[EQE[t][0]]+=c.ev}return g}
+function eqSum(ks){const g={hp:0,mp:0,atk:0,def:0,cr:0,dg:0};for(const k of ks)eqAdd(g,EQ[k]);for(const t of ['fash','wing']){const c=WEAR[t]&&cosIt(WEAR[t]);if(c&&c.ev)g[EQE[t][0]]+=c.ev;if(c&&c.cu)g[c.cu.k]+=cuV(c.cu)}return g}  // 第五十六轮:时装 / 翅膀的诅咒
 // 时装 / 翅膀的强化、增幅宝石数据(像装备一样有 en / ev / amp,存在 R19.cen)
 function cosIt(id){const d=COSD[id];if(!d)return null;const c=R19.cen[id]||(R19.cen[id]={en:0,ev:0,v9:1});if(!c.v9){c.ev=Math.round((c.ev||0)*EQE16);c.v9=1}Object.assign(c,{cos:id,slot:d.t,tier:3,s:{},n:d.n});return c}
 // 第三十三轮:百分比加成全部只加在「基础数值」上(角色基础 + 装备固定属性,不含被动 / 精灵 / 宠物等),各来源的百分比相加,避免数值膨胀

@@ -19,7 +19,7 @@ function update(dt){
   if(sq>=0){useSk(sq,S);sq=-1}
   // 地面攻击时停下脚步:普攻出招到收招、蓄力、施法的前 0.35 秒都不能走动;位移只来自招式自带的前冲
   const atkLock=P.gr&&!P.fly&&((P.swT!=null&&P.swT<P.swD+P.swR)||(ah&&P.ch>.08)||(P.cs&&P.cs.t<.35));
-  const d=P.sk||stn||atkLock?0:keys.r-keys.l;
+  const d=P.sk||stn||atkLock?0:(keys.r-keys.l)*(P.chm>0&&isDm(cur)&&!INTOWN?-1:1);  // 第五十六轮:阿斯莫德的魅惑 = 左右颠倒
   // 减速:蛛丝命中、沙尘、站在蛛网上都会让移动速度 -40%(取最强的一个,不叠加)
   let sf=1;P.wz=0;if(P.slw>0){P.slw-=dt;sf=.6}if(P.sand>0){P.sand-=dt;sf=.6}
   for(const w of WZ)if(P.y+P.h>=GY-2&&P.x+P.w>w.x&&P.x<w.x+w.w){P.wz=1;sf=.6}

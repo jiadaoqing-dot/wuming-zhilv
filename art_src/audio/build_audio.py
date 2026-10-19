@@ -57,7 +57,10 @@ BGM={'bgm0':(G+'town.mp3',None,1),'bgm1':('happy_adventure.mp3',None,1),'bgm1b':
  'bgm21':(G+'r54/Tower of Lava.mp3',150,1,430),'bgm21b':(G+'r54/lava_dungeon_8-bit.mp3',None,1),
  # 第五十五轮 十二魔封印(cur 22~24 只有首领曲,raw/audio/bgm/r55)巴尔 Heavy Boss Battle 1(MintoDog,CC0,https://opengameart.org/content/heavy-boss-battle-1)/
  #   达贡 Major Bruise(Anipatok,CC-BY 4.0,https://opengameart.org/content/major-bruise)/ 摩洛克 A Champion's Will(ATMANAN,CC-BY 4.0,https://opengameart.org/content/a-champions-will)
- 'bgm22b':(G+'r55/heavy_boss_battle_1_bpm200_0.ogg',150,1),'bgm23b':(G+'r55/major_bruise_loop.ogg',None,1),'bgm24b':(G+'r55/a_champions_will.mp3',150,1)}
+ 'bgm22b':(G+'r55/heavy_boss_battle_1_bpm200_0.ogg',150,1),'bgm23b':(G+'r55/major_bruise_loop.ogg',None,1),'bgm24b':(G+'r55/a_champions_will.mp3',150,1),
+ # 第五十六轮 十二魔封印 4~6(cur 25~27,raw/audio/bgm/r56)阿斯莫德 The Devil's Allure(ARoachIFoundOnMyPillow,CC0,https://opengameart.org/content/the-devils-allure)/
+ #   贝利亚 Chapel of Hate(FoxSynergy,CC-BY 3.0,https://opengameart.org/content/chapel-of-hate)/ 阿斯塔罗特 Revenge (Boss Battle)(Insydnis,CC-BY 3.0,https://opengameart.org/content/revenge-boss-battle)
+ 'bgm25b':(G+'r56/the_devils_allure.ogg',150,1),'bgm26b':(G+'r56/Chapel of Hate v0_8.mp3',150,1),'bgm27b':(G+'r56/Revenge (Boss Battle).mp3',150,1)}
 def load(p,sr):
   d,s=sf.read(A+p,always_2d=True);m=d.mean(1)
   g=np.gcd(s,sr);return resample_poly(m,sr//g,s//g) if s!=sr else m
