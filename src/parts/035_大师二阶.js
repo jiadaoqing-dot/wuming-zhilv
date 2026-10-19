@@ -3,7 +3,8 @@
 //   特性效果 ×4.5(trMul 的权重:普通 1 · 大师 2 · 大师二阶 4.5)。只出头饰 / 战甲 / 项链 / 指环(和大师制作一样),特性随机;
 //   it.m2 = 1,it.ms 仍然是 2(原来「大师」的规则全部照用)
 // 四件大师二阶都是同一种特性 → 多一个被动(m2On):
-//   圣愈 / 邪灵:每 10 秒,下一次攻击额外造成 (最大生命 + 当前生命) × 15 的伤害(无视防御,金色数字)
+//   圣愈 / 邪灵:每 10 秒,下一次攻击额外造成 (最大生命 + 当前生命) × 15 的伤害(无视防御,金色数字);
+//     邪灵(第五十八轮)改成 (最大魔力 + 当前魔力) × 15,打屏幕里所有敌人
 //   神技:每 8 秒刷新一个冷却最长的技能(同样长就随机),所有技能冷却再 -10%;攻击强制削减怪物韧性(无视霸体);连击保持 6 秒,每 30 连击攻击 +23%(最多 20 层)
 //   热血:受到致命伤害时 60% 几率不死(留 1 点生命)并 3 秒无敌,没有冷却;生命 < 70% 攻击 +100%,< 50% 再 +100%,< 30% 再 +300%
 //   怒雷:所有攻击伤害 +(暴击率 ÷ 10)%(暴击率 200% → +20%);暴击率超过 100% 的部分,每 2% 让暴击伤害 +1%
@@ -12,7 +13,7 @@ const evV=it=>Math.round((it&&it.ev||0)*(it&&it.m2?M2EN:1));
 function m2Gen(s,t){s=s||MSL[Math.random()*MSL.length|0];t=t||TRK[Math.random()*TRK.length|0];
   const it=gen(s,3,'大师二阶'+MSN[s]+'·'+TRT[t][0],3,t,1,1);it.m2=1;for(const k in it.s)it.s[k]=Math.round(it.s[k]*M2W);greenRoll(it);it.pr=eqPr(it);return it}
 const m2Cnt=k=>BODY.filter(s=>EQ[s]&&EQ[s].m2&&EQ[s].tr==k).length,m2On=k=>m2Cnt(k)>=4;
-const M2D={yu:`每 10 秒,下一次攻击额外造成「(最大生命 + 当前生命) × ${M2HK}」的伤害(无视防御,金色数字)`,ling:`每 10 秒,下一次攻击额外造成「(最大生命 + 当前生命) × ${M2HK}」的伤害(无视防御,金色数字)`,
+const M2D={yu:`每 10 秒,下一次攻击额外造成「(最大生命 + 当前生命) × ${M2HK}」的伤害(无视防御,金色数字)`,ling:`每 10 秒,下一次攻击让屏幕里所有敌人受到「(最大魔力 + 当前魔力) × ${M2HK}」的伤害(无视防御,紫色数字)`,
   ji:'每 8 秒刷新一个冷却最长的技能,所有技能冷却再 -10%;所有攻击强制削减怪物韧性(无视霸体);连击保持 6 秒,每 30 连击攻击力 +23%(最多 20 层)',
   xue:'受到致命伤害时 60% 几率不死并 3 秒无敌(没有冷却);生命低于 70% 攻击力 +100%,低于 50% 再 +100%,低于 30% 再 +300%',
   lei:'所有攻击伤害 +(暴击率 ÷ 10)%(暴击率 200% 时 +20%);暴击率超过 100% 的部分,每 2% 让暴击伤害 +1%'};
@@ -24,8 +25,12 @@ function m2Ji(){const c=CD[P.mode];let mx=0;for(const v of c)mx=Math.max(mx,v);
   if(mx>0){const L=[];c.forEach((v,i)=>{if(v>=mx-.01)L.push(i)});c[L[Math.random()*L.length|0]]=0}
   for(const w in CD)CD[w]=CD[w].map(v=>v*.9);ghost('#339af0',.3)}
 // dealt 里调用:圣愈 / 邪灵 的额外伤害(宠物 / 爆燃不触发)
-function m2Hit(e){if(!P.m2h||PETX||ELX||st!='play'||e.hp<=0)return;P.m2h=0;P.m2hT=0;const S=stats(),d=Math.round((S.hp+Math.max(0,P.hp))*M2HK);
-  e.hp-=d;tx(d,e.x+e.w/2,e.y-22,'#ffd43b','c');VFX.spawn('x-star',e.x+e.w/2,e.y+e.h/2,{s:1.4,life:.6,add:1,gr:.5});shake=Math.max(shake,.18)}
+// 第五十八轮(用户):邪灵改成按 (最大魔力 + 当前魔力) × 15,并且打到屏幕里所有敌人(圣愈偏坦克,邪灵偏清场)
+function m2Hit(e){if(!P.m2h||PETX||ELX||st!='play'||e.hp<=0)return;P.m2h=0;P.m2hT=0;const S=stats(),lg=m2On('ling');
+  const d=Math.round(lg?((P.mpMax||S.mp||0)+Math.max(0,P.mp||0))*M2HK:(S.hp+Math.max(0,P.hp))*M2HK);
+  const T=lg?(bossOn&&B.hp>0?[...E,B]:E).filter(q=>q.hp>0&&!q.ug&&!q.pp&&q.x+q.w>cam&&q.x<cam+VW):[e];
+  for(const q of T){q.hp-=d;tx(d,q.x+q.w/2,q.y-22,lg?'#d0bfff':'#ffd43b','c');VFX.spawn('x-star',q.x+q.w/2,q.y+q.h/2,{s:1.4,life:.6,add:1,gr:.5})}
+  if(lg)flash('151,117,250',.18);shake=Math.max(shake,.18)}
 // hurt 里调用:热血不死
 function m2Live(){if(!m2On('xue')||Math.random()>=.6)return false;P.m2L=1;tx('不死!',P.x-6,P.y-30,'#ff6b6b','c');flash('255,80,80',.2);return true}
 function m2Atk(hp){let a=0;if(m2On('ji'))a+=Math.min(20,Math.floor((P.combo||0)/30))*.23;if(m2On('xue')&&hp>0){const r=P.hp/hp;if(r<.7)a+=1;if(r<.5)a+=1;if(r<.3)a+=3}return a}

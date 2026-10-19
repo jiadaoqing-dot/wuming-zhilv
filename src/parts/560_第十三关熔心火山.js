@@ -189,16 +189,16 @@ function hamPetStep(dt,S,all){if(!hamOn())return;const p=HMP;p.g-=dt;p.wv-=dt;
   if(ad>520){p.x=tx_-11;p.y=GY-16}
   const mv=ad>8;if(mv){p.f=sgn(dx);p.x+=sgn(dx)*Math.min(ad,(ad>140?330:160)*dt)}else p.f=P.f;p.x=Math.max(lo,Math.min(hi,p.x));p.mv=mv;
   p.vy+=1200*dt;p.y+=p.vy*dt;if(p.y>=GY-16){p.y=GY-16;p.vy=mv?-120:0}
-  const cm=()=>Math.random()<hamB('cr')/100?1.5:1;
+  const hcr=hamB('cr');  // 第五十八轮:「眼力」加到暴击率里走 dealt 的暴击判定(暴击照样是紫色数字;原来单独 ×1.5 却显示白字)
   for(const q of HPS){q.t+=dt;q.a+=dt*16;const e=q.e,ex=e.x+e.w/2,ey=e.y+e.h/2,dd=Math.hypot(ex-q.x,ey-q.y)||1,m=Math.min(dd,420*dt);q.x+=(ex-q.x)/dd*m;q.y+=(ey-q.y)/dd*m;
-    if(dd<10||e.hp<=0||q.t>1.5){q.d=1;if(e.hp>0&&all.includes(e)&&!e.ug){pDeal(e,Math.round(q.dmg*cm()*rnd(.9,1.1)));burst(q.x,q.y,5,['#3a3640','#e9e4dc'],120,{s:2,l:.3})}}}HPS=HPS.filter(q=>!q.d);
-  for(const c of HCP){c.t+=dt;const e=c.e;if(e.hp>0){c.x=e.x+e.w/2;c.y=e.y+e.h}if(c.t>=.25&&!c.h){c.h=1;sfx('peck');if(e.hp>0&&all.includes(e)&&!e.ug){xDeal(e,Math.round(c.dmg*cm()*rnd(.9,1.1)));e.st=Math.max(e.st||0,isBig(e)?.6:1.5);tx('罩住了!',c.x-12,e.y-16,'#ffe066')}}}HCP=HCP.filter(c=>c.t<1.4);
+    if(dd<10||e.hp<=0||q.t>1.5){q.d=1;if(e.hp>0&&all.includes(e)&&!e.ug){pDeal(e,Math.round(q.dmg*rnd(.9,1.1)),null,hcr);burst(q.x,q.y,5,['#3a3640','#e9e4dc'],120,{s:2,l:.3})}}}HPS=HPS.filter(q=>!q.d);
+  for(const c of HCP){c.t+=dt;const e=c.e;if(e.hp>0){c.x=e.x+e.w/2;c.y=e.y+e.h}if(c.t>=.25&&!c.h){c.h=1;sfx('peck');if(e.hp>0&&all.includes(e)&&!e.ug){pDeal(e,Math.round(c.dmg*rnd(.9,1.1)),null,hcr);e.st=Math.max(e.st||0,isBig(e)?.6:1.5);tx('罩住了!',c.x-12,e.y-16,'#ffe066')}}}HCP=HCP.filter(c=>c.t<1.4);
   if(st!='play')return;
   for(const k in p.cd)p.cd[k]-=dt;if(p.g>0)return;
   const near=all.filter(e=>!e.ug&&e.hp>0&&Math.abs(e.x+e.w/2-(P.x+12))<360);if(!near.length)return;
   for(const i of [0,1,2,3]){if(p.cd[i]>0)continue;
     if(i==0){hamFeed(1);burst(p.x+11,p.y+6,6,['#e9e4dc','#3a3640'],90,{s:2,l:.3})}
-    else if(i==1){if(P.hshT>0||bossOn)continue;P.hsh=Math.round(S.hp*hamShP()/100);P.hshT=6;P.hdr=.15;ring(P.x+12,P.y+16,4,40,'#e9e4dc',.4,4);tx('瓜子壳护盾!',P.x-14,P.y-30,'#ffe066');sfx('buff')}
+    else if(i==1){if(P.hshT>0)continue;P.hsh=Math.round(S.hp*hamShP()/100);P.hshT=6;P.hdr=.15;ring(P.x+12,P.y+16,4,40,'#e9e4dc',.4,4);tx('瓜子壳护盾!',P.x-14,P.y-30,'#ffe066');sfx('buff')}
     else if(i==2){const e=nearE(near,p.x+11,p.y+8,300);if(!e)continue;HCP.push({e,x:e.x+e.w/2,y:e.y+e.h,t:0,dmg:S.atk*hamDmP(120)/100})}
     else{const e=nearE(near,p.x+11,p.y+8,400)||near[0];p.f=sgn(e.x+e.w/2-p.x-11);HPS.push({e,x:p.x+11,y:p.y+4,t:0,a:0,dmg:S.atk*hamDmP(60)/100});sfx('swing')}
     p.cd[i]=hamCd(HSKD[i][2]);p.g=1;p.wv=.45;break}}

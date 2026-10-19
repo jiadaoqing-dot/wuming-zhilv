@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>无名之旅 v1.59</title>
+<title>无名之旅 v1.60</title>
 <style>
 /* 中文像素字体:Fusion Pixel Font(TakWolf,SIL OFL 1.1),按游戏用字裁剪(art_src/font/build_font.py) */
 @font-face{font-family:FPX12;src:url(assets/fpx12.woff2) format('woff2')}
@@ -274,7 +274,7 @@ body.px .at2{border:2px solid transparent;border-image:url(assets/ui_card.png) 6
 <p class="tip">← → / A D 移动(连按两次快跑) · K / ↑ 跳跃 · W+J / S+J 特殊普攻(学会二段跳后空中再按) · J 攻击(下劈 → 上挑 → 直戳 → 下劈 循环,按住蓄力重击;跑步中按 J = 冲刺直戳) · L 换武器 · H U I O 技能 · 空格 / W+空格 / S+空格 / WW+空格 剑士进阶技能(转职后) · 1 2 3 喝药水 · S 捡起地上的掉落物 · 背包 / 技能 / 商城 / 精灵 / 宠物 / 任务 / 声音:点右下角按钮(也可以用快捷键 B 背包 / T 技能 / Q 任务 / P 商城 / Y 精灵 / G 宠物 / M 声音,设置里可以关闭) · N 释放武器上的怪物技能石(背包里左键点物品弹出菜单,装备可拖动穿戴) · 装备翅膀后空中再按跳跃=飞行(W/S 升降、A/D 方向) · Esc / ⚙️ 设置(暂停、返回城镇、帧数、全屏)</p>
 <script>
 // 游戏版本:build.py 按它给输出文件命名(out/无名之旅_v版本.html),设置页也显示;每次发新版改这里
-const GAMEV='1.59';
+const GAMEV='1.60';
 // x 是当前的绘图上下文:平时是主画布;像素特效层(PXL,P2)绘制期间临时换成 640×360 的低分辨率图层
 const cv=document.getElementById('c');let x=cv.getContext('2d');const VW=640,VH=360,WW=3200,GY=300;
 // 渲染分辨率:电脑端 1920×1080(逻辑坐标仍是 640×360,整体放大 3 倍绘制,文字和像素都更清晰);手机端 1280×720
@@ -505,7 +505,8 @@ const BAGN=50;
 //   特性效果 ×4.5(trMul 的权重:普通 1 · 大师 2 · 大师二阶 4.5)。只出头饰 / 战甲 / 项链 / 指环(和大师制作一样),特性随机;
 //   it.m2 = 1,it.ms 仍然是 2(原来「大师」的规则全部照用)
 // 四件大师二阶都是同一种特性 → 多一个被动(m2On):
-//   圣愈 / 邪灵:每 10 秒,下一次攻击额外造成 (最大生命 + 当前生命) × 15 的伤害(无视防御,金色数字)
+//   圣愈 / 邪灵:每 10 秒,下一次攻击额外造成 (最大生命 + 当前生命) × 15 的伤害(无视防御,金色数字);
+//     邪灵(第五十八轮)改成 (最大魔力 + 当前魔力) × 15,打屏幕里所有敌人
 //   神技:每 8 秒刷新一个冷却最长的技能(同样长就随机),所有技能冷却再 -10%;攻击强制削减怪物韧性(无视霸体);连击保持 6 秒,每 30 连击攻击 +23%(最多 20 层)
 //   热血:受到致命伤害时 60% 几率不死(留 1 点生命)并 3 秒无敌,没有冷却;生命 < 70% 攻击 +100%,< 50% 再 +100%,< 30% 再 +300%
 //   怒雷:所有攻击伤害 +(暴击率 ÷ 10)%(暴击率 200% → +20%);暴击率超过 100% 的部分,每 2% 让暴击伤害 +1%
@@ -514,7 +515,7 @@ const evV=it=>Math.round((it&&it.ev||0)*(it&&it.m2?M2EN:1));
 function m2Gen(s,t){s=s||MSL[Math.random()*MSL.length|0];t=t||TRK[Math.random()*TRK.length|0];
   const it=gen(s,3,'大师二阶'+MSN[s]+'·'+TRT[t][0],3,t,1,1);it.m2=1;for(const k in it.s)it.s[k]=Math.round(it.s[k]*M2W);greenRoll(it);it.pr=eqPr(it);return it}
 const m2Cnt=k=>BODY.filter(s=>EQ[s]&&EQ[s].m2&&EQ[s].tr==k).length,m2On=k=>m2Cnt(k)>=4;
-const M2D={yu:`每 10 秒,下一次攻击额外造成「(最大生命 + 当前生命) × ${M2HK}」的伤害(无视防御,金色数字)`,ling:`每 10 秒,下一次攻击额外造成「(最大生命 + 当前生命) × ${M2HK}」的伤害(无视防御,金色数字)`,
+const M2D={yu:`每 10 秒,下一次攻击额外造成「(最大生命 + 当前生命) × ${M2HK}」的伤害(无视防御,金色数字)`,ling:`每 10 秒,下一次攻击让屏幕里所有敌人受到「(最大魔力 + 当前魔力) × ${M2HK}」的伤害(无视防御,紫色数字)`,
   ji:'每 8 秒刷新一个冷却最长的技能,所有技能冷却再 -10%;所有攻击强制削减怪物韧性(无视霸体);连击保持 6 秒,每 30 连击攻击力 +23%(最多 20 层)',
   xue:'受到致命伤害时 60% 几率不死并 3 秒无敌(没有冷却);生命低于 70% 攻击力 +100%,低于 50% 再 +100%,低于 30% 再 +300%',
   lei:'所有攻击伤害 +(暴击率 ÷ 10)%(暴击率 200% 时 +20%);暴击率超过 100% 的部分,每 2% 让暴击伤害 +1%'};
@@ -526,8 +527,12 @@ function m2Ji(){const c=CD[P.mode];let mx=0;for(const v of c)mx=Math.max(mx,v);
   if(mx>0){const L=[];c.forEach((v,i)=>{if(v>=mx-.01)L.push(i)});c[L[Math.random()*L.length|0]]=0}
   for(const w in CD)CD[w]=CD[w].map(v=>v*.9);ghost('#339af0',.3)}
 // dealt 里调用:圣愈 / 邪灵 的额外伤害(宠物 / 爆燃不触发)
-function m2Hit(e){if(!P.m2h||PETX||ELX||st!='play'||e.hp<=0)return;P.m2h=0;P.m2hT=0;const S=stats(),d=Math.round((S.hp+Math.max(0,P.hp))*M2HK);
-  e.hp-=d;tx(d,e.x+e.w/2,e.y-22,'#ffd43b','c');VFX.spawn('x-star',e.x+e.w/2,e.y+e.h/2,{s:1.4,life:.6,add:1,gr:.5});shake=Math.max(shake,.18)}
+// 第五十八轮(用户):邪灵改成按 (最大魔力 + 当前魔力) × 15,并且打到屏幕里所有敌人(圣愈偏坦克,邪灵偏清场)
+function m2Hit(e){if(!P.m2h||PETX||ELX||st!='play'||e.hp<=0)return;P.m2h=0;P.m2hT=0;const S=stats(),lg=m2On('ling');
+  const d=Math.round(lg?((P.mpMax||S.mp||0)+Math.max(0,P.mp||0))*M2HK:(S.hp+Math.max(0,P.hp))*M2HK);
+  const T=lg?(bossOn&&B.hp>0?[...E,B]:E).filter(q=>q.hp>0&&!q.ug&&!q.pp&&q.x+q.w>cam&&q.x<cam+VW):[e];
+  for(const q of T){q.hp-=d;tx(d,q.x+q.w/2,q.y-22,lg?'#d0bfff':'#ffd43b','c');VFX.spawn('x-star',q.x+q.w/2,q.y+q.h/2,{s:1.4,life:.6,add:1,gr:.5})}
+  if(lg)flash('151,117,250',.18);shake=Math.max(shake,.18)}
 // hurt 里调用:热血不死
 function m2Live(){if(!m2On('xue')||Math.random()>=.6)return false;P.m2L=1;tx('不死!',P.x-6,P.y-30,'#ff6b6b','c');flash('255,80,80',.2);return true}
 function m2Atk(hp){let a=0;if(m2On('ji'))a+=Math.min(20,Math.floor((P.combo||0)/30))*.23;if(m2On('xue')&&hp>0){const r=P.hp/hp;if(r<.7)a+=1;if(r<.5)a+=1;if(r<.3)a+=3}return a}
@@ -1131,7 +1136,7 @@ function hurt(b,o){if(DECOY||GM.god)return false;if(pdChk())return false;if(P.in
   // 闪避:按闪避率完全躲开这次伤害(不清连击),之后 0.4 秒无敌,避免贴身判定连续触发
   if(Math.random()<S.dg/100){P.inv=.4;tx('闪避成功!',P.x-8,P.y-10,'#a5d8ff');ghost('#a5d8ff',.3);syn('blink');return false}
   let d=dmgIn(b*EATK*BDMK(),S.def);if(P.rot>0&&isDm(cur))d=Math.round(d*(1+.06*P.rot));  // 第五十六轮:阿斯塔罗特的腐蚀层数,每层受伤 +6%  // BDMK:第八~十关首领战 ×1.35 ×1.35(第十五轮)
-  if(P.hshT>0&&!bossOn){if(P.hdr)d=Math.max(1,Math.round(d*(1-P.hdr)));if(P.hsh>0){const a=Math.min(P.hsh,d);P.hsh-=a;d-=a;tx('护盾 -'+a,P.x+4,P.y-14,'#ffe8a3');if(d<=0){P.inv=HITI;shake=.1;sfx('hit');mfxHit();return true}}}  // 宠物仓鼠的瓜子壳护盾 + 减伤
+  if(P.hshT>0){if(P.hdr)d=Math.max(1,Math.round(d*(1-P.hdr)));if(P.hsh>0){const a=Math.min(P.hsh,d);P.hsh-=a;d-=a;tx('护盾 -'+a,P.x+4,P.y-14,'#ffe8a3');if(d<=0){P.inv=HITI;shake=.1;sfx('hit');mfxHit();return true}}}  // 宠物仓鼠的瓜子壳护盾 + 减伤
   if(P.shdT>0&&P.shd>0){const a=Math.min(P.shd,d);P.shd-=a;d-=a;tx('🪨 -'+a,P.x+4,P.y-14,'#e0b984');if(d<=0){P.inv=HITI;shake=.1;sfx('hit');mfxHit();return true}}if(P.hp>0&&P.hp-d<=0&&m2Live())d=Math.max(0,Math.ceil(P.hp)-1);/* 第五十七轮:大师二阶热血四件不死 */P.hp-=d;mfxHit();P.combo=0;if(P.jk)P.jk=Math.floor(P.jk*.4);{const c=setTr();if(tr6('yu',c)&&st=='play'){const t=nearE(allTg(),P.x+12,P.y+16,320);if(t)xDeal(t,Math.max(1,Math.round(d*YU6)))}}P.inv=Math.min(HITI,o&&o.inv!=null?o.inv:HITI);if(P.m2L){P.m2L=0;P.inv=3}P.vy=-250;if(o&&o.kb)P.kbx=o.kb;shake=.25;tx('-'+d,P.x+12,P.y-6,'#fff','d');sfx('hurt');  // 第四十二轮:神技 6 件掉 60% 层数 · 圣愈 6 件反伤(第四十五轮修:这段注释原来写在中间,把受击无敌 / 击退 / 伤害数字 / 受击音效都注释掉了)
   // 受击僵直 0.3 秒(和怪物相同);2026-10-13 第十三轮取消连击保护(原来 2.5 秒内第 3 次僵直后 2 秒霸体)。技能给的霸体(P.ar)照旧
   if(!(P.ar>0)&&!(P.sk&&P.sk.id=='mc')){P.stun=HSTUN;if(P.sk&&P.sk.id=='giant'&&!P.sk.formed){burst(P.x+12,P.y-60,24,['#9d4edd','#c77dff'],220,{sh:2,s:5,l:.4,g:300})}P.sk=null}
@@ -1415,7 +1420,8 @@ function dealt(e,dm,o){if(e.pp){MWH.push(dm);return}if(e.ug)return;  // 第四�
   if(!(o&&o.ns)&&e.k!='mir'&&!(e.saT>0))hitStun(e);sfx('hit');let cr=0;if(!noCombo){P.combo=(P.combo||0)+1;P.cbT=m2On('ji')?6:2;mscAdd()}
   {const c=setTr();if(!noCombo&&!NRMH&&!ELX){const b=lingSkB(c);if(b)dm=Math.round(dm*(1+b))}if(PETX&&tr6('ling',c))dm=Math.round(dm*(1+LING6));  // 第四十二轮:邪灵 4 件技能伤害 / 6 件宠物伤害
     const scr=stats().cr,l2=m2On('lei');if(l2)dm=Math.round(dm*(1+scr/1000));  // 第五十七轮:大师二阶怒雷四件(暴击率 ÷ 10 的增伤 + 溢出暴击率转暴击伤害)
-    if(Math.random()<scr/100){dm=Math.round(dm*(critK()+(l2?Math.max(0,scr-100)/200:0))*(PETX&&tr6('ling',c)?1+LING6:1));cr=1;if(tr6('lei',c))e.lsh=Math.min(LEI6N,(e.lsh|0)+1)}}  // 怒雷 6 件:暴击叠破防
+    // 第五十八轮:o.cra = 额外暴击率(宠物仓鼠的「眼力」)
+    if(Math.random()<(scr+(o&&o.cra||0))/100){dm=Math.round(dm*(critK()+(l2?Math.max(0,scr-100)/200:0))*(PETX&&tr6('ling',c)?1+LING6:1));cr=1;if(tr6('lei',c))e.lsh=Math.min(LEI6N,(e.lsh|0)+1)}}  // 怒雷 6 件:暴击叠破防
   if(e.def)dm=Math.max(1,Math.round(dm*100/(100+e.def*EDF*(e.bf>0||e.shd>0?2:1)*(P.apen>0?.95:1)*(1-LEI6*(e.lsh|0)))));  // 蛇王蜕皮 shd:防御翻倍
   if(P.pdT>0)dm=Math.round(dm*(1+PDK));if(PETX){const k=peqInf();if(k)dm=Math.round(dm*(1+k))}if(MEMB&&st=='play'&&!MWON)dm=Math.round(dm*1.1);  // 第四十八轮:宠物装备「无尽」/ 记忆晶片 +10%
    // 第四十四轮:完美闪避后 3 秒伤害 +50%
@@ -1618,9 +1624,9 @@ function summon(k,S){const q=SMD[k];if(SM[k]){tx(q.n+'还在战斗',P.x-16,P.y-1
     ring(vx,GY-2,4,46,'#cc5de8',.4,4,.3);for(let i=0;i<14;i++)pt({x:vx+rnd(-20,20),y:GY-2,vx:rnd(-40,40),vy:rnd(-160,-60),g:400,c:pick(['#8d5524','#cc5de8','#2f9e44']),ad:0,s:rnd(2,4),l:.6})}
   smLure(k)}
 let NRMH=0,PETX=0;  // 第四十二轮:NRMH = 普攻命中(邪灵 4 件只加技能伤害)· PETX = 宠物的伤害(邪灵 6 件)
-const pDeal=(e,d,fx)=>{PETX=1;xDeal(e,d,fx);PETX=0};
+const pDeal=(e,d,fx,cra)=>{PETX=1;xDeal(e,d,fx,cra);PETX=0};
 const sDeal=(e,d)=>{noCombo=1;hitFx=null;dealt(e,d);noCombo=0};
-const xDeal=(e,d,fx)=>{noCombo=1;hitFx=fx||null;dealt(e,d,{ns:1});hitFx=null;noCombo=0};  // 时装 / 宠物伤害:不加连击、不打僵
+const xDeal=(e,d,fx,cra)=>{noCombo=1;hitFx=fx||null;dealt(e,d,{ns:1,cra});hitFx=null;noCombo=0};  // 时装 / 宠物伤害:不加连击、不打僵
 function nearE(all,cx,cy,r,f){let b=null,bd=r;for(const e of all){if(e.ug||e.hp<=0)continue;const ex=e.x+e.w/2,ey=e.y+e.h/2,d=Math.hypot(ex-cx,ey-cy);if(d<bd&&(!f||f(e))){bd=d;b=e}}return b}
 function smStep(dt,all){for(const k of ['bird','vine']){const s=SM[k];if(!s)continue;s.t-=dt;s.inv-=dt;s.cd-=dt;
     for(const e of all)if(!e.ug&&!e.air&&s.inv<=0&&ov(s,e)){const d=Math.max(1,Math.round((CDMG[e.k]||8)*(e.dm||1)*EATK));s.hp-=d;s.inv=.6;tx('-'+d,s.x+s.w/2,s.y-6,'#ffa8a8')}
@@ -4633,16 +4639,16 @@ function hamPetStep(dt,S,all){if(!hamOn())return;const p=HMP;p.g-=dt;p.wv-=dt;
   if(ad>520){p.x=tx_-11;p.y=GY-16}
   const mv=ad>8;if(mv){p.f=sgn(dx);p.x+=sgn(dx)*Math.min(ad,(ad>140?330:160)*dt)}else p.f=P.f;p.x=Math.max(lo,Math.min(hi,p.x));p.mv=mv;
   p.vy+=1200*dt;p.y+=p.vy*dt;if(p.y>=GY-16){p.y=GY-16;p.vy=mv?-120:0}
-  const cm=()=>Math.random()<hamB('cr')/100?1.5:1;
+  const hcr=hamB('cr');  // 第五十八轮:「眼力」加到暴击率里走 dealt 的暴击判定(暴击照样是紫色数字;原来单独 ×1.5 却显示白字)
   for(const q of HPS){q.t+=dt;q.a+=dt*16;const e=q.e,ex=e.x+e.w/2,ey=e.y+e.h/2,dd=Math.hypot(ex-q.x,ey-q.y)||1,m=Math.min(dd,420*dt);q.x+=(ex-q.x)/dd*m;q.y+=(ey-q.y)/dd*m;
-    if(dd<10||e.hp<=0||q.t>1.5){q.d=1;if(e.hp>0&&all.includes(e)&&!e.ug){pDeal(e,Math.round(q.dmg*cm()*rnd(.9,1.1)));burst(q.x,q.y,5,['#3a3640','#e9e4dc'],120,{s:2,l:.3})}}}HPS=HPS.filter(q=>!q.d);
-  for(const c of HCP){c.t+=dt;const e=c.e;if(e.hp>0){c.x=e.x+e.w/2;c.y=e.y+e.h}if(c.t>=.25&&!c.h){c.h=1;sfx('peck');if(e.hp>0&&all.includes(e)&&!e.ug){xDeal(e,Math.round(c.dmg*cm()*rnd(.9,1.1)));e.st=Math.max(e.st||0,isBig(e)?.6:1.5);tx('罩住了!',c.x-12,e.y-16,'#ffe066')}}}HCP=HCP.filter(c=>c.t<1.4);
+    if(dd<10||e.hp<=0||q.t>1.5){q.d=1;if(e.hp>0&&all.includes(e)&&!e.ug){pDeal(e,Math.round(q.dmg*rnd(.9,1.1)),null,hcr);burst(q.x,q.y,5,['#3a3640','#e9e4dc'],120,{s:2,l:.3})}}}HPS=HPS.filter(q=>!q.d);
+  for(const c of HCP){c.t+=dt;const e=c.e;if(e.hp>0){c.x=e.x+e.w/2;c.y=e.y+e.h}if(c.t>=.25&&!c.h){c.h=1;sfx('peck');if(e.hp>0&&all.includes(e)&&!e.ug){pDeal(e,Math.round(c.dmg*rnd(.9,1.1)),null,hcr);e.st=Math.max(e.st||0,isBig(e)?.6:1.5);tx('罩住了!',c.x-12,e.y-16,'#ffe066')}}}HCP=HCP.filter(c=>c.t<1.4);
   if(st!='play')return;
   for(const k in p.cd)p.cd[k]-=dt;if(p.g>0)return;
   const near=all.filter(e=>!e.ug&&e.hp>0&&Math.abs(e.x+e.w/2-(P.x+12))<360);if(!near.length)return;
   for(const i of [0,1,2,3]){if(p.cd[i]>0)continue;
     if(i==0){hamFeed(1);burst(p.x+11,p.y+6,6,['#e9e4dc','#3a3640'],90,{s:2,l:.3})}
-    else if(i==1){if(P.hshT>0||bossOn)continue;P.hsh=Math.round(S.hp*hamShP()/100);P.hshT=6;P.hdr=.15;ring(P.x+12,P.y+16,4,40,'#e9e4dc',.4,4);tx('瓜子壳护盾!',P.x-14,P.y-30,'#ffe066');sfx('buff')}
+    else if(i==1){if(P.hshT>0)continue;P.hsh=Math.round(S.hp*hamShP()/100);P.hshT=6;P.hdr=.15;ring(P.x+12,P.y+16,4,40,'#e9e4dc',.4,4);tx('瓜子壳护盾!',P.x-14,P.y-30,'#ffe066');sfx('buff')}
     else if(i==2){const e=nearE(near,p.x+11,p.y+8,300);if(!e)continue;HCP.push({e,x:e.x+e.w/2,y:e.y+e.h,t:0,dmg:S.atk*hamDmP(120)/100})}
     else{const e=nearE(near,p.x+11,p.y+8,400)||near[0];p.f=sgn(e.x+e.w/2-p.x-11);HPS.push({e,x:p.x+11,y:p.y+4,t:0,a:0,dmg:S.atk*hamDmP(60)/100});sfx('swing')}
     p.cd[i]=hamCd(HSKD[i][2]);p.g=1;p.wv=.45;break}}
@@ -8389,6 +8395,7 @@ function pvImg(k){const t=.3,c=document.createElement('canvas'),g=c.getContext('
 // 主页面打开时 HOME=1:主城画面停住当背景(loop 里不跑 townUpd),键盘只认 Enter(继续 / 新游戏)和 Esc(从操作说明返回)
 // 更新日志 CHLOG:[版本, 日期, [条目...]],新版本加在最前面(和 GAMEV 一起改)
 const CHLOG=[
+ ['1.60','2026-10-20',['大师二阶邪灵四件改版:每 10 秒一次,屏幕里所有敌人受到 (最大魔力 + 当前魔力) × 15 的伤害(无视防御,紫色数字);圣愈四件不变','宠物仓鼠的「眼力」现在加到暴击率里,暴击按正常暴击伤害计算并显示紫色数字(以前另算 1.5 倍却显示白字);瓜子拍打也算宠物伤害','仓鼠的瓜子壳护盾在首领战里也能释放、生效了']],
  ['1.59','2026-10-20',['暗黑炼狱:打完一层后 3.5 秒自动进入下一层,不用再操作(生命 / 魔力保留)','新装备「大师二阶」:暗黑炼狱第 16 层首领掉落(35%,最多 3 件,特性随机),目前最强 —— 比大师一阶白字 / 绿字 ×3、强化效果 ×5、锻造效果 ×6、特性效果 ×4.5','大师二阶四件同特性的新被动:圣愈 / 邪灵 每 10 秒一次巨额额外伤害(金色数字)· 神技 刷新技能冷却 + 强制削韧 + 长连击叠攻击 · 热血 60% 不死 + 低血量大幅加攻 · 怒雷 按暴击率增伤、溢出暴击转暴击伤害','宠物装备「幸运骰子」现在可以和双倍爆率卡叠加']],
  ['1.58','2026-10-20',['新关卡「暗黑炼狱」:暗黑大陆正中的绿光宝塔,一共 30 层,先开放 1~16 层,一层一层往上闯(通关第十七关后解锁)','每层是以前关卡的首领(一层一到两个,例如两只铁角牛魔、夜王 + 钢铁暴君),强度统一按二星焚天炎君,不分星级','每打通一层:掉落 3~4 件星界财宝里的宝物,并回复大量生命和魔力;通关页可以直接前往下一层(生命 / 魔力保留)','选层页可以从第 1 层到「打通过的最高层 +1」里任选一层开始']],
  ['1.57','2026-10-20',['新魔王:十二魔封印开放第四~六位 —— 阿斯莫德(魅惑:中了飞吻会左右颠倒,锁链连上要跑远挣断)、贝利亚(谎言:先金光后紫光才是真的,举盾时别打)、阿斯塔罗特(腐息:腐蚀层数去金色净化光圈清掉,预知落点要临时变向),各有专属首领曲','十二魔封印不再分星级,默认三星直接开打;前六位的强度调到「比三星忍者首领强、比闹钟首领弱」','诅咒之力:数值改为固定(精良 +12 满值,以前刷到的低值也按满值算);已有诅咒时会刷出另一种属性,由你选「换成新的」还是「保留原来的」','诅咒部位改为:武器(剑 / 法杖)、头饰、战甲、时装或翅膀(共用一个)、项链、戒指','修复:前三位魔王的首领曲没有播放']],

@@ -6,7 +6,8 @@ function dealt(e,dm,o){if(e.pp){MWH.push(dm);return}if(e.ug)return;  // 第四�
   if(!(o&&o.ns)&&e.k!='mir'&&!(e.saT>0))hitStun(e);sfx('hit');let cr=0;if(!noCombo){P.combo=(P.combo||0)+1;P.cbT=m2On('ji')?6:2;mscAdd()}
   {const c=setTr();if(!noCombo&&!NRMH&&!ELX){const b=lingSkB(c);if(b)dm=Math.round(dm*(1+b))}if(PETX&&tr6('ling',c))dm=Math.round(dm*(1+LING6));  // 第四十二轮:邪灵 4 件技能伤害 / 6 件宠物伤害
     const scr=stats().cr,l2=m2On('lei');if(l2)dm=Math.round(dm*(1+scr/1000));  // 第五十七轮:大师二阶怒雷四件(暴击率 ÷ 10 的增伤 + 溢出暴击率转暴击伤害)
-    if(Math.random()<scr/100){dm=Math.round(dm*(critK()+(l2?Math.max(0,scr-100)/200:0))*(PETX&&tr6('ling',c)?1+LING6:1));cr=1;if(tr6('lei',c))e.lsh=Math.min(LEI6N,(e.lsh|0)+1)}}  // 怒雷 6 件:暴击叠破防
+    // 第五十八轮:o.cra = 额外暴击率(宠物仓鼠的「眼力」)
+    if(Math.random()<(scr+(o&&o.cra||0))/100){dm=Math.round(dm*(critK()+(l2?Math.max(0,scr-100)/200:0))*(PETX&&tr6('ling',c)?1+LING6:1));cr=1;if(tr6('lei',c))e.lsh=Math.min(LEI6N,(e.lsh|0)+1)}}  // 怒雷 6 件:暴击叠破防
   if(e.def)dm=Math.max(1,Math.round(dm*100/(100+e.def*EDF*(e.bf>0||e.shd>0?2:1)*(P.apen>0?.95:1)*(1-LEI6*(e.lsh|0)))));  // 蛇王蜕皮 shd:防御翻倍
   if(P.pdT>0)dm=Math.round(dm*(1+PDK));if(PETX){const k=peqInf();if(k)dm=Math.round(dm*(1+k))}if(MEMB&&st=='play'&&!MWON)dm=Math.round(dm*1.1);  // 第四十八轮:宠物装备「无尽」/ 记忆晶片 +10%
    // 第四十四轮:完美闪避后 3 秒伤害 +50%
