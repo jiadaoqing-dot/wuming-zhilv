@@ -25,7 +25,8 @@ function mobInit(){
   document.body.classList.add('mob');
   const st_=document.createElement('style');
   st_.textContent=`
-body.mob{padding:0;gap:0;background:#000;height:100vh;height:100dvh;justify-content:center;overflow:hidden;-webkit-touch-callout:none;touch-action:none}
+body.mob{padding:0;gap:0;background:#000;height:100vh;height:100dvh;justify-content:center;overflow:hidden;-webkit-touch-callout:none;overscroll-behavior:none}
+body.mob #bag,body.mob #sk,body.mob #pn{overflow-y:auto;touch-action:pan-y;overscroll-behavior:contain;-webkit-overflow-scrolling:touch}
 body.mob .tip,body.mob .sbar{display:none}
 body.mob #wrap,body.mob #wrap>canvas{width:min(100vw,calc(100dvh*16/9))!important}
 body.mob #c{border-radius:0;box-shadow:none}
@@ -108,6 +109,16 @@ body.mob #home .hr{gap:.4cqh}body.mob #home .hr button{border-width:12px;border-
   // 在输入框里打字时(兑换码),不让游戏按键响应;回车 = 兑换
   addEventListener('keydown',e=>{const t=document.activeElement;if(t&&(t.tagName=='INPUT'||t.tagName=='SELECT')&&t.closest('#pn')){e.stopImmediatePropagation();if(e.key=='Enter'&&t.dataset.enter){e.preventDefault();const b=$('pn').querySelector(`[data-p="${t.dataset.enter}"]`);if(b)b.click()}}},true);
   setTimeout(uiScale,50);addEventListener('orientationchange',()=>setTimeout(uiScale,300));
+  // 背包 / 技能 / 面板适配手机高度:放得下就缩小到刚好一屏;要缩到 0.7 倍以下才放得下的,停在 0.7 倍并可以上下滑动
+  const fit=()=>{const H=$('c').getBoundingClientRect().height;if(!H)return;
+    for(const id of ['bag','sk','pn']){const e=$(id);if(e.hidden)continue;const st0=e.scrollTop;
+      e.style.zoom=1;e.style.minHeight='0';e.style.maxHeight='none';const h=e.scrollHeight;
+      let z=Math.max(.7,Math.min(1,H/h));const ap=()=>{e.style.zoom=z;e.style.minHeight=e.style.maxHeight=(H/z)+'px'};ap();
+      for(let k=0;k<3&&z>.7&&e.scrollHeight>e.clientHeight+1;k++){z=Math.max(.7,z*e.clientHeight/e.scrollHeight-.005);ap()}  // 缩小后文字换行会变,差几像素时再缩一点
+      e.scrollTop=st0}};
+  let fq=0;const fitQ=()=>{if(!fq){fq=1;requestAnimationFrame(()=>{fq=0;fit()})}};
+  for(const id of ['bag','sk','pn'])new MutationObserver(fitQ).observe($(id),{childList:true,subtree:true,attributes:true,attributeFilter:['hidden']});
+  addEventListener('resize',fitQ);
   // 手机版自己的面板:接到原来的 renderP / mallAct / 设置页后面
   const rP0=renderP;renderP=function(){if(MOBP[pn]){$('pn').innerHTML=MOBP[pn]();return}rP0()};
   const mA0=mallAct;mallAct=function(r){for(const f of MOBA){const v=f(r);if(v)return v}return mA0(r)};
