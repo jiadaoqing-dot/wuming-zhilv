@@ -9,7 +9,7 @@ const LVSC=[30,230,430],LVSY=36,LVSW=180,LVSH=150;
 function lvsHit(mx,my){if(mx>582&&mx<622&&my>4&&my<32)return 'x';for(let s=0;s<3;s++){const cx=LVSC[s];if(mx>=cx&&mx<=cx+LVSW&&my>=LVSY&&my<=LVSY+LVSH)return s+1}return 0}
 function lvsClick(mx,my){const h=lvsHit(mx,my);if(h=='x'){lvsBack();return}if(h){LVS.s=h;lvsGo()}}
 function lvsKey(e){const k=e.key;if(k=='Escape'){lvsBack();return}if(KM[k]){if(!e.repeat)LVS.s=((LVS.s-1+(KM[k]=='l'?2:1))%3)+1;return}if(k=='Enter'||k==' '||k=='j'||k=='J'||k=='k'||k=='K'){if(!e.repeat)lvsGo();return}if(k.length==1&&'123'.includes(k))LVS.s=+k}
-const lvsName=n=>isDm(n)?'十二魔封印 '+(n-DM0+1)+' · '+DMD[n-DM0].n:isM2(n)?MAPS2.find(m=>m.cur==n).n:isMy(n)?'神秘副本 '+(myIdx(n)+1)+' · '+MYNM[myIdx(n)]:MAPS[n-1].n;
+const lvsName=n=>isTw(n)?'暗黑炼狱 · 第 '+TWF+' 层':isDm(n)?'十二魔封印 '+(n-DM0+1)+' · '+DMD[n-DM0].n:isM2(n)?MAPS2.find(m=>m.cur==n).n:isMy(n)?'神秘副本 '+(myIdx(n)+1)+' · '+MYNM[myIdx(n)]:MAPS[n-1].n;
 // 本关掉落预览:装备 6 个部位(按本关系列;一星画精良、二星稀有、三星史诗的图标)、首领的强化石、特殊掉落
 function lvsDrops(n){const L=[],ser=n>=14?4:n==11?1:n<=2?0:n<=4?1:n<=7?2:3;
   for(const sl of ALL){const it=gen(sl,LVS.s>=3?3:LVS.s==2?2:1,null,ser,null,1);L.push({d:(cx,cy)=>eqDraw(it,cx,cy,22),n:SL[sl][0],c:TR[it.tier][1]})}

@@ -1,3 +1,10 @@
+【v1.58 · 2026-10-20 · 第五十六轮新任务:暗黑炼狱(三十层宝塔,先开 16 层)】
+- 新分块 572_暗黑炼狱.js:cur 34(TW0,isTw),TWF 当前层,TWL[层] = 首领列表,TWHC 首领 → 原来的关卡,TWOPEN 16;MAPS2 第 9 项(tw:1,p:[352,186] = 用户附图的绿光宝塔)→ 选层页 st 'twr'(drawTwr / twClick / twKey,左边裁地图插画里的宝塔)。
+- 两个首领:第一个 = B,第二个进 E(e.twb);推进 / 绘制时 twIn / twOut 临时把 cur、B 换成首领自己的(340 首领循环、360 twDE),原关卡机关 TWLS / TWFX 按 hc 各推一次(g8 / v9 / m14 / c15 + nbStep / nbFx),twOver 画暴风雪 / 沙暴 / 温度条;twHud 第二条血条。
+- 140 init 的首领三元式改成 bMk()(暗黑炼狱 twMk / twInit 换 cur 调用);表补到 [34] 同第十三关(LM 25 / BHN 14200 / BDF 46 / BLN 13 / XPK 13 / BXP 8900),按二星进 = 二星焚天炎君。
+- 通关:twChk 代替普通流程(B 先倒下就把 E 里的换成 B);3~4 样 ASTRR 奖励 + 回复 70%(TWHL)+ R19.twr;clearGo → 通关页「前往第 N+1 层」(twNext,生命魔力保留)。BGM = twBgm(本层第一个首领的 bgm<hc>b),BGMF[34] = 21。
+- 冒烟 0 错误;Playwright 逐层跑 1~16 层(各首领招式都在出,没有报错)。
+
 【v1.57 · 2026-10-20 · 第五十六轮:十二魔 4~6 + 诅咒固定值 + BGM 修复】
 - 571 分块 DMOPEN 6:阿斯莫德 asmo(魅惑 P.chm → 340 update 左右颠倒;DMK 魅惑之吻、DMT 锁链、love 地面)· 贝利亚 beli(DML 真假光圈 sh 金 / 紫、od 颠倒;guard 用 e.ghp 锁血 + 反噬)· 阿斯塔罗特 asta(P.rot 腐蚀 → 150 hurt ×(1+.06 层)、DMC 净化光圈、fore 预判 e.mk)。dmStep2 / dmFx 新颜色 love / holy / rot(DMSP / DMZF / DMPF)。
 - 图集 DMN 加三行(build_dmn.py):chierit 的 Water Priestess(色相 +95° 玫红)/ Fire Knight(HOLY 金)/ Frost Guardian(ROT 腐绿,翻转),CC-BY 4.0,raw/demon/water / fireknight / frost;DMDK 画面放大(帧外框含特效)。场地 ALC / CST / NJA 压色。

@@ -39,7 +39,7 @@ function drawGDHint(){if(!GDN||st!='play'||!GD.includes(GDN))return;const px=P.x
 const RPX=()=>cur>=5?ARR-180:WW-200,nearRP=()=>RTP&&st=='play'&&Math.abs(P.x+12-RPX())<34&&P.gr;
 // 通关光柱:首领倒下后出现在首领场地中间,站上去按 W / ▲ 才算通关。章节结束画面 / 漫画只在初次通关时播放
 let CLRP=0;const nearCP=()=>CLRP&&st=='play'&&Math.abs(P.x+12-RPX())<30&&P.gr;
-function clearGo(){if(!nearCP())return false;CLRP=0;pickUp(1);const first=!CLR.includes(cur);if(first)CLR.push(cur);if(!(STAR[cur]>=LVSTAR))STAR[cur]=LVSTAR;save();sfx('lvl');  // 第十六轮:记录通关星级
+function clearGo(){if(!nearCP())return false;CLRP=0;pickUp(1);if(isTw(cur)){if(TWF>=TWOPEN&&!CLR.includes(cur))CLR.push(cur);save();sfx('lvl');st='won';CHI=0;return true}const first=!CLR.includes(cur);if(first)CLR.push(cur);if(!(STAR[cur]>=LVSTAR))STAR[cur]=LVSTAR;save();sfx('lvl');  // 第十六轮:记录通关星级
   st='won';CHI=0;return true}
 function drawCP(){if(!CLRP)return;const t=performance.now()/1000,px=RPX()-cam;if(px<-60||px>VW+60)return;
   x.save();x.globalCompositeOperation='lighter';const w=22+Math.sin(t*4)*3,g=x.createLinearGradient(px-w,0,px+w,0);g.addColorStop(0,'rgba(255,200,60,0)');g.addColorStop(.5,'rgba(255,236,153,.85)');g.addColorStop(1,'rgba(255,200,60,0)');x.fillStyle=g;x.fillRect(px-w,0,2*w,GY);

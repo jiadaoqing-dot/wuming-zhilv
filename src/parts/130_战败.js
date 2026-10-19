@@ -2,6 +2,7 @@
 let CHI=1;
 const chOn=()=>st=='dead'||st=='won';
 function chBtns(){const L=st=='dead'?[{l:'🏠 返回城镇',s:'回到晨曦镇',go:()=>toTown()},{l:'⚔️ 重新挑战',s:'从本关开头重新挑战',go:()=>{init();st='play';lvT=performance.now()}},{l:'✚ 复活药水',s:POT.rev>0?'原地复活 · 持有 '+POT.rev+' 瓶':'没有复活药水',dis:!(POT.rev>0),go:()=>reviveP()}]
+    :isTw(cur)?[...(TWF<TWOPEN?[{l:'前往第 '+(TWF+1)+' 层',s:'生命 / 魔力保留,继续往上闯',go:()=>twNext()}]:[]),{l:'🏠 返回城镇',s:'带着战利品回到晨曦镇',go:()=>toTown()}]  // 第五十六轮:暗黑炼狱
     :[{l:'🏠 返回城镇',s:'带着战利品回到晨曦镇',go:()=>toTown()},{l:'⚔️ 重新挑战',s:'从本关开头再打一次',go:()=>{init();st='play';lvT=performance.now()}}];
   const n=L.length,w=n==3?148:170,gp=n==3?10:14,x0=320-(n*w+(n-1)*gp)/2;L.forEach((b,i)=>{b.x=x0+i*(w+gp);b.y=204;b.w=w;b.h=50});return L}
 function chGo(i){const b=chBtns()[i];if(!b)return;if(b.dis){sfx('hurt');return}b.go()}
@@ -12,7 +13,7 @@ function drawChoice(){const dead=st=='dead',L=chBtns(),t=performance.now()/1000;
   x.fillStyle=dead?'rgba(20,10,30,.6)':'rgba(10,16,40,.5)';x.fillRect(0,0,VW,VH);
   const px=PUI.on();
   if(px)PUI.ns(x,'pC',28,28,28,28,66,92,508,190);else{RR(x,66,92,508,190,22,LG(x,0,92,0,282,['#3d3352','#1e1829']),2.2);x.beginPath();x.roundRect(71,97,498,180,18);x.strokeStyle='rgba(255,212,59,.5)';x.lineWidth=1.4;x.stroke()}
-  if(dead)CTG('无名倒下了',320,136,30,['#ffe3e3','#ff6b6b','#c92a2a']);else CTG('关卡通关!',320,136,30);
+  if(dead)CTG('无名倒下了',320,136,30,['#ffe3e3','#ff6b6b','#c92a2a']);else CTG(isTw(cur)?'第 '+TWF+' 层通关!':'关卡通关!',320,136,30);
   CT(dead?'接下来怎么办?':'接下来去哪里?',320,160,12,'#fff3bf','center',3);
   if(!dead&&GD.length)CT('背包满了,有 '+GD.length+' 件装备没能捡起(已经留在关卡里)',320,184,10,'#ffd43b','center',2.6,'#1e1030');
   if(dead&&!(POT.rev>0))CT('复活药水可以在晨曦镇的药剂师那里购买(每天限购 1 瓶)',320,184,10,'#adb5bd','center',2.6,'#1e1030');
