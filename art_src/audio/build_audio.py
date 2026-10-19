@@ -49,7 +49,9 @@ BGM={'bgm0':(G+'town.mp3',None,1),'bgm1':('happy_adventure.mp3',None,1),'bgm1b':
  'bgm16':(G+'r47/Shrine to the Smoldering Volcano_0.mp3',120,1),'bgm16b':(G+'r47/the_demon_king_loop_0.ogg',120,1),'bgm17':(G+'r47/Reflections Upon the Black Mirror.ogg',None,1),'bgm17b':(G+'r47/determination_1.mp3',None,1),
  'bgm17c':(G+'r47/Welcome to Com-Mecha.mp3',120,1),'bgm18':(G+'r47/samurai/Samurai-Nights-Demo.mp3',None,1),'bgm18b':(G+'r47/oga_japanese_hacks_0.mp3',None,1),
  # 第四十八轮 第十五关不眠钟楼(cur 19,raw/audio/bgm/r48)Clockwork Jester(Arold Valda,CC-BY 4.0,https://opengameart.org/content/clockwork-jester)/ Heart of Machine(Alexandr Zhelanov,CC-BY 3.0,https://opengameart.org/content/heart-of-machine)
- 'bgm19':(G+'r48/clockwork_jester.flac',150,1),'bgm19b':(G+'r48/Heart of Machine.ogg',150,1)}
+ 'bgm19':(G+'r48/clockwork_jester.flac',150,1),'bgm19b':(G+'r48/Heart of Machine.ogg',150,1),
+ # 第五十三轮 第十六关金核机库(cur 20,raw/audio/bgm/r53)Cyborg Factory Fight Theme(GTDStudio aka Palrom,OGA-BY 3.0,https://opengameart.org/content/cyborg-factory-fight-theme)/ Return of the Omega Droid(Umplix,CC0,https://opengameart.org/content/return-of-the-omega-droid)
+ 'bgm20':(G+'r53/Cyborg_Factory_Fight.ogg',150,1),'bgm20b':(G+'r53/return_of_the_omega_droid.wav',None,1)}
 def load(p,sr):
   d,s=sf.read(A+p,always_2d=True);m=d.mean(1)
   g=np.gcd(s,sr);return resample_poly(m,sr//g,s//g) if s!=sr else m

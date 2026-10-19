@@ -1,5 +1,5 @@
 // 游戏版本:build.py 按它给输出文件命名(out/无名之旅_v版本.html),设置页也显示;每次发新版改这里
-const GAMEV='1.53';
+const GAMEV='1.54';
 // x 是当前的绘图上下文:平时是主画布;像素特效层(PXL,P2)绘制期间临时换成 640×360 的低分辨率图层
 const cv=document.getElementById('c');let x=cv.getContext('2d');const VW=640,VH=360,WW=3200,GY=300;
 // 渲染分辨率:电脑端 1920×1080(逻辑坐标仍是 640×360,整体放大 3 倍绘制,文字和像素都更清晰);手机端 1280×720
@@ -14,7 +14,7 @@ const PL4=[{x:0,y:GY,w:WW},{x:430,y:230,w:120},{x:690,y:185,w:100},{x:930,y:225,
 const E4=Array.from({length:28},(_,i)=>[i%4==1?'ape':i%4==3?'bsco':'ysco',360+i*82]);
 const PL5=[{x:0,y:GY,w:WW},{x:440,y:232,w:120},{x:700,y:190,w:100},{x:960,y:228,w:140},{x:1220,y:186,w:110},{x:1460,y:150,w:100},{x:1690,y:208,w:130},{x:1940,y:172,w:120},{x:2200,y:222,w:130}];
 const E5=Array.from({length:28},(_,i)=>[i%3==1?'ost':'spi',360+i*80]);
-const FLYK={bat:1,gfly:1,gfly2:1,fwisp:1,wimp:1,eye:1,swing:1,zdr:1};  // 飞行小怪:关卡里有它们才保留浮空平台
+const FLYK={bat:1,gfly:1,gfly2:1,fwisp:1,wimp:1,eye:1,swing:1,zdr:1,rtu:1};  // 飞行小怪:关卡里有它们才保留浮空平台
 const CY=56,ARL=2570,ARR=3180; // 第五关 Boss 洞窟:天花板高度、左墙、右墙
 // 平衡参数:怪物生命倍率、怪物攻击倍率、Boss 攻击范围倍率、Boss 攻击频率倍率
 // 怪物 / 首领血量倍率 EHP(2026-10-12 翻倍 3.5→7)、防御倍率 EDF(+50%,只在伤害公式里乘)

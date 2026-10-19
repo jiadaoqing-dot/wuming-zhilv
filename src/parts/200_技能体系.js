@@ -70,4 +70,5 @@ const SK_KEY='wuming-save-v1';
 // 存档格式版本 SAVEV:存档里写 sv(格式版本)和 gv(保存时的游戏版本);读档时按 SAVEMIG 依次升级旧格式。以后新增道具 / 技能 / 字段:在 SAVEMIG 末尾加一步并把 SAVEV +1,缺的字段在 loadSave 里给默认值
 // 第二十轮:记住上次用的武器(剑士 / 法师)LMODE,存档字段 pm;进关卡 / 回城 / 重新打开游戏都沿用(旧存档没有 pm = 剑士)
 let LMODE='sword';
-const SAVEV=2,SAVEMIG=[null,null,d=>{d.MAT=Object.assign({egg:0},d.MAT);d.R19=d.R19||{}}];  // 1 → 2:第十九轮(MAT 新道具、R19)
+const SAVEV=3,SAVEMIG=[null,null,d=>{d.MAT=Object.assign({egg:0},d.MAT);d.R19=d.R19||{}},
+  d=>{if(d.QD){const i14=MQ.findIndex(q=>q.n=='没有名字的影子');if(i14>0&&(d.QD.mi|0)>=i14-4)d.QD.mi=(d.QD.mi|0)+4}}];  // 2 → 3:第五十三轮在第十四章前面补了第十二、十三章(4 条),已经做到第十四章的存档往后挪 4 条  // 1 → 2:第十九轮(MAT 新道具、R19)

@@ -23,6 +23,9 @@
  素材来源:ULPC 仓库(LPC 人物图层)、series-ai/jam-ready-assets(大量 CC0 素材,LFS 文件用 media 直链下载,见 fetch_assets.sh)。
 
 【当前状态(2026-10-18,v1.52 手机纪念版完成后)】
+- v1.54(第五十三轮):第十六关金核机库 cur 20 = 568 分块(RBT,首领 rgn / 小怪 rsh rtu,RTUY 吊顶高度,PL20)。各表 [20]:LM 66 / E20 / PL20 / BHN BDF / BLN 16(BLH BLA[16])/ XPK BXP / MHK[18] 320 / mk 尺寸 + y / CDMG / ESKN / mAtk / forceAtk / reward / MN / 800 BWP / 790 RBT.on / bg / MAPS2 第 6 项 / 970 缩略图 + lvsBoss / 980 首领名 / MSS[20] / bgm20 / 击杀点 16。下一关从 cur 21 起。
+  暗黑大陆每日任务 M2Q(360 分块,QD.d[5]~[11],q.lock / q.boss,qM2 / qM2B);主线 MQN 86,SAVEV 3(SAVEMIG[3] 迁移 mi)。每日任务按钮编号用 r.slice(2)。CHLOG 补到 1.54(以后每版都要加)。重跑 build_audio.py 会把所有 ogg 重新编码(结果不完全一样),提交前把旧 ogg 用 git checkout 还原,只留新文件。
+- v1.53:画布 contextrestored → 存档 + 刷新(1000 分块);后台超 1 分钟回来 twnReload。复现:CDP Browser.crashGpuProcess(要真显卡参数)。
 - 手机纪念版(用户要求只做这一次,以后只做电脑端):代码只在分支 mobile-v1.52(1005_移动端触屏.js,TCH = pointer:coarse 或 ?touch=1;MOB 名字已被占用)。main 里的 mobile/ 是冻结的网页 + assets 副本,主线 build 不会动它,不要删、也不要再往 main 合并手机代码。手机版再更新:切到分支改 → build → 把根目录 index.html 复制成 main 的 mobile/index.html(图鉴:分支上 tools/make_guide.py → guide/ 复制到 mobile/guide/)。分支上 1006 = 活动兑换码(CDK 表,R19.cdk),1005 里 MOBP / MOBA 是手机版面板挂钩(包了 renderP / mallAct / rSet)。
 - v1.52(道具 bug):背包道具左键菜单 cmItems('i:') 现在 = 使用(MISC[id][4] → 'iu')+ itSellL 出售;返回 [] 时 openCM 只选中。新加有「使用」的道具记得在 MISC 第 5 项写按钮文字;售价 0 的走 ITPR(600)补价。
 - v1.51(卡顿排查):用户 Edge 关了硬件加速(Local State hardware_acceleration_mode enabled:false,.html 默认 MSEdgeHTM)。性能测试:Playwright 加 --use-angle=d3d11 --enable-gpu --ignore-gpu-blocklist 才走真显卡,不加就是 SwiftShader(= 用户的情况)。瓶颈 = PXL.run 整屏放大贴图;PUI.text 有缓存 TXC(渐变填色 / 旋转时不走缓存);glowS 光晕贴图;PXL.run(fn,need,R) 局部贴 + PXL.bb;CPUR 检测提示(SWR 名字已被占用)。

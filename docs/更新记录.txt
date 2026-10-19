@@ -1,3 +1,10 @@
+【v1.54 · 2026-10-18 · 第五十三轮 第十六关 + 每日任务 + 主线】
+- 第十六关「金核机库」cur 20 = 568 分块(RBT 图集 art_src/robot20/build_robot20.py:Mecha platformer(Shiv,CC0)Gunner 换金色 = 首领、Shielder = 盾卫机兵;Warped City(ansimuz,CC0)炮塔翻转 = 吊顶炮塔 + 子弹 / 爆炸 / 地砖;Warped Sci-Fi Lab(ansimuz,CC0)场景)。MAPS2 第 6 项 p:[316,292]。
+- 首领金核炮神 rgn:gun / art / beam / drain / ctr → bstep,过载 e.od;A20S/M/B/O/X,a20Step / a20Fx。预警 BWOFF 关着,炮火落点用贴图(炮弹下落 + 落点闪光)。
+- BGM bgm20 Cyborg Factory Fight Theme(GTDStudio,OGA-BY 3.0)/ bgm20b Return of the Omega Droid(Umplix,CC0),build_audio.py r53。
+- 暗黑大陆每日任务 7 个(M2Q / qM2 / qM2B,lock 显示未开放);修每日任务按钮只取一位数字(qa10 起错位)。
+- 主线补第十二 / 十三 / 十五 / 十六章(MQN 86),SAVEV 3:做到第十四章的存档 mi + 4。像素字体重新裁剪(新剧情用字)。主页更新日志补 1.49~1.54。冒烟 0 错误。
+
 【v1.53 · 2026-10-18 · 第五十三轮 挂机后画面坏掉】
 - 原因:屏幕休眠 / 显卡重置时浏览器把画布「丢失 → 恢复」,恢复后主画布缩放没了(整个画面缩到左上角)、离屏缓存画布被清空(头像 / 数字 / 背景缓存消失),大背景图也可能画不出来(用户截图只剩天蓝底色)。用 CDP Browser.crashGpuProcess 复现。
 - 修:主画布 contextrestored → 存档后刷新页面(1000 分块);页面在后台超过 1 分钟再切回来 → 重新加载主城大图 twnReload 并重设缩放。冒烟 0 错误。

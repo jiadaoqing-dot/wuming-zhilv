@@ -66,8 +66,8 @@ $('pn').addEventListener('click',e=>{const g=e.target.closest('[data-g]');if(g){
   if(r=='mqa'){const q=mqCur();if(mqAccept())fmsg='✅ 已接受主线:'+q.n}
   else if(r=='mqc'){const q0=mqCur(),rt=q0&&mqRwT(q0),q=mqClaim();if(q)fmsg=`🎁 主线「${q.n}」完成:${rt}<br><span class="tag" style="font-weight:normal">后记:${q.d}</span>`}
   else if((r.startsWith('qa')||r.startsWith('qc'))&&timeBad())fmsg=TBMSG;
-  else if(r.startsWith('qa')){qDay();QD.d[+r[2]].s=1;fmsg='已接受任务:'+QDEF[+r[2]].n}
-  else if(r.startsWith('qc')){qDay();const i=+r[2],q=QDEF[i];if(QD.d[i].s==1&&q.prog()>=q.need){q.give();QD.d[i].s=2;fmsg='🎁 领取奖励:'+q.rw}}
+  else if(r.startsWith('qa')){qDay();const i=+r.slice(2);if(QDEF[i].lock&&QDEF[i].lock())fmsg='这个任务的关卡还没开放';else{QD.d[i].s=1;fmsg='已接受任务:'+QDEF[i].n}}  // 第五十三轮修:原来只取一位数字,第 10 个以后的每日任务会错位
+  else if(r.startsWith('qc')){qDay();const i=+r.slice(2),q=QDEF[i];if(QD.d[i].s==1&&q.prog()>=q.need){q.give();QD.d[i].s=2;fmsg='🎁 领取奖励:'+q.rw}}
   else if(/^lk[123]$/.test(r)){const i=+r[2];useLk=useLk==i?0:i}
   else if(r[0]=='Q')FQ=+r[1];
   else if(r=='se'){const n=MAT.egg||0;gold+=n*3;MAT.egg=0;fmsg='出售蛇蛋 ×'+n+',获得 '+n*3+' 金币'}
