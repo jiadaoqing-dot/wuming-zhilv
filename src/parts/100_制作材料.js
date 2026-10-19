@@ -48,7 +48,7 @@ function fzGo(){const t=FZ.t;
   if(t==7){if(it.cos||(it.slot!='sword'&&it.slot!='staff'))return '只能幻化剑或法杖';const a=FZ.a;if(!a||!TRT[a])return '先选一种特性';if(it.tr==a)return '这把武器已经是「'+TRT[a][0]+'」了';if(!(MAT.hwq>0))return '需要 1 张武器幻化券';if(it.tr&&!FZ.ok){FZ.ok=1;return ''}
     MAT.hwq--;it.tr=a;FZ.ok=0;sfx('fuse');save();return '✨ 幻化成功:'+nm(it)+' 带上了「'+TRT[a][0]+'」特性(套装件数 +1)'}
   if(t==2){const k=(it.fg||0)+1;if(k>FGMX)return '已经锻造到最高 '+FGMX+' 级';if(!(MAT['fg'+k]>0))return '需要 1 颗'+MISC['fg'+k][0];MAT['fg'+k]--;it.fg=k;sfx('fuse');save();return '🔨 锻造成功:'+nm(it)+' 锻造 '+k+' 级('+(it.cos?cosW(it.slot,k):'白字 +'+k*FGK*100+'%')+')'}
-  if(t==3){if(it.cos)return '时装 / 翅膀没有绿字';if(!(MAT.wash>0))return '需要 1 张洗脸券';MAT.wash--;greenRoll(it,1);sfx('buff');save();return '🧼 洗练完成:'+it.gr.map(([k,v])=>NM[k]+' +'+v).join(' · ')}
+  if(t==3){if(it.cos)return '时装 / 翅膀没有绿字';if(!(MAT.wash>0))return '需要 1 张洗脸券';MAT.wash--;greenRoll(it);sfx('buff');save();return '🧼 洗练完成:'+it.gr.map(([k,v])=>NM[k]+' +'+v).join(' · ')}
   if(t==4){const a=FZ.a;if(!a||!AMP[a])return '先选一种增幅宝石';if(!(MAT['amp_'+a]>0))return '没有'+AMP[a][0];if(it.amp&&!FZ.ok){FZ.ok=1;return ''}MAT['amp_'+a]--;it.amp=a;FZ.ok=0;sfx('fuse');save();return '💎 镶嵌成功:'+nm(it)+' '+AMP[a][0]}
   return ''}
 // 熔炉界面(第三十三轮,参考用户给的「物品制作」布局):左边火焰法阵(MG27 mc-fire)上一圈材料格 + 中间成品,下面金币和按钮;右边页签 + 配方卡片 / 装备列表

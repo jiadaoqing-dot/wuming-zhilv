@@ -23,7 +23,7 @@
  素材来源:ULPC 仓库(LPC 人物图层)、series-ai/jam-ready-assets(大量 CC0 素材,LFS 文件用 media 直链下载,见 fetch_assets.sh)。
 
 【当前状态(2026-10-20,v1.61)】
-- v1.61:属性石 atsNew 每条单独随机可重复;greenRoll(it,1)(洗练)可重复,掉落不重复。
+- v1.61:属性石 atsNew 每条单独随机可重复;greenRoll 掉落 / 制作 / 洗练都可重复。
 - v1.60(第五十八轮):邪灵二阶 m2Hit 改 (mpMax+mp)×15 打屏幕内全部敌人;dealt 新 o.cra(额外暴击率),pDeal / xDeal 第 4 参数传仓鼠眼力(去掉单独 ×1.5);瓜子拍打改 pDeal;仓鼠护盾首领战恢复(560 / 150 去 bossOn)。第五十八轮问题已全部回复,没有新问题。
 - v1.59(第五十七轮):炼狱自动进层(572 twChk(dt) + TWA / TWAT 3.5,最后一层 TWOPEN 才出光柱);大师二阶 = 035 分块(it.m2,ms 仍 2;M2W / M2EN(evV)/ M2FG(wv)/ M2TR(trMul 权重平均);m2On 四件被动接在 dealt(scr / l2、fz、m2Hit)、hurt(m2Live / P.m2L)、atkTr(m2Atk)、update(m2Tick));第 16 层 m2Gen 掉落。DBLK 改成卡 × (1+骰子)。
   注意:往长行末尾加 `// 注释` 时,后面不能再有代码(这次 dealt 末尾的 tx / elemChk 被注释吞掉过,改完要跑 err 检查)。问题在 docs/下次任务.txt「第五十八轮」。
