@@ -5,7 +5,7 @@ function hurt(b,o){if(DECOY||GM.god)return false;if(pdChk())return false;if(P.in
   if(Math.random()<S.dg/100){P.inv=.4;tx('闪避成功!',P.x-8,P.y-10,'#a5d8ff');ghost('#a5d8ff',.3);syn('blink');return false}
   let d=dmgIn(b*EATK*BDMK(),S.def);if(P.rot>0&&isDm(cur))d=Math.round(d*(1+.06*P.rot));  // 第五十六轮:阿斯塔罗特的腐蚀层数,每层受伤 +6%  // BDMK:第八~十关首领战 ×1.35 ×1.35(第十五轮)
   if(P.hshT>0&&!bossOn){if(P.hdr)d=Math.max(1,Math.round(d*(1-P.hdr)));if(P.hsh>0){const a=Math.min(P.hsh,d);P.hsh-=a;d-=a;tx('护盾 -'+a,P.x+4,P.y-14,'#ffe8a3');if(d<=0){P.inv=HITI;shake=.1;sfx('hit');mfxHit();return true}}}  // 宠物仓鼠的瓜子壳护盾 + 减伤
-  if(P.shdT>0&&P.shd>0){const a=Math.min(P.shd,d);P.shd-=a;d-=a;tx('🪨 -'+a,P.x+4,P.y-14,'#e0b984');if(d<=0){P.inv=HITI;shake=.1;sfx('hit');mfxHit();return true}}P.hp-=d;mfxHit();P.combo=0;if(P.jk)P.jk=Math.floor(P.jk*.4);{const c=setTr();if(tr6('yu',c)&&st=='play'){const t=nearE(allTg(),P.x+12,P.y+16,320);if(t)xDeal(t,Math.max(1,Math.round(d*YU6)))}}P.inv=Math.min(HITI,o&&o.inv!=null?o.inv:HITI);P.vy=-250;if(o&&o.kb)P.kbx=o.kb;shake=.25;tx('-'+d,P.x+12,P.y-6,'#fff','d');sfx('hurt');  // 第四十二轮:神技 6 件掉 60% 层数 · 圣愈 6 件反伤(第四十五轮修:这段注释原来写在中间,把受击无敌 / 击退 / 伤害数字 / 受击音效都注释掉了)
+  if(P.shdT>0&&P.shd>0){const a=Math.min(P.shd,d);P.shd-=a;d-=a;tx('🪨 -'+a,P.x+4,P.y-14,'#e0b984');if(d<=0){P.inv=HITI;shake=.1;sfx('hit');mfxHit();return true}}if(P.hp>0&&P.hp-d<=0&&m2Live())d=Math.max(0,Math.ceil(P.hp)-1);/* 第五十七轮:大师二阶热血四件不死 */P.hp-=d;mfxHit();P.combo=0;if(P.jk)P.jk=Math.floor(P.jk*.4);{const c=setTr();if(tr6('yu',c)&&st=='play'){const t=nearE(allTg(),P.x+12,P.y+16,320);if(t)xDeal(t,Math.max(1,Math.round(d*YU6)))}}P.inv=Math.min(HITI,o&&o.inv!=null?o.inv:HITI);if(P.m2L){P.m2L=0;P.inv=3}P.vy=-250;if(o&&o.kb)P.kbx=o.kb;shake=.25;tx('-'+d,P.x+12,P.y-6,'#fff','d');sfx('hurt');  // 第四十二轮:神技 6 件掉 60% 层数 · 圣愈 6 件反伤(第四十五轮修:这段注释原来写在中间,把受击无敌 / 击退 / 伤害数字 / 受击音效都注释掉了)
   // 受击僵直 0.3 秒(和怪物相同);2026-10-13 第十三轮取消连击保护(原来 2.5 秒内第 3 次僵直后 2 秒霸体)。技能给的霸体(P.ar)照旧
   if(!(P.ar>0)&&!(P.sk&&P.sk.id=='mc')){P.stun=HSTUN;if(P.sk&&P.sk.id=='giant'&&!P.sk.formed){burst(P.x+12,P.y-60,24,['#9d4edd','#c77dff'],220,{sh:2,s:5,l:.4,g:300})}P.sk=null}
   if(peqOn('wch')&&P.hp>0&&P.hp<S.hp*.9&&!(GT<(P.wchT||-99))){P.wchT=GT+PWCD;P.inv=Math.max(P.inv,3);P.wchI=3;tx('⏱ 怀表:3 秒不可选取',P.x-40,P.y-40,'#ffe066');syn('blink')}  // 第四十八轮:宠物装备「怀表」
@@ -49,7 +49,7 @@ function poiseHit(e,dm){if(!e.pzm)e.pzm=e.po=Math.max(50,e.max*PZK);e.prd=PZRD;i
 // 小怪韧性:池 = 生命上限 × MPZK(同关普攻约 2~3 下打空),打空僵直 MPZST 秒(打穿超过半条 MPZST2),之后连同僵直 MPZIM 秒不再累计;
 // 停手 MPZRD 秒后每秒回复 MPZRG。霸体(e.sa)的小怪不吃韧性。击飞 / 苍蓝巨剑 / 冻结等控制技能直接写 e.st,不受影响
 const MPZK=.45,MPZST=.45,MPZST2=.8,MPZIM=1.6,MPZRD=1.5,MPZRG=.5;
-function mobPz(e,dm){if(e.sa)return;if(!e.pzm)e.pzm=e.po=Math.max(1,(e.hp0||e.hp)*MPZK*(e.pzx||1));e.prd=MPZRD;if(e.pim>0)return;e.po-=dm;
+function mobPz(e,dm,fz){if(e.sa&&!fz)return;if(!e.pzm)e.pzm=e.po=Math.max(1,(e.hp0||e.hp)*MPZK*(e.pzx||1));e.prd=MPZRD;if(e.pim>0)return;e.po-=dm;
   if(e.po<=0){const t=-e.po>e.pzm*.5?MPZST2:MPZST;e.st=Math.max(e.st||0,t);e.pim=t+MPZIM;e.po=e.pzm}}
 // 第四十四轮(用户选 A):首领霸体阶段 —— 生命掉到 70% / 40%(BSAH)时进入 BSAT 秒霸体 + 狂暴:不吃僵直 / 破韧 / 后仰 / 减速 / 击退,动作快 BSAK 倍;
 // 一下打穿两条线只触发一次。镜中无名本来就不吃控制,不算。首领血条上的两道刻度 = 霸体线,霸体期间韧性条变成红色闪烁

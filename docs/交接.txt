@@ -22,7 +22,9 @@
  旧的云端环境只能访问 GitHub / npm / pypi,opengameart、itch 访问不了。
  素材来源:ULPC 仓库(LPC 人物图层)、series-ai/jam-ready-assets(大量 CC0 素材,LFS 文件用 media 直链下载,见 fetch_assets.sh)。
 
-【当前状态(2026-10-20,v1.58)】
+【当前状态(2026-10-20,v1.59)】
+- v1.59(第五十七轮):炼狱自动进层(572 twChk(dt) + TWA / TWAT 3.5,最后一层 TWOPEN 才出光柱);大师二阶 = 035 分块(it.m2,ms 仍 2;M2W / M2EN(evV)/ M2FG(wv)/ M2TR(trMul 权重平均);m2On 四件被动接在 dealt(scr / l2、fz、m2Hit)、hurt(m2Live / P.m2L)、atkTr(m2Atk)、update(m2Tick));第 16 层 m2Gen 掉落。DBLK 改成卡 × (1+骰子)。
+  注意:往长行末尾加 `// 注释` 时,后面不能再有代码(这次 dealt 末尾的 tx / elemChk 被注释吞掉过,改完要跑 err 检查)。问题在 docs/下次任务.txt「第五十八轮」。
 - v1.58(第五十六轮新任务):暗黑炼狱 = 572 分块,cur 34(TW0 / isTw / TWF 当前层 / TWL 层表 / TWHC 首领 → 原关卡 / TWOPEN 16)。主线下一关从 cur 35 起。再开 17~30 层:往 TWL 里加层;新首领类型要进 TWHC / TWNM,原关卡有场上机关的加进 TWLS / TWFX(和 twOver)。
   两个首领的做法:B + E 里的 e.twb;twIn(e) / twOut 临时换 cur 和 B(340 首领循环里 tw0、360 twDE、twStep / twFx);140 init 的首领三元式变成 bMk(),twMk / twInit 换 cur 调它。表 [34] 同第十三关 + 按二星进 = 二星焚天炎君(验证过 25.7 万 / 42 / 54)。
   通关:twChk(340 代替普通流程)→ 3~4 样 ASTRR + TWHL 70% 回复 + R19.twr;clearGo 走通关页(130 chBtns 的 isTw 分支 → twNext,生命魔力保留)。选层页 st 'twr'(590 点击 / 绘制 / BGM,710 键盘)。TWN 名字已被 PXA 占用,层数常量叫 TWNF。问题在 docs/下次任务.txt「第五十七轮」。

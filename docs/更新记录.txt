@@ -1,3 +1,10 @@
+【v1.59 · 2026-10-20 · 第五十七轮:炼狱自动进层 + 大师二阶装备】
+- 572:twChk(dt) 通关后 TWA 3.5 秒倒计时 → pickUp + twNext(最后一层才 CLRP);第 16 层掉 m2Gen()(M2DR 35% × M2NN 3 次 × DBLK)。
+- 新分块 035_大师二阶.js:it.m2(ms 仍 2),M2W 白绿 ×3(m2Gen / greenRoll / gRng)· M2EN 强化 ×5(evV,eqAdd / 提示 / 熔炉)· M2FG 锻造 ×6(wv)· M2TR 特性 ×4.5(trMul 改成按件数权重平均)。
+- 四件被动 m2On:圣愈 / 邪灵 P.m2h + m2Hit(dealt 末尾)· 神技 m2Ji(m2Tick 每 8 秒)+ dealt 强制削韧 fz(mobPz 第 3 参数)+ P.cbT 6 + m2Atk · 热血 m2Live(hurt,P.m2L → 3 秒无敌)+ m2Atk · 怒雷 dealt 里 scr / l2。
+- DBLK = (卡 ? 2 : 1) × (1 + 骰子)(用户:骰子和双倍爆率卡叠加)。字体重建(削溢)。
+- 冒烟 0 错误;Playwright 验证:白字 ×3、强化 ×5、trMul 4.5、额外伤害 30 万、热血存活率约 0.6、神技刷新、自动进层、第 16 层掉落。
+
 【v1.58 · 2026-10-20 · 第五十六轮新任务:暗黑炼狱(三十层宝塔,先开 16 层)】
 - 新分块 572_暗黑炼狱.js:cur 34(TW0,isTw),TWF 当前层,TWL[层] = 首领列表,TWHC 首领 → 原来的关卡,TWOPEN 16;MAPS2 第 9 项(tw:1,p:[352,186] = 用户附图的绿光宝塔)→ 选层页 st 'twr'(drawTwr / twClick / twKey,左边裁地图插画里的宝塔)。
 - 两个首领:第一个 = B,第二个进 E(e.twb);推进 / 绘制时 twIn / twOut 临时把 cur、B 换成首领自己的(340 首领循环、360 twDE),原关卡机关 TWLS / TWFX 按 hc 各推一次(g8 / v9 / m14 / c15 + nbStep / nbFx),twOver 画暴风雪 / 沙暴 / 温度条;twHud 第二条血条。

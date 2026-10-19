@@ -47,7 +47,7 @@ function whAct(r){if(!/^W[adtIOPQ]/.test(r))return 0;const W=R19.wh,I=R19.whi||(
   else if(r[1]=='d'){if(BAG[i]&&W.length<WHN){const it=BAG.splice(i,1)[0];W.push(it);fmsg='已存入 '+nm(it)}}
   else if(W[i]&&BAG.length<BAGN){const it=W.splice(i,1)[0];BAG.push(it);fmsg='已取出 '+nm(it)}
   return 1}
-const dblOn=()=>R19.dbl>Date.now(),DBLK=()=>dblOn()?2:1+DICEB;  // 第四十八轮:幸运骰子(和双倍爆率卡不叠加)
+const dblOn=()=>R19.dbl>Date.now(),DBLK=()=>(dblOn()?2:1)*(1+DICEB);  // 第五十七轮(用户):幸运骰子和双倍爆率卡叠加(相乘)  // 第四十八轮:幸运骰子(原来和双倍爆率卡不叠加)
 // 新道具放在 MAT 里:[名称, 说明, (占位), 出售价, 使用按钮文字]
 const MISC={add:['合成添加剂','熔炉合成强化石时,每次合成要放 1 瓶(3 颗同级同品质 + 1 瓶 → 1 颗高一档品质)。神秘副本 3 首领 35%、第十一关首领 30% 掉落,也会在 🏪 商城的随机物品栏出现。','',0],
   gc1:['上帝卡牌 · 暴击升级','使用后 2 小时内:暴击率 +25%、暴击伤害 +20%。神秘副本 2(梦魇幽驹)首领 25% 掉落(两张卡随机一张)。只在关卡里计时,再用一张会叠加时长。','',0,'🃏 使用'],

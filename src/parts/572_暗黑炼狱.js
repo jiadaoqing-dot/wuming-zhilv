@@ -1,6 +1,6 @@
 // ===== 第五十六轮(用户):暗黑炼狱 —— 第二张地图「暗黑大陆」正中的绿光宝塔(用户附图),cur 34(TW0),一共 30 层,先开 16 层(TWOPEN)=====
 // 一层一层往上闯:每层是已有关卡的首领(一层一到两个),打完一层 → 宝箱(星界财宝的奖励表 ASTRR 里随机 3~4 样,直接放进背包)+ 回复大量生命 / 魔力(TWHL)
-//   → 通关页「前往第 N+1 层」(生命 / 魔力保留)/ 返回城镇。不分星级:按二星进(LVSTAR 2),所有首领的生命 / 攻击 / 防御 = 二星焚天炎君(表里 [34] 同 [16])
+//   → 3.5 秒后自动进入下一层(生命 / 魔力保留,第五十七轮);开放的最后一层才出通关光柱 → 通关页 / 返回城镇。不分星级:按二星进(LVSTAR 2),所有首领的生命 / 攻击 / 防御 = 二星焚天炎君(表里 [34] 同 [16])
 // 两个首领同时在场:第一个 = B,第二个放进 E(e.twb);每个首领记着自己原来的关卡 e.hc,推进 / 绘制时临时把 cur 和 B 换成它自己(twIn / twOut),
 //   原关卡的场上机关(鬼手 / 熔岩 / 导弹 / 炸弹……)也按 hc 各推进一次(TWLS / TWFX)。B 先倒下就把 E 里的那个换成 B(twChk)
 // 记录:R19.twr = 打通过的最高层;选层页 st 'twr' 只能从 1 ~ 最高层 +1 里选。场景 = 永夜王城(CST)压一层绿光;BGM = 本层第一个首领原来的首领曲
@@ -35,16 +35,18 @@ function twOver(){for(const e of twAll()){if(e.hc==6)twAs(e,blizDraw);if(e.hc==9
     if(e.hc==5&&e.stm>0){const k=e.stm,t=performance.now()/1000;x.fillStyle='rgba(222,160,60,'+.38*k+')';x.fillRect(0,0,VW,VH);x.fillStyle='rgba(255,236,190,'+.5*k+')';for(let i=0;i<28;i++)x.fillRect(((i*97+t*520)%(VW+80))-80,(i*37)%GY,40+(i%3)*20,2)}}}  // 沙渊古神的沙暴(原来只在第五关画)
 const twDE=e=>e.twb&&isTw(cur)?twAs(e,()=>drawE(e)):drawE(e);
 // 首领倒下(update 里代替普通关卡的通关流程)
-function twChk(){if(!bossOn||endT||B.hp>0)return;
+let TWA=0;const TWAT=3.5;  // 第五十七轮(用户):打完自动进下一层(TWA 倒计时,期间掉落物飞到身上)
+function twChk(dt){if(endT&&TWA>0){TWA-=dt;if(TWA<=0){TWA=0;pickUp(1);twNext()}return}if(!bossOn||endT||B.hp>0)return;
   sfxStop(B.sh);sfxStop(B.gl);reward(B);
   const n=E.find(e=>e.twb&&e.hp>0);if(n){E.splice(E.indexOf(n),1);B=n;sfxAll();return}  // 还有一个:换成 B 接着打
-  endT=-1;CLRP=1;sfxAll();B.sh=null;B.gl=null;sfx('win');F=[];TOR=[];LCK=null;twClean();
+  endT=-1;CLRP=TWF>=TWOPEN?1:0;if(TWF<TWOPEN)TWA=TWAT;sfxAll();B.sh=null;B.gl=null;sfx('win');F=[];TOR=[];LCK=null;twClean();
   {const g=kpGain(Math.round((KPCL+KPLV*16)*(1+(STK().gd-1)*.5)));KP+=g;tx('+'+g+' 击杀点'+(isVip()?'(VIP)':''),P.x-14,P.y-76,'#ff8787')}
   const S=stats();P.hp=Math.min(S.hp,P.hp+S.hp*TWHL);P.mp=Math.min(S.mp,P.mp+S.mp*TWHL);VFX.spawn('radiant-heal',P.x+12,P.y+P.h,{s:1.3});tx('生命 / 魔力大量回复',P.x-30,P.y-48,'#69db7c');
   const n2=3+(Math.random()<.5?1:0),got=[];for(let i=0;i<n2;i++){const r=ASTRR[Math.random()*ASTRR.length|0];r[1]();got.push(r[0])}sfx('coin');
   say('🎁 第 '+TWF+' 层的宝箱:'+got.join('、'));got.forEach((g,i)=>tx('🎁 '+g,P.x-40,P.y-90-i*14,'#ffe066'));
+  if(TWF==16){let n3=0;for(let i=0;i<M2NN;i++)if(Math.random()<M2DR*DBLK()){gdDrop(B,{k:'eq',it:m2Gen()});n3++}if(n3)say('✨ 第 16 层首领掉落了 '+n3+' 件大师二阶装备!')}  // 第五十七轮:大师二阶
   R19.twr=Math.max(R19.twr|0,TWF);save();
-  banner('第 '+TWF+' 层通关!'+(TWF<TWOPEN?'站到光柱上按 W,可以前往第 '+(TWF+1)+' 层':'目前开放的 '+TWOPEN+' 层全部通关!'));P.grab=0;P.frz=0;P.slw=P.sand=0;P.ps=0}
+  banner('第 '+TWF+' 层通关!'+(TWF<TWOPEN?Math.round(TWAT)+' 秒后自动进入第 '+(TWF+1)+' 层':'目前开放的 '+TWOPEN+' 层全部通关!'));P.grab=0;P.frz=0;P.slw=P.sand=0;P.ps=0}
 function twClean(){E=E.filter(e=>!e.sum&&!e.twb);NB=nbNew();G8.cr=[];G8.hd=[];G8.cl=[];G8.ds=[];G8.vis=0;G8.flk=0;V9.pl=[];V9.rw=[];V9.cz=[];V9.fp=[];V9.ch=null;V9.gp=null;P.heat=0;P.ovh=0;P.burn=0;P.cryT=0;mkClr();c15Clr()}
 // 通关页「前往下一层」:生命 / 魔力保留
 function twNext(){if(TWF>=TWOPEN)return;const hp=P.hp,mp=P.mp;TWF++;init();st='play';lvT=performance.now();P.hp=Math.min(P.hp,hp);P.mp=Math.min(P.mp,mp)}

@@ -20,16 +20,16 @@ function eqK(tier,g,ms){if(ms)g=Math.max(g||0,SER.length-1);const t=TR[tier][2],
 const FWK=[1,1.1,1.32],FWN={sword:['','火之大剑','真~火之大剑'],staff:['','火之法杖','真~火之法杖']};
 const wG=it=>it?(it.fw?4+it.fw:it.g||0):0;  // 图标 / 手持武器用第几套外观(5 火之 / 6 真~火之)
 function eqWhite(slot,tier,g,ms,fw){const K=eqK(tier,g,ms),s={};for(const [k,c] of Object.entries(EQW[slot]))s[k]=Math.max(1,Math.round(c*K[k]*(ms?MSK:1)*FWK[fw|0]))+(k=='atk'&&(slot=='sword'||slot=='staff')?WPN5:0);return s}
-function greenRoll(it){const K=eqK(it.tier,it.g,it.ms),ks=Object.keys(EQG).sort(()=>Math.random()-.5).slice(0,3);it.gr=ks.map(k=>{const [a,b]=EQG[k];return [k,Math.max(1,Math.round(K[k]*(a+Math.random()*(b-a))*(it.ms?MSK:1)*FWK[it.fw|0]))]})}
-const gRng=(it,k)=>{const K=eqK(it.tier,it.g,it.ms),[a,b]=EQG[k],m=(it.ms?MSK:1)*FWK[it.fw|0];return [Math.max(1,Math.round(K[k]*a*m)),Math.max(1,Math.round(K[k]*b*m))]};
+function greenRoll(it){const K=eqK(it.tier,it.g,it.ms),ks=Object.keys(EQG).sort(()=>Math.random()-.5).slice(0,3);it.gr=ks.map(k=>{const [a,b]=EQG[k];return [k,Math.max(1,Math.round(K[k]*(a+Math.random()*(b-a))*(it.ms?MSK:1)*FWK[it.fw|0]*(it.m2?M2W:1)))]})}  // 第五十七轮:大师二阶绿字 ×3
+const gRng=(it,k)=>{const K=eqK(it.tier,it.g,it.ms),[a,b]=EQG[k],m=(it.ms?MSK:1)*FWK[it.fw|0]*(it.m2?M2W:1);return [Math.max(1,Math.round(K[k]*a*m)),Math.max(1,Math.round(K[k]*b*m))]};
 function fireW(slot,fw){return gen(slot,3,FWN[slot][fw],4,null,0,0,fw)}  // 史诗品质,机械系列为底
 // 第四十三轮(用户回复):真~火之武器 = 用一把火之武器 + 材料升级(先找背包,再找身上的);返回 {it, b:背包序号(身上 = -1)}
 function fwSrc(slot){const b=BAG.findIndex(q=>q.slot==slot&&q.fw==1);if(b>=0)return {it:BAG[b],b};const e=EQ[slot];return e&&e.fw==1?{it:e,b:-1}:null}
 const enV=(slot,k,q)=>Math.round(EQE[slot][1][q]*(stnLv(k)>=2?EQE2:1));  // 强化到第 k 级、用品质 q 的强化石:这一级加多少
-const wv=(it,k)=>Math.round(it.s[k]*(1+FGK*(it.fg||0)));  // 白字(含锻造)
+const wv=(it,k)=>Math.round(it.s[k]*(1+FGK*(it.fg||0)*(it.m2?M2FG:1)));  // 白字(含锻造;大师二阶锻造效果 ×6)
 const eqPr=it=>Math.round((it.s.atk||0)*6+(it.s.def||0)*6+(it.s.hp||0)*.8+(it.s.mp||0)*.8+(it.s.cr||0)*.5+(it.s.dg||0)*.8)+2;
 // 一件装备给的固定属性:白字(含锻造)+ 绿字 + 强化 + 属性石
-function eqAdd(g,it){if(!it)return g;for(const k in it.s)g[k]+=wv(it,k);for(const [k,v] of it.gr||[])g[k]+=v;if(it.ev)g[EQE[it.slot][0]]+=it.ev;if(it.gem)for(const [k,v] of it.gem.a)g[k]+=v;if(it.cu)g[it.cu.k]+=cuV(it.cu);return g}
+function eqAdd(g,it){if(!it)return g;for(const k in it.s)g[k]+=wv(it,k);for(const [k,v] of it.gr||[])g[k]+=v;if(it.ev)g[EQE[it.slot][0]]+=evV(it);if(it.gem)for(const [k,v] of it.gem.a)g[k]+=v;if(it.cu)g[it.cu.k]+=cuV(it.cu);return g}
 function gen(slot,tier,name,g,tr,fix,ms,fw){g=g||0;const s=eqWhite(slot,tier,g,ms,fw);
   const it={slot,tier,s,pr:0,fg:0,ev:0,v2:1,v3:1,v4:1,v5:1,v6:1,v7:1,v8:1,v9:1,n:name||(g?TR[tier][0]+'·'+(tr?TRT[tr][0]:SER[g].n)+SL[slot][0]:TR[tier][0]+SL[slot][0])};if(g)it.g=g;if(tr)it.tr=tr;if(ms)it.ms=2;if(fw)it.fw=fw;it.pr=eqPr(it);if(!fix)greenRoll(it);return it}  // fix=1:不带绿字(商店展示用,买到时再随机)
 // 旧装备全部按新规则重建(白字固定、随机 3 条绿字,强化按普通品质换成固定值),名字里的部位改名(发型 → 头饰、铠甲 → 战甲、耳坠 → 项链)
@@ -44,7 +44,7 @@ const trN=(k,c)=>(c||setTr())[k]||0,tr2=(k,c)=>trN(k,c)>=2?TRT[k][3]*trMul(k):0,
 // 邪灵 4 件:技能伤害加成(按当前最大魔力,stats 里缓存 P.mpMax)
 function lingSkB(c){c=c||setTr();if(trN('ling',c)<4)return 0;return Math.min(LINGMX,(P&&P.mpMax||0)/LINGK/100)*trMul('ling')}
 // 第四十一轮:大师制作装备的特性效果翻倍(用户:「设定为其他特性的 1 倍」= 多 100%);混穿时按这个特性里大师件数的比例:全是大师 ×2,一半 ×1.5
-function trMul(k){let n=0,m=0;for(const s of BODY){const it=EQ[s];if(it&&it.tr==k){n++;if(it.ms)m++}}return n?1+m/n:1}
+function trMul(k){let n=0,m=0;for(const s of BODY){const it=EQ[s];if(it&&it.tr==k){n++;m+=it.m2?M2TR:it.ms?2:1}}return n?m/n:1}  // 第五十七轮:大师二阶权重 4.5
 function trCnt(k){return setTr()[k]||0}
 let LDM=1,PS={},WZ=[],QD=qNew(),MAT={egg:0},LUCK=0,useLk=0,DLG=null,STN=stnNew(),CLR=[],cur=1,lvT=0,bsq=null,bmsg='',pn=null,fs=null,fmsg='',GM={god:0,ko:0,mp:0,luck:0,rc:0},GMSQ={s:'',t:0};
 const BAGN=50;

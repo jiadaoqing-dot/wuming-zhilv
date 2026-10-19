@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>无名之旅 v1.58</title>
+<title>无名之旅 v1.59</title>
 <style>
 /* 中文像素字体:Fusion Pixel Font(TakWolf,SIL OFL 1.1),按游戏用字裁剪(art_src/font/build_font.py) */
 @font-face{font-family:FPX12;src:url(assets/fpx12.woff2) format('woff2')}
@@ -274,7 +274,7 @@ body.px .at2{border:2px solid transparent;border-image:url(assets/ui_card.png) 6
 <p class="tip">← → / A D 移动(连按两次快跑) · K / ↑ 跳跃 · W+J / S+J 特殊普攻(学会二段跳后空中再按) · J 攻击(下劈 → 上挑 → 直戳 → 下劈 循环,按住蓄力重击;跑步中按 J = 冲刺直戳) · L 换武器 · H U I O 技能 · 空格 / W+空格 / S+空格 / WW+空格 剑士进阶技能(转职后) · 1 2 3 喝药水 · S 捡起地上的掉落物 · 背包 / 技能 / 商城 / 精灵 / 宠物 / 任务 / 声音:点右下角按钮(也可以用快捷键 B 背包 / T 技能 / Q 任务 / P 商城 / Y 精灵 / G 宠物 / M 声音,设置里可以关闭) · N 释放武器上的怪物技能石(背包里左键点物品弹出菜单,装备可拖动穿戴) · 装备翅膀后空中再按跳跃=飞行(W/S 升降、A/D 方向) · Esc / ⚙️ 设置(暂停、返回城镇、帧数、全屏)</p>
 <script>
 // 游戏版本:build.py 按它给输出文件命名(out/无名之旅_v版本.html),设置页也显示;每次发新版改这里
-const GAMEV='1.58';
+const GAMEV='1.59';
 // x 是当前的绘图上下文:平时是主画布;像素特效层(PXL,P2)绘制期间临时换成 640×360 的低分辨率图层
 const cv=document.getElementById('c');let x=cv.getContext('2d');const VW=640,VH=360,WW=3200,GY=300;
 // 渲染分辨率:电脑端 1920×1080(逻辑坐标仍是 640×360,整体放大 3 倍绘制,文字和像素都更清晰);手机端 1280×720
@@ -472,16 +472,16 @@ function eqK(tier,g,ms){if(ms)g=Math.max(g||0,SER.length-1);const t=TR[tier][2],
 const FWK=[1,1.1,1.32],FWN={sword:['','火之大剑','真~火之大剑'],staff:['','火之法杖','真~火之法杖']};
 const wG=it=>it?(it.fw?4+it.fw:it.g||0):0;  // 图标 / 手持武器用第几套外观(5 火之 / 6 真~火之)
 function eqWhite(slot,tier,g,ms,fw){const K=eqK(tier,g,ms),s={};for(const [k,c] of Object.entries(EQW[slot]))s[k]=Math.max(1,Math.round(c*K[k]*(ms?MSK:1)*FWK[fw|0]))+(k=='atk'&&(slot=='sword'||slot=='staff')?WPN5:0);return s}
-function greenRoll(it){const K=eqK(it.tier,it.g,it.ms),ks=Object.keys(EQG).sort(()=>Math.random()-.5).slice(0,3);it.gr=ks.map(k=>{const [a,b]=EQG[k];return [k,Math.max(1,Math.round(K[k]*(a+Math.random()*(b-a))*(it.ms?MSK:1)*FWK[it.fw|0]))]})}
-const gRng=(it,k)=>{const K=eqK(it.tier,it.g,it.ms),[a,b]=EQG[k],m=(it.ms?MSK:1)*FWK[it.fw|0];return [Math.max(1,Math.round(K[k]*a*m)),Math.max(1,Math.round(K[k]*b*m))]};
+function greenRoll(it){const K=eqK(it.tier,it.g,it.ms),ks=Object.keys(EQG).sort(()=>Math.random()-.5).slice(0,3);it.gr=ks.map(k=>{const [a,b]=EQG[k];return [k,Math.max(1,Math.round(K[k]*(a+Math.random()*(b-a))*(it.ms?MSK:1)*FWK[it.fw|0]*(it.m2?M2W:1)))]})}  // 第五十七轮:大师二阶绿字 ×3
+const gRng=(it,k)=>{const K=eqK(it.tier,it.g,it.ms),[a,b]=EQG[k],m=(it.ms?MSK:1)*FWK[it.fw|0]*(it.m2?M2W:1);return [Math.max(1,Math.round(K[k]*a*m)),Math.max(1,Math.round(K[k]*b*m))]};
 function fireW(slot,fw){return gen(slot,3,FWN[slot][fw],4,null,0,0,fw)}  // 史诗品质,机械系列为底
 // 第四十三轮(用户回复):真~火之武器 = 用一把火之武器 + 材料升级(先找背包,再找身上的);返回 {it, b:背包序号(身上 = -1)}
 function fwSrc(slot){const b=BAG.findIndex(q=>q.slot==slot&&q.fw==1);if(b>=0)return {it:BAG[b],b};const e=EQ[slot];return e&&e.fw==1?{it:e,b:-1}:null}
 const enV=(slot,k,q)=>Math.round(EQE[slot][1][q]*(stnLv(k)>=2?EQE2:1));  // 强化到第 k 级、用品质 q 的强化石:这一级加多少
-const wv=(it,k)=>Math.round(it.s[k]*(1+FGK*(it.fg||0)));  // 白字(含锻造)
+const wv=(it,k)=>Math.round(it.s[k]*(1+FGK*(it.fg||0)*(it.m2?M2FG:1)));  // 白字(含锻造;大师二阶锻造效果 ×6)
 const eqPr=it=>Math.round((it.s.atk||0)*6+(it.s.def||0)*6+(it.s.hp||0)*.8+(it.s.mp||0)*.8+(it.s.cr||0)*.5+(it.s.dg||0)*.8)+2;
 // 一件装备给的固定属性:白字(含锻造)+ 绿字 + 强化 + 属性石
-function eqAdd(g,it){if(!it)return g;for(const k in it.s)g[k]+=wv(it,k);for(const [k,v] of it.gr||[])g[k]+=v;if(it.ev)g[EQE[it.slot][0]]+=it.ev;if(it.gem)for(const [k,v] of it.gem.a)g[k]+=v;if(it.cu)g[it.cu.k]+=cuV(it.cu);return g}
+function eqAdd(g,it){if(!it)return g;for(const k in it.s)g[k]+=wv(it,k);for(const [k,v] of it.gr||[])g[k]+=v;if(it.ev)g[EQE[it.slot][0]]+=evV(it);if(it.gem)for(const [k,v] of it.gem.a)g[k]+=v;if(it.cu)g[it.cu.k]+=cuV(it.cu);return g}
 function gen(slot,tier,name,g,tr,fix,ms,fw){g=g||0;const s=eqWhite(slot,tier,g,ms,fw);
   const it={slot,tier,s,pr:0,fg:0,ev:0,v2:1,v3:1,v4:1,v5:1,v6:1,v7:1,v8:1,v9:1,n:name||(g?TR[tier][0]+'·'+(tr?TRT[tr][0]:SER[g].n)+SL[slot][0]:TR[tier][0]+SL[slot][0])};if(g)it.g=g;if(tr)it.tr=tr;if(ms)it.ms=2;if(fw)it.fw=fw;it.pr=eqPr(it);if(!fix)greenRoll(it);return it}  // fix=1:不带绿字(商店展示用,买到时再随机)
 // 旧装备全部按新规则重建(白字固定、随机 3 条绿字,强化按普通品质换成固定值),名字里的部位改名(发型 → 头饰、铠甲 → 战甲、耳坠 → 项链)
@@ -496,10 +496,41 @@ const trN=(k,c)=>(c||setTr())[k]||0,tr2=(k,c)=>trN(k,c)>=2?TRT[k][3]*trMul(k):0,
 // 邪灵 4 件:技能伤害加成(按当前最大魔力,stats 里缓存 P.mpMax)
 function lingSkB(c){c=c||setTr();if(trN('ling',c)<4)return 0;return Math.min(LINGMX,(P&&P.mpMax||0)/LINGK/100)*trMul('ling')}
 // 第四十一轮:大师制作装备的特性效果翻倍(用户:「设定为其他特性的 1 倍」= 多 100%);混穿时按这个特性里大师件数的比例:全是大师 ×2,一半 ×1.5
-function trMul(k){let n=0,m=0;for(const s of BODY){const it=EQ[s];if(it&&it.tr==k){n++;if(it.ms)m++}}return n?1+m/n:1}
+function trMul(k){let n=0,m=0;for(const s of BODY){const it=EQ[s];if(it&&it.tr==k){n++;m+=it.m2?M2TR:it.ms?2:1}}return n?m/n:1}  // 第五十七轮:大师二阶权重 4.5
 function trCnt(k){return setTr()[k]||0}
 let LDM=1,PS={},WZ=[],QD=qNew(),MAT={egg:0},LUCK=0,useLk=0,DLG=null,STN=stnNew(),CLR=[],cur=1,lvT=0,bsq=null,bmsg='',pn=null,fs=null,fmsg='',GM={god:0,ko:0,mp:0,luck:0,rc:0},GMSQ={s:'',t:0};
 const BAGN=50;
+// ===== 第五十七轮(用户):大师二阶装备 —— 暗黑炼狱第 16 层首领掉落(每次 35%,一共掷 3 次,双倍爆率卡 / 骰子照乘),目前最强的装备 =====
+// 和大师(一阶)比:白字 / 绿字 ×3(M2W),强化效果 ×5(M2EN:it.ev 按原值存,读的时候用 evV),锻造效果 ×6(M2FG,在 wv 里),
+//   特性效果 ×4.5(trMul 的权重:普通 1 · 大师 2 · 大师二阶 4.5)。只出头饰 / 战甲 / 项链 / 指环(和大师制作一样),特性随机;
+//   it.m2 = 1,it.ms 仍然是 2(原来「大师」的规则全部照用)
+// 四件大师二阶都是同一种特性 → 多一个被动(m2On):
+//   圣愈 / 邪灵:每 10 秒,下一次攻击额外造成 (最大生命 + 当前生命) × 15 的伤害(无视防御,金色数字)
+//   神技:每 8 秒刷新一个冷却最长的技能(同样长就随机),所有技能冷却再 -10%;攻击强制削减怪物韧性(无视霸体);连击保持 6 秒,每 30 连击攻击 +23%(最多 20 层)
+//   热血:受到致命伤害时 60% 几率不死(留 1 点生命)并 3 秒无敌,没有冷却;生命 < 70% 攻击 +100%,< 50% 再 +100%,< 30% 再 +300%
+//   怒雷:所有攻击伤害 +(暴击率 ÷ 10)%(暴击率 200% → +20%);暴击率超过 100% 的部分,每 2% 让暴击伤害 +1%
+const M2W=3,M2EN=5,M2FG=6,M2TR=4.5,M2DR=.35,M2NN=3,M2HK=15;
+const evV=it=>Math.round((it&&it.ev||0)*(it&&it.m2?M2EN:1));
+function m2Gen(s,t){s=s||MSL[Math.random()*MSL.length|0];t=t||TRK[Math.random()*TRK.length|0];
+  const it=gen(s,3,'大师二阶'+MSN[s]+'·'+TRT[t][0],3,t,1,1);it.m2=1;for(const k in it.s)it.s[k]=Math.round(it.s[k]*M2W);greenRoll(it);it.pr=eqPr(it);return it}
+const m2Cnt=k=>BODY.filter(s=>EQ[s]&&EQ[s].m2&&EQ[s].tr==k).length,m2On=k=>m2Cnt(k)>=4;
+const M2D={yu:`每 10 秒,下一次攻击额外造成「(最大生命 + 当前生命) × ${M2HK}」的伤害(无视防御,金色数字)`,ling:`每 10 秒,下一次攻击额外造成「(最大生命 + 当前生命) × ${M2HK}」的伤害(无视防御,金色数字)`,
+  ji:'每 8 秒刷新一个冷却最长的技能,所有技能冷却再 -10%;所有攻击强制削减怪物韧性(无视霸体);连击保持 6 秒,每 30 连击攻击力 +23%(最多 20 层)',
+  xue:'受到致命伤害时 60% 几率不死并 3 秒无敌(没有冷却);生命低于 70% 攻击力 +100%,低于 50% 再 +100%,低于 30% 再 +300%',
+  lei:'所有攻击伤害 +(暴击率 ÷ 10)%(暴击率 200% 时 +20%);暴击率超过 100% 的部分,每 2% 让暴击伤害 +1%'};
+// 每帧(update):圣愈 / 邪灵的蓄力、神技的刷新
+function m2Tick(dt){if(INTOWN||!P)return;
+  if(m2On('yu')||m2On('ling')){if(!P.m2h){P.m2hT=(P.m2hT||0)+dt;if(P.m2hT>=10){P.m2hT=0;P.m2h=1;tx('⚡',P.x+6,P.y-20,'#ffd43b','c')}}else if(Math.random()<dt*12)pt({x:P.x+rnd(0,24),y:P.y+rnd(0,32),vx:rnd(-10,10),vy:rnd(-50,-20),c:pick(['#ffd43b','#fff3bf']),sh:1,s:rnd(1.5,2.5),l:.4})}else{P.m2h=0;P.m2hT=0}
+  if(m2On('ji')){P.m2jT=(P.m2jT||0)+dt;if(P.m2jT>=8){P.m2jT=0;m2Ji()}}else P.m2jT=0}
+function m2Ji(){const c=CD[P.mode];let mx=0;for(const v of c)mx=Math.max(mx,v);
+  if(mx>0){const L=[];c.forEach((v,i)=>{if(v>=mx-.01)L.push(i)});c[L[Math.random()*L.length|0]]=0}
+  for(const w in CD)CD[w]=CD[w].map(v=>v*.9);ghost('#339af0',.3)}
+// dealt 里调用:圣愈 / 邪灵 的额外伤害(宠物 / 爆燃不触发)
+function m2Hit(e){if(!P.m2h||PETX||ELX||st!='play'||e.hp<=0)return;P.m2h=0;P.m2hT=0;const S=stats(),d=Math.round((S.hp+Math.max(0,P.hp))*M2HK);
+  e.hp-=d;tx(d,e.x+e.w/2,e.y-22,'#ffd43b','c');VFX.spawn('x-star',e.x+e.w/2,e.y+e.h/2,{s:1.4,life:.6,add:1,gr:.5});shake=Math.max(shake,.18)}
+// hurt 里调用:热血不死
+function m2Live(){if(!m2On('xue')||Math.random()>=.6)return false;P.m2L=1;tx('不死!',P.x-6,P.y-30,'#ff6b6b','c');flash('255,80,80',.2);return true}
+function m2Atk(hp){let a=0;if(m2On('ji'))a+=Math.min(20,Math.floor((P.combo||0)/30))*.23;if(m2On('xue')&&hp>0){const r=P.hp/hp;if(r<.7)a+=1;if(r<.5)a+=1;if(r<.3)a+=3}return a}
 // ===== 药水:生命 / 魔力(初级、中级、高级)+ 复活药水。药水背包 50 格,所有药水合计最多带 50 瓶;快捷栏 1 2 3 =====
 // [名称, 图标颜色, 类型, 回复比例, 价格]
 const POTD={hp1:['初级生命药水','#ff8787','hp',.10,60],hp2:['中级生命药水','#fa5252','hp',.13,220],hp3:['高级生命药水','#c92a2a','hp',.15,600],
@@ -665,7 +696,7 @@ function crdgP(g,c,Q){Q=Q||pctB(EQKS());const r=v=>+v.toFixed(1),cb=g.cr/CRPT,cr
 function atkTr(c,hp){let a=0;const nj=c.ji||0;if(nj>=2)a+=Math.min(P.combo||0,nj>=4?15:12)*(nj>=4?.02:.01)*trMul('ji');
   const nx=c.xue||0;if(nx>=2&&hp>0)a+=(nx>=4?.6:.25)*trMul('xue')*Math.max(0,Math.min(1,1-P.hp/hp));
   if(nj>=6)a+=Math.min(JI6N,P.jk||0)*JI6;  // 第四十二轮:神技 6 件击杀层数
-  return a}
+  return a+m2Atk(hp)}  // 第五十七轮:大师二阶 神技 / 热血 四件
 // 2026-10-13 第十三轮:关卡里只飘数字(伤害 / 回复),文字提示(技能名、状态、MISS、魔力不足……)都不显示;k:'d' 伤害 · 'c' 暴击
 function tx(s,px,py,c,k){if(st=='play'&&!k&&!/^[+-]?\d+$/.test(String(s)))return;if(TX.length>=80)TX.shift();TX.push({s,x:px,y:py,t:.9,c,k})}  // 第五十一轮:飘字同时最多 80 个
 function addItem(it){if(BAG.length<BAGN){BAG.push(it);tx('获得 '+it.n,P.x-20,P.y-20,it.tr?TRT[it.tr][1]:TR[it.tier][1]);return 1}tx('背包已满',P.x-14,P.y-20,'#ff8787','m');return 0}  // 第三十三轮:背包满了不自动出售、也不进仓库
@@ -720,7 +751,7 @@ function whAct(r){if(!/^W[adtIOPQ]/.test(r))return 0;const W=R19.wh,I=R19.whi||(
   else if(r[1]=='d'){if(BAG[i]&&W.length<WHN){const it=BAG.splice(i,1)[0];W.push(it);fmsg='已存入 '+nm(it)}}
   else if(W[i]&&BAG.length<BAGN){const it=W.splice(i,1)[0];BAG.push(it);fmsg='已取出 '+nm(it)}
   return 1}
-const dblOn=()=>R19.dbl>Date.now(),DBLK=()=>dblOn()?2:1+DICEB;  // 第四十八轮:幸运骰子(和双倍爆率卡不叠加)
+const dblOn=()=>R19.dbl>Date.now(),DBLK=()=>(dblOn()?2:1)*(1+DICEB);  // 第五十七轮(用户):幸运骰子和双倍爆率卡叠加(相乘)  // 第四十八轮:幸运骰子(原来和双倍爆率卡不叠加)
 // 新道具放在 MAT 里:[名称, 说明, (占位), 出售价, 使用按钮文字]
 const MISC={add:['合成添加剂','熔炉合成强化石时,每次合成要放 1 瓶(3 颗同级同品质 + 1 瓶 → 1 颗高一档品质)。神秘副本 3 首领 35%、第十一关首领 30% 掉落,也会在 🏪 商城的随机物品栏出现。','',0],
   gc1:['上帝卡牌 · 暴击升级','使用后 2 小时内:暴击率 +25%、暴击伤害 +20%。神秘副本 2(梦魇幽驹)首领 25% 掉落(两张卡随机一张)。只在关卡里计时,再用一张会叠加时长。','',0,'🃏 使用'],
@@ -1101,7 +1132,7 @@ function hurt(b,o){if(DECOY||GM.god)return false;if(pdChk())return false;if(P.in
   if(Math.random()<S.dg/100){P.inv=.4;tx('闪避成功!',P.x-8,P.y-10,'#a5d8ff');ghost('#a5d8ff',.3);syn('blink');return false}
   let d=dmgIn(b*EATK*BDMK(),S.def);if(P.rot>0&&isDm(cur))d=Math.round(d*(1+.06*P.rot));  // 第五十六轮:阿斯塔罗特的腐蚀层数,每层受伤 +6%  // BDMK:第八~十关首领战 ×1.35 ×1.35(第十五轮)
   if(P.hshT>0&&!bossOn){if(P.hdr)d=Math.max(1,Math.round(d*(1-P.hdr)));if(P.hsh>0){const a=Math.min(P.hsh,d);P.hsh-=a;d-=a;tx('护盾 -'+a,P.x+4,P.y-14,'#ffe8a3');if(d<=0){P.inv=HITI;shake=.1;sfx('hit');mfxHit();return true}}}  // 宠物仓鼠的瓜子壳护盾 + 减伤
-  if(P.shdT>0&&P.shd>0){const a=Math.min(P.shd,d);P.shd-=a;d-=a;tx('🪨 -'+a,P.x+4,P.y-14,'#e0b984');if(d<=0){P.inv=HITI;shake=.1;sfx('hit');mfxHit();return true}}P.hp-=d;mfxHit();P.combo=0;if(P.jk)P.jk=Math.floor(P.jk*.4);{const c=setTr();if(tr6('yu',c)&&st=='play'){const t=nearE(allTg(),P.x+12,P.y+16,320);if(t)xDeal(t,Math.max(1,Math.round(d*YU6)))}}P.inv=Math.min(HITI,o&&o.inv!=null?o.inv:HITI);P.vy=-250;if(o&&o.kb)P.kbx=o.kb;shake=.25;tx('-'+d,P.x+12,P.y-6,'#fff','d');sfx('hurt');  // 第四十二轮:神技 6 件掉 60% 层数 · 圣愈 6 件反伤(第四十五轮修:这段注释原来写在中间,把受击无敌 / 击退 / 伤害数字 / 受击音效都注释掉了)
+  if(P.shdT>0&&P.shd>0){const a=Math.min(P.shd,d);P.shd-=a;d-=a;tx('🪨 -'+a,P.x+4,P.y-14,'#e0b984');if(d<=0){P.inv=HITI;shake=.1;sfx('hit');mfxHit();return true}}if(P.hp>0&&P.hp-d<=0&&m2Live())d=Math.max(0,Math.ceil(P.hp)-1);/* 第五十七轮:大师二阶热血四件不死 */P.hp-=d;mfxHit();P.combo=0;if(P.jk)P.jk=Math.floor(P.jk*.4);{const c=setTr();if(tr6('yu',c)&&st=='play'){const t=nearE(allTg(),P.x+12,P.y+16,320);if(t)xDeal(t,Math.max(1,Math.round(d*YU6)))}}P.inv=Math.min(HITI,o&&o.inv!=null?o.inv:HITI);if(P.m2L){P.m2L=0;P.inv=3}P.vy=-250;if(o&&o.kb)P.kbx=o.kb;shake=.25;tx('-'+d,P.x+12,P.y-6,'#fff','d');sfx('hurt');  // 第四十二轮:神技 6 件掉 60% 层数 · 圣愈 6 件反伤(第四十五轮修:这段注释原来写在中间,把受击无敌 / 击退 / 伤害数字 / 受击音效都注释掉了)
   // 受击僵直 0.3 秒(和怪物相同);2026-10-13 第十三轮取消连击保护(原来 2.5 秒内第 3 次僵直后 2 秒霸体)。技能给的霸体(P.ar)照旧
   if(!(P.ar>0)&&!(P.sk&&P.sk.id=='mc')){P.stun=HSTUN;if(P.sk&&P.sk.id=='giant'&&!P.sk.formed){burst(P.x+12,P.y-60,24,['#9d4edd','#c77dff'],220,{sh:2,s:5,l:.4,g:300})}P.sk=null}
   if(peqOn('wch')&&P.hp>0&&P.hp<S.hp*.9&&!(GT<(P.wchT||-99))){P.wchT=GT+PWCD;P.inv=Math.max(P.inv,3);P.wchI=3;tx('⏱ 怀表:3 秒不可选取',P.x-40,P.y-40,'#ffe066');syn('blink')}  // 第四十八轮:宠物装备「怀表」
@@ -1145,7 +1176,7 @@ function poiseHit(e,dm){if(!e.pzm)e.pzm=e.po=Math.max(50,e.max*PZK);e.prd=PZRD;i
 // 小怪韧性:池 = 生命上限 × MPZK(同关普攻约 2~3 下打空),打空僵直 MPZST 秒(打穿超过半条 MPZST2),之后连同僵直 MPZIM 秒不再累计;
 // 停手 MPZRD 秒后每秒回复 MPZRG。霸体(e.sa)的小怪不吃韧性。击飞 / 苍蓝巨剑 / 冻结等控制技能直接写 e.st,不受影响
 const MPZK=.45,MPZST=.45,MPZST2=.8,MPZIM=1.6,MPZRD=1.5,MPZRG=.5;
-function mobPz(e,dm){if(e.sa)return;if(!e.pzm)e.pzm=e.po=Math.max(1,(e.hp0||e.hp)*MPZK*(e.pzx||1));e.prd=MPZRD;if(e.pim>0)return;e.po-=dm;
+function mobPz(e,dm,fz){if(e.sa&&!fz)return;if(!e.pzm)e.pzm=e.po=Math.max(1,(e.hp0||e.hp)*MPZK*(e.pzx||1));e.prd=MPZRD;if(e.pim>0)return;e.po-=dm;
   if(e.po<=0){const t=-e.po>e.pzm*.5?MPZST2:MPZST;e.st=Math.max(e.st||0,t);e.pim=t+MPZIM;e.po=e.pzm}}
 // 第四十四轮(用户选 A):首领霸体阶段 —— 生命掉到 70% / 40%(BSAH)时进入 BSAT 秒霸体 + 狂暴:不吃僵直 / 破韧 / 后仰 / 减速 / 击退,动作快 BSAK 倍;
 // 一下打穿两条线只触发一次。镜中无名本来就不吃控制,不算。首领血条上的两道刻度 = 霸体线,霸体期间韧性条变成红色闪烁
@@ -1381,9 +1412,10 @@ function dealt(e,dm,o){if(e.pp){MWH.push(dm);return}if(e.ug)return;  // 第四�
   if(e.k=='mir'&&!(e.tpT>0)&&Math.random()<e.mdg){e.tpT=.2;smoke(e.x+e.w/2,e.y+16);e.x=gpCl(e,e.x+sgn(e.x+e.w/2-(P.x+12))*rnd(40,70))}  // 第四十三轮:镜中无名按主角闪避率 ×5 闪开
   if(e.dg>0||e.tpT>0){if(!(e.mx>0)){e.mx=.35;tx('闪避',e.x+e.w/2,e.y-4,'#a5d8ff')}return}
   if(e.k=='gui'){if(e.hide)return;if(!(o&&o.nm)&&(e.miss>0||Math.random()<.3)){if(!(e.mx>0)){e.mx=.35;if(e.miss>0)e.miss--;tx('MISS',e.x+e.w/2,e.y-4,'#e5dbff');S10.af.push({x:e.x,y:e.y,f:e.f,t:.3})}return}e.pbx=sgn(e.x+e.w/2-(P.x+12))*90}  // 归蝇:出场后前 3 次必定 MISS,之后 30% MISS;被打中只轻微后退
-  if(!(o&&o.ns)&&e.k!='mir'&&!(e.saT>0))hitStun(e);sfx('hit');let cr=0;if(!noCombo){P.combo=(P.combo||0)+1;P.cbT=2;mscAdd()}
+  if(!(o&&o.ns)&&e.k!='mir'&&!(e.saT>0))hitStun(e);sfx('hit');let cr=0;if(!noCombo){P.combo=(P.combo||0)+1;P.cbT=m2On('ji')?6:2;mscAdd()}
   {const c=setTr();if(!noCombo&&!NRMH&&!ELX){const b=lingSkB(c);if(b)dm=Math.round(dm*(1+b))}if(PETX&&tr6('ling',c))dm=Math.round(dm*(1+LING6));  // 第四十二轮:邪灵 4 件技能伤害 / 6 件宠物伤害
-    if(Math.random()<stats().cr/100){dm=Math.round(dm*critK()*(PETX&&tr6('ling',c)?1+LING6:1));cr=1;if(tr6('lei',c))e.lsh=Math.min(LEI6N,(e.lsh|0)+1)}}  // 怒雷 6 件:暴击叠破防
+    const scr=stats().cr,l2=m2On('lei');if(l2)dm=Math.round(dm*(1+scr/1000));  // 第五十七轮:大师二阶怒雷四件(暴击率 ÷ 10 的增伤 + 溢出暴击率转暴击伤害)
+    if(Math.random()<scr/100){dm=Math.round(dm*(critK()+(l2?Math.max(0,scr-100)/200:0))*(PETX&&tr6('ling',c)?1+LING6:1));cr=1;if(tr6('lei',c))e.lsh=Math.min(LEI6N,(e.lsh|0)+1)}}  // 怒雷 6 件:暴击叠破防
   if(e.def)dm=Math.max(1,Math.round(dm*100/(100+e.def*EDF*(e.bf>0||e.shd>0?2:1)*(P.apen>0?.95:1)*(1-LEI6*(e.lsh|0)))));  // 蛇王蜕皮 shd:防御翻倍
   if(P.pdT>0)dm=Math.round(dm*(1+PDK));if(PETX){const k=peqInf();if(k)dm=Math.round(dm*(1+k))}if(MEMB&&st=='play'&&!MWON)dm=Math.round(dm*1.1);  // 第四十八轮:宠物装备「无尽」/ 记忆晶片 +10%
    // 第四十四轮:完美闪避后 3 秒伤害 +50%
@@ -1394,7 +1426,7 @@ function dealt(e,dm,o){if(e.pp){MWH.push(dm);return}if(e.ug)return;  // 第四�
   if(e.hsd>0){const a=Math.min(e.hsd,dm);e.hsd-=a;dm-=a;tx('🛡'+a,e.x+e.w/2,e.y-16,'#ffe8a3');if(dm<=0){e.fl=.08;return}}
   if(e.sh>0){const a=Math.min(e.sh,dm);e.sh-=a;dm-=a;tx('🛡'+a,e.x+e.w/2,e.y-16,'#74c0fc');if(dm<=0){e.fl=.08;return}}
   e.hp-=dm;e.fl=.15;if(PETX&&peqOn('lch')&&P.hp>0)P.hp=Math.min(stats().hp,P.hp+Math.max(1,Math.round(dm*.01)));  // 第四十八轮:汲取
- if(e.max&&e.k!='mir'&&!(e.saT>0))poiseHit(e,dm);else if(!(o&&o.ns))mobPz(e,dm);hitFX(e,cr);tx(dm,e.x+e.w/2,e.y-4,cr?'#d68cff':'#fff',cr?'c':'d');elemChk(e)}
+ {const fz=m2On('ji');if(e.max&&e.k!='mir'&&(fz||!(e.saT>0)))poiseHit(e,dm);else if(fz||!(o&&o.ns))mobPz(e,dm,fz)}hitFX(e,cr);tx(dm,e.x+e.w/2,e.y-4,cr?'#d68cff':'#fff',cr?'c':'d');m2Hit(e);elemChk(e)}  // 第五十七轮:神技四件强制削韧 · 圣愈 / 邪灵四件额外伤害(m2Hit)
 // 元素印记(第十六轮):雷印 + 火印 同时存在 → 爆燃(攻击 ×1.5 额外伤害,清掉印记)。ELX 防止爆燃伤害再触发爆燃
 let ELX=0;
 function elemChk(e){if(ELX||!(e.mkT>0&&e.mkF>0)||e.hp<=0)return;ELX=1;e.mkT=e.mkF=0;const cx=e.x+e.w/2,cy=e.y+e.h/2;
@@ -2304,7 +2336,7 @@ function update(dt){
   let sf=1;P.wz=0;if(P.slw>0){P.slw-=dt;sf=.6}if(P.sand>0){P.sand-=dt;sf=.6}
   for(const w of WZ)if(P.y+P.h>=GY-2&&P.x+P.w>w.x&&P.x<w.x+w.w){P.wz=1;sf=.6}
   if(P.pdT>0){P.pdT-=dt;if(Math.random()<dt*28)pt({x:P.x+rnd(0,24),y:P.y+rnd(0,32),vx:rnd(-10,10),vy:rnd(-55,-25),c:pick(['#ffd43b','#fff3bf','#ffe066']),sh:1,s:rnd(1.5,2.5),l:.4})}  // 第四十四轮:完美闪避增伤期间身上冒金光
-  P.spdT=(P.spdT||0)-dt;P.apen=(P.apen||0)-dt;P.pAtk=(P.pAtk||0)-dt;P.pDef=(P.pDef||0)-dt;P.hshT=(P.hshT||0)-dt;if(P.hshT<=0)P.hdr=0;
+  m2Tick(dt);P.spdT=(P.spdT||0)-dt;P.apen=(P.apen||0)-dt;P.pAtk=(P.pAtk||0)-dt;P.pDef=(P.pDef||0)-dt;P.hshT=(P.hshT||0)-dt;if(P.hshT<=0)P.hdr=0;
   if(P.sk){if(P.run)P.rkT=.35;P.run=0}else if(P.rkT>0){P.rkT-=dt;if(d){P.run=1;P.rkT=0}}if(!d)P.run=0;  // 第五十四轮(用户):放技能(位移技能、冲刺直戳)时先停跑,技能结束后 0.35 秒内还按着方向键就自动接着跑,不用再双击
   {const mk_=mvK();P.vx=d*170*mk_*(!P.gr&&!P.fly?mk_:1)*sf*(P.run?1.65:1)*(P.spdT>0?1.35:1)*(P.fly?1.1:1)}if(d)P.f=d;  // 第三十三轮:跳在空中时水平速度再乘一次移速倍率 → 移速越快跳得越远
   // 冰面:摩擦力小,加速慢、松开方向键还会滑一段
@@ -2374,7 +2406,7 @@ function update(dt){
   gdStep(dt);
   for(let i=I.length-1;i>=0;i--)if(ov(P,I[i])){P.hp=Math.min(S.hp,P.hp+15);sfx('coin');tx('+15',P.x,P.y-6,'#69db7c');I.splice(i,1)}
   if(cur==19&&bossOn&&B.k=='alm'&&B.hp<=0&&!endT)almMorph();  // 第四十八轮:千钟之主还有命就变身
-  if(isTw(cur))twChk();  // 第五十六轮:暗黑炼狱(两个首领都倒下才算这层通关)
+  if(isTw(cur))twChk(dt);  // 第五十六轮:暗黑炼狱(两个首领都倒下才算这层通关)
   else if(bossOn&&B.hp<=0&&!endT&&B.can)canDie();  // 第四十六轮:人造人·灿灿一号
   else if(bossOn&&B.hp<=0&&!endT){endT=-1;CLRP=1;sfxAll();B.sh=null;B.gl=null;sfx('win');tx('站到通关光柱上按 W 完成关卡',P.x-50,P.y-62,'#ffe066');F=[];TOR=[];LCK=null;{const g=kpGain(Math.round((KPCL+KPLV*(isDm(cur)?18:cur==21?17:cur==20?16:cur==19?15:cur==18?14:cur>=14?Math.min(cur,16)-3:Math.min(cur,10)))*(1+(STK().gd-1)*.5)));KP+=g;tx('+'+g+' 击杀点'+(isVip()?'(VIP)':''),P.x-14,P.y-76,'#ff8787')}if(cur==MY4){qDay();if(QD.d[1].s==1)QD.d[1].p=1}qM2B();reward(B);if(isDm(cur))dmDrop(B);if(cur==6&&!JOB&&!(MAT.job>0)&&!GD.some(g=>g.k=='job'))gdDrop(B,{k:'job',n:1});{const K=STK();for(let j=0;j<2;j++)if(!j||Math.random()<DROPK*K.dr*DBLK())gdDrop(B,{k:'eq',it:rollItem(rollQ(K.bq),cur==11?1:null)});if(cur==12&&Math.random()<GODDR*DBLK())gdDrop(B,{k:'gc',id:pick(['gc1','gc2']),n:1});if(MSS[cur]&&Math.random()<MSDR*DBLK())gdDrop(B,{k:'gc',id:'ms'+cur,n:1});if(cur==16&&Math.random()<.35*DBLK())gdDrop(B,{k:'gc',id:'b360',n:1});  // 第四十二轮:360 小鸟碎片  // 第四十轮:神秘副本 2 掉上帝卡牌 25% · 副本 3 掉合成添加剂 35% · 第十一关 30%  // 第三十八轮:神秘副本 1 瓜子大王掉林王系列(副本 2 / 3 掉雪原系列)  // 第十六轮:首领必掉 1 件(品质按星级 bq),第 2 件看掉落率
       bossDrop19(K);tx('首领掉落了战利品,落地后会自动飞到你身上',P.x-60,P.y-48,'#d0bfff')}if(cur==5||cur==7){B.T=[];B.Z=[];B.R=[];B.S=[];B.ult=0;B.act=null;B.ug=0;F=F.filter(f=>!(f.c>=17&&f.c<=19))}if(cur==6){B.wv=[];B.sp=[];B.zn=[];B.blz=0;B.act=null}if(cur==7){E=E.filter(e=>!e.sum);W7E=performance.now()}if(cur==8){B.act=null;B.ug=0;E=E.filter(e=>!e.sum);G8.cr=[];G8.hd=[];G8.cl=[];G8.ds=[];G8.vis=0;G8.lampOff=0;G8.wn=0;G8.bk=0;}if(cur==9){B.act=null;E=E.filter(e=>!e.sum);V9.pl=[];V9.rw=[];V9.cz=[];V9.ch=null;V9.gp=null;P.heat=0;P.ovh=0;P.burn=0;banner('熔岩冷却了……魔神化成了黑石')}if(cur==10){B.act=null;B.ug=0;B.hide=0;S10.sb=[];S10.bm=[];S10.af=[];S10.wind=0;F=[];banner('归蝇的黑翼散成了羽毛……幽灵船慢慢降到了海面上')}if(cur==14){B.act=null;mkClr();E=E.filter(e=>!e.sum);banner('钢铁暴君冒着黑烟停了下来……要塞的齿轮慢慢停转')}else if(cur==15){B.act=null;c15Clr();banner('夜王跪倒在王座前……永夜王城的钟声停了')}else if(cur==16){B.act=null;f16Clr();banner('焚天炎君的火焰熄灭了……火山口慢慢冷却下来')}else if(cur==18){B.act=null;n18Clr();banner('影主·胧化作一缕青烟……月影忍城的灯一盏盏熄灭了')}else if(cur==19){B.act=null;B.seaT=0;a19Clr();E=E.filter(e=>!e.sum);banner('最后一声铃响……千钟之主终于睡着了,钟楼安静了下来')}else if(cur==21){B.act=null;i21Clr();banner('炎狱巨像崩成了一地冷却的黑石……熔渊的火慢慢熄灭了')}else if(cur==20){B.act=null;a20Clr();banner('金核炮神的核心熄灭了……机库的灯一排排亮了起来')}else if(isDm(cur)){B.act=null;B.y=B.gy;dmClr();banner(DMD[dmI()].n+'倒下了……封魔柱重新亮起了微光')}else if(cur==MY4){B.act=null;mirClr();gpClr();canArm();if(Math.random()<MIRFW*DBLK())gdDrop(B,{k:'eq',it:fireW(Math.random()<.5?'sword':'staff',1)})}else if(cur>=11){B.act=null;HSH=[];HCL=[];gpClr();if(cur>=12)banner(cur==12?'梦魇幽驹的鬼火熄灭了……原地只剩一副空马鞍':'深渊炎魔坠进了自己的火里……裂缝慢慢合上了');else if(Math.random()<.05*DBLK()){gdDrop(B,{k:'hegg',n:1});banner('瓜子大王倒下了……留下了一颗暖乎乎的蛋!')}else banner('瓜子大王倒下了……这次没有留下蛋(5% 掉落)')}if(SOULV[cur]&&!soulHas(cur)&&!GD.some(g=>g.k=='soul')){gdDrop(B,{k:'soul',n:1,lv:cur});banner(SOULV[cur])}P.grab=0;P.frz=0;P.fzA=0;P.slw=P.sand=0;P.ps=0;qBoss()}
@@ -5458,7 +5490,7 @@ function drawDms(){const t=performance.now()/1000,px=PUI.on(),hv=dmsHit(MX_,MY_)
   if(performance.now()<msgU)CT(msg,320,300,11,'#ffe3e3','center',2.6,'#7a1f1f')}
 // ===== 第五十六轮(用户):暗黑炼狱 —— 第二张地图「暗黑大陆」正中的绿光宝塔(用户附图),cur 34(TW0),一共 30 层,先开 16 层(TWOPEN)=====
 // 一层一层往上闯:每层是已有关卡的首领(一层一到两个),打完一层 → 宝箱(星界财宝的奖励表 ASTRR 里随机 3~4 样,直接放进背包)+ 回复大量生命 / 魔力(TWHL)
-//   → 通关页「前往第 N+1 层」(生命 / 魔力保留)/ 返回城镇。不分星级:按二星进(LVSTAR 2),所有首领的生命 / 攻击 / 防御 = 二星焚天炎君(表里 [34] 同 [16])
+//   → 3.5 秒后自动进入下一层(生命 / 魔力保留,第五十七轮);开放的最后一层才出通关光柱 → 通关页 / 返回城镇。不分星级:按二星进(LVSTAR 2),所有首领的生命 / 攻击 / 防御 = 二星焚天炎君(表里 [34] 同 [16])
 // 两个首领同时在场:第一个 = B,第二个放进 E(e.twb);每个首领记着自己原来的关卡 e.hc,推进 / 绘制时临时把 cur 和 B 换成它自己(twIn / twOut),
 //   原关卡的场上机关(鬼手 / 熔岩 / 导弹 / 炸弹……)也按 hc 各推进一次(TWLS / TWFX)。B 先倒下就把 E 里的那个换成 B(twChk)
 // 记录:R19.twr = 打通过的最高层;选层页 st 'twr' 只能从 1 ~ 最高层 +1 里选。场景 = 永夜王城(CST)压一层绿光;BGM = 本层第一个首领原来的首领曲
@@ -5493,16 +5525,18 @@ function twOver(){for(const e of twAll()){if(e.hc==6)twAs(e,blizDraw);if(e.hc==9
     if(e.hc==5&&e.stm>0){const k=e.stm,t=performance.now()/1000;x.fillStyle='rgba(222,160,60,'+.38*k+')';x.fillRect(0,0,VW,VH);x.fillStyle='rgba(255,236,190,'+.5*k+')';for(let i=0;i<28;i++)x.fillRect(((i*97+t*520)%(VW+80))-80,(i*37)%GY,40+(i%3)*20,2)}}}  // 沙渊古神的沙暴(原来只在第五关画)
 const twDE=e=>e.twb&&isTw(cur)?twAs(e,()=>drawE(e)):drawE(e);
 // 首领倒下(update 里代替普通关卡的通关流程)
-function twChk(){if(!bossOn||endT||B.hp>0)return;
+let TWA=0;const TWAT=3.5;  // 第五十七轮(用户):打完自动进下一层(TWA 倒计时,期间掉落物飞到身上)
+function twChk(dt){if(endT&&TWA>0){TWA-=dt;if(TWA<=0){TWA=0;pickUp(1);twNext()}return}if(!bossOn||endT||B.hp>0)return;
   sfxStop(B.sh);sfxStop(B.gl);reward(B);
   const n=E.find(e=>e.twb&&e.hp>0);if(n){E.splice(E.indexOf(n),1);B=n;sfxAll();return}  // 还有一个:换成 B 接着打
-  endT=-1;CLRP=1;sfxAll();B.sh=null;B.gl=null;sfx('win');F=[];TOR=[];LCK=null;twClean();
+  endT=-1;CLRP=TWF>=TWOPEN?1:0;if(TWF<TWOPEN)TWA=TWAT;sfxAll();B.sh=null;B.gl=null;sfx('win');F=[];TOR=[];LCK=null;twClean();
   {const g=kpGain(Math.round((KPCL+KPLV*16)*(1+(STK().gd-1)*.5)));KP+=g;tx('+'+g+' 击杀点'+(isVip()?'(VIP)':''),P.x-14,P.y-76,'#ff8787')}
   const S=stats();P.hp=Math.min(S.hp,P.hp+S.hp*TWHL);P.mp=Math.min(S.mp,P.mp+S.mp*TWHL);VFX.spawn('radiant-heal',P.x+12,P.y+P.h,{s:1.3});tx('生命 / 魔力大量回复',P.x-30,P.y-48,'#69db7c');
   const n2=3+(Math.random()<.5?1:0),got=[];for(let i=0;i<n2;i++){const r=ASTRR[Math.random()*ASTRR.length|0];r[1]();got.push(r[0])}sfx('coin');
   say('🎁 第 '+TWF+' 层的宝箱:'+got.join('、'));got.forEach((g,i)=>tx('🎁 '+g,P.x-40,P.y-90-i*14,'#ffe066'));
+  if(TWF==16){let n3=0;for(let i=0;i<M2NN;i++)if(Math.random()<M2DR*DBLK()){gdDrop(B,{k:'eq',it:m2Gen()});n3++}if(n3)say('✨ 第 16 层首领掉落了 '+n3+' 件大师二阶装备!')}  // 第五十七轮:大师二阶
   R19.twr=Math.max(R19.twr|0,TWF);save();
-  banner('第 '+TWF+' 层通关!'+(TWF<TWOPEN?'站到光柱上按 W,可以前往第 '+(TWF+1)+' 层':'目前开放的 '+TWOPEN+' 层全部通关!'));P.grab=0;P.frz=0;P.slw=P.sand=0;P.ps=0}
+  banner('第 '+TWF+' 层通关!'+(TWF<TWOPEN?Math.round(TWAT)+' 秒后自动进入第 '+(TWF+1)+' 层':'目前开放的 '+TWOPEN+' 层全部通关!'));P.grab=0;P.frz=0;P.slw=P.sand=0;P.ps=0}
 function twClean(){E=E.filter(e=>!e.sum&&!e.twb);NB=nbNew();G8.cr=[];G8.hd=[];G8.cl=[];G8.ds=[];G8.vis=0;G8.flk=0;V9.pl=[];V9.rw=[];V9.cz=[];V9.fp=[];V9.ch=null;V9.gp=null;P.heat=0;P.ovh=0;P.burn=0;P.cryT=0;mkClr();c15Clr()}
 // 通关页「前往下一层」:生命 / 魔力保留
 function twNext(){if(TWF>=TWOPEN)return;const hp=P.hp,mp=P.mp;TWF++;init();st='play';lvT=performance.now();P.hp=Math.min(P.hp,hp);P.mp=Math.min(P.mp,mp)}
@@ -5620,23 +5654,24 @@ const NM={atk:'攻击',def:'防御',hp:'生命',mp:'魔力',cr:'暴击',dg:'闪�
 const ampTxt=k=>`<span style="color:#e64980">◆ ${AMP[k][0]}:${AMP[k][2]} +${Math.round(AMP[k][1]*100)}%</span>`;
 const cosW=(t,fg)=>Object.keys(COSW[t]).map(k=>({hp:'生命值',atk:'攻击力',def:'防御力',cr:'暴击率'}[k])+' +'+Math.round(cosV(t,k,fg)*100)+'%').join(' ');
 const ST=it=>{if(it.cos)return cosW(it.slot,it.fg)+(it.ev?` <span style="color:#e8590c">${NM[EQE[it.slot][0]]}+${it.ev}</span>`:'')+(it.amp?' '+ampTxt(it.amp):'');
-  const a=Object.keys(it.s).map(k=>NM[k]+'+'+wv(it,k));for(const [k,v] of it.gr||[])a.push(`<span style="color:#2f9e44">${NM[k]}+${v}</span>`);if(it.ev)a.push(`<span style="color:#e8590c">${NM[EQE[it.slot][0]]}+${it.ev}</span>`);
+  const a=Object.keys(it.s).map(k=>NM[k]+'+'+wv(it,k));for(const [k,v] of it.gr||[])a.push(`<span style="color:#2f9e44">${NM[k]}+${v}</span>`);if(it.ev)a.push(`<span style="color:#e8590c">${NM[EQE[it.slot][0]]}+${evV(it)}</span>`);
   return a.join(' ')+(it.gem?' '+gemTxt(it,'#1c7ed6'):'')+(it.amp?' '+ampTxt(it.amp):'')+(it.cu?' '+cuTxt(it):'')};
 const gemTxt=(it,c)=>`<span style="color:${c}">◆ ${atsTxt(it.gem)}</span>`;
 const cosTip=id=>{const d=COSD[id],c=cosIt(id);return `<b style="color:#f783ac;font-size:13.5px">${d.ic} ${d.n}${c.en?' +'+c.en:''}</b><br><span class="tg">部位:${d.t=='fash'?'时装':'翅膀'} · 击杀点商店<br>强化:${c.en?'+'+c.en:'未强化'}${c.en>=ENMAX()?' <b style="color:#ff922b">(已达上限)</b>':' / 上限 +'+ENMAX()}</span><hr>`+
   `<span style="color:#fff">${cosW(d.t,c.fg)}</span> <span class="tg">(加在基础数值上${c.fg?',锻造 '+c.fg+' 级':''})</span><br>${c.ev?`<span style="color:#ff922b">强化 +${c.en}:${NM[EQE[d.t][0]]} +${c.ev}</span>`:`<span class="tg">强化:每级 ${NM[EQE[d.t][0]]} +固定值</span>`}<br>${c.amp?ampTxt(c.amp):'<span class="tg">增幅宝石:未镶嵌</span>'}${c.cu?'<br>'+cuTxt(c):''}<hr>${d.d}<hr><b style="color:#ffd43b">${d.tr}</b>`};
 // 装备悬停说明(用户第三十三轮给的顺序):名字 / 锻造等级 / 部位 / 品质 / 强化是否上限 —— 白色属性 / 绿色属性 / 强化属性 / 增幅宝石 —— 属性石 / 装备介绍
 function tipItem(it,from){const q=TR[it.tier],ek=EQE[it.slot][0];
-  let h=`${eqImg(it,'eqt')}<b style="color:${it.tr?TRT[it.tr][1]:q[1]};font-size:13.5px">${nm(it)}</b><br><span class="tg">锻造:${it.fg?'<b style="color:#ffd43b">'+it.fg+' 级</b>':'未锻造'}(最高 ${FGMX} 级)<br>部位:${SL[it.slot][0]}<br>品质:${q[0]} · ${it.ms?'大师制作':it.fw?'火焰武器(机械史诗 ×'+FWK[it.fw]+')':SER[it.g||0].n+'系列'}<br>强化:${it.en?'+'+it.en:'未强化'}${(it.en||0)>=ENMAX()?' <b style="color:#ff922b">(已达上限)</b>':'(上限 +'+ENMAX()+')'}</span><hr>`;
-  h+=Object.keys(it.s).map(k=>`<span style="color:#fff">${NM[k]} +${wv(it,k)}</span>${it.fg?` <span class="tg">(锻造 +${it.fg*FGK*100}%)</span>`:''}`).join('<br>');
+  let h=`${eqImg(it,'eqt')}<b style="color:${it.tr?TRT[it.tr][1]:q[1]};font-size:13.5px">${nm(it)}</b><br><span class="tg">锻造:${it.fg?'<b style="color:#ffd43b">'+it.fg+' 级</b>':'未锻造'}(最高 ${FGMX} 级)<br>部位:${SL[it.slot][0]}<br>品质:${q[0]} · ${it.m2?'<b style="color:#ffd43b">大师二阶</b>':it.ms?'大师制作':it.fw?'火焰武器(机械史诗 ×'+FWK[it.fw]+')':SER[it.g||0].n+'系列'}<br>强化:${it.en?'+'+it.en:'未强化'}${(it.en||0)>=ENMAX()?' <b style="color:#ff922b">(已达上限)</b>':'(上限 +'+ENMAX()+')'}</span><hr>`;
+  h+=Object.keys(it.s).map(k=>`<span style="color:#fff">${NM[k]} +${wv(it,k)}</span>${it.fg?` <span class="tg">(锻造 +${Math.round(it.fg*FGK*100*(it.m2?M2FG:1))}%)</span>`:''}`).join('<br>');
   h+='<br>'+(it.gr&&it.gr.length?it.gr.map(([k,v])=>{const r=gRng(it,k);return `<span style="color:#69db7c">${NM[k]} +${v}</span> <span class="tg">(${r[0]} ~ ${r[1]})</span>`}).join('<br>'):'<span class="tg">绿字:到手时随机 3 条</span>');
-  h+='<br>'+(it.ev?`<span style="color:#ff922b">强化 +${it.en}:${NM[ek]} +${it.ev}</span>`:`<span class="tg">强化:每级 ${NM[ek]} +固定值</span>`);
+  h+='<br>'+(it.ev?`<span style="color:#ff922b">强化 +${it.en}:${NM[ek]} +${evV(it)}</span>`:`<span class="tg">强化:每级 ${NM[ek]} +固定值</span>`);
   h+='<br>'+(it.amp?ampTxt(it.amp):'<span class="tg">增幅宝石:未镶嵌</span>')+'<hr>';
   h+=(it.gem?gemTxt(it,'#74c0fc'):'<span class="tg">属性石:未镶嵌</span>');
   if(it.cu)h+='<br>'+cuTxt(it)+` <span class="tg">(${cuRng(it.cu.k,it.cu.t)})</span>`;  // 第五十五轮:诅咒之力
   if(it.mss&&MISC[it.mss])h+=`<br><b style="color:#b197fc">💎 嵌着 ${MISC[it.mss][0]}</b>`;  // 第四十二轮
-  if(it.tr)h+=`<br><b style="color:${TRT[it.tr][1]}">【${TRT[it.tr][0]}】${TRT[it.tr][2]}</b><br><span class="tg">${trDesc(it.tr)}</span><br><span class="tg">当前穿戴 ${TRT[it.tr][0]} ×${trCnt(it.tr)}(头饰 / 战甲 / 戒指 / 项链 + 剑 + 法杖都算,武器用「武器幻化券」加特性)${it.ms?' · <b style="color:#ffd43b">大师特性:效果翻倍</b>(混穿时按大师件数比例,当前 ×'+trMul(it.tr).toFixed(2).replace(/\.?0+$/,'')+')':''}</span>`;
-  h+=`<br><span class="tg">${it.ms?'大师工艺:用制作书在熔炉打造,按最高系列计算、白字和绿字再 ×1.2,是目前最强的装备;特性效果翻倍。':SER[it.g||0].n+'系列'+SL[it.slot][0]+'。'}白字只能用锻造石提升,绿字只能用洗脸券一起刷新。</span>`;
+  if(it.tr)h+=`<br><b style="color:${TRT[it.tr][1]}">【${TRT[it.tr][0]}】${TRT[it.tr][2]}</b><br><span class="tg">${trDesc(it.tr)}</span><br><span class="tg">当前穿戴 ${TRT[it.tr][0]} ×${trCnt(it.tr)}(头饰 / 战甲 / 戒指 / 项链 + 剑 + 法杖都算,武器用「武器幻化券」加特性)${it.ms?' · <b style="color:#ffd43b">'+(it.m2?'大师二阶特性:效果 ×'+M2TR:'大师特性:效果翻倍')+'</b>(混穿时按件数平均,当前 ×'+trMul(it.tr).toFixed(2).replace(/\.?0+$/,'')+')':''}</span>`;
+  if(it.m2&&it.tr)h+=`<br><b style="color:#ffd43b">【大师二阶 · 四件】</b><span class="tg">${M2D[it.tr]}(当前大师二阶 ${TRT[it.tr][0]} ×${m2Cnt(it.tr)},4 件生效)</span>`;  // 第五十七轮
+  h+=`<br><span class="tg">${it.m2?'大师二阶:暗黑炼狱第 16 层首领掉落,目前最强的装备 —— 比大师一阶白字 / 绿字 ×'+M2W+'、强化效果 ×'+M2EN+'、锻造效果 ×'+M2FG+'、特性效果 ×'+M2TR+'。':it.ms?'大师工艺:用制作书在熔炉打造,按最高系列计算、白字和绿字再 ×1.2,是目前最强的装备;特性效果翻倍。':SER[it.g||0].n+'系列'+SL[it.slot][0]+'。'}白字只能用锻造石提升,绿字只能用洗脸券一起刷新。</span>`;
   const e=EQ[it.slot];if(from=='b'&&e)h+=`<hr><span class="tg">已穿戴:</span><br><b style="color:${TR[e.tier][1]}">${nm(e)}</b><br><span class="tg">${ST(e)}</span>`;
   h+=`<hr><span class="tg">售价 ${sellPr(it)} 金币 · ${from=='b'?'左键:穿戴 / 出售 · 双击直接穿戴 · 可拖到左边部位穿戴':'左键:卸下 / 出售 · 双击直接卸下 · 可拖到右边卸下'}</span>`;return h}
 const itOf=r=>!r?null:r[0]=='b'?BAG[+r.slice(1)]:EQ[r.slice(2)];
@@ -5865,11 +5900,11 @@ function rChick(){if(!PET.own)return hd('🐤 宠物')+fm()+`<p>你还没有宠�
   return h}
 // ===== 第四十八轮:宠物装备(金币商店 10 万一件;宠物身上 PEQN 格,钢盔小鸡或仓鼠出战时生效)=====
 // 无尽 inf:暴击率超过 100% 的部分,每 1% 变成宠物伤害 +1% · 汲取 lch:宠物伤害的 1% 回复主角生命 · 怀表 wch:生命掉到 90% 以下时 3 秒不可选取(冷却 PWCD 秒)
-// 幸运骰子 dice:每次进关卡摇点数,1~6 点掉落几率 +1 / 2 / 4 / 8 / 16 / 32%(和双倍爆率卡不叠加:开着双倍爆率卡时按 ×2 算)
+// 幸运骰子 dice:每次进关卡摇点数,1~6 点掉落几率 +1 / 2 / 4 / 8 / 16 / 32%(第五十七轮起和双倍爆率卡叠加:DBLK = 卡 ×2 × (1 + 骰子))
 // 记忆晶片 mem:记录上一趟关卡里放过的技能;回主城后在宠物界面点「模拟战斗」,主角在城里把这些技能重放一遍,下次进那一关伤害 +10%(进关时用掉)
 // 图标:MENI 46~50(build_meni.py 第四十八轮追加,7Soul1 CC0)
 const PEQD={inf:['无尽','暴击率超过 100% 后,每多出 1% 暴击率,宠物伤害 +1%'],lch:['汲取','宠物造成伤害的 1% 回复无名的生命'],wch:['怀表','无名的生命掉到 90% 以下时,获得 3 秒不可选取状态(冷却 30 秒)'],
-  dice:['幸运骰子','每次进入关卡摇一次点数:1 点掉落率 +1%、2 点 +2%、3 点 +4%、4 点 +8%、5 点 +16%、6 点 +32%'],mem:['记忆晶片','记录上一趟关卡里放过的技能;回到主城后在 🐤 宠物界面点「模拟战斗」重放一遍,下次进入那一关伤害 +10%']};
+  dice:['幸运骰子','每次进入关卡摇一次点数:1 点掉落率 +1%、2 点 +2%、3 点 +4%、4 点 +8%、5 点 +16%、6 点 +32%(可以和双倍爆率卡叠加)'],mem:['记忆晶片','记录上一趟关卡里放过的技能;回到主城后在 🐤 宠物界面点「模拟战斗」重放一遍,下次进入那一关伤害 +10%']};
 const PEQP=100000,PEQN=3,PWCD=30,DICEV=[1,2,4,8,16,32];
 Object.assign(MENI.P,{peq_inf:46,peq_lch:47,peq_wch:48,peq_dice:49,peq_mem:50});
 let DICEB=0,MEMR=[],MEMC=-1,MEMB=0,MEMP=null;  // DICEB 本趟骰子加成 · MEMR / MEMC 本趟记录 · MEMB 本趟伤害 +10% · MEMP 主城里正在重放
@@ -6091,7 +6126,7 @@ function rForge(){
   if(it){const n=it.en||0,k=n+1,c=`<b style="color:${it.cos?'#f783ac':TR[it.tier][1]}">${nm(it)}</b>`,ek=NM[EQE[it.slot][0]];
     if(n>=MX)h+=`<p>${c} ${ST(it)}<br>已强化到最高等级 +${MX}</p>`;
     else{const sl=stnLv(k),own=STN[sl],q=FQ>=0&&own[FQ]>0?FQ:Math.max(0,own.findIndex(v=>v>0)),has=own[q]>0,fee=enFee(it,k);
-      h+=`<p>${c}<br>当前:${ST(it)}<br>+${k} 后:${ek} +${(it.ev||0)+enV(it.slot,k,q)} <span class="tag">(${STQ[q].n}品质:本级 ${ek} +${enV(it.slot,k,q)};普通 / 精良 / 史诗 / 卓越 = ${STQ.map((_,i)=>enV(it.slot,k,i)).join(' / ')})</span><br>需要 <b>Lv${sl} 强化石</b>(用于 ${stnUse(sl)}),选择品质:`+STQ.map((Q,i)=>`<button data-p="Q${i}" class="${i==q&&has?'on':''}" ${own[i]?'':'disabled'}>${stnEm(sl,i)} ${Q.n} ×${own[i]}</button>`).join(' ')+
+      h+=`<p>${c}<br>当前:${ST(it)}<br>+${k} 后:${ek} +${((it.ev||0)+enV(it.slot,k,q))*(it.m2?M2EN:1)} <span class="tag">(${STQ[q].n}品质:本级 ${ek} +${enV(it.slot,k,q)*(it.m2?M2EN:1)};普通 / 精良 / 史诗 / 卓越 = ${STQ.map((_,i)=>enV(it.slot,k,i)*(it.m2?M2EN:1)).join(' / ')}${it.m2?';大师二阶强化效果 ×'+M2EN:''})</span><br>需要 <b>Lv${sl} 强化石</b>(用于 ${stnUse(sl)}),选择品质:`+STQ.map((Q,i)=>`<button data-p="Q${i}" class="${i==q&&has?'on':''}" ${own[i]?'':'disabled'}>${stnEm(sl,i)} ${Q.n} ×${own[i]}</button>`).join(' ')+
         `<br>成功率 <b>${Math.round(srOf(k,lkB())*100)}%</b>${V?' <span class="tag">(含 VIP +10%)</span>':''}${lkB()?` <span class="tag">(含${LKS[useLk][1]} +${Math.round(lkB()*100)}%)</span>`:''} · 消耗 1 颗 + 💰${fee} 手续费${gold<fee?' <b style="color:#c92a2a">金币不足</b>':''}<br><button data-p="up" ${has&&gold>=fee?'':'disabled'}>🔨 强化到 +${k}(💰${fee})</button>${[1,2,3].filter(i=>lkHave(i)>0).map(i=>` <button data-p="lk${i}" class="${useLk==i?'on':''}">${useLk==i?'✅':'⬜'} ${LKS[i][1]}(持有 ${lkHave(i)})</button>`).join('')}${own.some(v=>v>0)?'':` <span class="tag">没有 Lv${sl} 强化石(打首领掉落)</span>`}</p>`}}
   else h+=`<p class="tag">点选上方一件装备开始强化</p>`;
   h+=fm()+`<h4>强化荣誉</h4><div>除时装、翅膀外,头饰、战甲、戒指、项链、剑、法杖 6 个部位都强化到 +4 及以上时,按其中最低的强化等级获得一档强化荣誉(只取最高一档,不累加)。鼠标移到下面的徽章上查看每一档的效果。<br>当前最低 +${m}:${honLv()?'<b style="color:#ff922b">强化荣誉+'+honLv()+' 已激活</b>':'未激活'}${honRow()}</div>`;
@@ -8354,6 +8389,7 @@ function pvImg(k){const t=.3,c=document.createElement('canvas'),g=c.getContext('
 // 主页面打开时 HOME=1:主城画面停住当背景(loop 里不跑 townUpd),键盘只认 Enter(继续 / 新游戏)和 Esc(从操作说明返回)
 // 更新日志 CHLOG:[版本, 日期, [条目...]],新版本加在最前面(和 GAMEV 一起改)
 const CHLOG=[
+ ['1.59','2026-10-20',['暗黑炼狱:打完一层后 3.5 秒自动进入下一层,不用再操作(生命 / 魔力保留)','新装备「大师二阶」:暗黑炼狱第 16 层首领掉落(35%,最多 3 件,特性随机),目前最强 —— 比大师一阶白字 / 绿字 ×3、强化效果 ×5、锻造效果 ×6、特性效果 ×4.5','大师二阶四件同特性的新被动:圣愈 / 邪灵 每 10 秒一次巨额额外伤害(金色数字)· 神技 刷新技能冷却 + 强制削韧 + 长连击叠攻击 · 热血 60% 不死 + 低血量大幅加攻 · 怒雷 按暴击率增伤、溢出暴击转暴击伤害','宠物装备「幸运骰子」现在可以和双倍爆率卡叠加']],
  ['1.58','2026-10-20',['新关卡「暗黑炼狱」:暗黑大陆正中的绿光宝塔,一共 30 层,先开放 1~16 层,一层一层往上闯(通关第十七关后解锁)','每层是以前关卡的首领(一层一到两个,例如两只铁角牛魔、夜王 + 钢铁暴君),强度统一按二星焚天炎君,不分星级','每打通一层:掉落 3~4 件星界财宝里的宝物,并回复大量生命和魔力;通关页可以直接前往下一层(生命 / 魔力保留)','选层页可以从第 1 层到「打通过的最高层 +1」里任选一层开始']],
  ['1.57','2026-10-20',['新魔王:十二魔封印开放第四~六位 —— 阿斯莫德(魅惑:中了飞吻会左右颠倒,锁链连上要跑远挣断)、贝利亚(谎言:先金光后紫光才是真的,举盾时别打)、阿斯塔罗特(腐息:腐蚀层数去金色净化光圈清掉,预知落点要临时变向),各有专属首领曲','十二魔封印不再分星级,默认三星直接开打;前六位的强度调到「比三星忍者首领强、比闹钟首领弱」','诅咒之力:数值改为固定(精良 +12 满值,以前刷到的低值也按满值算);已有诅咒时会刷出另一种属性,由你选「换成新的」还是「保留原来的」','诅咒部位改为:武器(剑 / 法杖)、头饰、战甲、时装或翅膀(共用一个)、项链、戒指','修复:前三位魔王的首领曲没有播放']],
  ['1.56','2026-10-19',['新玩法「十二魔封印」:暗黑大陆右上方的封魔石台(通关第十七关后开放),点开是十二位魔王的肖像,每位都是一场单独的首领战;这一版先开放巴尔、达贡、摩洛克三位(体型和炎狱巨像一样大或更大,半血以后进入二阶段)','魔王掉落「诅咒之力」:在背包里点它可以诅咒对应部位的装备(巴尔 = 剑、达贡 = 法杖、摩洛克 = 战甲),随机获得攻击 / 暴击 / 防御 / 生命 / 魔力 / 闪避之一,强度约等于精良强化石 +12;可以反复诅咒来刷属性','三位魔王各有专属首领曲']],
