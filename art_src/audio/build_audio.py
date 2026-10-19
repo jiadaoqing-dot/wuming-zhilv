@@ -54,7 +54,10 @@ BGM={'bgm0':(G+'town.mp3',None,1),'bgm1':('happy_adventure.mp3',None,1),'bgm1b':
  'bgm20':(G+'r53/Cyborg_Factory_Fight.ogg',150,1),'bgm20b':(G+'r53/return_of_the_omega_droid.wav',None,1),
  # 第五十四轮 第十七关炎狱熔渊(cur 21,raw/audio/bgm/r54)Tower of Lava(Mega Pixel Music Lab,CC-BY 4.0,https://opengameart.org/content/tower-of-lava)取第二段「Magma Factory」(7:10 起 150 秒)/
  #   Lava Dungeon Battle(Sorth,CC0,https://opengameart.org/content/lava-dungeon-battle);第 4 项 = 起始秒数
- 'bgm21':(G+'r54/Tower of Lava.mp3',150,1,430),'bgm21b':(G+'r54/lava_dungeon_8-bit.mp3',None,1)}
+ 'bgm21':(G+'r54/Tower of Lava.mp3',150,1,430),'bgm21b':(G+'r54/lava_dungeon_8-bit.mp3',None,1),
+ # 第五十五轮 十二魔封印(cur 22~24 只有首领曲,raw/audio/bgm/r55)巴尔 Heavy Boss Battle 1(MintoDog,CC0,https://opengameart.org/content/heavy-boss-battle-1)/
+ #   达贡 Major Bruise(Anipatok,CC-BY 4.0,https://opengameart.org/content/major-bruise)/ 摩洛克 A Champion's Will(ATMANAN,CC-BY 4.0,https://opengameart.org/content/a-champions-will)
+ 'bgm22b':(G+'r55/heavy_boss_battle_1_bpm200_0.ogg',150,1),'bgm23b':(G+'r55/major_bruise_loop.ogg',None,1),'bgm24b':(G+'r55/a_champions_will.mp3',150,1)}
 def load(p,sr):
   d,s=sf.read(A+p,always_2d=True);m=d.mean(1)
   g=np.gcd(s,sr);return resample_poly(m,sr//g,s//g) if s!=sr else m

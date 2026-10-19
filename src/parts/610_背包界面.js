@@ -53,5 +53,6 @@ function bagAct(a,r){const it=itOf(r);hideTip();CSC=0;let keep=0;
   else if((a=='is1'||a=='isa')&&r.startsWith('i:')){keep=1;const id=r.slice(2),pr=itemPr(id),n=Math.min(a=='is1'?1:1e9,itemCnt(id));if(pr&&n>0){if(id=='egg')MAT.egg-=n;else if(id[0]=='T'){R19.ats.splice(+id.slice(1),1);sel=null}else if(MISC[id])MAT[id]-=n;else STN[+id[1]][+id[2]]-=n;gold+=pr*n;sfx('coin');bmsg='出售 '+n+' 个,获得 '+pr*n+' 金币'}}
   else if(a=='iu'&&r.startsWith('i:')){keep=1;bmsg=itemUse(r.slice(2))}
   else if(/^ms_/.test(a)&&r.startsWith('i:')){keep=1;bmsg=msEquip(r.slice(2),a.slice(3))}
+  else if(/^cz_/.test(a)&&r.startsWith('i:')){keep=1;bmsg=curseUse(r.slice(2),a.slice(3))}
   else if(a=='msx'&&it)bmsg=msOff(it);
   if(!keep)sel=null;else if(sel!=r)sel=r;const S=stats();P.hp=Math.min(P.hp,S.hp);P.mp=Math.min(P.mp,S.mp);save();renderBag()}

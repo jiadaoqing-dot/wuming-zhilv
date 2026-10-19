@@ -246,9 +246,9 @@
    11  BLN                三星倍率(相对原来):第九关 生命 ×1.02 攻击 ×1.10 · 第十关 ×1.09 / ×1.23 · 第十一关 ×1.14 / ×1
    13  bLate              
    14  init               
-   49  CDMG               o 可选:{kb:水平击退速度, inv:受击后无敌时间(连击用短无敌)}
-   60  pdMark             
-   61  pdChk              
+   50  CDMG               o 可选:{kb:水平击退速度, inv:受击后无敌时间(连击用短无敌)}
+   61  pdMark             
+   62  pdChk              
 == src/parts/150_关卡分区.js
     3  hurt               
    14  slowP              减速(蛛丝):移动速度 -40%;沙尘:减速 + 视野变暗
@@ -899,6 +899,45 @@
    14  enterLv            
    15  enter1             
    16  openMap            
+== src/parts/571_十二魔封印.js
+    1  ■ 第五十五轮:十二魔封印(第二张地图「暗黑大陆」右上方、四根封魔柱围着的浮空石台,cur 22 ~ 33)
+   13  DMD                12 个恶魔:n 名字 · en 原名 · k 图集名(null = 还没做)· sl 诅咒的部位(前 6 个一阶,后 6 个二阶,部位和前
+   26  DMHK               
+   27  DMN                
+   44  dmBg               场地:借已有图集,再整体压一层颜色
+   49  DMZ                ---- 场上的东西:地面火 / 深渊水洼 DMZ · 火柱 / 水柱 DMP · 天降火球 / 水球 DMM · 贴地冲击波 DMW(跳过
+   50  dmClr              
+   52  dmZone             
+   53  dmPil              
+   54  dmMet              
+   55  dmWave             
+   56  dmSplash           
+   57  dmBoom             
+   58  dmStep             
+   65  dmFx               
+   74  dmEnd              ---- 三个恶魔共用 ----
+   75  dmOdChk            
+   76  dmHit              
+   77  dmNew              
+   78  dmInit             
+   80  baalStep           ---- 巴尔:屠刀斩 cleave · 跃击 leap · 业火陨落 meteor · 炎浪 wave(往两边推开)· 王冠烈焰 crow
+   98  dagStep            深渊雨 rain(天上落水球,落地留下水洼)· 俯冲 dive(贴地横冲到墙,沿路留水洼)· 二阶段「深渊涨潮」:每 6 秒脚下涌一根水柱 
+  117  moloStep           震地 quake(冲击波往两边推开,跳过去)· 烙印 brand(二阶段:天降火球)· 二阶段「狂怒」:走得更快 ----
+  132  DMST               
+  134  dmDrop             首领倒下:诅咒之力(必掉 1 个,再按掉落率多掉 1 个)
+  136  ■ 诅咒之力:诅咒装备(用户:增益相当于精良强化石 +12;每次诅咒随机一种属性;前 6 个恶魔一阶,后 6 个二阶 = 一阶 ×1.5;每个恶魔只能诅咒自己对应的
+  139  CUNM               闪避单独压低(用户:闪避不能堆太高):90 点 = 3%,出现几率也最低;每次诅咒在 60% ~ 100% 之间随机,新的诅咒替换旧的(可以
+  140  cuRoll             
+  142  cuRng              
+  143  curseUse           
+  149  ■ 恶魔选择页 st = 'dms'
+  150  DMS                ===== 恶魔选择页 st = 'dms' =====
+  153  openDms            
+  154  dmsHit             
+  155  dmsGo              
+  156  dmsClick           
+  157  dmsKey             
+  158  drawDms            
 == src/parts/580_书架与书籍.js
     1  ■ 第三十一轮 · 书架与书籍
     6  BOOK               
@@ -915,30 +954,30 @@
     2  doJump             ===== 跳跃 / 翅膀飞行 =====
     4  flyPhys            
    10  cvClick            
-   26  SET                设置:帧数上限(60 / 120)、显示帧数;保存在本机
-   28  pxUI               像素美术时 body 加 px 类:面板 / 按钮 / 格子换成像素九宫格贴图(CSS 里 body.px 开头的规则)
-   29  saveSet            
-   31  loop               
-   42  advance            
+   27  SET                设置:帧数上限(60 / 120)、显示帧数;保存在本机
+   29  pxUI               像素美术时 body 加 px 类:面板 / 按钮 / 格子换成像素九宫格贴图(CSS 里 body.px 开头的规则)
+   30  saveSet            
+   32  loop               
+   43  advance            
 == src/parts/600_背包开关.js
     1  toggleBag          
     4  NM                 第三十三轮:一行文字版属性(商店 / 仓库 / 强化面板用):白字(含锻造)· 绿字(绿色)· 强化值(橙色)· 属性石(蓝)· 增幅宝石
     6  cosW               
    10  gemTxt             
    14  tipItem            装备悬停说明(用户第三十三轮给的顺序):名字 / 锻造等级 / 部位 / 品质 / 强化是否上限 —— 白色属性 / 绿色属性 / 强化属性
-   28  trSum              
-   32  itemList           道具背包里的条目:蛇蛋、高级幸运石、各级强化石(同种叠放在一格)
+   29  trSum              
+   33  itemList           道具背包里的条目:蛇蛋、高级幸运石、各级强化石(同种叠放在一格)
 == src/parts/610_背包界面.js
     1  renderBag          
    44  bagAct             背包操作(按钮、左键菜单、拖动共用):a = 操作,r = 物品位置
 == src/parts/620_物品菜单.js
     1  ■ 物品菜单(第二十轮:左键单击弹出;右键也照样能用)
     3  cmItems            
-   12  itSellL            
-   13  cmName             
-   14  openCM             
-   16  drawCM             
-   20  closeCM            
+   13  itSellL            
+   14  cmName             
+   15  openCM             
+   17  drawCM             
+   21  closeCM            
 == src/parts/630_鼠标拖动.js
     1  ■ 鼠标拖动:背包装备 → 左边部位(穿戴);已穿戴 → 右边格子(卸下);时装 / 翅膀同理
     5  dragTargets        
@@ -989,10 +1028,10 @@
    10  potBuy             
    14  potSell            
    15  rSet               
-  102  applyRS            
-  105  fitWrap            窗口太小放不下 2 倍时,退回按窗口大小自适应。全屏仍然铺满(由 CSS 的 body.fs 规则控制)
-  108  uiScale            
-  111  setFsCls           
+  103  applyRS            
+  106  fitWrap            窗口太小放不下 2 倍时,退回按窗口大小自适应。全屏仍然铺满(由 CSS 的 body.fs 规则控制)
+  109  uiScale            
+  112  setFsCls           
 == src/parts/680_商城操作.js
     1  mallAct            
 == src/parts/690_熔炉强化界面.js
@@ -1214,14 +1253,14 @@
     4  MAPI2              右上角「◀ 第一张地图」返回;其他地点和右下角的挑战模式尚未开放
     6  map2Open           
     7  MAPS2              
-   14  M2B                
-   15  inR                
-   16  map2Btn            
-   17  map2Hit            
-   18  map2Go             
-   19  map2Click          
-   20  drawMap2           
-   29  mapHit             
+   15  M2B                
+   16  inR                
+   17  map2Btn            
+   18  map2Hit            
+   19  map2Go             
+   20  map2Click          
+   21  drawMap2           
+   30  mapHit             
 == src/parts/970_关卡星级选择页.js
     1  ■ 关卡星级选择页(2026-10-13 第十六轮):点地图牌子 / 神秘副本石狮头后先进这里
     4  LVS                LVS:i = 关卡下标(0 起,10 = 神秘副本 1)· s = 选中的星级 · m = 从神秘地带进来(返回时回大厅)
@@ -1234,8 +1273,8 @@
    11  lvsKey             
    14  lvsDrops           本关掉落预览:装备 6 个部位(按本关系列;一星画精良、二星稀有、三星史诗的图标)、首领的强化石、特殊掉落
    23  lvsArt             卡片缩略图(全部用已有的外部图集,不自己画):背景 = 该关的像素天空层(LBG / CITY8 / VOL9 / SHIP10 / MYS
-   40  lvsBoss            
-   63  drawLvSel          
+   41  lvsBoss            
+   65  drawLvSel          
 == src/parts/980_HUD.js
     1  ■ HUD:头像 + 血蓝条 + 金币 + 连击 + 状态 + Boss 血条
     3  HHC                =====================================================================
@@ -1256,12 +1295,12 @@
 == src/parts/1000_主页面.js
     1  ■ 主页面(第二十轮):打开游戏后的第一页 —— 左边版本号 + 更新日志(或操作说明),右边 开始新游戏 / 继续游戏 / 提取存档 / 添加存档 / 操作说明
     4  CHLOG              更新日志 CHLOG:[版本, 日期, [条目...]],新版本加在最前面(和 GAMEV 一起改)
-   48  homeSave           
-   49  rHome              
-   56  openHome           
-   57  closeHome          
-   60  twnReload          离屏缓存的画布也会被清空(实测头像、数字、背景缓存都没了),所以恢复时一律存档后刷新页面(关卡里会回到主城,只丢这一关的进度);页面在后台超
-   64  CPUR               第五十一轮:检测浏览器是不是没用显卡画图(硬件加速关闭 / 显卡被屏蔽),是的话回城时提示一次
-   65  homeAct            
-   85  homeKey            
+   49  homeSave           
+   50  rHome              
+   57  openHome           
+   58  closeHome          
+   61  twnReload          离屏缓存的画布也会被清空(实测头像、数字、背景缓存都没了),所以恢复时一律存档后刷新页面(关卡里会回到主城,只丢这一关的进度);页面在后台超
+   65  CPUR               第五十一轮:检测浏览器是不是没用显卡画图(硬件加速关闭 / 显卡被屏蔽),是的话回城时提示一次
+   66  homeAct            
+   86  homeKey            
 == src/parts/1010_结尾.html

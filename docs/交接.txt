@@ -22,7 +22,10 @@
  旧的云端环境只能访问 GitHub / npm / pypi,opengameart、itch 访问不了。
  素材来源:ULPC 仓库(LPC 人物图层)、series-ai/jam-ready-assets(大量 CC0 素材,LFS 文件用 media 直链下载,见 fetch_assets.sh)。
 
-【当前状态(2026-10-19,v1.55)】
+【当前状态(2026-10-19,v1.56)】
+- v1.56(第五十四轮新任务):十二魔封印 = 571 分块,cur 22~33(DM0,isDm(c),DMD[12] 名字 / 部位 / 传说,DMOPEN 3)。新恶魔:DMD[i].k + DMN 图集行 + DMZS 尺寸 + DMHK / DMAK + DMST[k] 步进函数 + dmBg 场地 + DMN.draw 动作帧 + MISC['cz'+i](循环里按 DMOPEN 生成)+ BGM bgm(22+i)b;各表已经按 cur 22~24 补过:LM / E 列表 / BHN / BDF / BLN / XPK / BXP / reward t0 / CDMG / ESKN / 180 解僵直 / 800 BWP / MN / HUD 名字(isDm 分支)/ lvsName / lvsArt / lvsBoss / lvsDrops。再开 25 起要把这些数组继续补长。主线下一关从 cur 34 起(22~33 留给恶魔)。
+  诅咒:it.cu = {k 属性, v 数值, t 阶, d 恶魔};curseUse(id, 部位);CUV / CUW / CUK。恶魔选择页 st 'dms'(590 点击 / 绘制 / BGM,710 键盘);星级页 LVS.m = 2。itch 免费包下载:POST /<page>/file/<upload_id>?source=view_game&as_props=1&after_download_lightbox=1(带首页 csrf_token)直接给 url。
+  问题在 docs/下次任务.txt「第五十五轮」。
 - v1.55(第五十三轮回复 + 新任务):第十七关炎狱熔渊 cur 21 = 569 分块(IFN 图集 art_src/fire21,首领 ifg / 小怪 ifa ifs,PL21,IGHP / IGDM / IFPZ)。各表 [21]:LM 70.6 / E21 / PL21 / BHN BDF / BLN 17(BLH BLA[17])/ XPK BXP(同 20)/ MHK[19] 342 / mk 尺寸 + 飞行 y / FLYK / CDMG / ESKN / mAtk / forceAtk / reward / MN / 800 BWP / 790 IFN.on / bg / MAPS2 第 7 项 / 970 缩略图 + lvsBoss / 980 首领名 / MSS[21] / SOULV[21] / bgm21 / 击杀点 17 / 首领死亡 banner。下一关从 cur 22 起。
   小怪韧性倍率 e.pzx(150 mobPz);持续 AOE 地火用 P.i21T 统一 0.45 秒一次伤害。关卡金币倍率 GDLV(110 reward);每日任务 m2qAdd(新关卡任务接在讨伐后面,别插在中间打乱 QD.d 序号)。跑步不被技能打断 = P.rkT(340)。build_audio.py BGM 第 4 项 = 起始秒数(新 BGM 用临时脚本单独编码,只提交新 ogg)。
 - v1.54(第五十三轮):第十六关金核机库 cur 20 = 568 分块(RBT,首领 rgn / 小怪 rsh rtu,RTUY 吊顶高度,PL20)。各表 [20]:LM 66 / E20 / PL20 / BHN BDF / BLN 16(BLH BLA[16])/ XPK BXP / MHK[18] 320 / mk 尺寸 + y / CDMG / ESKN / mAtk / forceAtk / reward / MN / 800 BWP / 790 RBT.on / bg / MAPS2 第 6 项 / 970 缩略图 + lvsBoss / 980 首领名 / MSS[20] / bgm20 / 击杀点 16。下一关从 cur 21 起。

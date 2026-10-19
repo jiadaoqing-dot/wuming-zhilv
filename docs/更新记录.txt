@@ -1,3 +1,10 @@
+【v1.56 · 2026-10-19 · 第五十四轮新任务:十二魔封印 + 诅咒之力】
+- 新分块 571_十二魔封印.js:cur 22~33(DM0 22,isDm / dmI),先开 3 个 = 巴尔 baal / 达贡 dagon / 摩洛克 molo(DMST 分派,dmNew / dmInit 用 IGHP·IGDM × DMHK / DMAK)。场上 DMZ 地火水洼 / DMP 柱 / DMM 落弹 / DMW 冲击波,dmStep / dmFx;场地 dmBg 借 GP / FIRE。
+- 图集 DMN(art_src/demon/build_dmn.py):chierit 的 Boss: Demon Slime / FREE Cthulu / Boss: Minotaur(CC-BY 4.0,itch 免费版,raw/demon);M = [x,y,帧宽,帧高,帧数,脚底x,脚底y]。
+- 地图 MAPS2 第 8 项(dms:1,p:[535,150] = 用户附图的封魔石台)→ 恶魔选择页 st 'dms'(drawDms / dmsClick / dmsKey,未开放的画 MG27 法阵);星级页 LVS.m = 2 返回恶魔页。
+- 诅咒之力 MISC.cz0~2(MENI 51 / 52 = 7Soul1 S_Shadow14 / S_Fire08):cmItems → cz_部位 → curseUse,it.cu = {k,v,t,d},eqAdd / ST / tipItem 显示。数值 CUV = 精良 +1~+12 累计,闪避压到 90。
+- BGM bgm22b Heavy Boss Battle 1(MintoDog,CC0)/ bgm23b Major Bruise(Anipatok,CC-BY 4.0)/ bgm24b A Champion's Will(ATMANAN,CC-BY 4.0),build_audio.py r55;恶魔页用 bgm11。主页更新日志 1.56。冒烟 0 错误。
+
 【v1.55 · 2026-10-19 · 第五十三轮回复 + 第十七关炎狱熔渊 + 金币 + 跑步】
 - 第十七关「炎狱熔渊」cur 21 = 569 分块(IFN 图集 art_src/fire21/build_fire21.py:Bestiary(Emcee Flesher,CC-BY 4.0)的 Golem / Wartaur 换熔岩 / 赤红配色 = 首领炎狱巨像 / 炎斧兽,Sparky = 火灵;Warped Caves(ansimuz,CC0)换熔岩洞配色)。MAPS2 第 7 项 p:[488,262](右下角熔岩要塞)。
 - 难度 = 金核机库 ×1.07(IGHP / IGDM、MHK[19] 342、LM 70.6、BHN / BDF / BLH / BLA);小怪 22 只、韧性 e.pzx = IFPZ 1.8(mobPz)。持续 AOE:地火 I21Z / 火柱 I21P / 陨火 I21M / 火种 I21F,i21Step / i21Fx(画 BFX 的 b-flame / b-firebomb)。首领 ifg 高 200,esnm,半血 od 熔核暴走。SOULV[21] 女神碎片,MSS[21],主线第十七章 2 条。

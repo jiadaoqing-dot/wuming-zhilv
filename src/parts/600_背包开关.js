@@ -6,7 +6,7 @@ const ampTxt=k=>`<span style="color:#e64980">◆ ${AMP[k][0]}:${AMP[k][2]} +${Ma
 const cosW=(t,fg)=>Object.keys(COSW[t]).map(k=>({hp:'生命值',atk:'攻击力',def:'防御力',cr:'暴击率'}[k])+' +'+Math.round(cosV(t,k,fg)*100)+'%').join(' ');
 const ST=it=>{if(it.cos)return cosW(it.slot,it.fg)+(it.ev?` <span style="color:#e8590c">${NM[EQE[it.slot][0]]}+${it.ev}</span>`:'')+(it.amp?' '+ampTxt(it.amp):'');
   const a=Object.keys(it.s).map(k=>NM[k]+'+'+wv(it,k));for(const [k,v] of it.gr||[])a.push(`<span style="color:#2f9e44">${NM[k]}+${v}</span>`);if(it.ev)a.push(`<span style="color:#e8590c">${NM[EQE[it.slot][0]]}+${it.ev}</span>`);
-  return a.join(' ')+(it.gem?' '+gemTxt(it,'#1c7ed6'):'')+(it.amp?' '+ampTxt(it.amp):'')};
+  return a.join(' ')+(it.gem?' '+gemTxt(it,'#1c7ed6'):'')+(it.amp?' '+ampTxt(it.amp):'')+(it.cu?' '+cuTxt(it):'')};
 const gemTxt=(it,c)=>`<span style="color:${c}">◆ ${atsTxt(it.gem)}</span>`;
 const cosTip=id=>{const d=COSD[id],c=cosIt(id);return `<b style="color:#f783ac;font-size:13.5px">${d.ic} ${d.n}${c.en?' +'+c.en:''}</b><br><span class="tg">部位:${d.t=='fash'?'时装':'翅膀'} · 击杀点商店<br>强化:${c.en?'+'+c.en:'未强化'}${c.en>=ENMAX()?' <b style="color:#ff922b">(已达上限)</b>':' / 上限 +'+ENMAX()}</span><hr>`+
   `<span style="color:#fff">${cosW(d.t,c.fg)}</span> <span class="tg">(加在基础数值上${c.fg?',锻造 '+c.fg+' 级':''})</span><br>${c.ev?`<span style="color:#ff922b">强化 +${c.en}:${NM[EQE[d.t][0]]} +${c.ev}</span>`:`<span class="tg">强化:每级 ${NM[EQE[d.t][0]]} +固定值</span>`}<br>${c.amp?ampTxt(c.amp):'<span class="tg">增幅宝石:未镶嵌</span>'}<hr>${d.d}<hr><b style="color:#ffd43b">${d.tr}</b>`};
@@ -18,6 +18,7 @@ function tipItem(it,from){const q=TR[it.tier],ek=EQE[it.slot][0];
   h+='<br>'+(it.ev?`<span style="color:#ff922b">强化 +${it.en}:${NM[ek]} +${it.ev}</span>`:`<span class="tg">强化:每级 ${NM[ek]} +固定值</span>`);
   h+='<br>'+(it.amp?ampTxt(it.amp):'<span class="tg">增幅宝石:未镶嵌</span>')+'<hr>';
   h+=(it.gem?gemTxt(it,'#74c0fc'):'<span class="tg">属性石:未镶嵌</span>');
+  if(it.cu)h+='<br>'+cuTxt(it)+` <span class="tg">(${cuRng(it.cu.k,it.cu.t)})</span>`;  // 第五十五轮:诅咒之力
   if(it.mss&&MISC[it.mss])h+=`<br><b style="color:#b197fc">💎 嵌着 ${MISC[it.mss][0]}</b>`;  // 第四十二轮
   if(it.tr)h+=`<br><b style="color:${TRT[it.tr][1]}">【${TRT[it.tr][0]}】${TRT[it.tr][2]}</b><br><span class="tg">${trDesc(it.tr)}</span><br><span class="tg">当前穿戴 ${TRT[it.tr][0]} ×${trCnt(it.tr)}(头饰 / 战甲 / 戒指 / 项链 + 剑 + 法杖都算,武器用「武器幻化券」加特性)${it.ms?' · <b style="color:#ffd43b">大师特性:效果翻倍</b>(混穿时按大师件数比例,当前 ×'+trMul(it.tr).toFixed(2).replace(/\.?0+$/,'')+')':''}</span>`;
   h+=`<br><span class="tg">${it.ms?'大师工艺:用制作书在熔炉打造,按最高系列计算、白字和绿字再 ×1.2,是目前最强的装备;特性效果翻倍。':SER[it.g||0].n+'系列'+SL[it.slot][0]+'。'}白字只能用锻造石提升,绿字只能用洗脸券一起刷新。</span>`;
