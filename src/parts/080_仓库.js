@@ -1,7 +1,8 @@
 // ===== 第十九轮(2026-10-13):属性石 · 小礼袋与 NPC 好感 · 合成添加剂 · 幸运宝石 · 双倍爆率卡 · 宠物饲料 · 商城道具与随机物品栏 =====
 // 属性石:低级 1 条、中级 2 条随机词条(同一颗不重复);中级每条数值 ×1.2(清单没给中级数值,先这样)。在熔炉镶嵌,每件装备 1 颗,新的替换旧的,不能拆,出售装备不返还
 const ATSD={atk:['攻击',10,15],mp:['魔力',200,220],def:['防御',20,30],cr:['暴击',80,90],dg:['闪避',50,60]},ATSQ=[{n:'低级属性石',c:'#4dabf7',m:1,pr:50},{n:'中级属性石',c:'#9775fa',m:1.2,pr:120}];
-function atsNew(q){const ks=Object.keys(ATSD).sort(()=>Math.random()-.5).slice(0,q+1);return {q,a:ks.map(k=>{const d=ATSD[k];return [k,Math.round((d[1]+Math.random()*(d[2]-d[1]))*ATSQ[q].m)]})}}
+// 第五十八轮(用户):每条属性单独随机,可以重复(比如高级属性石 3 条都是攻击)
+function atsNew(q){const K0=Object.keys(ATSD),ks=Array.from({length:q+1},()=>pick(K0));return {q,a:ks.map(k=>{const d=ATSD[k];return [k,Math.round((d[1]+Math.random()*(d[2]-d[1]))*ATSQ[q].m)]})}}
 const atsTxt=g=>g.a.map(([k,v])=>ATSD[k][0]+' +'+v).join(' · ');
 // 关卡掉落(首领倒下时每样判定一次;双倍爆率卡 ×2):低级属性石 30% · 中级 12% · 小礼袋 50%(小怪 2%) · Lv1 强化石 10% · 第七~十关再判定 Lv2 强化石 7%
 const DRX={a0:.3,a1:.12,gift:.5,giftM:.02};

@@ -20,7 +20,8 @@ function eqK(tier,g,ms){if(ms)g=Math.max(g||0,SER.length-1);const t=TR[tier][2],
 const FWK=[1,1.1,1.32],FWN={sword:['','火之大剑','真~火之大剑'],staff:['','火之法杖','真~火之法杖']};
 const wG=it=>it?(it.fw?4+it.fw:it.g||0):0;  // 图标 / 手持武器用第几套外观(5 火之 / 6 真~火之)
 function eqWhite(slot,tier,g,ms,fw){const K=eqK(tier,g,ms),s={};for(const [k,c] of Object.entries(EQW[slot]))s[k]=Math.max(1,Math.round(c*K[k]*(ms?MSK:1)*FWK[fw|0]))+(k=='atk'&&(slot=='sword'||slot=='staff')?WPN5:0);return s}
-function greenRoll(it){const K=eqK(it.tier,it.g,it.ms),ks=Object.keys(EQG).sort(()=>Math.random()-.5).slice(0,3);it.gr=ks.map(k=>{const [a,b]=EQG[k];return [k,Math.max(1,Math.round(K[k]*(a+Math.random()*(b-a))*(it.ms?MSK:1)*FWK[it.fw|0]*(it.m2?M2W:1)))]})}  // 第五十七轮:大师二阶绿字 ×3
+// 第五十八轮(用户):dup = 洗脸券洗练,3 条绿字各自随机,可以重复(比如 3 条都是攻击);掉落 / 制作时仍是 3 种不同
+function greenRoll(it,dup){const K=eqK(it.tier,it.g,it.ms),G=Object.keys(EQG),ks=dup?[0,1,2].map(()=>pick(G)):G.sort(()=>Math.random()-.5).slice(0,3);it.gr=ks.map(k=>{const [a,b]=EQG[k];return [k,Math.max(1,Math.round(K[k]*(a+Math.random()*(b-a))*(it.ms?MSK:1)*FWK[it.fw|0]*(it.m2?M2W:1)))]})}  // 第五十七轮:大师二阶绿字 ×3
 const gRng=(it,k)=>{const K=eqK(it.tier,it.g,it.ms),[a,b]=EQG[k],m=(it.ms?MSK:1)*FWK[it.fw|0]*(it.m2?M2W:1);return [Math.max(1,Math.round(K[k]*a*m)),Math.max(1,Math.round(K[k]*b*m))]};
 function fireW(slot,fw){return gen(slot,3,FWN[slot][fw],4,null,0,0,fw)}  // 史诗品质,机械系列为底
 // 第四十三轮(用户回复):真~火之武器 = 用一把火之武器 + 材料升级(先找背包,再找身上的);返回 {it, b:背包序号(身上 = -1)}

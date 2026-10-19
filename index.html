@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>无名之旅 v1.60</title>
+<title>无名之旅 v1.61</title>
 <style>
 /* 中文像素字体:Fusion Pixel Font(TakWolf,SIL OFL 1.1),按游戏用字裁剪(art_src/font/build_font.py) */
 @font-face{font-family:FPX12;src:url(assets/fpx12.woff2) format('woff2')}
@@ -274,7 +274,7 @@ body.px .at2{border:2px solid transparent;border-image:url(assets/ui_card.png) 6
 <p class="tip">← → / A D 移动(连按两次快跑) · K / ↑ 跳跃 · W+J / S+J 特殊普攻(学会二段跳后空中再按) · J 攻击(下劈 → 上挑 → 直戳 → 下劈 循环,按住蓄力重击;跑步中按 J = 冲刺直戳) · L 换武器 · H U I O 技能 · 空格 / W+空格 / S+空格 / WW+空格 剑士进阶技能(转职后) · 1 2 3 喝药水 · S 捡起地上的掉落物 · 背包 / 技能 / 商城 / 精灵 / 宠物 / 任务 / 声音:点右下角按钮(也可以用快捷键 B 背包 / T 技能 / Q 任务 / P 商城 / Y 精灵 / G 宠物 / M 声音,设置里可以关闭) · N 释放武器上的怪物技能石(背包里左键点物品弹出菜单,装备可拖动穿戴) · 装备翅膀后空中再按跳跃=飞行(W/S 升降、A/D 方向) · Esc / ⚙️ 设置(暂停、返回城镇、帧数、全屏)</p>
 <script>
 // 游戏版本:build.py 按它给输出文件命名(out/无名之旅_v版本.html),设置页也显示;每次发新版改这里
-const GAMEV='1.60';
+const GAMEV='1.61';
 // x 是当前的绘图上下文:平时是主画布;像素特效层(PXL,P2)绘制期间临时换成 640×360 的低分辨率图层
 const cv=document.getElementById('c');let x=cv.getContext('2d');const VW=640,VH=360,WW=3200,GY=300;
 // 渲染分辨率:电脑端 1920×1080(逻辑坐标仍是 640×360,整体放大 3 倍绘制,文字和像素都更清晰);手机端 1280×720
@@ -472,7 +472,8 @@ function eqK(tier,g,ms){if(ms)g=Math.max(g||0,SER.length-1);const t=TR[tier][2],
 const FWK=[1,1.1,1.32],FWN={sword:['','火之大剑','真~火之大剑'],staff:['','火之法杖','真~火之法杖']};
 const wG=it=>it?(it.fw?4+it.fw:it.g||0):0;  // 图标 / 手持武器用第几套外观(5 火之 / 6 真~火之)
 function eqWhite(slot,tier,g,ms,fw){const K=eqK(tier,g,ms),s={};for(const [k,c] of Object.entries(EQW[slot]))s[k]=Math.max(1,Math.round(c*K[k]*(ms?MSK:1)*FWK[fw|0]))+(k=='atk'&&(slot=='sword'||slot=='staff')?WPN5:0);return s}
-function greenRoll(it){const K=eqK(it.tier,it.g,it.ms),ks=Object.keys(EQG).sort(()=>Math.random()-.5).slice(0,3);it.gr=ks.map(k=>{const [a,b]=EQG[k];return [k,Math.max(1,Math.round(K[k]*(a+Math.random()*(b-a))*(it.ms?MSK:1)*FWK[it.fw|0]*(it.m2?M2W:1)))]})}  // 第五十七轮:大师二阶绿字 ×3
+// 第五十八轮(用户):dup = 洗脸券洗练,3 条绿字各自随机,可以重复(比如 3 条都是攻击);掉落 / 制作时仍是 3 种不同
+function greenRoll(it,dup){const K=eqK(it.tier,it.g,it.ms),G=Object.keys(EQG),ks=dup?[0,1,2].map(()=>pick(G)):G.sort(()=>Math.random()-.5).slice(0,3);it.gr=ks.map(k=>{const [a,b]=EQG[k];return [k,Math.max(1,Math.round(K[k]*(a+Math.random()*(b-a))*(it.ms?MSK:1)*FWK[it.fw|0]*(it.m2?M2W:1)))]})}  // 第五十七轮:大师二阶绿字 ×3
 const gRng=(it,k)=>{const K=eqK(it.tier,it.g,it.ms),[a,b]=EQG[k],m=(it.ms?MSK:1)*FWK[it.fw|0]*(it.m2?M2W:1);return [Math.max(1,Math.round(K[k]*a*m)),Math.max(1,Math.round(K[k]*b*m))]};
 function fireW(slot,fw){return gen(slot,3,FWN[slot][fw],4,null,0,0,fw)}  // 史诗品质,机械系列为底
 // 第四十三轮(用户回复):真~火之武器 = 用一把火之武器 + 材料升级(先找背包,再找身上的);返回 {it, b:背包序号(身上 = -1)}
@@ -710,7 +711,8 @@ const DROPK=.5;
 // ===== 第十九轮(2026-10-13):属性石 · 小礼袋与 NPC 好感 · 合成添加剂 · 幸运宝石 · 双倍爆率卡 · 宠物饲料 · 商城道具与随机物品栏 =====
 // 属性石:低级 1 条、中级 2 条随机词条(同一颗不重复);中级每条数值 ×1.2(清单没给中级数值,先这样)。在熔炉镶嵌,每件装备 1 颗,新的替换旧的,不能拆,出售装备不返还
 const ATSD={atk:['攻击',10,15],mp:['魔力',200,220],def:['防御',20,30],cr:['暴击',80,90],dg:['闪避',50,60]},ATSQ=[{n:'低级属性石',c:'#4dabf7',m:1,pr:50},{n:'中级属性石',c:'#9775fa',m:1.2,pr:120}];
-function atsNew(q){const ks=Object.keys(ATSD).sort(()=>Math.random()-.5).slice(0,q+1);return {q,a:ks.map(k=>{const d=ATSD[k];return [k,Math.round((d[1]+Math.random()*(d[2]-d[1]))*ATSQ[q].m)]})}}
+// 第五十八轮(用户):每条属性单独随机,可以重复(比如高级属性石 3 条都是攻击)
+function atsNew(q){const K0=Object.keys(ATSD),ks=Array.from({length:q+1},()=>pick(K0));return {q,a:ks.map(k=>{const d=ATSD[k];return [k,Math.round((d[1]+Math.random()*(d[2]-d[1]))*ATSQ[q].m)]})}}
 const atsTxt=g=>g.a.map(([k,v])=>ATSD[k][0]+' +'+v).join(' · ');
 // 关卡掉落(首领倒下时每样判定一次;双倍爆率卡 ×2):低级属性石 30% · 中级 12% · 小礼袋 50%(小怪 2%) · Lv1 强化石 10% · 第七~十关再判定 Lv2 强化石 7%
 const DRX={a0:.3,a1:.12,gift:.5,giftM:.02};
@@ -931,7 +933,7 @@ function fzGo(){const t=FZ.t;
   if(t==7){if(it.cos||(it.slot!='sword'&&it.slot!='staff'))return '只能幻化剑或法杖';const a=FZ.a;if(!a||!TRT[a])return '先选一种特性';if(it.tr==a)return '这把武器已经是「'+TRT[a][0]+'」了';if(!(MAT.hwq>0))return '需要 1 张武器幻化券';if(it.tr&&!FZ.ok){FZ.ok=1;return ''}
     MAT.hwq--;it.tr=a;FZ.ok=0;sfx('fuse');save();return '✨ 幻化成功:'+nm(it)+' 带上了「'+TRT[a][0]+'」特性(套装件数 +1)'}
   if(t==2){const k=(it.fg||0)+1;if(k>FGMX)return '已经锻造到最高 '+FGMX+' 级';if(!(MAT['fg'+k]>0))return '需要 1 颗'+MISC['fg'+k][0];MAT['fg'+k]--;it.fg=k;sfx('fuse');save();return '🔨 锻造成功:'+nm(it)+' 锻造 '+k+' 级('+(it.cos?cosW(it.slot,k):'白字 +'+k*FGK*100+'%')+')'}
-  if(t==3){if(it.cos)return '时装 / 翅膀没有绿字';if(!(MAT.wash>0))return '需要 1 张洗脸券';MAT.wash--;greenRoll(it);sfx('buff');save();return '🧼 洗练完成:'+it.gr.map(([k,v])=>NM[k]+' +'+v).join(' · ')}
+  if(t==3){if(it.cos)return '时装 / 翅膀没有绿字';if(!(MAT.wash>0))return '需要 1 张洗脸券';MAT.wash--;greenRoll(it,1);sfx('buff');save();return '🧼 洗练完成:'+it.gr.map(([k,v])=>NM[k]+' +'+v).join(' · ')}
   if(t==4){const a=FZ.a;if(!a||!AMP[a])return '先选一种增幅宝石';if(!(MAT['amp_'+a]>0))return '没有'+AMP[a][0];if(it.amp&&!FZ.ok){FZ.ok=1;return ''}MAT['amp_'+a]--;it.amp=a;FZ.ok=0;sfx('fuse');save();return '💎 镶嵌成功:'+nm(it)+' '+AMP[a][0]}
   return ''}
 // 熔炉界面(第三十三轮,参考用户给的「物品制作」布局):左边火焰法阵(MG27 mc-fire)上一圈材料格 + 中间成品,下面金币和按钮;右边页签 + 配方卡片 / 装备列表
@@ -954,7 +956,7 @@ function rFuse(){const t=FZ.t;let h=hd('🔥 熔炉')+fm()+`<div class="fzt">${F
     if(t==7){const a=FZ.a,w=it&&!it.cos&&(it.slot=='sword'||it.slot=='staff');R=`<div class="row" style="border:0">${TRK.map(k=>`<button class="${a==k?'on':''}" data-p="za_${k}"><b style="color:${TRT[k][1]}">${TRT[k][0]}</b></button>`).join('')} <span class="tag">选一种特性</span></div>`+(a&&TRT[a]?`<div class="tag">${trDesc(a)}</div>`:'')+R;
       L=ring(w?eqImg(it):'',w?[{ic:mniEm('hwq'),n:'武器幻化券',have:MAT.hwq|0,need:1}]:[],0,`<button data-p="zgo" ${w&&a&&MAT.hwq>0?'':'disabled'}>${w&&it.tr&&FZ.ok?'确定替换':'✨ 幻化'}</button>`,w&&it.tr&&FZ.ok?`<b style="color:#c92a2a">这把武器已经是「${TRT[it.tr][0]}」,幻化后会换成新的特性,确定吗?</b>`:'给剑或法杖加上一种特性:只算套装件数(头饰 / 战甲 / 戒指 / 项链 + 剑 + 法杖,最多 6 件),不增加任何属性。武器幻化券用制作书在「道具制作」页制作。')}
     if(t==2){const k=it?(it.fg||0)+1:0,ok=k&&k<=FGMX;L=ring(it?(it.cos?'<span style="font-size:30px">'+COSD[it.cos].ic+'</span>':eqImg(it)):'',ok?[{ic:mniEm('fg'+k),n:MISC['fg'+k][0],have:MAT['fg'+k]|0,need:1}]:[],0,`<button data-p="zgo" ${ok&&MAT['fg'+k]>0?'':'disabled'}>🔨 锻造</button>`,it?(it.cos&&ok?`锻造 ${k-1} → ${k} 级:白字百分比 ×${(1+k*FGK).toFixed(1)}(${cosW(it.slot,k)};最高 ${FGMX} 级)。`:ok?`锻造 ${k-1} → ${k} 级:白字 +${k*FGK*100}%(最高 ${FGMX} 级)。锻造石在「锻造石制作」页制作。`:'已经锻造到最高级。'):'在右边选一件装备 / 时装 / 翅膀。锻造只提升白字,每级 +10%,最高 5 级(时装 / 翅膀:10% → 15%)。')}
-    if(t==3)L=ring(it&&!it.cos?eqImg(it):'',it&&!it.cos?[{ic:mniEm('wash'),n:'洗脸券',have:MAT.wash|0,need:1}]:[],0,`<button data-p="zgo" ${it&&!it.cos&&MAT.wash>0?'':'disabled'}>🧼 洗练</button>`,it?(it.cos?'时装 / 翅膀没有绿字。':'消耗 1 张洗脸券,3 条绿字的种类和数值全部重新随机(不能只刷一条)。'):'在右边选一件装备。洗脸券在 🏪 商城击杀点商店购买。');
+    if(t==3)L=ring(it&&!it.cos?eqImg(it):'',it&&!it.cos?[{ic:mniEm('wash'),n:'洗脸券',have:MAT.wash|0,need:1}]:[],0,`<button data-p="zgo" ${it&&!it.cos&&MAT.wash>0?'':'disabled'}>🧼 洗练</button>`,it?(it.cos?'时装 / 翅膀没有绿字。':'消耗 1 张洗脸券,3 条绿字的种类和数值全部重新随机(不能只刷一条;每条单独随机,可能出现相同的属性)。'):'在右边选一件装备。洗脸券在 🏪 商城击杀点商店购买。');
     if(t==4){const a=FZ.a;R=`<div class="row" style="border:0">${Object.keys(AMP).map(k=>`<button class="pk${a==k?' on':''}" data-p="za_${k}" title="${AMP[k][0]}">${mniEm('amp_'+k)}<i class="cn">${MAT['amp_'+k]|0}</i></button>`).join('')} <span class="tag">选一种增幅宝石</span></div>`+R;
       L=ring(it?(it.cos?'<span style="font-size:30px">'+COSD[it.cos].ic+'</span>':eqImg(it)):'',a?[{ic:mniEm('amp_'+a),n:AMP[a][0],have:MAT['amp_'+a]|0,need:1}]:[],0,`<button data-p="zgo" ${it&&a&&MAT['amp_'+a]>0?'':'disabled'}>${it&&it.amp&&FZ.ok?'确定覆盖':'💎 镶嵌'}</button>`,it&&it.amp&&FZ.ok?`<b style="color:#c92a2a">这件已经镶了「${AMP[it.amp][0]}」,镶新的会覆盖旧的,确定吗?</b>`:'暴击宝石 +15% · 攻击宝石 +3% · HP宝石 +6% · 防御宝石 +4%(都加在基础数值上)。8 个部位都能镶,每件 1 颗,新的覆盖旧的,不能拆下。')}}
   return h+`<div class="fz">${L}<div class="fzr">${R}</div></div>`}
@@ -8395,6 +8397,7 @@ function pvImg(k){const t=.3,c=document.createElement('canvas'),g=c.getContext('
 // 主页面打开时 HOME=1:主城画面停住当背景(loop 里不跑 townUpd),键盘只认 Enter(继续 / 新游戏)和 Esc(从操作说明返回)
 // 更新日志 CHLOG:[版本, 日期, [条目...]],新版本加在最前面(和 GAMEV 一起改)
 const CHLOG=[
+ ['1.61','2026-10-20',['属性石(低级 / 中级 / 高级)每条属性单独随机,可以出现相同的属性,比如高级属性石三条都是攻击','洗脸券洗练也一样:3 条绿字各自随机,可能洗出三条相同的属性(装备掉落时的绿字仍是三种不同的)']],
  ['1.60','2026-10-20',['大师二阶邪灵四件改版:每 10 秒一次,屏幕里所有敌人受到 (最大魔力 + 当前魔力) × 15 的伤害(无视防御,紫色数字);圣愈四件不变','宠物仓鼠的「眼力」现在加到暴击率里,暴击按正常暴击伤害计算并显示紫色数字(以前另算 1.5 倍却显示白字);瓜子拍打也算宠物伤害','仓鼠的瓜子壳护盾在首领战里也能释放、生效了']],
  ['1.59','2026-10-20',['暗黑炼狱:打完一层后 3.5 秒自动进入下一层,不用再操作(生命 / 魔力保留)','新装备「大师二阶」:暗黑炼狱第 16 层首领掉落(35%,最多 3 件,特性随机),目前最强 —— 比大师一阶白字 / 绿字 ×3、强化效果 ×5、锻造效果 ×6、特性效果 ×4.5','大师二阶四件同特性的新被动:圣愈 / 邪灵 每 10 秒一次巨额额外伤害(金色数字)· 神技 刷新技能冷却 + 强制削韧 + 长连击叠攻击 · 热血 60% 不死 + 低血量大幅加攻 · 怒雷 按暴击率增伤、溢出暴击转暴击伤害','宠物装备「幸运骰子」现在可以和双倍爆率卡叠加']],
  ['1.58','2026-10-20',['新关卡「暗黑炼狱」:暗黑大陆正中的绿光宝塔,一共 30 层,先开放 1~16 层,一层一层往上闯(通关第十七关后解锁)','每层是以前关卡的首领(一层一到两个,例如两只铁角牛魔、夜王 + 钢铁暴君),强度统一按二星焚天炎君,不分星级','每打通一层:掉落 3~4 件星界财宝里的宝物,并回复大量生命和魔力;通关页可以直接前往下一层(生命 / 魔力保留)','选层页可以从第 1 层到「打通过的最高层 +1」里任选一层开始']],
