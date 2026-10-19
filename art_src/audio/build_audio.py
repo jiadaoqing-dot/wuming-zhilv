@@ -51,7 +51,10 @@ BGM={'bgm0':(G+'town.mp3',None,1),'bgm1':('happy_adventure.mp3',None,1),'bgm1b':
  # 第四十八轮 第十五关不眠钟楼(cur 19,raw/audio/bgm/r48)Clockwork Jester(Arold Valda,CC-BY 4.0,https://opengameart.org/content/clockwork-jester)/ Heart of Machine(Alexandr Zhelanov,CC-BY 3.0,https://opengameart.org/content/heart-of-machine)
  'bgm19':(G+'r48/clockwork_jester.flac',150,1),'bgm19b':(G+'r48/Heart of Machine.ogg',150,1),
  # 第五十三轮 第十六关金核机库(cur 20,raw/audio/bgm/r53)Cyborg Factory Fight Theme(GTDStudio aka Palrom,OGA-BY 3.0,https://opengameart.org/content/cyborg-factory-fight-theme)/ Return of the Omega Droid(Umplix,CC0,https://opengameart.org/content/return-of-the-omega-droid)
- 'bgm20':(G+'r53/Cyborg_Factory_Fight.ogg',150,1),'bgm20b':(G+'r53/return_of_the_omega_droid.wav',None,1)}
+ 'bgm20':(G+'r53/Cyborg_Factory_Fight.ogg',150,1),'bgm20b':(G+'r53/return_of_the_omega_droid.wav',None,1),
+ # 第五十四轮 第十七关炎狱熔渊(cur 21,raw/audio/bgm/r54)Tower of Lava(Mega Pixel Music Lab,CC-BY 4.0,https://opengameart.org/content/tower-of-lava)取第二段「Magma Factory」(7:10 起 150 秒)/
+ #   Lava Dungeon Battle(Sorth,CC0,https://opengameart.org/content/lava-dungeon-battle);第 4 项 = 起始秒数
+ 'bgm21':(G+'r54/Tower of Lava.mp3',150,1,430),'bgm21b':(G+'r54/lava_dungeon_8-bit.mp3',None,1)}
 def load(p,sr):
   d,s=sf.read(A+p,always_2d=True);m=d.mean(1)
   g=np.gcd(s,sr);return resample_poly(m,sr//g,s//g) if s!=sr else m
@@ -235,9 +238,9 @@ MIX.update({
 for n,f in MIX.items():
   m=f()
   m=m/np.abs(m).max()*.9;tot+=out(n,m,SR,.7)
-for n,(p,mx,v) in BGM.items():
+for n,bv in BGM.items():
   # 按响度(RMS)对齐,峰值不超过 0.95;太长的截到 mx 秒,结尾 1.5 秒淡出(循环接回开头)
-  sr=24000;m=load(p,sr)
+  p,mx,v=bv[:3];sr=24000;m=load(p,sr)[int((bv[3] if len(bv)>3 else 0)*sr):]
   if mx:m=m[:int(mx*sr)];f=int(1.5*sr);m[-f:]*=np.linspace(1,0,f)
   m=m*(.13*v/np.sqrt(np.mean(m**2)));pk=np.abs(m).max()
   if pk>.95:m=m*.95/pk

@@ -49,7 +49,7 @@ function poiseHit(e,dm){if(!e.pzm)e.pzm=e.po=Math.max(50,e.max*PZK);e.prd=PZRD;i
 // 小怪韧性:池 = 生命上限 × MPZK(同关普攻约 2~3 下打空),打空僵直 MPZST 秒(打穿超过半条 MPZST2),之后连同僵直 MPZIM 秒不再累计;
 // 停手 MPZRD 秒后每秒回复 MPZRG。霸体(e.sa)的小怪不吃韧性。击飞 / 苍蓝巨剑 / 冻结等控制技能直接写 e.st,不受影响
 const MPZK=.45,MPZST=.45,MPZST2=.8,MPZIM=1.6,MPZRD=1.5,MPZRG=.5;
-function mobPz(e,dm){if(e.sa)return;if(!e.pzm)e.pzm=e.po=Math.max(1,(e.hp0||e.hp)*MPZK);e.prd=MPZRD;if(e.pim>0)return;e.po-=dm;
+function mobPz(e,dm){if(e.sa)return;if(!e.pzm)e.pzm=e.po=Math.max(1,(e.hp0||e.hp)*MPZK*(e.pzx||1));e.prd=MPZRD;if(e.pim>0)return;e.po-=dm;
   if(e.po<=0){const t=-e.po>e.pzm*.5?MPZST2:MPZST;e.st=Math.max(e.st||0,t);e.pim=t+MPZIM;e.po=e.pzm}}
 // 第四十四轮(用户选 A):首领霸体阶段 —— 生命掉到 70% / 40%(BSAH)时进入 BSAT 秒霸体 + 狂暴:不吃僵直 / 破韧 / 后仰 / 减速 / 击退,动作快 BSAK 倍;
 // 一下打穿两条线只触发一次。镜中无名本来就不吃控制,不算。首领血条上的两道刻度 = 霸体线,霸体期间韧性条变成红色闪烁

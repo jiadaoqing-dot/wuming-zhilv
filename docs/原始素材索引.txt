@@ -30,6 +30,8 @@ raw/ 原始素材索引(tools/assets_index.py 自动生成;不打包进游戏)
     Heart of Machine.ogg, clockwork_jester.flac
   audio/bgm/r53/  2 个 28.4MB  用到:art_src/audio/build_audio.py
     Cyborg_Factory_Fight.ogg, return_of_the_omega_droid.wav
+  audio/bgm/r54/  2 个 35.2MB  用到:art_src/audio/build_audio.py
+    Tower of Lava.mp3, lava_dungeon_8-bit.mp3
   audio/creature/  80 个 1.9MB  用到:art_src/audio/build_audio.py, art_src/castle/build_castle.py
     alien_01~06.ogg, barking_01~02.ogg, breath.ogg, bug_01~04.ogg, burble_01~02.ogg, burp_01~02.ogg, cough_01~03.ogg, cute_01~10.ogg, eat_01~04.ogg, grunt_01~05.ogg, howl.ogg, hurt_01~05.ogg, misc_01~09.ogg, monster_01~07.ogg, nose.ogg, ooh.ogg, roar_01~03.ogg, scream_01~02.ogg, snore.ogg, spit_01~03.ogg, troll_01~03.ogg, weird_01~05.ogg
   audio/dl2/  18 个 12.3MB  用到:art_src/audio/build_audio.py
@@ -204,7 +206,7 @@ raw/ 原始素材索引(tools/assets_index.py 自动生成;不打包进游戏)
     zip: streets_of_fight_files.zip(288KB), Urban-landscape-files.zip(87KB), warped_city_files.zip(4.1MB)
   city/Urban-landscape-files/Urban-landscape-files/  3 个 209KB
     license.txt, urban-landscape-background-Preview.png, urban-landscape-background.psd
-  city/Urban-landscape-files/Urban-landscape-files/layers/  2 个 7KB  用到:art_src/boss/build_mage.py, art_src/lbg/build_lbg.py, art_src/lpc/build_lpc.py, art_src/lpc/comp.py, art_src/lpc_npc/build_npc_lpc.py, art_src/lv/build_ltl.py, art_src/mech/build_mech.py, art_src/myst/build_gp.py, art_src/robot20/build_robot20.py, art_src/volcano/build_vol9.py
+  city/Urban-landscape-files/Urban-landscape-files/layers/  2 个 7KB  用到:art_src/boss/build_mage.py, art_src/fire21/build_fire21.py, art_src/lbg/build_lbg.py, art_src/lpc/build_lpc.py, art_src/lpc/comp.py, art_src/lpc_npc/build_npc_lpc.py, art_src/lv/build_ltl.py, art_src/mech/build_mech.py, art_src/myst/build_gp.py, art_src/robot20/build_robot20.py, art_src/volcano/build_vol9.py
     Sky-layer.png, buildings-layer.png
   city/streets_of_fight_files/Streets of Fight files/  1 个 0KB  用到:art_src/city/build_city8.py, art_src/city/build_gh8.py
     public-license.txt
@@ -262,7 +264,7 @@ raw/ 原始素材索引(tools/assets_index.py 自动生成;不打包进游戏)
     public-license.txt
   city/warped_city_files/warped city files/ENVIRONMENT/  1 个 7KB  用到:art_src/city/build_city8.py, art_src/clock19/build_clock19.py, art_src/lv/build_lair.py, art_src/robot20/build_robot20.py, art_src/town/build_town2.py
     tileset.png
-  city/warped_city_files/warped city files/ENVIRONMENT/background/  4 个 34KB  用到:art_src/audio/build_audio.py, art_src/castle/build_castle.py, art_src/city/build_city8.py, art_src/clock19/build_clock19.py, art_src/fire13/build_fire13.py, art_src/lbg/build_lbg.py, art_src/mech/build_mech.py, art_src/myst/build_gp.py, art_src/ship/build_ship10.py
+  city/warped_city_files/warped city files/ENVIRONMENT/background/  4 个 34KB  用到:art_src/audio/build_audio.py, art_src/castle/build_castle.py, art_src/city/build_city8.py, art_src/clock19/build_clock19.py, art_src/fire13/build_fire13.py, art_src/fire21/build_fire21.py, art_src/lbg/build_lbg.py, art_src/mech/build_mech.py, art_src/myst/build_gp.py, art_src/ship/build_ship10.py
     buildings-bg.png, near-buildings-bg.png, skyline-a.png, skyline-b.png
   city/warped_city_files/warped city files/ENVIRONMENT/props/  10 个 5KB  用到:art_src/city/build_city8.py, art_src/lv/build_lair.py, art_src/lv/build_ltl.py, art_src/town/build_town2.py
     antenna.png, banner-arrow.png, banner-floor.png, banner-open.png, banner-small.png, banners.png, control-box-1~3.png, hotel-sign.png
@@ -324,7 +326,7 @@ raw/ 原始素材索引(tools/assets_index.py 自动生成;不打包进游戏)
     game.js, index.html, phaser.min.js, warped-lava.js
   city/warped_city_files/warped city files/demo/assets/atlas/  3 个 102KB  用到:art_src/bfx/build_bfx2.py, art_src/boss/build_ars.py, art_src/boss/build_bos.py, art_src/boss/build_mage.py, art_src/boss/build_mnt.py, art_src/build_wpn.py, art_src/castle/build_castle.py, art_src/city/build_city8.py, art_src/city/build_gh8.py, art_src/eqicon/build_eqicon.py, art_src/fire13/build_fire13.py, art_src/lpc/build_hsw.py, art_src/lpc/build_lpc.py, art_src/lpc/build_staff.py, art_src/lv/build_ice6.py, art_src/lv/build_lair.py, art_src/mech/build_mech.py, art_src/mob/build_dog2.py, art_src/mob/build_pen.py, art_src/mob/fix_dog2.py, art_src/myst/build_gp.py, art_src/myst/build_myst.py, art_src/ship/build_ship10.py, art_src/skfx/build_skfx.py, art_src/town/build_tpx.py, art_src/vfx/build_vfx.py, art_src/volcano/build_vol9.py
     atlas.json, atlas.png, atlas.tps
-  city/warped_city_files/warped city files/demo/assets/environment/  4 个 40KB  用到:art_src/home/build_home.py, art_src/lv/build_ltl.py, art_src/town/build_town.py, art_src/town/build_town2.py
+  city/warped_city_files/warped city files/demo/assets/environment/  4 个 40KB  用到:art_src/fire21/build_fire21.py, art_src/home/build_home.py, art_src/lv/build_ltl.py, art_src/town/build_town.py, art_src/town/build_town2.py
     bg-1~3.png, tileset.png
   city/warped_city_files/warped city files/demo/assets/maps/  1 个 32KB  用到:art_src/audio/build_audio.py, art_src/bfx/build_bfx2.py, art_src/boss/build_ars.py, art_src/boss/build_mnt.py, art_src/build_wing.py, art_src/castle/build_castle.py, art_src/city/build_city8.py, art_src/city/build_gh8.py, art_src/eqicon/build_eqicon.py, art_src/fire13/build_fire13.py, art_src/font/build_font.py, art_src/home/build_home.py, art_src/lpc/build_hsw.py, art_src/lpc/build_staff.py, art_src/lpc_npc/build_npc_lpc.py, art_src/lv/build_ice6.py, art_src/lv/build_lair.py, art_src/lv/build_ltl.py, art_src/map/build_map.py, art_src/map/build_map2.py, art_src/mech/build_mech.py, art_src/mob/fix_dog2.py, art_src/myst/build_gp.py, art_src/myst/build_myst.py, art_src/ship/build_ship10.py, art_src/skfx/build_gsword.py, art_src/skfx/build_skfx.py, art_src/town/build_town.py, art_src/town/build_town2.py, art_src/ui/build_ui.py, art_src/volcano/build_vol9.py
     map.json
@@ -454,6 +456,94 @@ raw/ 原始素材索引(tools/assets_index.py 自动生成;不打包进游戏)
   fire13/wizard-pack/x/Wizard Pack/  8 个 72KB  用到:art_src/fire13/build_fire13.py
     Attack1~2.png, Death.png, Fall.png, Hit.png, Idle.png, Jump.png, Run.png
 
+## raw/fire21
+  fire21/bestiary/  5 个 55KB  用到:art_src/fire21/build_fire21.py
+    ansimuz-shambler-pal2-alpha_0.png, balmer-andromalius-57x88-alpha.png, redshrike-thompson-golem-pal2-alpha.png, redshrike-wartaur-alpha.png, sparky-surt-emceeflesher-alpha.png
+  fire21/caves/  1 个 5.9MB  用到:art_src/fire21/build_fire21.py
+    zip: caves.zip(5.9MB)
+  fire21/caves/x/warped-files/  1 个 1KB  用到:art_src/fire21/build_fire21.py
+    public-license.txt
+  fire21/caves/x/warped-files/Demo/  3 个 811KB  用到:art_src/audio/build_audio.py, art_src/myst/build_gp.py, art_src/volcano/build_vol9.py
+    game.js, index.html, phaser.min.js
+  fire21/caves/x/warped-files/Demo/assets/atlas/  6 个 62KB  用到:art_src/bfx/build_bfx2.py, art_src/boss/build_ars.py, art_src/boss/build_bos.py, art_src/boss/build_mage.py, art_src/boss/build_mnt.py, art_src/build_wpn.py, art_src/castle/build_castle.py, art_src/city/build_city8.py, art_src/city/build_gh8.py, art_src/eqicon/build_eqicon.py, art_src/fire13/build_fire13.py, art_src/lpc/build_hsw.py, art_src/lpc/build_lpc.py, art_src/lpc/build_staff.py, art_src/lv/build_ice6.py, art_src/lv/build_lair.py, art_src/mech/build_mech.py, art_src/mob/build_dog2.py, art_src/mob/build_pen.py, art_src/mob/fix_dog2.py, art_src/myst/build_gp.py, art_src/myst/build_myst.py, art_src/ship/build_ship10.py, art_src/skfx/build_skfx.py, art_src/town/build_tpx.py, art_src/vfx/build_vfx.py, art_src/volcano/build_vol9.py
+    atlas-props.json, atlas-props.png, atlas-props.tps, atlas.json, atlas.png, atlas.tps
+  fire21/caves/x/warped-files/Demo/assets/environment/  4 个 34KB  用到:art_src/fire21/build_fire21.py, art_src/home/build_home.py, art_src/lv/build_ltl.py, art_src/town/build_town.py, art_src/town/build_town2.py
+    background.png, middleground.png, tilesets.png, walls.png
+  fire21/caves/x/warped-files/Demo/assets/maps/  1 个 13KB  用到:art_src/audio/build_audio.py, art_src/bfx/build_bfx2.py, art_src/boss/build_ars.py, art_src/boss/build_mnt.py, art_src/build_wing.py, art_src/castle/build_castle.py, art_src/city/build_city8.py, art_src/city/build_gh8.py, art_src/eqicon/build_eqicon.py, art_src/fire13/build_fire13.py, art_src/font/build_font.py, art_src/home/build_home.py, art_src/lpc/build_hsw.py, art_src/lpc/build_staff.py, art_src/lpc_npc/build_npc_lpc.py, art_src/lv/build_ice6.py, art_src/lv/build_lair.py, art_src/lv/build_ltl.py, art_src/map/build_map.py, art_src/map/build_map2.py, art_src/mech/build_mech.py, art_src/mob/fix_dog2.py, art_src/myst/build_gp.py, art_src/myst/build_myst.py, art_src/ship/build_ship10.py, art_src/skfx/build_gsword.py, art_src/skfx/build_skfx.py, art_src/town/build_town.py, art_src/town/build_town2.py, art_src/ui/build_ui.py, art_src/volcano/build_vol9.py
+    map.json
+  fire21/caves/x/warped-files/Demo/assets/sound/  1 个 1.5MB  用到:art_src/audio/build_audio.py
+    platformer_level04_loop.ogg
+  fire21/caves/x/warped-files/Demo/assets/sprites/  5 个 8KB  用到:art_src/bfx/build_bfx.py, art_src/boss/build_ars.py, art_src/boss/build_mage.py, art_src/clock19/build_clock19.py, art_src/fire13/build_fire13.py, art_src/lpc/comp.py, art_src/lpc_npc/build_npc_lpc.py, art_src/mob/build_mob.py, art_src/skfx/build_fx29.py, art_src/summon/build_smn.py, art_src/totem/build_totem.py, art_src/vfx/build_vfx.py
+    credits-text.png, instructions.png, loading.png, press-enter-text.png, title-screen.png
+  fire21/caves/x/warped-files/GIF/Fx/  4 个 6KB  用到:art_src/fire21/build_fire21.py
+    enemy-death.gif, impact.gif, power-up.gif, shot.gif
+  fire21/caves/x/warped-files/GIF/enemies/  5 个 10KB  用到:art_src/mech/build_mech.py
+    crab-idle.gif, crab-walk.gif, jumper-idle.gif, jumper-jump.gif, octopus.gif
+  fire21/caves/x/warped-files/GIF/player/  10 个 25KB  用到:art_src/fire21/build_fire21.py
+    player-cling.gif, player-duck.gif, player-hurt.gif, player-idle.gif, player-jump-example.gif, player-jump.gif, player-run-shoot.gif, player-run.gif, player-shoot-up.gif, player-stand.gif
+  fire21/caves/x/warped-files/PNG/environment/  1 个 64KB  用到:art_src/fire21/build_fire21.py, art_src/home/build_home.py, art_src/lv/build_ltl.py, art_src/town/build_town.py, art_src/town/build_town2.py
+    environment-preview.png
+  fire21/caves/x/warped-files/PNG/environment/layers/  6 个 50KB  用到:art_src/boss/build_mage.py, art_src/fire21/build_fire21.py, art_src/lbg/build_lbg.py, art_src/lpc/build_lpc.py, art_src/lpc/comp.py, art_src/lpc_npc/build_npc_lpc.py, art_src/lv/build_ltl.py, art_src/mech/build_mech.py, art_src/myst/build_gp.py, art_src/robot20/build_robot20.py, art_src/volcano/build_vol9.py
+    background.png, middleground-no-fungus.png, middleground.png, props.png, tilesets.png, walls.png
+  fire21/caves/x/warped-files/PNG/environment/props/  8 个 14KB  用到:art_src/city/build_city8.py, art_src/lv/build_lair.py, art_src/lv/build_ltl.py, art_src/town/build_town2.py
+    gate-01~03.png, plant-big.png, plant-small.png, stalactite.png, stone-head.png, stone.png
+  fire21/caves/x/warped-files/PNG/sprites/Fx/enemy-death/  5 个 6KB  用到:art_src/bfx/build_bfx.py, art_src/boss/build_ars.py, art_src/boss/build_mage.py, art_src/clock19/build_clock19.py, art_src/fire13/build_fire13.py, art_src/lpc/comp.py, art_src/lpc_npc/build_npc_lpc.py, art_src/mob/build_mob.py, art_src/skfx/build_fx29.py, art_src/summon/build_smn.py, art_src/totem/build_totem.py, art_src/vfx/build_vfx.py
+    enemy-death-1~5.png
+  fire21/caves/x/warped-files/PNG/sprites/Fx/impact/  5 个 5KB  用到:art_src/audio/build_audio.py, art_src/bfx/build_bfx2.py, art_src/vfx/build_vfx.py
+    impact-1~5.png
+  fire21/caves/x/warped-files/PNG/sprites/Fx/power-up/  7 个 7KB  用到:art_src/bfx/build_bfx.py, art_src/boss/build_ars.py, art_src/boss/build_mage.py, art_src/clock19/build_clock19.py, art_src/fire13/build_fire13.py, art_src/lpc/comp.py, art_src/lpc_npc/build_npc_lpc.py, art_src/mob/build_mob.py, art_src/skfx/build_fx29.py, art_src/summon/build_smn.py, art_src/totem/build_totem.py, art_src/vfx/build_vfx.py
+    power-up-1~7.png
+  fire21/caves/x/warped-files/PNG/sprites/Fx/shot/  2 个 2KB  用到:art_src/robot20/build_robot20.py
+    shot-1~2.png
+  fire21/caves/x/warped-files/PNG/sprites/enemies/crab-idle/  4 个 6KB  用到:art_src/mech/build_mech.py
+    crab-idle-1~4.png
+  fire21/caves/x/warped-files/PNG/sprites/enemies/crab-walk/  4 个 6KB  用到:art_src/mech/build_mech.py
+    crab-walk-1~4.png
+  fire21/caves/x/warped-files/PNG/sprites/enemies/jumper-idle/  4 个 6KB  用到:art_src/mech/build_mech.py
+    jumper-idle-1~4.png
+  fire21/caves/x/warped-files/PNG/sprites/enemies/jumper-jump/  1 个 2KB  用到:art_src/mech/build_mech.py
+    jumper-jump.png
+  fire21/caves/x/warped-files/PNG/sprites/enemies/octopus/  4 个 6KB  用到:art_src/mech/build_mech.py
+    octopus-1~4.png
+  fire21/caves/x/warped-files/PNG/sprites/player/player-cling/  1 个 2KB  用到:art_src/bfx/build_bfx.py, art_src/boss/build_ars.py, art_src/boss/build_mage.py, art_src/clock19/build_clock19.py, art_src/fire13/build_fire13.py, art_src/lpc/comp.py, art_src/lpc_npc/build_npc_lpc.py, art_src/mob/build_mob.py, art_src/skfx/build_fx29.py, art_src/summon/build_smn.py, art_src/totem/build_totem.py, art_src/vfx/build_vfx.py
+    player-cling.png
+  fire21/caves/x/warped-files/PNG/sprites/player/player-duck/  1 个 1KB  用到:art_src/bfx/build_bfx.py, art_src/boss/build_ars.py, art_src/boss/build_mage.py, art_src/clock19/build_clock19.py, art_src/fire13/build_fire13.py, art_src/lpc/comp.py, art_src/lpc_npc/build_npc_lpc.py, art_src/mob/build_mob.py, art_src/skfx/build_fx29.py, art_src/summon/build_smn.py, art_src/totem/build_totem.py, art_src/vfx/build_vfx.py
+    player-duck.png
+  fire21/caves/x/warped-files/PNG/sprites/player/player-hurt/  2 个 3KB  用到:art_src/bfx/build_bfx.py, art_src/boss/build_ars.py, art_src/boss/build_mage.py, art_src/clock19/build_clock19.py, art_src/fire13/build_fire13.py, art_src/lpc/comp.py, art_src/lpc_npc/build_npc_lpc.py, art_src/mob/build_mob.py, art_src/skfx/build_fx29.py, art_src/summon/build_smn.py, art_src/totem/build_totem.py, art_src/vfx/build_vfx.py
+    player-hurt-1~2.png
+  fire21/caves/x/warped-files/PNG/sprites/player/player-idle/  4 个 6KB  用到:art_src/bfx/build_bfx.py, art_src/boss/build_ars.py, art_src/boss/build_mage.py, art_src/clock19/build_clock19.py, art_src/fire13/build_fire13.py, art_src/lpc/comp.py, art_src/lpc_npc/build_npc_lpc.py, art_src/mob/build_mob.py, art_src/skfx/build_fx29.py, art_src/summon/build_smn.py, art_src/totem/build_totem.py, art_src/vfx/build_vfx.py
+    player-idle-1~4.png
+  fire21/caves/x/warped-files/PNG/sprites/player/player-jump/  6 个 9KB  用到:art_src/bfx/build_bfx.py, art_src/boss/build_ars.py, art_src/boss/build_mage.py, art_src/clock19/build_clock19.py, art_src/fire13/build_fire13.py, art_src/lpc/comp.py, art_src/lpc_npc/build_npc_lpc.py, art_src/mob/build_mob.py, art_src/skfx/build_fx29.py, art_src/summon/build_smn.py, art_src/totem/build_totem.py, art_src/vfx/build_vfx.py
+    player-jump-1~6.png
+  fire21/caves/x/warped-files/PNG/sprites/player/player-run/  10 个 15KB  用到:art_src/bfx/build_bfx.py, art_src/boss/build_ars.py, art_src/boss/build_mage.py, art_src/clock19/build_clock19.py, art_src/fire13/build_fire13.py, art_src/lpc/comp.py, art_src/lpc_npc/build_npc_lpc.py, art_src/mob/build_mob.py, art_src/skfx/build_fx29.py, art_src/summon/build_smn.py, art_src/totem/build_totem.py, art_src/vfx/build_vfx.py
+    player-run-1~9.png
+  fire21/caves/x/warped-files/PNG/sprites/player/player-run-shot/  10 个 15KB  用到:art_src/bfx/build_bfx.py, art_src/boss/build_ars.py, art_src/boss/build_mage.py, art_src/clock19/build_clock19.py, art_src/fire13/build_fire13.py, art_src/lpc/comp.py, art_src/lpc_npc/build_npc_lpc.py, art_src/mob/build_mob.py, art_src/skfx/build_fx29.py, art_src/summon/build_smn.py, art_src/totem/build_totem.py, art_src/vfx/build_vfx.py
+    player-run-shot-1~9.png
+  fire21/caves/x/warped-files/PNG/sprites/player/player-shoot-up/  1 个 2KB  用到:art_src/bfx/build_bfx.py, art_src/boss/build_ars.py, art_src/boss/build_mage.py, art_src/clock19/build_clock19.py, art_src/fire13/build_fire13.py, art_src/lpc/comp.py, art_src/lpc_npc/build_npc_lpc.py, art_src/mob/build_mob.py, art_src/skfx/build_fx29.py, art_src/summon/build_smn.py, art_src/totem/build_totem.py, art_src/vfx/build_vfx.py
+    player-shoot-up.png
+  fire21/caves/x/warped-files/PNG/sprites/player/player-stand/  3 个 5KB  用到:art_src/bfx/build_bfx.py, art_src/boss/build_ars.py, art_src/boss/build_mage.py, art_src/clock19/build_clock19.py, art_src/fire13/build_fire13.py, art_src/lpc/comp.py, art_src/lpc_npc/build_npc_lpc.py, art_src/mob/build_mob.py, art_src/skfx/build_fx29.py, art_src/summon/build_smn.py, art_src/totem/build_totem.py, art_src/vfx/build_vfx.py
+    player-stand-1~3.png
+  fire21/caves/x/warped-files/PNG/spritesheets/Fx/  4 个 6KB  用到:art_src/boss/build_ars.py, art_src/boss/build_mage.py, art_src/lpc/comp.py, art_src/lpc_npc/build_npc_lpc.py, art_src/mob/build_mob.py, art_src/vfx/build_vfx.py
+    enemy-death.png, impact.png, power-up.png, shot.png
+  fire21/caves/x/warped-files/PNG/spritesheets/enemies/  5 个 11KB  用到:art_src/mech/build_mech.py
+    crab-idle.png, crab-walk.png, jumper-idle.png, jumper-jump.png, octopus.png
+  fire21/caves/x/warped-files/PNG/spritesheets/player/  9 个 22KB  用到:art_src/boss/build_ars.py, art_src/boss/build_mage.py, art_src/lpc/comp.py, art_src/lpc_npc/build_npc_lpc.py, art_src/mob/build_mob.py, art_src/vfx/build_vfx.py
+    player-cling.png, player-duck.png, player-hurt.png, player-idle.png, player-jump.png, player-run-shoot.png, player-run.png, player-shoot-up.png, player-stand.png
+  fire21/caves/x/warped-files/PSD/  1 个 1.1MB  用到:art_src/fire21/build_fire21.py
+    concepts.psd
+  fire21/caves/x/warped-files/PSD/MISC/  1 个 176KB  用到:art_src/fire21/build_fire21.py
+    title-screen.psd
+  fire21/caves/x/warped-files/PSD/environment/  1 个 1.1MB  用到:art_src/fire21/build_fire21.py, art_src/home/build_home.py, art_src/lv/build_ltl.py, art_src/town/build_town.py, art_src/town/build_town2.py
+    environment.psd
+  fire21/caves/x/warped-files/PSD/sprites/FX/  3 个 154KB  用到:art_src/bfx/build_bfx.py, art_src/boss/build_ars.py, art_src/boss/build_mage.py, art_src/clock19/build_clock19.py, art_src/fire13/build_fire13.py, art_src/lpc/comp.py, art_src/lpc_npc/build_npc_lpc.py, art_src/mob/build_mob.py, art_src/skfx/build_fx29.py, art_src/summon/build_smn.py, art_src/totem/build_totem.py, art_src/vfx/build_vfx.py
+    enemy-death.psd, power-up.psd, shot.psd
+  fire21/caves/x/warped-files/PSD/sprites/enemies/  5 个 194KB  用到:art_src/mech/build_mech.py
+    crab-idle.psd, crab-walk.psd, jumper-idle.psd, jumper-jump.psd, octopus.psd
+  fire21/caves/x/warped-files/PSD/sprites/player/  10 个 636KB  用到:art_src/bfx/build_bfx.py, art_src/boss/build_ars.py, art_src/boss/build_mage.py, art_src/clock19/build_clock19.py, art_src/fire13/build_fire13.py, art_src/lpc/comp.py, art_src/lpc_npc/build_npc_lpc.py, art_src/mob/build_mob.py, art_src/skfx/build_fx29.py, art_src/summon/build_smn.py, art_src/totem/build_totem.py, art_src/vfx/build_vfx.py
+    player-cling.psd, player-duck.psd, player-hurt.psd, player-idle.psd, player-jump-example.psd, player-jump.psd, player-run-shoot.psd, player-run.psd, player-shoot-up.psd, player-stand.psd
+  fire21/caves/x/warped-files/Sound/  2 个 2.7MB  用到:art_src/audio/build_audio.py
+    platformer_level04.mp3, platformer_level04_loop.ogg
+
 ## raw/font
   font/  3 个 98.5MB  用到:art_src/font/build_font.py(参数)
     zip: fusion-pixel-font-10px-proportional-ttf-v2026.09.25.zip(26.9MB), fusion-pixel-font-12px-proportional-ttf-v2026.09.25.zip(47.1MB), fusion-pixel-font-8px-proportional-ttf-v2026.09.25.zip(24.4MB)
@@ -515,7 +605,7 @@ raw/ 原始素材索引(tools/assets_index.py 自动生成;不打包进游戏)
     skeleton-rise-clothed-1~6.png
   ghost/gothicvania-cemetery-files_1/gothicvania-cemetery-files/PSD/  2 个 1.7MB  用到:art_src/city/build_gh8.py
     concepts.psd, old-concept.psd
-  ghost/gothicvania-cemetery-files_1/gothicvania-cemetery-files/PSD/environment/  1 个 1.4MB  用到:art_src/home/build_home.py, art_src/lv/build_ltl.py, art_src/town/build_town.py, art_src/town/build_town2.py
+  ghost/gothicvania-cemetery-files_1/gothicvania-cemetery-files/PSD/environment/  1 个 1.4MB  用到:art_src/fire21/build_fire21.py, art_src/home/build_home.py, art_src/lv/build_ltl.py, art_src/town/build_town.py, art_src/town/build_town2.py
     environment.psd
   ghost/gothicvania-cemetery-files_1/gothicvania-cemetery-files/PSD/misc/  1 个 360KB  用到:art_src/audio/build_audio.py, art_src/book/build_book.py, art_src/mech/build_mech.py, art_src/robot20/build_robot20.py, art_src/totem/build_totem.py
     title-screen.psd
@@ -527,7 +617,7 @@ raw/ 原始素材索引(tools/assets_index.py 自动生成;不打包进游戏)
     game.js, index.html, phaser.min.js
   ghost/gothicvania-cemetery-files_1/gothicvania-cemetery-files/demo/assets/atlas/  6 个 84KB  用到:art_src/bfx/build_bfx2.py, art_src/boss/build_ars.py, art_src/boss/build_bos.py, art_src/boss/build_mage.py, art_src/boss/build_mnt.py, art_src/build_wpn.py, art_src/castle/build_castle.py, art_src/city/build_city8.py, art_src/city/build_gh8.py, art_src/eqicon/build_eqicon.py, art_src/fire13/build_fire13.py, art_src/lpc/build_hsw.py, art_src/lpc/build_lpc.py, art_src/lpc/build_staff.py, art_src/lv/build_ice6.py, art_src/lv/build_lair.py, art_src/mech/build_mech.py, art_src/mob/build_dog2.py, art_src/mob/build_pen.py, art_src/mob/fix_dog2.py, art_src/myst/build_gp.py, art_src/myst/build_myst.py, art_src/ship/build_ship10.py, art_src/skfx/build_skfx.py, art_src/town/build_tpx.py, art_src/vfx/build_vfx.py, art_src/volcano/build_vol9.py
     atlas-props.json, atlas-props.png, atlas-props.tps, atlas.json, atlas.png, atlas.tps
-  ghost/gothicvania-cemetery-files_1/gothicvania-cemetery-files/demo/assets/environment/  5 个 60KB  用到:art_src/home/build_home.py, art_src/lv/build_ltl.py, art_src/town/build_town.py, art_src/town/build_town2.py
+  ghost/gothicvania-cemetery-files_1/gothicvania-cemetery-files/demo/assets/environment/  5 个 60KB  用到:art_src/fire21/build_fire21.py, art_src/home/build_home.py, art_src/lv/build_ltl.py, art_src/town/build_town.py, art_src/town/build_town2.py
     bg-graveyard.png, bg-moon.png, bg-mountains.png, objects.png, tileset.png
   ghost/gothicvania-cemetery-files_1/gothicvania-cemetery-files/demo/assets/maps/  1 个 42KB  用到:art_src/audio/build_audio.py, art_src/bfx/build_bfx2.py, art_src/boss/build_ars.py, art_src/boss/build_mnt.py, art_src/build_wing.py, art_src/castle/build_castle.py, art_src/city/build_city8.py, art_src/city/build_gh8.py, art_src/eqicon/build_eqicon.py, art_src/fire13/build_fire13.py, art_src/font/build_font.py, art_src/home/build_home.py, art_src/lpc/build_hsw.py, art_src/lpc/build_staff.py, art_src/lpc_npc/build_npc_lpc.py, art_src/lv/build_ice6.py, art_src/lv/build_lair.py, art_src/lv/build_ltl.py, art_src/map/build_map.py, art_src/map/build_map2.py, art_src/mech/build_mech.py, art_src/mob/fix_dog2.py, art_src/myst/build_gp.py, art_src/myst/build_myst.py, art_src/ship/build_ship10.py, art_src/skfx/build_gsword.py, art_src/skfx/build_skfx.py, art_src/town/build_town.py, art_src/town/build_town2.py, art_src/ui/build_ui.py, art_src/volcano/build_vol9.py
     map.json
@@ -549,11 +639,11 @@ raw/ 原始素材索引(tools/assets_index.py 自动生成;不打包进游戏)
     ghost-appears.png, ghost-idle.png, ghost-shriek.png, ghost-vanish.png
   gothic_pc/x/Gothic-Castle-Files/PNG/  1 个 30KB  用到:art_src/myst/build_gp.py
     gothic-castle-preview.png
-  gothic_pc/x/Gothic-Castle-Files/PNG/layers/  2 个 23KB  用到:art_src/boss/build_mage.py, art_src/lbg/build_lbg.py, art_src/lpc/build_lpc.py, art_src/lpc/comp.py, art_src/lpc_npc/build_npc_lpc.py, art_src/lv/build_ltl.py, art_src/mech/build_mech.py, art_src/myst/build_gp.py, art_src/robot20/build_robot20.py, art_src/volcano/build_vol9.py
+  gothic_pc/x/Gothic-Castle-Files/PNG/layers/  2 个 23KB  用到:art_src/boss/build_mage.py, art_src/fire21/build_fire21.py, art_src/lbg/build_lbg.py, art_src/lpc/build_lpc.py, art_src/lpc/comp.py, art_src/lpc_npc/build_npc_lpc.py, art_src/lv/build_ltl.py, art_src/mech/build_mech.py, art_src/myst/build_gp.py, art_src/robot20/build_robot20.py, art_src/volcano/build_vol9.py
     gothic-castle-background.png, gothic-castle-tileset.png
   gothic_pc/x/Gothic-Horror-Files/PNG/  1 个 37KB
     PREVIEW-gothic-horror.png
-  gothic_pc/x/Gothic-Horror-Files/PNG/layers/  3 个 42KB  用到:art_src/boss/build_mage.py, art_src/lbg/build_lbg.py, art_src/lpc/build_lpc.py, art_src/lpc/comp.py, art_src/lpc_npc/build_npc_lpc.py, art_src/lv/build_ltl.py, art_src/mech/build_mech.py, art_src/myst/build_gp.py, art_src/robot20/build_robot20.py, art_src/volcano/build_vol9.py
+  gothic_pc/x/Gothic-Horror-Files/PNG/layers/  3 个 42KB  用到:art_src/boss/build_mage.py, art_src/fire21/build_fire21.py, art_src/lbg/build_lbg.py, art_src/lpc/build_lpc.py, art_src/lpc/comp.py, art_src/lpc_npc/build_npc_lpc.py, art_src/lv/build_ltl.py, art_src/mech/build_mech.py, art_src/myst/build_gp.py, art_src/robot20/build_robot20.py, art_src/volcano/build_vol9.py
     clouds.png, tiles.png, town.png
   gothic_pc/x/Gothic-hero-Files/PNG/  4 个 20KB
     gothic-hero-attack.png, gothic-hero-idle.png, gothic-hero-jump.png, gothic-hero-run.png
@@ -585,7 +675,7 @@ raw/ 原始素材索引(tools/assets_index.py 自动生成;不打包进游戏)
     breath-fire.png, breath.png, demon-attack-no-breath.png, demon-attack.png, demon-idle.png
   gothic_pc/x/night-town-background-files/  2 个 35KB  用到:art_src/lbg/build_lbg.py, art_src/myst/build_gp.py
     night-town-background-previewx1~2.png
-  gothic_pc/x/night-town-background-files/layers/  7 个 19KB  用到:art_src/boss/build_mage.py, art_src/lbg/build_lbg.py, art_src/lpc/build_lpc.py, art_src/lpc/comp.py, art_src/lpc_npc/build_npc_lpc.py, art_src/lv/build_ltl.py, art_src/mech/build_mech.py, art_src/myst/build_gp.py, art_src/robot20/build_robot20.py, art_src/volcano/build_vol9.py
+  gothic_pc/x/night-town-background-files/layers/  7 个 19KB  用到:art_src/boss/build_mage.py, art_src/fire21/build_fire21.py, art_src/lbg/build_lbg.py, art_src/lpc/build_lpc.py, art_src/lpc/comp.py, art_src/lpc_npc/build_npc_lpc.py, art_src/lv/build_ltl.py, art_src/mech/build_mech.py, art_src/myst/build_gp.py, art_src/robot20/build_robot20.py, art_src/volcano/build_vol9.py
     night-town-background-clouds.png, night-town-background-far-buildings.png, night-town-background-forest.png, night-town-background-mountains-lights.png, night-town-background-mountains.png, night-town-background-sky.png, night-town-background-town.png
   gothic_pc/x/wolf-runing-cycle/sprites/  2 个 3KB  用到:art_src/bfx/build_bfx.py, art_src/boss/build_ars.py, art_src/boss/build_mage.py, art_src/clock19/build_clock19.py, art_src/fire13/build_fire13.py, art_src/lpc/comp.py, art_src/lpc_npc/build_npc_lpc.py, art_src/mob/build_mob.py, art_src/skfx/build_fx29.py, art_src/summon/build_smn.py, art_src/totem/build_totem.py, art_src/vfx/build_vfx.py
     wolf-runing-cycle-skin.png, wolf-runing-cycle.png
@@ -661,9 +751,9 @@ lpc_animals_2022_v1.1.zip  411KB
     carrot.gif, chest.gif, enemy-death.gif, star.gif
   lv/sunny-land-forest-files/Sunny-land-forest-files/GIF/player/  7 个 7KB  用到:art_src/lv/build_ltl.py, art_src/totem/build_totem.py
     climb.gif, duck.gif, fall.gif, hurt.gif, idle.gif, jump.gif, skip.gif
-  lv/sunny-land-forest-files/Sunny-land-forest-files/PNG/environment/  1 个 91KB  用到:art_src/home/build_home.py, art_src/lv/build_ltl.py, art_src/town/build_town.py, art_src/town/build_town2.py
+  lv/sunny-land-forest-files/Sunny-land-forest-files/PNG/environment/  1 个 91KB  用到:art_src/fire21/build_fire21.py, art_src/home/build_home.py, art_src/lv/build_ltl.py, art_src/town/build_town.py, art_src/town/build_town2.py
     environment-preview.png
-  lv/sunny-land-forest-files/Sunny-land-forest-files/PNG/environment/layers/  5 个 73KB  用到:art_src/boss/build_mage.py, art_src/lbg/build_lbg.py, art_src/lpc/build_lpc.py, art_src/lpc/comp.py, art_src/lpc_npc/build_npc_lpc.py, art_src/lv/build_ltl.py, art_src/mech/build_mech.py, art_src/myst/build_gp.py, art_src/robot20/build_robot20.py, art_src/volcano/build_vol9.py
+  lv/sunny-land-forest-files/Sunny-land-forest-files/PNG/environment/layers/  5 个 73KB  用到:art_src/boss/build_mage.py, art_src/fire21/build_fire21.py, art_src/lbg/build_lbg.py, art_src/lpc/build_lpc.py, art_src/lpc/comp.py, art_src/lpc_npc/build_npc_lpc.py, art_src/lv/build_ltl.py, art_src/mech/build_mech.py, art_src/myst/build_gp.py, art_src/robot20/build_robot20.py, art_src/volcano/build_vol9.py
     background.png, middleground.png, props.png, tileset.png, tileset_preview.png
   lv/sunny-land-forest-files/Sunny-land-forest-files/PNG/environment/props/  7 个 22KB  用到:art_src/city/build_city8.py, art_src/lv/build_lair.py, art_src/lv/build_ltl.py, art_src/town/build_town2.py
     house.png, mushroom-brown.png, mushroom-red.png, plant.png, rock.png, tree.png, vine.png
@@ -719,7 +809,7 @@ lpc_animals_2022_v1.1.zip  411KB
     game.js, index.html, phaser.min.js
   lv/sunny-land-forest-files/Sunny-land-forest-files/demo/assets/atlas/  6 个 77KB  用到:art_src/bfx/build_bfx2.py, art_src/boss/build_ars.py, art_src/boss/build_bos.py, art_src/boss/build_mage.py, art_src/boss/build_mnt.py, art_src/build_wpn.py, art_src/castle/build_castle.py, art_src/city/build_city8.py, art_src/city/build_gh8.py, art_src/eqicon/build_eqicon.py, art_src/fire13/build_fire13.py, art_src/lpc/build_hsw.py, art_src/lpc/build_lpc.py, art_src/lpc/build_staff.py, art_src/lv/build_ice6.py, art_src/lv/build_lair.py, art_src/mech/build_mech.py, art_src/mob/build_dog2.py, art_src/mob/build_pen.py, art_src/mob/fix_dog2.py, art_src/myst/build_gp.py, art_src/myst/build_myst.py, art_src/ship/build_ship10.py, art_src/skfx/build_skfx.py, art_src/town/build_tpx.py, art_src/vfx/build_vfx.py, art_src/volcano/build_vol9.py
     atlas-props.json, atlas-props.png, atlas-props.tps, atlas.json, atlas.png, atlas.tps
-  lv/sunny-land-forest-files/Sunny-land-forest-files/demo/assets/environment/  4 个 35KB  用到:art_src/home/build_home.py, art_src/lv/build_ltl.py, art_src/town/build_town.py, art_src/town/build_town2.py
+  lv/sunny-land-forest-files/Sunny-land-forest-files/demo/assets/environment/  4 个 35KB  用到:art_src/fire21/build_fire21.py, art_src/home/build_home.py, art_src/lv/build_ltl.py, art_src/town/build_town.py, art_src/town/build_town2.py
     background.png, collisions.png, middleground.png, tileset.png
   lv/sunny-land-forest-files/Sunny-land-forest-files/demo/assets/maps/  1 个 40KB  用到:art_src/audio/build_audio.py, art_src/bfx/build_bfx2.py, art_src/boss/build_ars.py, art_src/boss/build_mnt.py, art_src/build_wing.py, art_src/castle/build_castle.py, art_src/city/build_city8.py, art_src/city/build_gh8.py, art_src/eqicon/build_eqicon.py, art_src/fire13/build_fire13.py, art_src/font/build_font.py, art_src/home/build_home.py, art_src/lpc/build_hsw.py, art_src/lpc/build_staff.py, art_src/lpc_npc/build_npc_lpc.py, art_src/lv/build_ice6.py, art_src/lv/build_lair.py, art_src/lv/build_ltl.py, art_src/map/build_map.py, art_src/map/build_map2.py, art_src/mech/build_mech.py, art_src/mob/fix_dog2.py, art_src/myst/build_gp.py, art_src/myst/build_myst.py, art_src/ship/build_ship10.py, art_src/skfx/build_gsword.py, art_src/skfx/build_skfx.py, art_src/town/build_town.py, art_src/town/build_town2.py, art_src/ui/build_ui.py, art_src/volcano/build_vol9.py
     map.json
@@ -735,7 +825,7 @@ lpc_animals_2022_v1.1.zip  411KB
     game.js, index.html, phaser.min.js
   lv/sunny-land-woods-files/Sunny-land-woods-files/Demo/assets/atlas/  6 个 65KB  用到:art_src/bfx/build_bfx2.py, art_src/boss/build_ars.py, art_src/boss/build_bos.py, art_src/boss/build_mage.py, art_src/boss/build_mnt.py, art_src/build_wpn.py, art_src/castle/build_castle.py, art_src/city/build_city8.py, art_src/city/build_gh8.py, art_src/eqicon/build_eqicon.py, art_src/fire13/build_fire13.py, art_src/lpc/build_hsw.py, art_src/lpc/build_lpc.py, art_src/lpc/build_staff.py, art_src/lv/build_ice6.py, art_src/lv/build_lair.py, art_src/mech/build_mech.py, art_src/mob/build_dog2.py, art_src/mob/build_pen.py, art_src/mob/fix_dog2.py, art_src/myst/build_gp.py, art_src/myst/build_myst.py, art_src/ship/build_ship10.py, art_src/skfx/build_skfx.py, art_src/town/build_tpx.py, art_src/vfx/build_vfx.py, art_src/volcano/build_vol9.py
     atlas-props.json, atlas-props.png, atlas-props.tps, atlas.json, atlas.png, atlas.tps
-  lv/sunny-land-woods-files/Sunny-land-woods-files/Demo/assets/environment/  4 个 30KB  用到:art_src/home/build_home.py, art_src/lv/build_ltl.py, art_src/town/build_town.py, art_src/town/build_town2.py
+  lv/sunny-land-woods-files/Sunny-land-woods-files/Demo/assets/environment/  4 个 30KB  用到:art_src/fire21/build_fire21.py, art_src/home/build_home.py, art_src/lv/build_ltl.py, art_src/town/build_town.py, art_src/town/build_town2.py
     bg-clouds.png, bg-mountains.png, bg-trees.png, tileset.png
   lv/sunny-land-woods-files/Sunny-land-woods-files/Demo/assets/maps/  1 个 18KB  用到:art_src/audio/build_audio.py, art_src/bfx/build_bfx2.py, art_src/boss/build_ars.py, art_src/boss/build_mnt.py, art_src/build_wing.py, art_src/castle/build_castle.py, art_src/city/build_city8.py, art_src/city/build_gh8.py, art_src/eqicon/build_eqicon.py, art_src/fire13/build_fire13.py, art_src/font/build_font.py, art_src/home/build_home.py, art_src/lpc/build_hsw.py, art_src/lpc/build_staff.py, art_src/lpc_npc/build_npc_lpc.py, art_src/lv/build_ice6.py, art_src/lv/build_lair.py, art_src/lv/build_ltl.py, art_src/map/build_map.py, art_src/map/build_map2.py, art_src/mech/build_mech.py, art_src/mob/fix_dog2.py, art_src/myst/build_gp.py, art_src/myst/build_myst.py, art_src/ship/build_ship10.py, art_src/skfx/build_gsword.py, art_src/skfx/build_skfx.py, art_src/town/build_town.py, art_src/town/build_town2.py, art_src/ui/build_ui.py, art_src/volcano/build_vol9.py
     map.json
@@ -805,7 +895,7 @@ lpc_animals_2022_v1.1.zip  411KB
     Enemy-Death1~6.png
   lv/swamp/Gothicvania Swamp files/Sprites/Fire/  2 个 1KB  用到:art_src/audio/build_audio.py, art_src/bfx/build_bfx.py, art_src/clock19/build_clock19.py, art_src/fire13/build_fire13.py, art_src/myst/build_gp.py, art_src/skfx/build_fx29.py, art_src/skfx/build_skfx.py, art_src/vfx/build_vfx.py, art_src/volcano/build_vol9.py
     fire-preview.gif, fire.ase
-  lv/swamp/Gothicvania Swamp files/Sprites/Fire/fire/  2 个 0KB  用到:art_src/audio/build_audio.py, art_src/bfx/build_bfx.py, art_src/city/build_gh8.py, art_src/fire13/build_fire13.py, art_src/lpc/build_hsw.py, art_src/lpc/build_staff.py, art_src/myst/build_gp.py, art_src/myst/build_myst.py, art_src/skfx/build_fx29.py, art_src/skfx/build_mg27.py, art_src/skfx/build_skfx.py, art_src/vfx/build_vfx.py, art_src/volcano/build_vol9.py
+  lv/swamp/Gothicvania Swamp files/Sprites/Fire/fire/  2 个 0KB  用到:art_src/audio/build_audio.py, art_src/bfx/build_bfx.py, art_src/city/build_gh8.py, art_src/fire13/build_fire13.py, art_src/fire21/build_fire21.py, art_src/lpc/build_hsw.py, art_src/lpc/build_staff.py, art_src/myst/build_gp.py, art_src/myst/build_myst.py, art_src/skfx/build_fx29.py, art_src/skfx/build_mg27.py, art_src/skfx/build_skfx.py, art_src/vfx/build_vfx.py, art_src/volcano/build_vol9.py
     fire1~2.png
   lv/swamp/Gothicvania Swamp files/Sprites/Ghost/  2 个 4KB  用到:art_src/city/build_gh8.py
     Ghost-peview.gif, Ghost.ase
@@ -873,7 +963,7 @@ lpc_animals_2022_v1.1.zip  411KB
     industrial_544398~564154.png
   mech/parallax-industrial-pack_0/parallax-industrial-pack/  2 个 221KB  用到:art_src/mech/build_mech.py
     license.txt, parallax-industrial.psd
-  mech/parallax-industrial-pack_0/parallax-industrial-pack/layers/  4 个 10KB  用到:art_src/boss/build_mage.py, art_src/lbg/build_lbg.py, art_src/lpc/build_lpc.py, art_src/lpc/comp.py, art_src/lpc_npc/build_npc_lpc.py, art_src/lv/build_ltl.py, art_src/mech/build_mech.py, art_src/myst/build_gp.py, art_src/robot20/build_robot20.py, art_src/volcano/build_vol9.py
+  mech/parallax-industrial-pack_0/parallax-industrial-pack/layers/  4 个 10KB  用到:art_src/boss/build_mage.py, art_src/fire21/build_fire21.py, art_src/lbg/build_lbg.py, art_src/lpc/build_lpc.py, art_src/lpc/comp.py, art_src/lpc_npc/build_npc_lpc.py, art_src/lv/build_ltl.py, art_src/mech/build_mech.py, art_src/myst/build_gp.py, art_src/robot20/build_robot20.py, art_src/volcano/build_vol9.py
     skill-desc_0000_foreground.png, skill-desc_0001_buildings.png, skill-desc_0002_far-buildings.png, skill-desc_0003_bg.png
 
 ## raw/ninja14
@@ -921,7 +1011,7 @@ lpc_animals_2022_v1.1.zip  411KB
     public-license.txt
   robot20/scifi_lab/x/Scifi lab Files/aseprite/  1 个 9KB  用到:art_src/robot20/build_robot20.py
     env.ase
-  robot20/scifi_lab/x/Scifi lab Files/layers/  3 个 12KB  用到:art_src/boss/build_mage.py, art_src/lbg/build_lbg.py, art_src/lpc/build_lpc.py, art_src/lpc/comp.py, art_src/lpc_npc/build_npc_lpc.py, art_src/lv/build_ltl.py, art_src/mech/build_mech.py, art_src/myst/build_gp.py, art_src/robot20/build_robot20.py, art_src/volcano/build_vol9.py
+  robot20/scifi_lab/x/Scifi lab Files/layers/  3 个 12KB  用到:art_src/boss/build_mage.py, art_src/fire21/build_fire21.py, art_src/lbg/build_lbg.py, art_src/lpc/build_lpc.py, art_src/lpc/comp.py, art_src/lpc_npc/build_npc_lpc.py, art_src/lv/build_ltl.py, art_src/mech/build_mech.py, art_src/myst/build_gp.py, art_src/robot20/build_robot20.py, art_src/volcano/build_vol9.py
     back.png, front.png, middle.png
   robot20/scifi_lab/x/Scifi lab Files/layers/Props/  4 个 5KB  用到:art_src/ninja14/build_ninja14.py, art_src/robot20/build_robot20.py, art_src/totem/build_totem.py, art_src/town/build_town.py, art_src/town/build_town2.py
     support.png, tank-1~3.png
@@ -951,7 +1041,7 @@ shark_underwater_160x160_sevarihk.png  7KB
     attack - pitchfork shield.png, attack - pitchfork.png, attack - sword shield.png, attack - sword.png, attack - vanilla.png, walk - pitchfork shield.png, walk - pitchfork.png, walk - sword shield.png, walk - sword.png, walk - vanilla.png
   ship/lpc_imp2/  1 个 0KB  用到:art_src/ship/build_ship10.py
     readme.txt
-  ship/lpc_imp2/LPC Imp 2/blue/  11 个 156KB  用到:art_src/boss/build_mage.py, art_src/clock19/build_clock19.py, art_src/lpc/build_lpc.py, art_src/lpc/build_staff.py, art_src/mob/build_mob.py, art_src/ship/build_ship10.py, art_src/skfx/build_fx29.py, art_src/skfx/build_mg27.py, art_src/skfx/build_skfx.py, art_src/town/build_town2.py
+  ship/lpc_imp2/LPC Imp 2/blue/  11 个 156KB  用到:art_src/boss/build_mage.py, art_src/clock19/build_clock19.py, art_src/fire21/build_fire21.py, art_src/lpc/build_lpc.py, art_src/lpc/build_staff.py, art_src/mob/build_mob.py, art_src/ship/build_ship10.py, art_src/skfx/build_fx29.py, art_src/skfx/build_mg27.py, art_src/skfx/build_skfx.py, art_src/town/build_town2.py
     attack - pitchfork shield.png, attack - pitchfork.png, attack - sword shield.png, attack - sword.png, attack - vanilla.png, imp death.png, walk - pitchfork shield.png, walk - pitchfork.png, walk - sword shield.png, walk - sword.png, walk - vanilla.png
   ship/lpc_imp2/LPC Imp 2/green/  11 个 143KB  用到:art_src/book/build_book.py, art_src/eqicon/build_eqicon.py, art_src/lpc/build_hsw.py, art_src/lpc/build_lpc.py, art_src/lpc/build_staff.py, art_src/lpc_npc/build_npc_lpc.py
     attack - pitchfork shield.png, attack - pitchfork.png, attack - sword shield.png, attack - sword.png, attack - vanilla.png, imp death.png, walk - pitchfork shield.png, walk - pitchfork.png, walk - sword shield.png, walk - sword.png, walk - vanilla.png
@@ -1271,7 +1361,7 @@ snowball.png  1KB
 ## raw/town_jra
   town_jra/16x16-rpg-item-pack/2D/top-down-rpg/  1 个 5KB  用到:art_src/mob/build_mfx.py, art_src/town/build_town.py, art_src/town/build_town2.py
     Sheet.png
-  town_jra/ansimuz-sunnyland/2D/platformer/environment/  1 个 20KB  用到:art_src/home/build_home.py, art_src/lv/build_ltl.py, art_src/town/build_town.py, art_src/town/build_town2.py
+  town_jra/ansimuz-sunnyland/2D/platformer/environment/  1 个 20KB  用到:art_src/fire21/build_fire21.py, art_src/home/build_home.py, art_src/lv/build_ltl.py, art_src/town/build_town.py, art_src/town/build_town2.py
     tileset.png
   town_jra/ansimuz-sunnyland/2D/platformer/environment/Background/  1 个 8KB  用到:art_src/fire13/build_fire13.py, art_src/lbg/build_lbg.py, art_src/mech/build_mech.py, art_src/ship/build_ship10.py, art_src/town/build_town.py, art_src/town/build_town2.py
     back.png
@@ -1669,13 +1759,13 @@ snowball.png  1KB
     ghost-appears.psd, ghost-idle.psd, ghost-shriek.psd, ghost-vanish.psd
   volcano/gothicvania_patreon/x/ gothicvania patreon collection/Gothic-Castle-Files/PNG/  1 个 30KB  用到:art_src/myst/build_gp.py
     gothic-castle-preview.png
-  volcano/gothicvania_patreon/x/ gothicvania patreon collection/Gothic-Castle-Files/PNG/layers/  2 个 23KB  用到:art_src/boss/build_mage.py, art_src/lbg/build_lbg.py, art_src/lpc/build_lpc.py, art_src/lpc/comp.py, art_src/lpc_npc/build_npc_lpc.py, art_src/lv/build_ltl.py, art_src/mech/build_mech.py, art_src/myst/build_gp.py, art_src/robot20/build_robot20.py, art_src/volcano/build_vol9.py
+  volcano/gothicvania_patreon/x/ gothicvania patreon collection/Gothic-Castle-Files/PNG/layers/  2 个 23KB  用到:art_src/boss/build_mage.py, art_src/fire21/build_fire21.py, art_src/lbg/build_lbg.py, art_src/lpc/build_lpc.py, art_src/lpc/comp.py, art_src/lpc_npc/build_npc_lpc.py, art_src/lv/build_ltl.py, art_src/mech/build_mech.py, art_src/myst/build_gp.py, art_src/robot20/build_robot20.py, art_src/volcano/build_vol9.py
     gothic-castle-background.png, gothic-castle-tileset.png
   volcano/gothicvania_patreon/x/ gothicvania patreon collection/Gothic-Castle-Files/PSD/  1 个 765KB  用到:art_src/myst/build_gp.py
     gothic-castle.psd
   volcano/gothicvania_patreon/x/ gothicvania patreon collection/Gothic-Horror-Files/PNG/  1 个 37KB  用到:art_src/volcano/build_vol9.py
     PREVIEW-gothic-horror.png
-  volcano/gothicvania_patreon/x/ gothicvania patreon collection/Gothic-Horror-Files/PNG/layers/  3 个 42KB  用到:art_src/boss/build_mage.py, art_src/lbg/build_lbg.py, art_src/lpc/build_lpc.py, art_src/lpc/comp.py, art_src/lpc_npc/build_npc_lpc.py, art_src/lv/build_ltl.py, art_src/mech/build_mech.py, art_src/myst/build_gp.py, art_src/robot20/build_robot20.py, art_src/volcano/build_vol9.py
+  volcano/gothicvania_patreon/x/ gothicvania patreon collection/Gothic-Horror-Files/PNG/layers/  3 个 42KB  用到:art_src/boss/build_mage.py, art_src/fire21/build_fire21.py, art_src/lbg/build_lbg.py, art_src/lpc/build_lpc.py, art_src/lpc/comp.py, art_src/lpc_npc/build_npc_lpc.py, art_src/lv/build_ltl.py, art_src/mech/build_mech.py, art_src/myst/build_gp.py, art_src/robot20/build_robot20.py, art_src/volcano/build_vol9.py
     clouds.png, tiles.png, town.png
   volcano/gothicvania_patreon/x/ gothicvania patreon collection/Gothic-Horror-Files/PSD/  1 个 539KB  用到:art_src/volcano/build_vol9.py
     gothic-horror.psd
@@ -1741,7 +1831,7 @@ snowball.png  1KB
     breath.psd, demon-attack.psd, demon-idle.psd
   volcano/gothicvania_patreon/x/ gothicvania patreon collection/night-town-background-files/  4 个 373KB  用到:art_src/lbg/build_lbg.py, art_src/myst/build_gp.py
     night-town-background-preview-LOW-RES.jpg, night-town-background-previewx1~2.png, night-town-background.psd
-  volcano/gothicvania_patreon/x/ gothicvania patreon collection/night-town-background-files/layers/  7 个 19KB  用到:art_src/boss/build_mage.py, art_src/lbg/build_lbg.py, art_src/lpc/build_lpc.py, art_src/lpc/comp.py, art_src/lpc_npc/build_npc_lpc.py, art_src/lv/build_ltl.py, art_src/mech/build_mech.py, art_src/myst/build_gp.py, art_src/robot20/build_robot20.py, art_src/volcano/build_vol9.py
+  volcano/gothicvania_patreon/x/ gothicvania patreon collection/night-town-background-files/layers/  7 个 19KB  用到:art_src/boss/build_mage.py, art_src/fire21/build_fire21.py, art_src/lbg/build_lbg.py, art_src/lpc/build_lpc.py, art_src/lpc/comp.py, art_src/lpc_npc/build_npc_lpc.py, art_src/lv/build_ltl.py, art_src/mech/build_mech.py, art_src/myst/build_gp.py, art_src/robot20/build_robot20.py, art_src/volcano/build_vol9.py
     night-town-background-clouds.png, night-town-background-far-buildings.png, night-town-background-forest.png, night-town-background-mountains-lights.png, night-town-background-mountains.png, night-town-background-sky.png, night-town-background-town.png
   volcano/gothicvania_patreon/x/ gothicvania patreon collection/wolf-runing-cycle/PSD/  2 个 72KB  用到:art_src/volcano/build_vol9.py
     wolf-runing-cycle-skin.psd, wolf-runing-cycle.psd

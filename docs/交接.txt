@@ -22,7 +22,9 @@
  旧的云端环境只能访问 GitHub / npm / pypi,opengameart、itch 访问不了。
  素材来源:ULPC 仓库(LPC 人物图层)、series-ai/jam-ready-assets(大量 CC0 素材,LFS 文件用 media 直链下载,见 fetch_assets.sh)。
 
-【当前状态(2026-10-18,v1.52 手机纪念版完成后)】
+【当前状态(2026-10-19,v1.55)】
+- v1.55(第五十三轮回复 + 新任务):第十七关炎狱熔渊 cur 21 = 569 分块(IFN 图集 art_src/fire21,首领 ifg / 小怪 ifa ifs,PL21,IGHP / IGDM / IFPZ)。各表 [21]:LM 70.6 / E21 / PL21 / BHN BDF / BLN 17(BLH BLA[17])/ XPK BXP(同 20)/ MHK[19] 342 / mk 尺寸 + 飞行 y / FLYK / CDMG / ESKN / mAtk / forceAtk / reward / MN / 800 BWP / 790 IFN.on / bg / MAPS2 第 7 项 / 970 缩略图 + lvsBoss / 980 首领名 / MSS[21] / SOULV[21] / bgm21 / 击杀点 17 / 首领死亡 banner。下一关从 cur 22 起。
+  小怪韧性倍率 e.pzx(150 mobPz);持续 AOE 地火用 P.i21T 统一 0.45 秒一次伤害。关卡金币倍率 GDLV(110 reward);每日任务 m2qAdd(新关卡任务接在讨伐后面,别插在中间打乱 QD.d 序号)。跑步不被技能打断 = P.rkT(340)。build_audio.py BGM 第 4 项 = 起始秒数(新 BGM 用临时脚本单独编码,只提交新 ogg)。
 - v1.54(第五十三轮):第十六关金核机库 cur 20 = 568 分块(RBT,首领 rgn / 小怪 rsh rtu,RTUY 吊顶高度,PL20)。各表 [20]:LM 66 / E20 / PL20 / BHN BDF / BLN 16(BLH BLA[16])/ XPK BXP / MHK[18] 320 / mk 尺寸 + y / CDMG / ESKN / mAtk / forceAtk / reward / MN / 800 BWP / 790 RBT.on / bg / MAPS2 第 6 项 / 970 缩略图 + lvsBoss / 980 首领名 / MSS[20] / bgm20 / 击杀点 16。下一关从 cur 21 起。
   暗黑大陆每日任务 M2Q(360 分块,QD.d[5]~[11],q.lock / q.boss,qM2 / qM2B);主线 MQN 86,SAVEV 3(SAVEMIG[3] 迁移 mi)。每日任务按钮编号用 r.slice(2)。CHLOG 补到 1.54(以后每版都要加)。重跑 build_audio.py 会把所有 ogg 重新编码(结果不完全一样),提交前把旧 ogg 用 git checkout 还原,只留新文件。
 - v1.53:画布 contextrestored → 存档 + 刷新(1000 分块);后台超 1 分钟回来 twnReload。复现:CDP Browser.crashGpuProcess(要真显卡参数)。
@@ -73,6 +75,7 @@
   测试注意:Playwright 的 keyboard.press 会在同一帧抬起按键,跑步中按攻击要 down → 等 50ms → up 才会触发冲刺直戳。
 
 【下一步】
+  ★ v1.55 的问题在 docs/下次任务.txt「第五十四轮」:第十七关地图位置、地火 / 首领强度。
   ★ 第四十八轮已完成(2026-10-17,v1.48),用户已回复 docs/下次任务.txt「第四十八轮」并全部处理完(地图位置、小鸡冷却、钟楼背景 / BGM;3 条命 / 无尽 / 怀表维持)。等下一轮任务。
   ★ 第四十五轮(2026-10-15,v1.45)的问题见 docs/下次任务.txt「第四十五轮」:技能段数减半后的伤害补偿、前期金币够不够、要不要按 DNF 分开刷资源、镜像强度。
   更早的待确认事项都在 docs/交接_归档.txt【下一步】。

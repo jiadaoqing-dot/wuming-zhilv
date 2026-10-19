@@ -1,7 +1,7 @@
 assets/ 素材清单(tools/assets_index.py 自动生成,build.py 每次构建时更新;不要手改)
 格式:文件  大小  源码引用(src/parts 分块序号:该文件里的行号 所在函数/对象.键)  ← 生成脚本  [音频:用到的原始素材]
 
-== 图片 PNG(@@A:)  124 个 ==
+== 图片 PNG(@@A:)  125 个 ==
 alc_atlas.png  40KB  567:13 ALC.D  ← art_src/clock19/build_clock19.py
 ars_ar1.png  4KB  880:44 PXA.ar1  ← 无脚本:Hero spritesheets - Ars Notoria(Balmer,CC0)换色分层,旧主角选项,见源码 PXA 注释
 ars_ar2.png  4KB  880:45 PXA.ar2  ← 无脚本:Hero spritesheets - Ars Notoria(Balmer,CC0)换色分层,旧主角选项,见源码 PXA 注释
@@ -70,6 +70,7 @@ home_div.png  0KB  000:194   ← art_src/home/build_home.py
 home_frame.png  0KB  000:192   ← art_src/home/build_home.py
 hsw_atlas.png  6KB  760:154 HSW.D  ← art_src/lpc/build_hsw.py
 ice6_atlas.png  2KB  840:3 ICE6P.D  ← art_src/lv/build_ice6.py
+ifn_atlas.png  38KB  569:13 IFN.D  ← art_src/fire21/build_fire21.py
 kb_atlas.png  16KB  920:4 KB.D  ← art_src/boss/build_kb.py
 lair_atlas.png  85KB  870:6 LAIR.D  ← art_src/lv/build_lair.py
 lbg_atlas.png  138KB  850:5 LBG.D  ← art_src/lbg/build_lbg.py
@@ -135,7 +136,7 @@ map_bg.jpg  110KB  950:75 MAPI.D  ← art_src/map/build_map.py
 fpx12.woff2  67KB  000:9   ← art_src/font/build_font.py
 fpx8.woff2  42KB  000:10   ← art_src/font/build_font.py
 
-== 音频 OGG(@@O:)  134 个 ==
+== 音频 OGG(@@O:)  136 个 ==
 au_b_axe.ogg  6KB  020:7 AUD.b_axe  ← art_src/audio/build_audio.py  [bfh1_metal_hit_02.ogg, explosion.ogg, swish-7.wav]
 au_b_gallop.ogg  7KB  020:7 AUD.b_gallop  ← art_src/audio/build_audio.py  [slam_0%d.ogg, wind]
 au_b_imp1.ogg  6KB  020:7 AUD.b_imp1  ← art_src/audio/build_audio.py  [impactwood11.mp3.flac, hit_02.ogg]
@@ -172,6 +173,8 @@ au_bgm1b.ogg  613KB  020:9 AUD.bgm1b  ← art_src/audio/build_audio.py
 au_bgm2.ogg  325KB  020:9 AUD.bgm2  ← art_src/audio/build_audio.py
 au_bgm20.ogg  985KB  020:13 AUD.bgm20  ← art_src/audio/build_audio.py  [Cyborg_Factory_Fight.ogg, return_of_the_omega_droid.wav]
 au_bgm20b.ogg  923KB  020:13 AUD.bgm20b  ← art_src/audio/build_audio.py
+au_bgm21.ogg  959KB  020:13 AUD.bgm21  ← art_src/audio/build_audio.py  [Tower of Lava.mp3, lava_dungeon_8-bit.mp3]
+au_bgm21b.ogg  187KB  020:13 AUD.bgm21b  ← art_src/audio/build_audio.py
 au_bgm2b.ogg  789KB  020:9 AUD.bgm2b  ← art_src/audio/build_audio.py
 au_bgm3.ogg  511KB  020:9 AUD.bgm3  ← art_src/audio/build_audio.py  [Forest Whisper.ogg, final_hour.ogg, tribal.mp3, fight_looped.ogg]
 au_bgm3b.ogg  884KB  020:9 AUD.bgm3b  ← art_src/audio/build_audio.py
@@ -402,6 +405,16 @@ au_zap.ogg  9KB  020:5 AUD.zap  ← art_src/audio/build_audio.py
    —— 只取朝右的那一行:前 4 帧走路、后 4 帧熔岩化出火拳
    每个角色的所有帧按「同一个包围盒」裁掉空白,A = [身体中心 x, 身体高, 脚底 y](按待机第 0 帧算);所有角色统一面朝右
    用法:python art_src/fire13/build_fire13.py → assets/fire13_atlas.png,打印的 meta 贴进源码 FIRE.M / FIRE.A
+-- art_src/fire21/build_fire21.py
+   第十七关「炎狱熔渊」图集 IFN(第五十四轮,cur 21,火焰元素关卡)
+   首领 炎狱巨像:Golem(Stephen "Redshrike" Challener / William.Thompsonj,CC-BY 4.0,经 Emcee Flesher 整理的
+   Dark Fantasy Platformer Bestiary https://opengameart.org/content/dark-fantasy-platformer-bestiary,raw/fire21/bestiary)
+   —— 灰紫色石像按亮度映射成「熔岩」配色(暗处焦黑、亮处橙黄),左右翻转成面朝右;去掉占位的蓝色方块
+   小怪 炎斧兽:同一合集里的 Wartaur(Redshrike,CC-BY 4.0)—— 毛皮按亮度映射成赤红火焰配色,斧头(低饱和度)只压暗,左右翻转
+   小怪 火灵 / 火球:同一合集里的 Sparky(surt / Emcee Flesher,CC-BY 4.0)—— 原样
+   场景:Warped Caves Pixel Art Pack(ansimuz,CC0,https://opengameart.org/content/warped-caves-pixel-art-pack,raw/fire21/caves)
+   background / middleground-no-fungus 两层 + tilesets 里的岩块,按亮度映射成熔岩洞配色(远景橙黄火光、岩壁焦黑暗红)
+   用法:python art_src/fire21/build_fire21.py <raw> <输出 png>   打印 M(贴进 src/parts/569_第十七关炎狱熔渊.js 的 IFN.M)
 -- art_src/font/build_font.py
    中文像素字体:Fusion Pixel Font(缝合像素字体,TakWolf,SIL OFL 1.1,https://github.com/TakWolf/fusion-pixel-font)
    只保留游戏源码里出现过的字(+ 全部 ASCII),输出 woff2,由 build.py 的 @@F:名字@@ 内嵌。

@@ -17,7 +17,7 @@ function draw(){
   x.save();if(shake>0)x.translate((Math.random()-.5)*6,(Math.random()-.5)*6);
   bg();PXL.run(drawFXBack,DEC.length+CRK.length+GH.length>0);
   drawPickups();drawRP();drawCP();drawGate();
-  PXL.run(()=>{if(cur==8)g8Back();E.forEach(drawE);if(bossOn&&B.hp>0)drawE(B);if(cur==8)g8Fx();if(cur==9)v9Fx();if(cur==10)s10Fx();if(cur>=8&&cur<=10)nbFx();if(isMy(cur))myFx();if(cur==14)m14Fx();if(cur==15)c15Fx();if(cur==16)f16Fx();if(cur==18)n18Fx();if(cur==19)a19Fx();if(cur==20)a20Fx();palDraw();mscDraw()});drawSM();PXL.run(drawTor,TOR.length>0||!!LCK);drawPet();drawHamPet();
+  PXL.run(()=>{if(cur==8)g8Back();E.forEach(drawE);if(bossOn&&B.hp>0)drawE(B);if(cur==8)g8Fx();if(cur==9)v9Fx();if(cur==10)s10Fx();if(cur>=8&&cur<=10)nbFx();if(isMy(cur))myFx();if(cur==14)m14Fx();if(cur==15)c15Fx();if(cur==16)f16Fx();if(cur==18)n18Fx();if(cur==19)a19Fx();if(cur==20)a20Fx();if(cur==21)i21Fx();palDraw();mscDraw()});drawSM();PXL.run(drawTor,TOR.length>0||!!LCK);drawPet();drawHamPet();
   if(FX.dk>0){x.fillStyle='rgba(8,12,28,'+FX.dk+')';x.fillRect(0,0,VW,VH)}
   PXL.run(drawShots,F.length+PB.length>0);
   drawGD();drawStarF(cam);PXL.run(trailDraw,SWTR.length>1);drawClone();if(cur==MY4&&bossOn&&B&&B.k=='mir'&&B.hp>0&&st=='play')drawMir(B,mirAlpha(B));drawP();drawHamShd();PXL.run(thrDraw,THR.length>0);drawGDHint();PXL.run(()=>drawFairy(x,SPRP.x-cam,SPRP.y,performance.now()/1000,1,P.f),!!(SPR.own&&SPR.on),PXL.bb([[SPRP.x-cam,SPRP.y]],48));
@@ -51,12 +51,14 @@ function qDay(){const t=today();if(QD.day!=t&&!timeBad()){QD.day=t;QD.d=QDEF.map
 function qKill(){qDay();const d=QD.d[3];if(d.s==1&&d.p<20){d.p++;if(d.p==20)tx('小怪清扫 20/20 完成!',P.x-30,P.y-62,'#ffd43b')}}
 function qBoss(){qDay();const d=QD.d[2];if(d.s==1&&d.p<2){d.p++;tx('首领猎人 '+d.p+'/2',P.x-20,P.y-62,'#ffd43b')}}
 // ===== 第五十三轮(用户要求):第二张地图「暗黑大陆」的每日任务 7 个(QD.d[5]~[11]),奖励丰富;对应关卡没解锁时显示「未开放」=====
+// 第五十四轮(用户:金币一共 80 万):七个关卡任务各 9 万 + 讨伐 17 万 = 80 万,其他奖励不变;第十七关的任务排在讨伐后面(不打乱已存的任务序号)
 // 小怪任务在 qM2(击败小怪时)计数,讨伐任务在 qM2B(第二张地图的关卡首领倒下时)计数
-const M2Q=[[14,'⚙️ 齿轮清障','齿轮要塞','金币 ×8000',()=>{gold+=8000}],[15,'🌙 夜巡王城','永夜王城','中级幸运宝石 ×1',()=>{MAT.lk2=(MAT.lk2|0)+1}],
- [16,'🌋 熔岩降温','熔心火山','普通 Lv3 强化石 ×3',()=>{STN[3][0]+=3}],[18,'🌕 月下除影','月影忍城','中级属性石 ×1',()=>{R19.ats.push(atsNew(1))}],
- [19,'⏰ 叫醒钟楼','不眠钟楼','普通 Lv3 强化石 ×3 · 金币 ×5000',()=>{STN[3][0]+=3;gold+=5000}],[20,'🤖 拆解机库','金核机库','高级属性石 ×1',()=>{R19.ats.push(atsNew(2))}]];
-for(const [lv,n,nm,rw,g] of M2Q){const i=QDEF.length;QDEF.push({n,t:`接取后在暗黑大陆「${nm}」击败 15 只小怪。`,need:15,lv,prog:()=>QD.d[i].p,rw,give:g,lock:()=>MAPS2.find(m=>m.cur==lv).lock()})}
-{const i=QDEF.length;QDEF.push({n:'👑 暗黑大陆讨伐',t:'接取后在暗黑大陆的关卡里击败 3 个首领(同一关打多次也算,神秘副本不算)。',need:3,prog:()=>QD.d[i].p,rw:'双倍爆率卡 ×1 · 金币 ×10000',give(){MAT.dbl=(MAT.dbl|0)+1;gold+=10000},lock:()=>!map2Open(),boss:1})}
+const M2Q=[[14,'⚙️ 齿轮清障','齿轮要塞','金币 ×90000',()=>{gold+=90000}],[15,'🌙 夜巡王城','永夜王城','中级幸运宝石 ×1 · 金币 ×90000',()=>{MAT.lk2=(MAT.lk2|0)+1;gold+=90000}],
+ [16,'🌋 熔岩降温','熔心火山','普通 Lv3 强化石 ×3 · 金币 ×90000',()=>{STN[3][0]+=3;gold+=90000}],[18,'🌕 月下除影','月影忍城','中级属性石 ×1 · 金币 ×90000',()=>{R19.ats.push(atsNew(1));gold+=90000}],
+ [19,'⏰ 叫醒钟楼','不眠钟楼','普通 Lv3 强化石 ×3 · 金币 ×90000',()=>{STN[3][0]+=3;gold+=90000}],[20,'🤖 拆解机库','金核机库','高级属性石 ×1 · 金币 ×90000',()=>{R19.ats.push(atsNew(2));gold+=90000}]];
+const m2qAdd=([lv,n,nm,rw,g])=>{const i=QDEF.length;QDEF.push({n,t:`接取后在暗黑大陆「${nm}」击败 15 只小怪。`,need:15,lv,prog:()=>QD.d[i].p,rw,give:g,lock:()=>MAPS2.find(m=>m.cur==lv).lock()})};M2Q.forEach(m2qAdd);
+{const i=QDEF.length;QDEF.push({n:'👑 暗黑大陆讨伐',t:'接取后在暗黑大陆的关卡里击败 3 个首领(同一关打多次也算,神秘副本不算)。',need:3,prog:()=>QD.d[i].p,rw:'双倍爆率卡 ×1 · 金币 ×170000',give(){MAT.dbl=(MAT.dbl|0)+1;gold+=170000},lock:()=>!map2Open(),boss:1})}
+m2qAdd([21,'🔥 熔渊灭火','炎狱熔渊','普通 Lv3 强化石 ×3 · 金币 ×90000',()=>{STN[3][0]+=3;gold+=90000}]);  // 第五十四轮
 function qM2(e){if(e.sum||!isM2(cur))return;qDay();QDEF.forEach((q,i)=>{const d=QD.d[i];if(q.lv==cur&&d.s==1&&d.p<q.need){d.p++;if(d.p==q.need)tx(q.n+' '+q.need+'/'+q.need+' 完成!',P.x-40,P.y-70,'#ffd43b')}})}
 function qM2B(){if(!isM2(cur))return;qDay();QDEF.forEach((q,i)=>{const d=QD.d[i];if(q.boss&&d.s==1&&d.p<q.need){d.p++;tx(q.n+' '+d.p+'/'+q.need,P.x-40,P.y-70,'#ffd43b')}})}
 // =====================================================================

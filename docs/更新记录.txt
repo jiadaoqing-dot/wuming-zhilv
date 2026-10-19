@@ -1,3 +1,10 @@
+【v1.55 · 2026-10-19 · 第五十三轮回复 + 第十七关炎狱熔渊 + 金币 + 跑步】
+- 第十七关「炎狱熔渊」cur 21 = 569 分块(IFN 图集 art_src/fire21/build_fire21.py:Bestiary(Emcee Flesher,CC-BY 4.0)的 Golem / Wartaur 换熔岩 / 赤红配色 = 首领炎狱巨像 / 炎斧兽,Sparky = 火灵;Warped Caves(ansimuz,CC0)换熔岩洞配色)。MAPS2 第 7 项 p:[488,262](右下角熔岩要塞)。
+- 难度 = 金核机库 ×1.07(IGHP / IGDM、MHK[19] 342、LM 70.6、BHN / BDF / BLH / BLA);小怪 22 只、韧性 e.pzx = IFPZ 1.8(mobPz)。持续 AOE:地火 I21Z / 火柱 I21P / 陨火 I21M / 火种 I21F,i21Step / i21Fx(画 BFX 的 b-flame / b-firebomb)。首领 ifg 高 200,esnm,半血 od 熔核暴走。SOULV[21] 女神碎片,MSS[21],主线第十七章 2 条。
+- 金币:GDLV(reward 里乘)金核机库 7.96 / 第十七关 6.4 → 三星一局约 110 万(Playwright 模拟)。暗黑大陆每日任务金币一共 80 万(7 × 9 万 + 讨伐 17 万),第十七关任务排在讨伐后面。
+- 跑步:放技能时记下 P.rkT,技能结束 0.35 秒内按着方向键就自动接着跑(340 分块)。
+- BGM bgm21 Tower of Lava「Magma Factory」(Mega Pixel Music Lab,CC-BY 4.0)/ bgm21b Lava Dungeon Battle(Sorth,CC0);build_audio.py BGM 第 4 项 = 起始秒数。冒烟 0 错误。
+
 【v1.54 · 2026-10-18 · 第五十三轮 第十六关 + 每日任务 + 主线】
 - 第十六关「金核机库」cur 20 = 568 分块(RBT 图集 art_src/robot20/build_robot20.py:Mecha platformer(Shiv,CC0)Gunner 换金色 = 首领、Shielder = 盾卫机兵;Warped City(ansimuz,CC0)炮塔翻转 = 吊顶炮塔 + 子弹 / 爆炸 / 地砖;Warped Sci-Fi Lab(ansimuz,CC0)场景)。MAPS2 第 6 项 p:[316,292]。
 - 首领金核炮神 rgn:gun / art / beam / drain / ctr → bstep,过载 e.od;A20S/M/B/O/X,a20Step / a20Fx。预警 BWOFF 关着,炮火落点用贴图(炮弹下落 + 落点闪光)。

@@ -214,7 +214,7 @@ function g8Fx(){const t=performance.now()/1000;
   if(B&&B.k=='yin'&&bossOn&&B.act=='tp'&&B.ug&&B.h2){const a=Math.min(1,(B.at-.25)/.5);x.globalAlpha=.7*a;GH8.fr(x,'babyS',0,B.tx+B.w/2-cam-21,B.ty+B.h-45+8,1.5,1);x.globalAlpha=1}}
 // 女神灵魂碎片(地面掉落)
 // 女神灵魂碎片:第四、八、十关首领各掉一块(这张地图共 3 块);MAT.sl = 已拿到碎片的关卡(旧存档有碎片 = 第八关那块)
-const SOULV={4:'巨蝎的甲壳裂开了……一块发光的碎片滚了出来',8:'银太郎的哭声停了……一块发光的碎片落了下来',10:'归蝇的黑羽散尽……一块发光的碎片落了下来',16:'炎君的灰烬里……一块发光的碎片滚了出来'};  // 第四十二轮:第十三关
+const SOULV={4:'巨蝎的甲壳裂开了……一块发光的碎片滚了出来',8:'银太郎的哭声停了……一块发光的碎片落了下来',10:'归蝇的黑羽散尽……一块发光的碎片落了下来',16:'炎君的灰烬里……一块发光的碎片滚了出来',21:'巨像的熔核冷却了……一块发光的碎片从黑石里滚了出来'};  // 第五十四轮:第十七关  // 第四十二轮:第十三关
 function soulHas(l){if(!MAT.sl)MAT.sl=MAT.soul>0?[8]:[];return MAT.sl.includes(l)}
 function soulDraw(c,px,py,t){c.save();c.globalCompositeOperation='lighter';C_(c,px,py,12,RGD(c,px,py,12,['rgba(208,191,255,.7)','rgba(0,0,0,0)']),0);c.restore();const m=GH8.M.shard;if(GH8.I)GH8.fr(c,'shard',0,px-9,py-12+Math.sin(t*3)*1.5,1.5,1);else CT('💠',px,py+4,11,'#fff','center',0)}
 // =====================================================================
