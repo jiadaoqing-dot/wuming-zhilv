@@ -5,11 +5,12 @@
 //   击败必掉「仓鼠宠物蛋」,在 🐤 宠物界面花 10 分钟孵化 → 宠物仓鼠(技能同上,嗑瓜子给自己永久加属性,每关叠加;多余的蛋孵化 = 多嗑 3 次瓜子)
 // 图集 MYST(art_src/myst/build_myst.py,自画);BGM bgm11(大厅)/ bgm11b(首领);首领音效 h_*
 let MYS=0,MYR=0;  // MYS:在神秘地带大厅;MYR:从神秘副本回城时回到大厅
-const MYW=1200,MYLX=[250,440,630,820,1010],MYOC=[['105,219,124','#d3f9d8'],['255,169,77','#ffe8cc'],['218,119,242','#f3d9fa'],['77,171,247','#d0ebff'],['255,107,107','#ffe3e3']],MYNM=['瓜子大王','梦魇幽驹','深渊炎魔','镜中无名'],MYTP=[408,252];
+const MYW=1200,MYLX=[250,440,630,820,1010],MYOC=[['105,219,124','#d3f9d8'],['255,169,77','#ffe8cc'],['218,119,242','#f3d9fa'],['77,171,247','#d0ebff'],['255,107,107','#ffe3e3']],MYNM=['瓜子大王','梦魇幽驹','深渊炎魔','镜中无名','擎天魔神'],MYTP=[408,252];
 const twW=()=>MYS?MYW:TWN.w;
 const soulN=()=>{soulHas(0);return MAT.sl.length};
 const myOpen=()=>Math.min(soulN(),MYNM.length);
-const myIdx=c=>c==MY4?3:c-11,myCur=i=>i==3?MY4:11+i;  // 第四十三轮:神秘副本 4 用 cur 17(14~16 已是第二张地图)
+const myIdx=c=>c==MY5?4:c==MY4?3:c-11,myCur=i=>i==4?MY5:i==3?MY4:11+i;  // 第五十九轮:神秘副本 5 = cur 35
+  // 第四十三轮:神秘副本 4 用 cur 17(14~16 已是第二张地图)
 const lvName=()=>lvsName(cur);
 function mystIn(){MYS=1;PL=[{x:0,y:GY,w:MYW}];P.x=70;P.y=GY-P.h;P.vy=0;P.f=1;P.fly=0;cam=0;say(myOpen()?'神秘地带 · 每拥有一块女神灵魂碎片,就会多开放一个神秘副本':'神秘地带')}
 function mystOut(){MYS=0;MYR=0;toTown();P.x=MYTP[0]-12;P.y=MYTP[1]-P.h;P.f=-1}
@@ -46,7 +47,7 @@ function hamStep(e,dt){const pc=P.x+12,cx=e.x+e.w/2,dx=pc-cx,ad=Math.abs(dx),hp=
     if(T>=.9)hamEnd(e);return}
   hamEnd(e)}
 // 场景里的东西:瓜子壳飞行 / 大瓜子壳合拢
-function myStep(dt){const pc=P.x+12;if(cur>=12)gpStep(dt);if(cur==MY4){mirZStep(dt);canTick(dt)}
+function myStep(dt){const pc=P.x+12;if(cur>=12)gpStep(dt);if(cur==MY4){mirZStep(dt);canTick(dt)}if(cur==MY5)pfgTick(dt);
   for(const s of HSH){s.vy+=650*dt;s.x+=s.vx*dt;s.y+=s.vy*dt;s.a+=dt*14;
     if(!s.d&&ov(P,{x:s.x-10,y:s.y-8,w:20,h:16})){s.d=1;hurt(8*s.dm,{kb:sgn(s.vx)*160})}
     if(s.y>=GY-4){s.d=1;burst(s.x,GY-4,5,['#3a3640','#e9e4dc'],100,{s:2,l:.3,g:500})}}HSH=HSH.filter(s=>!s.d);

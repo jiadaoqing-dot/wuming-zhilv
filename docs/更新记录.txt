@@ -1,3 +1,11 @@
+【v1.64 · 2026-10-20 · 第五十九轮二:一键扫荡、主城 BGM 音质、神秘副本 5 擎天魔神、紫焰魅影武器】
+- 新分块 975_一键扫荡.js:选关页(LVS.m==0,非神秘副本 / 十二魔 / 炼狱,STAR ≥ 3)右上角按钮 SWPB / 键 S → sweepGo:enterLv(n,3) → 全部区域小怪 reward → bossWin → pickUp(1) → toTown 回选关页;背包空位 < 4 不扫。
+- 340:首领倒下的结算拆成 bossWin()(update 里只剩调用);擎天魔神先走 pfgSD(B.sdOK 之前不结算)。
+- 音频:bgm0 原来被混成单声道(这首 AI 曲侧声道 / 中声道 = 0.9,混音抵消一大半)→ BGMHQ 立体声 32 kHz、压缩等级 .4(3.4 MB);首领曲 bgm35b = The Final Battle(skrjablin,CC0)。
+- 新分块 536_神秘副本5擎天魔神.js:cur 35 = MY5(isMy 含、isM2 不含),PPF 图集(art_src/ppf/build_ppf.py:摩洛克换紫焰 + N64 Fire 紫色火焰 + 紫色武器 / 图标),首领 pfg 画面高 340,招式 cleave / slam / rain / pillar,自爆 PFSD 2 秒;三星 PFDR 30% 掉 fireW(slot,3)。
+- 紫焰魅影 it.fw = 3:FWK[3] = 1.32×2.2,eqWhite(fw 3) = 真~火之 ×2.2(白字攻击 678 → 1492);wG 7 → 890 ppfSword / ppfStaff、770 图标走 PPF;技能范围增幅 ampRun(包住 skStep / zStep / pbStep / useSk,判定框左右上各 +26)。
+- 冒烟 0 错误;Playwright:自爆没有无敌 → 倒下、有无敌 → 结算掉落;扫荡第 5 关 70 只 + 首领;按截图属性模拟 40 秒输出 剑 2.5 万 / 法杖 6 万每秒 → 三星生命 300 万。
+
 【v1.63 · 2026-10-20 · 第五十九轮追加:虹吸上限 + 伤害数字放大】
 - 568 金核炮神 drain:三颗能量球共享 g = {d}(本轮已偷),每颗偷 25%/3,合计最多 25%,也不会偷成负数。
 - 980 drawTX:关卡里的伤害数字字号 6 → 12、描边 1 → 2('m' 提示字不变)。

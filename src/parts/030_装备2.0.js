@@ -17,9 +17,9 @@ const cosV=(t,k,fg)=>COSW[t][k]*(1+FGK*(fg||0));
 const SLR=[['发型','头饰'],['铠甲','战甲'],['耳坠','项链']],slRen=n=>SLR.reduce((s,[a,b])=>s.split(a).join(b),n);
 function eqK(tier,g,ms){if(ms)g=Math.max(g||0,SER.length-1);const t=TR[tier][2],S=SER[g||0],b=[.5,.75,1,1.25][tier]*[1,1.3,1.6,1.9,2.2][g||0];return {hp:t*S.m,mp:t*S.m,atk:t*S.m,def:t*S.d,cr:b*CRPT,dg:b*DGPT}}
 // 第四十二轮:火之武器 it.fw(1 火之大剑 / 火之法杖:机械系列 ×1.1,神秘副本 4 首领掉落 · 2 真~火之:再 ×1.2,击杀点制作书 + 熔炉制作);白字 / 绿字都乘 FWK
-const FWK=[1,1.1,1.32],FWN={sword:['','火之大剑','真~火之大剑'],staff:['','火之法杖','真~火之法杖']};
-const wG=it=>it?(it.fw?4+it.fw:it.g||0):0;  // 图标 / 手持武器用第几套外观(5 火之 / 6 真~火之)
-function eqWhite(slot,tier,g,ms,fw){const K=eqK(tier,g,ms),s={};for(const [k,c] of Object.entries(EQW[slot]))s[k]=Math.max(1,Math.round(c*K[k]*(ms?MSK:1)*FWK[fw|0]))+(k=='atk'&&(slot=='sword'||slot=='staff')?WPN5:0);return s}
+const FWK=[1,1.1,1.32,1.32*2.2],FWN={sword:['','火之大剑','真~火之大剑','紫焰魅影大剑'],staff:['','火之法杖','真~火之法杖','紫焰魅影法杖']};  // 第五十九轮:3 紫焰魅影(神秘副本 5 三星掉落)= 真~火之 ×2.2(白字攻击连 WPN5 一起 ×2.2),拿着放技能时技能范围增幅(ampRun)
+const wG=it=>it?(it.fw?4+it.fw:it.g||0):0;  // 图标 / 手持武器用第几套外观(5 火之 / 6 真~火之 / 7 紫焰魅影 = PPF 图集)
+function eqWhite(slot,tier,g,ms,fw){if(fw==3){const s=eqWhite(slot,tier,g,ms,2);for(const k in s)s[k]=Math.round(s[k]*2.2);return s}const K=eqK(tier,g,ms),s={};for(const [k,c] of Object.entries(EQW[slot]))s[k]=Math.max(1,Math.round(c*K[k]*(ms?MSK:1)*FWK[fw|0]))+(k=='atk'&&(slot=='sword'||slot=='staff')?WPN5:0);return s}
 // 第五十八轮(用户):3 条绿字各自随机,可以重复(比如 3 条都是攻击);掉落 / 制作 / 洗练都一样
 function greenRoll(it){const K=eqK(it.tier,it.g,it.ms),G=Object.keys(EQG),ks=[0,1,2].map(()=>pick(G));it.gr=ks.map(k=>{const [a,b]=EQG[k];return [k,Math.max(1,Math.round(K[k]*(a+Math.random()*(b-a))*(it.ms?MSK:1)*FWK[it.fw|0]*(it.m2?M2W:1)))]})}  // 第五十七轮:大师二阶绿字 ×3
 const gRng=(it,k)=>{const K=eqK(it.tier,it.g,it.ms),[a,b]=EQG[k],m=(it.ms?MSK:1)*FWK[it.fw|0]*(it.m2?M2W:1);return [Math.max(1,Math.round(K[k]*a*m)),Math.max(1,Math.round(K[k]*b*m))]};

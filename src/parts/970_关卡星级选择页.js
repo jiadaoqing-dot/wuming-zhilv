@@ -6,9 +6,9 @@ function openLvSel(i,m){const n=i+1;LVS={i,s:Math.min(3,starOf(n)+1),m:m==2?2:m?
 function lvsBack(){st='town';if(!LVS.m)st='map';if(LVS.m==2)st='dms'}
 function lvsGo(){const n=LVS.i+1;if(!starOpen(n,LVS.s)){say('先通关'+STARK[LVS.s-1].n+'才能挑战'+STARK[LVS.s].n);return}if(LVS.m==1){MYS=0;MYR=1}enterLv(n,LVS.s)}
 const LVSC=[30,230,430],LVSY=36,LVSW=180,LVSH=150;
-function lvsHit(mx,my){if(mx>582&&mx<622&&my>4&&my<32)return 'x';for(let s=0;s<3;s++){const cx=LVSC[s];if(mx>=cx&&mx<=cx+LVSW&&my>=LVSY&&my<=LVSY+LVSH)return s+1}return 0}
-function lvsClick(mx,my){const h=lvsHit(mx,my);if(h=='x'){lvsBack();return}if(h){LVS.s=h;lvsGo()}}
-function lvsKey(e){const k=e.key;if(k=='Escape'){lvsBack();return}if(KM[k]){if(!e.repeat)LVS.s=((LVS.s-1+(KM[k]=='l'?2:1))%3)+1;return}if(k=='Enter'||k==' '||k=='j'||k=='J'||k=='k'||k=='K'){if(!e.repeat)lvsGo();return}if(k.length==1&&'123'.includes(k))LVS.s=+k}
+function lvsHit(mx,my){if(mx>582&&mx<622&&my>4&&my<32)return 'x';if(sweepHit(mx,my))return 'sw';for(let s=0;s<3;s++){const cx=LVSC[s];if(mx>=cx&&mx<=cx+LVSW&&my>=LVSY&&my<=LVSY+LVSH)return s+1}return 0}
+function lvsClick(mx,my){const h=lvsHit(mx,my);if(h=='x'){lvsBack();return}if(h=='sw'){sweepGo();return}if(h){LVS.s=h;lvsGo()}}
+function lvsKey(e){const k=e.key;if(k=='Escape'){lvsBack();return}if(KM[k]){if(!e.repeat)LVS.s=((LVS.s-1+(KM[k]=='l'?2:1))%3)+1;return}if(k=='Enter'||k==' '||k=='j'||k=='J'||k=='k'||k=='K'){if(!e.repeat)lvsGo();return}if(k.length==1&&'123'.includes(k))LVS.s=+k;if((k=='s'||k=='S')&&!e.repeat&&sweepOK(LVS.i+1))sweepGo()}  // 第五十九轮:S = 一键扫荡
 const lvsName=n=>isTw(n)?'暗黑炼狱 · 第 '+TWF+' 层':isDm(n)?'十二魔封印 '+(n-DM0+1)+' · '+DMD[n-DM0].n:isM2(n)?MAPS2.find(m=>m.cur==n).n:isMy(n)?'神秘副本 '+(myIdx(n)+1)+' · '+MYNM[myIdx(n)]:MAPS[n-1].n;
 // 本关掉落预览:装备 6 个部位(按本关系列;一星画精良、二星稀有、三星史诗的图标)、首领的强化石、特殊掉落
 function lvsDrops(n){const L=[],ser=n>=14?4:n==11?1:n<=2?0:n<=4?1:n<=7?2:3;
@@ -17,7 +17,7 @@ function lvsDrops(n){const L=[],ser=n>=14?4:n==11?1:n<=2?0:n<=4?1:n<=7?2:3;
   for(const [k,nm_,c] of [['A0','属性石',ATSQ[0].c],['gift','小礼袋','#ffd43b']])L.push({d:(cx,cy)=>{if(MENI.I){x.save();x.imageSmoothingEnabled=false;x.drawImage(MENI.I,MENI.P[k]*34,0,34,34,Math.round(cx-11),Math.round(cy-11),22,22);x.restore()}},n:nm_,c})
   if(n==3)L.push({e:'🥚',n:'蛇蛋',c:'#ffe8a3'});if(n==6)L.push({e:'📜',n:'转职凭证',c:'#ffd43b'});if(SOULV[n])L.push({d:(cx,cy)=>soulDraw(x,cx,cy,performance.now()/1000),n:'女神碎片',c:'#d0bfff'});if(n==11)L.push({e:'🥚',n:'仓鼠宠物蛋',c:'#ffe8a3'});
   const mi=k=>(cx,cy)=>{if(MENI.I){x.save();x.imageSmoothingEnabled=false;x.drawImage(MENI.I,MENI.P[k]*34,0,34,34,Math.round(cx-11),Math.round(cy-11),22,22);x.restore()}};
-  if(n==12)L.push({d:mi('gc1'),n:'上帝卡牌',c:'#ffe066'});if(MSS[n])L.push({d:mi('ms'+n),n:'怪物技能石',c:'#b197fc'});if(n>=13)L.push({d:mi('add'),n:'合成添加剂',c:'#96f2d7'});if(n==MY4)for(const s of ['sword','staff']){const it=fireW(s,1);L.push({d:(cx,cy)=>eqDraw(it,cx,cy,22),n:it.n,c:'#ff8787'})}if(n==16)L.push({d:mi('b360'),n:'360小鸟碎片',c:'#ffa94d'});if(isDm(n)&&MISC['cz'+(n-DM0)])L.push({d:mi('cz'+(n-DM0)),n:'诅咒之力',c:'#ff6b6b'});  // 第四十轮
+  if(n==12)L.push({d:mi('gc1'),n:'上帝卡牌',c:'#ffe066'});if(MSS[n])L.push({d:mi('ms'+n),n:'怪物技能石',c:'#b197fc'});if(n>=13)L.push({d:mi('add'),n:'合成添加剂',c:'#96f2d7'});if(n==MY4)for(const s of ['sword','staff']){const it=fireW(s,1);L.push({d:(cx,cy)=>eqDraw(it,cx,cy,22),n:it.n,c:'#ff8787'})}if(n==MY5)for(const s of ['sword','staff']){const it=fireW(s,3);L.push({d:(cx,cy)=>eqDraw(it,cx,cy,22),n:(s=='sword'?'紫焰大剑':'紫焰法杖')+'★3',c:'#e599f7'})}if(n==16)L.push({d:mi('b360'),n:'360小鸟碎片',c:'#ffa94d'});if(isDm(n)&&MISC['cz'+(n-DM0)])L.push({d:mi('cz'+(n-DM0)),n:'诅咒之力',c:'#ff6b6b'});  // 第四十轮
   return L}
 // 卡片缩略图(全部用已有的外部图集,不自己画):背景 = 该关的像素天空层(LBG / CITY8 / VOL9 / SHIP10 / MYST 大厅),前景 = 该关首领的像素形象
 function lvsArt(n,X,Y,W,H,t){x.save();x.beginPath();x.rect(X,Y,W,H);x.clip();x.imageSmoothingEnabled=false;x.fillStyle=['#1a2140','#9bd0f0','#2b1f4a','#9ee07a','#123524','#ffd8a8','#c2e0fa','#2b3a67','#1a1428','#6e1410','#0b1a2e','#2b2440'][n]||'#1a2140';x.fillRect(X,Y,W,H);
@@ -36,6 +36,7 @@ function lvsArt(n,X,Y,W,H,t){x.save();x.beginPath();x.rect(X,Y,W,H);x.clip();x.i
     else if(n==14&&MECH.I){const m=MECH.M.bg,b=MECH.M.bld;x.drawImage(MECH.I,m[0],m[1],m[2],m[3],X,Y,W,H);x.drawImage(MECH.I,b[0],b[1],b[2],b[3],X,Y+H-b[3]*W/b[2],W,b[3]*W/b[2])}
     else if(n==12&&GP.I){const m=GP.M.bg2;x.drawImage(GP.I,m[0]+250,m[1],460,m[3],X,Y,W,H)}
     else if(n==13&&GP.I){const m=GP.M.n_twn;x.fillStyle='#0d1f22';x.fillRect(X,Y,W,H);x.drawImage(GP.I,m[0],m[1],m[2],m[3],X,Y+H-m[3]*.6,W,m[3]*.6)}
+    else if(n==MY5)pfgArt(X,Y,W,H,t);  // 第五十九轮
     else if(n>=11&&MYST.I){const m=MYST.M.hall;x.drawImage(MYST.I,m[0]+220,m[1],330,m[3],X,Y,W,H)}}catch(err){}
   lvsBoss(n,X+W/2,Y+H-6,t);x.restore()}
 function lvsBoss(n,bx,by,t){x.save();x.translate(bx,by);const fl0=FLW;FLW=0;try{
@@ -60,12 +61,13 @@ function lvsBoss(n,bx,by,t){x.save();x.translate(bx,by);const fl0=FLW;FLW=0;try{
   else if(n==12){x.scale(.9,.9);GP.draw(x,{k:'nmr',act:null,at:0,run:0},t)}
   else if(n==13){x.scale(.75,.75);GP.draw(x,{k:'dmn',act:null,at:0},t)}
   else if(n==90||n==91){x.scale(1.5,1.5);CANT.x=cam-12;CANT.y=-32;const s0=st;st='town';try{drawMir(CANT,.7)}finally{st=s0}}  // 第四十七轮:灿灿技能石的虚影
+  else if(n==MY5)PPF.pt(x,0,0,120,t);
   else if(n==MY4){x.scale(1.5,1.5);MIRT.x=cam-12;MIRT.y=-32;MIRT.wm=P.mode||LMODE;const s0=st;st='town';try{drawMir(MIRT,.55+.25*Math.sin(t*2.1))}finally{st=s0}}  // 纸娃娃只在 town / play 画
   else MYST.draw(x,{k:'ham',h:62,bsz:1,act:null,at:0,st:0,mv:0},t)}catch(err){}FLW=fl0;x.restore()}
 function drawLvSel(){const t=performance.now()/1000,n=LVS.i+1,px=PUI.on(),hv=lvsHit(MX_,MY_),K=STARK[LVS.s];
   if(LVS.m==2)drawDms();else if(LVS.m)drawTown();else drawMap();x.fillStyle='rgba(8,8,20,.92)';x.fillRect(0,0,VW,VH);
   if(px)PUI.ns(x,'tD1',12,8,14,9,170,4,300,26);else RR(x,170,4,300,26,13,LG(x,0,4,0,30,['#8a5428','#4a2a12']),1.8);CTG('请选择关卡 · '+lvsName(n),320,23,14);
-  if(px)PUI.ns(x,'pC',6,6,6,6,586,6,32,24);else RR(x,586,6,32,24,6,'#2a1f3c',1.4);CT('✕',602,23,14,hv=='x'?'#fff':'#ffd43b','center',0);
+  if(px)PUI.ns(x,'pC',6,6,6,6,586,6,32,24);else RR(x,586,6,32,24,6,'#2a1f3c',1.4);CT('✕',602,23,14,hv=='x'?'#fff':'#ffd43b','center',0);sweepDraw(n,hv);
   for(let s=1;s<=3;s++){const cx=LVSC[s-1],cy=LVSY,open=starOpen(n,s),on=LVS.s==s,Q=STARK[s];
     if(px)PUI.ns(x,'pC',6,6,6,6,cx,cy,LVSW,LVSH);else RR(x,cx,cy,LVSW,LVSH,8,'#1e1829',1.6);
     lvsArt(n,cx+4,cy+26,LVSW-8,110,t);
@@ -82,7 +84,7 @@ function drawLvSel(){const t=performance.now()/1000,n=LVS.i+1,px=PUI.on(),hv=lvs
   CTG(K.n+'难度',515,214,13);
   const rl=[['怪物生命','×'+K.hp],['怪物攻击','×'+K.atk],['怪物防御','+'+K.def],['动作速度','+'+Math.round((K.sp-1)*100)+'%'],['经验 / 金币','×'+K.xp],['掉落率','×'+K.dr]];  // 第十九轮补充:装备 / 强化石 / 属性石的掉落概率不在游戏里显示
   rl.forEach((r,i)=>{const yy=232+i*12;CT(r[0],432,yy,8,'#ffe066','left',2,'#120d18');CT(r[1],604,yy,8,'#fff','right',2,'#120d18')});
-  CT('← → 或 1 2 3 选择星级 · Enter / 点击卡片进入 · Esc 返回',320,352,8,'#fff','center',2.2,'#0b3a6b');
+  CT('← → 或 1 2 3 选择星级 · Enter / 点击卡片进入'+(sweepOK(n)?' · S 一键扫荡(三星)':'')+' · Esc 返回',320,352,8,'#fff','center',2.2,'#0b3a6b');
   if(performance.now()<msgU)CT(msg,320,190,11,'#ffe3e3','center',2.6,'#7a1f1f')}
 
 // =====================================================================

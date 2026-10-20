@@ -24,7 +24,7 @@ function rGM2(){const t=GM.tb|0;let h='';
     h+=`<div class="tag">现在拥有:${L.filter(([id])=>itemCnt(id)>0).map(([id,n])=>n+' ×'+itemCnt(id)).join(' · ')||'没有道具'}</div>`}
   else if(t==2){const L=gmEqL(),it=gmEq();
     h+=`<h4>生成装备(放进背包)</h4><div class="row"><select id="gnS">${gmOpt(['head','body','ear','ring','sword','staff'].map(k=>[k,SL[k][0]]),GM.gs||'head')}</select>
-      <select id="gnT">${gmOpt([['m2','大师二阶'],['ms','大师'],['ep','史诗'],['f1','火之武器'],['f2','真~火之武器']],GM.gt||'m2')}</select><select id="gnR">${gmOpt([['','无特性'],...TRK.map(k=>[k,TRT[k][0]])],GM.gr||'lei')}</select>${gmBtn('e_gen','生成')}</div>`;
+      <select id="gnT">${gmOpt([['m2','大师二阶'],['ms','大师'],['ep','史诗'],['f1','火之武器'],['f2','真~火之武器'],['f3','紫焰魅影武器']],GM.gt||'m2')}</select><select id="gnR">${gmOpt([['','无特性'],...TRK.map(k=>[k,TRT[k][0]])],GM.gr||'lei')}</select>${gmBtn('e_gen','生成')}</div>`;
     h+=`<h4>修改装备</h4><div class="row"><select id="gmes" onchange="GM.es=this.value;renderP()">${gmOpt([['','—— 选一件装备 ——'],...L],GM.es||'')}</select></div>`;
     if(it){const G=Object.keys(EQG).map(k=>[k,NM[k]]);
       h+=`<div class="tag">${ST(it)}</div><div class="row"><b>绿字</b></div>`;
@@ -54,7 +54,7 @@ function gmAct2(a){const it=gmEq();
   if(a=='i_clr'){for(const [id] of gmItems())gmItemSet(id,0);fmsg='道具已清零';return 1}
   if(a=='i_gk'){gold=Math.max(0,gmN('gmG'));KP=Math.max(0,gmN('gmK'));fmsg='金币 '+gold+' · 击杀点 '+KP;return 1}
   if(a=='e_gen'){if(BAG.length>=BAGN){fmsg='背包已满';return 1}const s=gmV('gnS'),ty=gmV('gnT'),r=gmV('gnR')||null,wp=s=='sword'||s=='staff';GM.gs=s;GM.gt=ty;GM.gr=r||'';let n;
-    if(ty=='f1'||ty=='f2'){if(!wp){fmsg='火之武器只有剑和法杖';return 1}n=fireW(s,ty=='f1'?1:2)}
+    if(ty=='f1'||ty=='f2'||ty=='f3'){if(!wp){fmsg='火之武器只有剑和法杖';return 1}n=fireW(s,ty=='f1'?1:ty=='f2'?2:3)}
     else if(ty=='m2'){if(wp){fmsg='大师二阶只有头饰 / 战甲 / 项链 / 指环';return 1}n=m2Gen(s,r||undefined)}
     else if(ty=='ms'){if(wp){fmsg='大师装备只有头饰 / 战甲 / 项链 / 指环';return 1}n=gen(s,3,'大师'+MSN[s]+(r?'·'+TRT[r][0]:''),3,r,0,1)}
     else n=gen(s,3,null,3,wp?null:r);

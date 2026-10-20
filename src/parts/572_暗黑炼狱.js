@@ -11,7 +11,7 @@ const TWL=[null,['boss','boss'],['mage','mage'],['boss','mage'],['king','king'],
 const TWHC={boss:1,mage:2,king:3,sco:4,andr:5,bear:6,wiz:7,yin:8,lava:9,mech:14,nk:15};
 const TWNM={boss:'铁角牛魔',mage:'面具法师',king:'金色蛇王',sco:'黑棘巨蝎',andr:'沙渊古神',bear:'北极熊',wiz:'血月巫王',yin:'怨婴·银太郎',lava:'熔狱魔神',mech:'钢铁暴君',nk:'夜王'};
 const TWLS={8:()=>g8Step,9:()=>v9Step,14:()=>m14Step,15:()=>c15Step},TWFX={8:()=>g8Fx,9:()=>v9Fx,14:()=>m14Fx,15:()=>c15Fx};
-BGMF[TW0]=21;  // 首领倒下以后借第十七关的关卡曲
+BGMF[TW0]=21;BGMF[MY5]=11;  /* 第五十九轮:神秘副本 5 首领倒下以后用神秘地带的曲子 */  // 首领倒下以后借第十七关的关卡曲
 const twNm=k=>TWNM[k]||'',twFl=f=>(TWL[f]||[]).map(twNm).join(' + ');
 // 临时换成首领原来的关卡
 function twIn(e){const s=[cur,B];cur=e.hc;B=e;return s}

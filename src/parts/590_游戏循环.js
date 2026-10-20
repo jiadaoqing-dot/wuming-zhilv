@@ -36,7 +36,7 @@ function loop(t){requestAnimationFrame(loop);const iv=1000/SET.fps,el=t-lastF;if
   fpsN++;if(t-fpsT0>=500){fpsV=Math.round(fpsN*1000/(t-fpsT0));fpsN=0;fpsT0=t;$('fpsT').textContent=SET.sf?fpsV+' FPS':''}
   const dt=Math.min(.033,(t-last)/1000||0);last=t;
   if(pn=='pet'&&HAM.ht&&t-(loop.ht||0)>1000){loop.ht=t;renderP()}  // 宠物蛋孵化倒计时
-  bgmSet(HOME?'bgmH':st=='play'?(cur==8&&bossOn&&B.p3&&B.hp>0?null:(bossOn&&B.hp>0&&B.can?'bgm17c':isTw(cur)&&bossOn&&B.hp>0?twBgm():isDm(cur)&&bossOn&&B.hp>0&&AUD['bgm'+cur+'b']?'bgm'+cur+'b':'bgm'+(AUD['bgm'+cur]?cur:BGMF[cur]||0)+(bossOn&&B.hp>0?'b':''))):st=='town'?(MYS?'bgm11':'bgm0'):st=='map'?'bgm0':st=='lvsel'?(LVS.m?'bgm11':'bgm0'):st=='dms'||st=='twr'?'bgm11':null);  // 主城 bgm0(第五十九轮换成用户的曲子);主菜单 bgmH(原主城曲);每关一首关卡曲 + 一首首领曲
+  bgmSet(HOME?'bgmH':st=='play'?(cur==8&&bossOn&&B.p3&&B.hp>0?null:(bossOn&&B.hp>0&&B.can?'bgm17c':isTw(cur)&&bossOn&&B.hp>0?twBgm():(isDm(cur)||cur==MY5)&&bossOn&&B.hp>0&&AUD['bgm'+cur+'b']?'bgm'+cur+'b':'bgm'+(AUD['bgm'+cur]?cur:BGMF[cur]||0)+(bossOn&&B.hp>0?'b':''))):st=='town'?(MYS?'bgm11':'bgm0'):st=='map'?'bgm0':st=='lvsel'?(LVS.m?'bgm11':'bgm0'):st=='dms'||st=='twr'?'bgm11':null);  // 主城 bgm0(第五十九轮换成用户的曲子);主菜单 bgmH(原主城曲);每关一首关卡曲 + 一首首领曲
   $('tb').style.visibility=!HOME&&(st=='play'||(st=='town'&&!DLG))?'':'hidden';  // 对话时隐藏菜单按钮,免得挡住对话框
   $('qb').hidden=!(st=='play'||st=='town');{const d=$('dbd'),v=signed();if(d.hidden!=v)d.hidden=v}{const dl=!!DLG&&st=='town';if(document.body.classList.contains('dlg')!=dl)document.body.classList.toggle('dlg',dl)}if(st=='play'){update(dt);draw()}else if(st=='town'){if(!HOME)townUpd(dt);drawTown()}else if(st=='map')drawMap();else if(st=='lvsel')drawLvSel();else if(st=='dms')drawDms();else if(st=='twr')drawTwr()
   else if(chOn()){draw();drawChoice()}

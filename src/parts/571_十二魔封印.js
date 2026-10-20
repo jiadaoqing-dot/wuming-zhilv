@@ -233,7 +233,7 @@ function astaStep(e,dt){const pc=P.x+12,cx=e.x+e.w/2,dx=pc-cx,ad=Math.abs(dx),dm
   if(a=='sweep'){if(T<.55){e.pz='w';e.f=sgn(dx)||e.f;return}e.pz='s';if(!e.hd){e.hd=1;shake=.35;syn('slam');dmHit(e,cx-e.f*30,cx+e.f*250,GY-140,24,e.f*480);VFX.spawn('x-fel',cx+e.f*160,GY-50,{s:1.4,life:.4,add:1})}if(T>1.3)dmEnd(e);return}
   if(a=='quake'){if(T<.5){e.pz='w';return}e.pz='s';if(!e.hd){e.hd=1;shake=.5;bsfx('b_stomp');if(dmBoom(cx,e.w/2+40,dm,14,'rot'))dmRot(1);for(const sd of [-1,1]){dmWave(cx+sd*e.w/2,sd*230,dm,16,'rot');if(od)dmWave(cx+sd*e.w/2,sd*230,dm,16,'rot',.5)}}if(T>1.2)dmEnd(e,.1);return}
   dmEnd(e)}
-const DMST={baal:baalStep,dagon:dagStep,molo:moloStep,asmo:asmoStep,beli:beliStep,asta:astaStep};
+const DMST={baal:baalStep,dagon:dagStep,molo:moloStep,asmo:asmoStep,beli:beliStep,asta:astaStep,pfg:pfgStep};  // pfg = 神秘副本 5 擎天魔神(第五十九轮,update 的敌人循环按这张表找招式函数)
 // 首领倒下:诅咒之力(必掉 1 个,再按掉落率多掉 1 个)
 function dmDrop(e){const id='cz'+dmI();if(!MISC[id])return;gdDrop(e,{k:'gc',id,n:1});if(Math.random()<.3*STK().dr*DBLK())gdDrop(e,{k:'gc',id,n:1})}
 

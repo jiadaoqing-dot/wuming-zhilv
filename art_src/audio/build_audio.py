@@ -64,19 +64,23 @@ BGM={'bgm0':(G+'town.mp3',None,1),'bgm1':('happy_adventure.mp3',None,1),'bgm1b':
  # 第五十九轮(用户):主城 bgm0 换成用户自己用 AI 生成的曲子(raw/audio/bgm/r59/town_ai.aac,用户提供);原主城曲 town.mp3 改成主菜单 bgmH
  'bgmH':(G+'town.mp3',None,1)}
 BGM['bgm0']=(G+'r59/town_ai.aac',None,1)
+# 第五十九轮二(用户:主城 BGM 噪音多、音质差):BGMHQ 里的曲子保留立体声、32 kHz、Vorbis 压缩等级 .4(其他 BGM 仍是单声道 24 kHz / .55)
+BGMHQ={'bgm0'}
+# 第五十九轮:神秘副本 5「擎天魔神」首领曲 = The Final Battle(skrjablin,CC0,https://opengameart.org/node/73591,raw/audio/bgm/r59b)
+BGM['bgm35b']=(G+'r59b/the_final_battle.ogg',None,1)
 # 用法补充:python art_src/audio/build_audio.py bgm0 bgmH  只重做列出的几个(不写就全部重做)
 import sys;ONLY=set(sys.argv[1:])
-def load(p,sr):
+def load(p,sr,st=0):
   if p.lower().endswith('.aac'):  # libsndfile 读不了 AAC,用 PyAV(pip install av)解码
     import av;c=av.open(A+p);fr=[f.to_ndarray() for f in c.decode(audio=0)];s=c.streams.audio[0].rate;d=np.concatenate(fr,1).T.astype(np.float64)
     if d.shape[1]>2:d=d.reshape(-1,2)  # 交错格式兜底
   else:d,s=sf.read(A+p,always_2d=True)
-  m=d.mean(1)
-  g=np.gcd(s,sr);return resample_poly(m,sr//g,s//g) if s!=sr else m
+  m=d if st else d.mean(1)  # st = 保留立体声(第五十九轮二:AI 曲左右声道差别很大,混成单声道会抵消掉一大半,听起来空洞发毛)
+  g=np.gcd(s,sr);return resample_poly(m,sr//g,s//g,axis=0) if s!=sr else m
 def out(n,m,sr,q):
   # 一次写入太长的数组 libsndfile 的 Vorbis 编码会崩溃,分块写
   if ONLY and n not in ONLY:return 0
-  with sf.SoundFile(O+'au_'+n+'.ogg','w',sr,1,format='OGG',subtype='VORBIS',compression_level=q) as f:
+  with sf.SoundFile(O+'au_'+n+'.ogg','w',sr,m.shape[1] if m.ndim>1 else 1,format='OGG',subtype='VORBIS',compression_level=q) as f:
     m=m.astype(np.float32)
     for i in range(0,len(m),8192):f.write(m[i:i+8192])
   return os.path.getsize(O+'au_'+n+'.ogg')
@@ -257,9 +261,9 @@ for n,f in MIX.items():
 for n,bv in BGM.items():
   # 按响度(RMS)对齐,峰值不超过 0.95;太长的截到 mx 秒,结尾 1.5 秒淡出(循环接回开头)
   if ONLY and n not in ONLY:continue
-  p,mx,v=bv[:3];sr=24000;m=load(p,sr)[int((bv[3] if len(bv)>3 else 0)*sr):]
-  if mx:m=m[:int(mx*sr)];f=int(1.5*sr);m[-f:]*=np.linspace(1,0,f)
+  p,mx,v=bv[:3];hq=n in BGMHQ;sr=32000 if hq else 24000;m=load(p,sr,hq)[int((bv[3] if len(bv)>3 else 0)*sr):]
+  if mx:m=m[:int(mx*sr)];f=int(1.5*sr);m[-f:]*=np.linspace(1,0,f)[:,None] if hq else np.linspace(1,0,f)
   m=m*(.13*v/np.sqrt(np.mean(m**2)));pk=np.abs(m).max()
   if pk>.95:m=m*.95/pk
-  tot+=out(n,m,sr,.55)
+  tot+=out(n,m,sr,.4 if hq else .55)
 print('audio',len(SFX)+len(BGM),'files',tot,'bytes')

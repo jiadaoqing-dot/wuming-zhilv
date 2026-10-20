@@ -117,12 +117,14 @@ const LPC={I:null,M:null,S:{},LK:{},
         // 第十八轮:手里的法杖 = 装备图标里四个系列各自的法杖(7Soul1,CC0),图标里杖头朝左上、握在右下 (24,24),按握持角度最近邻旋转
         // 第二十六轮:换成 Staff [64x64](LordNeo,CC0,art_src/lpc/build_staff.py);普攻 / 蓄力时双手握中段(P.stg 平滑过渡),平时像剑一样握在下段
         if(STF.I){const sg=Math.min(STF.M.length-1,wG(EQ.staff)),q=STF.M[sg],ax=q[2]-q[0],ay=q[3]-q[1],th=Math.atan2(ay,ax),f=P.stg==null?.25:P.stg,vx=q[0]-STF.E,vy=q[1]-STF.E,Gx=vx+(q[2]-vx)*f,Gy=vy+(q[3]-vy)*f;
+          if(wG(EQ.staff)==7&&PPF.I){ppfStaff(g,hx,hy2,p.wa-th,q,Gx,Gy);return}  // 第五十九轮:紫焰魅影法杖
           g.save();g.translate(hx,hy2);g.rotate(p.wa-th);g.drawImage(STF.I,sg*STF.C,0,STF.C,STF.C,-Gx,-Gy,STF.C,STF.C);g.restore();return}
         if(EQPX.I){const C=EQPX.C,sg=Math.max(0,Math.min(3,EQ.staff?EQ.staff.g||0:0));g.save();g.translate(hx,hy2);g.rotate(p.wa+Math.PI*.75);g.drawImage(EQPX.I,sg*C,EQPX.R.staff*C,C,C,-24,-24,C,C);g.restore();return}
         if(PXA.WI)g.drawImage(PXA.wc(PXA.wrow(m),PXA.wdir(p.wa),tier),hx-28,hy2-28);return}
       const sg=Math.min(HSW.M.length-1,wG(EQ.sword)),W0=WPAL[Math.min(3,sg)];
       const bw=t=>t>42?Math.max(.5,3-(t-42)*.45):3;
       if(glow){g.globalAlpha=.55;band(4,52,t=>bw(t)+3,()=>glow);g.globalAlpha=1}
+      if(wG(EQ.sword)==7&&PPF.I){ppfSword(g,hx,hy2,p.wa);return}  // 第五十九轮:紫焰魅影大剑
       if(HSW.I){const q=HSW.M[sg];g.save();g.translate(hx,hy2);g.rotate(p.wa);g.drawImage(HSW.I,0,q[0],q[1],q[2],-q[3],-q[4],q[1],q[2]);g.restore();return}  // 第十七轮:外部素材的剑(最近邻旋转,像素不糊)
       band(5,49,t=>bw(t)+1,()=>OL);band(3,5.5,()=>7.6,()=>OL);band(-23,3,t=>t<-19?3.3:2.2,()=>OL);
       band(-19,3,()=>1.2,(t,s)=>s<-.4?'#9a6a3a':Math.floor(t)%3==0?'#2b1a10':'#5c3a1e');   // 剑柄(缠绳,上缘高光)
