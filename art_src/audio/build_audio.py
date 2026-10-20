@@ -60,12 +60,22 @@ BGM={'bgm0':(G+'town.mp3',None,1),'bgm1':('happy_adventure.mp3',None,1),'bgm1b':
  'bgm22b':(G+'r55/heavy_boss_battle_1_bpm200_0.ogg',150,1),'bgm23b':(G+'r55/major_bruise_loop.ogg',None,1),'bgm24b':(G+'r55/a_champions_will.mp3',150,1),
  # 第五十六轮 十二魔封印 4~6(cur 25~27,raw/audio/bgm/r56)阿斯莫德 The Devil's Allure(ARoachIFoundOnMyPillow,CC0,https://opengameart.org/content/the-devils-allure)/
  #   贝利亚 Chapel of Hate(FoxSynergy,CC-BY 3.0,https://opengameart.org/content/chapel-of-hate)/ 阿斯塔罗特 Revenge (Boss Battle)(Insydnis,CC-BY 3.0,https://opengameart.org/content/revenge-boss-battle)
- 'bgm25b':(G+'r56/the_devils_allure.ogg',150,1),'bgm26b':(G+'r56/Chapel of Hate v0_8.mp3',150,1),'bgm27b':(G+'r56/Revenge (Boss Battle).mp3',150,1)}
+ 'bgm25b':(G+'r56/the_devils_allure.ogg',150,1),'bgm26b':(G+'r56/Chapel of Hate v0_8.mp3',150,1),'bgm27b':(G+'r56/Revenge (Boss Battle).mp3',150,1),
+ # 第五十九轮(用户):主城 bgm0 换成用户自己用 AI 生成的曲子(raw/audio/bgm/r59/town_ai.aac,用户提供);原主城曲 town.mp3 改成主菜单 bgmH
+ 'bgmH':(G+'town.mp3',None,1)}
+BGM['bgm0']=(G+'r59/town_ai.aac',None,1)
+# 用法补充:python art_src/audio/build_audio.py bgm0 bgmH  只重做列出的几个(不写就全部重做)
+import sys;ONLY=set(sys.argv[1:])
 def load(p,sr):
-  d,s=sf.read(A+p,always_2d=True);m=d.mean(1)
+  if p.lower().endswith('.aac'):  # libsndfile 读不了 AAC,用 PyAV(pip install av)解码
+    import av;c=av.open(A+p);fr=[f.to_ndarray() for f in c.decode(audio=0)];s=c.streams.audio[0].rate;d=np.concatenate(fr,1).T.astype(np.float64)
+    if d.shape[1]>2:d=d.reshape(-1,2)  # 交错格式兜底
+  else:d,s=sf.read(A+p,always_2d=True)
+  m=d.mean(1)
   g=np.gcd(s,sr);return resample_poly(m,sr//g,s//g) if s!=sr else m
 def out(n,m,sr,q):
   # 一次写入太长的数组 libsndfile 的 Vorbis 编码会崩溃,分块写
+  if ONLY and n not in ONLY:return 0
   with sf.SoundFile(O+'au_'+n+'.ogg','w',sr,1,format='OGG',subtype='VORBIS',compression_level=q) as f:
     m=m.astype(np.float32)
     for i in range(0,len(m),8192):f.write(m[i:i+8192])
@@ -246,6 +256,7 @@ for n,f in MIX.items():
   m=m/np.abs(m).max()*.9;tot+=out(n,m,SR,.7)
 for n,bv in BGM.items():
   # 按响度(RMS)对齐,峰值不超过 0.95;太长的截到 mx 秒,结尾 1.5 秒淡出(循环接回开头)
+  if ONLY and n not in ONLY:continue
   p,mx,v=bv[:3];sr=24000;m=load(p,sr)[int((bv[3] if len(bv)>3 else 0)*sr):]
   if mx:m=m[:int(mx*sr)];f=int(1.5*sr);m[-f:]*=np.linspace(1,0,f)
   m=m*(.13*v/np.sqrt(np.mean(m**2)));pk=np.abs(m).max()

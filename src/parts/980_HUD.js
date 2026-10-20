@@ -38,6 +38,7 @@ function hud(){const S=stats(),t=performance.now()/1000,px=PUI.on();
    tg.forEach((g,i)=>{const gx=100+(i%4)*68,gy=62+Math.floor(i/4)*18;if(px)PUI.box(x,gx,gy,64,15,g[1]);else RR(x,gx,gy,64,15,7.5,g[1],1.3);CT(g[0],gx+32,gy+11,9,'#fff','center',2.2,'#1e1829')})}
   {const q=mqCur();if(q&&QD.ms==1&&st=='play'){const dn=QD.mp>=q.need,s_='📜 '+q.n+(dn?' · 完成!'+'按 Q 领奖':q.lv!=cur?' · 前往第 '+mqCh(q)+' 关':' '+QD.mp+'/'+q.need);x.font='900 10px '+CTF;const w=x.measureText(s_).width+16,yy=bossOn&&B.hp>0?(isTw(cur)&&E.some(e=>e.twb&&e.hp>0)?60:40):8;
     if(px)PUI.ns(x,'tD1',12,8,14,9,VW-10-w,yy-1,w+6,21);else RR(x,VW-6-w,yy,w,18,9,'rgba(30,20,40,.82)',1.3);CT(s_,VW-14,yy+13,10,dn?'#69db7c':'#ffe066','right',2.2,'#120d18')}}
+  if(st=='play')hudTop(px);
   if(bossOn&&B.hp>0){const bx=250,by=14,bw=300;
     if(px){PUI.bar(x,'bA',bx-6,by+1,bw+12,B.hp/B.max,['#ff8a8a','#e03131','#8a1414']);if(B.sh>0){x.fillStyle='#74c0fc';x.fillRect(bx-2,by+3,Math.round(Math.min(bw,bw*B.sh/B.max)),2)}for(let k=1;k<10;k++){x.fillStyle='rgba(0,0,0,.35)';x.fillRect(Math.round(bx+k*bw/10),by+3,1,6)}}
     else{RR(x,bx-4,by-4,bw+8,22,10,LG(x,0,by-4,0,by+18,['#3d3352','#1e1829']),1.8);RR(x,bx,by+4,bw,10,5,'#120d18',0);RR(x,bx,by+4,bw*B.hp/B.max,10,5,LG(x,0,by+4,0,by+14,['#ff8a8a','#e03131','#8a1414']),0);
@@ -77,3 +78,17 @@ function drawDlg(){if(!DLG)return;const [who,s]=DLG.L[DLG.i],n=Math.min(s.length
   x.font='bold 16px '+CTF;x.fillStyle='#4a2c14';x.textAlign='left';let line='',ly=262;
   for(const ch of s.slice(0,n)){if(x.measureText(line+ch).width>570){x.fillText(line,34,ly);ly+=24;line=ch}else line+=ch}x.fillText(line,34,ly);
   if(n>=s.length&&Math.floor(performance.now()/400)%2)CT(DLG.i<DLG.L.length-1?'点击继续 ▶':'点击结束 ■',570,334,11,'#e8590c','center',2.4,'#fff7e3')}
+
+// 第五十九轮(用户):最上方中间显示增益倒计时 —— 双倍爆率卡(现实时间)、上帝卡牌(只在关卡里扣)、宠物装备幸运骰子摇到几点 / 掉落率加了多少
+function hudTop(px){const L=[],hms=s=>Math.floor(s/3600)+':'+String(Math.floor(s/60)%60).padStart(2,'0')+':'+String(s%60).padStart(2,'0');
+  if(dblOn())L.push(['📜 双倍爆率 '+hms(Math.ceil((R19.dbl-Date.now())/1000)),'#e8590c']);
+  if(godOn('cr'))L.push(['🃏 暴击升级 '+godLeft('cr'),'#c2255c']);
+  if(godOn('pal'))L.push(['🃏 好伙计 '+godLeft('pal'),'#5f3dc4']);
+  if(DICEN)L.push(['🎲 骰子 '+DICEN+' 点 · 掉落 +'+Math.round(DICEB*100)+'%','#2b8a3e']);
+  if(!L.length)return;if(L.length>1||DICEN)L.push(['总掉落率 ×'+(+DBLK().toFixed(2)),'#1971c2']);
+  // 左边是血条面板(到 x≈236),右边是主线任务框:放在 242 ~ 494 之间,一行放不下就换行
+  x.font='900 9px '+CTF;const X0=242,X1=494,R=[[]];let rw=0;
+  for(const g of L){const w=Math.ceil(x.measureText(g[0]).width)+12;if(rw&&rw+4+w>X1-X0){R.push([]);rw=0}R[R.length-1].push([g,w]);rw+=(rw?4:0)+w}
+  let gy=bossOn&&B.hp>0?(isTw(cur)&&E.some(e=>e.twb&&e.hp>0)?60:40):4;
+  for(const r of R){const tw=r.reduce((a,q)=>a+q[1],0)+4*(r.length-1);let gx=Math.round((X0+X1)/2-tw/2);
+    for(const [g,w] of r){if(px)PUI.box(x,gx,gy,w,15,g[1]);else RR(x,gx,gy,w,15,7.5,g[1],1.3);CT(g[0],gx+w/2,gy+11,9,'#fff','center',2.2,'#1e1829');gx+=w+4}gy+=17}}

@@ -7,7 +7,7 @@ const PEQD={inf:['无尽','暴击率超过 100% 后,每多出 1% 暴击率,宠�
   dice:['幸运骰子','每次进入关卡摇一次点数:1 点掉落率 +1%、2 点 +2%、3 点 +4%、4 点 +8%、5 点 +16%、6 点 +32%(可以和双倍爆率卡叠加)'],mem:['记忆晶片','记录上一趟关卡里放过的技能;回到主城后在 🐤 宠物界面点「模拟战斗」重放一遍,下次进入那一关伤害 +10%']};
 const PEQP=100000,PEQN=3,PWCD=30,DICEV=[1,2,4,8,16,32];
 Object.assign(MENI.P,{peq_inf:46,peq_lch:47,peq_wch:48,peq_dice:49,peq_mem:50});
-let DICEB=0,MEMR=[],MEMC=-1,MEMB=0,MEMP=null;  // DICEB 本趟骰子加成 · MEMR / MEMC 本趟记录 · MEMB 本趟伤害 +10% · MEMP 主城里正在重放
+let DICEN=0,DICEB=0,MEMR=[],MEMC=-1,MEMB=0,MEMP=null;  // DICEB 本趟骰子加成 · MEMR / MEMC 本趟记录 · MEMB 本趟伤害 +10% · MEMP 主城里正在重放
 const peqOwn=k=>R19.peq.own.includes(k),peqOn=k=>R19.peq.on.includes(k)&&(petOn()||hamOn());
 const peqInf=()=>peqOn('inf')?Math.max(0,stats().cr-100)/100:0;
 function peqBuy(k){if(!PEQD[k]||peqOwn(k))return '';if(gold<PEQP)return '金币不足';gold-=PEQP;R19.peq.own.push(k);if(R19.peq.on.length<PEQN)R19.peq.on.push(k);sfx('coin');save();return '获得宠物装备「'+PEQD[k][0]+'」'+(R19.peq.on.includes(k)?',已经给宠物戴上':',宠物装备格满了,去 🐤 宠物界面更换')}
@@ -16,11 +16,11 @@ function peqAct(r){if(r.startsWith('pqb_')){fmsg=peqBuy(r.slice(4));return 1}
   if(r=='pqsim'){if(!R19.mem.L.length){fmsg='记忆晶片里还没有记录';return 1}closeP();MEMP={i:0,w:.6};say('记忆晶片:开始模拟第'+lvsName(R19.mem.c)+'的战斗');return 1}
   return 0}
 // 进关卡 / 回主城
-function peqEnter(){DICEB=0;MEMR=[];MEMC=cur;MEMB=0;MEMP=null;
-  if(peqOn('dice')){const n=1+Math.floor(Math.random()*6);DICEB=DICEV[n-1]/100;fmsg='';setTimeout(()=>{if(P)tx('🎲 幸运骰子:'+n+' 点 · 掉落率 +'+DICEV[n-1]+'%',P.x-60,P.y-60,'#ffe066')},300)}
+function peqEnter(){DICEB=0;DICEN=0;MEMR=[];MEMC=cur;MEMB=0;MEMP=null;
+  if(peqOn('dice')){const n=1+Math.floor(Math.random()*6);DICEN=n;DICEB=DICEV[n-1]/100;fmsg='';setTimeout(()=>{if(P)tx('🎲 幸运骰子:'+n+' 点 · 掉落率 +'+DICEV[n-1]+'%',P.x-60,P.y-60,'#ffe066')},300)}
   if(peqOn('mem')&&R19.mem.ok===cur){MEMB=1;setTimeout(()=>{if(P)tx('💠 记忆晶片:本关伤害 +10%',P.x-50,P.y-76,'#66d9e8')},900)}
   if(R19.mem.ok===cur)R19.mem.ok=-1}
-function peqTown(){if(MEMR.length&&MEMC>=0)R19.mem={c:MEMC,L:MEMR.slice(0,60),ok:R19.mem.ok};MEMR=[];MEMC=-1;DICEB=0;MEMB=0}
+function peqTown(){if(MEMR.length&&MEMC>=0)R19.mem={c:MEMC,L:MEMR.slice(0,60),ok:R19.mem.ok};MEMR=[];MEMC=-1;DICEB=0;DICEN=0;MEMB=0}
 // 记录:在关卡里真正放出的技能(冷却从 0 变成 >0)
 {const u0=useSk;useSk=function(i,S){const m=P.mode,c0=CD[m]&&CD[m][i];u0(i,S);if(st=='play'&&!MWON&&!INTOWN&&peqOn('mem')&&!(c0>0)&&CD[m][i]>0&&MEMR.length<60)MEMR.push([m,i])}}
 // 主城重放:一招放完再放下一招(冷却清零,模式不对的跳过)

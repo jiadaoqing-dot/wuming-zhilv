@@ -2,7 +2,12 @@
 // 属性石:低级 1 条、中级 2 条随机词条(同一颗不重复);中级每条数值 ×1.2(清单没给中级数值,先这样)。在熔炉镶嵌,每件装备 1 颗,新的替换旧的,不能拆,出售装备不返还
 const ATSD={atk:['攻击',10,15],mp:['魔力',200,220],def:['防御',20,30],cr:['暴击',80,90],dg:['闪避',50,60]},ATSQ=[{n:'低级属性石',c:'#4dabf7',m:1,pr:50},{n:'中级属性石',c:'#9775fa',m:1.2,pr:120}];
 // 第五十八轮(用户):每条属性单独随机,可以重复(比如高级属性石 3 条都是攻击)
-function atsNew(q){const K0=Object.keys(ATSD),ks=Array.from({length:q+1},()=>pick(K0));return {q,a:ks.map(k=>{const d=ATSD[k];return [k,Math.round((d[1]+Math.random()*(d[2]-d[1]))*ATSQ[q].m)]})}}
+// 第五十九轮(用户):数值不再随机,都取最高值(ATSD 第 3 项 × 品质倍率);只有属性种类随机;加上「生命」(和魔力同档)
+ATSD.hp=['生命',200,220];
+const atsV=(k,q)=>Math.round(ATSD[k][2]*ATSQ[q].m);
+// 旧存档里的属性石(背包 / 已经嵌进武器的)读档时补到最高值,只做一次(R19.atsMx;之后 GM 工具改的数值不会被改回去)
+function atsFix(){if(R19.atsMx)return;R19.atsMx=1;const fx=g=>{if(g&&g.a&&ATSQ[g.q])for(const q of g.a)if(ATSD[q[0]])q[1]=atsV(q[0],g.q)};try{(R19.ats||[]).forEach(fx);for(const it of [...Object.values(EQ||{}),...(BAG||[]),...(R19.wh||[])])if(it&&it.gem)fx(it.gem)}catch(e){}}
+function atsNew(q){const K0=Object.keys(ATSD),ks=Array.from({length:q+1},()=>pick(K0));return {q,a:ks.map(k=>[k,atsV(k,q)])}}
 const atsTxt=g=>g.a.map(([k,v])=>ATSD[k][0]+' +'+v).join(' · ');
 // 关卡掉落(首领倒下时每样判定一次;双倍爆率卡 ×2):低级属性石 30% · 中级 12% · 小礼袋 50%(小怪 2%) · Lv1 强化石 10% · 第七~十关再判定 Lv2 强化石 7%
 const DRX={a0:.3,a1:.12,gift:.5,giftM:.02};
@@ -13,7 +18,7 @@ function bossDrop19(K){const dk=DBLK(),r=v=>Math.random()<v*dk;if(r(DRX.a0))gdDr
   {const d=STDR(cur),m=K.dr/1.6*dk,a=rollN(d[0]*m),b=rollN(d[1]*m),c=rollN(d[2]*m),e3=rollN(d[3]*m);if(e3)gdDrop(B,{k:'stn',lv:3,q:0,n:e3});if(a)gdDrop(B,{k:'stn',lv:1,q:0,n:a});if(b)gdDrop(B,{k:'stn',lv:2,q:0,n:b});if(c)gdDrop(B,{k:'add',n:c})}}  // 关卡只掉普通品质(高品质只能熔炉合成)
 // 存档字段 R19:aff 好感 {NPC 名:{v 好感, d 今天领过的日期}} · ats 背包里的属性石 · dbl 双倍爆率卡到期时间 · mr 商城随机物品栏 {day, n 今天买了几次, L 三个货}
 let R19=r19New(),skMsg='',GSEL={e:null,s:-1,ok:0};
-function r19New(){return {aff:{},ats:[],dbl:0,mr:{day:'',n:0,L:[]},wh:[],cen:{},rc:[],god:{cr:0,pal:0,pk:0},mse:'',peq:{own:[],on:[]},mem:{c:-1,L:[],ok:-1}}}  // 第四十八轮:peq 宠物装备 · mem 记忆晶片  // 第四十轮:god 上帝卡牌  // 第三十三轮:cen 时装 / 翅膀的强化与增幅宝石 · rc 已学会的制作书
+function r19New(){return {atsMx:1,aff:{},ats:[],dbl:0,mr:{day:'',n:0,L:[]},wh:[],cen:{},rc:[],god:{cr:0,pal:0,pk:0},mse:'',peq:{own:[],on:[]},mem:{c:-1,L:[],ok:-1}}}  // 第四十八轮:peq 宠物装备 · mem 记忆晶片  // 第四十轮:god 上帝卡牌  // 第三十三轮:cen 时装 / 翅膀的强化与增幅宝石 · rc 已学会的制作书
 // ===== 第三十二轮:仓库(主城仓库管理员桂婶)=====
 // 装备可以在背包和仓库之间存取(仓库 WHN 格,存在 R19.wh);关卡里背包满了只提示「背包已满」(第三十三轮)
 // 第四十一轮:仓库分三页 装备 / 道具 / 药水(WHT);道具存在 R19.whi {id:数量}(id 和 itemList 一样:MISC 道具 / egg / luck / s+级+品质 强化石),药水存在 R19.whp {药水:数量};道具和药水不限数量

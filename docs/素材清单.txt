@@ -137,7 +137,7 @@ map_bg.jpg  110KB  950:75 MAPI.D  ← art_src/map/build_map.py
 fpx12.woff2  69KB  000:9   ← art_src/font/build_font.py
 fpx8.woff2  43KB  000:10   ← art_src/font/build_font.py
 
-== 音频 OGG(@@O:)  142 个 ==
+== 音频 OGG(@@O:)  143 个 ==
 au_b_axe.ogg  6KB  020:7 AUD.b_axe  ← art_src/audio/build_audio.py  [bfh1_metal_hit_02.ogg, explosion.ogg, swish-7.wav]
 au_b_gallop.ogg  7KB  020:7 AUD.b_gallop  ← art_src/audio/build_audio.py  [slam_0%d.ogg, wind]
 au_b_imp1.ogg  6KB  020:7 AUD.b_imp1  ← art_src/audio/build_audio.py  [impactwood11.mp3.flac, hit_02.ogg]
@@ -147,7 +147,7 @@ au_b_moo.ogg  9KB  020:7 AUD.b_moo  ← art_src/audio/build_audio.py  [moo-notif
 au_b_ram.ogg  10KB  020:7 AUD.b_ram  ← art_src/audio/build_audio.py  [crack04.mp3.flac, explosion.ogg, moo-death.wav]
 au_b_stomp.ogg  6KB  020:7 AUD.b_stomp  ← art_src/audio/build_audio.py  [explosion.ogg, slam_05.ogg]
 au_b_throw.ogg  5KB  020:7 AUD.b_throw  ← art_src/audio/build_audio.py
-au_bgm0.ogg  556KB  020:9 AUD.bgm0  ← art_src/audio/build_audio.py
+au_bgm0.ogg  1.0MB  020:9 AUD.bgm0  ← art_src/audio/build_audio.py
 au_bgm1.ogg  303KB  020:9 AUD.bgm1  ← art_src/audio/build_audio.py
 au_bgm10.ogg  730KB  020:12 AUD.bgm10  ← art_src/audio/build_audio.py  [thunderchild.ogg, Blackmoor Tides.mp3]
 au_bgm10b.ogg  785KB  020:12 AUD.bgm10b  ← art_src/audio/build_audio.py
@@ -197,6 +197,7 @@ au_bgm8.ogg  454KB  020:10 AUD.bgm8  ← art_src/audio/build_audio.py  [EmptyCit
 au_bgm8b.ogg  793KB  020:10 AUD.bgm8b  ← art_src/audio/build_audio.py
 au_bgm9.ogg  705KB  020:12 AUD.bgm9  ← art_src/audio/build_audio.py  [LavaLand - One Loop.ogg, heavy_boss_battle_2_bpm110.ogg]
 au_bgm9b.ogg  806KB  020:12 AUD.bgm9b  ← art_src/audio/build_audio.py
+au_bgmH.ogg  556KB  020:9 AUD.bgmH  ← art_src/audio/build_audio.py  [town.mp3]
 au_blink.ogg  7KB  020:5 AUD.blink  ← art_src/audio/build_audio.py
 au_boom.ogg  5KB  020:5 AUD.boom  ← art_src/audio/build_audio.py, art_src/fire13/build_fire13.py, art_src/mech/build_mech.py
 au_br_bliz.ogg  15KB  020:8 AUD.br_bliz  ← art_src/audio/build_audio.py  [wind, hiss]

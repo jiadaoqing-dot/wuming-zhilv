@@ -36,6 +36,8 @@ raw/ 原始素材索引(tools/assets_index.py 自动生成;不打包进游戏)
     a_champions_will.mp3, heavy_boss_battle_1_bpm200_0.ogg, major_bruise_loop.ogg
   audio/bgm/r56/  3 个 11.3MB  用到:art_src/audio/build_audio.py
     Chapel of Hate v0_8.mp3, Revenge (Boss Battle).mp3, the_devils_allure.ogg
+  audio/bgm/r59/  1 个 1.9MB  用到:art_src/audio/build_audio.py
+    town_ai.aac
   audio/creature/  80 个 1.9MB  用到:art_src/audio/build_audio.py, art_src/castle/build_castle.py
     alien_01~06.ogg, barking_01~02.ogg, breath.ogg, bug_01~04.ogg, burble_01~02.ogg, burp_01~02.ogg, cough_01~03.ogg, cute_01~10.ogg, eat_01~04.ogg, grunt_01~05.ogg, howl.ogg, hurt_01~05.ogg, misc_01~09.ogg, monster_01~07.ogg, nose.ogg, ooh.ogg, roar_01~03.ogg, scream_01~02.ogg, snore.ogg, spit_01~03.ogg, troll_01~03.ogg, weird_01~05.ogg
   audio/dl2/  18 个 12.3MB  用到:art_src/audio/build_audio.py

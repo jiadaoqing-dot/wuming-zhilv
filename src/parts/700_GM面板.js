@@ -1,6 +1,8 @@
 function rGM(){const sel=(id,o)=>`<select id="${id}">${o}</select>`,nums=(d)=>Array.from({length:ENMX+1},(_,i)=>`<option${i==d?' selected':''}>${i}</option>`).join(''),
     tg=(k,l)=>`<button data-g="t_${k}" class="${GM[k]?'on':''}">${GM[k]?'✅':'⬜'} ${l}</button>`;
-  return hd('🛠️ GM 工具')+`<div class="tag">测试专用。</div>`+fm()+
+  const tabs=`<div class="mtk">${GMTB.map((n,i)=>`<button data-g="tb_${i}" ${(GM.tb|0)==i?'class="on" disabled':''}>${n}</button>`).join('')}</div>`;  // 第五十九轮:分页(705 GM 修改工具)
+  if(GM.tb|0)return hd('🛠️ GM 工具')+`<div class="tag">测试专用。</div>`+fm()+tabs+rGM2();
+  return hd('🛠️ GM 工具')+`<div class="tag">测试专用。</div>`+fm()+tabs+
   `<h4>资源</h4><div class="row"><button data-g="g1000">金币 +1000</button><button data-g="g10000">金币 +10000</button><button data-g="g0">金币清零</button><button data-g="st10">每级强化石 +10</button><button data-g="it19">第十九轮新道具</button></div>`+
   `<h4>等级与技能</h4><div class="row"><button data-g="lv1">升 1 级</button><button data-g="lv10">升 10 级</button><span>设为 Lv <input id="gml" type="number" min="1" max="99" value="${lvl}" style="width:64px"></span><button data-g="lvset">设置</button><button data-g="sp5">技能点 +5</button><button data-g="skall">全部技能满级</button><button data-g="job1">转职凭证 +1</button><button data-g="job0">重置转职</button><button data-g="psall">被动技能全满</button></div>`+
   `<h4>装备</h4><div class="row">${sel('gms',ALL.map(k=>`<option value="${k}">${SL[k][1]} ${SL[k][0]}</option>`).join(''))}${sel('gmt',TR.map((t,i)=>`<option value="${i}">${t[0]}</option>`).join(''))}${sel('gmg',SER.map((q,i)=>`<option value="${i}">${q.n}系列</option>`).join(''))}${sel('gmr','<option value="">无特性</option>'+TRK.map(k=>`<option value="${k}">${TRT[k][0]}</option>`).join(''))}<span>+</span>${sel('gme',nums(0))}<button data-g="give">放入背包</button><button data-g="bagclr">清空背包</button></div>`+
@@ -11,6 +13,7 @@ function rGM(){const sel=(id,o)=>`<select id="${id}">${o}</select>`,nums=(d)=>Ar
   `<h4>商城 · 精灵 · 宠物</h4><div class="row"><button data-g="kp">击杀点 +2000</button><button data-g="vip">${isVip()?'关闭 VIP':'开通 VIP'}</button><button data-g="sign0">重置今天的签到</button><button data-g="cosall">获得全部时装和翅膀</button><button data-g="spr10">精灵 +10 级(没有则赠送)</button><button data-g="pet5">宠物 +5 级(没有则赠送)</button><button data-g="petmax">宠物满级</button></div>`+
   `<h4>存档</h4><div class="row"><button data-g="reset">${GM.rc?'⚠️ 再点一次确认清档':'重置存档(清档)'}</button></div>`}
 function gmAct(a){fmsg='';const full=()=>{const S=stats();P.hp=S.hp;P.mp=S.mp};if(a!='reset')GM.rc=0;
+  if(gmAct2(a)){save();renderP();return}  // 第五十九轮:GM 修改工具(705)
   if(a.startsWith('t_')){const k=a.slice(2);GM[k]=GM[k]?0:1}
   else if(a=='g1000')gold+=1000;else if(a=='g10000')gold+=10000;else if(a=='g0')gold=0;
   else if(a=='st10'){for(let l=1;l<=2;l++)for(let q=0;q<4;q++)STN[l][q]+=10;MAT.add=(MAT.add|0)+10;fmsg='每级每种品质的强化石各 +10,合成添加剂 +10'}

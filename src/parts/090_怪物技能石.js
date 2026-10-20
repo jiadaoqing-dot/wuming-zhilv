@@ -97,7 +97,7 @@ function gemSet(){const it=itOf(GSEL.e),g=R19.ats[GSEL.s];if(!it||!g)return '先
   it.gem={q:g.q,a:g.a.map(v=>v.slice())};R19.ats.splice(GSEL.s,1);GSEL.s=-1;GSEL.ok=0;sfx('fuse');const S=stats();P.hp=Math.min(P.hp,S.hp);P.mp=Math.min(P.mp,S.mp);save();return '💠 镶嵌成功:'+nm(it)+' '+atsTxt(it.gem)}
 // 商城(击杀点):固定货架 + 随机物品栏(3 个货,每天限买 MRMAX 次;每次在商城消费都刷新;合成添加剂、高级幸运宝石只在随机栏出现)
 // 第三十七轮(用户:账号练满不该要几百小时):通关击杀点 = (40 + 12 × 关卡) × 星级(一星 1 / 二星 1.3 / 三星 1.7),原来固定 20;击杀点商店、时装翅膀、制作书、材料约降一半
-const KPIT={ats0:['低级属性石',120,'随机 1 条属性(攻击 / 魔力 / 防御 / 暴击 / 闪避)'],ats1:['中级属性石',180,'随机 2 条属性'],gift:['小礼袋',25,'送给 NPC,好感度 +1'],food:['宠物饲料',5,'钢盔小鸡获得 20% 升级经验'],lk1:['低级幸运宝石',180,'强化成功率 +25%'],lk2:['中级幸运宝石',270,'强化成功率 +35%'],add:['合成添加剂',300,'熔炉合成强化石必需'],lk3:['高级幸运宝石',390,'强化成功率 +50%']};
+const KPIT={ats0:['低级属性石',120,'随机 1 条属性(攻击 / 生命 / 魔力 / 防御 / 暴击 / 闪避,数值固定为最高值)'],ats1:['中级属性石',180,'随机 2 条属性'],gift:['小礼袋',25,'送给 NPC,好感度 +1'],food:['宠物饲料',5,'钢盔小鸡获得 20% 升级经验'],lk1:['低级幸运宝石',180,'强化成功率 +25%'],lk2:['中级幸运宝石',270,'强化成功率 +35%'],add:['合成添加剂',300,'熔炉合成强化石必需'],lk3:['高级幸运宝石',390,'强化成功率 +50%']};
 const KPFIX=['ats0','ats1','gift','food','lk1','lk2'],KPRND=['add','add','add','lk3','lk3','ats0','ats1','gift','lk1','lk2','food'],MRMAX=3;
 function mrRoll(){const L=[];let n=0;while(L.length<3&&n++<200){const k=pick(KPRND);if(!L.includes(k))L.push(k)}R19.mr.L=L}
 function mrDay(){if(R19.mr.day!=today()){R19.mr.day=today();R19.mr.n=0;mrRoll()}if(!R19.mr.L.length)mrRoll()}
