@@ -62,7 +62,7 @@ const SKCDFIX={sword1:8.1};
 // 第四十一轮(用户:法师太轮椅、全屏技能没停过):法师技能冷却加长 —— H 3.5→5 · 闪现 4→5 · I 6→8 · O 雷云 18→30 · 影分身 10→16 · W空 16→26 · S空 18→28 · WW空 20→32(伤害不变)
 const STCDK=[5/3.5,5/4,8/6,30/18,16/10,26/16,28/18,32/20];  // 第二十一轮(用户回复):剑 U 雷霆连斩冷却固定 6 秒,不吃等级 / 时装 / 疾风的冷却缩减
 const skCd=(w,i,l)=>{if(SKCDFIX[w+i])return SKCDFIX[w+i];l=l||LN[w][i]||1;
-  return +(SKD[w][i][3]*(w=='staff'?STCDK[i]:1)*SKCDK*(1-.06*(l-1))).toFixed(2)};  // 第十六轮:每升 1 级冷却 -6%(5 级 -24%)
+  return +(SKD[w][i][3]*(w=='staff'?STCDK[i]:1)*SKCDK*(1-.06*Math.min(4,l-1)-.03*Math.max(0,l-5))).toFixed(2)};  // 第十六轮:每升 1 级冷却 -6%(5 级 -24%)· 第六十轮:6~9 级每级 -3%(9 级 -36%)
 const skCdA=(w,i)=>SKCDFIX[w+i]||+(skCd(w,i)*(WEAR.fash=='xy'?.9:1)).toFixed(2);  // 学院法师:冷却 -10%(第四十八轮:被动疾风改成羁绊,不再缩短技能冷却)
 const skB=(w,i,l)=>{const m=SKM[w][i];l=l||LN[w][i]||1;return m?[m[0]+m[2]*(l-1),+(m[1]+m[3]*(l-1)).toFixed(2)]:null};
 const skD=(w,i,S)=>{const b=skB(w,i);return b?(b[0]+S.atk*b[1])*(w=='sword'&&P.qiKE>GT?QIK:1):0};  // 剑势全开:2.2 秒内剑技能 ×1.4

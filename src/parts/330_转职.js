@@ -5,7 +5,8 @@ function doJob(w){if(JOB||!(MAT.job>0)||!JOBN[w])return;MAT.job--;if(!MAT.job)de
 // 学习 / 升级的花费:技能点和金币都随目标等级上涨,并且有角色等级要求
 // 第十六轮:技能最高 5 级。基础技能 5 级共 8 点(1 1 2 2 2),进阶 12 点(2 2 2 3 3),被动每级 1 点;角色等级要求基础 1/4/8/12 起每级 +4,进阶 28/32/36/40 起每级 +3(最高 50)
 function skCost(id,L){if(id.startsWith('p_')){return {sp:1,gold:Math.round(150*L*L),lv:L==1?2:L*4}}
-  const i=+id.slice(-1);if(i<4)return {sp:[1,1,2,2,2][L-1]||2,gold:Math.round(80*(i+1)*L*L),lv:[1,4,8,12][i]+(L-1)*4};
+  const i=+id.slice(-1);if(L>=6)return {sp:i<4?2:3,gold:Math.round((i<4?80*(i+1):600*(1+(i-4)*.5))*L*L*3),lv:(i<4?56+i:60+i-4)+(L-6)*10};  // 第六十轮:6~9 级 —— 基础 56~59 级起、进阶 60~63 级起,每级 +10 级;金币 ×3
+  if(i<4)return {sp:[1,1,2,2,2][L-1]||2,gold:Math.round(80*(i+1)*L*L),lv:[1,4,8,12][i]+(L-1)*4};
   return {sp:[2,2,2,3,3][L-1]||3,gold:Math.round(600*(1+(i-4)*.5)*L*L),lv:Math.min(LVMAX,28+(i-4)*4+(L-1)*3)}}
 const costT=c=>`Lv${c.lv} · ${c.sp} 技能点 · 💰${c.gold}`;
 function skInfo(id,AT){const pc=(q,v)=>q[0]=='hpr'||q[0]=='mpr'?(v*100).toFixed(1)+'%':Math.round(v*100)+'%';

@@ -115,7 +115,7 @@
    22  sprGain            
    23  petLv              
    27  busy               
-   34  STP                强化石价格 / 基础成功率(+11、+12 只有 VIP 能强化)
+   34  STP                强化石价格 / 基础成功率(第六十轮:+10~+12 所有人都能强化)
    35  enFee              
    36  SR                 
    38  srOf               
@@ -469,10 +469,10 @@
     3  KEYN               
     4  doJob              
     7  skCost             第十六轮:技能最高 5 级。基础技能 5 级共 8 点(1 1 2 2 2),进阶 12 点(2 2 2 3 3),被动每级 1 点;角色等
-   11  skInfo             
-   17  skAT               
-   18  renderSk           
-   33  upSk               
+   12  skInfo             
+   18  skAT               
+   19  renderSk           
+   34  upSk               
 == src/parts/340_主循环update.js
     2  pbStep             主角的飞弹(普攻球形闪电、火球、圣光球……):飞行 + 命中 all 里的敌人(第四十五轮从 update 里拆出来,镜中无名 mwRun 
    11  update             
@@ -971,20 +971,21 @@
   240  ■ 诅咒之力:诅咒装备(用户:增益相当于精良强化石 +12;每次诅咒随机一种属性;前 6 个恶魔一阶,后 6 个二阶 = 一阶 ×1.5;每个恶魔只能诅咒自己对应的
   245  CUNM               部位:wpn = 武器(剑 / 法杖各自可以诅咒)· cos = 时装 / 翅膀共用一个部位(同一时间只有一件带诅咒,诅咒另一件会把这件的诅
   246  CUG                
-  249  cuRoll             
-  251  cuRng              
-  252  curseUse           
-  257  cuSet              
-  258  cursePick          
-  261  cuMenu             背包左键菜单(620 cmItems 调用):有没选完的那次 → 两个选项;否则 = 每个可以诅咒的部位一个按钮
-  268  ■ 恶魔选择页 st = 'dms'
-  269  DMS                ===== 恶魔选择页 st = 'dms' =====
-  272  openDms            
-  273  dmsHit             
-  274  dmsGo              
-  275  dmsClick           
-  276  dmsKey             
-  277  drawDms            
+  248  CUFIX              
+  250  cuRoll             
+  252  cuRng              
+  253  curseUse           
+  259  cuSet              
+  260  cursePick          
+  263  cuMenu             背包左键菜单(620 cmItems 调用):有没选完的那次 → 两个选项;否则 = 每个可以诅咒的部位一个按钮
+  270  ■ 恶魔选择页 st = 'dms'
+  271  DMS                ===== 恶魔选择页 st = 'dms' =====
+  274  openDms            
+  275  dmsHit             
+  276  dmsGo              
+  277  dmsClick           
+  278  dmsKey             
+  279  drawDms            
 == src/parts/572_暗黑炼狱.js
     1  ■ 第五十六轮(用户):暗黑炼狱 —— 第二张地图「暗黑大陆」正中的绿光宝塔(用户附图),cur 34(TW0),一共 30 层,先开 16 层(TWOPEN)
     9  TWL                
@@ -1371,10 +1372,11 @@
    67  drawLvSel          
 == src/parts/975_一键扫荡.js
     1  ■ 第五十九轮:地图关卡一键扫荡(用户:三星通关以后开启)
-    7  SWPB               
-    8  sweepGo            
-   18  sweepDraw          
-   22  sweepHit           
+    8  swLeft             
+    9  SWPB               
+   10  sweepGo            
+   24  sweepDraw          
+   28  sweepHit           
 == src/parts/980_HUD.js
     1  ■ HUD:头像 + 血蓝条 + 金币 + 连击 + 状态 + Boss 血条
     3  HHC                =====================================================================
@@ -1395,12 +1397,12 @@
 == src/parts/1000_主页面.js
     1  ■ 主页面(第二十轮):打开游戏后的第一页 —— 左边版本号 + 更新日志(或操作说明),右边 开始新游戏 / 继续游戏 / 提取存档 / 添加存档 / 操作说明
     4  CHLOG              更新日志 CHLOG:[版本, 日期, [条目...]],新版本加在最前面(和 GAMEV 一起改)
-   57  homeSave           
-   58  rHome              
-   65  openHome           
-   66  closeHome          
-   69  twnReload          离屏缓存的画布也会被清空(实测头像、数字、背景缓存都没了),所以恢复时一律存档后刷新页面(关卡里会回到主城,只丢这一关的进度);页面在后台超
-   73  CPUR               第五十一轮:检测浏览器是不是没用显卡画图(硬件加速关闭 / 显卡被屏蔽),是的话回城时提示一次
-   74  homeAct            
-   94  homeKey            
+   58  homeSave           
+   59  rHome              
+   66  openHome           
+   67  closeHome          
+   70  twnReload          离屏缓存的画布也会被清空(实测头像、数字、背景缓存都没了),所以恢复时一律存档后刷新页面(关卡里会回到主城,只丢这一关的进度);页面在后台超
+   74  CPUR               第五十一轮:检测浏览器是不是没用显卡画图(硬件加速关闭 / 显卡被屏蔽),是的话回城时提示一次
+   75  homeAct            
+   95  homeKey            
 == src/parts/1010_结尾.html

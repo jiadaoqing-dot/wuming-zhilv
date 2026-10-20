@@ -12,10 +12,10 @@ const atsTxt=g=>g.a.map(([k,v])=>ATSD[k][0]+' +'+v).join(' · ');
 // 关卡掉落(首领倒下时每样判定一次;双倍爆率卡 ×2):低级属性石 30% · 中级 12% · 小礼袋 50%(小怪 2%) · Lv1 强化石 10% · 第七~十关再判定 Lv2 强化石 7%
 const DRX={a0:.3,a1:.12,gift:.5,giftM:.02};
 // 第四十五轮:首领掉强化石 / 合成添加剂(三星的期望数量 [Lv1, Lv2, 添加剂];一星 / 二星按掉落率 1 : 1.3 : 1.6 打折)—— 第一~六关 1.2 / 0 / 0.1 · 第七~十关和神秘副本 1 / 2 1.5 / 1.5 / 0.5 · 第二张地图、副本 3 / 4 1.7 / 2.4 / 1.3
-const STDR=c=>c<=6?[1.2,0,.1,0]:c<=12?[1.5,1.5,.5,c>=8&&c<=10?.25:0]:[1.7,2.4,1.3,.5];  // 第四十七轮:第 4 项 = Lv3 强化石(第八~十关、第二张地图)
+const STDR=c=>c<=6?[1.2,0,.1,0]:c<=12?[1.5,1.5,.5,c>=8&&c<=10?.25:0]:[1.7,2.4,1.3,.5,c>=16?.3:0];  // 第六十轮:第 5 项 = Lv4 强化石(第十三关起)· 第四十七轮:第 4 项 = Lv3 强化石(第八~十关、第二张地图)
 const rollN=v=>Math.floor(v)+(Math.random()<v%1?1:0);
 function bossDrop19(K){const dk=DBLK(),r=v=>Math.random()<v*dk;if(r(DRX.a0))gdDrop(B,{k:'ats',it:atsNew(0),n:1});if(r(DRX.a1))gdDrop(B,{k:'ats',it:atsNew(1),n:1});if(r(DRX.gift))gdDrop(B,{k:'gift',n:1});
-  {const d=STDR(cur),m=K.dr/1.6*dk,a=rollN(d[0]*m),b=rollN(d[1]*m),c=rollN(d[2]*m),e3=rollN(d[3]*m);if(e3)gdDrop(B,{k:'stn',lv:3,q:0,n:e3});if(a)gdDrop(B,{k:'stn',lv:1,q:0,n:a});if(b)gdDrop(B,{k:'stn',lv:2,q:0,n:b});if(c)gdDrop(B,{k:'add',n:c})}}  // 关卡只掉普通品质(高品质只能熔炉合成)
+  {const d=STDR(cur),m=K.dr/1.6*dk,a=rollN(d[0]*m),b=rollN(d[1]*m),c=rollN(d[2]*m),e3=rollN(d[3]*m),e4=rollN((d[4]||0)*m);if(e4)gdDrop(B,{k:'stn',lv:4,q:0,n:e4});if(e3)gdDrop(B,{k:'stn',lv:3,q:0,n:e3});if(a)gdDrop(B,{k:'stn',lv:1,q:0,n:a});if(b)gdDrop(B,{k:'stn',lv:2,q:0,n:b});if(c)gdDrop(B,{k:'add',n:c})}}  // 关卡只掉普通品质(高品质只能熔炉合成)
 // 存档字段 R19:aff 好感 {NPC 名:{v 好感, d 今天领过的日期}} · ats 背包里的属性石 · dbl 双倍爆率卡到期时间 · mr 商城随机物品栏 {day, n 今天买了几次, L 三个货}
 let R19=r19New(),skMsg='',GSEL={e:null,s:-1,ok:0};
 function r19New(){return {atsMx:1,aff:{},ats:[],dbl:0,mr:{day:'',n:0,L:[]},wh:[],cen:{},rc:[],god:{cr:0,pal:0,pk:0},mse:'',peq:{own:[],on:[]},mem:{c:-1,L:[],ok:-1}}}  // 第四十八轮:peq 宠物装备 · mem 记忆晶片  // 第四十轮:god 上帝卡牌  // 第三十三轮:cen 时装 / 翅膀的强化与增幅宝石 · rc 已学会的制作书

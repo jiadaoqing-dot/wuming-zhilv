@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>无名之旅 v1.64</title>
+<title>无名之旅 v1.65</title>
 <style>
 /* 中文像素字体:Fusion Pixel Font(TakWolf,SIL OFL 1.1),按游戏用字裁剪(art_src/font/build_font.py) */
 @font-face{font-family:FPX12;src:url(assets/fpx12.woff2) format('woff2')}
@@ -274,7 +274,7 @@ body.px .at2{border:2px solid transparent;border-image:url(assets/ui_card.png) 6
 <p class="tip">← → / A D 移动(连按两次快跑) · K / ↑ 跳跃 · W+J / S+J 特殊普攻(学会二段跳后空中再按) · J 攻击(下劈 → 上挑 → 直戳 → 下劈 循环,按住蓄力重击;跑步中按 J = 冲刺直戳) · L 换武器 · H U I O 技能 · 空格 / W+空格 / S+空格 / WW+空格 剑士进阶技能(转职后) · 1 2 3 喝药水 · S 捡起地上的掉落物 · 背包 / 技能 / 商城 / 精灵 / 宠物 / 任务 / 声音:点右下角按钮(也可以用快捷键 B 背包 / T 技能 / Q 任务 / P 商城 / Y 精灵 / G 宠物 / M 声音,设置里可以关闭) · N 释放武器上的怪物技能石(背包里左键点物品弹出菜单,装备可拖动穿戴) · 装备翅膀后空中再按跳跃=飞行(W/S 升降、A/D 方向) · Esc / ⚙️ 设置(暂停、返回城镇、帧数、全屏)</p>
 <script>
 // 游戏版本:build.py 按它给输出文件命名(out/无名之旅_v版本.html),设置页也显示;每次发新版改这里
-const GAMEV='1.64';
+const GAMEV='1.65';
 // x 是当前的绘图上下文:平时是主画布;像素特效层(PXL,P2)绘制期间临时换成 640×360 的低分辨率图层
 const cv=document.getElementById('c');let x=cv.getContext('2d');const VW=640,VH=360,WW=3200,GY=300;
 // 渲染分辨率:电脑端 1920×1080(逻辑坐标仍是 640×360,整体放大 3 倍绘制,文字和像素都更清晰);手机端 1280×720
@@ -621,20 +621,20 @@ const ALL=Object.keys(SL);
 const EM=it=>1+.08*(it&&it.en||0)+.06*(it&&it.fg||0);  // 第三十三轮:只用于售价 / 精灵吸收经验(强化加的属性改成固定值 it.ev)
 const nm=it=>it.n+(it.en?' +'+it.en:'');
 const sellPr=it=>Math.round(it.pr*EM(it)),buyPr=it=>it.pr*4;
-// 强化石价格 / 基础成功率(+11、+12 只有 VIP 能强化)
+// 强化石价格 / 基础成功率(第六十轮:+10~+12 所有人都能强化)
 const STP=[0,20,35,60,100,160,250,380,550,800,1200,1800,2600];
 const enFee=(it,k)=>Math.ceil(STP[k]*(1+it.tier*.5)/10)*10;  // 强化手续费:每次尝试都收,成功失败都扣
 const SR=[0,.95,.9,.85,.75,.65,.55,.45,.35,.25,.15,.12,.08];
-const ENMX=9,ENMAX=()=>ENMX;  // 第四十七轮(用户):放开到 +9(Lv3 强化石 +7~+9,强化荣誉 +7~+9 按第三十二轮的表)· 第十九轮:强化最高 +6(VIP 也一样);Lv3 / Lv4 强化石删除(第三十二轮试过 +10,用户第三十三轮决定先保持 +6,+7~+10 留给以后)
+const ENMX=12,ENMAX=()=>ENMX;  // 第六十轮(用户):放开到 +12(Lv4 强化石 +10~+12,强化荣誉 +10~+12 全属性)// 第四十七轮(用户):放开到 +9(Lv3 强化石 +7~+9,强化荣誉 +7~+9 按第三十二轮的表)· 第十九轮:强化最高 +6(VIP 也一样);Lv3 / Lv4 强化石删除(第三十二轮试过 +10,用户第三十三轮决定先保持 +6,+7~+10 留给以后)
 const srOf=(k,lk)=>GM.luck?1:Math.min(1,SR[k]+(isVip()?.1:0)+(lk||0));  // lk = 幸运宝石加成(.25 / .35 / .5)  // VIP 强化成功率 +10%
 // ===== 强化石(2026-10-12 改版):Lv1~4 四级,每级管 3 个强化等级(Lv1 = +1~+3 · Lv2 = +4~+6 · Lv3 = +7~+9 · Lv4 = +10~+12);
 // 品质 普通 / 精良 / 史诗 / 卓越(蓝白 / 绿 / 紫 / 金黄):品质越高每级强化加的属性越多(b)、光芒越明显。关卡只掉普通,高品质在熔炉里 3 合 1。STN[级][品质] = 数量(存档字段 STN2)
 const STQ=[{n:'普通',c:'#a5d8ff',b:.08,p:1},{n:'精良',c:'#51cf66',b:.1,p:3},{n:'史诗',c:'#cc5de8',b:.12,p:9},{n:'卓越',c:'#fcc419',b:.15,p:27}];  // 第十六轮:每级 8% / 10% / 12% / 15%(原 10 / 12 / 15 / 20,+12 全卓越从 ×3.4 降到 ×2.8)
 const STP2=[0,40,170,560,1800];  // 强化石参考价(只用于出售道具;第三十二轮起强化师不再卖强化石)
-const stnLv=k=>Math.ceil(k/3),stnUse=l=>l>=4?'+10':'+'+(l*3-2)+'~+'+l*3;
+const stnLv=k=>Math.ceil(k/3),stnUse=l=>'+'+(l*3-2)+'~+'+l*3;
 function stnNew(){return [null,[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0]]}
 // 读档:新存档 STN2;旧存档 STN[k](k = 强化等级)换成对应等级的普通强化石
-function stnLoad(d){const S=stnNew();if(Array.isArray(d.STN2)){for(let l=1;l<=3;l++)for(let q=0;q<4;q++)S[l][q]=+(d.STN2[l]&&d.STN2[l][q])||0}else if(Array.isArray(d.STN))d.STN.forEach((n,k)=>{if(k&&n>0)S[stnLv(Math.min(ENMX,k))][0]+=n});return S}  // 第十九轮:旧存档的 Lv3 / Lv4 强化石直接删除(第四十六轮:灿灿掉 Lv3,读档保留 Lv3)
+function stnLoad(d){const S=stnNew();if(Array.isArray(d.STN2)){for(let l=1;l<=4;l++)for(let q=0;q<4;q++)S[l][q]=+(d.STN2[l]&&d.STN2[l][q])||0}else if(Array.isArray(d.STN))d.STN.forEach((n,k)=>{if(k&&n>0)S[stnLv(Math.min(ENMX,k))][0]+=n});return S}  // 第十九轮:旧存档的 Lv3 / Lv4 强化石直接删除(第四十六轮:灿灿掉 Lv3,读档保留 Lv3)
 const stnTot=l=>STN[l].reduce((a,b)=>a+b,0);
 const stnRollQ=()=>0;  // 关卡只掉普通品质
 // 熔炉合成(免费):3 颗同级同品质 → 1 颗高一档品质(卓越最高);n = 合成次数(0 = 能合多少合多少)
@@ -651,12 +651,12 @@ let FQ=-1;  // 强化面板里选中的强化石品质(-1 = 自动选持有的�
 function setLv(){let m=99;for(const k of ALL){const it=EQ[k];m=Math.min(m,it?(it.en||0):0)}return m}
 // 第三十二轮:强化荣誉(代替原来的全身 +5 起每级 5% 基础属性):除时装 / 翅膀外 6 个部位(发型、铠甲、戒指、耳坠、剑、法杖)都强化到 +N 时,
 // 按最低等级取下表一档(不累加):hp 生命 · cr 暴击率 · def 防御 · atk 攻击(都是最终值 ×(1+x),暴击率按全部来源合计 ×(1+x))· mv 移动力(每点 +HMV 移动速度)
-const HONR={4:{hp:.1},5:{hp:.15,cr:.1},6:{hp:.15,cr:.15,mv:1},7:{hp:.15,atk:.2,def:.05,mv:1},8:{hp:.2,cr:.25,def:.07,mv:1},9:{hp:.2,cr:.25,def:.1,atk:.05,mv:1},10:{hp:.27,cr:.25,def:.15,atk:.32,mv:2}},HMV=.05;
+const HONR={4:{hp:.1},5:{hp:.15,cr:.1},6:{hp:.15,cr:.15,mv:1},7:{hp:.15,atk:.2,def:.05,mv:1},8:{hp:.2,cr:.25,def:.07,mv:1},9:{hp:.2,cr:.25,def:.1,atk:.05,mv:1},10:{hp:.25,cr:.5,def:.25,atk:.25,mv:2},11:{hp:.35,cr:.7,def:.35,atk:.35,mv:2},12:{hp:.45,cr:.9,def:.45,atk:.45,mv:2}},HMV=.05;  // 第六十轮(用户):+10~+12 全身属性 25% / 35% / 45%,暴击率 50% / 70% / 90%(补怒雷)
 const mvK=()=>pb('spd')*(1+(hon().mv||0)*HMV);  // 移动速度倍率(被动疾风 × 强化荣誉移动力)
 const honLv=()=>{const m=Math.min(ENMX,setLv());return m>=4?m:0},hon=()=>HONR[honLv()]||{};  // 只到强化上限 ENMX(第四十七轮放开到 +9;+10 那档表先保留)
 const honTxt=l=>{const h=HONR[l],p=v=>Math.round(v*100)+'%',a=[];if(h.hp)a.push('提高生命值'+p(h.hp));if(h.cr)a.push('提高暴击率'+p(h.cr));if(h.def)a.push('提高防御力'+p(h.def));if(h.atk)a.push('提高攻击力'+p(h.atk));if(h.mv)a.push('提升'+h.mv+'点移动力');return a};
 // 强化荣誉徽章(+4~+10 一排;达到的亮起,鼠标移上去显示这一档的效果,样式见 CSS .hon)
-const honRow=()=>{const L=honLv();return `<div class="hon">${[4,5,6,7,8,9,10].filter(l=>l<=ENMX).map(l=>`<span class="hb${l==L?' on':l<L?' ok':''}">+${l}<span class="ht"><b>强化荣誉+${l}</b>${honTxt(l).join(' ')}</span></span>`).join('')}</div>`};
+const honRow=()=>{const L=honLv();return `<div class="hon">${[4,5,6,7,8,9,10,11,12].filter(l=>l<=ENMX).map(l=>`<span class="hb${l==L?' on':l<L?' ok':''}">+${l}<span class="ht"><b>强化荣誉+${l}</b>${honTxt(l).join(' ')}</span></span>`).join('')}</div>`};
 // ===== VIP:商城累计消费 2500(VIPN,第三十七轮从 5000 降下来) 击杀点自动开通(永久)=====
 const VIPN=2500;  // 第三十七轮:击杀点商店降价约一半,VIP 条件跟着减半
 let KPS=0,KPC=0,SIGN={day:'',n:0,str:0,last:0,prev:''};
@@ -671,7 +671,7 @@ const STR=it=>Object.keys(it.s).map(k=>NM[k]+'+'+wv(it,k)).join(' ')+' + 随机 
 const lv=b=>b*(1+.12*(lvl-1));  // 第十六轮:每级 +12%(50 级 ×6.9),让等级本身更有分量
 // 被动技能(2026-10-13 第十六轮重做,全部 5 级):[键, 名称, 说明, 满级, 每级主数值]。多效果的被动在 PSX 里写全文
 // 体魄 生命 +6%/级 · 锐利 攻击 +5%/级 · 坚韧 防御 +6%/级 · 会心 暴击率 +2%、暴击伤害 +8%/级 · 羁绊(第四十八轮,原疾风)宠物冷却缩短上限 +1%/级 · 回春 每秒回生命 / 魔力各 0.1%/级(第四十九轮从 0.4% / 0.3% 降下来) · 法力 魔力 +6%、耗魔 -4%/级
-const LNMAX=5;
+const LNMAX=9;  // 第六十轮:主动技能最高 9 级(被动仍是各自的满级)
 const PSD=[['dj','二段跳','在空中可以再跳一次',1,0],['hp','体魄','最大生命',5,.06],['atk','锐利','攻击力',5,.05],['def','坚韧','防御力',5,.06],['crt','会心','暴击率 / 暴击伤害',5,.02],['spd','羁绊','宠物技能冷却',5,0],['rec','回春','每秒回复生命 / 魔力',5,.001],['mp','法力','最大魔力 / 技能耗魔',5,.06]];
 const PSV=Object.fromEntries(PSD.map(q=>[q[0],q[4]])),pl=k=>PS[k]|0,pb=k=>1+pl(k)*PSV[k];
 const RECH=.001,RECM=.001;  // 回春每级:每秒回最大生命 / 最大魔力的比例
@@ -722,10 +722,10 @@ const atsTxt=g=>g.a.map(([k,v])=>ATSD[k][0]+' +'+v).join(' · ');
 // 关卡掉落(首领倒下时每样判定一次;双倍爆率卡 ×2):低级属性石 30% · 中级 12% · 小礼袋 50%(小怪 2%) · Lv1 强化石 10% · 第七~十关再判定 Lv2 强化石 7%
 const DRX={a0:.3,a1:.12,gift:.5,giftM:.02};
 // 第四十五轮:首领掉强化石 / 合成添加剂(三星的期望数量 [Lv1, Lv2, 添加剂];一星 / 二星按掉落率 1 : 1.3 : 1.6 打折)—— 第一~六关 1.2 / 0 / 0.1 · 第七~十关和神秘副本 1 / 2 1.5 / 1.5 / 0.5 · 第二张地图、副本 3 / 4 1.7 / 2.4 / 1.3
-const STDR=c=>c<=6?[1.2,0,.1,0]:c<=12?[1.5,1.5,.5,c>=8&&c<=10?.25:0]:[1.7,2.4,1.3,.5];  // 第四十七轮:第 4 项 = Lv3 强化石(第八~十关、第二张地图)
+const STDR=c=>c<=6?[1.2,0,.1,0]:c<=12?[1.5,1.5,.5,c>=8&&c<=10?.25:0]:[1.7,2.4,1.3,.5,c>=16?.3:0];  // 第六十轮:第 5 项 = Lv4 强化石(第十三关起)· 第四十七轮:第 4 项 = Lv3 强化石(第八~十关、第二张地图)
 const rollN=v=>Math.floor(v)+(Math.random()<v%1?1:0);
 function bossDrop19(K){const dk=DBLK(),r=v=>Math.random()<v*dk;if(r(DRX.a0))gdDrop(B,{k:'ats',it:atsNew(0),n:1});if(r(DRX.a1))gdDrop(B,{k:'ats',it:atsNew(1),n:1});if(r(DRX.gift))gdDrop(B,{k:'gift',n:1});
-  {const d=STDR(cur),m=K.dr/1.6*dk,a=rollN(d[0]*m),b=rollN(d[1]*m),c=rollN(d[2]*m),e3=rollN(d[3]*m);if(e3)gdDrop(B,{k:'stn',lv:3,q:0,n:e3});if(a)gdDrop(B,{k:'stn',lv:1,q:0,n:a});if(b)gdDrop(B,{k:'stn',lv:2,q:0,n:b});if(c)gdDrop(B,{k:'add',n:c})}}  // 关卡只掉普通品质(高品质只能熔炉合成)
+  {const d=STDR(cur),m=K.dr/1.6*dk,a=rollN(d[0]*m),b=rollN(d[1]*m),c=rollN(d[2]*m),e3=rollN(d[3]*m),e4=rollN((d[4]||0)*m);if(e4)gdDrop(B,{k:'stn',lv:4,q:0,n:e4});if(e3)gdDrop(B,{k:'stn',lv:3,q:0,n:e3});if(a)gdDrop(B,{k:'stn',lv:1,q:0,n:a});if(b)gdDrop(B,{k:'stn',lv:2,q:0,n:b});if(c)gdDrop(B,{k:'add',n:c})}}  // 关卡只掉普通品质(高品质只能熔炉合成)
 // 存档字段 R19:aff 好感 {NPC 名:{v 好感, d 今天领过的日期}} · ats 背包里的属性石 · dbl 双倍爆率卡到期时间 · mr 商城随机物品栏 {day, n 今天买了几次, L 三个货}
 let R19=r19New(),skMsg='',GSEL={e:null,s:-1,ok:0};
 function r19New(){return {atsMx:1,aff:{},ats:[],dbl:0,mr:{day:'',n:0,L:[]},wh:[],cen:{},rc:[],god:{cr:0,pal:0,pk:0},mse:'',peq:{own:[],on:[]},mem:{c:-1,L:[],ok:-1}}}  // 第四十八轮:peq 宠物装备 · mem 记忆晶片  // 第四十轮:god 上帝卡牌  // 第三十三轮:cen 时装 / 翅膀的强化与增幅宝石 · rc 已学会的制作书
@@ -1077,8 +1077,8 @@ function drawChoice(){const dead=st=='dead',L=chBtns(),t=performance.now()/1000;
 // 每级 2 技能点(49 级共 98 点:8 个主动技能满级 64 点 + 8 个被动满级 40 点,不能全满,要取舍)
 // 第三十六轮:经验曲线按目标反推(实测每关每星打一遍的实际经验):一星每关打一遍、不重刷 → 进第 2~10 关时 Lv4 / 8 / 12 / 16 / 20 / 24 / 28 / 31 / 34,打完第十关 Lv37;
 // 二星十关各打一遍 → Lv50(满级);三星只为装备和金币。EXPT[l-1] = 从 l 级升到 l+1 级要的经验,1→50 共约 32.7 万(旧曲线约 40 万)
-const EXPT=[50,70,100,130,160,210,260,330,410,500,610,730,870,1000,1200,1400,1600,1800,2100,2400,2700,3000,3300,3700,4000,4400,4800,5300,5700,6200,6700,7200,7700,8300,8900,9600,10300,11000,11800,12700,13600,14700,15900,17200,18600,20300,22100,24300,26700,29400,32300,35500,39000,43000];  // 第四十一轮:上限 55 级(50→55 约 18 万经验,主要在第二张地图练)
-const LVMAX=55,SPLV=2,expNeed=l=>EXPT[Math.min(EXPT.length,Math.max(1,l))-1];  // 第二十二轮:升级经验 ×0.4(原 150·l^1.5+100):同关一星打一遍约升 0.8 级(原来 1/3 级,太长);1→50 级总经验约 40 万
+const EXPT=[50,70,100,130,160,210,260,330,410,500,610,730,870,1000,1200,1400,1600,1800,2100,2400,2700,3000,3300,3700,4000,4400,4800,5300,5700,6200,6700,7200,7700,8300,8900,9600,10300,11000,11800,12700,13600,14700,15900,17200,18600,20300,22100,24300,26700,29400,32300,35500,39000,43000,...Array.from({length:44},(_,i)=>Math.round(43000*1.085**(i+1)/100)*100)];  // 第六十轮:上限 99 级(55 级以后每级 ×1.085,55→99 约 1900 万经验 ≈ 第十七关三星 60 次)  // 第四十一轮:上限 55 级(50→55 约 18 万经验,主要在第二张地图练)
+const LVMAX=99,SPLV=2,expNeed=l=>EXPT[Math.min(EXPT.length,Math.max(1,l))-1];  // 第二十二轮:升级经验 ×0.4(原 150·l^1.5+100):同关一星打一遍约升 0.8 级(原来 1/3 级,太长);1→50 级总经验约 40 万
 function lvUp(){while(lvl<LVMAX&&exp>=expNeed(lvl)){exp-=expNeed(lvl);lvl++;sp+=SPLV;sfx('lvl');VFX.spawn('radiant-heal',P.x+12,P.y+P.h,{s:1.3});const S=stats();P.hp=S.hp;P.mp=S.mp;tx('升级! Lv'+lvl,P.x-10,P.y-34,'#fff3bf')}if(lvl>=LVMAX)exp=0}
 // 第四十四轮(用户选 B):后期首领按「满套装」重新校准 —— 第八关起首领生命 / 攻击每关 ×1.25(第八关不变:生命 6300、攻击 = 第八关的 LDM 8.8);
 // (第四十五轮改:一星走完整的 ×1.25 曲线,二星 / 三星再高一些 = 倍率的 1.2 / 1.4 次方,见 BLW)。BLN:cur → 关卡序号(神秘副本 2 / 3 = 第八 / 第十关 ×1.2,跟着走);镜中无名另算
@@ -1510,7 +1510,7 @@ const SKCDFIX={sword1:8.1};
 // 第四十一轮(用户:法师太轮椅、全屏技能没停过):法师技能冷却加长 —— H 3.5→5 · 闪现 4→5 · I 6→8 · O 雷云 18→30 · 影分身 10→16 · W空 16→26 · S空 18→28 · WW空 20→32(伤害不变)
 const STCDK=[5/3.5,5/4,8/6,30/18,16/10,26/16,28/18,32/20];  // 第二十一轮(用户回复):剑 U 雷霆连斩冷却固定 6 秒,不吃等级 / 时装 / 疾风的冷却缩减
 const skCd=(w,i,l)=>{if(SKCDFIX[w+i])return SKCDFIX[w+i];l=l||LN[w][i]||1;
-  return +(SKD[w][i][3]*(w=='staff'?STCDK[i]:1)*SKCDK*(1-.06*(l-1))).toFixed(2)};  // 第十六轮:每升 1 级冷却 -6%(5 级 -24%)
+  return +(SKD[w][i][3]*(w=='staff'?STCDK[i]:1)*SKCDK*(1-.06*Math.min(4,l-1)-.03*Math.max(0,l-5))).toFixed(2)};  // 第十六轮:每升 1 级冷却 -6%(5 级 -24%)· 第六十轮:6~9 级每级 -3%(9 级 -36%)
 const skCdA=(w,i)=>SKCDFIX[w+i]||+(skCd(w,i)*(WEAR.fash=='xy'?.9:1)).toFixed(2);  // 学院法师:冷却 -10%(第四十八轮:被动疾风改成羁绊,不再缩短技能冷却)
 const skB=(w,i,l)=>{const m=SKM[w][i];l=l||LN[w][i]||1;return m?[m[0]+m[2]*(l-1),+(m[1]+m[3]*(l-1)).toFixed(2)]:null};
 const skD=(w,i,S)=>{const b=skB(w,i);return b?(b[0]+S.atk*b[1])*(w=='sword'&&P.qiKE>GT?QIK:1):0};  // 剑势全开:2.2 秒内剑技能 ×1.4
@@ -2285,7 +2285,8 @@ function doJob(w){if(JOB||!(MAT.job>0)||!JOBN[w])return;MAT.job--;if(!MAT.job)de
 // 学习 / 升级的花费:技能点和金币都随目标等级上涨,并且有角色等级要求
 // 第十六轮:技能最高 5 级。基础技能 5 级共 8 点(1 1 2 2 2),进阶 12 点(2 2 2 3 3),被动每级 1 点;角色等级要求基础 1/4/8/12 起每级 +4,进阶 28/32/36/40 起每级 +3(最高 50)
 function skCost(id,L){if(id.startsWith('p_')){return {sp:1,gold:Math.round(150*L*L),lv:L==1?2:L*4}}
-  const i=+id.slice(-1);if(i<4)return {sp:[1,1,2,2,2][L-1]||2,gold:Math.round(80*(i+1)*L*L),lv:[1,4,8,12][i]+(L-1)*4};
+  const i=+id.slice(-1);if(L>=6)return {sp:i<4?2:3,gold:Math.round((i<4?80*(i+1):600*(1+(i-4)*.5))*L*L*3),lv:(i<4?56+i:60+i-4)+(L-6)*10};  // 第六十轮:6~9 级 —— 基础 56~59 级起、进阶 60~63 级起,每级 +10 级;金币 ×3
+  if(i<4)return {sp:[1,1,2,2,2][L-1]||2,gold:Math.round(80*(i+1)*L*L),lv:[1,4,8,12][i]+(L-1)*4};
   return {sp:[2,2,2,3,3][L-1]||3,gold:Math.round(600*(1+(i-4)*.5)*L*L),lv:Math.min(LVMAX,28+(i-4)*4+(L-1)*3)}}
 const costT=c=>`Lv${c.lv} · ${c.sp} 技能点 · 💰${c.gold}`;
 function skInfo(id,AT){const pc=(q,v)=>q[0]=='hpr'||q[0]=='mpr'?(v*100).toFixed(1)+'%':Math.round(v*100)+'%';
@@ -5577,13 +5578,15 @@ function dmDrop(e){const id='cz'+dmI();if(!MISC[id])return;gdDrop(e,{k:'gc',id,n
 const CUNM={atk:'攻击',def:'防御',hp:'生命',mp:'魔力',cr:'暴击',dg:'闪避'},CUV={atk:204,def:204,hp:1224,mp:612,cr:510,dg:90},CUW=[['atk',20],['cr',18],['def',18],['hp',18],['mp',16],['dg',10]],CUN=['','一阶','二阶'],CUK=[0,1,1.5];
 const CUG={wpn:['sword','staff'],cos:['fash','wing']},cuTs=g=>CUG[g]||[g],cuSN=g=>g=='wpn'?'武器':g=='cos'?'时装 / 翅膀':SL[g][0],cuTN=t=>SL[t]?SL[t][0]:t=='fash'?'时装':'翅膀';
 const cuV=c=>Math.round(CUV[c.k]*CUK[c.t]);
+const CUFIX={3:'atk',4:'atk',5:'atk'};  // 第六十轮(用户):后 3 个(阿斯莫德 / 贝利亚 / 阿斯塔罗特)不再随机,固定一阶攻击
 const cuIt=t=>SL[t]?EQ[t]:WEAR[t]&&cosIt(WEAR[t]);  // 诅咒的对象:装备 = 身上穿着的那件;时装 / 翅膀 = 穿着的那件的强化数据(R19.cen,存档里一直跟着这件时装)
 function cuRoll(t,not){let k='atk';for(let n=0;n<20;n++){let r=Math.random()*100;k='atk';for(const [q,w] of CUW){if(r<w){k=q;break}r-=w}if(k!=not)break}return {k,v:Math.round(CUV[k]*CUK[t])}}
 const cuTxt=it=>it&&it.cu?`<span style="color:#e03131">😈 ${DMD[it.cu.d].n}之诅咒(${CUN[it.cu.t]}):${CUNM[it.cu.k]} +${cuV(it.cu)}</span>`:'';
 const cuRng=(k,t)=>'固定值';
 function curseUse(id,t){const i=+id.slice(2),d=DMD[i];if(!d||!(MAT[id]>0))return '';if(!cuTs(d.sl).includes(t))return '「'+d.n+'」只能诅咒'+cuSN(d.sl);const it=cuIt(t);if(!it)return '还没有穿'+cuTN(t);
   const tr=i>=6?2:1;if(tr==2&&!(it.cu&&it.cu.t>=1))return '二阶诅咒要先有一阶诅咒';
-  const old=it.cu,r=cuRoll(tr,old&&old.t==tr?old.k:null);MAT[id]--;sfx('fuse');flash('200,30,40',.2);
+  const fk=CUFIX[i];if(fk&&it.cu&&it.cu.k==fk&&it.cu.t>=tr)return '这件'+cuTN(t)+'已经是'+CUNM[fk]+'诅咒了';
+  const old=it.cu,r=fk?{k:fk,v:Math.round(CUV[fk]*CUK[tr])}:cuRoll(tr,old&&old.t==tr?old.k:null);MAT[id]--;sfx('fuse');flash('200,30,40',.2);
   if(!old){const m=cuSet(t,{k:r.k,v:r.v,t:tr,d:i});return '😈 '+cuTN(t)+'被「'+d.n+'」诅咒了:'+CUNM[r.k]+' +'+r.v+m}
   R19.cuP={t,k:r.k,v:r.v,tr,d:i};return '😈 刷出了「'+CUNM[r.k]+' +'+r.v+'」—— 换成新的,还是保留原来的「'+CUNM[old.k]+' +'+cuV(old)+'」?'}
 function cuSet(t,c){const it=cuIt(t);if(!it)return '';it.cu=c;if(CUG.cos.includes(t)){const o=cuIt(t=='fash'?'wing':'fash');if(o&&o.cu){delete o.cu;return '(时装和翅膀共用一个诅咒部位,另一件的诅咒移走了)'}}return ''}
@@ -5595,7 +5598,7 @@ function cuMenu(id){const i=+id.slice(2),d=DMD[i],q=R19.cuP;
   if(q)R19.cuP=null;
   const L=cuTs(d.sl).filter(t=>cuIt(t)).map(t=>{const c=cuIt(t).cu;return ['😈 诅咒'+cuTN(t)+(c?'(现在:'+CUNM[c.k]+' +'+cuV(c)+')':''),'cz_'+t]});
   return L.length?L:[['(先穿上'+cuSN(d.sl)+'才能诅咒)','x']]}
-for(let i=0;i<DMOPEN;i++){const d=DMD[i];MISC['cz'+i]=[d.n+'的诅咒之力',`十二魔封印「${d.n}」掉落的诅咒能量(${i>=6?'二阶':'一阶'})。在背包里左键点它 →「诅咒${cuSN(d.sl)}」:给身上穿着的${cuSN(d.sl)}附上一条诅咒属性(攻击 / 暴击 / 防御 / 生命 / 魔力 / 闪避之一,数值固定 = 精良强化石 +12,闪避较低)。已经有诅咒时会刷出一条不同的属性,由你决定换成新的还是保留原来的;装备的强化、锻造、属性石都不受影响。${d.sl=='cos'?'时装和翅膀共用一个诅咒部位。':''}<br>${CUN[i>=6?2:1]}:${['atk','cr','def','hp','mp','dg'].map(k=>CUNM[k]+' +'+Math.round(CUV[k]*CUK[i>=6?2:1])).join(' · ')}`,'',3000];MENI.P['cz'+i]=i>=6?52:51}
+for(let i=0;i<DMOPEN;i++){const d=DMD[i];MISC['cz'+i]=[d.n+'的诅咒之力',`十二魔封印「${d.n}」掉落的诅咒能量(${i>=6?'二阶':'一阶'})。在背包里左键点它 →「诅咒${cuSN(d.sl)}」:给身上穿着的${cuSN(d.sl)}附上一条诅咒属性(${CUFIX[i]?'固定为'+CUNM[CUFIX[i]]+' +'+Math.round(CUV[CUFIX[i]]*CUK[1]):'攻击 / 暴击 / 防御 / 生命 / 魔力 / 闪避之一,数值固定 = 精良强化石 +12,闪避较低'})。${CUFIX[i]?'已经有别的诅咒时,由你决定换成'+CUNM[CUFIX[i]]+'还是保留原来的':'已经有诅咒时会刷出一条不同的属性,由你决定换成新的还是保留原来的'};装备的强化、锻造、属性石都不受影响。${d.sl=='cos'?'时装和翅膀共用一个诅咒部位。':''}<br>${CUN[i>=6?2:1]}:${(CUFIX[i]?[CUFIX[i]]:['atk','cr','def','hp','mp','dg']).map(k=>CUNM[k]+' +'+Math.round(CUV[k]*CUK[i>=6?2:1])).join(' · ')}`,'',3000];MENI.P['cz'+i]=i>=6?52:51}
 
 // ===== 恶魔选择页 st = 'dms' =====
 let DMS={s:0};
@@ -5815,7 +5818,7 @@ function trSum(){const c=setTr(),ks=Object.keys(c);if(!ks.length)return '';
 // 纸娃娃:按已穿戴装备的品质颜色给发型、铠甲、耳坠、戒指上色,手里拿当前武器
 // 道具背包里的条目:蛇蛋、高级幸运石、各级强化石(同种叠放在一格)
 function itemList(){const L=[];if(MAT.soul>0)L.push(['soul','💠','女神灵魂碎片',MAT.soul]);if(MAT.job>0)L.push(['job','⚜️','转职凭证',MAT.job]);if(MAT.hegg>0)L.push(['hegg',heggEm(),'仓鼠宠物蛋',MAT.hegg]);if(MAT.egg>0)L.push(['egg','🥚','蛇蛋',MAT.egg]);if(LUCK>0)L.push(['luck',mniEm('luck'),'高级幸运宝石',LUCK]);
-  for(const k in MISC)if(MAT[k]>0)L.push([k,mniEm(k),MISC[k][0],MAT[k]]);R19.ats.forEach((g,i)=>L.push(['T'+i,mniEm('A'+g.q),ATSQ[g.q].n,1]));for(let l=1;l<=3;l++)for(let q=3;q>=0;q--)if(STN[l][q]>0)L.push(['s'+l+q,stnEm(l,q),stnName(l,q),STN[l][q]]);return L}
+  for(const k in MISC)if(MAT[k]>0)L.push([k,mniEm(k),MISC[k][0],MAT[k]]);R19.ats.forEach((g,i)=>L.push(['T'+i,mniEm('A'+g.q),ATSQ[g.q].n,1]));for(let l=1;l<=4;l++)for(let q=3;q>=0;q--)if(STN[l][q]>0)L.push(['s'+l+q,stnEm(l,q),stnName(l,q),STN[l][q]]);return L}
 const itemDesc=id=>id[0]=='T'?(g=>g?`${ATSQ[g.q].n}:<b style="color:#1c7ed6">${atsTxt(g)}</b>。在 🔥 熔炉镶嵌到装备上(每件装备 1 颗,新的会替换旧的;不能拆下,出售装备不返还)。出售价格 ${ATSQ[g.q].pr} 金币。`:'')(R19.ats[+id.slice(1)]):MISC[id]?MISC[id][1]+(id=='dbl'&&dblOn()?`<br><b>生效中,还剩 ${Math.ceil((R19.dbl-Date.now())/60000)} 分钟</b>`:'')+(/^ms\d+$/.test(id)?['sword','staff'].filter(k=>EQ[k]&&EQ[k].mss==id).map(k=>'<br><b>'+SL[k][0]+'上嵌着一颗</b>').join(''):'')+((id=='gc1'&&godOn('cr'))||(id=='gc2'&&godOn('pal'))?`<br><b>生效中,还剩 ${godLeft(id=='gc1'?'cr':'pal')}${id=='gc2'?'('+PALN[godOf().pk-1]+')':''}</b>`:''):id=='hegg'?'神秘地带「瓜子大王」掉落(5% 几率)。打开顶栏 🐤 宠物界面,花 10 分钟孵化成宠物仓鼠(已经有仓鼠时,多孵出来的小仓鼠会让它多嗑 3 次瓜子)。不能出售。':id=='soul'?'女神灵魂碎片:第四关首领「黑棘巨蝎」、第八关首领「怨婴 · 银太郎」、第十关首领「归蝇」、暗黑大陆第十三关首领「焚天炎君」各掉落一块。碎片里封着女神被夺走的一缕灵魂,在黑暗里会发出淡紫色的光。收集齐全后或许能让城里的女神像重新苏醒……不能出售。':id=='job'?'第六关首领「北极熊」掉落。打开技能栏(T),在剑士或法师页面里选择转职(只能转职一次)。不能出售。':id=='egg'?'迷雾森林的蛇掉落的蛋。每日任务会用到,也可以卖掉(每个 3 金币)。':id=='luck'?'强化时在强化师那里选用,本次强化成功率 +50%。完成每日任务或在商城随机物品栏购买。':`用于把装备强化到 +${id[1]*3-2} ~ +${id[1]*3}(每次消耗 1 颗),在强化师处使用。品质「${STQ[+id[2]].n}」:强化成功时这一级 +${Math.round(STQ[+id[2]].b*100)}% 装备属性(3 颗可在熔炉合成高一档品质)。出售价格 ${itemPr(id)} 金币 / 颗。`;
 // 第五十二轮修:原来售价 0 的道具都卖不掉,补上售价(说明里写「不能出售」的剧情道具仍然不能卖)
 const ITPR=id=>/^ms\d+$/.test(id)?1500:/^fg\d$/.test(id)?300*+id.slice(2):/^amp_/.test(id)?1000:({add:300,gc1:2000,gc2:2000,food:50,lk1:200,lk2:500,dbl:1000,flax:500,glue:500,b360:800,hwq:1500,wash:500,astr:2000})[id]||0;
@@ -5840,7 +5843,7 @@ function renderBag(){
   const ccl=id=>{if(!id)return '<button class="cl" data-r="-"></button>';const r='c:'+id;return `<button class="cl" data-r="${r}" style="border-color:#f783ac;${sel==r?'background:rgba(255,212,59,.3);':''}">${COSD[id].ic}</button>`};
   const tabB=(i,l)=>`<button data-r="t${i}" class="${bagTab==i?'on':''}">${l}</button>`;
   const cp=crdgP(eqSum(['head','body','ring','ear',P.mode]),setTr()),src=a=>a.filter(q=>q[1]).map(q=>q[0]+' '+q[1]+'%').join(' + ')||'无';
-  const nx=expNeed(lvl),stn=[1,2,3].map(l=>stnTot(l)?'Lv'+l+'×'+stnTot(l):'').filter(Boolean).join(' ')||'无';
+  const nx=expNeed(lvl),stn=[1,2,3,4].map(l=>stnTot(l)?'Lv'+l+'×'+stnTot(l):'').filter(Boolean).join(' ')||'无';
   // 第三十三轮背包布局(参考用户给的截图):右边每页 BPG 格(5 × 5),下面页码;装备页的筛选收进「🔍 筛选」
   const BPG=25,page=(n,f)=>{const np=Math.max(1,Math.ceil(n/BPG));bagPg=Math.min(bagPg,np-1);return {np,cells:Array.from({length:BPG},(_,j)=>f(bagPg*BPG+j)).join(''),pager:np>1?`<div class="bpg">${Array.from({length:np},(_,i)=>`<button data-r="pg${i}" class="${i==bagPg?'on':''}">${i+1}</button>`).join('')}</div>`:''}},E_='<button class="cl" data-r="-"></button>';
   let right;
@@ -6254,7 +6257,7 @@ function mallAct(r){
 function rForge(){
   const it=fIt(fs),m=setLv(),pk=(q,r)=>`<button class="pk${fs==r?' on':''}" data-p="f${r}" style="${q?'border-color:'+TR[q.tier][1]:''}">${eqImg(q)}${q.en?'<sup>+'+q.en+'</sup>':''}</button>`;
   const MX=ENMAX(),V=isVip();
-  let h=hd('🔨 强化师')+giftBox('强化师')+`<div class="tag">强化石分 3 级:Lv1 用于 +1~+3、Lv2 用于 +4~+6、Lv3 用于 +7~+9,每次消耗 1 颗;强化师不卖强化石,只能打首领掉落(Lv1 各关 · Lv2 第七关起 · Lv3 第八关起和第二张地图)、做任务和好感奖励获得;每级强化按部位加固定数值(武器攻击 / 头饰魔力 / 战甲生命 / 项链防御 / 戒指暴击 / 时装防御 / 翅膀暴击),强化石品质越高加得越多,Lv2 / Lv3 强化石(+4~+9)加 2.5 倍;高品质强化石在旁边的熔炉里 3 颗 + 1 瓶合成添加剂合成。每次还要付金币手续费(成功失败都收)。等级越高成功率越低,失败只损失强化石,装备不受影响。最高 +${MX}${V?';<b style="color:#e8590c">👑 VIP:成功率 +10%</b>':';开通 👑 VIP 后成功率 +10%'}。可以选用幸运宝石提高成功率(低级 +25% · 中级 +35% · 高级 +50%)。</div>`;
+  let h=hd('🔨 强化师')+giftBox('强化师')+`<div class="tag">强化石分 4 级:Lv1 用于 +1~+3、Lv2 用于 +4~+6、Lv3 用于 +7~+9、Lv4 用于 +10~+12,每次消耗 1 颗;强化师不卖强化石,只能打首领掉落(Lv1 各关 · Lv2 第七关起 · Lv3 第八关起和第二张地图 · Lv4 第十三关起)、做任务和好感奖励获得;每级强化按部位加固定数值(武器攻击 / 头饰魔力 / 战甲生命 / 项链防御 / 戒指暴击 / 时装防御 / 翅膀暴击),强化石品质越高加得越多,Lv2~Lv4 强化石(+4~+12)加 2.5 倍;高品质强化石在旁边的熔炉里 3 颗 + 1 瓶合成添加剂合成。每次还要付金币手续费(成功失败都收)。等级越高成功率越低,失败只损失强化石,装备不受影响。最高 +${MX}${V?';<b style="color:#e8590c">👑 VIP:成功率 +10%</b>':';开通 👑 VIP 后成功率 +10%'}。可以选用幸运宝石提高成功率(低级 +25% · 中级 +35% · 高级 +50%)。</div>`;
   h+=`<h4>已穿戴</h4><div class="row" style="border:0">${ALL.map(k=>EQ[k]?pk(EQ[k],'e:'+k):'').join('')||'<span class="tag">无</span>'}</div>`;
   h+=`<h4>时装 / 翅膀</h4><div class="row" style="border:0">${OWN.map(id=>{const c=cosIt(id);return `<button class="pk${fs=='k:'+id?' on':''}" data-p="fk:${id}" style="border-color:#f783ac;font-size:22px" title="${c.n}">${COSD[id].ic}${c.en?'<sup>+'+c.en+'</sup>':''}</button>`}).join('')||'<span class="tag">没有时装 / 翅膀</span>'}</div>`;
   h+=`<h4>背包</h4><div class="row" style="border:0">${BAG.map((q,i)=>pk(q,'b'+i)).join('')||'<span class="tag">空</span>'}</div>`;
@@ -6268,7 +6271,7 @@ function rForge(){
   return h}
 // 熔炉:强化石 3 合 1(同级、同品质 → 高一档品质)
 function rStnFuse(){let h=`<h4>强化石合成</h4><div class="tag">把 3 颗同等级、同品质的强化石 + 1 瓶合成添加剂放进熔炉,炼成 1 颗高一档品质的强化石:普通 → 精良 → 史诗 → 卓越,必定成功。品质越高,强化时这一级加的固定数值越多。合成添加剂只在 🏪 商城的随机物品栏出现 · 持有 <b>${MAT.add|0}</b> 瓶</div>`;
-  for(let l=1;l<=3;l++){h+=`<h4>Lv${l} 强化石(用于 ${stnUse(l)})</h4>`;
+  for(let l=1;l<=4;l++){h+=`<h4>Lv${l} 强化石(用于 ${stnUse(l)})</h4>`;
     for(let q=0;q<3;q++){const n=STN[l][q],k=Math.min(Math.floor(n/3),MAT.add|0);h+=`<div class="row"><span>${stnEm(l,q)} ${STQ[q].n} ×${n}</span><span class="tag">3 颗 + 1 瓶添加剂 → 1 颗 ${stnEm(l,q+1)} ${STQ[q+1].n}(持有 ${STN[l][q+1]})</span><span style="margin-left:auto"><button data-p="F${l}${q}1" ${k?'':'disabled'}>合成 1 次</button> <button data-p="F${l}${q}0" ${k>1?'':'disabled'}>全部合成(${k} 次)</button></span></div>`}}
   return h}
 function rGM(){const sel=(id,o)=>`<select id="${id}">${o}</select>`,nums=(d)=>Array.from({length:ENMX+1},(_,i)=>`<option${i==d?' selected':''}>${i}</option>`).join(''),
@@ -6289,7 +6292,7 @@ function gmAct(a){fmsg='';const full=()=>{const S=stats();P.hp=S.hp;P.mp=S.mp};i
   if(gmAct2(a)){save();renderP();return}  // 第五十九轮:GM 修改工具(705)
   if(a.startsWith('t_')){const k=a.slice(2);GM[k]=GM[k]?0:1}
   else if(a=='g1000')gold+=1000;else if(a=='g10000')gold+=10000;else if(a=='g0')gold=0;
-  else if(a=='st10'){for(let l=1;l<=2;l++)for(let q=0;q<4;q++)STN[l][q]+=10;MAT.add=(MAT.add|0)+10;fmsg='每级每种品质的强化石各 +10,合成添加剂 +10'}
+  else if(a=='st10'){for(let l=1;l<=4;l++)for(let q=0;q<4;q++)STN[l][q]+=10;MAT.add=(MAT.add|0)+10;fmsg='每级每种品质的强化石各 +10,合成添加剂 +10'}
   else if(a=='it19'){MAT.gift=(MAT.gift|0)+50;MAT.food=(MAT.food|0)+10;MAT.lk1=(MAT.lk1|0)+3;MAT.lk2=(MAT.lk2|0)+3;MAT.dbl=(MAT.dbl|0)+1;for(let i=0;i<3;i++){R19.ats.push(atsNew(0));R19.ats.push(atsNew(1))}fmsg='小礼袋 +50 · 宠物饲料 +10 · 低 / 中级幸运宝石 +3 · 双倍爆率卡 +1 · 低 / 中级属性石各 +3'}
   else if(a=='vip'){KPS=isVip()?0:VIPN;full();fmsg=isVip()?'👑 VIP 已开通':'VIP 已关闭(累计消费清零)'}
   else if(a=='sign0'){SIGN.day=SIGN.day==today()?yday():SIGN.day;fmsg='今天的签到已重置,可以再签一次'}
@@ -8506,11 +8509,17 @@ function drawLvSel(){const t=performance.now()/1000,n=LVS.i+1,px=PUI.on(),hv=lvs
 // 选关页(从世界地图进来的关卡)右上角「⚡ 一键扫荡」:按三星难度把这一关结算一遍 —— 真的进关(enterLv),把所有区域的小怪逐个 reward,
 //   再按首领倒下结算 bossWin(击杀点、首领掉落、讨伐任务都一样),地上的东西全部捡起,然后回城、回到选关页,弹出这次的收获
 // 神秘副本 / 十二魔封印 / 暗黑炼狱不能扫荡;背包空位不足 SWBAG 格时不扫(装备会捡不起来)
-const SWBAG=4;
+// 第六十轮(用户):每天 SWN 10 次(所有关卡合计),每次消耗 SWPK 150 击杀点(R19.sw = {day, n})
+const SWBAG=4,SWN=10,SWPK=150;
 const sweepOK=n=>LVS.m==0&&!isTw(n)&&!isDm(n)&&!isMy(n)&&starOf(n)>=3;
-const SWPB=[476,6,104,24];  // 按钮位置(选关页标题栏右边)
+const swLeft=()=>{const s=R19.sw;return s&&s.day==today()?Math.max(0,SWN-s.n):SWN};
+const SWPB=[458,6,122,24];  // 按钮位置(选关页标题栏右边)
 function sweepGo(){const n=LVS.i+1;if(!sweepOK(n)){say('三星通关以后才能一键扫荡');return}
+  if(timeBad()){say(TBMSG);return}
+  if(swLeft()<=0){say('今天的 '+SWN+' 次扫荡已经用完了,明天再来');return}
+  if(KP<SWPK){say('击杀点不足:一键扫荡每次消耗 '+SWPK+' 击杀点');return}
   if(BAGN-BAG.length<SWBAG){say('背包空位不足 '+SWBAG+' 格,先整理一下再扫荡');return}
+  KP-=SWPK;if(!R19.sw||R19.sw.day!=today())R19.sw={day:today(),n:0};R19.sw.n++;
   const g0=gold,k0=KP,b0=BAG.length,l0=lvl,LV={...LVS};let nm=0;
   enterLv(n,3);
   try{const L=E.filter(e=>!e.sum);for(const q of WQ)for(const k of q)L.push(mk(k,P.x,WLM));WQ=WQ.map(()=>[]);E=[];
@@ -8518,11 +8527,11 @@ function sweepGo(){const n=LVS.i+1;if(!sweepOK(n)){say('三星通关以后才能
     bossOn=true;B.hp=0;bossWin();pickUp(1)}
   catch(err){console.warn('sweep',err)}
   toTown();st='lvsel';LVS=LV;sfx('lvl');
-  const it=BAG.length-b0;say('⚡ 扫荡完成:击败 '+nm+' 只怪物 + 首领 · 金币 +'+(gold-g0)+' · 击杀点 +'+(KP-k0)+(it>0?' · 装备 '+it+' 件':'')+(lvl>l0?' · 升到 Lv'+lvl:''));msgU=performance.now()+5000}
+  const it=BAG.length-b0;say('⚡ 扫荡完成:击败 '+nm+' 只怪物 + 首领 · 金币 +'+(gold-g0)+' · 击杀点 +'+(KP-k0)+(it>0?' · 装备 '+it+' 件':'')+(lvl>l0?' · 升到 Lv'+lvl:'')+' · 消耗 '+SWPK+' 击杀点,今天还能扫荡 '+swLeft()+' 次');msgU=performance.now()+5000}
 function sweepDraw(n,hv){if(!sweepOK(n))return;const [X,Y,W,H]=SWPB,on=hv=='sw',t=performance.now()/1000;
   if(PUI.on())PUI.ns(x,'pC',6,6,6,6,X,Y,W,H);else RR(x,X,Y,W,H,6,'#2a1f3c',1.4);
   if(on){x.save();x.strokeStyle='rgba(255,212,59,'+(.7+.3*Math.sin(t*6))+')';x.lineWidth=2;x.strokeRect(X+1,Y+1,W-2,H-2);x.restore()}
-  CT('⚡ 一键扫荡',X+W/2,Y+17,11,on?'#fff':'#ffe066','center',2.4,'#3a1d0a')}
+  CT('⚡ 一键扫荡 '+swLeft()+'/'+SWN,X+W/2,Y+17,11,on?'#fff':'#ffe066','center',2.4,'#3a1d0a')}
 const sweepHit=(mx,my)=>{const [X,Y,W,H]=SWPB;return sweepOK(LVS.i+1)&&mx>=X&&mx<=X+W&&my>=Y&&my<=Y+H}
 // ===== HUD:头像 + 血蓝条 + 金币 + 连击 + 状态 + Boss 血条 =====
 // =====================================================================
@@ -8650,6 +8659,7 @@ function pvImg(k){const t=.3,c=document.createElement('canvas'),g=c.getContext('
 // 主页面打开时 HOME=1:主城画面停住当背景(loop 里不跑 townUpd),键盘只认 Enter(继续 / 新游戏)和 Esc(从操作说明返回)
 // 更新日志 CHLOG:[版本, 日期, [条目...]],新版本加在最前面(和 GAMEV 一起改)
 const CHLOG=[
+ ['1.65','2026-10-20',['角色等级上限提高到 99 级;主动技能最高 9 级(6~9 级每级冷却 -3%,伤害照常成长)','强化上限放开到 +12:新的 Lv4 强化石(第十三关起的首领掉落)用于 +10~+12;强化荣誉 +10 / +11 / +12 全身属性 +25% / +35% / +45%、暴击率 +50% / +70% / +90%','一键扫荡改成每天 10 次,每次消耗 150 击杀点','十二魔封印后 3 个恶魔(阿斯莫德 / 贝利亚 / 阿斯塔罗特)的诅咒之力不再随机,固定为一阶攻击']],
  ['1.64','2026-10-20',['地图关卡一键扫荡:三星通关以后,选关页右上角「⚡ 一键扫荡」(或按 S),按三星难度直接结算整关的怪物和首领,掉落自动捡起','主城 BGM 重新编码:保留立体声、提高音质(以前混成单声道,这首曲子左右声道差别很大,会抵消掉一半,听起来空洞、有杂音)','神秘副本 5「擎天魔神」开放(拥有 5 块女神碎片):头顶快碰到星空的紫焰巨神,巨斧横扫 / 震地火浪 / 紫焰陨落 / 通天焰柱;倒下 2 秒后自爆,秒杀一切,要用带无敌的技能躲过去','新武器「紫焰魅影大剑 / 紫焰魅影法杖」:擎天魔神三星掉落,攻击是真~火之武器的 2.2 倍,剑身和杖身全是动态紫焰;拿着它放技能,技能范围变大']],
  ['1.63','2026-10-20',['第十六关首领「金核炮神」的能量虹吸:三颗能量球每颗偷 1/3,一轮加起来最多偷 25% 最大魔力(以前每颗 25%,可能一次被偷光)','关卡里的伤害数字放大 1 倍,看得更清楚']],
  ['1.62','2026-10-20',['主城换上新的 BGM(游戏作者用 AI 生成的曲子),原来的主城曲改成主菜单 BGM','关卡里最上方中间显示增益倒计时:双倍爆率卡、上帝卡牌(暴击升级 / 好伙计),以及幸运骰子摇到几点、掉落率加了多少和总掉落率','属性石(低级 / 中级 / 高级)的数值不再随机,全部是最高值,只随机属性种类;新增「生命」属性;已有的属性石(包括嵌在武器上的)读档时自动补到最高值']],

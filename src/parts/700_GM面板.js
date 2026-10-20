@@ -16,7 +16,7 @@ function gmAct(a){fmsg='';const full=()=>{const S=stats();P.hp=S.hp;P.mp=S.mp};i
   if(gmAct2(a)){save();renderP();return}  // 第五十九轮:GM 修改工具(705)
   if(a.startsWith('t_')){const k=a.slice(2);GM[k]=GM[k]?0:1}
   else if(a=='g1000')gold+=1000;else if(a=='g10000')gold+=10000;else if(a=='g0')gold=0;
-  else if(a=='st10'){for(let l=1;l<=2;l++)for(let q=0;q<4;q++)STN[l][q]+=10;MAT.add=(MAT.add|0)+10;fmsg='每级每种品质的强化石各 +10,合成添加剂 +10'}
+  else if(a=='st10'){for(let l=1;l<=4;l++)for(let q=0;q<4;q++)STN[l][q]+=10;MAT.add=(MAT.add|0)+10;fmsg='每级每种品质的强化石各 +10,合成添加剂 +10'}
   else if(a=='it19'){MAT.gift=(MAT.gift|0)+50;MAT.food=(MAT.food|0)+10;MAT.lk1=(MAT.lk1|0)+3;MAT.lk2=(MAT.lk2|0)+3;MAT.dbl=(MAT.dbl|0)+1;for(let i=0;i<3;i++){R19.ats.push(atsNew(0));R19.ats.push(atsNew(1))}fmsg='小礼袋 +50 · 宠物饲料 +10 · 低 / 中级幸运宝石 +3 · 双倍爆率卡 +1 · 低 / 中级属性石各 +3'}
   else if(a=='vip'){KPS=isVip()?0:VIPN;full();fmsg=isVip()?'👑 VIP 已开通':'VIP 已关闭(累计消费清零)'}
   else if(a=='sign0'){SIGN.day=SIGN.day==today()?yday():SIGN.day;fmsg='今天的签到已重置,可以再签一次'}

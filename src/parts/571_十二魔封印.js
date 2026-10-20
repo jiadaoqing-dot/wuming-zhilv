@@ -245,13 +245,15 @@ function dmDrop(e){const id='cz'+dmI();if(!MISC[id])return;gdDrop(e,{k:'gc',id,n
 const CUNM={atk:'攻击',def:'防御',hp:'生命',mp:'魔力',cr:'暴击',dg:'闪避'},CUV={atk:204,def:204,hp:1224,mp:612,cr:510,dg:90},CUW=[['atk',20],['cr',18],['def',18],['hp',18],['mp',16],['dg',10]],CUN=['','一阶','二阶'],CUK=[0,1,1.5];
 const CUG={wpn:['sword','staff'],cos:['fash','wing']},cuTs=g=>CUG[g]||[g],cuSN=g=>g=='wpn'?'武器':g=='cos'?'时装 / 翅膀':SL[g][0],cuTN=t=>SL[t]?SL[t][0]:t=='fash'?'时装':'翅膀';
 const cuV=c=>Math.round(CUV[c.k]*CUK[c.t]);
+const CUFIX={3:'atk',4:'atk',5:'atk'};  // 第六十轮(用户):后 3 个(阿斯莫德 / 贝利亚 / 阿斯塔罗特)不再随机,固定一阶攻击
 const cuIt=t=>SL[t]?EQ[t]:WEAR[t]&&cosIt(WEAR[t]);  // 诅咒的对象:装备 = 身上穿着的那件;时装 / 翅膀 = 穿着的那件的强化数据(R19.cen,存档里一直跟着这件时装)
 function cuRoll(t,not){let k='atk';for(let n=0;n<20;n++){let r=Math.random()*100;k='atk';for(const [q,w] of CUW){if(r<w){k=q;break}r-=w}if(k!=not)break}return {k,v:Math.round(CUV[k]*CUK[t])}}
 const cuTxt=it=>it&&it.cu?`<span style="color:#e03131">😈 ${DMD[it.cu.d].n}之诅咒(${CUN[it.cu.t]}):${CUNM[it.cu.k]} +${cuV(it.cu)}</span>`:'';
 const cuRng=(k,t)=>'固定值';
 function curseUse(id,t){const i=+id.slice(2),d=DMD[i];if(!d||!(MAT[id]>0))return '';if(!cuTs(d.sl).includes(t))return '「'+d.n+'」只能诅咒'+cuSN(d.sl);const it=cuIt(t);if(!it)return '还没有穿'+cuTN(t);
   const tr=i>=6?2:1;if(tr==2&&!(it.cu&&it.cu.t>=1))return '二阶诅咒要先有一阶诅咒';
-  const old=it.cu,r=cuRoll(tr,old&&old.t==tr?old.k:null);MAT[id]--;sfx('fuse');flash('200,30,40',.2);
+  const fk=CUFIX[i];if(fk&&it.cu&&it.cu.k==fk&&it.cu.t>=tr)return '这件'+cuTN(t)+'已经是'+CUNM[fk]+'诅咒了';
+  const old=it.cu,r=fk?{k:fk,v:Math.round(CUV[fk]*CUK[tr])}:cuRoll(tr,old&&old.t==tr?old.k:null);MAT[id]--;sfx('fuse');flash('200,30,40',.2);
   if(!old){const m=cuSet(t,{k:r.k,v:r.v,t:tr,d:i});return '😈 '+cuTN(t)+'被「'+d.n+'」诅咒了:'+CUNM[r.k]+' +'+r.v+m}
   R19.cuP={t,k:r.k,v:r.v,tr,d:i};return '😈 刷出了「'+CUNM[r.k]+' +'+r.v+'」—— 换成新的,还是保留原来的「'+CUNM[old.k]+' +'+cuV(old)+'」?'}
 function cuSet(t,c){const it=cuIt(t);if(!it)return '';it.cu=c;if(CUG.cos.includes(t)){const o=cuIt(t=='fash'?'wing':'fash');if(o&&o.cu){delete o.cu;return '(时装和翅膀共用一个诅咒部位,另一件的诅咒移走了)'}}return ''}
@@ -263,7 +265,7 @@ function cuMenu(id){const i=+id.slice(2),d=DMD[i],q=R19.cuP;
   if(q)R19.cuP=null;
   const L=cuTs(d.sl).filter(t=>cuIt(t)).map(t=>{const c=cuIt(t).cu;return ['😈 诅咒'+cuTN(t)+(c?'(现在:'+CUNM[c.k]+' +'+cuV(c)+')':''),'cz_'+t]});
   return L.length?L:[['(先穿上'+cuSN(d.sl)+'才能诅咒)','x']]}
-for(let i=0;i<DMOPEN;i++){const d=DMD[i];MISC['cz'+i]=[d.n+'的诅咒之力',`十二魔封印「${d.n}」掉落的诅咒能量(${i>=6?'二阶':'一阶'})。在背包里左键点它 →「诅咒${cuSN(d.sl)}」:给身上穿着的${cuSN(d.sl)}附上一条诅咒属性(攻击 / 暴击 / 防御 / 生命 / 魔力 / 闪避之一,数值固定 = 精良强化石 +12,闪避较低)。已经有诅咒时会刷出一条不同的属性,由你决定换成新的还是保留原来的;装备的强化、锻造、属性石都不受影响。${d.sl=='cos'?'时装和翅膀共用一个诅咒部位。':''}<br>${CUN[i>=6?2:1]}:${['atk','cr','def','hp','mp','dg'].map(k=>CUNM[k]+' +'+Math.round(CUV[k]*CUK[i>=6?2:1])).join(' · ')}`,'',3000];MENI.P['cz'+i]=i>=6?52:51}
+for(let i=0;i<DMOPEN;i++){const d=DMD[i];MISC['cz'+i]=[d.n+'的诅咒之力',`十二魔封印「${d.n}」掉落的诅咒能量(${i>=6?'二阶':'一阶'})。在背包里左键点它 →「诅咒${cuSN(d.sl)}」:给身上穿着的${cuSN(d.sl)}附上一条诅咒属性(${CUFIX[i]?'固定为'+CUNM[CUFIX[i]]+' +'+Math.round(CUV[CUFIX[i]]*CUK[1]):'攻击 / 暴击 / 防御 / 生命 / 魔力 / 闪避之一,数值固定 = 精良强化石 +12,闪避较低'})。${CUFIX[i]?'已经有别的诅咒时,由你决定换成'+CUNM[CUFIX[i]]+'还是保留原来的':'已经有诅咒时会刷出一条不同的属性,由你决定换成新的还是保留原来的'};装备的强化、锻造、属性石都不受影响。${d.sl=='cos'?'时装和翅膀共用一个诅咒部位。':''}<br>${CUN[i>=6?2:1]}:${(CUFIX[i]?[CUFIX[i]]:['atk','cr','def','hp','mp','dg']).map(k=>CUNM[k]+' +'+Math.round(CUV[k]*CUK[i>=6?2:1])).join(' · ')}`,'',3000];MENI.P['cz'+i]=i>=6?52:51}
 
 // ===== 恶魔选择页 st = 'dms' =====
 let DMS={s:0};

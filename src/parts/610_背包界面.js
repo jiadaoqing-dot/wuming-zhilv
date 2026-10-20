@@ -14,7 +14,7 @@ function renderBag(){
   const ccl=id=>{if(!id)return '<button class="cl" data-r="-"></button>';const r='c:'+id;return `<button class="cl" data-r="${r}" style="border-color:#f783ac;${sel==r?'background:rgba(255,212,59,.3);':''}">${COSD[id].ic}</button>`};
   const tabB=(i,l)=>`<button data-r="t${i}" class="${bagTab==i?'on':''}">${l}</button>`;
   const cp=crdgP(eqSum(['head','body','ring','ear',P.mode]),setTr()),src=a=>a.filter(q=>q[1]).map(q=>q[0]+' '+q[1]+'%').join(' + ')||'无';
-  const nx=expNeed(lvl),stn=[1,2,3].map(l=>stnTot(l)?'Lv'+l+'×'+stnTot(l):'').filter(Boolean).join(' ')||'无';
+  const nx=expNeed(lvl),stn=[1,2,3,4].map(l=>stnTot(l)?'Lv'+l+'×'+stnTot(l):'').filter(Boolean).join(' ')||'无';
   // 第三十三轮背包布局(参考用户给的截图):右边每页 BPG 格(5 × 5),下面页码;装备页的筛选收进「🔍 筛选」
   const BPG=25,page=(n,f)=>{const np=Math.max(1,Math.ceil(n/BPG));bagPg=Math.min(bagPg,np-1);return {np,cells:Array.from({length:BPG},(_,j)=>f(bagPg*BPG+j)).join(''),pager:np>1?`<div class="bpg">${Array.from({length:np},(_,i)=>`<button data-r="pg${i}" class="${i==bagPg?'on':''}">${i+1}</button>`).join('')}</div>`:''}},E_='<button class="cl" data-r="-"></button>';
   let right;
