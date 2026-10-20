@@ -67,7 +67,7 @@ function drawSkBar(){const m=P.mode,px=PUI.on();if(px)PUI.ns(x,'pA',20,14,20,14,
 // 伤害数字(页游风:粗描边、暴击放大)
 // 第十三轮:关卡里的数字改成小号(6 = 像素字体 12px 一倍,不再挡住怪物),非暴击白色、暴击紫色,不再有「暴击」字样
 function drawTX(){for(const t of TX){const q=String(t.s),a=Math.min(1,t.t*2);x.globalAlpha=a;
-  if(t.k||st=='play')CT(q,Math.round(t.x-cam),Math.round(t.y),t.k=='m'?9:6,t.c,'center',t.k=='m'?2:1,t.k=='c'?'#2b0a40':'#1e1020');
+  if(t.k||st=='play')CT(q,Math.round(t.x-cam),Math.round(t.y),t.k=='m'?9:12,t.c,'center',2,t.k=='c'?'#2b0a40':'#1e1020');  // 第五十九轮(用户):伤害数字 6 → 12(放大 1 倍),描边 1 → 2
   else{x.save();x.translate(t.x-cam,t.y);CT(q,0,0,/^-?\d+$/.test(q)?14:11,t.c,'center',3.2,'#1e1020');x.restore()}}x.globalAlpha=1}
 // 对话框:羊皮纸 + 名牌 + 头像
 function drawDlg(){if(!DLG)return;const [who,s]=DLG.L[DLG.i],n=Math.min(s.length,Math.floor(DLG.t*40)),me=who=='无名',t=performance.now()/1000;

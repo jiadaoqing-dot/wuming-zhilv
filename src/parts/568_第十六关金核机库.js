@@ -4,7 +4,7 @@
 // 小怪:盾卫机兵 rsh(地面,近战:盾牌冲撞 / 盾击震地)· 吊顶炮塔 rtu(挂在天花板上沿着顶部滑动,远程:三连射 / 投弹)
 // 首领「金核炮神」rgn:只有一条命、没有魔力(esnm),以远程为主,喜欢拉开距离:
 //   速射机炮 gun(扇形连射)· 炮火覆盖 art(对着天上开炮,远处一片地面预警后落弹)· 蓄能主炮 beam(水平贯穿全场的光束,跳起来或站浮台躲)·
-//   能量虹吸 drain(三颗追踪能量球,打中偷走 25% 最大魔力)· 被靠近:反制震地 ctr(大击退)→ 后撤步 bstep → 马上接机炮;生命一半以下「过载」:出招更快、炮弹更多
+//   能量虹吸 drain(三颗追踪能量球,每颗偷 1/3 × 25% 最大魔力,一轮三颗加起来最多 25%,第五十九轮用户要求)· 被靠近:反制震地 ctr(大击退)→ 后撤步 bstep → 马上接机炮;生命一半以下「过载」:出招更快、炮弹更多
 //   校准:生命 2.4M(一星,约 17.5 套参考技能,千钟之主三条命合计约 2.06M);伤害 RGDM 95(介于千钟之主二、三形态)
 const E20=[['rsh',360],['rtu',500],['rsh',660],['rtu',820],['rsh',980],['rsh',1120],['rtu',1260],['rsh',1420],['rtu',1560],['rsh',1700],['rsh',1880],['rtu',2020],['rsh',2160],['rtu',2300],['rsh',2440],['rtu',2520]];
 const PL20=[{x:0,y:GY,w:WW},{x:540,y:212,w:110},{x:1180,y:212,w:110},{x:1860,y:212,w:110},{x:2680,y:212,w:110},{x:2980,y:212,w:110}];  // 浮台:够得着吊顶炮塔,首领场地两块躲主炮
@@ -75,7 +75,7 @@ function rgnStep(e,dt){const pc=P.x+12,cx=e.x+e.w/2,dx=pc-cx,ad=Math.abs(dx),dm=
     if(T>1.5)rgEnd(e,.2);return}
   if(a=='beam'){if(T<1.1){e.pz='w';e.f=sgn(dx)||e.f;e.aim=0;if(T>.3&&!e.hd){e.hd=1;const [mx]=mzP();A20B.push({y:GY-22,f:e.f,x0:mx,t:0,dm,hit:0})}return}  // 光束贴着地面上方(主角身体高度):要跳起来或站上浮台躲
     e.pz='s';if(T<1.5)e.mzT=.12;if(T>1.9){if(od&&!e.n){e.n=1;e.hd=0;e.at=.25;return}rgEnd(e,.2)}return}  // 过载时连发两次
-  if(a=='drain'){if(T<.7){e.pz='w';e.f=sgn(dx)||e.f;e.aim=.4;return}e.pz='s';if(!e.hd){e.hd=1;e.mzT=.12;const [mx,my]=mzP();for(let i=0;i<3;i++)A20O.push({x:mx,y:my,vx:e.f*(120+i*40),vy:-60+i*60,t:-i*.12,dm});syn('blink')}
+  if(a=='drain'){if(T<.7){e.pz='w';e.f=sgn(dx)||e.f;e.aim=.4;return}e.pz='s';if(!e.hd){e.hd=1;e.mzT=.12;const [mx,my]=mzP();const g={d:0};for(let i=0;i<3;i++)A20O.push({x:mx,y:my,vx:e.f*(120+i*40),vy:-60+i*60,t:-i*.12,dm,g});syn('blink')}
     if(T>1.3)rgEnd(e);return}
   if(a=='ctr'){e.pz=T<.28?'w':'s';e.aim=-Math.PI/2;if(T>=.28&&!e.hd){e.hd=1;shake=.4;syn('boom');VFX.spawn('earth-rupture',cx,GY,{s:1.6});ring(cx,GY-16,10,130,'#ffd43b',.45,6);if(ad<120&&P.y+P.h>GY-90)hurt(14*dm,{kb:sgn(dx)*560})}
     if(T>.6){e.act='bstep';e.at=0;e.bd=-sgn(dx)||-e.f;e.x0=e.x}return}
@@ -89,7 +89,7 @@ function a20Step(dt){const pc=P.x+12;
   for(const m of A20M){m.t+=dt;if(m.t>=.9&&!m.dd){m.dd=1;a20Boom(m.x,GY-20,44,m.dm,m.d)}}A20M=A20M.filter(m=>!m.dd);
   for(const b of A20B){b.t+=dt;if(b.t>=.8&&b.t<1.15&&!b.hit){const inL=b.f>0?pc>b.x0:pc<b.x0;if(inL&&Math.abs(P.y+P.h/2-b.y)<16&&hurt(20*b.dm,{kb:b.f*420}))b.hit=1}if(b.t>=.8&&!b.sn){b.sn=1;syn('zap');shake=Math.max(shake,.3)}}A20B=A20B.filter(b=>b.t<1.25);
   for(const o of A20O){o.t+=dt;if(o.t<0)continue;const a=Math.atan2(P.y+P.h/2-o.y,pc-o.x),sp=Math.min(200,90+o.t*60);o.vx+=(Math.cos(a)*sp-o.vx)*Math.min(1,dt*2.2);o.vy+=(Math.sin(a)*sp-o.vy)*Math.min(1,dt*2.2);o.x+=o.vx*dt;o.y+=o.vy*dt;
-    if(ov(P,{x:o.x-7,y:o.y-7,w:14,h:14})){o.dd=1;if(hurt(6*o.dm,{kb:0})){const S=stats(),d=Math.round(S.mp*.25);P.mp=Math.max(0,P.mp-d);tx('魔力被偷走 -'+d,P.x-20,P.y-30,'#74c0fc');if(B&&B.k=='rgn'&&B.hp>0){B.hp=Math.min(B.max,B.hp+Math.round(B.max*.008))}}}if(o.t>4.5)o.dd=1}A20O=A20O.filter(o=>!o.dd);
+    if(ov(P,{x:o.x-7,y:o.y-7,w:14,h:14})){o.dd=1;if(hurt(6*o.dm,{kb:0})){const S=stats(),g=o.g||{d:0},d=Math.max(0,Math.min(Math.round(S.mp*.25/3),Math.round(S.mp*.25)-g.d,Math.floor(P.mp)));g.d+=d;P.mp-=d;if(d)tx('魔力被偷走 -'+d,P.x-20,P.y-30,'#74c0fc');if(B&&B.k=='rgn'&&B.hp>0){B.hp=Math.min(B.max,B.hp+Math.round(B.max*.008))}}}if(o.t>4.5)o.dd=1}A20O=A20O.filter(o=>!o.dd);
   for(const q of A20X)q.t+=dt;A20X=A20X.filter(q=>q.t<.5);
   if(!(B&&B.k=='rgn'&&B.hp>0)){A20M=[];A20B=[];A20O=[]}}
 function a20Fx(){const M=RBT;if(!M.I)return;const t=performance.now()/1000,e=B;x.imageSmoothingEnabled=false;
