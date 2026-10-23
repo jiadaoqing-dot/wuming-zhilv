@@ -55,10 +55,10 @@ function qBoss(){qDay();const d=QD.d[2];if(d.s==1&&d.p<2){d.p++;tx('首领猎人
 // 小怪任务在 qM2(击败小怪时)计数,讨伐任务在 qM2B(第二张地图的关卡首领倒下时)计数
 const M2Q=[[14,'⚙️ 齿轮清障','齿轮要塞','金币 ×90000',()=>{gold+=90000}],[15,'🌙 夜巡王城','永夜王城','中级幸运宝石 ×1 · 金币 ×90000',()=>{MAT.lk2=(MAT.lk2|0)+1;gold+=90000}],
  [16,'🌋 熔岩降温','熔心火山','普通 Lv3 强化石 ×3 · 金币 ×90000',()=>{STN[3][0]+=3;gold+=90000}],[18,'🌕 月下除影','月影忍城','中级属性石 ×1 · 金币 ×90000',()=>{R19.ats.push(atsNew(1));gold+=90000}],
- [19,'⏰ 叫醒钟楼','不眠钟楼','普通 Lv3 强化石 ×3 · 金币 ×90000',()=>{STN[3][0]+=3;gold+=90000}],[20,'🤖 拆解机库','金核机库','高级属性石 ×1 · 金币 ×90000',()=>{R19.ats.push(atsNew(2));gold+=90000}]];
+ [19,'⏰ 叫醒钟楼','不眠钟楼','普通 Lv3 强化石 ×3 · 普通 Lv4 强化石 ×1 · 金币 ×90000',()=>{STN[3][0]+=3;STN[4][0]+=1;gold+=90000}],[20,'🤖 拆解机库','金核机库','高级属性石 ×1 · 金币 ×90000',()=>{R19.ats.push(atsNew(2));gold+=90000}]];
 const m2qAdd=([lv,n,nm,rw,g])=>{const i=QDEF.length;QDEF.push({n,t:`接取后在暗黑大陆「${nm}」击败 15 只小怪。`,need:15,lv,prog:()=>QD.d[i].p,rw,give:g,lock:()=>MAPS2.find(m=>m.cur==lv).lock()})};M2Q.forEach(m2qAdd);
 {const i=QDEF.length;QDEF.push({n:'👑 暗黑大陆讨伐',t:'接取后在暗黑大陆的关卡里击败 3 个首领(同一关打多次也算,神秘副本不算)。',need:3,prog:()=>QD.d[i].p,rw:'双倍爆率卡 ×1 · 金币 ×170000',give(){MAT.dbl=(MAT.dbl|0)+1;gold+=170000},lock:()=>!map2Open(),boss:1})}
-m2qAdd([21,'🔥 熔渊灭火','炎狱熔渊','普通 Lv3 强化石 ×3 · 金币 ×90000',()=>{STN[3][0]+=3;gold+=90000}]);  // 第五十四轮
+m2qAdd([21,'🔥 熔渊灭火','炎狱熔渊','普通 Lv3 强化石 ×3 · 普通 Lv4 强化石 ×1 · 金币 ×90000',()=>{STN[3][0]+=3;STN[4][0]+=1;gold+=90000}]);  // 第六十一轮:加 Lv4  // 第五十四轮
 function qM2(e){if(e.sum||!isM2(cur))return;qDay();QDEF.forEach((q,i)=>{const d=QD.d[i];if(q.lv==cur&&d.s==1&&d.p<q.need){d.p++;if(d.p==q.need)tx(q.n+' '+q.need+'/'+q.need+' 完成!',P.x-40,P.y-70,'#ffd43b')}})}
 function qM2B(){if(!isM2(cur))return;qDay();QDEF.forEach((q,i)=>{const d=QD.d[i];if(q.boss&&d.s==1&&d.p<q.need){d.p++;tx(q.n+' '+d.p+'/'+q.need,P.x-40,P.y-70,'#ffd43b')}})}
 // =====================================================================

@@ -12,6 +12,7 @@ function dealt(e,dm,o){if(e.pp){MWH.push(dm);return}if(e.ug)return;  // 第四�
   if(P.pdT>0)dm=Math.round(dm*(1+PDK));if(PETX){const k=peqInf();if(k)dm=Math.round(dm*(1+k))}if(MEMB&&st=='play'&&!MWON)dm=Math.round(dm*1.1);  // 第四十八轮:宠物装备「无尽」/ 记忆晶片 +10%
    // 第四十四轮:完美闪避后 3 秒伤害 +50%
   if(P.mode=='sword'&&st=='play'){if(e.bld>0)dm=Math.round(dm*BLDK);if(!noCombo&&GT-(P.qiT||0)>.2){P.qiT=GT;P.qi=Math.min(QIMAX,(P.qi|0)+1)}}  // 第十六轮:裂伤 +15%;剑势每 0.2 秒 +1 层
+  if(e.dmK)dm=Math.max(1,Math.round(dm*e.dmK(e)));  // 第六十一轮:利维坦逆鳞(正面 ×0.35 / 背后 ×1.5)
   if(e.fsh>0){dm=Math.max(1,Math.round(dm*.5));heatAdd(5)}  // 炎狱鬼将的爆炎护体:伤害减半,打它的人自己升温
   if(GM.ko){e.sh=0;dm=Math.max(dm,Math.ceil(e.hp))}
   if(e.hdr>0)dm=Math.max(1,Math.round(dm*(1-e.hdr)));if(e.mdr)dm=Math.max(1,Math.round(dm*(1-e.mdr)));  // 镜中无名:主角的防御减伤 ×5  // 瓜子大王吃瓜子壳:减伤 + 护盾 hsd(e.sh 被首领音效占用)

@@ -22,7 +22,9 @@
  旧的云端环境只能访问 GitHub / npm / pypi,opengameart、itch 访问不了。
  素材来源:ULPC 仓库(LPC 人物图层)、series-ai/jam-ready-assets(大量 CC0 素材,LFS 文件用 media 直链下载,见 fetch_assets.sh)。
 
-【当前状态(2026-10-20,v1.65)】
+【当前状态(2026-10-23,v1.66)】
+- v1.66(第六十一轮):十二魔 7~9 开放(DMOPEN 9,cur 28 belz / 29 mamm / 30 levi,571 的 DM3 一节);二阶诅咒 = 强化已有一阶属性 ×1.5;Lv4 强化石来源(KPIT stn4 / ASTRR / 炼狱 / 每日任务)。
+  再开 10~12:DMD.k + build_dmn.py D2(TINT2)→ 打印的 M 整个贴回 DMN.M + DMZS / DMDK + DMN.draw 分支 + dmBg + xxStep → DMST + k 键表(110 / 140 / 180×2 / 370 / 800 / 970)+ DMHP / DMDM + BGM bgm(22+i)b(AUD 登记)。伤害倍率挂钩 e.dmK(e)(190)。问题在 docs/下次任务.txt「第六十二轮」。
 - v1.65(第六十轮):LVMAX 99(EXPT 55 级后 ×1.085)· LNMAX 9(skCd 6~9 级 -3%/级,skCost L ≥ 6 分支)· ENMX 12(Lv4 强化石 STDR 第 5 项 c ≥ 16;HONR 10~12)· 扫荡每天 SWN 10 次 R19.sw + SWPK 150 击杀点 · 571 CUFIX 十二魔 4~6 诅咒固定攻击。
   git:本机没有 git 命令,用 %LOCALAPPDATA%\GitHubDesktop\app-*\resources\app\git\cmd\git.exe。问题在 docs/下次任务.txt「第六十一轮」。
 - v1.64(第五十九轮二):一键扫荡 = 975 分块(sweepGo 复用 enterLv + reward + bossWin,bossWin 是从 update 拆出来的首领结算);bgm0 立体声(build_audio.py BGMHQ);神秘副本 5 = 536 分块 cur 35 = MY5(PPF 图集、pfgStep 挂在 DMST.pfg、pfgSD 自爆、pfgWin 掉落);紫焰魅影 it.fw = 3(FWK[3]、wG 7、ampRun 技能范围)。

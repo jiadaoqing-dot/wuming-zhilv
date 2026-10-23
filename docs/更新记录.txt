@@ -1,3 +1,11 @@
+【v1.66 · 2026-10-23 · 第六十一轮:十二魔封印 7~9(二阶)、二阶诅咒、Lv4 强化石来源】
+- 571:DMOPEN 9,DMD k = belz / mamm / levi,DMHP / DMDM 补到 9 个(二阶 300~330 万 / 125~131,dmInit 按数组长度);新图层 DM3(dm3Step / dm3Fx / dm3Clr:DMB 酸液弹 · DMG 蝇卵 · DMQ 蛆 · DMBL 飞刃 · DMTR 陷阱 · DMGP 金堆);belzStep(devour 吸人)/ mammStep(mmGreed 贪婪层 e.gd、mmTake 夺回 → daze)/ leviStep(levK 逆鳞,e.dmK 由 190 dealt 调用;转身延迟 e.tT;二阶段 e.tdW 海水)。新颜色 gold / acid(DMSP / DMZF / DMPF)。
+- 诅咒:撤掉 CUFIX(1~6 随机);tr 2 = 强化已有一阶那条属性 ×CUK[2],不随机、不弹选择。
+- 图集 DMN 重做:build_dmn.py 加 D2(每个动作单独左右裁边)+ fx_ 特效行 + 货架式排布(3264×2368,比原来还矮);M 整个贴回。素材 raw/demon/wind / crystal / metal / insect。
+- BGM bgm28b~30b(build_audio.py r61,只编码这 3 首);AUD 已登记。k 键表:110 reward / 140 CDMG / 180 ×2 / 370 MN / 800 BWP / 970 lvsArt。
+- Lv4 强化石:KPIT stn4(600,KPFIX,kpIc / kpHave / kpBuy 分支)、ASTRR、炼狱 twChk(8 层起必得)、每日任务 19 / 21;970 掉落预览 n ≥ 16 显示 Lv4。
+- 美术致谢 670 补两行;字体重做(新字)。冒烟 0 错误;Playwright 逐个招式跑 9 秒无报错,逆鳞正面 151 / 背后 647,二阶诅咒 暴击 510 → 765。
+
 【v1.65 · 2026-10-20 · 第六十轮:99 级、技能 9 级、强化 +12、扫荡限次、恶魔诅咒固定攻击】
 - 140:LVMAX 99,EXPT 55 级以后 43000 × 1.085^n(55→99 约 1900 万;实测第十七关三星扫荡一次约 33 万)。
 - 070 LNMAX 9;200 skCd 6~9 级每级 -3%(9 级 -36%);330 skCost L ≥ 6:基础 56+i / 进阶 60+(i-4) 级起每级 +10,sp 2 / 3,金币 ×3。被动不变。

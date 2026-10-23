@@ -68,6 +68,10 @@ BGM['bgm0']=(G+'r59/town_ai.aac',None,1)
 BGMHQ={'bgm0'}
 # 第五十九轮:神秘副本 5「擎天魔神」首领曲 = The Final Battle(skrjablin,CC0,https://opengameart.org/node/73591,raw/audio/bgm/r59b)
 BGM['bgm35b']=(G+'r59b/the_final_battle.ogg',None,1)
+# 第六十一轮 十二魔封印 7~9(cur 28~30,raw/audio/bgm/r61)别西卜 Boss Battle #9 [Metal](nene,CC0,https://opengameart.org/content/boss-battle-9-metal)/
+#   玛门 Rise of Spirit(Alexandr Zhelanov,CC-BY 3.0,https://opengameart.org/content/rise-of-spirit)/
+#   利维坦 Dark souls type boss theme(ProjectHelmet,CC-BY 4.0,https://opengameart.org/content/dark-souls-type-boss-theme)
+BGM['bgm28b']=(G+'r61/boss_battle_9_metal_loop.wav',150,1);BGM['bgm29b']=(G+'r61/Rise of spirit.ogg',150,1);BGM['bgm30b']=(G+'r61/helmet_boss_theme_arcanos.mp3',150,1)
 # 用法补充:python art_src/audio/build_audio.py bgm0 bgmH  只重做列出的几个(不写就全部重做)
 import sys;ONLY=set(sys.argv[1:])
 def load(p,sr,st=0):

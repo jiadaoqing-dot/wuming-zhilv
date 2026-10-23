@@ -80,8 +80,67 @@ for k,an in D.items():
         for i,c in enumerate(out):strip.alpha_composite(c,(i*w,0))
         ax=(box[2]-fx) if k in FLIP else fx-box[0]
         rows.append((k+'_'+n,strip,w,h,len(out),int(round(ax)),int(yb-box[1]+1)))
-W=max(r[1].width for r in rows);H=sum(r[3]+1 for r in rows)
-atl=Image.new('RGBA',(W,H));M={};y=0
+# 第六十一轮(cur 28~30,二阶):
+# 恶魔 7「别西卜」:Elementals: Wind Hashashin(chierit,CC-BY 4.0,https://chierit.itch.io/elementals-wind-hashashin,免费版,raw/demon/wind)
+#   —— 原图朝右;按亮度换成「蝇王」的黑褐 / 腐黄绿;长动作隔一帧取一帧
+# 恶魔 8「玛门」:Elementals: Crystal Mauler(chierit,CC-BY 4.0,https://chierit.itch.io/elementals-crystal-mauler,免费版,raw/demon/crystal)
+#   —— 原图朝右;按亮度换成金色(水晶 → 金矿尖刺)
+# 恶魔 9「利维坦」:Elementals: Metal Bladekeeper(chierit,CC-BY 4.0,https://chierit.itch.io/elementals-metal-bladekeeper,免费版,raw/demon/metal)
+#   —— 原图朝右;按亮度换成深海青(鳞甲);飞刃 / 陷阱(projectile_and_trap)同样换色
+# 别西卜的蝇卵 / 蛆虫 / 酸液:Animated insect enemy assets(ponkpixels,CC-BY 4.0,https://ponkpixels.itch.io/insect-enemies,raw/demon/insect)—— 原色(本来就是腐绿)
+# 这三个恶魔每个动作单独左右裁边(上下仍用同一个外框,脚底高度一致),图集不会太宽
+WH=os.path.join(R,'demon','wind','x','elementals_wind_hashashin_FREE_v1.1','PNG')
+CM=os.path.join(R,'demon','crystal','x','Elementals_Crystal_Mauler_Free_v1.0','animations','PNG')
+MB=os.path.join(R,'demon','metal','x','Elementals_metal_bladekeeper_FREE_v1.1','PNG animations')
+IN=os.path.join(R,'demon','insect','x')
+FLYC=[(0,(14,10,6)),(.35,(52,40,18)),(.62,(104,110,30)),(.85,(182,204,64)),(1,(244,255,170))]
+GOLD=[(0,(34,16,4)),(.35,(112,64,12)),(.62,(204,148,36)),(.85,(255,214,92)),(1,(255,250,214))]
+DEEP=[(0,(24,52,78)),(.3,(44,108,146)),(.6,(78,176,204)),(.85,(150,230,238)),(1,(236,255,255))]
+D2={
+ 'belz':{'i':seq(os.path.join(WH,'idle'),'idle_%d.png',8),'w':seq(os.path.join(WH,'run'),'run_%d.png',8),'a':seq(os.path.join(WH,'1_atk'),'1_atk_%d.png',8),
+         'b':sub(seq(os.path.join(WH,'2_atk'),'2_atk_%d.png',18)),'c':sub(seq(os.path.join(WH,'3_atk'),'3_atk_%d.png',26)),'s':sub(seq(os.path.join(WH,'sp_atk'),'sp_atk_%d.png',30),3),
+         'r':seq(os.path.join(WH,'roll'),'roll_%d.png',6),'h':seq(os.path.join(WH,'take_hit'),'take_hit_%d.png',6)},
+ 'mamm':{'i':seq(os.path.join(CM,'idle'),'idle_%d.png',8),'w':seq(os.path.join(CM,'run'),'run_%d.png',8),'a':seq(os.path.join(CM,'1_atk'),'1_atk_%d.png',7),
+         'b':seq(os.path.join(CM,'2_atk'),'2_atk_%d.png',7),'c':sub(seq(os.path.join(CM,'3_atk'),'3_atk_%d.png',17)),'s':sub(seq(os.path.join(CM,'sp_atk'),'sp_atk_%d.png',15)),
+         'j':sub(seq(os.path.join(CM,'jump_full'),'jump_full_%d.png',21)),'h':seq(os.path.join(CM,'take_hit'),'take_hit_%d.png',6)},
+ 'levi':{'i':seq(os.path.join(MB,'01_idle'),'01_idle_%d.png',8),'w':seq(os.path.join(MB,'02_run'),'02_run_%d.png',8),'a':seq(os.path.join(MB,'07_1_atk'),'07_1_atk_%d.png',6),
+         'b':seq(os.path.join(MB,'08_2_atk'),'08_2_atk_%d.png',8),'c':sub(seq(os.path.join(MB,'09_3_atk'),'09_3_atk_%d.png',18)),'s':seq(os.path.join(MB,'10_sp_atk'),'10_sp_atk_%d.png',11),
+         'p':seq(os.path.join(MB,'05_projectile_cast'),'05_projectile_cast_%d.png',7),'t':sub(seq(os.path.join(MB,'06_trap_cast'),'06_trap_cast_%d.png',10)),
+         'r':seq(os.path.join(MB,'04_roll'),'04_roll_%d.png',7),'d':sub(seq(os.path.join(MB,'11_defend'),'11_defend_%d.png',12))}}
+TINT2={'belz':FLYC,'mamm':GOLD,'levi':DEEP}
+for k,an in D2.items():
+    fr=[f for v in an.values() for f in v];top=min(f.getbbox()[1] for f in fr if f.getbbox());bot=max(f.getbbox()[3] for f in fr if f.getbbox())
+    a=np.array(an['i'][0])[...,3];ys=np.where(a.max(1)>0)[0];yb=ys[-1];xs=np.where(a[yb]>0)[0];fx=(xs[0]+xs[-1])/2
+    for n,v in an.items():
+        bs=[f.getbbox() for f in v if f.getbbox()];l=min(min(b[0] for b in bs),int(fx)-2);r=max(max(b[2] for b in bs),int(fx)+2)
+        out=[gmap(f.crop((l,top,r,bot)),TINT2[k]) for f in v]
+        w,h=out[0].size;strip=Image.new('RGBA',(w*len(out),h))
+        for i,c in enumerate(out):strip.alpha_composite(c,(i*w,0))
+        rows.append((k+'_'+n,strip,w,h,len(out),int(round(fx-l)),int(yb-top+1)))
+# 特效小图:fx_名字,脚底 = 底边中点
+def grid(p,fw,fh,row=None,n=None):
+    im=op(p);cols=im.width//fw;rs=[row] if row is not None else range(im.height//fh)
+    v=[im.crop((c*fw,r*fh,c*fw+fw,r*fh+fh)) for r in rs for c in range(cols)];return v[:n] if n else v
+def fxrow(n,v,tint=None):
+    if tint:v=[gmap(f,tint) for f in v]
+    w,h=v[0].size;strip=Image.new('RGBA',(w*len(v),h))
+    for i,c in enumerate(v):strip.alpha_composite(c,(i*w,0))
+    rows.append(('fx_'+n,strip,w,h,len(v),w//2,h))
+fxrow('egg',grid(os.path.join(IN,'EggCluster.png'),32,32)+grid(os.path.join(IN,'Eggsplosion.png'),32,32))
+fxrow('mag',grid(os.path.join(IN,'MaggotWalk.png'),32,32,2))
+fxrow('blob',grid(os.path.join(IN,'AcidBlob.png'),32,32,0))
+fxrow('splat',grid(os.path.join(IN,'AcidSplat.png'),64,64))
+PT=os.path.join(MB,'projectile_and_trap')
+fxrow('blade',[op(os.path.join(PT,'projectile_throw','projectile_throw.png'))]+seq(os.path.join(PT,'projectile_land'),'projectile_land_%d.png',5),DEEP)
+fxrow('trap',[op(os.path.join(PT,'trap_throw','trap_throw.png'))]+seq(os.path.join(PT,'trap_land'),'trap_land_%d.png',3)+seq(os.path.join(PT,'trap_detonate'),'trap_detonate_%d.png',5),DEEP)
+# 第六十一轮:货架式排布(窄的行并排放,图集不再一行一个动作)
+W=max(r[1].width for r in rows);P={};sh=[]  # sh = [y, 高, 已用宽]
+for r in sorted(rows,key=lambda r:-r[3]):
+    s=next((s for s in sh if s[1]>=r[3] and s[1]-r[3]<=20 and s[2]+r[1].width<=W),None)
+    if s is None:s=[sum(q[1]+1 for q in sh),r[3],0];sh.append(s)
+    P[r[0]]=(s[2],s[0]);s[2]+=r[1].width+1
+H=sum(q[1]+1 for q in sh)
+atl=Image.new('RGBA',(W,H));M={}
 for n,im,w,h,c,ax,ay in rows:
-    atl.alpha_composite(im,(0,y));M[n]=[0,y,w,h,c,ax,ay];y+=h+1
+    X,Y=P[n];atl.alpha_composite(im,(X,Y));M[n]=[X,Y,w,h,c,ax,ay]
 atl.save(sys.argv[2],optimize=True);print('M',json.dumps(M,separators=(',',':')));print(atl.size,os.path.getsize(sys.argv[2]))
