@@ -1,6 +1,6 @@
 // 主城 NPC(2026-10-12 扩图后分散摆放;y = 脚底高度,技能导师站在树屋高台上)
 const NPCS=[{x:340,y:252,n:'技能导师',c:'#7048e8',h:'#e8d5ff'},{x:600,y:300,n:'药剂师',c:'#0ca678',h:'#c3fae8'},{x:985,y:300,n:'装备商人',c:'#e8590c',h:'#ffd8a8'},{x:1195,y:300,n:'强化师',c:'#2b8a3e',h:'#b2f2bb'},{x:700,y:300,n:'仓库管理员',c:'#364fc7',h:'#d0ebff'}];  // 第三十二轮:仓库管理员桂婶
-function toTown(){MYS=0;peqTown();save();init();bossOn=false;cam=0;E=[];GD=[];PL=TWN.pl.map(p=>({...p}));st='town';P.x=TWN.spawn;cam=0;P.f=1;DLG=null;{const q=mqCur();say(CLR.includes(3)&&chiefNew()?'村长好像有话想对你说……':mqDone()?'主线「'+q.n+'」已完成,找'+mqWho(q)+'或打开 📜 领取奖励':q&&!QD.ms&&!mqLock(q)?'新的主线任务:去找'+mqWho(q)+'(头上有 ❗)':'欢迎回到晨曦镇')}if(MYR){MYR=0;mystIn()}}
+function toTown(){MYS=0;ttlChk();peqTown();save();init();bossOn=false;cam=0;E=[];GD=[];PL=TWN.pl.map(p=>({...p}));st='town';P.x=TWN.spawn;cam=0;P.f=1;DLG=null;{const q=mqCur();say(CLR.includes(3)&&chiefNew()?'村长好像有话想对你说……':mqDone()?'主线「'+q.n+'」已完成,找'+mqWho(q)+'或打开 📜 领取奖励':q&&!QD.ms&&!mqLock(q)?'新的主线任务:去找'+mqWho(q)+'(头上有 ❗)':'欢迎回到晨曦镇')}if(MYR){MYR=0;mystIn()}}
 
 // 面具法师的暗影法球 / 天降暗影雷砸中主角、地面或场地墙壁:砸在身体 / 木头 / 石墙上的声音随机混用
 const mImp=(f,v)=>{if(cur==2&&bossOn&&(f.c==1||f.c==2))sfx('b_imp'+(1+Math.random()*3|0),v)};

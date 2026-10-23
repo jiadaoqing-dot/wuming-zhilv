@@ -58,7 +58,7 @@ bfx_atlas.png  27KB  930:3 BFX.D  ← art_src/bfx/build_bfx.py
 book_atlas.png  4KB  580:6 BOOK.D  ← art_src/book/build_book.py
 city8_atlas.png  128KB  470:138 CITY8.D  ← art_src/city/build_city8.py
 cst_atlas.png  155KB  550:10 CST.D  ← art_src/castle/build_castle.py
-dmn_atlas.png  541KB  571:32 DMN.D  ← art_src/ppf/build_ppf.py
+dmn_atlas.png  653KB  571:34 DMN.D  ← art_src/ppf/build_ppf.py
 eq_atlas.png  17KB  770:4 EQPX.D  ← art_src/eqicon/build_eqicon.py, art_src/ppf/build_ppf.py
 fire13_atlas.png  160KB  560:8 FIRE.D  ← art_src/fire13/build_fire13.py
 fx29_atlas.png  817KB  940:15 FX29.D  ← art_src/skfx/build_fx29.py
@@ -138,7 +138,7 @@ map_bg.jpg  110KB  950:75 MAPI.D  ← art_src/map/build_map.py
 fpx12.woff2  69KB  000:9   ← art_src/font/build_font.py
 fpx8.woff2  44KB  000:10   ← art_src/font/build_font.py
 
-== 音频 OGG(@@O:)  147 个 ==
+== 音频 OGG(@@O:)  150 个 ==
 au_b_axe.ogg  6KB  020:7 AUD.b_axe  ← art_src/audio/build_audio.py  [bfh1_metal_hit_02.ogg, explosion.ogg, swish-7.wav]
 au_b_gallop.ogg  7KB  020:7 AUD.b_gallop  ← art_src/audio/build_audio.py  [slam_0%d.ogg, wind]
 au_b_imp1.ogg  6KB  020:7 AUD.b_imp1  ← art_src/audio/build_audio.py  [impactwood11.mp3.flac, hit_02.ogg]
@@ -188,6 +188,9 @@ au_bgm29b.ogg  497KB  020:13 AUD.bgm29b  ← art_src/audio/build_audio.py
 au_bgm2b.ogg  789KB  020:9 AUD.bgm2b  ← art_src/audio/build_audio.py
 au_bgm3.ogg  511KB  020:9 AUD.bgm3  ← art_src/audio/build_audio.py  [Forest Whisper.ogg, final_hour.ogg, tribal.mp3, fight_looped.ogg]
 au_bgm30b.ogg  946KB  020:13 AUD.bgm30b  ← art_src/audio/build_audio.py
+au_bgm31b.ogg  247KB  020:13 AUD.bgm31b  ← art_src/audio/build_audio.py
+au_bgm32b.ogg  364KB  020:13 AUD.bgm32b  ← art_src/audio/build_audio.py
+au_bgm33b.ogg  957KB  020:13 AUD.bgm33b  ← art_src/audio/build_audio.py
 au_bgm35b.ogg  999KB  020:13 AUD.bgm35b  ← art_src/audio/build_audio.py
 au_bgm3b.ogg  884KB  020:9 AUD.bgm3b  ← art_src/audio/build_audio.py
 au_bgm4.ogg  807KB  020:9 AUD.bgm4  ← art_src/audio/build_audio.py

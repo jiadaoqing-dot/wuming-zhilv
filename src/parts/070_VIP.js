@@ -24,7 +24,7 @@ function eqSum(ks){const g={hp:0,mp:0,atk:0,def:0,cr:0,dg:0};for(const k of ks)e
 function cosIt(id){const d=COSD[id];if(!d)return null;const c=R19.cen[id]||(R19.cen[id]={en:0,ev:0,v9:1});if(!c.v9){c.ev=Math.round((c.ev||0)*EQE16);c.v9=1}Object.assign(c,{cos:id,slot:d.t,tier:3,s:{},n:d.n});return c}
 // 第三十三轮:百分比加成全部只加在「基础数值」上(角色基础 + 装备固定属性,不含被动 / 精灵 / 宠物等),各来源的百分比相加,避免数值膨胀
 // 来源:强化荣誉、增幅宝石(穿着的 5 件装备 + 时装 + 翅膀)、时装 / 翅膀白字
-function pctB(ks){const p={hp:0,atk:0,def:0,cr:0},L=[],H=hon();for(const k in p)if(H[k])p[k]+=H[k],L.push(['强化荣誉',k,H[k]]);
+function pctB(ks){const p={hp:0,atk:0,def:0,cr:0},L=[],H=hon();for(const k in p)if(H[k])p[k]+=H[k],L.push(['强化荣誉',k,H[k]]);ttlAdd(p,L);  // 第六十二轮:称号
   const its=ks.map(k=>EQ[k]).concat(['fash','wing'].map(t=>WEAR[t]&&cosIt(WEAR[t])));for(const it of its)if(it&&it.amp&&AMP[it.amp]){p[it.amp]+=AMP[it.amp][1];L.push([AMP[it.amp][0],it.amp,AMP[it.amp][1]])}
   for(const t of ['fash','wing'])if(WEAR[t])for(const k in COSW[t]){const v=cosV(t,k,cosIt(WEAR[t]).fg);p[k]+=v;L.push([COSD[WEAR[t]].n,k,v])}
   p.L=L;return p}

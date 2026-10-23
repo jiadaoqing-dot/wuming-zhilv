@@ -181,7 +181,7 @@ const HSKD=[['嗑瓜子',()=>`关卡里(含神秘副本)遇到敌人时嗑一次
   ['丢瓜子壳',()=>`朝最近的敌人丢瓜子壳:${hamDmP(60)}% 攻击力伤害`,15]];
 // 第十五轮:灵巧(冷却缩短)最多 20%(HSPM(),第四十八轮起被动「羁绊」每级 +1%);到顶后嗑瓜子只在其他三项里随机,不在游戏里写出上限
 function hamFeed(n,quiet){const L=[];for(let i=0;i<n;i++){const k=pick(Object.keys(HKS).filter(k=>k!='spd'||hamB('spd')<HSPM())),q=HKS[k];let v=Math.round(rnd(q[2],q[3])*10)/10;if(k=='spd')v=Math.min(v,+(HSPM()-hamB('spd')).toFixed(1));HAM.b[k]=+((HAM.b[k]||0)+v).toFixed(1);HAM.n++;L.push(q[0]+' +'+v+'%')}
-  if(!quiet&&P)tx('仓鼠嗑了瓜子:'+L.join(' '),P.x-50,P.y-70,'#ffe066');save();return L}
+  if(!quiet&&P)tx('仓鼠嗑了瓜子:'+L.join(' '),P.x-50,P.y-70,'#ffe066');save();if(HAM.n>=1001)ttlGet('ny');return L}
 function hamHatchT(){return HAM.ht?Math.max(0,HAM.ht-Date.now()):-1}
 function hamHatchChk(){if(HAM.ht&&Date.now()>=HAM.ht){HAM.ht=0;if(!HAM.own){HAM.own=1;HAM.on=1;PET.on=0;fmsg='🐹 蛋壳裂开了!仓鼠出生了,已经设为出战宠物'}else{const L=hamFeed(3,1);fmsg='🐹 又孵出一只小仓鼠,它把瓜子全塞给了大仓鼠:'+L.join(' · ')}sfx('lvl');save();return 1}return 0}
 function hamPetStep(dt,S,all){if(!hamOn())return;const p=HMP;p.g-=dt;p.wv-=dt;

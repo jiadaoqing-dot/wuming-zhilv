@@ -72,6 +72,9 @@ BGM['bgm35b']=(G+'r59b/the_final_battle.ogg',None,1)
 #   玛门 Rise of Spirit(Alexandr Zhelanov,CC-BY 3.0,https://opengameart.org/content/rise-of-spirit)/
 #   利维坦 Dark souls type boss theme(ProjectHelmet,CC-BY 4.0,https://opengameart.org/content/dark-souls-type-boss-theme)
 BGM['bgm28b']=(G+'r61/boss_battle_9_metal_loop.wav',150,1);BGM['bgm29b']=(G+'r61/Rise of spirit.ogg',150,1);BGM['bgm30b']=(G+'r61/helmet_boss_theme_arcanos.mp3',150,1)
+# 第六十二轮 十二魔封印 10~12(cur 31~33,raw/audio/bgm/r62)贝尔芬格 Boss Battle 10 [Retro](nene,CC0,https://opengameart.org/content/boss-battle-10-retro)/
+#   阿撒兹勒 Boss Battle #8 Metal(nene,CC0,https://opengameart.org/content/boss-battle-8-metal)/ 路西法 Final Confrontation(tcarisland,CC-BY 4.0,https://opengameart.org/content/final-confrontation)
+BGM['bgm31b']=(G+'r62/boss_battle_10_retro_0.ogg',150,1);BGM['bgm32b']=(G+'r62/boss_battle_8_metal_loop.wav',150,1);BGM['bgm33b']=(G+'r62/final_confrontation_0.mp3',150,1)
 # 用法补充:python art_src/audio/build_audio.py bgm0 bgmH  只重做列出的几个(不写就全部重做)
 import sys;ONLY=set(sys.argv[1:])
 def load(p,sr,st=0):

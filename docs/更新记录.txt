@@ -1,3 +1,10 @@
+【v1.67 · 2026-10-23 · 第六十二轮:十二魔 10~12 全开、暗黑炼狱 30 层、称号、Lv4 限购】
+- 571:DMOPEN 12,DMD k = belp / azaz / luci(传说改写);DMHP / DMDM 12 个(二阶 7~9 翻倍 600~660 万 / 250~262,10~12 = 690 / 720 / 800 万、268 / 274 / 290);DM4 一节:dm4Step / dm4Fx / dm4Clr(DMAR 箭 · DMRN 箭雨 · DMOR 追踪法球)、P.slp 怠惰 + dmSlp(叠满睡着)、颜色 sleep;belpStep(nap 回血 / 受伤 ×1.5 / 被吵醒放光束)、azazStep(forge 淬火可打断、guard → counter)、luciStep(pride 跪下 e.kn / 傲慢层 e.pd / 破绽 e.exT;二阶段光圈 e.sfX)。dmBg:MECH / IFN / VOL9 压色;970 lvsArt 同。
+- 图集 DMN:build_dmn.py 加 D3(Leaf Ranger / Ground Monk = chierit CC-BY,Evil Wizard 3 = LuizMelo CC0)+ fx_arw / arwh / shower / beam / orb / orbx;素材 raw/demon/leaf / monk / wiz3。BGM bgm31b~33b(r62)。
+- 572 炼狱:TWOPEN 30,TWL 17~30(后面几关首领 + 十二魔),twPost / twK(17 层起生命 +12% / 攻击 +5% 每层),twHcs 恶魔分组,千钟之主变身按炼狱数值;第 30 层掉大师二阶;20 / 30 层称号。
+- 065 称号(新分块):恶魔之王 / 地狱之王 / 一千零一夜(hamFeed HAM.n ≥ 1001),pctB 加成 + pDeal 宠物伤害,背包人物栏显示。090:Lv4 强化石每天限购 S4LIM 10(R19.mr.s4)。
+- 修:新代码里 DMSH 和恶魔选择页布局常量重名(改名 DMRN);567 行中插 // 注释吞掉代码(改成 /* */)。冒烟 0 错误;Playwright 三个恶魔各跑 45 秒 + 炼狱 17~30 逐层通关无报错。
+
 【v1.66 · 2026-10-23 · 第六十一轮:十二魔封印 7~9(二阶)、二阶诅咒、Lv4 强化石来源】
 - 571:DMOPEN 9,DMD k = belz / mamm / levi,DMHP / DMDM 补到 9 个(二阶 300~330 万 / 125~131,dmInit 按数组长度);新图层 DM3(dm3Step / dm3Fx / dm3Clr:DMB 酸液弹 · DMG 蝇卵 · DMQ 蛆 · DMBL 飞刃 · DMTR 陷阱 · DMGP 金堆);belzStep(devour 吸人)/ mammStep(mmGreed 贪婪层 e.gd、mmTake 夺回 → daze)/ leviStep(levK 逆鳞,e.dmK 由 190 dealt 调用;转身延迟 e.tT;二阶段 e.tdW 海水)。新颜色 gold / acid(DMSP / DMZF / DMPF)。
 - 诅咒:撤掉 CUFIX(1~6 随机);tr 2 = 强化已有一阶那条属性 ×CUK[2],不随机、不弹选择。

@@ -93,7 +93,7 @@ function update(dt){
   for(const w of WZ)w.t-=dt;WZ=WZ.filter(w=>w.t>0);hzStep(dt);
   gdStep(dt);
   for(let i=I.length-1;i>=0;i--)if(ov(P,I[i])){P.hp=Math.min(S.hp,P.hp+15);sfx('coin');tx('+15',P.x,P.y-6,'#69db7c');I.splice(i,1)}
-  if(cur==19&&bossOn&&B.k=='alm'&&B.hp<=0&&!endT)almMorph();  // 第四十八轮:千钟之主还有命就变身
+  if((cur==19||isTw(cur))&&bossOn&&B.k=='alm'&&B.hp<=0&&!endT)almMorph();  // 第六十二轮:暗黑炼狱第 19 层也是千钟之主  // 第四十八轮:千钟之主还有命就变身
   if(isTw(cur))twChk(dt);else if(bossOn&&B.hp<=0&&!endT&&B.k=='pfg'&&!B.sdOK)pfgSD(dt);  // 第五十九轮:擎天魔神先自爆、再结算  // 第五十六轮:暗黑炼狱(两个首领都倒下才算这层通关)
   else if(bossOn&&B.hp<=0&&!endT&&B.can)canDie();  // 第四十六轮:人造人·灿灿一号
   else if(bossOn&&B.hp<=0&&!endT)bossWin();  // 第五十九轮:首领倒下的结算拆成 bossWin(一键扫荡也用它)

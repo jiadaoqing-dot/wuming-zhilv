@@ -22,7 +22,11 @@
  旧的云端环境只能访问 GitHub / npm / pypi,opengameart、itch 访问不了。
  素材来源:ULPC 仓库(LPC 人物图层)、series-ai/jam-ready-assets(大量 CC0 素材,LFS 文件用 media 直链下载,见 fetch_assets.sh)。
 
-【当前状态(2026-10-23,v1.66)】
+【当前状态(2026-10-23,v1.67)】
+- v1.67(第六十二轮):十二魔全开(DMOPEN 12,cur 31 belp / 32 azaz / 33 luci,571 的 DM4 一节:DMAR 箭 / DMRN 箭雨 / DMOR 法球,P.slp 怠惰层数 + dmSlp,颜色 'sleep');二阶 7~9 生命 / 攻击翻倍(DMHP / DMDM)。
+  注意:571 里 DMSH 已被恶魔选择页的布局常量占用(箭雨叫 DMRN);dm3Step / dm3Fx / dm4Fx 用 dmFind(k) 在 [B,...E] 里找恶魔(炼狱一层两个时第二个在 E)。e.fa = 首领淡入淡出(DMN.draw 传 alpha),dmEnd 会清。
+  炼狱 TWOPEN 30:TWL 17~30、TWHC / TWNM 自动加十二魔、TWLS / TWFX 加 16/18~21 + 恶魔共用 dmStep(twHcs 按 'dm' 分组只推进一次)、twPost(e)(140 init 的 B 和 twInit 的第二个都调用:跑原来的 almInit / rgInit / igInit / dmInit,再恢复炼狱数值 × twK)、千钟之主变身按 e.twH × ALSZ;340 almMorph 也在炼狱生效。
+  称号 = 065 分块(TTL / R19.ttl / ttlGet / ttlChk(toTown、twChk、hamFeed)/ ttlAdd 进 pctB / ttlPet 进 pDeal / 背包人物栏 ttlNm)。Lv4 强化石 S4LIM 10 = R19.mr.s4(mrDay 清零)。BGM bgm31b~33b(build_audio.py r62)。问题在 docs/下次任务.txt「第六十三轮」。
 - v1.66(第六十一轮):十二魔 7~9 开放(DMOPEN 9,cur 28 belz / 29 mamm / 30 levi,571 的 DM3 一节);二阶诅咒 = 强化已有一阶属性 ×1.5;Lv4 强化石来源(KPIT stn4 / ASTRR / 炼狱 / 每日任务)。
   再开 10~12:DMD.k + build_dmn.py D2(TINT2)→ 打印的 M 整个贴回 DMN.M + DMZS / DMDK + DMN.draw 分支 + dmBg + xxStep → DMST + k 键表(110 / 140 / 180×2 / 370 / 800 / 970)+ DMHP / DMDM + BGM bgm(22+i)b(AUD 登记)。伤害倍率挂钩 e.dmK(e)(190)。问题在 docs/下次任务.txt「第六十二轮」。
 - v1.65(第六十轮):LVMAX 99(EXPT 55 级后 ×1.085)· LNMAX 9(skCd 6~9 级 -3%/级,skCost L ≥ 6 分支)· ENMX 12(Lv4 强化石 STDR 第 5 项 c ≥ 16;HONR 10~12)· 扫荡每天 SWN 10 次 R19.sw + SWPK 150 击杀点 · 571 CUFIX 十二魔 4~6 诅咒固定攻击。

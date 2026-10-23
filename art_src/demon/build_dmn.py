@@ -133,6 +133,48 @@ fxrow('splat',grid(os.path.join(IN,'AcidSplat.png'),64,64))
 PT=os.path.join(MB,'projectile_and_trap')
 fxrow('blade',[op(os.path.join(PT,'projectile_throw','projectile_throw.png'))]+seq(os.path.join(PT,'projectile_land'),'projectile_land_%d.png',5),DEEP)
 fxrow('trap',[op(os.path.join(PT,'trap_throw','trap_throw.png'))]+seq(os.path.join(PT,'trap_land'),'trap_land_%d.png',3)+seq(os.path.join(PT,'trap_detonate'),'trap_detonate_%d.png',5),DEEP)
+# 第六十二轮(cur 31~33,二阶最后三个):
+# 恶魔 10「贝尔芬格」:Elementals: Leaf Ranger(chierit,CC-BY 4.0,https://chierit.itch.io/elementals-leaf-ranger,免费版,raw/demon/leaf)
+#   —— 原图朝右;按亮度换成昏睡的淡紫(「怠惰」);箭 / 箭雨 / 光束延长段同样换色;长动作隔一帧取一帧
+# 恶魔 11「阿撒兹勒」:Elementals: Ground Monk(chierit,CC-BY 4.0,https://chierit.itch.io/elementals-ground-monk,免费版,raw/demon/monk)
+#   —— 原图朝右;按亮度换成铁黑 + 炉火橙(「锻造」,地刺 = 荒野的岩石);长动作隔一帧取一帧
+# 恶魔 12「路西法」:Evil Wizard 3(LuizMelo,CC0,https://luizmelo.itch.io/evil-wizard-3,raw/demon/wiz3)
+#   —— 原图朝右,140×140 横排帧;按亮度换成白金 + 堕天紫(「晨星」);法球 Moving / Explode 同样换色
+LR=os.path.join(R,'demon','leaf','x','Elementals_Leaf_ranger_Free_v1.0','animations','PNG')
+GM=os.path.join(R,'demon','monk','x','Elementals_ground_monk_FREE_v1.3','png')
+W3=os.path.join(R,'demon','wiz3','x','Evil Wizard 3','Sprites')
+SLOTH=[(0,(22,12,34)),(.35,(66,42,96)),(.62,(132,100,176)),(.85,(208,184,238)),(1,(252,244,255))]
+FORGE=[(0,(10,10,14)),(.35,(48,46,56)),(.58,(100,92,98)),(.8,(214,112,40)),(1,(255,222,140))]
+LUCI=[(0,(18,8,32)),(.3,(64,32,100)),(.55,(152,112,204)),(.8,(242,214,140)),(1,(255,255,242))]
+def nseq(d,pre,n):return [op(os.path.join(d,pre+'%d.png'%i)) for i in range(1,n+1)]
+def ld(d):  # 文件夹里按数字排序的全部帧
+    fs=[f for f in os.listdir(d) if f.endswith('.png')];fs.sort(key=lambda f:int(''.join(c for c in f if c.isdigit()) or 0));return [op(os.path.join(d,f)) for f in fs]
+def sheet(n,fw=140):im=op(os.path.join(W3,n+'.png'));return [im.crop((i*fw,0,i*fw+fw,im.height)) for i in range(im.width//fw)]
+D3={
+ 'belp':{'i':sub(ld(os.path.join(LR,'idle'))),'w':ld(os.path.join(LR,'run')),'a':ld(os.path.join(LR,'1_atk')),'b':sub(ld(os.path.join(LR,'2_atk'))),
+         'c':ld(os.path.join(LR,'3_atk')),'s':ld(os.path.join(LR,'sp_atk')),'d':sub(ld(os.path.join(LR,'defend'))),'r':sub(ld(os.path.join(LR,'slide'))),'h':ld(os.path.join(LR,'take_hit'))},
+ 'azaz':{'i':ld(os.path.join(GM,'idle')),'w':ld(os.path.join(GM,'run')),'a':ld(os.path.join(GM,'1_atk')),'b':sub(ld(os.path.join(GM,'2_atk'))),'c':sub(ld(os.path.join(GM,'3_atk'))),
+         's':sub(ld(os.path.join(GM,'sp_atk'))),'m':sub(ld(os.path.join(GM,'meditate'))),'d':ld(os.path.join(GM,'defend')),'h':ld(os.path.join(GM,'take_hit'))},
+ 'luci':{'i':sheet('Idle'),'w':sheet('Walk'),'a':sheet('Attack'),'h':sheet('Get hit')}}
+TINT3={'belp':SLOTH,'azaz':FORGE,'luci':LUCI}
+for k,an in D3.items():
+    fr=[f for v in an.values() for f in v];top=min(f.getbbox()[1] for f in fr if f.getbbox());bot=max(f.getbbox()[3] for f in fr if f.getbbox())
+    a=np.array(an['i'][0])[...,3];ys=np.where(a.max(1)>0)[0];yb=ys[-1];xs=np.where(a[yb]>0)[0];fx=(xs[0]+xs[-1])/2
+    for n,v in an.items():
+        bs=[f.getbbox() for f in v if f.getbbox()];l=min(min(b[0] for b in bs),int(fx)-2);r=max(max(b[2] for b in bs),int(fx)+2)
+        out=[gmap(f.crop((l,top,r,bot)),TINT3[k]) for f in v]
+        w,h=out[0].size;strip=Image.new('RGBA',(w*len(out),h))
+        for i,c in enumerate(out):strip.alpha_composite(c,(i*w,0))
+        rows.append((k+'_'+n,strip,w,h,len(out),int(round(fx-l)),int(yb-top+1)))
+PE=os.path.join(LR,'projectiles_and_effects')
+def tight(v):  # 特效帧统一裁掉透明边
+    bs=[f.getbbox() for f in v if f.getbbox()];b=(min(q[0] for q in bs),min(q[1] for q in bs),max(q[2] for q in bs),max(q[3] for q in bs));return [f.crop(b) for f in v]
+fxrow('arw',tight(ld(os.path.join(PE,'arrow'))),SLOTH)
+fxrow('arwh',tight(ld(os.path.join(PE,'arrow_hit'))),SLOTH)
+fxrow('shower',tight(sub(ld(os.path.join(PE,'arrow_shower_effect')))),SLOTH)
+fxrow('beam',tight(ld(os.path.join(PE,'beam_extension_effect'))),SLOTH)
+fxrow('orb',tight(grid(os.path.join(W3,'Projectile','Moving.png'),50,50)),LUCI)
+fxrow('orbx',tight(grid(os.path.join(W3,'Projectile','Explode.png'),50,50)),LUCI)
 # 第六十一轮:货架式排布(窄的行并排放,图集不再一行一个动作)
 W=max(r[1].width for r in rows);P={};sh=[]  # sh = [y, 高, 已用宽]
 for r in sorted(rows,key=lambda r:-r[3]):

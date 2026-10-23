@@ -27,7 +27,7 @@ function summon(k,S){const q=SMD[k];if(SM[k]){tx(q.n+'还在战斗',P.x-16,P.y-1
     ring(vx,GY-2,4,46,'#cc5de8',.4,4,.3);for(let i=0;i<14;i++)pt({x:vx+rnd(-20,20),y:GY-2,vx:rnd(-40,40),vy:rnd(-160,-60),g:400,c:pick(['#8d5524','#cc5de8','#2f9e44']),ad:0,s:rnd(2,4),l:.6})}
   smLure(k)}
 let NRMH=0,PETX=0;  // 第四十二轮:NRMH = 普攻命中(邪灵 4 件只加技能伤害)· PETX = 宠物的伤害(邪灵 6 件)
-const pDeal=(e,d,fx,cra)=>{PETX=1;xDeal(e,d,fx,cra);PETX=0};
+const pDeal=(e,d,fx,cra)=>{PETX=1;xDeal(e,d*ttlPet(),fx,cra);PETX=0};  // 第六十二轮:称号「一千零一夜」宠物伤害 +20%
 const sDeal=(e,d)=>{noCombo=1;hitFx=null;dealt(e,d);noCombo=0};
 const xDeal=(e,d,fx,cra)=>{noCombo=1;hitFx=fx||null;dealt(e,d,{ns:1,cra});hitFx=null;noCombo=0};  // 时装 / 宠物伤害:不加连击、不打僵
 function nearE(all,cx,cy,r,f){let b=null,bd=r;for(const e of all){if(e.ug||e.hp<=0)continue;const ex=e.x+e.w/2,ey=e.y+e.h/2,d=Math.hypot(ex-cx,ey-cy);if(d<bd&&(!f||f(e))){bd=d;b=e}}return b}

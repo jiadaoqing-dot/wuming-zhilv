@@ -65,7 +65,7 @@ function almEnd(e,x_){e.act=null;e.mv=0;e.n=0;e.hn=0;e.cd=[1.2,.95,.75][e.form-1
 // 打倒:还有命就进入变身(e.ug 打不到),hp 先留 1 防止被当成死亡
 function almMorph(){const e=B;if(!(e.form<3))return;e.hp=1;e.ug=1;e.act='morph';e.at=0;e.mv=0;e.y=e.gy||e.y;A19F=[];e.seaT=0;sfxAll();flash('255,240,200',.3);banner('叮铃铃铃——!千钟之主又醒了过来……')}
 function almGrow(e){const K=STK(),f=++e.form,k=ALSZ[f-1]/ALSZ[f-2],bot=e.y+e.h;e.w=Math.round(e.w*k);e.h=Math.round(e.h*k);e.bsz=(e.bsz||1)*k;e.y=bot-e.h;e.gy=e.y;e.x=gpCl(e,e.x);
-  e.hp=e.max=Math.round(ALHP[f-1]*K.hp);e.dm=ALDM[f-1]*K.atk;e.saN=0;e.ug=0;e.act=null;e.cd=1;shake=.5;syn('boom');ring(e.x+e.w/2,e.y+e.h/2,12,220,f==3?'#8ce99a':'#ff8787',.5,6);banner(ALNM[f-1])}
+  e.hp=e.max=Math.round(ALHP[f-1]*K.hp);e.dm=ALDM[f-1]*K.atk;if(e.twH){e.hp=e.max=Math.round(e.twH*ALSZ[f-1]);e.dm=e.twD*ALSZ[f-1]}/* 第六十二轮:暗黑炼狱里按炼狱数值 × 体型比例 */e.saN=0;e.ug=0;e.act=null;e.cd=1;shake=.5;syn('boom');ring(e.x+e.w/2,e.y+e.h/2,12,220,f==3?'#8ce99a':'#ff8787',.5,6);banner(ALNM[f-1])}
 function almStep(e,dt){const pc=P.x+12,cx=e.x+e.w/2,dx=pc-cx,ad=Math.abs(dx),F=e.form||1,dm=e.dm;e.pz=null;
   if(!e.intro){e.intro=1;banner(ALNM[0])}
   e.seaCd=(e.seaCd||0)-dt;

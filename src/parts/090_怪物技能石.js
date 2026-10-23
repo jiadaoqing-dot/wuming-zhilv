@@ -97,14 +97,15 @@ function gemSet(){const it=itOf(GSEL.e),g=R19.ats[GSEL.s];if(!it||!g)return '先
   it.gem={q:g.q,a:g.a.map(v=>v.slice())};R19.ats.splice(GSEL.s,1);GSEL.s=-1;GSEL.ok=0;sfx('fuse');const S=stats();P.hp=Math.min(P.hp,S.hp);P.mp=Math.min(P.mp,S.mp);save();return '💠 镶嵌成功:'+nm(it)+' '+atsTxt(it.gem)}
 // 商城(击杀点):固定货架 + 随机物品栏(3 个货,每天限买 MRMAX 次;每次在商城消费都刷新;合成添加剂、高级幸运宝石只在随机栏出现)
 // 第三十七轮(用户:账号练满不该要几百小时):通关击杀点 = (40 + 12 × 关卡) × 星级(一星 1 / 二星 1.3 / 三星 1.7),原来固定 20;击杀点商店、时装翅膀、制作书、材料约降一半
-const KPIT={ats0:['低级属性石',120,'随机 1 条属性(攻击 / 生命 / 魔力 / 防御 / 暴击 / 闪避,数值固定为最高值)'],ats1:['中级属性石',180,'随机 2 条属性'],gift:['小礼袋',25,'送给 NPC,好感度 +1'],food:['宠物饲料',5,'钢盔小鸡获得 20% 升级经验'],lk1:['低级幸运宝石',180,'强化成功率 +25%'],lk2:['中级幸运宝石',270,'强化成功率 +35%'],add:['合成添加剂',300,'熔炉合成强化石必需'],lk3:['高级幸运宝石',390,'强化成功率 +50%'],stn4:['普通 Lv4 强化石',600,'强化 +10~+12 用(第六十一轮)']};
+const KPIT={ats0:['低级属性石',120,'随机 1 条属性(攻击 / 生命 / 魔力 / 防御 / 暴击 / 闪避,数值固定为最高值)'],ats1:['中级属性石',180,'随机 2 条属性'],gift:['小礼袋',25,'送给 NPC,好感度 +1'],food:['宠物饲料',5,'钢盔小鸡获得 20% 升级经验'],lk1:['低级幸运宝石',180,'强化成功率 +25%'],lk2:['中级幸运宝石',270,'强化成功率 +35%'],add:['合成添加剂',300,'熔炉合成强化石必需'],lk3:['高级幸运宝石',390,'强化成功率 +50%'],stn4:['普通 Lv4 强化石',600,'强化 +10~+12 用 · 每天限购 10 颗']};
+const S4LIM=10;  // 第六十二轮(用户):普通 Lv4 强化石每天限购 10 颗(R19.mr.s4,和随机物品栏一起按天清零)
 const KPFIX=['ats0','ats1','gift','food','lk1','lk2','stn4'],KPRND=['add','add','add','lk3','lk3','ats0','ats1','gift','lk1','lk2','food'],MRMAX=3;
 function mrRoll(){const L=[];let n=0;while(L.length<3&&n++<200){const k=pick(KPRND);if(!L.includes(k))L.push(k)}R19.mr.L=L}
-function mrDay(){if(R19.mr.day!=today()){R19.mr.day=today();R19.mr.n=0;mrRoll()}if(!R19.mr.L.length)mrRoll()}
-function kpBuy(k,rnd){mrDay();const d=KPIT[k];if(!d)return '';if(KP<d[1])return '击杀点不足';if(rnd&&(R19.mr.n>=MRMAX||!R19.mr.L.includes(k)))return '今天的随机物品栏已经买了 '+MRMAX+' 次,明天再来';if(!rnd&&!KPFIX.includes(k))return '';
-  KP-=d[1];KPS+=d[1];let x_='';if(k=='ats0'||k=='ats1'){const g=atsNew(+k[3]);R19.ats.push(g);x_='('+atsTxt(g)+')'}else if(k=='lk3')LUCK++;else if(k=='stn4')STN[4][0]++;else MAT[k]=(MAT[k]|0)+1;if(rnd)R19.mr.n++;mrRoll();sfx('coin');save();return '购买了 '+d[0]+x_+',放进背包「📦 道具」页 · 随机物品栏已刷新'}
+function mrDay(){if(R19.mr.day!=today()){R19.mr.day=today();R19.mr.n=0;R19.mr.s4=0;mrRoll()}if(!R19.mr.L.length)mrRoll()}
+function kpBuy(k,rnd){mrDay();const d=KPIT[k];if(!d)return '';if(KP<d[1])return '击杀点不足';if(rnd&&(R19.mr.n>=MRMAX||!R19.mr.L.includes(k)))return '今天的随机物品栏已经买了 '+MRMAX+' 次,明天再来';if(!rnd&&!KPFIX.includes(k))return '';if(k=='stn4'){if(timeBad())return TBMSG;if((R19.mr.s4|0)>=S4LIM)return '普通 Lv4 强化石每天限购 '+S4LIM+' 颗,今天已经买完了,明天再来'}
+  KP-=d[1];KPS+=d[1];let x_='';if(k=='ats0'||k=='ats1'){const g=atsNew(+k[3]);R19.ats.push(g);x_='('+atsTxt(g)+')'}else if(k=='lk3')LUCK++;else if(k=='stn4'){STN[4][0]++;R19.mr.s4=(R19.mr.s4|0)+1}else MAT[k]=(MAT[k]|0)+1;if(rnd)R19.mr.n++;mrRoll();sfx('coin');save();return '购买了 '+d[0]+x_+',放进背包「📦 道具」页 · 随机物品栏已刷新'}
 // 第四十三轮:买 n 个(固定货架);每买一个随机物品栏都会刷新,和一个一个买一样
 function kpBuyN(k,n){let c=0,m='';for(let i=0;i<Math.max(1,n);i++){const r=kpBuy(k);if(!r.startsWith('购买了')){if(!c)return r;break}c++;m=r}
-  return c>1?'购买了 '+KPIT[k][0]+' ×'+c+',放进背包「📦 道具」页 · 随机物品栏已刷新'+(c<n?'(击杀点不够,只买了 '+c+' 个)':''):m}
+  return c>1?'购买了 '+KPIT[k][0]+' ×'+c+',放进背包「📦 道具」页 · 随机物品栏已刷新'+(c<n?'('+(k=='stn4'&&(R19.mr.s4|0)>=S4LIM?'今日限购已满':'击杀点不够')+',只买了 '+c+' 个)':''):m}
 const kpIc=k=>k=='stn4'?stnEm(4,0):mniEm(k=='ats0'?'A0':k=='ats1'?'A1':k=='lk3'?'luck':k);
 const kpHave=k=>k=='stn4'?STN[4][0]:k=='ats0'||k=='ats1'?R19.ats.filter(g=>g.q==+k[3]).length:k=='lk3'?LUCK:MISC[k]?MAT[k]|0:0;

@@ -11,7 +11,9 @@
 // 掉落:「诅咒之力」(每个恶魔一种,必掉 1 个,再按掉落率多掉 1 个)+ 首领装备照常
 // 第六十一轮开放 7 ~ 9(二阶):别西卜(暴食 —— 张嘴吸人要跑远、蝇卵孵蛆)· 玛门(贪婪 —— 打中你就回血叠攻,踩金堆夺回)· 利维坦(嫉妒 —— 逆鳞:正面只吃 35% 伤害,绕到背后 ×1.5)
 // 第五十六轮开放 4 ~ 6:阿斯莫德(魅惑 —— 左右颠倒、锁链吸血要拉开距离)· 贝利亚(谎言 —— 看光的颜色分辨真假、举盾时停手)· 阿斯塔罗特(腐息 —— 腐蚀层数要去净化光圈清掉、预知落点要临时变向)
-const DM0=22,DMOPEN=9,isDm=c=>c>=DM0&&c<DM0+12,dmI=()=>cur-DM0;
+// 第六十二轮开放 10 ~ 12(十二魔全部开放):贝尔芬格(怠惰 —— 中箭叠「怠惰」越走越慢、叠满睡着;打瞌睡时回血但受伤 ×1.5)· 阿撒兹勒(锻造 —— 岩刺拳、静坐淬火要打断、铁壁反击)·
+//   路西法(傲慢 —— 「跪下」的 3 秒里出手会让他更强,忍住就露出破绽;二阶段晨星坠落:只有光圈里是安全的)
+const DM0=22,DMOPEN=12,isDm=c=>c>=DM0&&c<DM0+12,dmI=()=>cur-DM0;
 // 12 个恶魔:n 名字 · en 原名 · k 图集名(null = 还没做)· sl 诅咒的部位(第五十六轮用户定:武器 / 头饰 / 战甲 / 时装翅膀(共用)/ 项链 / 戒指,前 6 个一阶,后 6 个二阶同样顺序)· lg 传说 + 本作暗线
 const DMD=[
  {n:'巴尔',en:'Baal',k:'baal',sl:'wpn',lg:'所罗门七十二柱的第一位魔王,统领东方的六十六个军团。传说他三首同体,能让人隐身;封印里的他只剩一把烧红的屠刀,一直念叨「我的名字是被拿走的」。'},
@@ -23,13 +25,13 @@ const DMD=[
  {n:'别西卜',en:'Beelzebub',k:'belz',sl:'wpn',lg:'「苍蝇之王」,暴食的魔王,一声令下就是遮天的蝇群。封印里的他饿得只剩一张大嘴,连地上的蛆都吞;他张嘴的时候千万别靠近。他说被夺走的名字,是他唯一没吃到的东西。'},
  {n:'玛门',en:'Mammon',k:'mamm',sl:'head',lg:'贪婪的化身,据说地狱里所有的金子都是它挖出来的。他每打中一个人就多攥一把金子、越打越凶;把地上的金子抢回来,他就会愣住。他说司名者拿走他的名字,就像随手拿走一枚金币。'},
  {n:'利维坦',en:'Leviathan',k:'levi',sl:'body',lg:'深渊里的海中巨兽,嫉妒的魔王,鳞甲连刀剑都刺不穿,只有背后的逆鳞是软的;它转身很慢。它嫉妒每一个还有名字的人,连你也不例外。'},
- {n:'贝尔芬格',en:'Belphegor',k:null,sl:'cos',lg:'怠惰的魔王,坐在便器形的王座上,用发明和财富诱惑人。'},
- {n:'阿撒兹勒',en:'Azazel',k:null,sl:'ear',lg:'把锻造武器的技艺教给人类的堕天使,被锁在荒野的巨石下。'},
- {n:'路西法',en:'Lucifer',k:null,sl:'ring',lg:'曾经的「晨星」,傲慢的魔王。十二根封魔柱的最后一根,镇的就是他。'}];
+ {n:'贝尔芬格',en:'Belphegor',k:'belp',sl:'cos',lg:'怠惰的魔王,传说她用奇巧的发明诱惑人放下一切、只想睡觉。封印里的她化作紫衣弓手,箭上带着让人发困的毒;她打瞌睡的时候最好别吵醒她——除非你能一口气把她打疼。她说名字被夺走以后,连做梦都梦不到自己。'},
+ {n:'阿撒兹勒',en:'Azazel',k:'azaz',sl:'ear',lg:'把锻造武器的技艺教给人类的堕天使,被锁在荒野的巨石下。他的拳头像铁锤,一拳下去岩刺从地里冒出来;他静坐「淬火」时要赶紧打断,不然会越打越凶。他说自己教会了人类打铁,司名者却把他的名字也一起熔掉了。'},
+ {n:'路西法',en:'Lucifer',k:'luci',sl:'ring',lg:'曾经的「晨星」,傲慢的魔王。十二根封魔柱的最后一根,镇的就是他。他会命令你「跪下」——那几秒里对他出手只会让他更傲慢;忍住不动,他反而会露出破绽。他说司名者夺走的不只是名字,还有他曾经发出的光。'}];
 // 一阶 6 个的生命 / 伤害倍率(三星忍者首领 ≈ 63 万 / 90.6,一星闹钟首领 = 27.4 万 × 3 条命 ≈ 82 万 / 55 ~ 112)
-const DMHP=[690000,705000,720000,740000,755000,770000,3000000,3150000,3300000],DMDM=[86,87,88,90,91,92,125,128,131];  // 第六十一轮:二阶 7~9 = 300 ~ 330 万 / 125 ~ 131(擎天魔神三星 300 万那一档)
-const DMHK=[1,1.08,1.16],DMAK=[1,1.05,1.1],DMZS={baal:[96,200],dagon:[110,172],molo:[116,186],asmo:[44,105],beli:[50,115],asta:[110,165],belz:[50,108],mamm:[64,112],levi:[56,112]},DMDK={asmo:2.34,beli:2.33,belz:2.8,mamm:2.3,levi:1.9};  // DMDK:图集帧比身体高很多(外框含法术特效),画的时候放大
-const DMN={I:null,D:'@@A:dmn_atlas@@',M: {"baal_i":[0,369,195,114,6,66,114],"baal_w":[0,484,195,114,12,66,114],"baal_a":[0,599,195,114,15,66,114],"baal_h":[1171,369,195,114,5,66,114],"dagon_i":[0,2181,148,76,15,53,76],"dagon_w":[2080,2098,148,76,6,53,76],"dagon_a":[2221,2181,148,76,7,53,76],"dagon_b":[0,2258,148,76,9,53,76],"dagon_h":[1333,2258,148,76,5,53,76],"molo_i":[0,0,204,122,16,134,119],"molo_w":[0,123,204,122,12,134,119],"molo_a":[0,246,204,122,16,134,119],"asmo_i":[672,1641,138,90,8,30,89],"asmo_w":[1777,1641,138,90,10,30,89],"asmo_a":[0,1734,138,90,7,30,89],"asmo_b":[967,1734,138,90,11,30,89],"asmo_c":[0,1825,138,90,14,30,89],"asmo_s":[0,1916,138,90,16,30,89],"asmo_h":[0,2007,138,90,12,30,89],"asmo_t":[1933,1825,138,90,6,30,89],"beli_i":[1808,714,158,106,8,54,105],"beli_w":[1951,823,158,106,8,54,105],"beli_a":[0,932,158,106,11,54,105],"beli_b":[0,1039,158,106,10,54,105],"beli_c":[0,1146,158,106,14,54,105],"beli_s":[0,1253,158,106,18,54,105],"beli_r":[1739,932,158,106,8,54,105],"beli_d":[1581,1039,158,106,10,54,105],"asta_i":[2213,1146,147,93,6,52,93],"asta_w":[0,1360,147,93,10,52,93],"asta_a":[0,1454,147,93,14,52,93],"asta_h":[1471,1360,147,93,7,52,93],"belz_i":[2449,123,40,108,8,20,107],"belz_w":[2770,123,45,108,8,24,107],"belz_a":[2147,369,69,108,8,32,107],"belz_b":[2341,484,89,108,9,32,107],"belz_c":[0,714,139,108,13,34,107],"belz_s":[0,823,195,108,10,100,107],"belz_r":[2700,369,43,108,6,22,107],"belz_h":[2959,369,46,108,6,26,107],"mamm_i":[2845,1253,43,92,8,16,92],"mamm_w":[2501,1360,48,92,8,20,92],"mamm_a":[2059,1454,68,92,7,28,92],"mamm_b":[2536,1454,72,92,7,36,92],"mamm_c":[0,1548,161,92,9,24,92],"mamm_s":[1450,1548,196,92,8,56,92],"mamm_j":[0,1641,61,92,11,30,92],"mamm_h":[3004,932,42,92,6,18,92],"levi_i":[2886,1360,46,82,8,17,82],"levi_w":[2486,1734,44,82,8,24,82],"levi_a":[2762,1825,73,82,6,20,82],"levi_b":[2209,1916,75,82,8,20,82],"levi_c":[1657,2007,85,82,9,23,82],"levi_s":[0,2098,189,82,11,77,82],"levi_p":[2810,1916,63,82,7,20,82],"levi_t":[2839,1734,53,82,5,23,82],"levi_r":[2423,2007,50,82,7,21,82],"levi_d":[3041,1454,37,82,6,18,82],"fx_egg":[0,2335,32,32,9,16,32],"fx_mag":[289,2335,32,32,4,16,32],"fx_blob":[418,2335,32,32,7,16,32],"fx_splat":[2074,2258,64,64,6,32,64],"fx_blade":[643,2335,80,32,6,40,32],"fx_trap":[1124,2335,80,32,9,40,32]},
+const DMHP=[690000,705000,720000,740000,755000,770000,6000000,6300000,6600000,6900000,7200000,8000000],DMDM=[86,87,88,90,91,92,250,256,262,268,274,290];  // 第六十一轮:二阶 7~9 = 300 ~ 330 万 / 125 ~ 131(擎天魔神三星 300 万那一档)→ 第六十二轮(用户:有点简单,加一倍)600 ~ 660 万 / 250 ~ 262;10~12 接着往上,路西法最强
+const DMHK=[1,1.08,1.16],DMAK=[1,1.05,1.1],DMZS={baal:[96,200],dagon:[110,172],molo:[116,186],asmo:[44,105],beli:[50,115],asta:[110,165],belz:[50,108],mamm:[64,112],levi:[56,112],belp:[46,104],azaz:[50,100],luci:[44,112]},DMDK={asmo:2.34,beli:2.33,belz:2.8,mamm:2.3,levi:1.9,belp:2.3,azaz:1.68,luci:1.25};  // DMDK:图集帧比身体高很多(外框含法术特效),画的时候放大
+const DMN={I:null,D:'@@A:dmn_atlas@@',M:  {"baal_i":[0,369,195,114,6,66,114],"baal_w":[0,484,195,114,12,66,114],"baal_a":[0,599,195,114,15,66,114],"baal_h":[1171,369,195,114,5,66,114],"dagon_i":[0,2490,148,76,15,53,76],"dagon_w":[1657,2316,148,76,6,53,76],"dagon_a":[2080,2407,148,76,7,53,76],"dagon_b":[0,2567,148,76,9,53,76],"dagon_h":[2546,2316,148,76,5,53,76],"molo_i":[0,0,204,122,16,134,119],"molo_w":[0,123,204,122,12,134,119],"molo_a":[0,246,204,122,16,134,119],"asmo_i":[0,1952,138,90,8,30,89],"asmo_w":[1105,1952,138,90,10,30,89],"asmo_a":[0,2043,138,90,7,30,89],"asmo_b":[967,2043,138,90,11,30,89],"asmo_c":[0,2134,138,90,14,30,89],"asmo_s":[0,2225,138,90,16,30,89],"asmo_h":[0,2316,138,90,12,30,89],"asmo_t":[2486,1952,138,90,6,30,89],"beli_i":[1951,823,158,106,8,54,105],"beli_w":[0,932,158,106,8,54,105],"beli_a":[1265,932,158,106,11,54,105],"beli_b":[0,1039,158,106,10,54,105],"beli_c":[0,1146,158,106,14,54,105],"beli_s":[0,1253,158,106,18,54,105],"beli_r":[1581,1039,158,106,8,54,105],"beli_d":[0,1360,158,106,10,54,105],"asta_i":[1202,1569,147,93,6,52,93],"asta_w":[0,1671,147,93,10,52,93],"asta_a":[0,1765,147,93,14,52,93],"asta_h":[2085,1569,147,93,7,52,93],"belz_i":[2147,369,40,108,8,20,107],"belz_w":[2468,369,45,108,8,24,107],"belz_a":[2341,484,69,108,8,32,107],"belz_b":[0,714,89,108,9,32,107],"belz_c":[802,714,139,108,13,34,107],"belz_s":[0,823,195,108,10,100,107],"belz_r":[2829,369,43,108,6,22,107],"belz_h":[2894,484,46,108,6,26,107],"mamm_i":[2845,1253,43,92,8,16,92],"mamm_w":[1471,1671,48,92,8,20,92],"mamm_a":[1856,1671,68,92,7,28,92],"mamm_b":[2333,1671,72,92,7,36,92],"mamm_c":[0,1859,161,92,9,24,92],"mamm_s":[1450,1859,196,92,8,56,92],"mamm_j":[2059,1765,61,92,11,30,92],"mamm_h":[3004,932,42,92,6,18,92],"levi_i":[2838,1671,46,82,8,17,82],"levi_w":[2731,1765,44,82,8,24,82],"levi_a":[2486,2043,73,82,6,20,82],"levi_b":[1933,2134,75,82,8,20,82],"levi_c":[2534,2134,85,82,9,23,82],"levi_s":[0,2407,189,82,11,77,82],"levi_p":[2209,2225,63,82,7,20,82],"levi_t":[3019,1859,53,82,5,23,82],"levi_r":[2925,2043,50,82,7,21,82],"levi_d":[3084,1765,37,82,6,18,82],"fx_egg":[0,2768,32,32,9,16,32],"fx_mag":[289,2768,32,32,4,16,32],"fx_blob":[418,2768,32,32,7,16,32],"fx_splat":[2921,2490,64,64,6,32,64],"fx_blade":[643,2768,80,32,6,40,32],"fx_trap":[1124,2768,80,32,9,40,32],"belp_i":[2926,599,49,101,6,25,101],"belp_w":[2610,714,51,101,10,25,101],"belp_a":[2213,1146,106,101,10,24,101],"belp_b":[1581,1360,74,101,8,23,101],"belp_c":[2174,1360,69,101,12,32,101],"belp_s":[0,1467,195,101,17,50,101],"belp_d":[0,1569,71,101,10,21,101],"belp_r":[711,1569,70,101,7,36,101],"belp_h":[2846,1039,55,101,6,31,101],"azaz_i":[2478,2567,25,61,6,11,57],"azaz_w":[2629,2567,27,61,8,14,57],"azaz_a":[2846,2567,53,61,6,13,57],"azaz_b":[0,2644,59,61,6,13,57],"azaz_c":[355,2644,106,61,12,13,57],"azaz_s":[1628,2644,93,61,13,12,57],"azaz_m":[2838,2644,25,61,8,12,57],"azaz_d":[0,2706,24,61,13,11,57],"azaz_h":[3039,2644,27,61,6,14,57],"luci_i":[2221,2490,37,66,10,14,66],"luci_w":[2592,2490,41,66,8,16,66],"luci_a":[1333,2567,88,66,13,20,66],"luci_h":[3117,2407,37,66,3,18,66],"fx_arw":[121,2801,32,3,1,16,3],"fx_arwh":[3126,2768,28,12,6,14,12],"fx_shower":[2449,123,91,122,9,45,122],"fx_beam":[1845,2768,256,15,5,128,15],"fx_orb":[0,2801,30,11,4,15,11],"fx_orbx":[313,2706,44,47,7,22,47]},
   init(){const im=new Image();im.onload=()=>{this.I=im};im.src=this.D},
   on(e){return !!this.I&&!!this.M[e.k+'_i']},
   // 第 i 帧:脚底中间画在 (X, Y),高度按「脚底以上 m[6] 像素」= h
@@ -52,8 +54,15 @@ const DMN={I:null,D:'@@A:dmn_atlas@@',M: {"baal_i":[0,369,195,114,6,66,114],"baa
       else if(a=='rain'){n='a';i=w?Math.min(2,T*4):2+(T-.6)/.12}else if(a=='daze'){n='h';i=Math.floor(t*8)%6}else if(e.mv){n='w';i=Math.floor(t*10)%8}}
     else if(k=='levi'){if(a=='combo'){n=T<.65?'a':'b';i=T<.65?T/.65*6:(T-.65)/.65*8}else if(a=='arc'){n='c';i=T/1.2*9}else if(a=='blade'){n='p';i=T/.9*7}else if(a=='trap'){n='t';i=T/.85*5}
       else if(a=='roll'){n='r';i=T/.6*7}else if(a=='abyss'){n='s';i=w?Math.min(3,T*3):3+(T-1)/.08}else if(e.mv){n='w';i=Math.floor(t*10)%8}}
-    c.save();if(FLW)c.filter='brightness(2.6)';if(e.od){c.save();c.globalCompositeOperation='lighter';c.globalAlpha=.35+.15*Math.sin(t*6);this.fr(c,k+'_'+n,i,0,0,H*1.02);c.restore()}
-    this.fr(c,k+'_'+n,i,0,0,H);c.restore()},
+    // 第六十二轮:贝尔芬格 / 阿撒兹勒 / 路西法
+    else if(k=='belp'){if(a=='shot'){n='a';i=T/.95*10}else if(a=='volley'){n='b';i=T/.9*8}else if(a=='rain'){n='c';i=T/1.3*12}else if(a=='beam'){n='s';i=T/1.8*17}else if(a=='thorn'){n='d';i=T/1.2*10}
+      else if(a=='slide'){n='r';i=T/.6*7}else if(a=='nap'){n='i';i=Math.floor(t*2.5)%6}else if(a=='wake'){n='h';i=T/.5*6}else if(e.mv){n='w';i=Math.floor(t*12)%10}}
+    else if(k=='azaz'){if(a=='jab'){n='a';i=T/.55*6}else if(a=='combo'||a=='boulder'){n='b';i=T/(a=='combo'?.75:.9)*6}else if(a=='blast'||a=='counter'){n='c';i=T/(a=='counter'?.9:1.4)*12}else if(a=='spike'){n='s';i=T/1.6*13}
+      else if(a=='forge'){n='m';i=T<.5?T/.5*4:4+Math.floor(t*6)%4}else if(a=='guard'){n='d';i=Math.min(12,T/1.3*13)}else if(a=='daze'){n='h';i=Math.floor(t*8)%6}else if(e.mv){n='w';i=Math.floor(t*12)%8}}
+    else if(k=='luci'){if(a=='orb'||a=='star'||a=='pillar'||a=='pride'){n='a';i=Math.min(12,T/(a=='pride'?1:1.3)*13)}else if(a=='daze'){n='h';i=Math.floor(t*6)%3}else if(e.mv){n='w';i=Math.floor(t*10)%8}}
+    const al=e.fa!=null?e.fa:null;  // 淡入淡出(路西法瞬移)
+    c.save();if(FLW)c.filter='brightness(2.6)';if(e.od){c.save();c.globalCompositeOperation='lighter';c.globalAlpha=.35+.15*Math.sin(t*6);this.fr(c,k+'_'+n,i,0,0,H*1.02,al);c.restore()}
+    this.fr(c,k+'_'+n,i,0,0,H,al);c.restore()},
   // 肖像(恶魔选择页 / 关卡卡片):idle 动画,脚底在 (cx, by),高 h
   pt(c,k,cx,by,h,t){const m=this.M[k+'_i'];if(m)this.fr(c,k+'_i',Math.floor(t*8)%m[4],cx,by,DMDK[k]?h*DMDK[k]*.8:h)}};
 DMN.init();
@@ -67,13 +76,16 @@ function dmBg(){const t=performance.now()/1000,k=DMD[dmI()].k;
   else if(k=='belz'){CITY8.bg();x.fillStyle='rgba(44,48,0,.42)';x.fillRect(0,0,VW,VH)}  // 第六十一轮:第八关鬼城压腐黄
   else if(k=='mamm'){RBT.bg();x.fillStyle='rgba(120,80,0,.3)';x.fillRect(0,0,VW,VH)}  // 金核机库压金
   else if(k=='levi'){SHIP10.bg();x.fillStyle='rgba(0,40,64,.25)';x.fillRect(0,0,VW,VH)}  // 幽灵船压深海
+  else if(k=='belp'){MECH.bg();x.fillStyle='rgba(60,20,96,.4)';x.fillRect(0,0,VW,VH)}  // 第六十二轮:齿轮要塞(「发明」)压昏睡紫
+  else if(k=='azaz'){IFN.bg();x.fillStyle='rgba(24,22,30,.3)';x.fillRect(0,0,VW,VH)}  // 炎狱熔岩洞(锻炉)压铁灰
+  else if(k=='luci'){VOL9.bg();x.fillStyle='rgba(56,10,90,.38)';x.fillRect(0,0,VW,VH)}  // 火山地狱压堕天紫
   else{FIRE.bg();x.fillStyle='rgba(30,6,0,.25)';x.fillRect(0,0,VW,VH)}}
 // ---- 场上的东西:地面火 / 深渊水洼 DMZ · 火柱 / 水柱 DMP · 天降火球 / 水球 DMM · 贴地冲击波 DMW(跳过去)----
 //   第五十六轮:DMK 魅惑之吻(飞行)· DML 贝利亚的真假光圈 · DMC 净化光圈 · DMT 阿斯莫德的锁链;P.chm 魅惑(左右颠倒,340 update 里用)· P.rot 腐蚀层数(150 hurt 里每层受伤 +6%)
 let DMZ=[],DMP=[],DMM=[],DMW=[],DMK=[],DML=[],DMC=[],DMT=null;
-function dmClr(){dm3Clr();DMZ=[];DMP=[];DMM=[];DMW=[];DMK=[];DML=[];DMC=[];DMT=null;if(typeof P!='undefined'&&P){P.chm=0;P.rot=0}}
+function dmClr(){dm3Clr();DMZ=[];DMP=[];DMM=[];DMW=[];DMK=[];DML=[];DMC=[];DMT=null;if(typeof P!='undefined'&&P){P.chm=0;P.rot=0;P.slp=0}}
 // 颜色 c:fire 火 · rock 岩 · sea 水 · love 魅惑(粉紫星)· holy 伪光(金)· rot 腐息(绿)—— 后三种的特效:DMSP 爆开 / DMZF 地面 [名字, 间距, 大小, y] / DMPF 光柱 [名字, 间距, 大小, y]
-const DMSP={love:'x-star',holy:'b-light',rot:'x-fel',gold:'b-light',acid:'b-gas'},DMZF={love:['x-star',24,.36,-10],holy:['b-light',22,.5,-12],rot:['b-gas',30,.62,-10],gold:['b-light',20,.42,-10],acid:['b-gas',26,.5,-8]},DMPF={love:['x-star',40,.85,-20],holy:['b-light',46,1.5,-22],rot:['x-fel',44,.75,-22],gold:['b-light',46,1.5,-22],acid:['b-gas',44,.8,-22]};  // 第六十一轮:gold 金 · acid 酸液
+const DMSP={love:'x-star',holy:'b-light',rot:'x-fel',gold:'b-light',acid:'b-gas',sleep:'x-bubble'},DMZF={love:['x-star',24,.36,-10],holy:['b-light',22,.5,-12],rot:['b-gas',30,.62,-10],gold:['b-light',20,.42,-10],acid:['b-gas',26,.5,-8],sleep:['x-bubble',24,.55,-10]},DMPF={love:['x-star',40,.85,-20],holy:['b-light',46,1.5,-22],rot:['x-fel',44,.75,-22],gold:['b-light',46,1.5,-22],acid:['b-gas',44,.8,-22],sleep:['x-bubble',40,1,-22]};  // 第六十一轮:gold 金 · acid 酸液 · 第六十二轮:sleep 怠惰(催眠泡泡)
 const vfn=n=>(VFX.M[n]||{}).n||1;
 const dmCX=v=>Math.max(ARL+20,Math.min(ARR-20,v));
 const dmZone=(x0,x1,life,dm,d,c)=>{x0=Math.max(ARL,x0);x1=Math.min(ARR,x1);if(x1-x0<8)return;DMZ.push({x0,x1,t:0,life,dm,d,c});if(DMZ.length>36)DMZ.shift()};
@@ -84,13 +96,13 @@ const dmSplash=(px,py,s)=>VFX.spawn('x-bubble',px,py,{s,life:.7,add:1});  // 水
 function dmBoom(bx,r,dm,d,c){if(c=='sea')dmSplash(bx,GY-20,r/22);else if(DMSP[c])VFX.spawn(DMSP[c],bx,GY-r*.45,{s:r/(c=='holy'?28:c=='rot'?62:36),life:.7,add:1});else VFX.spawn(c=='rock'?'earth-rupture':'b-firebomb',bx,c=='rock'?GY:GY-12,{s:c=='rock'?r/55:r/30});syn('boom');shake=Math.max(shake,.25);const pc=P.x+12;return Math.abs(pc-bx)<r&&P.y+P.h>GY-r*.9&&hurt(d*dm,{kb:sgn(pc-bx)*320})}
 function dmStep(dt){const pc=P.x+12,onG=P.y+P.h>=GY-4;P.dmT=(P.dmT||0)-dt;
   if(P.chm>0)P.chm-=dt;
-  for(const z of DMZ){z.t+=dt;const inz=onG&&z.t>.15&&z.t<z.life-.2&&pc>z.x0&&pc<z.x1;if(inz&&z.c=='love')P.chm=Math.max(P.chm||0,.6);if(inz&&P.dmT<=0&&hurt(z.d*z.dm,{kb:0})){P.dmT=.45;if(z.c=='rot')dmRot(1)}}DMZ=DMZ.filter(z=>z.t<z.life);
-  dmStep2(dt,pc,onG);dm3Step(dt,pc,onG);
+  for(const z of DMZ){z.t+=dt;const inz=onG&&z.t>.15&&z.t<z.life-.2&&pc>z.x0&&pc<z.x1;if(inz&&z.c=='love')P.chm=Math.max(P.chm||0,.6);if(inz&&P.dmT<=0&&hurt(z.d*z.dm,{kb:0})){P.dmT=.45;if(z.c=='rot')dmRot(1);if(z.c=='sleep')dmSlp(1)}}DMZ=DMZ.filter(z=>z.t<z.life);
+  dmStep2(dt,pc,onG);dm3Step(dt,pc,onG);dm4Step(dt,pc,onG);
   for(const p of DMP){p.t+=dt;if(p.t>=0&&!p.w0){p.w0=1;syn('blink')}if(p.t>=.8&&!p.sn){p.sn=1;syn('boom');shake=Math.max(shake,.25)}if(p.t>=.8&&p.t<2&&Math.abs(pc-p.x)<26&&P.dmT<=0&&hurt(p.d*p.dm,{kb:sgn(pc-p.x)*260}))P.dmT=.45}DMP=DMP.filter(p=>p.t<2.2);
   for(const m of DMM){m.t+=dt;if(m.t<0)continue;m.vy+=520*dt;m.y+=m.vy*dt;if(m.y>=GY-14){m.dd=1;dmBoom(m.x,50,m.dm,m.d,m.c);if(m.zl)dmZone(m.x-55,m.x+55,m.zl,m.dm,5,m.c)}}DMM=DMM.filter(m=>!m.dd);
   for(const w of DMW){w.t+=dt;if(w.t<0)continue;w.x+=w.v*dt;if(Math.abs(w.x-w.lx)>=34){w.lx=w.x;if(w.c=='sea')dmSplash(w.x,GY-18,1.1);else if(DMSP[w.c])VFX.spawn(DMSP[w.c],w.x,GY-16,{s:w.c=='holy'?1.1:.7,life:.5,add:1});else VFX.spawn(w.c=='rock'?'earth-rupture':'b-firebomb',w.x,w.c=='rock'?GY:GY-10,{s:w.c=='rock'?1.1:.9})}
-    if(!w.hit&&onG&&Math.abs(pc-w.x)<24&&hurt(w.d*w.dm,{kb:sgn(w.v)*380})){w.hit=1;if(w.c=='love')dmCharm(1.2);if(w.c=='rot')dmRot(1)}}DMW=DMW.filter(w=>w.t<w.life&&w.x>ARL-20&&w.x<ARR+20);
-  if(bossOn&&!(B&&B.hp>0)){DMP=[];DMM=[];DMW=[];DMK=[];DML=[];DMT=null;P.chm=0;dm3Clr()}}
+    if(!w.hit&&onG&&Math.abs(pc-w.x)<24&&hurt(w.d*w.dm,{kb:sgn(w.v)*380})){w.hit=1;if(w.c=='love')dmCharm(1.2);if(w.c=='rot')dmRot(1);if(w.c=='sleep')dmSlp(2)}}DMW=DMW.filter(w=>w.t<w.life&&w.x>ARL-20&&w.x<ARR+20);
+  if(bossOn&&!(B&&B.hp>0)){DMP=[];DMM=[];DMW=[];DMK=[];DML=[];DMT=null;P.chm=0;P.slp=0;dm3Clr()}}
 // ---- 第五十六轮:魅惑 / 腐蚀 / 魅惑之吻 / 真假光圈 / 净化光圈 / 锁链 ----
 function dmCharm(s){if(!(P.chm>0)){tx('魅惑!左右颠倒',P.x-30,P.y-30,'#f783ac');syn('blink')}P.chm=Math.max(P.chm||0,s)}
 function dmRot(n){const o=P.rot||0;P.rot=Math.min(10,o+n);if(P.rot>o)tx('☠ 腐蚀 ×'+P.rot,P.x-16,P.y-24,'#a9e34b')}
@@ -120,12 +132,12 @@ function dmFx(){const t=performance.now()/1000;if(!VFX.ok())return;x.imageSmooth
   for(const m of DML){const sx=m.x-cam,gold=m.sh,a=m.t<1.3?Math.min(1,m.t/.25):Math.max(0,1-(m.t-1.3)/.4);if(m.t<1.3)VFX.frame(x,gold?'mc-gold':'rift-portal',gold?0:Math.floor(t*12)%16,sx,GY-4,gold?.5:.85,1,0,Math.min(1,a*(gold?.7:1)+.3*Math.sin(t*10)),gold?.32:.4)}
   for(const c of DMC){const sx=c.x-cam,a=Math.min(1,c.t/.4,(c.life-c.t)/.5);VFX.frame(x,'mc-gold',0,sx,GY-4,.42,1,0,a*.85,.3);VFX.frame(x,'radiant-heal',Math.floor(t*12)%14,sx,GY-30,.85,1,0,a*.8);if(c.st)CT(Math.round(c.st/.8*100)+'%',sx,GY-62,8,'#ffe066','center',2,'#2a2008')}
   if(B&&B.k=='asta'&&B.act=='fore'&&B.mk!=null&&B.hp>0){const u=B.at%1.25,lk=u>=.75;VFX.frame(x,'x-vortex',Math.floor(t*16)%16,B.mk-cam,GY-14,lk?.75:.55,1,0,lk?.75+.25*Math.sin(t*30):.55)}  // 预知落点(锁定后闪烁)
-  dm3Fx(t);
+  dm3Fx(t);dm4Fx(t);
   if(P.chm>0)VFX.frame(x,'b-darkhit',Math.floor(t*12)%6,P.x+12-cam,P.y-6,.45,1,0,.85);
   if(P.rot>0){VFX.frame(x,'b-gas',0,P.x+12-cam,P.y+18,.42+P.rot*.03,1,0,.5);CT('☠×'+P.rot,P.x+12-cam,P.y-12,8,'#a9e34b','center',2,'#14200a')}
   x.imageSmoothingEnabled=true}
 // ---- 三个恶魔共用 ----
-function dmEnd(e,x_){e.act=null;e.mv=0;e.n=0;e.hd=0;e.cd=(e.od?.75:1.1)+Math.random()*.4+(x_||0)}
+function dmEnd(e,x_){e.act=null;e.mv=0;e.n=0;e.hd=0;e.fa=null;e.cd=(e.od?.75:1.1)+Math.random()*.4+(x_||0)}
 function dmOdChk(e,s){if(!e.od&&e.hp<e.max*.5){e.od=1;flash('255,80,60',.35);shake=.5;syn('boom');banner(DMD[dmI()].n+' · '+s)}}
 const dmHit=(e,x0,x1,top,d,kb)=>{const pc=P.x+12;if(pc>Math.min(x0,x1)&&pc<Math.max(x0,x1)&&P.y+P.h>top)hurt(d*e.dm,{kb})};
 function dmNew(LM,b){const d=DMD[dmI()],z=DMZS[d.k];return {k:d.k,x:2860,y:GY-z[1]-(d.k=='dagon'?18:0),w:z[0],h:z[1],...b,fl:0,f:-1,cd:2,act:null,dm:1,lm:LM}}
@@ -247,10 +259,11 @@ function astaStep(e,dt){const pc=P.x+12,cx=e.x+e.w/2,dx=pc-cx,ad=Math.abs(dx),dm
 // ===== 第六十一轮:十二魔封印 7 ~ 9(二阶)—— 别西卜 belz · 玛门 mamm · 利维坦 levi =====
 // 场上的东西:DMB 酸液弹(抛物线,落地留酸液地面)· DMG 蝇卵(2 秒后炸开、爬出一条蛆)· DMQ 蛆虫(朝主角爬,碰到就咬)· DMBL 飞刃(水平飞)· DMTR 陷阱(落地 1.4 秒后炸开)· DMGP 金堆(站满 0.8 秒夺回金子)
 let DMB=[],DMG=[],DMQ=[],DMBL=[],DMTR=[],DMGP=[];
-function dm3Clr(){DMB=[];DMG=[];DMQ=[];DMBL=[];DMTR=[];DMGP=[]}
+function dm3Clr(){DMB=[];DMG=[];DMQ=[];DMBL=[];DMTR=[];DMGP=[];dm4Clr()}
 const dmHitR=(e,x0,x1,top,d,kb,dm)=>{const pc=P.x+12;return pc>Math.min(x0,x1)&&pc<Math.max(x0,x1)&&P.y+P.h>top&&hurt(d*(dm||e.dm),{kb})};
+const dmFind=k=>[B,...E].find(q=>q&&q.k==k&&q.hp>0);  // 第六十二轮:暗黑炼狱里同一层可能有两个恶魔(第二个在 E 里)
 const dmInv=()=>P.inv>0||(P.sk&&P.sk.inv)||DECOY||GM.god;
-function dm3Step(dt,pc,onG){const e=B&&B.hp>0?B:null;
+function dm3Step(dt,pc,onG){const e=dmFind('mamm');
   for(const b of DMB){b.t+=dt;if(b.t<0)continue;b.vy+=420*dt;b.x+=b.vx*dt;b.y+=b.vy*dt;
     if(Math.abs(pc-b.x)<14&&P.y<b.y+10&&P.y+P.h>b.y-10&&hurt(10*b.dm,{kb:sgn(b.vx)*160})){b.dd=1;VFX.spawn('b-gas',b.x,b.y,{s:.6,life:.5})}
     else if(b.y>=GY-6){b.dd=1;syn('boom');dmZone(b.x-40,b.x+40,b.zl,b.dm,5,'acid');DMG.push({x:b.x,t:0,sp:1});if(Math.abs(pc-b.x)<40&&onG)hurt(8*b.dm,{kb:sgn(pc-b.x)*200})}}
@@ -271,8 +284,8 @@ function dm3Fx(t){const F=(n,i,X,Y,h,a)=>DMN.fr(x,'fx_'+n,i,X-cam,Y,h,a);
   for(const b of DMBL)if(b.t>=0){x.save();x.translate(b.x-cam,b.y+10);if(b.v<0)x.scale(-1,1);DMN.fr(x,'fx_blade',b.ld?1+(b.t-b.ld)/.1:0,0,0,26);x.restore()}
   for(const r of DMTR)if(r.t>=0)F('trap',r.t<.3?1+r.t/.1:r.t<1.4?3:4+(r.t-1.4)/.1,r.x,GY+4,28,r.t<1.4&&r.t>.9?.6+.4*Math.sin(t*30):1);
   for(const g of DMGP){const sx=g.x-cam,a=Math.min(1,g.t/.4,(g.life-g.t)/.5);VFX.frame(x,'mc-gold',0,sx,GY-4,.46,1,0,a*.9,.3);VFX.frame(x,'b-light',Math.floor(t*12)%vfn('b-light'),sx,GY-22,.7,1,0,a*.7);if(g.st)CT(Math.round(g.st/.8*100)+'%',sx,GY-60,8,'#ffe066','center',2,'#2a2008')}
-  const e=B;if(e&&e.hp>0&&e.k=='mamm'&&e.gd)CT('💰×'+e.gd,e.x+e.w/2-cam,e.y-8,9,'#ffd43b','center',2.2,'#3a2208');
-  if(e&&e.hp>0&&e.k=='belz'&&e.act=='devour'){const cx=e.x+e.w/2-cam;VFX.frame(x,'x-vortex',Math.floor(t*16)%16,cx+e.f*20,e.y+e.h*.45,e.at<1.2?.5+e.at*.3:.95,1,0,.85)}}
+  let e=dmFind('mamm');if(e&&e.gd)CT('💰×'+e.gd,e.x+e.w/2-cam,e.y-8,9,'#ffd43b','center',2.2,'#3a2208');
+  e=dmFind('belz');if(e&&e.act=='devour'){const cx=e.x+e.w/2-cam;VFX.frame(x,'x-vortex',Math.floor(t*16)%16,cx+e.f*20,e.y+e.h*.45,e.at<1.2?.5+e.at*.3:.95,1,0,.85)}}
 // ---- 别西卜「暴食」:斩风连击 slash · 酸液 spit(抛出酸液弹,落地留酸液地面)· 蝇卵 egg(主角周围产卵,2 秒后炸开爬出蛆)· 瞬袭 blink(消失后出现在主角背后斩击)· 冲刺 dash ·
 //      暴食 devour(每 12 秒,张开大嘴 1.2 秒后把主角往身边吸 1.5 秒,最后一口咬下:离他 100 以内受重伤,他回复 3% 生命;场上的蛆被吃掉,每条再回 1%)·
 //      二阶段「暴食之宴」:蝇卵和酸液翻倍,每 8 秒暴食一次 ----
@@ -339,7 +352,115 @@ function leviStep(e,dt){const pc=P.x+12,cx=e.x+e.w/2,dx=pc-cx,ad=Math.abs(dx),dm
   if(a=='roll'){e.pz='s';const ox=e.x;e.x=gpCl(e,e.x+sgn(dx||e.f)*380*dt);if(T>.6||e.x==ox){dmEnd(e,.1)}return}  // 滚过去以后还面朝原来的方向(背后又露出来)
   if(a=='abyss'){if(T<1){e.pz='w';if(!e.hd){e.hd=1;tx('深渊!',cx-14,e.y-20,'#74c0fc');syn('zap')}return}e.pz='s';if(!e.n){e.n=1;shake=.55;syn('boom');dmHit(e,cx-200,cx+200,GY-150,24,sgn(dx)*480);for(const q of [-140,-70,70,140])dmSplash(cx+q,GY-20,1.4);if(od)for(const sd of [-1,1])dmWave(cx+sd*e.w/2,sd*260,dm,14,'sea')}if(T>1.75)dmEnd(e,.2);return}
   dmEnd(e)}
-const DMST={baal:baalStep,dagon:dagStep,molo:moloStep,asmo:asmoStep,beli:beliStep,asta:astaStep,belz:belzStep,mamm:mammStep,levi:leviStep,pfg:pfgStep};  // pfg = 神秘副本 5 擎天魔神(第五十九轮,update 的敌人循环按这张表找招式函数)
+// ===== 第六十二轮:十二魔封印 10 ~ 12(二阶)—— 贝尔芬格 belp · 阿撒兹勒 azaz · 路西法 luci =====
+// 场上的东西:DMAR 箭(水平飞)· DMRN 箭雨(落点先闪 0.8 秒,再扎一下)· DMOR 晨星法球(慢慢追主角,碰到 / 落地 / 2.6 秒后炸开)
+// 怠惰 P.slp:最多 5 层,2 层起减速;叠满 5 层睡着 1.6 秒(P.stun);3 秒没再叠就掉一层
+let DMAR=[],DMRN=[],DMOR=[];
+function dm4Clr(){DMAR=[];DMRN=[];DMOR=[]}
+function dmSlp(n){if(GM.god)return;P.slp=Math.min(5,(P.slp||0)+n);P.slpT=3;if(P.slp>=5){P.slp=0;P.stun=Math.max(P.stun||0,1.6);P.sk=null;tx('💤 睡着了……',P.x-20,P.y-30,'#d0bfff');syn('zap')}}
+function dm4Step(dt,pc,onG){
+  if(P.slp>0){P.slpT=(P.slpT||0)-dt;if(P.slpT<=0){P.slp--;P.slpT=3}if(P.slp>=2)P.slw=Math.max(P.slw||0,.1)}
+  for(const a of DMAR){a.t+=dt;if(a.t<0)continue;if(a.ld){if(a.t-a.ld>.4)a.dd=1;continue}a.x+=a.v*dt;
+    if(Math.abs(pc-a.x)<16&&P.y<a.y+6&&P.y+P.h>a.y-6&&hurt(a.d*a.dm,{kb:sgn(a.v)*160})){a.ld=a.t;dmSlp(1)}else if(a.x<ARL+6||a.x>ARR-6||a.t>2.2)a.ld=a.t}
+  DMAR=DMAR.filter(a=>!a.dd);
+  for(const s of DMRN){s.t+=dt;if(s.t>=.8&&!s.sn){s.sn=1;syn('swing')}if(s.t>=.8&&s.t<1.3&&!s.hit&&Math.abs(pc-s.x)<55&&hurt(s.d*s.dm,{kb:0})){s.hit=1;dmSlp(s.sl||1)}}
+  DMRN=DMRN.filter(s=>s.t<1.6);
+  const ty=P.y+P.h/2;
+  for(const o of DMOR){o.t+=dt;if(o.t<0)continue;if(o.bx!=null){if(o.t-o.bx>.45)o.dd=1;continue}
+    o.vx+=sgn(pc-o.x)*o.hm*dt;o.vy+=sgn(ty-o.y)*o.hm*dt;const sp=Math.hypot(o.vx,o.vy);if(sp>o.sp){o.vx*=o.sp/sp;o.vy*=o.sp/sp}o.x+=o.vx*dt;o.y+=o.vy*dt;
+    if(Math.abs(pc-o.x)<16&&Math.abs(ty-o.y)<22){o.bx=o.t;syn('boom');hurt(o.d*o.dm,{kb:sgn(o.vx)*240})}
+    else if(o.y>=GY-6||o.t>2.6||o.x<ARL||o.x>ARR){o.bx=o.t;syn('boom');if(Math.abs(pc-o.x)<40&&Math.abs(ty-o.y)<40)hurt(o.d*.6*o.dm,{kb:sgn(pc-o.x)*200})}}
+  DMOR=DMOR.filter(o=>!o.dd)}
+function dm4Fx(t){
+  for(const a of DMAR)if(a.t>=0){x.save();x.translate(a.x-cam,a.y+3);if(a.v<0)x.scale(-1,1);if(a.ld)DMN.fr(x,'fx_arwh',(a.t-a.ld)/.4*6,0,0,24);else DMN.fr(x,'fx_arw',0,0,0,6);x.restore()}
+  for(const s of DMRN){const sx=s.x-cam;if(s.t<.9)VFX.frame(x,'x-vortex',Math.floor(t*16)%16,sx,GY-14,.6,1,0,s.t>.5?.6+.4*Math.sin(t*30):.6);if(s.t>=.45)DMN.fr(x,'fx_shower',(s.t-.45)/1.15*9,sx,GY+4,190)}
+  for(const o of DMOR)if(o.t>=0){if(o.bx!=null){DMN.fr(x,'fx_orbx',(o.t-o.bx)/.45*7,o.x-cam,o.y+28,56);continue}x.save();x.translate(o.x-cam,o.y);x.rotate(Math.atan2(o.vy,o.vx));DMN.fr(x,'fx_orb',Math.floor(t*12)%4,0,11,22);x.restore()}
+  let e=dmFind('belp');if(e){const cx=e.x+e.w/2-cam;if(e.act=='nap')CT('Zzz…',cx+12,e.y-4-6*Math.sin(t*2),10,'#d0bfff','center',2.4,'#1a1030');
+    if(e.act=='beam'&&e.at>=.55&&e.at<.9){x.save();x.translate(cx+e.f*290,e.y+e.h*.47);if(e.f<0)x.scale(-1,1);DMN.fr(x,'fx_beam',(e.at-.55)/.35*5,256,15,30);x.restore()}}
+  e=dmFind('azaz');if(e&&e.qf)CT('🔥×'+e.qf,e.x+e.w/2-cam,e.y-8,9,'#ff922b','center',2.2,'#2a1006');
+  e=dmFind('luci');if(e){const cx=e.x+e.w/2-cam;if(e.kn>0){CT('跪下!'+Math.ceil(e.kn),P.x+12-cam,P.y-40,12,'#e599f7','center',2.6,'#200830');VFX.frame(x,'b-darkhit',Math.floor(t*12)%6,P.x+12-cam,P.y-6,.45,1,0,.7)}
+    if(e.exT>0)CT('破绽 ×1.6',cx,e.y-10,9,'#ffe066','center',2.2,'#2a2008');if(e.pd)CT('👑×'+e.pd,cx,e.y-22,8,'#e599f7','center',2,'#200830');
+    if(e.sfX!=null){const sx=e.sfX-cam;x.fillStyle='rgba(255,244,214,'+Math.max(0,(3-e.sfT)/3*.2)+')';x.fillRect(0,0,VW,VH);VFX.frame(x,'mc-gold',0,sx,GY-4,.5,1,0,.9,.32);VFX.frame(x,'radiant-heal',Math.floor(t*12)%14,sx,GY-30,.85,1,0,.8);CT(Math.ceil(e.sfT)+'',sx,GY-62,11,'#ffe066','center',2.4,'#2a2008')}}
+  if(P.slp>0)CT('💤×'+P.slp,P.x+12-cam,P.y-12,8,'#d0bfff','center',2,'#1a1030')}
+// ---- 贝尔芬格「怠惰」:射箭 shot · 三连箭 volley(低 / 高 / 低,跳过低的、站着让过高的)· 箭雨 rain(主角脚下)· 催眠光束 beam(身前一长条,中了叠 2 层怠惰)·
+//      荆棘 thorn(身边长出荆棘,留下催眠泡泡地面)· 滑步 slide(拉开距离)·
+//      打瞌睡 nap(每 13 秒,4 秒里每秒回 1.5% 生命,受到的伤害 ×1.5;这 4 秒里被打掉 4% 生命就被吵醒,马上放光束)·
+//      二阶段「永眠之歌」:每 9 秒往两边推出催眠波(中了叠 2 层),箭雨三处,光束叠 3 层,打瞌睡回得更多 ----
+const belpK=e=>e.act=='nap'?1.5:1;
+function belpStep(e,dt){const pc=P.x+12,cx=e.x+e.w/2,dx=pc-cx,ad=Math.abs(dx),dm=e.dm,od=e.od;e.pz=null;e.dmK=belpK;
+  if(!e.intro){e.intro=1;banner('贝尔芬格 · 「好困……陪我一起睡吧,永远地」');bsfx('l9_roar');e.npT=10;e.wvT=9}
+  dmOdChk(e,'永眠之歌!催眠波会往两边推开');
+  if(e.act!='nap'){e.npT-=dt;if(od){e.wvT-=dt;if(e.wvT<=0){e.wvT=9;syn('zap');for(const sd of [-1,1])dmWave(cx+sd*e.w/2,sd*230,dm,12,'sleep')}}}
+  if(!e.act){e.cd-=dt;e.f=sgn(dx)||e.f;e.mv=0;if(ad>420){e.mv=1;e.x=gpCl(e,e.x+e.f*(od?66:56)*dt)}
+    if(e.npT<=0&&e.cd<=0){e.npT=od?11:13;e.act='nap';e.la='nap';e.at=0;e.hd=0;e.n=0;e.npH=e.hp;banner('贝尔芬格打起了瞌睡……趁现在狠狠打她!');return}
+    if(e.cd>0)return;const Q=['shot','shot','volley','rain','beam'];if(ad<150)Q.push('slide','thorn','thorn');if(ad>280)Q.push('shot','rain');if(od)Q.push('rain','beam');let a=pick(Q);if(a==e.la&&Math.random()<.6)a=pick(Q);
+    e.act=a;e.la=a;e.at=0;e.hd=0;e.n=0;if(a=='slide')e.f=-sgn(dx)||-e.f;return}
+  e.at+=dt;const T=e.at,a=e.act;
+  if(a=='nap'){e.mv=0;const hv=e.max*(od?.025:.015)*dt;e.hp=Math.min(e.max,e.hp+hv);e.npH+=hv;e.nhA=(e.nhA||0)+hv;if(e.nhA>e.max*.01){tx('+'+Math.round(e.nhA),cx-14,e.y-14,'#b197fc');e.nhA=0}
+    if(e.npH-e.hp>=e.max*.04){e.act='wake';e.at=0;shake=.3;banner('贝尔芬格被吵醒了!她很生气……');return}if(T>4)dmEnd(e,.2);return}
+  if(a=='wake'){if(T<.5){e.pz='w';return}e.act='beam';e.at=.3;e.hd=0;e.n=0;e.f=sgn(dx)||e.f;return}
+  if(a=='shot'){if(T<.45){e.pz='w';e.f=sgn(dx)||e.f;return}e.pz='s';if(!e.hd){e.hd=1;syn('proj');DMAR.push({x:cx+e.f*30,y:GY-34,v:e.f*400,t:0,dm,d:12});if(od)DMAR.push({x:cx+e.f*30,y:GY-34,v:e.f*400,t:-.25,dm,d:12})}if(T>.95)dmEnd(e);return}
+  if(a=='volley'){if(T<.4){e.pz='w';e.f=sgn(dx)||e.f;return}e.pz='s';if(!e.hd){e.hd=1;syn('proj');for(const [y,d] of [[GY-22,0],[GY-84,.24],[GY-22,.48]])DMAR.push({x:cx+e.f*30,y,v:e.f*380,t:-d,dm,d:11})}if(T>.9)dmEnd(e,.1);return}
+  if(a=='rain'){if(T<.7){e.pz='w';return}e.pz='s';if(!e.hd){e.hd=1;syn('swing');const n=od?3:1;for(let i=0;i<n;i++)DMRN.push({x:dmCX(i==0?pc:pc+(i%2?1:-1)*rnd(110,170)),t:-i*.15,dm,d:16,sl:1})}if(T>1.3)dmEnd(e,.1);return}
+  if(a=='beam'){if(T<.55){e.pz='w';if(T<.3)e.f=sgn(dx)||e.f;return}e.pz='s';if(!e.hd){e.hd=1;shake=.3;syn('zap')}
+    if(T<.9&&!e.n&&dmHitR(e,cx+e.f*20,cx+e.f*560,GY-80,20,e.f*300)){e.n=1;dmSlp(od?3:2)}if(T>1.8)dmEnd(e,.2);return}
+  if(a=='thorn'){e.pz=T<.35?'w':'s';if(T>=.4&&!e.hd){e.hd=1;syn('slam');shake=.3;if(dmHitR(e,cx-110,cx+110,GY-150,16,sgn(dx)*360))dmSlp(1);dmZone(cx-130,cx+130,od?4:3,dm,5,'sleep')}if(T>1.2)dmEnd(e,.1);return}
+  if(a=='slide'){e.pz='s';const ox=e.x;e.x=gpCl(e,e.x+e.f*340*dt);if(T>.6||e.x==ox&&T>.15){e.f=sgn(dx)||e.f;dmEnd(e,-.4)}return}
+  dmEnd(e)}
+// ---- 阿撒兹勒「锻造」:直拳 jab · 连拳 combo · 崩拳 blast(两段,第二段打得远)· 岩刺 spike(往前一路冒出岩刺,二阶段再在你身边喷炉火柱)· 落石 boulder ·
+//      淬火 forge(每 12 秒静坐 2.5 秒:这期间被打掉 4% 生命就被打断、发呆 1.6 秒;没打断 → 淬火 +1 层,每层伤害 +15%,身边留下炉火)·
+//      铁壁 guard(1.3 秒,受到的伤害只有 20%;被打中就马上反击 counter)· 二阶段「荒野之链」:每 9 秒满场落巨石,淬火最多 5 层 ----
+const azazK=e=>{if(e.act=='guard'&&e.at>.15){e.ctr=1;return .2}return 1};
+function azazStep(e,dt){const pc=P.x+12,cx=e.x+e.w/2,dx=pc-cx,ad=Math.abs(dx),od=e.od,dm=e.dm*(1+.15*(e.qf||0));e.pz=null;e.dmK=azazK;
+  if(!e.intro){e.intro=1;banner('阿撒兹勒 · 「这双拳头,打出过人类的第一把剑」');bsfx('l9_roar');e.fgT=9;e.bdT=9}
+  dmOdChk(e,'荒野之链!巨石会满场落下');
+  if(e.act!='forge')e.fgT-=dt;
+  if(od){e.bdT-=dt;if(e.bdT<=0){e.bdT=9;banner('巨石要落下来了!');for(let i=0;i<6;i++)dmMet(dmCX(ARL+60+i*(ARR-ARL-120)/5+rnd(-30,30)),dm,18,.25*i,0,'rock')}}
+  if(!e.act){e.cd-=dt;e.f=sgn(dx)||e.f;e.mv=0;if(ad>e.w/2+50){e.mv=1;e.x=gpCl(e,e.x+e.f*(od?84:72)*dt)}
+    if(e.fgT<=0&&e.cd<=0&&(e.qf||0)<(od?5:3)){e.fgT=od?10:12;e.act='forge';e.la='forge';e.at=0;e.hd=0;e.n=0;e.fgH=e.hp;banner('阿撒兹勒开始淬火!快打断他!');return}
+    if(e.cd>0)return;const Q=['jab','combo','blast','spike','boulder','guard'];if(ad<e.w/2+120)Q.push('jab','combo','blast');if(ad>240)Q.push('spike','boulder');if(od)Q.push('spike','guard');let a=pick(Q);if(a==e.la&&Math.random()<.6)a=pick(Q);
+    e.act=a;e.la=a;e.at=0;e.hd=0;e.n=0;e.ctr=0;if(a=='guard')tx('铁壁!',cx-12,e.y-20,'#adb5bd');return}
+  e.at+=dt;const T=e.at,a=e.act;
+  if(a=='daze'){e.mv=0;if(T>1.6)dmEnd(e,.3);return}
+  if(a=='forge'){e.mv=0;if(Math.random()<dt*6)VFX.spawn('b-flame',cx+rnd(-30,30),GY-10,{s:.7,life:.5});
+    if(e.fgH-e.hp>=e.max*.04){e.act='daze';e.at=0;e.pz=null;shake=.3;syn('boom');banner('淬火被打断了!阿撒兹勒愣住了');return}
+    if(T>2.5){e.qf=Math.min(od?5:3,(e.qf||0)+1);flash('255,140,40',.25);syn('boom');banner('淬火完成!阿撒兹勒的拳头更烫了(第 '+e.qf+' 层)');dmZone(cx-120,cx+120,4,dm,6,'fire');dmEnd(e,.2)}return}
+  if(a=='jab'){if(T<.3){e.pz='w';e.f=sgn(dx)||e.f;return}e.pz='s';if(!e.hd){e.hd=1;syn('swing');dmHitR(e,cx-e.f*10,cx+e.f*130,GY-120,14,e.f*300,dm)}if(T>.55)dmEnd(e,-.2);return}
+  if(a=='combo'){e.pz=T<.2?'w':'s';const k=T<.25?0:T<.5?1:2;if(k>e.n){e.n=k;syn('swing');dmHitR(e,cx-e.f*10,cx+e.f*140,GY-120,k==2?14:10,e.f*(k==2?380:160),dm)}if(T>.75)dmEnd(e);return}
+  if(a=='blast'){if(T<.4){e.pz='w';e.f=sgn(dx)||e.f;return}e.pz='s';const k=T<.45?0:T<.9?1:2;if(k>e.n){e.n=k;syn('slam');shake=.3;dmHitR(e,cx-e.f*10,cx+e.f*(k==2?230:150),GY-130,k==2?20:14,e.f*(k==2?480:200),dm);VFX.spawn('earth-rupture',cx+e.f*(k==2?150:90),GY,{s:1.2})}if(T>1.4)dmEnd(e,.1);return}
+  if(a=='spike'){if(T<.45){e.pz='w';e.f=sgn(dx)||e.f;return}e.pz='s';if(e.n<4&&T>=.45+e.n*.15){const px=cx+e.f*(50+e.n*50);e.n++;syn('slam');shake=.2;dmHitR(e,px-34,px+34,GY-140,16,e.f*200,dm)}
+    if(od&&T>1.2&&!e.hd){e.hd=1;for(let i=0;i<3;i++)dmPil(pc+(i-1)*80,dm,14,i*.15,'fire')}if(T>1.6)dmEnd(e,.1);return}
+  if(a=='boulder'){if(T<.5){e.pz='w';return}e.pz='s';if(!e.hd){e.hd=1;shake=.3;syn('boom');const n=od?7:5;for(let i=0;i<n;i++)dmMet(i==0?pc:pc+rnd(-240,240),dm,15,.12*i,0,'rock')}if(T>.9)dmEnd(e,.2);return}
+  if(a=='guard'){e.mv=0;if(e.ctr&&T>.2){e.act='counter';e.at=0;e.n=0;e.f=sgn(dx)||e.f;tx('铁壁反击!',cx-24,e.y-20,'#ff922b');syn('zap');return}if(T>1.3)dmEnd(e);return}
+  if(a=='counter'){if(T<.25){e.pz='w';return}e.pz='s';if(!e.n){e.n=1;shake=.45;syn('slam');dmHitR(e,cx-e.f*20,cx+e.f*220,GY-140,26,e.f*520,dm);VFX.spawn('earth-rupture',cx+e.f*130,GY,{s:1.8})}if(T>.9)dmEnd(e,.2);return}
+  dmEnd(e)}
+// ---- 路西法「傲慢」:晨星法球 orb(会慢慢追人)· 星落 star · 光柱 pillar(主角身边依次升起五道)· 瞬移 blink(淡出,出现在主角背后接一发法球)·
+//      傲慢 pride(每 16 秒命令「跪下!」:之后 3 秒里打他不掉血,每打一下他回 3% 生命并叠一层傲慢(伤害 +8%,最多 5 层,宠物的攻击不算);
+//        3 秒里一下都没打 → 他愣住 1.5 秒,接下来 5 秒受到的伤害 ×1.6)·
+//      二阶段「堕天 · 晨星坠落」:每 14 秒场上亮起一个光圈,3 秒后整个场地被晨星砸中,只有站在光圈里安全;「跪下」变成每 12 秒 ----
+const luciK=e=>{if(e.kn>0){if(PETX)return 0;e.pv=1;if(GT-(e.pkT||0)>.4){e.pkT=GT;e.pd=Math.min(5,(e.pd||0)+1);const v=Math.round(e.max*.03);e.hp=Math.min(e.max,e.hp+v);tx('傲慢 +'+v+'(×'+e.pd+')',e.x+e.w/2-30,e.y-24,'#e599f7')}return 0}return e.exT>0?1.6:1};
+function luciStep(e,dt){const pc=P.x+12,cx=e.x+e.w/2,dx=pc-cx,ad=Math.abs(dx),od=e.od,dm=e.dm*(1+.08*(e.pd||0));e.pz=null;e.dmK=luciK;
+  if(!e.intro){e.intro=1;banner('路西法 · 「最后一根柱子……你也配走到这里?」');bsfx('l9_roar');e.pdT=10;e.msT=8}
+  dmOdChk(e,'堕天 · 晨星坠落!只有光圈里是安全的');
+  if(e.exT>0)e.exT-=dt;
+  if(e.kn>0){e.kn-=dt;if(e.kn<=0){e.kn=0;if(!e.pv){e.act='daze';e.at=0;e.pz=null;e.mv=0;e.fa=null;e.exT=5;flash('255,240,200',.25);banner('你忍住了!路西法的傲慢露出了破绽(5 秒内伤害 ×1.6)')}else banner('路西法更傲慢了……')}}
+  else if(e.act!='pride')e.pdT-=dt;
+  if(od){if(e.sfX==null){e.msT-=dt;if(e.msT<=0){e.msT=14;e.sfX=dmCX(rnd(ARL+80,ARR-80));e.sfT=3;banner('晨星要坠落了!快站进光圈!');syn('zap')}}
+    else{e.sfT-=dt;if(e.sfT<=0){const sx=e.sfX;e.sfX=null;flash('255,250,220',.5);shake=.7;syn('boom');for(let i=0;i<8;i++)VFX.spawn('b-light',ARL+60+i*(ARR-ARL-120)/7,GY-40,{s:1.6,life:.7,add:1});if(Math.abs(pc-sx)>54)hurt(36*dm,{kb:sgn(pc-sx)*300})}}}
+  if(!e.act){e.cd-=dt;e.f=sgn(dx)||e.f;e.mv=0;if(ad>300){e.mv=1;e.x=gpCl(e,e.x+e.f*(od?70:58)*dt)}
+    if(e.pdT<=0&&e.cd<=0){e.pdT=od?12:16;e.act='pride';e.la='pride';e.at=0;e.hd=0;e.n=0;return}
+    if(e.cd>0)return;const Q=['orb','orb','star','pillar','blink'];if(ad<130)Q.push('blink','pillar');if(ad>260)Q.push('orb','star');if(od)Q.push('orb','pillar');let a=pick(Q);if(a==e.la&&Math.random()<.6)a=pick(Q);
+    e.act=a;e.la=a;e.at=0;e.hd=0;e.n=0;e.fa=null;return}
+  e.at+=dt;const T=e.at,a=e.act;
+  if(a=='daze'){e.mv=0;if(T>1.5)dmEnd(e,.2);return}
+  if(a=='pride'){e.mv=0;if(T<.7){e.pz='w';return}if(!e.hd){e.hd=1;e.kn=3;e.pv=0;flash('200,120,255',.3);shake=.3;syn('boom');banner('路西法:「跪下!」—— 3 秒内不要攻击他!')}if(T>1.2)dmEnd(e,.4);return}
+  if(a=='orb'){if(T<.8){e.pz='w';if(T<.5)e.f=sgn(dx)||e.f;return}e.pz='s';if(!e.hd){e.hd=1;syn('proj');const n=od?5:3;for(let i=0;i<n;i++){const an=(i-(n-1)/2)*.35;DMOR.push({x:cx+e.f*30,y:e.y+e.h*.35,vx:e.f*Math.cos(an)*200,vy:Math.sin(an)*200,t:-i*.06,sp:od?230:200,hm:od?260:200,dm,d:14})}}if(T>1.3)dmEnd(e,.1);return}
+  if(a=='star'){if(T<.8){e.pz='w';return}e.pz='s';if(!e.hd){e.hd=1;shake=.25;syn('boom');const n=od?10:7;for(let i=0;i<n;i++)dmMet(i==0?pc:pc+rnd(-280,280),dm,14,.12*i,0,'holy')}if(T>1.3)dmEnd(e,.2);return}
+  if(a=='pillar'){if(T<.7){e.pz='w';return}e.pz='s';const k=Math.floor((T-.7)/(od?.18:.25));if(e.n<=k&&k<5){e.n=k+1;dmPil(pc+[0,-80,80,-160,160][k],dm,15,0,'holy')}if(T>(od?1.7:2))dmEnd(e,.3);return}
+  if(a=='blink'){e.mv=0;if(T<.35){e.fa=1-T/.35;return}if(!e.hd){e.hd=1;const nx=dmCX(pc-(P.f||1)*110);e.x=gpCl(e,nx-e.w/2);e.f=sgn(pc-(e.x+e.w/2))||1;VFX.spawn('b-light',nx,GY-40,{s:1.2,life:.4,add:1});syn('blink')}
+    if(T<.7){e.fa=(T-.35)/.35;return}e.fa=null;e.act='orb';e.at=.55;e.hd=0;return}
+  dmEnd(e)}
+const DMST={baal:baalStep,dagon:dagStep,molo:moloStep,asmo:asmoStep,beli:beliStep,asta:astaStep,belz:belzStep,mamm:mammStep,levi:leviStep,belp:belpStep,azaz:azazStep,luci:luciStep,pfg:pfgStep};  // pfg = 神秘副本 5 擎天魔神(第五十九轮,update 的敌人循环按这张表找招式函数)
 // 首领倒下:诅咒之力(必掉 1 个,再按掉落率多掉 1 个)
 function dmDrop(e){const id='cz'+dmI();if(!MISC[id])return;gdDrop(e,{k:'gc',id,n:1});if(Math.random()<.3*STK().dr*DBLK())gdDrop(e,{k:'gc',id,n:1})}
 
