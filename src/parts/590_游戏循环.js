@@ -22,7 +22,7 @@ function cvClick(e){
   const r=cv.getBoundingClientRect(),mx=(e.clientX-r.left)*VW/r.width,my=(e.clientY-r.top)*VH/r.height;
   if(st=='map'&&MPG==1){map2Click(mx,my);return}
   if(st=='map'&&map2Open()&&mx>M2B[0]&&mx<M2B[0]+M2B[2]&&my>M2B[1]&&my<M2B[1]+M2B[3]){MPG=1;return}
-  if(st=='map'){const i=mapHit(mx,my);if(i>=0){if(MAPS[i].lock())say('通关上一关后解锁');else openLvSel(i);return}if((mx>14&&mx<144&&my>316&&my<348)||(!MAPI.I&&Math.abs(mx-MAPT[0])<46&&my>MAPT[1]+10&&my<MAPT[1]+50))st='town';return}
+  if(st=='map'){if(MAPI.I&&c4Open()&&inR(mx,my,M1C)){c4Tog();return}const i=mapHit(mx,my);if(i>=0){if(MAPS[i].lock())say('通关上一关后解锁');else openLvSel(i);return}if((mx>14&&mx<144&&my>316&&my<348)||(!MAPI.I&&Math.abs(mx-MAPT[0])<46&&my>MAPT[1]+10&&my<MAPT[1]+50))st='town';return}
 }
 let last=0;
 // 设置:帧数上限(60 / 120)、显示帧数;保存在本机

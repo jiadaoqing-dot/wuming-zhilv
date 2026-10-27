@@ -499,13 +499,13 @@ let DMS={s:0};
 const DMSX=20,DMSY=44,DMSW=96,DMSH=124,DMSG=100;
 const dmsOpen=i=>i<DMOPEN&&!!DMD[i].k;
 function openDms(){st='dms';msgU=0;keys.l=keys.r=0;ah=ar=0}
-function dmsHit(mx,my){if(mx>582&&mx<622&&my>4&&my<32)return 'x';for(let i=0;i<12;i++){const X=DMSX+(i%6)*DMSG,Y=DMSY+Math.floor(i/6)*(DMSH+8);if(mx>=X&&mx<=X+DMSW&&my>=Y&&my<=Y+DMSH)return i}return -1}
-function dmsGo(i){if(!dmsOpen(i)){say('「'+DMD[i].n+'」的封印还很牢固(尚未开放)');return}LVS={i:DM0+i-1,s:3,m:2};enterLv(DM0+i,3)}  // 第五十六轮(用户):十二魔不分星级,默认三星,直接开打(LVS 记着来源,战败 / 通关返回时回恶魔选择页)
-function dmsClick(mx,my){const h=dmsHit(mx,my);if(h=='x'){st='map';MPG=1;return}if(h>=0){DMS.s=h;dmsGo(h)}}
-function dmsKey(e){const k=e.key;if(k=='Escape'){st='map';MPG=1;return}if(e.repeat)return;if(KM[k]=='l')DMS.s=(DMS.s+11)%12;else if(KM[k]=='r')DMS.s=(DMS.s+1)%12;else if(k=='ArrowUp'||k=='ArrowDown')DMS.s=(DMS.s+6)%12;else if(k=='Enter'||k==' ')dmsGo(DMS.s)}
+function dmsHit(mx,my){if(mx>582&&mx<622&&my>4&&my<32)return 'x';if(c4Open()&&inR(mx,my,C4MB))return '4';for(let i=0;i<12;i++){const X=DMSX+(i%6)*DMSG,Y=DMSY+Math.floor(i/6)*(DMSH+8);if(mx>=X&&mx<=X+DMSW&&my>=Y&&my<=Y+DMSH)return i}return -1}
+function dmsGo(i){if(!dmsOpen(i)){say('「'+DMD[i].n+'」的封印还很牢固(尚未开放)');return}if(c4Map(DM0+i,()=>{LVS={i:DM0+i-1,s:4,m:2};enterLv(DM0+i,4)}))return;LVS={i:DM0+i-1,s:3,m:2};enterLv(DM0+i,3)}  // 第六十七轮:挑战模式开着 = 四星  // 第五十六轮(用户):十二魔不分星级,默认三星,直接开打(LVS 记着来源,战败 / 通关返回时回恶魔选择页)
+function dmsClick(mx,my){const h=dmsHit(mx,my);if(h=='x'){st='map';MPG=1;return}if(h=='4'){c4Tog();return}if(h>=0){DMS.s=h;dmsGo(h)}}
+function dmsKey(e){const k=e.key;if(k=='Escape'){st='map';MPG=1;return}if(e.repeat)return;if(k=='4'){c4Tog();return}if(KM[k]=='l')DMS.s=(DMS.s+11)%12;else if(KM[k]=='r')DMS.s=(DMS.s+1)%12;else if(k=='ArrowUp'||k=='ArrowDown')DMS.s=(DMS.s+6)%12;else if(k=='Enter'||k==' ')dmsGo(DMS.s)}
 function drawDms(){const t=performance.now()/1000,px=PUI.on(),hv=dmsHit(MX_,MY_);drawMap2(t);x.fillStyle='rgba(8,4,14,.9)';x.fillRect(0,0,VW,VH);
   if(px)PUI.ns(x,'tD1',12,8,14,9,170,4,300,26);else RR(x,170,4,300,26,13,LG(x,0,4,0,30,['#8a2828','#4a1212']),1.8);CTG('十二魔封印 · 封魔石台',320,23,14);
-  if(px)PUI.ns(x,'pC',6,6,6,6,586,6,32,24);else RR(x,586,6,32,24,6,'#2a1f3c',1.4);CT('✕',602,23,14,hv=='x'?'#fff':'#ffd43b','center',0);
+  if(px)PUI.ns(x,'pC',6,6,6,6,586,6,32,24);else RR(x,586,6,32,24,6,'#2a1f3c',1.4);CT('✕',602,23,14,hv=='x'?'#fff':'#ffd43b','center',0);if(c4Open())c4Btn(C4MB,hv=='4',t,'#1a0808',1);
   CT('远古的女神用十二根封魔柱镇住了十二位魔王……如今,前'+['','一','二','三','四','五','六','七','八','九','十','十一','十二'][DMOPEN]+'根柱子的光已经熄灭',320,39,8,'#ffc9c9','center',2,'#1a0808');
   for(let i=0;i<12;i++){const X=DMSX+(i%6)*DMSG,Y=DMSY+Math.floor(i/6)*(DMSH+8),d=DMD[i],op=dmsOpen(i),on=DMS.s==i||hv===i,cx=X+DMSW/2;
     if(px)PUI.ns(x,'pC',6,6,6,6,X,Y,DMSW,DMSH);else RR(x,X,Y,DMSW,DMSH,8,'#1e1829',1.6);
@@ -517,5 +517,6 @@ function drawDms(){const t=performance.now()/1000,px=PUI.on(),hv=dmsHit(MX_,MY_)
     if(op){const sn=starOf(DM0+i);for(let k=0;k<sn;k++)CT('★',X+12+k*9,Y+14,9,STARK[sn].c,'center',2.2,'#5a2e08');CT(d.sl=='wpn'?'武器':d.sl=='cos'?'时装翅膀':SL[d.sl][0],X+DMSW-8,Y+14,8,'#ff8787','right',2,'#1a0808')}
     if(on){x.save();x.strokeStyle=DMS.s==i?'rgba(255,107,107,'+(.7+.3*Math.sin(t*6))+')':'rgba(255,230,220,.5)';x.lineWidth=DMS.s==i?3:1.5;x.strokeRect(X+1.5,Y+1.5,DMSW-3,DMSH-3);x.restore()}}
   const q=DMD[hv>=0?hv:DMS.s];if(q){const L=[];let s=q.lg;while(s.length){L.push(s.slice(0,48));s=s.slice(48)}L.slice(0,3).forEach((l,i)=>CT(l,320,310+i*11,8,'#ffe3e3','center',2,'#1a0808'))}
+  if(C4M&&c4Open())CT('挑战模式:点击恶魔直接四星 · 伤害按最大生命 %,装备 / 等级不起作用 · 没有掉落,首通给挑战积分',320,352,8,'#f3d9fa','center',2.2,'#3a0b0b');else
   CT('点击恶魔肖像挑战 · 掉落「诅咒之力」可诅咒对应部位的装备 · Esc 返回地图',320,352,8,'#fff','center',2.2,'#3a0b0b');
   if(performance.now()<msgU)CT(msg,320,300,11,'#ffe3e3','center',2.6,'#7a1f1f')}

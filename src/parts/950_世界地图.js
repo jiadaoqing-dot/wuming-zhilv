@@ -73,6 +73,7 @@ function mapBG(){if(MAPBG)return MAPBG;return MAPBG=mkL(VW,VH,(c,w,h)=>{SEED=42;
 // 世界地图(用户定制的插画,art_src/map/build_map.py → assets/map_bg.jpg,1125×633):牌子上的字已擦掉,这里按 MAPS 写关卡名 / 推荐等级 / 锁定 / 通关星;
 // MAPP = 第 1~8 关牌子中心(逻辑坐标);牌子半宽 38、半高 15。图没加载好时用下面的旧地图
 const MAPI={I:null,D:'@@J:map_bg@@'};{const im=new Image();im.onload=()=>{MAPI.I=im};im.src=MAPI.D}
+const M1C=[354,6,144,24];  // 第六十七轮:第一张地图上的挑战模式开关(暗黑大陆按钮左边)
 const MAPP=[[178,286],[170,207],[170,135],[374,317],[329,116],[435,52],[510,107],[377,204],[492,234],[546,318]];  // 第九关:火山脚下原来「??? 尚未开放」的牌子(游戏里画一块牌子盖住)  // 第八关幽魂都市用原来晨曦镇的牌子(2026-10-13:晨曦镇不再显示在地图上)
 // 鼠标在地图上的位置(逻辑坐标,用来高亮牌子)
 let MX_=-1,MY_=-1;addEventListener('mousemove',e=>{if(st!='map'&&st!='lvsel')return;const r=cv.getBoundingClientRect();MX_=(e.clientX-r.left)*VW/r.width;MY_=(e.clientY-r.top)*VH/r.height});
@@ -89,7 +90,8 @@ function drawMapC(t){x.imageSmoothingEnabled=true;x.drawImage(MAPI.I,0,0,VW,VH);
     {const sn=starOf(i+1);for(let k=0;k<sn;k++)CT('★',a+16+k*10,b-11,10,STARK[sn].c,'center',2.4,'#5a2e08')}});  // 第十六轮:牌子右上角画已通关的星数
 
   RR(x,14,318,130,30,13,LG(x,0,318,0,348,['#ffb84d','#e8590c']),1.8);CT('🏠 返回城镇',79,338,12,'#fff','center',2.6);
-  CT('点击地名选择星级 · 按 1~9、0 选择 · Esc 返回',408,350,9,'#fff','center',2.4,'#0b3a6b');
+  if(c4Open())c4Btn(M1C,inR(MX_,MY_,M1C),t);  // 第六十七轮:挑战模式开关(和暗黑大陆右下角那个是同一个 C4M)
+  CT(C4M?'⚔ 挑战模式开启中:点击关卡直接四星挑战(要先三星通关)':'点击地名选择星级 · 按 1~9、0 选择 · Esc 返回',408,350,9,C4M?'#f3d9fa':'#fff','center',2.4,C4M?'#3a0b4b':'#0b3a6b');
   if(performance.now()<msgU)CT(msg,320,58,13,'#ffe3e3','center',3,'#7a1f1f')}
 function drawMap(){const t=performance.now()/1000;if(MPG==1&&MAPI2.I){drawMap2(t);return}if(MAPI.I){drawMapC(t);if(map2Open())map2Btn(t);return}x.imageSmoothingEnabled=false;x.drawImage(mapBG(),0,0,VW,VH);x.imageSmoothingEnabled=true;
   // 水面闪光、飘过的云影

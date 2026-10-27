@@ -18,7 +18,7 @@ const inR=(mx,my,r)=>mx>r[0]&&mx<r[0]+r[2]&&my>r[1]&&my<r[1]+r[3];
 function map2Btn(t){const hv=inR(MX_,MY_,M2B);RR(x,M2B[0],M2B[1],M2B[2],M2B[3],12,LG(x,0,M2B[1],0,M2B[1]+M2B[3],hv?['#9775fa','#5f3dc4']:['#7048e8','#3b1f8f']),1.8);CT('暗黑大陆 ▶',M2B[0]+M2B[2]/2,M2B[1]+18,12,'#fff','center',2.6,'#1e1030')}
 function map2Hit(mx,my){for(let i=0;i<MAPS2.length;i++){const m=MAPS2[i];if(Math.abs(mx-m.p[0])<m.w&&Math.abs(my-m.p[1])<m.h)return i}return -1}
 function map2Go(i){const m=MAPS2[i];if(!m)return;if(m.lock()){say(m.cur==14?'通关第十关后解锁':m.dms||m.tw?'通关第十七关后解锁':'通关上一关后解锁');return}if(m.dms){openDms();return}if(m.tw){openTwr();return}openLvSel(m.cur-1)}
-function map2Click(mx,my){const i=map2Hit(mx,my);if(i>=0){map2Go(i);return}if(inR(mx,my,M2T)){st='town';return}if(inR(mx,my,[504,6,130,26])){MPG=0;return}if(inR(mx,my,M2C)){say('挑战模式尚未开放');return}if(my>40&&my<310)say('这里尚未开放')}
+function map2Click(mx,my){const i=map2Hit(mx,my);if(i>=0){map2Go(i);return}if(inR(mx,my,M2T)){st='town';return}if(inR(mx,my,[504,6,130,26])){MPG=0;return}if(inR(mx,my,M2C)){c4Tog();return}if(my>40&&my<310)say('这里尚未开放')}
 function drawMap2(t){x.imageSmoothingEnabled=true;x.drawImage(MAPI2.I,0,0,VW,VH);
   MAPS2.forEach((m,i)=>{const [a,b]=m.p,hv=map2Hit(MX_,MY_)==i,lk=m.lock(),n=m.cur;
     x.save();x.globalCompositeOperation='lighter';E_(x,a,b,58+Math.sin(t*4)*3,40,RGD(x,a,b,58,[hv?'rgba(150,242,215,.55)':'rgba(120,220,200,.32)','rgba(0,0,0,0)']),0);x.restore();
@@ -26,6 +26,10 @@ function drawMap2(t){x.imageSmoothingEnabled=true;x.drawImage(MAPI2.I,0,0,VW,VH)
     {const sn=m.dms||m.tw?0:starOf(n);for(let k=0;k<sn;k++)CT('★',a+28+k*10,b+28,10,STARK[sn].c,'center',2.4,'#5a2e08')}});
   {const hv=inR(MX_,MY_,M2T);CT('返回城镇',M2T[0]+M2T[2]/2,M2T[1]+22,17,hv?'#ffe066':'#fff','center',3.4,'#16213e')}
   {const hv=inR(MX_,MY_,[504,6,130,26]);RR(x,504,6,130,26,12,LG(x,0,6,0,32,hv?['#ffb84d','#e8590c']:['#e8590c','#a63f08']),1.8);CT('◀ 第一张地图',569,24,12,'#fff','center',2.6,'#3a1d0a')}
-  CT('点击地名进入关卡 · Esc 回第一张地图',320,350,9,'#fff','center',2.4,'#0b3a6b');
+  {const [X,Y,W,H]=M2C,hv=inR(MX_,MY_,M2C),op=c4Open();  // 第六十七轮:右下角插画上的「挑战模式」= 四星总开关 C4M(111 分块)
+    if(!op){x.fillStyle='rgba(10,8,16,.55)';x.fillRect(X,Y,W,H)}else if(C4M||hv){x.save();x.globalCompositeOperation='lighter';E_(x,X+W/2,Y+H/2,W*.62,H*.6,RGD(x,X+W/2,Y+H/2,W*.62,[C4M?'rgba(204,93,232,'+(.45+.15*Math.sin(t*4))+')':'rgba(255,240,200,.3)','rgba(0,0,0,0)']),0);x.restore()}
+    if(C4M){x.save();x.strokeStyle='rgba(229,153,247,'+(.55+.35*Math.sin(t*5))+')';x.lineWidth=2;x.strokeRect(X+4,Y+2,W-8,H-4);x.restore()}
+    RR(x,X+12,Y-13,W-24,14,5,C4M?'rgba(70,20,90,.9)':'rgba(16,14,24,.82)',1.2);CT(!op?'🔒 三星通关后':C4M?'四星 · 开启中':'点击开启',X+W/2,Y-3,7,C4M?'#f3d9fa':op?'#ffe066':'#adb5bd','center',2,'#1a0820')}
+  if(C4M)CT('⚔ 挑战模式:点关卡 = 四星',122,350,9,'#f3d9fa','left',2.4,'#3a0b4b');else CT('点击地名进入关卡 · Esc 回第一张地图',320,350,9,'#fff','center',2.4,'#0b3a6b');
   if(performance.now()<msgU)CT(msg,320,58,13,'#ffe3e3','center',3,'#7a1f1f')}
 function mapHit(mx,my){if(MAPI.I){for(let i=0;i<MAPP.length;i++){const [a,b]=MAPP[i];if(Math.abs(mx-a)<40&&Math.abs(my-b)<17)return i}return -1}for(let i=0;i<MAPN.length;i++){const [a,b]=MAPN[i];if(Math.abs(mx-a)<52&&my>b-18&&my<b+42)return i}return -1}

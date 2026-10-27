@@ -2,7 +2,7 @@
 // 三张卡片 = 一星 / 二星 / 三星(通关一星才开二星、通关二星才开三星);下面左边是本关会掉的东西,右边是这一星的倍率说明
 // LVS:i = 关卡下标(0 起,10 = 神秘副本 1)· s = 选中的星级 · m = 从神秘地带进来(返回时回大厅)
 let LVS={i:0,s:1,m:0};
-function openLvSel(i,m){const n=i+1;LVS={i,s:Math.min(3,starOf(n)+1),m:m==2?2:m?1:0};if(!starOpen(n,LVS.s))LVS.s=1;st='lvsel';msgU=0;keys.l=keys.r=0;ah=ar=0}
+function openLvSel(i,m){const n=i+1;if(c4Map(n,()=>{LVS={i,s:4,m:m==2?2:m?1:0};lvsGo()}))return;  /* 第六十七轮:挑战模式直接四星 */LVS={i,s:Math.min(3,starOf(n)+1),m:m==2?2:m?1:0};if(!starOpen(n,LVS.s))LVS.s=1;st='lvsel';msgU=0;keys.l=keys.r=0;ah=ar=0}
 function lvsBack(){st='town';if(!LVS.m)st='map';if(LVS.m==2)st='dms'}
 function lvsGo(){const n=LVS.i+1;if(!starOpen(n,LVS.s)){say('先通关'+STARK[LVS.s-1].n+'才能挑战'+STARK[LVS.s].n);return}if(LVS.m==1){MYS=0;MYR=1}enterLv(n,LVS.s)}
 const LVSY=36,LVSH=150,lvsN=()=>c4OK(LVS.i+1)?4:3,lvsCX=s=>lvsN()==4?14+(s-1)*156:30+(s-1)*200,lvsW=()=>lvsN()==4?144:180;  // 第六十五轮:能开四星的关卡显示四张卡(第六十六轮:神秘副本 / 十二魔也开)

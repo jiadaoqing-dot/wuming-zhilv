@@ -41,5 +41,5 @@ function drawGiant(){const k=P.sk;if(!k||k.id!='giant')return;const f=P.f,ph=Mat
 function drawP(){
   {const k=P.sk;if(k&&k.id=='zap'){if(k.hid)return;
     if(k.fin!=null&&!k.done){const oy=-130*(1-(k.drop||0));P.y+=oy;x.globalAlpha=.9;drawPBody();x.globalAlpha=1;P.y-=oy;return}}}
-  PXL.run(()=>drawPAura(1),P.wy>0);drawPBody();PXL.run(()=>drawPAura(0),P.shdT>0&&P.shd>0)}
+  PXL.run(()=>drawPAura(1),P.wy>0);drawPBody();PXL.run(()=>drawPAura(0),P.shdT>0&&P.shd>0);ttlHead()}
 function txt(s,px,py,sz,c,al){x.font='bold '+sz+'px "Noto Sans SC","PingFang SC","Microsoft YaHei",sans-serif';x.fillStyle=c;x.textAlign=al||'center';x.fillText(s,px,py)}
