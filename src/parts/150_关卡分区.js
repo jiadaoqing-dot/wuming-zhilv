@@ -2,8 +2,8 @@
 const HITI=.1;
 function hurt(b,o){if(DECOY||GM.god)return false;if(pdChk())return false;if(P.inv>0||(P.sk&&P.sk.inv))return false;const S=stats();
   // 闪避:按闪避率完全躲开这次伤害(不清连击),之后 0.4 秒无敌,避免贴身判定连续触发
-  if(Math.random()<S.dg/100){P.inv=.4;tx('闪避成功!',P.x-8,P.y-10,'#a5d8ff');ghost('#a5d8ff',.3);syn('blink');return false}
-  let d=dmgIn(b*EATK*BDMK(),S.def);if(P.rot>0&&isDm(cur))d=Math.round(d*(1+.06*P.rot));  // 第五十六轮:阿斯塔罗特的腐蚀层数,每层受伤 +6%  // BDMK:第八~十关首领战 ×1.35 ×1.35(第十五轮)
+  if(!isC4()&&Math.random()<S.dg/100){P.inv=.4;tx('闪避成功!',P.x-8,P.y-10,'#a5d8ff');ghost('#a5d8ff',.3);syn('blink');return false}
+  let d=isC4()?c4Hurt(b*EATK*BDMK(),S):dmgIn(b*EATK*BDMK(),S.def);if(P.rot>0&&isDm(cur))d=Math.round(d*(1+.06*P.rot));  // 第五十六轮:阿斯塔罗特的腐蚀层数,每层受伤 +6%  // BDMK:第八~十关首领战 ×1.35 ×1.35(第十五轮)
   if(P.hshT>0){if(P.hdr)d=Math.max(1,Math.round(d*(1-P.hdr)));if(P.hsh>0){const a=Math.min(P.hsh,d);P.hsh-=a;d-=a;tx('护盾 -'+a,P.x+4,P.y-14,'#ffe8a3');if(d<=0){P.inv=HITI;shake=.1;sfx('hit');mfxHit();return true}}}  // 宠物仓鼠的瓜子壳护盾 + 减伤
   if(P.shdT>0&&P.shd>0){const a=Math.min(P.shd,d);P.shd-=a;d-=a;tx('🪨 -'+a,P.x+4,P.y-14,'#e0b984');if(d<=0){P.inv=HITI;shake=.1;sfx('hit');mfxHit();return true}}if(P.hp>0&&P.hp-d<=0&&m2Live())d=Math.max(0,Math.ceil(P.hp)-1);/* 第五十七轮:大师二阶热血四件不死 */P.hp-=d;mfxHit();P.combo=0;if(P.jk)P.jk=Math.floor(P.jk*.4);{const c=setTr();if(tr6('yu',c)&&st=='play'){const t=nearE(allTg(),P.x+12,P.y+16,320);if(t)xDeal(t,Math.max(1,Math.round(d*YU6)))}}P.inv=Math.min(HITI,o&&o.inv!=null?o.inv:HITI);if(P.m2L){P.m2L=0;P.inv=3}P.vy=-250;if(o&&o.kb)P.kbx=o.kb;shake=.25;tx('-'+d,P.x+12,P.y-6,'#fff','d');sfx('hurt');  // 第四十二轮:神技 6 件掉 60% 层数 · 圣愈 6 件反伤(第四十五轮修:这段注释原来写在中间,把受击无敌 / 击退 / 伤害数字 / 受击音效都注释掉了)
   // 受击僵直 0.3 秒(和怪物相同);2026-10-13 第十三轮取消连击保护(原来 2.5 秒内第 3 次僵直后 2 秒霸体)。技能给的霸体(P.ar)照旧

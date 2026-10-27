@@ -1,7 +1,7 @@
 // ===== 战败 / 通关后的选择页:返回城镇 / 继续关卡(战败时还可以喝复活药水原地站起来)=====
 let CHI=1;
 const chOn=()=>st=='dead'||st=='won';
-function chBtns(){const L=st=='dead'?[{l:'🏠 返回城镇',s:'回到晨曦镇',go:()=>toTown()},{l:'⚔️ 重新挑战',s:'从本关开头重新挑战',go:()=>{init();st='play';lvT=performance.now()}},{l:'✚ 复活药水',s:POT.rev>0?'原地复活 · 持有 '+POT.rev+' 瓶':'没有复活药水',dis:!(POT.rev>0),go:()=>reviveP()}]
+function chBtns(){const L=st=='dead'?[{l:'🏠 返回城镇',s:'回到晨曦镇',go:()=>toTown()},{l:'⚔️ 重新挑战',s:'从本关开头重新挑战',go:()=>{init();st='play';lvT=performance.now()}},{l:'✚ 复活药水',s:isC4()?'四星挑战不能复活':POT.rev>0?'原地复活 · 持有 '+POT.rev+' 瓶':'没有复活药水',dis:!(POT.rev>0)||isC4(),go:()=>reviveP()}]
     :isTw(cur)?[...(TWF<TWOPEN?[{l:'前往第 '+(TWF+1)+' 层',s:'生命 / 魔力保留,继续往上闯',go:()=>twNext()}]:[]),{l:'🏠 返回城镇',s:'带着战利品回到晨曦镇',go:()=>toTown()}]  // 第五十六轮:暗黑炼狱
     :[{l:'🏠 返回城镇',s:'带着战利品回到晨曦镇',go:()=>toTown()},{l:'⚔️ 重新挑战',s:'从本关开头再打一次',go:()=>{init();st='play';lvT=performance.now()}}];
   const n=L.length,w=n==3?148:170,gp=n==3?10:14,x0=320-(n*w+(n-1)*gp)/2;L.forEach((b,i)=>{b.x=x0+i*(w+gp);b.y=204;b.w=w;b.h=50});return L}

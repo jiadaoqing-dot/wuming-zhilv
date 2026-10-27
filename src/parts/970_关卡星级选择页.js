@@ -5,10 +5,10 @@ let LVS={i:0,s:1,m:0};
 function openLvSel(i,m){const n=i+1;LVS={i,s:Math.min(3,starOf(n)+1),m:m==2?2:m?1:0};if(!starOpen(n,LVS.s))LVS.s=1;st='lvsel';msgU=0;keys.l=keys.r=0;ah=ar=0}
 function lvsBack(){st='town';if(!LVS.m)st='map';if(LVS.m==2)st='dms'}
 function lvsGo(){const n=LVS.i+1;if(!starOpen(n,LVS.s)){say('先通关'+STARK[LVS.s-1].n+'才能挑战'+STARK[LVS.s].n);return}if(LVS.m==1){MYS=0;MYR=1}enterLv(n,LVS.s)}
-const LVSC=[30,230,430],LVSY=36,LVSW=180,LVSH=150;
-function lvsHit(mx,my){if(mx>582&&mx<622&&my>4&&my<32)return 'x';if(sweepHit(mx,my))return 'sw';for(let s=0;s<3;s++){const cx=LVSC[s];if(mx>=cx&&mx<=cx+LVSW&&my>=LVSY&&my<=LVSY+LVSH)return s+1}return 0}
+const LVSY=36,LVSH=150,lvsN=()=>LVS.m==0&&c4OK(LVS.i+1)?4:3,lvsCX=s=>lvsN()==4?14+(s-1)*156:30+(s-1)*200,lvsW=()=>lvsN()==4?144:180;  // 第六十五轮:能开四星的关卡显示四张卡
+function lvsHit(mx,my){if(mx>582&&mx<622&&my>4&&my<32)return 'x';if(sweepHit(mx,my))return 'sw';const W=lvsW();for(let s=1;s<=lvsN();s++){const cx=lvsCX(s);if(mx>=cx&&mx<=cx+W&&my>=LVSY&&my<=LVSY+LVSH)return s}return 0}
 function lvsClick(mx,my){const h=lvsHit(mx,my);if(h=='x'){lvsBack();return}if(h=='sw'){sweepGo();return}if(h){LVS.s=h;lvsGo()}}
-function lvsKey(e){const k=e.key;if(k=='Escape'){lvsBack();return}if(KM[k]){if(!e.repeat)LVS.s=((LVS.s-1+(KM[k]=='l'?2:1))%3)+1;return}if(k=='Enter'||k==' '||k=='j'||k=='J'||k=='k'||k=='K'){if(!e.repeat)lvsGo();return}if(k.length==1&&'123'.includes(k))LVS.s=+k;if((k=='s'||k=='S')&&!e.repeat&&sweepOK(LVS.i+1))sweepGo()}  // 第五十九轮:S = 一键扫荡
+function lvsKey(e){const k=e.key;if(k=='Escape'){lvsBack();return}if(KM[k]){if(!e.repeat){const N=lvsN();LVS.s=((LVS.s-1+(KM[k]=='l'?N-1:1))%N)+1}return}if(k=='Enter'||k==' '||k=='j'||k=='J'||k=='k'||k=='K'){if(!e.repeat)lvsGo();return}if(k.length==1&&'1234'.slice(0,lvsN()).includes(k))LVS.s=+k;if((k=='s'||k=='S')&&!e.repeat&&sweepOK(LVS.i+1))sweepGo()}  // 第五十九轮:S = 一键扫荡
 const lvsName=n=>isTw(n)?'暗黑炼狱 · 第 '+TWF+' 层':isDm(n)?'十二魔封印 '+(n-DM0+1)+' · '+DMD[n-DM0].n:isM2(n)?MAPS2.find(m=>m.cur==n).n:isMy(n)?'神秘副本 '+(myIdx(n)+1)+' · '+MYNM[myIdx(n)]:MAPS[n-1].n;
 // 本关掉落预览:装备 6 个部位(按本关系列;一星画精良、二星稀有、三星史诗的图标)、首领的强化石、特殊掉落
 function lvsDrops(n){const L=[],ser=n>=14?4:n==11?1:n<=2?0:n<=4?1:n<=7?2:3;
@@ -68,23 +68,23 @@ function drawLvSel(){const t=performance.now()/1000,n=LVS.i+1,px=PUI.on(),hv=lvs
   if(LVS.m==2)drawDms();else if(LVS.m)drawTown();else drawMap();x.fillStyle='rgba(8,8,20,.92)';x.fillRect(0,0,VW,VH);
   if(px)PUI.ns(x,'tD1',12,8,14,9,170,4,300,26);else RR(x,170,4,300,26,13,LG(x,0,4,0,30,['#8a5428','#4a2a12']),1.8);CTG('请选择关卡 · '+lvsName(n),320,23,14);
   if(px)PUI.ns(x,'pC',6,6,6,6,586,6,32,24);else RR(x,586,6,32,24,6,'#2a1f3c',1.4);CT('✕',602,23,14,hv=='x'?'#fff':'#ffd43b','center',0);sweepDraw(n,hv);
-  for(let s=1;s<=3;s++){const cx=LVSC[s-1],cy=LVSY,open=starOpen(n,s),on=LVS.s==s,Q=STARK[s];
-    if(px)PUI.ns(x,'pC',6,6,6,6,cx,cy,LVSW,LVSH);else RR(x,cx,cy,LVSW,LVSH,8,'#1e1829',1.6);
-    lvsArt(n,cx+4,cy+26,LVSW-8,110,t);
-    if(!open){x.fillStyle='rgba(10,8,18,.74)';x.fillRect(cx+4,cy+26,LVSW-8,110);CT('🔒',cx+LVSW/2,cy+86,22,'#fff','center',0);CT('通关'+STARK[s-1].n+'后解锁',cx+LVSW/2,cy+108,9,'#ced4da','center',2.2,'#120d18')}
-    else if(starOf(n)>=s)CT('✔ 已通关',cx+LVSW-10,cy+40,9,'#69db7c','right',2.2,'#0b3a1e');
-    CT('难度:',cx+44,cy+19,12,'#fff','left',2.6,'#3a1d0a');for(let k=0;k<3;k++)CT('★',cx+90+k*16,cy+20,14,k<s?Q.c:'#555b66','center',2.4,'#2b1a12');
-    if(on||hv===s){x.save();x.strokeStyle=on?'rgba(255,212,59,'+(.7+.3*Math.sin(t*6))+')':'rgba(255,255,220,.5)';x.lineWidth=on?3:1.5;x.strokeRect(cx+1.5,cy+1.5,LVSW-3,LVSH-3);x.restore()}
-    CT(['正常推进','满强化 / 高一级装备','挑战 · 刷史诗装备'][s-1],cx+LVSW/2,cy+LVSH-6,8,'#fff3bf','center',2,'#120d18')}
+  const NS=lvsN(),LW=lvsW();for(let s=1;s<=NS;s++){const cx=lvsCX(s),cy=LVSY,open=starOpen(n,s),on=LVS.s==s,Q=STARK[s];
+    if(px)PUI.ns(x,'pC',6,6,6,6,cx,cy,LW,LVSH);else RR(x,cx,cy,LW,LVSH,8,'#1e1829',1.6);
+    lvsArt(n,cx+4,cy+26,LW-8,110,t);if(s==4&&open){x.fillStyle='rgba(60,10,80,.28)';x.fillRect(cx+4,cy+26,LW-8,110)}
+    if(!open){x.fillStyle='rgba(10,8,18,.74)';x.fillRect(cx+4,cy+26,LW-8,110);CT('🔒',cx+LW/2,cy+86,22,'#fff','center',0);CT('通关'+STARK[s-1].n+'后解锁',cx+LW/2,cy+108,9,'#ced4da','center',2.2,'#120d18')}
+    else if(starOf(n)>=s)CT('✔ 已通关',cx+LW-10,cy+40,9,'#69db7c','right',2.2,'#0b3a1e');
+    CT('难度:',cx+LW/2-46,cy+19,12,'#fff','left',2.6,'#3a1d0a');for(let k=0;k<NS;k++)CT('★',cx+LW/2+k*(NS==4?13:16),cy+20,14,k<s?Q.c:'#555b66','center',2.4,'#2b1a12');
+    if(on||hv===s){x.save();x.strokeStyle=on?'rgba(255,212,59,'+(.7+.3*Math.sin(t*6))+')':'rgba(255,255,220,.5)';x.lineWidth=on?3:1.5;x.strokeRect(cx+1.5,cy+1.5,LW-3,LVSH-3);x.restore()}
+    CT(['正常推进','满强化 / 高一级装备','挑战 · 刷史诗装备','魂类试炼 · 只看技巧'][s-1],cx+LW/2,cy+LVSH-6,8,'#fff3bf','center',2,'#120d18')}
   if(px)PUI.ns(x,'pA',20,14,20,14,30,194,380,146);else RR(x,30,194,380,146,10,LG(x,0,194,0,340,['#3d3352','#1e1829']),1.8);
-  CTG('掉落物品',74,214,13);CT('星级越高,越容易掉高品质装备',256,214,8,'#dee2e6','center',2,'#120d18');
-  lvsDrops(n).forEach((q,i)=>{const gx=54+(i%8)*45,gy=250+Math.floor(i/8)*46;if(px)PUI.ns(x,'pC',6,6,6,6,gx-17,gy-17,34,34);else RR(x,gx-17,gy-17,34,34,6,'#120d18',1.2);
+  CTG('掉落物品',74,214,13);CT(LVS.s==4?'四星没有掉落,首领倒下得挑战积分':'星级越高,越容易掉高品质装备',256,214,8,'#dee2e6','center',2,'#120d18');
+  (LVS.s==4?c4Drops(n):lvsDrops(n)).forEach((q,i)=>{const gx=54+(i%8)*45,gy=250+Math.floor(i/8)*46;if(px)PUI.ns(x,'pC',6,6,6,6,gx-17,gy-17,34,34);else RR(x,gx-17,gy-17,34,34,6,'#120d18',1.2);
     if(q.d)q.d(gx,gy);else CT(q.e,gx,gy+6,16,'#fff','center',0);CT(q.n,gx,gy+27,7,q.c,'center',2,'#120d18')});
   if(px)PUI.ns(x,'pA',20,14,20,14,418,194,194,146);else RR(x,418,194,194,146,10,LG(x,0,194,0,340,['#3d3352','#1e1829']),1.8);
   CTG(K.n+'难度',515,214,13);
-  const rl=[['怪物生命','×'+K.hp],['怪物攻击','×'+K.atk],['怪物防御','+'+K.def],['动作速度','+'+Math.round((K.sp-1)*100)+'%'],['经验 / 金币','×'+K.xp],['掉落率','×'+K.dr]];  // 第十九轮补充:装备 / 强化石 / 属性石的掉落概率不在游戏里显示
+  const rl=LVS.s==4?[['伤害','按最大生命 %'],['装备 / 等级','不起作用'],['怪物一下','约 10%~34%'],['暴击 / 闪避','10% / 0'],['生命药水','每关 '+C4Q+' 瓶'],['复活 / 掉落','没有']]:[['怪物生命','×'+K.hp],['怪物攻击','×'+K.atk],['怪物防御','+'+K.def],['动作速度','+'+Math.round((K.sp-1)*100)+'%'],['经验 / 金币','×'+K.xp],['掉落率','×'+K.dr]];  // 第十九轮补充:装备 / 强化石 / 属性石的掉落概率不在游戏里显示
   rl.forEach((r,i)=>{const yy=232+i*12;CT(r[0],432,yy,8,'#ffe066','left',2,'#120d18');CT(r[1],604,yy,8,'#fff','right',2,'#120d18')});
-  CT('← → 或 1 2 3 选择星级 · Enter / 点击卡片进入'+(sweepOK(n)?' · S 一键扫荡(三星)':'')+' · Esc 返回',320,352,8,'#fff','center',2.2,'#0b3a6b');
+  CT('← → 或 1 2 3'+(lvsN()==4?' 4':'')+' 选择星级 · Enter / 点击卡片进入'+(sweepOK(n)?' · S 一键扫荡(三星)':'')+' · Esc 返回',320,352,8,'#fff','center',2.2,'#0b3a6b');
   if(performance.now()<msgU)CT(msg,320,190,11,'#ffe3e3','center',2.6,'#7a1f1f')}
 
 // =====================================================================

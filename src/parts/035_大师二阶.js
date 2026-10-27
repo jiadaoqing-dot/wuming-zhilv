@@ -29,7 +29,7 @@ function m2Ji(){const c=CD[P.mode];let mx=0;for(const v of c)mx=Math.max(mx,v);
 function m2Hit(e){if(!P.m2h||PETX||ELX||st!='play'||e.hp<=0)return;P.m2h=0;P.m2hT=0;const S=stats(),lg=m2On('ling');
   const d=Math.round(lg?((P.mpMax||S.mp||0)+Math.max(0,P.mp||0))*M2HK:(S.hp+Math.max(0,P.hp))*M2HK);
   const T=lg?(bossOn&&B.hp>0?[...E,B]:E).filter(q=>q.hp>0&&!q.ug&&!q.pp&&q.x+q.w>cam&&q.x<cam+VW):[e];
-  for(const q of T){q.hp-=d;tx(d,q.x+q.w/2,q.y-22,lg?'#d0bfff':'#ffd43b','c');VFX.spawn('x-star',q.x+q.w/2,q.y+q.h/2,{s:1.4,life:.6,add:1,gr:.5})}
+  for(const q of T){const d4=c4M2(q,d);q.hp-=d4;tx(d4,q.x+q.w/2,q.y-22,lg?'#d0bfff':'#ffd43b','c');VFX.spawn('x-star',q.x+q.w/2,q.y+q.h/2,{s:1.4,life:.6,add:1,gr:.5})}
   if(lg)flash('151,117,250',.18);shake=Math.max(shake,.18)}
 // hurt 里调用:热血不死
 function m2Live(){if(!m2On('xue')||Math.random()>=.6)return false;P.m2L=1;tx('不死!',P.x-6,P.y-30,'#ff6b6b','c');flash('255,80,80',.2);return true}

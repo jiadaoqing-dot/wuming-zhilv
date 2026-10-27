@@ -22,7 +22,12 @@
  旧的云端环境只能访问 GitHub / npm / pypi,opengameart、itch 访问不了。
  素材来源:ULPC 仓库(LPC 人物图层)、series-ai/jam-ready-assets(大量 CC0 素材,LFS 文件用 media 直链下载,见 fetch_assets.sh)。
 
-【当前状态(2026-10-27,v1.69)】
+【当前状态(2026-10-27,v1.70)】
+- v1.70(第六十五轮):四星挑战 = 111 分块(STARK[4],isC4() = LVSTAR==4 且不在城里;C4LV 能开四星的关卡;c4Hurt 在 150 hurt、c4Out 在 190 dealt 开头(else 包住原来的增伤 / 防御段)、c4M2 在 035 m2Hit;
+  C4IN / C4HC / C4R / C4SK / C4PS / C4U / C4C / C4CR / C4CK 是数值,校准脚本思路:enterLv(n,4) 后 bossOn=1、每帧钉住 B,NRMH=1 测普攻,useSk(i) + 推 7 秒测每招)。
+  四星不给经验 / 金币 / 掉落(110 reward 开头 return)、bossWin 走 c4Win 给积分(R19.c4p / R19.c4c)、药水 P.c4q / C4Q、130 复活按钮和 040 reviveP 挡住;BLW[4] = 1.4(霸体)。星级页 970:lvsN() 3 或 4 张卡,c4Drops 掉落格。
+  无名之书 = 581 分块(NBK 30 节 [标题, 简介, 正文],NBPT 分部,NBCH 村长对话在 NOFONT 外;rNB / nbAct / nbBuy / nbBtn / nbChief;630 renderP 'nb'、680 mallAct、370 rQuest 按钮 + talkChief 开头)。
+  写小说:先读 docs/小说_无名之书_写作计划.txt 第五、六节,正文填进 NBK 第 3 项(引号用「」,分段 \n,场景切换「——」);写完更新计划里的 ★ 和字数。问题在 docs/下次任务.txt「第六十六轮」。
 - v1.69(第六十四轮):① 图鉴击败解锁:585 cxOk(k)(R19.cx = 击败过的 k,110 reward 开头 cxMark(e) 记;老存档按 CLR 里已通关关卡的 m / b + CXBK 首领→cur + 灿灿 R19.canq 补记),地区 = 通关 / 击败其中首领;cxlk 类 = 剪影。
   ② 庆功舞 = 573 分块(st 'dnc'):572 twChk 第 30 层通关设 DNA 2.5 → dncGo('play');选层页右上角 TWDB 按钮 → dncGo('twr')。时钟 = AU.ctx.currentTime − AU.t0(020 bgmPlay 新记的开始时刻),等不到音乐 4 秒后按真实时间走。
   舞者 = LPC.dollDraw(姿势, 'sword' / 'staff', heroLook().look, tier) 放大 2 倍;动作 dnPlan(编舞:按 DNS 段落 / 小节 / 拍)→ dnMove(局部姿势)/ dnSeq(挥砍 / 施法关键帧),dnF0 让弯膝时脚还踩在地上;特效 dnFx 用独立的 VFX 列表 DNC.fx(画时临时换 VFX.L、cam = 0);背景 = 临时 cur = TW0 调 bg()。
@@ -109,8 +114,9 @@
   测试注意:Playwright 的 keyboard.press 会在同一帧抬起按键,跑步中按攻击要 down → 等 50ms → up 才会触发冲刺直戳。
 
 【下一步】
+  ★ v1.70 的问题在 docs/下次任务.txt「第六十六轮」:四星手感 / 数值、积分和章节价格、小说新剧情方向(女神的名字 = 噬名者、无名 = 龙蛋)要不要改。下次写《无名之书》第 2 次:第三章、间章一、第四章。
   ★ v1.69 的问题在 docs/下次任务.txt「第六十五轮」:舞曲听感 / 要不要换成 AI 演唱版、庆功舞是否只第一次自动播、舞蹈动作够不够。
-  ★ 新剧情线(第五个无名者 / 塞恩 / 灿灿二号 / 第三十一层)用户说「暂时还没想好」,先不接。
+  ★ 新剧情线(第五个无名者 / 塞恩 / 灿灿二号 / 第三十一层)第六十五轮用户交给 Claude 写进《无名之书》,方向见写作计划第四节。
   ★ v1.57 的问题在 docs/下次任务.txt「第五十六轮」:三个新恶魔的手感 / 强度、二阶 6 个的强度怎么定、后面 6 个是否继续按每轮 3 个做。
   ★ v1.55 的问题在 docs/下次任务.txt「第五十四轮」:第十七关地图位置、地火 / 首领强度。
   ★ 第四十八轮已完成(2026-10-17,v1.48),用户已回复 docs/下次任务.txt「第四十八轮」并全部处理完(地图位置、小鸡冷却、钟楼背景 / BGM;3 条命 / 无尽 / 怀表维持)。等下一轮任务。

@@ -85,7 +85,7 @@ ltl6.png  3KB  860:10 LTL.D  ← art_src/lv/build_ltl.py
 ltl7.png  3KB  860:11 LTL.D  ← art_src/lv/build_ltl.py
 mage_atlas.png  14KB  910:21 BOS.MD  ← art_src/boss/build_mage.py
 mech_atlas.png  47KB  540:10 MECH.D  ← art_src/mech/build_mech.py
-meni_atlas.png  25KB  000:181 ; 000:186 ; 040:41 MENI.D  ← art_src/ui/build_ui.py
+meni_atlas.png  25KB  000:181 ; 000:186 ; 040:42 MENI.D  ← art_src/ui/build_ui.py
 mfx_atlas.png  23KB  900:28 MFXD  ← art_src/mob/build_mfx.py
 mg27_atlas.png  16KB  000:240 ; 940:10 MG27.D  ← art_src/skfx/build_mg27.py
 mnt_atlas.png  43KB  910:3 MNT.D  ← art_src/boss/build_mnt.py

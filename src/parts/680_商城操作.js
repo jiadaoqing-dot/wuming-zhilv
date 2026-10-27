@@ -1,6 +1,6 @@
 function mallAct(r){
   {const b=cxAct(r);if(b)return b}  // 第六十三轮:图鉴
-  {const b=bookAct(r);if(b)return b}
+  {const b=bookAct(r);if(b)return b}{const b=nbAct(r);if(b)return b}  // 第六十五轮:无名之书
   if(mtAct(r))return 1;
   if(peqAct(r))return 1;  // 第四十八轮:宠物装备
   if(r.startsWith('kb_')||r.startsWith('kr_')){const k=r.slice(3);fmsg=r[1]=='r'?kpBuy(k,1):kpBuyN(k,mtQ(k));return 1}

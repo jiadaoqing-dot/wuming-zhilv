@@ -138,7 +138,7 @@ function rMQ(bar){const n=Math.min(QD.mi,MQN),q=mqCur();let h=`<h4>主线任务 
   if(n)h+=`<details class="qc"><summary><b>📖 回顾剧情(${n})</b></summary>`+MQ.slice(0,n).map((p,i)=>`<p><b>${i+1}. ${p.n}</b> <span class="tag">第 ${mqCh(p)} 章 · ${mqWho(p)}</span><br>“${p.s}”<br><span class="tag">后记:${p.d}</span></p>`).join('')+'</details>';
   return h}
 function rQuest(){qDay();const bar=(a,b)=>`<div class="qbar"><i style="width:${Math.round(Math.min(1,a/b)*100)}%"></i></div>`;
-  let h=hd('📜 任务')+(CLR.includes(3)?giftBox('村长'):'')+fm()+rMQ(bar);
+  let h=hd('📜 任务')+(CLR.includes(3)?giftBox('村长'):'')+nbBtn()+fm()+rMQ(bar);
   h+=`<h4>每日任务 <span class="tag">每天 0 点刷新</span></h4>`+QDEF.map((q,i)=>{const d=QD.d[i],pr=d.s==2?q.need:q.prog(),ok=pr>=q.need;
     const b=d.s==2?'<button disabled>✓ 已完成</button>':d.s==0&&q.lock&&q.lock()?'<button disabled>🔒 未开放</button>':d.s==0?`<button data-p="qa${i}">接受任务</button>`:ok?`<button data-p="qc${i}">🎁 领取奖励</button>`:'<button disabled>进行中</button>';
     return `<div class="qc${d.s==2?' done':''}"><b>${q.n}</b><div class="tag">${q.t}</div>${bar(d.s?pr:0,q.need)}<div class="row" style="border:0"><span class="tag">进度 ${d.s?pr:0}/${q.need} · 奖励:${q.rw}</span><span style="margin-left:auto">${b}</span></div></div>`}).join('');
@@ -150,7 +150,7 @@ const CH2=[['村长','勇士,你回来了!你打倒巨蝎的消息已经传遍�
  ['村长','魔王一直对这个世界虎视眈眈。从前有女神守护着大地,魔王始终无法统治世界。'],['村长','可是女神早已进入了虚弱时期……为了击退大法师和他召来的魔兽,她耗尽最后的力量,化作了石像。'],
  ['村长','女神不在了,魔王又开始蠢蠢欲动。沙漠深处醒来的「沙渊古神」,已经被魔王收作魔将。'],['村长','为了世界的平衡,拜托你前往噬沙荒漠,击败沙渊古神!'],['无名','交给我吧。只要我还在,魔王就别想得逞。'],['村长','好!委托我已经写进任务栏了,路上千万小心。']];
 const chiefNew=()=>!QD.talk||(CLR.includes(4)&&!QD.t2);
-function talkChief(){if(!QD.talk)startTalk(CH1,()=>{QD.talk=1;QD.on=1;save();openP('quest')});else if(CLR.includes(4)&&!QD.t2)startTalk(CH2,()=>{QD.t2=1;save();openP('quest')});else if(mqTalk('村长'));else if(QD.t2&&!CLR.includes(5))startTalk([['村长','沙渊古神就在噬沙荒漠深处的洞窟里……魔王的魔将可不好对付,一定要小心。']],()=>openP('quest'));else startTalk([['村长','女神的灵魂碎片一共有五块……村子就拜托你了,勇士。']],()=>openP('quest'))}
+function talkChief(){if(nbChief())return;if(!QD.talk)startTalk(CH1,()=>{QD.talk=1;QD.on=1;save();openP('quest')});else if(CLR.includes(4)&&!QD.t2)startTalk(CH2,()=>{QD.t2=1;save();openP('quest')});else if(mqTalk('村长'));else if(QD.t2&&!CLR.includes(5))startTalk([['村长','沙渊古神就在噬沙荒漠深处的洞窟里……魔王的魔将可不好对付,一定要小心。']],()=>openP('quest'));else startTalk([['村长','女神的灵魂碎片一共有五块……村子就拜托你了,勇士。']],()=>openP('quest'))}
 function startTalk(L,cb){DLG={L,i:0,t:0,cb};keys.l=keys.r=0}
 function dlgNext(){if(!DLG)return;if(DLG.t*40<DLG.L[DLG.i][1].length){DLG.t=99;return}DLG.i++;DLG.t=0;if(DLG.i>=DLG.L.length){const cb=DLG.cb;DLG=null;if(cb)cb()}}
 function dlgSkip(){if(!DLG)return;const cb=DLG.cb;DLG=null;if(cb)cb()}

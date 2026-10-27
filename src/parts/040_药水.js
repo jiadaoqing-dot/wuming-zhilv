@@ -22,12 +22,13 @@ function potUse(id,quiet){if(!id||!POTD[id])return false;const d=POTD[id],ty=d[2
   if(st!='play'&&st!='town')return false;const k=potPick(id);if(!k){tx('没有'+(ty=='hp'?'生命':'魔力')+'药水了',P.x-24,P.y-20,'#adb5bd');return false}
   P.pcd=P.pcd||{};if(P.pcd[ty]>performance.now()/1000){return false}
   const S=stats();if(ty=='hp'&&P.hp>=S.hp){tx('生命已满',P.x-6,P.y-20,'#adb5bd');return false}if(ty=='mp'&&P.mp>=S.mp){tx('魔力已满',P.x-6,P.y-20,'#adb5bd');return false}
+  if(ty=='hp'&&isC4()){if((P.c4q|0)>=C4Q){tx('四星挑战每关只能喝 '+C4Q+' 瓶生命药水',P.x-60,P.y-20,'#e599f7');return false}P.c4q=(P.c4q|0)+1}  // 第六十五轮
   POT[k]--;if(!POT[k])delete POT[k];const pc=POTD[k][5]||POTCD;P.pcd[ty]=performance.now()/1000+pc;P.pcm=P.pcm||{};P.pcm[ty]=pc;const v=Math.round((ty=='hp'?S.hp:S.mp)*POTD[k][3])+(POTF[k]||0);
   if(ty=='hp'){P.hp=Math.min(S.hp,P.hp+v);tx('+'+v,P.x+4,P.y-14,'#69db7c')}else{P.mp=Math.min(S.mp,P.mp+v);tx('+'+v,P.x+4,P.y-14,'#74c0fc')}
   sfx('buff');const c=ty=='hp'?['#ff8787','#ffe3e3','#69db7c']:['#74c0fc','#d0ebff','#a5d8ff'];ring(P.x+12,P.y+16,4,30,c[0],.35,3);for(let i=0;i<12;i++)pt({x:P.x+12+rnd(-12,12),y:P.y+rnd(0,32),vx:rnd(-10,10),vy:rnd(-70,-30),c:pick(c),sh:2,s:rnd(3,5),l:rnd(.4,.7)});save();return true}
 function potQuick(i){const id=QS[i];if(!id)return;if(POTD[id][2]=='rev'){if(st=='dead')reviveP();else tx('复活药水在倒下时使用',P.x-24,P.y-20,'#ffd43b');return}potUse(id)}
 // 复活:原地站起来,恢复一半生命和魔力,2.5 秒无敌
-function reviveP(){if(!(POT.rev>0)||st!='dead')return false;POT.rev--;if(!POT.rev)delete POT.rev;const S=stats();P.hp=Math.round(S.hp*.5);P.mp=Math.round(S.mp*.5);P.inv=2.5;P.stun=0;P.frz=0;P.grab=0;P.ps=0;P.vy=-200;P.sk=null;P.fly=0;if(P.y>VH-40){P.x=P.sfX!=null?P.sfX:P.x;P.y=(P.sfY!=null?P.sfY:GY-P.h)-4;P.vy=0}
+function reviveP(){if(!(POT.rev>0)||st!='dead'||isC4())return false;POT.rev--;if(!POT.rev)delete POT.rev;const S=stats();P.hp=Math.round(S.hp*.5);P.mp=Math.round(S.mp*.5);P.inv=2.5;P.stun=0;P.frz=0;P.grab=0;P.ps=0;P.vy=-200;P.sk=null;P.fly=0;if(P.y>VH-40){P.x=P.sfX!=null?P.sfX:P.x;P.y=(P.sfY!=null?P.sfY:GY-P.h)-4;P.vy=0}
   st='play';sfx('lvl');flash('255,240,190',.5);ring(P.x+12,P.y+16,6,70,'#ffd43b',.6,6);burst(P.x+12,P.y+16,30,['#ffe066','#fff3bf','#fff'],260,{sh:2,s:5,l:.6});tx('复活!',P.x-4,P.y-30,'#ffd43b');save();return true}
 // 快捷栏(画在技能栏右边,点一下也能用)
 const QSR=i=>({x:176+i*33,y:VH-40,w:30,h:30});
