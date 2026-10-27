@@ -65,10 +65,10 @@ fx29_atlas.png  817KB  940:15 FX29.D  ← art_src/skfx/build_fx29.py
 gh8_atlas.png  13KB  470:173 GH8.D  ← art_src/city/build_gh8.py
 gp_atlas.png  144KB  520:9 GP.D  ← art_src/myst/build_gp.py
 gsword.png  11KB  350:12 GSW.D  ← art_src/skfx/build_gsword.py
-home_bg.png  24KB  000:198   ← art_src/home/build_home.py
-home_btn.png  0KB  000:207 ; 000:212   ← art_src/home/build_home.py
-home_div.png  0KB  000:202   ← art_src/home/build_home.py
-home_frame.png  0KB  000:200   ← art_src/home/build_home.py
+home_bg.png  24KB  000:199   ← art_src/home/build_home.py
+home_btn.png  0KB  000:208 ; 000:213   ← art_src/home/build_home.py
+home_div.png  0KB  000:203   ← art_src/home/build_home.py
+home_frame.png  0KB  000:201   ← art_src/home/build_home.py
 hsw_atlas.png  6KB  760:154 HSW.D  ← art_src/lpc/build_hsw.py, art_src/ppf/build_ppf.py
 ice6_atlas.png  2KB  840:3 ICE6P.D  ← art_src/lv/build_ice6.py
 ifn_atlas.png  38KB  569:13 IFN.D  ← art_src/fire21/build_fire21.py
@@ -85,9 +85,9 @@ ltl6.png  3KB  860:10 LTL.D  ← art_src/lv/build_ltl.py
 ltl7.png  3KB  860:11 LTL.D  ← art_src/lv/build_ltl.py
 mage_atlas.png  14KB  910:21 BOS.MD  ← art_src/boss/build_mage.py
 mech_atlas.png  47KB  540:10 MECH.D  ← art_src/mech/build_mech.py
-meni_atlas.png  25KB  000:180 ; 000:185 ; 040:41 MENI.D  ← art_src/ui/build_ui.py
+meni_atlas.png  25KB  000:181 ; 000:186 ; 040:41 MENI.D  ← art_src/ui/build_ui.py
 mfx_atlas.png  23KB  900:28 MFXD  ← art_src/mob/build_mfx.py
-mg27_atlas.png  16KB  000:239 ; 940:10 MG27.D  ← art_src/skfx/build_mg27.py
+mg27_atlas.png  16KB  000:240 ; 940:10 MG27.D  ← art_src/skfx/build_mg27.py
 mnt_atlas.png  43KB  910:3 MNT.D  ← art_src/boss/build_mnt.py
 mob_atlas.png  230KB  900:29 MOB.D  ← art_src/boss/build_bos.py, art_src/mob/build_dog2.py, art_src/mob/build_pen.py, art_src/mob/fix_dog2.py
 myst_atlas.png  87KB  560:206 MYST.D  ← art_src/myst/build_myst.py
@@ -117,14 +117,14 @@ town2_forge.png  4KB  880:9 TWN.forge  ← art_src/town/build_town2.py
 town2_hill.png  5KB  880:9 TWN.hill  ← art_src/town/build_town2.py
 town2_main.png  60KB  880:9 TWN.main  ← art_src/town/build_town2.py
 tpx_atlas.png  14KB  880:13 TPX.D  ← art_src/town/build_tpx.py
-ui_btn.png  0KB  000:174 ; 000:177 ; 000:179   ← art_src/ui/build_ui.py
-ui_btn_on.png  0KB  000:175   ← art_src/ui/build_ui.py
-ui_card.png  0KB  000:187 ; 000:232   ← art_src/ui/build_ui.py
-ui_head.png  0KB  000:173   ← art_src/ui/build_ui.py
-ui_panel.png  0KB  000:172   ← art_src/ui/build_ui.py
-ui_slot.png  0KB  000:190   ← art_src/ui/build_ui.py
-ui_tab.png  0KB  000:176 ; 000:186   ← art_src/ui/build_ui.py
-ui_tip.png  0KB  000:193   ← art_src/ui/build_ui.py
+ui_btn.png  0KB  000:175 ; 000:178 ; 000:180   ← art_src/ui/build_ui.py
+ui_btn_on.png  0KB  000:176   ← art_src/ui/build_ui.py
+ui_card.png  0KB  000:188 ; 000:233   ← art_src/ui/build_ui.py
+ui_head.png  0KB  000:174   ← art_src/ui/build_ui.py
+ui_panel.png  0KB  000:173   ← art_src/ui/build_ui.py
+ui_slot.png  0KB  000:191   ← art_src/ui/build_ui.py
+ui_tab.png  0KB  000:177 ; 000:187   ← art_src/ui/build_ui.py
+ui_tip.png  0KB  000:194   ← art_src/ui/build_ui.py
 vfx_atlas.png  174KB  900:51 VFX.D  ← art_src/vfx/build_vfx.py
 vol9_atlas.png  157KB  480:129 VOL9.D  ← art_src/volcano/build_vol9.py
 wing_fly.png  5KB  880:96 PXA.WGD  ← art_src/build_wing.py
@@ -138,7 +138,7 @@ map_bg.jpg  110KB  950:75 MAPI.D  ← art_src/map/build_map.py
 fpx12.woff2  70KB  000:9   ← art_src/font/build_font.py
 fpx8.woff2  44KB  000:10   ← art_src/font/build_font.py
 
-== 音频 OGG(@@O:)  150 个 ==
+== 音频 OGG(@@O:)  151 个 ==
 au_b_axe.ogg  6KB  020:7 AUD.b_axe  ← art_src/audio/build_audio.py  [bfh1_metal_hit_02.ogg, explosion.ogg, swish-7.wav]
 au_b_gallop.ogg  7KB  020:7 AUD.b_gallop  ← art_src/audio/build_audio.py  [slam_0%d.ogg, wind]
 au_b_imp1.ogg  6KB  020:7 AUD.b_imp1  ← art_src/audio/build_audio.py  [impactwood11.mp3.flac, hit_02.ogg]
@@ -205,6 +205,7 @@ au_bgm8.ogg  454KB  020:10 AUD.bgm8  ← art_src/audio/build_audio.py  [EmptyCit
 au_bgm8b.ogg  793KB  020:10 AUD.bgm8b  ← art_src/audio/build_audio.py
 au_bgm9.ogg  705KB  020:12 AUD.bgm9  ← art_src/audio/build_audio.py  [LavaLand - One Loop.ogg, heavy_boss_battle_2_bpm110.ogg]
 au_bgm9b.ogg  806KB  020:12 AUD.bgm9b  ← art_src/audio/build_audio.py
+au_bgmD.ogg  3.7MB  020:5 AUD.bgmD  ← art_src/audio/build_song64.py
 au_bgmH.ogg  556KB  020:9 AUD.bgmH  ← art_src/audio/build_audio.py  [town.mp3]
 au_blink.ogg  7KB  020:5 AUD.blink  ← art_src/audio/build_audio.py
 au_boom.ogg  5KB  020:5 AUD.boom  ← art_src/audio/build_audio.py, art_src/fire13/build_fire13.py, art_src/mech/build_mech.py
@@ -300,6 +301,15 @@ au_zap.ogg  9KB  020:5 AUD.zap  ← art_src/audio/build_audio.py
    RPG Sound Pack(artisticdude,CC0)· Swishes Sound Pack(artisticdude,CC0)· 80 CC0 creature SFX / 100 CC0 SFX / 75 CC0 breaking-falling-hit SFX(rubberduck,CC0)
    Fantasy Sound Effects Library(Little Robot Sound Factory,CC-BY 3.0)
    BGM:Happy Adventure Loop(fluffrabbit,CC0)、Battle Theme A(cynicmusic,CC0)、Dark Shrine Loop(yd / qubodup,CC0)、Battle RPG Theme Var(CleytonRX,CC0)
+-- art_src/audio/build_song64.py
+   第六十四轮(用户):原创英文舞曲《Nameless Tonight》—— 暗黑炼狱 30 层通关后的庆功舞(573 分块 DNC)用的 BGM
+   全部由本脚本合成(没有用任何外部音乐素材):鼓 / 贝斯 / 合成器和弦 / 拨弦琶音 / 主旋律都是 numpy 算出来的;
+   人声:先用 Windows 自带的英文语音 Microsoft Zira 把歌词一个词一个词念出来(System.Speech),
+   再做「交叉合成」:取语音的频谱包络(共振峰 = 听得出是哪个词),换上按旋律音高合成的锯齿波,得到电音风格的「唱」声(副歌加三度和声)。
+   128 BPM、A 小调、96 小节 = 3 分钟:前奏 8 · 主歌 16 · 导歌 8 · 副歌 16 · 间奏 8 · 主歌二 8 · 导歌 8 · 副歌二 16 · 尾声 8
+   输出 raw/audio/bgm/r64/nameless_dance.wav(32 kHz 立体声),再由 build_audio.py 转成 assets/au_bgmD.ogg:
+   python art_src/audio/build_song64.py  →  python art_src/audio/build_audio.py bgmD
+   小节表(SEC)和歌词表要和 src/parts/573_庆功舞.js 的 DNS / DNL 对得上(脚本最后会打印 DNL)
 -- art_src/bfx/build_bfx.py
    怪物 / 首领特效图集(第三张特效图,VFX 里 im:3)
    素材:Magic Pack 9(ansimuz,可商用、可修改、可再分发,署名非必须)· Pixel Art Spells(DevWizard,CC0)

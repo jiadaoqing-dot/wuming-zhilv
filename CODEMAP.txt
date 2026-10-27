@@ -1036,19 +1036,39 @@
    43  twFx               
    44  twOver             
    49  twChk              
-   60  twClean            
-   62  twNext             通关页「前往下一层」:生命 / 魔力保留
-   63  twBgm              
-   65  twHud              第二个首领的血条(在主血条下面)
-   69  ■ 选层页 st = 'twr' =====
-   70  TWS                ===== 选层页 st = 'twr' =====
-   72  twTop              
-   73  openTwr            
-   74  twHit              
-   75  twGo               
-   76  twClick            
-   77  twKey              
-   79  drawTwr            
+   61  twClean            
+   63  twNext             通关页「前往下一层」:生命 / 魔力保留
+   64  twBgm              
+   66  twHud              第二个首领的血条(在主血条下面)
+   70  ■ 选层页 st = 'twr' =====
+   71  TWS                ===== 选层页 st = 'twr' =====
+   73  twTop              
+   74  openTwr            
+   75  TWDB               
+   76  twHit              
+   77  twGo               
+   78  twClick            
+   79  twKey              
+   81  drawTwr            
+== src/parts/573_庆功舞.js
+    1  ■ 第六十四轮(用户):暗黑炼狱 30 层通关后的庆功舞(st = 'dnc',可跳过)
+    9  DNS                
+   10  DNL                
+   12  DNX                
+   13  dncGo              
+   14  dncEnd             
+   15  dncSkip            
+   19  dnPlan             编舞:返回 [动作, 参数];who 0 = 剑士,1 = 法师
+   31  DNUP               
+   33  dnMove             动作 → 局部骨骼姿势(会合并到站姿上);AIR = 离地高度(负数向上),F = 翻转朝向
+   52  dnSeq              挥砍 / 施法用关键帧(rSeq),返回完整姿势
+   55  dnFoot             
+   58  dnState            某一拍某个角色的完整状态:p 骨骼姿势、X 屏幕位置、f 朝向、air 离地、glow 武器光、stg 法杖握的位置
+   67  dnFx               
+   68  DNFW               
+   69  dnBeat             
+   81  dnDoll             画一个舞者:地面以下裁掉(鞠躬时剑尖插进地里)
+   84  drawDnc            
 == src/parts/580_书架与书籍.js
     1  ■ 第三十一轮 · 书架与书籍 =====
     6  BOOK               
@@ -1061,10 +1081,10 @@
    26  townAct            
    29  townUpd            
 == src/parts/585_图鉴.js
-    1  ■ 第六十三轮(用户):图鉴 + 装备介绍文案
+    1  ■ 第六十三轮(用户):图鉴 + 装备介绍文案 =====
     9  CXR                地区:id · 名称 · 一句话 · w 哪张地图 · c 关卡 cur(显示是否通关)· ic 没有首领时的图标 · m 小怪 · b 首
    33  CXM                怪物:[称号, 介绍]
-  115  ■ 装备介绍
+  115  ■ 装备介绍 =====
   116  EQLS               ===== 装备介绍 =====
   122  EQLF               
   124  EQLM               
@@ -1074,25 +1094,29 @@
   128  COSL               
   129  PEQL               
   131  eqLore             
+  133  ■ 图鉴 =====
   134  CXSZ               ===== 图鉴 =====
-  136  cxList             
-  137  cxEnt              
-  140  cxCrop             画到大画布 → 按不透明像素裁边 → 缩放到 S×S(小图整数倍放大,保持像素感)
-  144  cxPic              
-  148  cxImg              
-  150  cxCard             
-  156  rCodex             
-  163  cxAct              
+  137  CXBK               第六十四轮(用户 Q1):击败过才解锁介绍,没遇到的显示剪影 + ???(收集要素)。R19.cx = 击败过的怪物 / 首领;老存档按已通
+  138  cxMark             
+  139  cxOk               
+  141  cxList             
+  142  cxEnt              
+  145  cxCrop             画到大画布 → 按不透明像素裁边 → 缩放到 S×S(小图整数倍放大,保持像素感)
+  149  cxPic              
+  153  cxImg              
+  155  cxCard             
+  164  rCodex             
+  171  cxAct              
 == src/parts/590_游戏循环.js
     1  ■ 跳跃 / 翅膀飞行 =====
     2  doJump             ===== 跳跃 / 翅膀飞行 =====
     4  flyPhys            
    10  cvClick            
-   28  SET                设置:帧数上限(60 / 120)、显示帧数;保存在本机
-   30  pxUI               像素美术时 body 加 px 类:面板 / 按钮 / 格子换成像素九宫格贴图(CSS 里 body.px 开头的规则)
-   31  saveSet            
-   33  loop               
-   44  advance            
+   29  SET                设置:帧数上限(60 / 120)、显示帧数;保存在本机
+   31  pxUI               像素美术时 body 加 px 类:面板 / 按钮 / 格子换成像素九宫格贴图(CSS 里 body.px 开头的规则)
+   32  saveSet            
+   34  loop               
+   45  advance            
 == src/parts/600_背包开关.js
     1  toggleBag          
     4  NM                 第三十三轮:一行文字版属性(商店 / 仓库 / 强化面板用):白字(含锻造)· 绿字(绿色)· 强化值(橙色)· 属性石(蓝)· 增幅宝石
@@ -1157,7 +1181,7 @@
    12  fm                 
    13  rShop              
 == src/parts/670_设置页.js
-    1  ■ 药剂师:出售生命 / 魔力药水(初级、中级、高级)和复活药水(每天限购 1 瓶)
+    1  ■ 药剂师:出售生命 / 魔力药水(初级、中级、高级)和复活药水(每天限购 1 瓶)=====
     2  rPot               ===== 药剂师:出售生命 / 魔力药水(初级、中级、高级)和复活药水(每天限购 1 瓶)=====
    10  potBuy             
    14  potSell            
@@ -1452,12 +1476,12 @@
 == src/parts/1000_主页面.js
     1  ■ 主页面(第二十轮):打开游戏后的第一页 —— 左边版本号 + 更新日志(或操作说明),右边 开始新游戏 / 继续游戏 / 提取存档 / 添加存档 / 操作说明 
     4  CHLOG              更新日志 CHLOG:[版本, 日期, [条目...]],新版本加在最前面(和 GAMEV 一起改)
-   61  homeSave           
-   62  rHome              
-   69  openHome           
-   70  closeHome          
-   73  twnReload          离屏缓存的画布也会被清空(实测头像、数字、背景缓存都没了),所以恢复时一律存档后刷新页面(关卡里会回到主城,只丢这一关的进度);页面在后台超
-   77  CPUR               第五十一轮:检测浏览器是不是没用显卡画图(硬件加速关闭 / 显卡被屏蔽),是的话回城时提示一次
-   78  homeAct            
-   98  homeKey            
+   62  homeSave           
+   63  rHome              
+   70  openHome           
+   71  closeHome          
+   74  twnReload          离屏缓存的画布也会被清空(实测头像、数字、背景缓存都没了),所以恢复时一律存档后刷新页面(关卡里会回到主城,只丢这一关的进度);页面在后台超
+   78  CPUR               第五十一轮:检测浏览器是不是没用显卡画图(硬件加速关闭 / 显卡被屏蔽),是的话回城时提示一次
+   79  homeAct            
+   99  homeKey            
 == src/parts/1010_结尾.html

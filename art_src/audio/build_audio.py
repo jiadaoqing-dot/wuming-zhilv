@@ -66,6 +66,8 @@ BGM={'bgm0':(G+'town.mp3',None,1),'bgm1':('happy_adventure.mp3',None,1),'bgm1b':
 BGM['bgm0']=(G+'r59/town_ai.aac',None,1)
 # 第五十九轮二(用户:主城 BGM 噪音多、音质差):BGMHQ 里的曲子保留立体声、32 kHz、Vorbis 压缩等级 .4(其他 BGM 仍是单声道 24 kHz / .55)
 BGMHQ={'bgm0'}
+# 第六十四轮(用户):暗黑炼狱 30 层通关的庆功舞曲《Nameless Tonight》= art_src/audio/build_song64.py 自己合成的原创曲(先运行它生成 r64/nameless_dance.wav)
+BGM['bgmD']=(G+'r64/nameless_dance.wav',None,1);BGMHQ.add('bgmD')
 # 第五十九轮:神秘副本 5「擎天魔神」首领曲 = The Final Battle(skrjablin,CC0,https://opengameart.org/node/73591,raw/audio/bgm/r59b)
 BGM['bgm35b']=(G+'r59b/the_final_battle.ogg',None,1)
 # 第六十一轮 十二魔封印 7~9(cur 28~30,raw/audio/bgm/r61)别西卜 Boss Battle #9 [Metal](nene,CC0,https://opengameart.org/content/boss-battle-9-metal)/

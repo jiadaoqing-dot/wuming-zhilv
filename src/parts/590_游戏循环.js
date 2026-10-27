@@ -9,6 +9,7 @@ function flyPhys(dt,S){if(P.fly&&!WEAR.wing)P.fly=0;
 const MCW=116,MPX=i=>18+i*(MCW+6);
 function cvClick(e){
   if(PAUSED){PAUSED=0;return}
+  if(st=='dnc'){dncSkip();return}  // 第六十四轮:庆功舞(点两次跳过)
   {const r=cv.getBoundingClientRect(),mx=(e.clientX-r.left)*VW/r.width,my=(e.clientY-r.top)*VH/r.height;
     if(chOn()){if(!busy())chClick(mx,my);return}
     if(st=='play'){if(!busy())for(let i=0;i<3;i++){const q=QSR(i);if(mx>=q.x-2&&mx<=q.x+q.w+2&&my>=q.y-4&&my<=q.y+q.h+2){potQuick(i);return}}return}}
@@ -36,9 +37,9 @@ function loop(t){requestAnimationFrame(loop);const iv=1000/SET.fps,el=t-lastF;if
   fpsN++;if(t-fpsT0>=500){fpsV=Math.round(fpsN*1000/(t-fpsT0));fpsN=0;fpsT0=t;$('fpsT').textContent=SET.sf?fpsV+' FPS':''}
   const dt=Math.min(.033,(t-last)/1000||0);last=t;
   if(pn=='pet'&&HAM.ht&&t-(loop.ht||0)>1000){loop.ht=t;renderP()}  // 宠物蛋孵化倒计时
-  bgmSet(HOME?'bgmH':st=='play'?(cur==8&&bossOn&&B.p3&&B.hp>0?null:(bossOn&&B.hp>0&&B.can?'bgm17c':isTw(cur)&&bossOn&&B.hp>0?twBgm():(isDm(cur)||cur==MY5)&&bossOn&&B.hp>0&&AUD['bgm'+cur+'b']?'bgm'+cur+'b':'bgm'+(AUD['bgm'+cur]?cur:BGMF[cur]||0)+(bossOn&&B.hp>0?'b':''))):st=='town'?(MYS?'bgm11':'bgm0'):st=='map'?'bgm0':st=='lvsel'?(LVS.m?'bgm11':'bgm0'):st=='dms'||st=='twr'?'bgm11':null);  // 主城 bgm0(第五十九轮换成用户的曲子);主菜单 bgmH(原主城曲);每关一首关卡曲 + 一首首领曲
+  bgmSet(HOME?'bgmH':st=='dnc'?'bgmD':st=='play'?(cur==8&&bossOn&&B.p3&&B.hp>0?null:(bossOn&&B.hp>0&&B.can?'bgm17c':isTw(cur)&&bossOn&&B.hp>0?twBgm():(isDm(cur)||cur==MY5)&&bossOn&&B.hp>0&&AUD['bgm'+cur+'b']?'bgm'+cur+'b':'bgm'+(AUD['bgm'+cur]?cur:BGMF[cur]||0)+(bossOn&&B.hp>0?'b':''))):st=='town'?(MYS?'bgm11':'bgm0'):st=='map'?'bgm0':st=='lvsel'?(LVS.m?'bgm11':'bgm0'):st=='dms'||st=='twr'?'bgm11':null);  // 主城 bgm0(第五十九轮换成用户的曲子);主菜单 bgmH(原主城曲);每关一首关卡曲 + 一首首领曲
   $('tb').style.visibility=!HOME&&(st=='play'||(st=='town'&&!DLG))?'':'hidden';  // 对话时隐藏菜单按钮,免得挡住对话框
-  $('qb').hidden=!(st=='play'||st=='town');{const d=$('dbd'),v=signed();if(d.hidden!=v)d.hidden=v}{const dl=!!DLG&&st=='town';if(document.body.classList.contains('dlg')!=dl)document.body.classList.toggle('dlg',dl)}if(st=='play'){update(dt);draw()}else if(st=='town'){if(!HOME)townUpd(dt);drawTown()}else if(st=='map')drawMap();else if(st=='lvsel')drawLvSel();else if(st=='dms')drawDms();else if(st=='twr')drawTwr()
+  $('qb').hidden=!(st=='play'||st=='town');{const d=$('dbd'),v=signed();if(d.hidden!=v)d.hidden=v}{const dl=!!DLG&&st=='town';if(document.body.classList.contains('dlg')!=dl)document.body.classList.toggle('dlg',dl)}if(st=='play'){update(dt);draw()}else if(st=='town'){if(!HOME)townUpd(dt);drawTown()}else if(st=='map')drawMap();else if(st=='lvsel')drawLvSel();else if(st=='dms')drawDms();else if(st=='twr')drawTwr();else if(st=='dnc')drawDnc(dt)
   else if(chOn()){draw();drawChoice()}
   if(PAUSED&&(st=='play'||st=='town')){x.fillStyle='rgba(10,10,20,.55)';x.fillRect(0,0,VW,VH);CTG('⏸ 游戏已暂停',320,172,30);CT('按 Esc / 点击画面 / ⚙️ 继续',320,206,14,'#fff','center',3)}}
 function advance(){if(busy())return;if(chOn())chGo(CHI)}

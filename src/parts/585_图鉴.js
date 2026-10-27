@@ -133,6 +133,11 @@ function eqLore(it){if(!it||!EQLS[0][it.slot])return '';const a=it.fw?(EQLF[it.s
 // ===== 图鉴 =====
 const CXSZ={boss:[64,92],mage:[34,60],king:[96,64],sco:[120,56],andr:[52,86],bear:[110,80],wiz:[60,90],yin:[40,46],lava:[70,110],lclone:[70,110],gui:[56,84],ham:[56,48],nmr:[120,100],dmn:[64,100],mech:[130,110],nk:[70,100],fk:[64,110],nb:[56,100],alm:[56,80],rgn:[60,110],ifg:[110,200],pfg:[130,300],cradle:[52,44]};
 const cxNm=k=>k=='can'?'人造人·灿灿一号':MN[k]||k,cxRg=id=>CXR.find(r=>r.id==id),cxIn=k=>CXR.filter(r=>r.m.includes(k)||r.b.includes(k)),cxBoss=k=>CXR.some(r=>r.b.includes(k));
+// 第六十四轮(用户 Q1):击败过才解锁介绍,没遇到的显示剪影 + ???(收集要素)。R19.cx = 击败过的怪物 / 首领;老存档按已通关的关卡补记(CXBK = 首领 → 关卡 cur)
+const CXBK={ham:11,nmr:12,dmn:13,mir:17,pfg:35,baal:22,dagon:23,molo:24,asmo:25,beli:26,asta:27,belz:28,mamm:29,levi:30,belp:31,azaz:32,luci:33};
+function cxMark(e){const k=e.can?'can':e.k;if(!CXM[k]||cxOk(k))return;(R19.cx||(R19.cx=[])).push(k);tx('📖 图鉴解锁:'+cxNm(k),e.x+e.w/2-30,e.y-24,'#d0bfff')}
+function cxOk(k){const r=cxRg(k);if(r)return r.id=='town'||(r.c&&CLR.includes(r.c))||r.b.some(cxOk)||(r.id=='dark'&&CXR.some(q=>q.w==2&&q.c&&CLR.includes(q.c)))||(r.id=='tw'&&(TWF>1||CLR.includes(34)));
+  return (R19.cx||[]).includes(k)||CXR.some(q=>q.c&&CLR.includes(q.c)&&(q.m.includes(k)||q.b.includes(k)))||CLR.includes(CXBK[k])||(k=='can'&&R19.canq&&R19.canq.k>0)}
 function cxList(t){const L=[];for(const r of CXR){const a=t=='a'?[r.id]:t=='m'?r.m:r.b;for(const k of a)if(!L.includes(k))L.push(k)}return L}
 function cxEnt(k){const z=CXSZ[k]||DMZS[k];let e;if(z)e={k,x:1000,y:GY-z[1],w:z[0],h:z[1],hp:1,max:1,fl:0,f:-1,cd:9,act:null,dm:1,lm:1,T:[],Z:[],R:[],S:[],q:[],wv:[],sp:[],zn:[],cl:[],al:1,fm:1,ph:0,rk:0,star:1};else e=mk(k,1000,1);
   if(k=='cradle'||k=='lclone')e.max=0;e.gy=e.y;e.f=-1;return e}
@@ -145,18 +150,21 @@ function cxPic(k){if(CXP[k])return CXP[k];let u='';const W=460,H=420,c=document.
   try{if(k=='mir'||k=='can'){const W0=WEAR;if(k=='can')WEAR={fash:'can',wing:null};try{const L=heroLook(),Hh=HERO();if(!Hh.ready())return '';g.translate(W/2,H-20);g.scale(2,2);if(k=='mir')g.filter='brightness(.55) sepia(1) hue-rotate(215deg) saturate(2.4)';Hh.doll(g,L)}finally{WEAR=W0}}  // 灿灿 = LPC 女性图层(同 535),镜中无名 = 主角染成暗紫
     else{const e=cxEnt(k),x0=x,c0=cam,n=[PT.length,TX.length];g.translate(0,H-20-GY);x=g;cam=e.x+e.w/2-W/2;try{drawE(e)}finally{x=x0;cam=c0;PT.length=Math.min(PT.length,n[0]);TX.length=Math.min(TX.length,n[1])}}
     u=cxCrop(c,112)}catch(er){u=''}if(u)CXP[k]=u;return u}
-const cxImg=(k,cl)=>{const id=CXR.some(r=>r.id==k)?null:k,r=id?null:cxRg(k),bk=r&&r.b[0],k2=id||bk,u=k2?cxPic(k2):'';return u?`<img class="${cl}" src="${u}" alt="">`:`<span class="${cl} cxe">${r&&r.ic||'❔'}</span>`};
+const cxImg=(k,cl)=>{const id=CXR.some(r=>r.id==k)?null:k,r=id?null:cxRg(k),bk=r&&r.b[0],k2=id||bk,u=k2?cxPic(k2):'',lk=cxOk(k)?'':' cxlk';return u?`<img class="${cl}${lk}" src="${u}" alt="">`:`<span class="${cl} cxe${lk}">${r&&r.ic||'❔'}</span>`};
 const cxP=s=>s.split('\n').map(q=>`<p>${q}</p>`).join('');
 function cxCard(t,k){if(!k)return '';
+  if(!cxOk(k)){const r=cxRg(k),rs=r?[]:cxIn(k);
+    return `<div class="cxd">${cxImg(k,'cxp')}<div><h3>${r?r.n:'???'}</h3><div class="tag">${r?'还没有到过这里':'还没有击败过'}</div><p>${r?(r.c?'通关这一关以后':'到过这里以后')+',这里会写下这片地区的故事。':'击败它一次,图鉴就会记下它的来历。'}</p>`+
+      (rs.length?`<div class="tag">${cxBoss(k)?'所在':'出没'}:${rs.map(q=>`<span class="cxa" data-p="cxj_${q.id}">${q.n}</span>`).join('、')}</div>`:'')+'</div></div>'}
   if(t=='a'){const r=cxRg(k),ks=r.m.concat(r.b),ok=r.c&&CLR.includes(r.c);
     return `<div class="cxd">${cxImg(k,'cxp')}<div><h3>${r.n}</h3><div class="tag">${r.s}${r.w==2?' · 暗黑大陆':' · 勇者大陆'}${ok?' · <b style="color:#2f9e44">✓ 已通关</b>':''}</div>${cxP(r.d)}`+
-      (ks.length?`<div class="tag">在这里遇到的怪物:</div><div class="cxs">${ks.map(q=>`<span data-p="cxj_${q}">${cxImg(q,'cxm')}${cxNm(q)}</span>`).join('')}</div>`:'')+'</div></div>'}
+      (ks.length?`<div class="tag">在这里遇到的怪物:</div><div class="cxs">${ks.map(q=>`<span data-p="cxj_${q}">${cxImg(q,'cxm')}${cxOk(q)?cxNm(q):'???'}</span>`).join('')}</div>`:'')+'</div></div>'}
   const m=CXM[k]||['',''],rs=cxIn(k);
   return `<div class="cxd">${cxImg(k,'cxp')}<div><h3>${cxNm(k)}</h3><div class="tag">${m[0]}</div>${cxP(m[1])}<div class="tag">${cxBoss(k)?'所在':'出没'}:${rs.map(r=>`<span class="cxa" data-p="cxj_${r.id}">${r.n}</span>`).join('、')}${TWNM[k]?' · 它的回声也会出现在暗黑炼狱':''}</div></div></div>`}
 function rCodex(){const L=cxList(CXT);if(!L.includes(CXK))CXK=L[0];
-  const tb=(t,n)=>`<button data-p="cxt_${t}" class="${CXT==t?'on':''}">${n} <span class="tag">${cxList(t).length}</span></button>`;
-  let h=hd('📖 图鉴')+`<div class="row">${tb('m','👾 小怪')}${tb('b','👑 首领')}${tb('a','🗺️ 地区')}<span class="tag" style="margin-left:auto">点左边的条目查看介绍 · 快捷键 C</span></div><div class="cxw"><div>`;
-  const it=k=>`<div class="mc cxi${k==CXK?' own':''}" data-p="cxk_${k}">${cxImg(k,'cxm')}<span>${CXT=='a'?cxRg(k).n.split(' · ').pop():cxNm(k)}</span></div>`;
+  const tb=(t,n)=>{const a=cxList(t);return `<button data-p="cxt_${t}" class="${CXT==t?'on':''}">${n} <span class="tag">${a.filter(cxOk).length} / ${a.length}</span></button>`};
+  let h=hd('📖 图鉴')+`<div class="row">${tb('m','👾 小怪')}${tb('b','👑 首领')}${tb('a','🗺️ 地区')}<span class="tag" style="margin-left:auto">击败过的怪物才会显示介绍 · 快捷键 C</span></div><div class="cxw"><div>`;
+  const it=k=>`<div class="mc cxi${k==CXK?' own':''}" data-p="cxk_${k}">${cxImg(k,'cxm')}<span>${CXT=='a'?cxRg(k).n.split(' · ').pop():cxOk(k)?cxNm(k):'???'}</span></div>`;
   if(CXT=='a')for(const w of [1,2])h+=`<h4>${w==1?'勇者大陆':'暗黑大陆'}</h4><div class="cxl">${CXR.filter(r=>r.w==w).map(r=>it(r.id)).join('')}</div>`;
   else{const seen=new Set();for(const r of CXR){const ks=(CXT=='m'?r.m:r.b).filter(k=>!seen.has(k));ks.forEach(k=>seen.add(k));if(ks.length)h+=`<h4>${r.n}</h4><div class="cxl">${ks.map(it).join('')}</div>`}}
   return h+`</div><div class="cxr">${cxCard(CXT,CXK)}</div></div>`}

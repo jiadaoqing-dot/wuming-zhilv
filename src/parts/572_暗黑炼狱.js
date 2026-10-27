@@ -30,7 +30,7 @@ const twK=()=>TWF<=16?[1,1]:[1+.12*(TWF-16),1+.05*(TWF-16)];
 function twPost(e){const hp=e.max,dm=e.dm,df=e.def;twAs(e,()=>{if(e.k=='alm')almInit();else if(e.k=='rgn')rgInit();else if(e.k=='ifg')igInit();else if(isDm(e.hc))dmInit()});
   const k=twK();e.hp=e.max=Math.round(hp*k[0]);e.dm=dm*k[1];e.def=df;e.esnm=1;e.twH=e.max;e.twD=e.dm}
 // 进层(140 init 里调用):twMk 造第一个首领(= B,init 接着按二星焚天炎君的数值处理),twInit 造第二个并按同样的规则处理
-function twMk(bMk){const k=TWL[TWF][0],c0=cur;cur=TWHC[k];const e=bMk();cur=c0;e.hc=TWHC[k];e.twb=1;return e}
+function twMk(bMk){DNA=0;const k=TWL[TWF][0],c0=cur;cur=TWHC[k];const e=bMk();cur=c0;e.hc=TWHC[k];e.twb=1;return e}
 function twInit(bMk){G8.bn=99;V9.bn=99;P.x=2585;
   for(const k of TWL[TWF].slice(1)){const c0=cur;cur=TWHC[k];const e=bMk();cur=c0;e.hc=TWHC[k];e.twb=1;
     e.gy=e.y;e.dm=LDM*STK().atk;e.def=B.def;{const L=bLate(cur);e.hp=e.max=Math.round(e.max*L.hp);e.dm*=L.atk}e.star=LVSTAR;twPost(e);
@@ -46,7 +46,8 @@ function twOver(){for(const e of twAll()){if(e.hc==6)twAs(e,blizDraw);if(e.hc==9
 const twDE=e=>e.twb&&isTw(cur)?twAs(e,()=>drawE(e)):drawE(e);
 // 首领倒下(update 里代替普通关卡的通关流程)
 let TWA=0;const TWAT=3.5;  // 第五十七轮(用户):打完自动进下一层(TWA 倒计时,期间掉落物飞到身上)
-function twChk(dt){if(endT&&TWA>0){TWA-=dt;if(TWA<=0){TWA=0;pickUp(1);twNext()}return}if(!bossOn||endT||B.hp>0)return;
+function twChk(dt){if(DNA>0){DNA-=dt;if(DNA<=0&&st=='play')dncGo('play')}  // 第六十四轮:第 30 层通关 → 庆功舞(573)
+  if(endT&&TWA>0){TWA-=dt;if(TWA<=0){TWA=0;pickUp(1);twNext()}return}if(!bossOn||endT||B.hp>0)return;
   sfxStop(B.sh);sfxStop(B.gl);reward(B);
   const n=E.find(e=>e.twb&&e.hp>0);if(n){E.splice(E.indexOf(n),1);B=n;sfxAll();return}  // 还有一个:换成 B 接着打
   endT=-1;CLRP=TWF>=TWOPEN?1:0;if(TWF<TWOPEN)TWA=TWAT;sfxAll();B.sh=null;B.gl=null;sfx('win');F=[];TOR=[];LCK=null;twClean();
@@ -55,7 +56,7 @@ function twChk(dt){if(endT&&TWA>0){TWA-=dt;if(TWA<=0){TWA=0;pickUp(1);twNext()}r
   const n2=3+(Math.random()<.5?1:0),got=[];for(let i=0;i<n2;i++){const r=ASTRR[Math.random()*ASTRR.length|0];r[1]();got.push(r[0])}if(TWF>=8||Math.random()<.3){STN[4][0]++;got.push('普通 Lv4 强化石 ×1')}sfx('coin');  // 第六十一轮:Lv4 强化石
   say('🎁 第 '+TWF+' 层的宝箱:'+got.join('、'));got.forEach((g,i)=>tx('🎁 '+g,P.x-40,P.y-90-i*14,'#ffe066'));
   if(TWF==16||TWF==30){let n3=0;for(let i=0;i<M2NN;i++)if(Math.random()<M2DR*DBLK()){gdDrop(B,{k:'eq',it:m2Gen()});n3++}if(n3)say('✨ 第 '+TWF+' 层首领掉落了 '+n3+' 件大师二阶装备!')}  // 第五十七轮:大师二阶
-  R19.twr=Math.max(R19.twr|0,TWF);save();ttlChk();  // 第六十二轮:第 20 / 30 层称号
+  R19.twr=Math.max(R19.twr|0,TWF);save();ttlChk();if(TWF>=TWNF)DNA=2.5;  // 第六十二轮:第 20 / 30 层称号
   banner('第 '+TWF+' 层通关!'+(TWF<TWOPEN?Math.round(TWAT)+' 秒后自动进入第 '+(TWF+1)+' 层':'目前开放的 '+TWOPEN+' 层全部通关!'));P.grab=0;P.frz=0;P.slw=P.sand=0;P.ps=0}
 function twClean(){E=E.filter(e=>!e.sum&&!e.twb);dmClr();f16Clr();n18Clr();a19Clr();a20Clr();i21Clr();NB=nbNew();G8.cr=[];G8.hd=[];G8.cl=[];G8.ds=[];G8.vis=0;G8.flk=0;V9.pl=[];V9.rw=[];V9.cz=[];V9.fp=[];V9.ch=null;V9.gp=null;P.heat=0;P.ovh=0;P.burn=0;P.cryT=0;mkClr();c15Clr()}
 // 通关页「前往下一层」:生命 / 魔力保留
@@ -71,9 +72,10 @@ let TWS={s:1};
 const TWX=168,TWY=46,TWW=72,TWH=48,TWG=6;
 const twTop=()=>Math.min(TWOPEN,(R19.twr|0)+1),twOk=f=>f<=twTop();
 function openTwr(){st='twr';msgU=0;keys.l=keys.r=0;ah=ar=0;TWS.s=twTop()}
-function twHit(mx,my){if(mx>582&&mx<622&&my>4&&my<32)return 'x';for(let f=1;f<=TWNF;f++){const i=f-1,X=TWX+(i%6)*(TWW+TWG),Y=TWY+Math.floor(i/6)*(TWH+TWG);if(mx>=X&&mx<=X+TWW&&my>=Y&&my<=Y+TWH)return f}return -1}
+const TWDB=[478,6,100,24];  // 第六十四轮:「重看庆功舞」按钮
+function twHit(mx,my){if(mx>582&&mx<622&&my>4&&my<32)return 'x';if((R19.twr|0)>=TWNF&&mx>=TWDB[0]&&mx<=TWDB[0]+TWDB[2]&&my>=TWDB[1]&&my<=TWDB[1]+TWDB[3])return 'd';for(let f=1;f<=TWNF;f++){const i=f-1,X=TWX+(i%6)*(TWW+TWG),Y=TWY+Math.floor(i/6)*(TWH+TWG);if(mx>=X&&mx<=X+TWW&&my>=Y&&my<=Y+TWH)return f}return -1}
 function twGo(f){if(f>TWOPEN){say('第 '+f+' 层还没有开放');return}if(!twOk(f)){say('先打通第 '+(f-1)+' 层');return}TWF=f;LVS={i:TW0-1,s:2,m:0};enterLv(TW0,2)}
-function twClick(mx,my){const h=twHit(mx,my);if(h=='x'){st='map';MPG=1;return}if(h>0){TWS.s=h;twGo(h)}}
+function twClick(mx,my){const h=twHit(mx,my);if(h=='x'){st='map';MPG=1;return}if(h=='d'){dncGo('twr');return}if(h>0){TWS.s=h;twGo(h)}}
 function twKey(e){const k=e.key;if(k=='Escape'){st='map';MPG=1;return}if(e.repeat)return;const n=TWNF;
   if(KM[k]=='l')TWS.s=(TWS.s+n-2)%n+1;else if(KM[k]=='r')TWS.s=TWS.s%n+1;else if(k=='ArrowUp')TWS.s=(TWS.s+n-7)%n+1;else if(k=='ArrowDown')TWS.s=(TWS.s+5)%n+1;else if(k=='Enter'||k==' ')twGo(TWS.s)}
 function drawTwr(){const t=performance.now()/1000,px=PUI.on(),hv=twHit(MX_,MY_);drawMap2(t);x.fillStyle='rgba(4,10,8,.96)';x.fillRect(0,0,VW,VH);
@@ -83,6 +85,7 @@ function drawTwr(){const t=performance.now()/1000,px=PUI.on(),hv=twHit(MX_,MY_);
   if(MAPI2.I){const I=MAPI2.I,sx=I.width/1125,sy=I.height/633;x.imageSmoothingEnabled=true;if(px)PUI.ns(x,'pC',6,6,6,6,10,40,148,280);x.drawImage(I,540*sx,0,170*sx,420*sy,16,46,136,268);
     x.save();x.globalCompositeOperation='lighter';x.fillStyle='rgba(80,255,120,'+(.06+.04*Math.sin(t*3))+')';x.fillRect(16,46,136,268);x.restore()}
   CT('最高:第 '+(R19.twr|0)+' 层',84,334,10,'#b2f2bb','center',2.4,'#08200e');
+  if((R19.twr|0)>=TWNF){const [X,Y,W,H]=TWDB;if(px)PUI.ns(x,'pC',6,6,6,6,X,Y,W,H);else RR(x,X,Y,W,H,6,'#16201a',1.4);CT('重看庆功舞',X+W/2,Y+17,11,hv=='d'?'#fff':'#ffd43b','center',2.4,'#08200e')}
   for(let f=1;f<=TWNF;f++){const i=f-1,X=TWX+(i%6)*(TWW+TWG),Y=TWY+Math.floor(i/6)*(TWH+TWG),op=f<=TWOPEN,ok=twOk(f),dn=f<=(R19.twr|0),on=TWS.s==f||hv===f,cx=X+TWW/2;
     if(px)PUI.ns(x,'pC',6,6,6,6,X,Y,TWW,TWH);else RR(x,X,Y,TWW,TWH,6,'#16201a',1.4);
     if(!ok){x.fillStyle='rgba(0,0,0,.45)';x.fillRect(X+3,Y+3,TWW-6,TWH-6)}

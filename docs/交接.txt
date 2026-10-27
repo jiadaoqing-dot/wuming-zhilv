@@ -22,7 +22,12 @@
  旧的云端环境只能访问 GitHub / npm / pypi,opengameart、itch 访问不了。
  素材来源:ULPC 仓库(LPC 人物图层)、series-ai/jam-ready-assets(大量 CC0 素材,LFS 文件用 media 直链下载,见 fetch_assets.sh)。
 
-【当前状态(2026-10-27,v1.68)】
+【当前状态(2026-10-27,v1.69)】
+- v1.69(第六十四轮):① 图鉴击败解锁:585 cxOk(k)(R19.cx = 击败过的 k,110 reward 开头 cxMark(e) 记;老存档按 CLR 里已通关关卡的 m / b + CXBK 首领→cur + 灿灿 R19.canq 补记),地区 = 通关 / 击败其中首领;cxlk 类 = 剪影。
+  ② 庆功舞 = 573 分块(st 'dnc'):572 twChk 第 30 层通关设 DNA 2.5 → dncGo('play');选层页右上角 TWDB 按钮 → dncGo('twr')。时钟 = AU.ctx.currentTime − AU.t0(020 bgmPlay 新记的开始时刻),等不到音乐 4 秒后按真实时间走。
+  舞者 = LPC.dollDraw(姿势, 'sword' / 'staff', heroLook().look, tier) 放大 2 倍;动作 dnPlan(编舞:按 DNS 段落 / 小节 / 拍)→ dnMove(局部姿势)/ dnSeq(挥砍 / 施法关键帧),dnF0 让弯膝时脚还踩在地上;特效 dnFx 用独立的 VFX 列表 DNC.fx(画时临时换 VFX.L、cam = 0);背景 = 临时 cur = TW0 调 bg()。
+  BGM bgmD = art_src/audio/build_song64.py 合成(→ raw/audio/bgm/r64/nameless_dance.wav → build_audio.py bgmD,BGMHQ 立体声);人声 = PowerShell System.Speech(Microsoft Zira)逐词念 → 倒谱包络交叉合成到锯齿波上。SONG_STEM=1 会打印各分轨电平并导出人声干声(可以用 en-US 听写检查歌词清晰度)。
+  DNL 字幕表要和脚本打印的一致;改歌的小节结构要同时改 573 的 DNS / DNL / dnPlan。新字「创哦庆雄」已进像素字体。
 - v1.68(第六十三轮):图鉴 = 585 分块(pn 'codex',右下角 #cxb 📖 / C 键;CXR 地区 22 条含 m / b 怪物表,CXM 怪物 81 条 [称号, 介绍];rCodex / cxCard / cxAct 挂在 680 mallAct 最前面,返回 2 只重画不存档)。
   头像 cxPic:用 drawE 把假实体(CXSZ / DMZS 尺寸,小怪走 mk)画到 460×420 小画布(临时换全局 x / cam,画完截回 PT / TX 长度)→ cxCrop 裁边放大 → CXP 缓存;镜中无名 / 灿灿走 HERO().doll(灿灿临时 WEAR.fash = 'can')。新怪物只要进 MN + CXR 的 m / b + CXM,头像自动有。
   装备介绍 eqLore(it)(EQLS 系列×部位 / EQLF 火之 / EQLM 大师 / EQLM2 二阶 / EQLT 特性 / EQLC 诅咒)接在 600 tipItem;COSL 进 cosTip / 商城卡片,PEQL 进 rPeq / 商城卡片。文案都在 /*NOFONT{*/ 里(面板高清字体)。
@@ -104,7 +109,8 @@
   测试注意:Playwright 的 keyboard.press 会在同一帧抬起按键,跑步中按攻击要 down → 等 50ms → up 才会触发冲刺直戳。
 
 【下一步】
-  ★ v1.68 的问题在 docs/下次任务.txt「第六十四轮」:图鉴文案的方向、要不要做「击败才解锁」、新剧情线(第五个无名者 / 塞恩 / 灿灿二号 / 第三十一层)要不要接成主线。
+  ★ v1.69 的问题在 docs/下次任务.txt「第六十五轮」:舞曲听感 / 要不要换成 AI 演唱版、庆功舞是否只第一次自动播、舞蹈动作够不够。
+  ★ 新剧情线(第五个无名者 / 塞恩 / 灿灿二号 / 第三十一层)用户说「暂时还没想好」,先不接。
   ★ v1.57 的问题在 docs/下次任务.txt「第五十六轮」:三个新恶魔的手感 / 强度、二阶 6 个的强度怎么定、后面 6 个是否继续按每轮 3 个做。
   ★ v1.55 的问题在 docs/下次任务.txt「第五十四轮」:第十七关地图位置、地火 / 首领强度。
   ★ 第四十八轮已完成(2026-10-17,v1.48),用户已回复 docs/下次任务.txt「第四十八轮」并全部处理完(地图位置、小鸡冷却、钟楼背景 / BGM;3 条命 / 无尽 / 怀表维持)。等下一轮任务。
