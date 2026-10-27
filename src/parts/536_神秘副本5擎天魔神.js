@@ -97,7 +97,7 @@ function pfgBg(){const t=performance.now()/1000;x.fillStyle='#120a1e';x.fillRect
   if(PPF.I){x.save();x.imageSmoothingEnabled=false;x.globalCompositeOperation='lighter';x.globalAlpha=.4;const o=((cam%32)+32)%32;for(let X=-o;X<VW+32;X+=32)PPF.fl(x,'ff',t*12+X/32*5,X+16,GY+3,32,22);x.restore()}}
 function pfgArt(X,Y,W,H,t){x.fillStyle='#120a1e';x.fillRect(X,Y,W,H);if(GP.I){const m=GP.M.n_sky;x.drawImage(GP.I,m[0],m[1],m[2],m[3],X,Y,W,H)}x.fillStyle='rgba(80,10,140,.35)';x.fillRect(X,Y,W,H)}
 // 首领倒下(自爆结算以后):三星才掉紫焰魅影武器
-function pfgWin(){B.act=null;pfgClr();if(LVSTAR>=3&&Math.random()<PFDR*DBLK()){gdDrop(B,{k:'eq',it:fireW(Math.random()<.5?'sword':'staff',3)});banner('紫焰在空中凝成了一把武器……「紫焰魅影」!')}else banner(LVSTAR>=3?'擎天魔神消散了……这次没有留下紫焰魅影武器('+Math.round(PFDR*100)+'%)':'擎天魔神消散了……(紫焰魅影武器只在三星掉落)')}
+function pfgWin(){B.act=null;pfgClr();if(isC4()){banner('擎天魔神消散了……');return}if(LVSTAR>=3&&Math.random()<PFDR*DBLK()){gdDrop(B,{k:'eq',it:fireW(Math.random()<.5?'sword':'staff',3)});banner('紫焰在空中凝成了一把武器……「紫焰魅影」!')}else banner(LVSTAR>=3?'擎天魔神消散了……这次没有留下紫焰魅影武器('+Math.round(PFDR*100)+'%)':'擎天魔神消散了……(紫焰魅影武器只在三星掉落)')}
 
 // ---- 紫焰魅影武器:手里的剑 / 法杖 = 紫色的真~火之武器(半透明闪烁 + 淡淡残影 = 魅影),剑身 / 杖身上全是 N64 Fire 的紫色动态火苗 ----
 const PPFT=()=>performance.now()/1000;

@@ -5,7 +5,7 @@ let LVS={i:0,s:1,m:0};
 function openLvSel(i,m){const n=i+1;LVS={i,s:Math.min(3,starOf(n)+1),m:m==2?2:m?1:0};if(!starOpen(n,LVS.s))LVS.s=1;st='lvsel';msgU=0;keys.l=keys.r=0;ah=ar=0}
 function lvsBack(){st='town';if(!LVS.m)st='map';if(LVS.m==2)st='dms'}
 function lvsGo(){const n=LVS.i+1;if(!starOpen(n,LVS.s)){say('先通关'+STARK[LVS.s-1].n+'才能挑战'+STARK[LVS.s].n);return}if(LVS.m==1){MYS=0;MYR=1}enterLv(n,LVS.s)}
-const LVSY=36,LVSH=150,lvsN=()=>LVS.m==0&&c4OK(LVS.i+1)?4:3,lvsCX=s=>lvsN()==4?14+(s-1)*156:30+(s-1)*200,lvsW=()=>lvsN()==4?144:180;  // 第六十五轮:能开四星的关卡显示四张卡
+const LVSY=36,LVSH=150,lvsN=()=>c4OK(LVS.i+1)?4:3,lvsCX=s=>lvsN()==4?14+(s-1)*156:30+(s-1)*200,lvsW=()=>lvsN()==4?144:180;  // 第六十五轮:能开四星的关卡显示四张卡(第六十六轮:神秘副本 / 十二魔也开)
 function lvsHit(mx,my){if(mx>582&&mx<622&&my>4&&my<32)return 'x';if(sweepHit(mx,my))return 'sw';const W=lvsW();for(let s=1;s<=lvsN();s++){const cx=lvsCX(s);if(mx>=cx&&mx<=cx+W&&my>=LVSY&&my<=LVSY+LVSH)return s}return 0}
 function lvsClick(mx,my){const h=lvsHit(mx,my);if(h=='x'){lvsBack();return}if(h=='sw'){sweepGo();return}if(h){LVS.s=h;lvsGo()}}
 function lvsKey(e){const k=e.key;if(k=='Escape'){lvsBack();return}if(KM[k]){if(!e.repeat){const N=lvsN();LVS.s=((LVS.s-1+(KM[k]=='l'?N-1:1))%N)+1}return}if(k=='Enter'||k==' '||k=='j'||k=='J'||k=='k'||k=='K'){if(!e.repeat)lvsGo();return}if(k.length==1&&'1234'.slice(0,lvsN()).includes(k))LVS.s=+k;if((k=='s'||k=='S')&&!e.repeat&&sweepOK(LVS.i+1))sweepGo()}  // 第五十九轮:S = 一键扫荡
