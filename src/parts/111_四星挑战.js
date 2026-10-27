@@ -28,9 +28,9 @@ function c4Win(){if(isTw(cur))return;const n=cur,L=R19.c4c=R19.c4c||[],first=!L.
 const c4Drops=n=>{const f=!(R19.c4c||[]).includes(n);return [{e:'📕',n:f?'首通 +'+(C4P1+Math.max(0,C4LV.indexOf(n))*3):'首通已领',c:'#e599f7'},{e:'🏅',n:'再通 +'+C4P2,c:'#e599f7'}]};  // 星级页「掉落物品」格子:四星只显示挑战积分
 // 第六十七轮(用户):「挑战模式」总开关 C4M —— 暗黑大陆地图右下角的「挑战模式」(插画上画好的那块)、第一张地图左上、十二魔页 / 炼狱选层页左上的按钮(或按 4)都切它;
 //   开着时点关卡直接进四星(不用在一~四星之间选),十二魔也按四星打(原来 dmsGo 固定三星,四星进不去);这一关没三星通关(十二魔 = 没打败过)就提示,不进
-let C4M=0;
+let C4M=0;  // 第六十八轮(用户):记住上次的开关状态 = 存进 R19.c4m(210 读档时取回)
 const C4MB=[10,6,150,24];
-function c4Tog(){if(!c4Open()){say('任意一关三星通关后,才能开启挑战模式');return}C4M=C4M?0:1;sfx('coin');say(C4M?'⚔ 挑战模式已开启:点击关卡直接进入四星挑战':'挑战模式已关闭,点击关卡照常选星级')}
+function c4Tog(){if(!c4Open()){say('任意一关三星通关后,才能开启挑战模式');return}C4M=C4M?0:1;R19.c4m=C4M;save();sfx('coin');say(C4M?'⚔ 挑战模式已开启:点击关卡直接进入四星挑战':'挑战模式已关闭,点击关卡照常选星级')}
 function c4Btn(R,hv,t,ow,k4){const [X,Y,W,H]=R;if(PUI.on())PUI.ns(x,'pC',6,6,6,6,X,Y,W,H);else RR(x,X,Y,W,H,6,'#16201a',1.4);
   if(C4M){x.fillStyle='rgba(204,93,232,'+(.28+.1*Math.sin(t*4))+')';x.fillRect(X+3,Y+3,W-6,H-6)}
   CT('挑战模式'+(k4?'(4)':'')+':'+(C4M?'开':'关'),X+W/2,Y+17,11,hv?'#fff':C4M?'#f3d9fa':'#ffd43b','center',2.4,ow||'#08200e')}

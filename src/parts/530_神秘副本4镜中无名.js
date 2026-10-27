@@ -33,7 +33,7 @@ function mirTp(e,away){const pc=P.x+12,ox=e.x+e.w/2;let nx;
 // mwRun(fn) 把这些全局变量临时换成镜像的,真主角包装成一个假目标 MW.px(E = [],B = 假目标,F = [],WEAR 无时装),直接调用主角的 useSk / skStep / pbStep / 各技能推进函数;
 // 打到假目标的伤害在 dealt 开头(e.pp)记进 MWH,换回来以后用 hurt 打到真主角身上(伤害 = 主角技能伤害 × MIRS 攻击倍率,暴击按镜像暴击率)。画面同理:mwDraw 换进去画飞弹 / 技能 / 分身
 let MW=null,MWH=[],MWON=0;
-function mwNew(can){const fp=Object.assign({},P,{hit:new Set(),sk:null,cs:null,swT:null,mb:null,inv:0,stun:0,frz:0,ps:0,grab:0,gd2:0,wy:0,shd:0,shdT:0,met:0,qi:0,qiKE:0,uFs:0,ar:0,cd:0,run:0,fly:0,mp:1e9}),mm=JOB||P.mode,
+function mwNew(can){const fp=Object.assign({},P,{hit:new Set(),sk:null,cs:null,swT:null,mb:null,inv:0,stun:0,frz:0,ps:0,grab:0,gd2:0,wy:0,shd:0,shdT:0,met:0,qi:0,qiKE:0,uFs:0,ar:0,cd:0,run:0,fly:0,mp:1e9}),mm=JOB&&JOB!='both'?JOB:P.mode,
     cd=()=>Array(8).fill(0),w={P:fp,mm,CD:{sword:cd(),staff:cd()},PB:[],CL:null,CL2:null,MGD:[],MGT:null,MGP:null,MGL:[],MGTc:null,MGPc:null,STM:[],SQI:[],MET:[],WE:[],CLN:null,Z:[],px:{pp:1,x:0,y:0,w:24,h:32,hp:1e9,max:1e9}};
   if(can){w.can=1;w.LN=canLN();w.mm='sword';fp.mode='sword'}  // 第四十六轮:灿灿用自己的技能表(mwRun 里换进 LN / JOB)
   fp.mode=w.mm;const L0=w.LN||LN;for(const m of ['sword','staff'])for(let i=0;i<8;i++)w.CD[m][i]=L0[m][i]?skCd(m,i,L0[m][i])*rnd(.2,.7):0;  // 开场各技能已经转了一部分冷却,不会一上来全放
@@ -62,7 +62,7 @@ function mwCast(e,m,i,S2,f){const w=MW,fp=w.P;fp.mode=m;e.wm=m;fp.x=e.x;fp.y=e.y
   e.x=gpCl(e,fp.x);e.y=Math.min(fp.y,GY-e.h);e.swT=null;e.act=fp.sk?'sk':null;if(!fp.sk)e.cd=rnd(.25,.45);mwHit(e)}
 // 技能的出手距离 [最近, 最远](离主角的水平距离);null = 不主动用(法杖闪现只在躲招时用)
 const MWR={sword:[[0,230],[0,150],[0,95],[40,380],[0,280],[0,300],[0,300],[0,240]],staff:[[0,340],null,[30,200],[0,100],[0,420],[50,360],[0,110],[0,360]]};  // 第四十六轮:火球 / 雷云 / 火鸟范围变小
-function mwPick(ad){const w=MW,o=w.mm=='sword'?'staff':'sword',L=[],LL=w.LN||LN,EX=w.can?[['sword',CANSK.sword],['staff',CANSK.staff]]:[[w.mm,[...Array(JOB==w.mm?8:4).keys()]],[o,[0,1,2,3]]];
+function mwPick(ad){const w=MW,o=w.mm=='sword'?'staff':'sword',L=[],LL=w.LN||LN,EX=w.can?[['sword',CANSK.sword],['staff',CANSK.staff]]:[[w.mm,[...Array(jobOk(w.mm)?8:4).keys()]],[o,[0,1,2,3]]];
   for(const [m,ids] of EX)for(const i of ids){const r=MWR[m][i];if(!r||!LL[m][i]||w.CD[m][i]>0||ad<r[0]||ad>r[1])continue;if(m=='sword'&&i==2&&w.P.gd2>0)continue;L.push([m,i])}
   return L.length?pick(L):null}
 function mirStep(e,dt){const pc=P.x+12,cx=e.x+e.w/2,dx=pc-cx,ad=Math.abs(dx),p2=e.hp<e.max*.5,sp=p2?1.15:1;

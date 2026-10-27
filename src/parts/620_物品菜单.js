@@ -1,6 +1,7 @@
 // ===== 物品菜单(第二十轮:左键单击弹出;右键也照样能用)=====
 let CMR=null,CMF=0,cmT=0;
-function cmItems(r){const it=itOf(r);
+function cmItems(r){if(r=='ttl'){const L=TTLO.filter(ttlHas),w=ttlWorn();return L.length?[...L.map(id=>[(w==id?'✅ 佩戴中「':'· 佩戴「')+TTL[id].n+'」','tw_'+id]),[w?'✕ 不佩戴':'✅ 不佩戴','tw_']]:[]}  // 第六十八轮:佩戴称号
+  const it=itOf(r);
   const mx=it&&it.mss?[['📤 取下技能石「'+MSS[it.mss.slice(2)][0]+'」','msx']]:[];
   if(/^b\d/.test(r)&&it)return [['🛡️ 穿戴','eq'],['💰 出售 +'+sellPr(it)+' 金币','sell'],...mx];
   if(/^e:/.test(r)&&it)return [['📤 卸下','un'],['💰 出售 +'+sellPr(it)+' 金币','sell'],...mx];
@@ -11,7 +12,7 @@ function cmItems(r){const it=itOf(r);
   if(r&&r.startsWith('i:')){const id=r.slice(2);return [...(MISC[id]&&MISC[id][4]?[[MISC[id][4],'iu']]:[]),...itSellL(id)]}  // 第五十二轮修:原来只有出售,售价 0 的道具(上帝卡牌、双倍爆率卡、饲料)点了没反应、用不了
   return null}
 function itSellL(id){const pr=itemPr(id),n=itemCnt(id);return pr?[['💰 出售 1 个 +'+pr,'is1'],...(n>1?[['💰 全部出售 +'+pr*n,'isa']]:[])]:[]}
-function cmName(r){const it=itOf(r);if(it)return `<b style="color:${TR[it.tier][1]}">${nm(it)}</b>`;const id=cosId(r);if(id)return `<b style="color:#f783ac">${COSD[id].ic} ${COSD[id].n}</b>`;if(r.startsWith('p:'))return '<b>'+POTD[r.slice(2)][0]+'</b>';const q=itemList().find(v=>'i:'+v[0]==r);return q?'<b>'+q[2]+'</b>':''}
+function cmName(r){if(r=='ttl')return '<b>🏆 佩戴称号</b>';const it=itOf(r);if(it)return `<b style="color:${TR[it.tier][1]}">${nm(it)}</b>`;const id=cosId(r);if(id)return `<b style="color:#f783ac">${COSD[id].ic} ${COSD[id].n}</b>`;if(r.startsWith('p:'))return '<b>'+POTD[r.slice(2)][0]+'</b>';const q=itemList().find(v=>'i:'+v[0]==r);return q?'<b>'+q[2]+'</b>':''}
 function openCM(r,cx,cy){const L=cmItems(r);if(!L)return;if(!L.length){hideTip();closeCM();sel=r;renderBag();return}  // 没有可做的操作(不能出售的剧情道具):只选中,显示说明
  hideTip();CMR=r;CMF=0;CSC=0;sel=r;renderBag();drawCM(cx,cy)}
 function drawCM(cx,cy){const m=$('cm');let h=`<div class="cmh">${cmName(CMR)}</div>`;

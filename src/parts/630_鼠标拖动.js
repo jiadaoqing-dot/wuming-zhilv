@@ -49,6 +49,7 @@ $('bag').addEventListener('click',e=>{if(performance.now()-dragT<250||performanc
   if(r=='csell'){CSC=1;renderBag();return}if(r=='csellN'){CSC=0;renderBag();return}
   if(['eq','sell','un','cw','cu','pu','q0','q1','q2','ps1','psa','is1','isa','csellY'].includes(r)){if(sel)bagAct(r=='csellY'?'csell':r,sel);return}
   CSC=0;
+  if(r=='ttl'){hideTip();lcm(r,e);return}  // 第六十八轮:佩戴称号
   if(r[0]=='w'||r[0]=='c'){const id=cosId(r);if(!id){sel=null;renderBag();return}hideTip();if(r[0]=='w')bagTab=COSD[id].t=='fash'?1:2;if(canHover&&dbl(r)){wearC(id,WEAR[COSD[id].t]!=id);sel=null;renderBag()}else lcm(r,e);return}
   if(r.startsWith('p:')||r.startsWith('i:')){hideTip();if(canHover&&dbl(r)&&r[0]=='p'&&POTD[r.slice(2)][2]!='rev'){bagAct('pu',r);return}lcm(r,e);return}
   if(canHover&&/^(b\d|e:)/.test(r)&&dbl(r)){bagDbl(r);return}if(itOf(r)){lcm(r,e);return}sel=null;

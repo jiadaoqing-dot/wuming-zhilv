@@ -12,7 +12,12 @@ function ttlChk(){if(typeof HAM!='undefined'&&HAM&&HAM.n>=1001)ttlGet('ny');cons
 const ttlPet=()=>1+(ttlHas('ny')?TTL.ny.pet:0);
 function ttlAdd(p,L){for(const id in TTL)if(ttlHas(id))for(const k in TTL[id].b){p[k]+=TTL[id].b[k];L.push(['称号「'+TTL[id].n+'」',k,TTL[id].b[k]])}}
 // 背包人物栏:最高的那个称号 + 鼠标移上去看全部
-const ttlNm=()=>{const L=TTLO.filter(ttlHas);return L.length?TTL[L[0]].n+(L.length>1?' 等 '+L.length+' 个':''):'无'};
+const ttlNm=()=>{const L=TTLO.filter(ttlHas),w=ttlWorn();return L.length?(w?TTL[w].n:'未佩戴')+(L.length>1?' · 共 '+L.length+' 个':''):'无'};
 const ttlTip=()=>Object.keys(TTL).map(id=>(ttlHas(id)?'✅ ':'⬜ ')+TTL[id].n+'('+TTL[id].d+'):'+ttlTxt(id).join(' ')).join('&#10;');
-// 头顶称号:有「天下第一」就在主角头顶画金字(进关 / 主城都画;被技能藏起来的时候 drawP 已经先 return)
-function ttlHead(){if(!ttlHas('tx'))return;const t=performance.now()/1000,cx=P.x+12-cam,y=P.y-24+Math.sin(t*2)*1.2;CT('天下第一',cx,y,10,LG(x,0,y-9,0,y+1,['#fffbe0','#ffd43b','#ff922b']),'center',2.6,'#5a1d0a')}
+// 第六十八轮(用户):佩戴称号 —— 属性加成照旧全部叠加,佩戴的那个显示在头顶。R19.ttw:没设过 = 自动(有「天下第一」就戴它),'' = 不佩戴
+// 背包人物栏点「称号」弹出选择菜单(620 cmItems 'ttl' → bagAct 'tw_<id>');TTLC = 头顶字的渐变色 + 描边
+const TTLC={tx:['#fffbe0','#ffd43b','#ff922b','#5a1d0a'],hk:['#ffe3e3','#ff8787','#e03131','#2b0505'],dk:['#f3d9fa','#da77f2','#9c36b5','#1e0a2b'],ny:['#fff9db','#ffe066','#f59f00','#3d2a05']};
+const ttlWorn=()=>{const w=typeof R19!='undefined'&&R19?R19.ttw:'';return w===undefined?(ttlHas('tx')?'tx':''):w&&ttlHas(w)?w:''};
+function ttlWear(id){if(id&&!ttlHas(id))return;R19.ttw=id;save();bmsg=id?'已佩戴称号「'+TTL[id].n+'」,名字显示在头顶上方':'已取下称号,头顶不再显示'}
+// 头顶称号:佩戴的称号画在主角头顶(进关 / 主城都画;被技能藏起来的时候 drawP 已经先 return)
+function ttlHead(){const id=ttlWorn();if(!id)return;const c=TTLC[id]||TTLC.tx,t=performance.now()/1000,cx=P.x+12-cam,y=P.y-24+Math.sin(t*2)*1.2;CT(TTL[id].n,cx,y,10,LG(x,0,y-9,0,y+1,[c[0],c[1],c[2]]),'center',2.6,c[3])}

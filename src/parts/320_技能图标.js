@@ -43,4 +43,4 @@ function mkCrtIcon(){if(!MENI.I)return;const N=192,cv=document.createElement('ca
 if(MENI.I)mkCrtIcon();else{const im=new Image();im.onload=()=>{MENI.I=MENI.I||im;mkCrtIcon()};im.src=MENI.D}
 let skTab=0,skSel=null;
 // 主动技能必须按 H → U → I → O 的顺序学习(已经学会的不受影响,升级不限顺序)
-const skCan=(w,i)=>i>=4&&JOB!=w?false:i==0||i==4||(LN[w][i]|0)>0||(LN[w][i-1]|0)>0;
+const skCan=(w,i)=>i>=4&&!jobOk(w)?false:i==0||i==4||(LN[w][i]|0)>0||(LN[w][i-1]|0)>0;

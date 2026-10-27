@@ -1,4 +1,4 @@
-function useSk(i,S){const m=P.mode,df=SKD[m][i];if(i>=4&&JOB!=m){tx('转职为'+JOBN[m]+'后才能使用进阶技能',P.x-40,P.y-30,'#adb5bd');return}if(!df||!LN[m][i]){if(i>=4)tx('还没有学会这个进阶技能',P.x-30,P.y-30,'#adb5bd');return}
+function useSk(i,S){const m=P.mode,df=SKD[m][i];if(i>=4&&!jobOk(m)){tx('转职为'+JOBN[m]+'后才能使用进阶技能',P.x-40,P.y-30,'#adb5bd');return}if(!df||!LN[m][i]){if(i>=4)tx('还没有学会这个进阶技能',P.x-30,P.y-30,'#adb5bd');return}
   if(m=='sword'&&i==2&&P.gd2>0){if(!P.sk)gdPull();return}  // 天崩地裂第二段
   if(m=='staff'){if(i==4&&CLN&&!CLN.sw){cloneSwap();return}}
   // 剑士 U(雷霆连斩)可以取消 W+J 上挑 / S+J 重击的收招,直接接上(击飞时间很短,不取消就来不及)

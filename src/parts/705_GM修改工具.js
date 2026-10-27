@@ -75,7 +75,7 @@ function gmAct2(a){const it=gmEq();
   if(a=='b_dice'){const n=+gmV('gb5')|0;if(n){DICEN=n;DICEB=DICEV[n-1]/100;fmsg='骰子设为 '+n+' 点'+(st=='play'?'':'(进关卡会重新摇,要在关卡里设置)')}return 1}
   if(a=='b_clr'){for(let n=1;n<=40;n++)if(!CLR.includes(n))CLR.push(n);fmsg='全部关卡已标记通关';return 1}
   if(a=='b_cd'){CD.sword.fill(0);CD.staff.fill(0);fmsg='技能冷却已清零';return 1}
-  if(a=='b_lv'){lvl=LVMAX;exp=0;for(const w in LN)LN[w]=LN[w].map((v,i)=>i<4||JOB==w?LNMAX:v);for(const q of PSD)PS[q[0]]=q[3];gmFull();fmsg='Lv'+LVMAX+',技能 / 被动全满'+(JOB?'':'(还没转职:进阶技能没加)');return 1}
+  if(a=='b_lv'){lvl=LVMAX;exp=0;for(const w in LN)LN[w]=LN[w].map((v,i)=>i<4||jobOk(w)?LNMAX:v);for(const q of PSD)PS[q[0]]=q[3];gmFull();fmsg='Lv'+LVMAX+',技能 / 被动全满'+(JOB?'':'(还没转职:进阶技能没加)');return 1}
   if(a=='b_hp'){gmFull();fmsg='已回满';return 1}
   return 0}
 function gmEn(it,n){it.en=n;it.ev=0;for(let l=1;l<=n;l++)it.ev+=enV(it.slot,l,3)}  // 按最高品质强化石算

@@ -32,7 +32,7 @@ function renderBag(){
   $('bag').innerHTML=`<div class="bh"><b>🎒 我的背包</b><span>${bagTab?'':'<button data-r="auto">💰 一键出售</button>'}<button data-r="x">✕ 关闭</button></span></div>
   <div class="bw bw2"><div class="bl"><div class="bhon"><span class="bhl">强化<br>奖励</span>${honRow()}<span class="tag">全身最低 +${setLv()}</span></div>
   <div class="pd"><div class="pcol">${cell(EQ.head,'e:head','头饰')}${cell(EQ.body,'e:body','战甲')}${cell(EQ.ear,'e:ear','项链')}${cell(EQ.ring,'e:ring','戒指')}</div>
-   <div class="pmid"><div class="plv"><i>Lv.</i><big>${lvl}</big><span>昵称:无名<br>职业:${JOB?JOBN[JOB]:'见习冒险者'}<br><b title="${ttlTip()}" style="cursor:help">称号:${ttlNm()}</b></span></div><canvas id="doll" width="224" height="376"></canvas></div>
+   <div class="pmid"><div class="plv"><i>Lv.</i><big>${lvl}</big><span>昵称:无名<br>职业:${JOB?JOBN[JOB]:'见习冒险者'}<br><b data-r="ttl" title="${ttlTip()}&#10;点击选择佩戴哪个称号(佩戴的显示在头顶)" style="cursor:pointer;${sel=='ttl'?'background:rgba(255,212,59,.3);':''}">称号:${ttlNm()}</b></span></div><canvas id="doll" width="224" height="376"></canvas></div>
    <div class="pcol">${cell(EQ.sword,'e:sword','剑')}${cell(EQ.staff,'e:staff','法杖')}${ccell('fash')}${ccell('wing')}</div></div>
   <div class="at2">${ST3('生命值',S.hp)}${ST3('魔力值',S.mp)}${ST3('攻击力',S.atk,0,'当前武器:'+SL[P.mode][0]+'(按 L 切换)')}${ST3('防御力',S.def)}${ST3('暴击率',S.cr+'%','#f08c00',src(cp.cr)+' · 暴击 '+(+critK().toFixed(2))+' 倍伤害')}${ST3('闪避率',S.dg+'%','#1c7ed6',src(cp.dg)+(S.dg>=DGMAX?' · 已达上限':''))}
    <div class="w"><b>经验值</b><div class="xb"><i style="width:${lvl>=LVMAX?100:Math.round(exp/nx*100)}%"></i><em>${lvl>=LVMAX?'已满级':exp+' / '+nx}</em></div></div>
@@ -41,7 +41,8 @@ function renderBag(){
   <div class="bright"><div class="btab">${tabB(0,'装备')}${tabB(1,'时装')}${tabB(2,'翅膀')}${tabB(3,'药水')}${tabB(4,'道具')}</div>${right}<div class="dt">${dt}</div></div></div>`;
   drawDoll($('doll'))}
 // 背包操作(按钮、左键菜单、拖动共用):a = 操作,r = 物品位置
-function bagAct(a,r){const it=itOf(r);hideTip();CSC=0;let keep=0;
+function bagAct(a,r){if(a.startsWith('tw_')){ttlWear(a.slice(3));sel='ttl';renderBag();return}  // 第六十八轮:佩戴称号
+  const it=itOf(r);hideTip();CSC=0;let keep=0;
   if(a=='eq'&&it&&r[0]=='b'){const i=+r.slice(1),old=EQ[it.slot];EQ[it.slot]=it;BAG.splice(i,1);if(old)BAG.push(old);bmsg='已穿戴 '+nm(it)}
   else if(a=='un'&&it&&r[0]=='e'){if(BAG.length<BAGN){BAG.push(it);EQ[r.slice(2)]=null;bmsg='已卸下 '+nm(it)}else bmsg='装备栏满了,先整理一下背包'}
   else if(a=='sell'&&it&&/^(b\d|e:)/.test(r)){const c=sellPr(it);if(it.mss)msOff(it);gold+=c;if(r[0]=='b')BAG.splice(+r.slice(1),1);else EQ[r.slice(2)]=null;bmsg='出售 '+nm(it)+',获得 '+c+' 金币';sfx('coin')}

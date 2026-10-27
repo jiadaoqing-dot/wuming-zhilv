@@ -13,7 +13,7 @@ function loadSave(){try{const d=JSON.parse(localStorage.getItem(SK_KEY));if(d&&d
     // 第十六轮旧存档:等级压到 50、技能等级压到 5(多出来的技能点按新花费退还)、旧被动换算成新被动(9 级 → 5 级),经验按新曲线清零
     if(!d.v16){lvl=Math.min(LVMAX,lvl);exp=0;let rf=0;for(const w of ['sword','staff'])for(let i=0;i<8;i++){const v=LN[w][i]|0;if(v>LNMAX){for(let L=LNMAX+1;L<=v;L++)rf+=skCost(w+i,L).sp;LN[w][i]=LNMAX}}
       const o=d.PS||{},n={},cv=v=>Math.min(5,Math.ceil((v|0)*5/9));for(const k of ['hp','mp','atk','def','spd'])if(o[k])n[k]=cv(o[k]);if(o.dj)n.dj=1;const r=Math.max(o.hpr|0,o.mpr|0);if(r)n.rec=cv(r);d.PS=n;sp=(sp|0)+rf}QD=d.QD||qNew();if(QD.mi==null){QD.mi=0;QD.ms=0;QD.mp=0}QD.on=1;MAT=d.MAT||{egg:0};LUCK=d.LUCK||0;PS=d.PS||{};for(const it of [EQ.staff,...BAG])if(it&&it.slot=='staff'&&!it.v2){it.s.atk=Math.round(it.s.atk*6.5/4);it.pr=Math.round(it.pr*1.3);it.v2=1}
-    R19=Object.assign(r19New(),d.R19);R19.mr=Object.assign(r19New().mr,R19.mr);for(const w of ['sword','staff'])if(LN[w]&&!(LN[w][0]>0))LN[w][0]=1;  // 第三十三轮:剑士 / 法师的 H 技能一开始就会
+    R19=Object.assign(r19New(),d.R19);C4M=R19.c4m?1:0;R19.mr=Object.assign(r19New().mr,R19.mr);for(const w of ['sword','staff'])if(LN[w]&&!(LN[w][0]>0))LN[w][0]=1;  // 第三十三轮:剑士 / 法师的 H 技能一开始就会
     for(const it of [...Object.values(EQ),...BAG,...R19.wh])if(it){if(it.n)it.n=it.n.replace('头盔','发型');migIt(it)}  // 第三十三轮:旧装备按装备 2.0 重建(仓库里的也一样)
     KP=d.KP||0;OWN=(d.OWN||[]).filter(k=>COSD[k]);WEAR=Object.assign({fash:null,wing:null},d.WEAR);for(const s in WEAR)if(WEAR[s]&&!OWN.includes(WEAR[s]))WEAR[s]=null;
     SPR=Object.assign(sprNew(),d.SPR);SPR.pt=Object.assign(sprNew().pt,SPR.pt);if(sprFree()<0)for(const k in SPR.pt)SPR.pt[k]=0;  // 每级点数改少了:超出的加点自动重置

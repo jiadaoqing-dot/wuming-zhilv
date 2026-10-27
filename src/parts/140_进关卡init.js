@@ -12,7 +12,7 @@ const BLN={8:8,9:9,10:10,12:8,13:10,14:11,15:12,16:13,18:14,19:15,20:16,21:17,22
  BLH={8:6300,9:7700,10:9000,11:10800,12:12400,13:14200,14:16300,15:18700,16:21500,17:23000},BLA={8:8.8,9:10,10:11.2,11:13,12:14.2,13:15.4,14:16.6,15:17.8,16:19,17:20.3};  // 第四十八轮:[15] 第十五关只用来开霸体阶段,生命 / 攻击由 almInit 另算
 function bLate(c){const n=BLN[c];if(!n)return {hp:1,atk:1};const q=Math.pow(1.25,n-8),w=BLW[LVSTAR]||0;return {hp:Math.pow(6300*q/BLH[n],w),atk:Math.pow(8.8*q/BLA[n],w)}}
 function init(full){
-  if(full){lvl=1;exp=0;gold=0;sp=0;EQ={sword:gen('sword',0,'新手剑'),staff:gen('staff',0,'新手法杖')};BAG=[];LN={sword:[1,0,0,0,0,0,0,0],staff:[1,0,0,0,0,0,0,0]};JOB=null;STN=stnNew();CLR=[];STAR={};LVSTAR=1;QD=qNew();MAT={egg:0};LUCK=0;R19=r19New();PS={};KP=0;KPS=0;KPC=0;SIGN={day:'',n:0,str:0,last:0,prev:''};OWN=[];WEAR={fash:null,wing:null};SPR=sprNew();PET=petNew();HAM=hamNew();POT=potNew();QS=['hp1','mp1','rev'];RVD=''}
+  if(full){lvl=1;exp=0;gold=0;sp=0;EQ={sword:gen('sword',0,'新手剑'),staff:gen('staff',0,'新手法杖')};BAG=[];LN={sword:[1,0,0,0,0,0,0,0],staff:[1,0,0,0,0,0,0,0]};JOB=null;STN=stnNew();CLR=[];STAR={};LVSTAR=1;QD=qNew();MAT={egg:0};LUCK=0;R19=r19New();C4M=0;PS={};KP=0;KPS=0;KPC=0;SIGN={day:'',n:0,str:0,last:0,prev:''};OWN=[];WEAR={fash:null,wing:null};SPR=sprNew();PET=petNew();HAM=hamNew();POT=potNew();QS=['hp1','mp1','rev'];RVD=''}
   if(full)LMODE='sword';
   P={x:60,y:GY-32,w:24,h:32,vx:0,vy:0,f:1,at:0,cd:0,inv:0,gr:true,an:0,py:0,hit:new Set(),mode:LMODE,cmb:0,ct:0,ch:0,hb:null,sk:null};
   sfxAll();const S=stats();P.hp=S.hp;P.mp=S.mp;
