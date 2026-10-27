@@ -25,7 +25,9 @@ PICK=[None,'W_Mace003','I_Clock','I_Scroll','I_Feather02','S_Holy08','I_GoldCoin
       # 第四十八轮追加(46 起):宠物装备 无尽(勋章)/ 汲取(獠牙)/ 怀表(I_Clock 色相转成金色)/ 幸运骰子(四叶草)/ 记忆晶片(I_Crystal01 色相转成青色)
       'Ac_Medal02','I_Fang','hue:I_Clock:30','I_Clover','hue:I_Crystal01:140',
       # 第五十五轮追加(51 起):诅咒之力 一阶(暗影之眼)/ 二阶(红色五芒星)
-      'S_Shadow14','S_Fire08']
+      'S_Shadow14','S_Fire08',
+      # 第六十三轮追加(53):图鉴按钮(铁皮包角、带爪痕的书)
+      'W_Book04']
 def speaker():
   im=Image.new('RGBA',(C,C));d=ImageDraw.Draw(im)
   # 喇叭:灰蓝箱体 + 喇叭口,三道黄白声波;最后统一加 1 像素黑描边

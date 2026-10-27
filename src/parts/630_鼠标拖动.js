@@ -58,7 +58,7 @@ function lcm(r,e){sel=r;if(cmItems(r))openCM(r,e.clientX,e.clientY);else renderB
 function openP(n){if((st!='play'&&st!='town')||bagOpen||skOpen||DLG)return;pn=n;fs=null;spSel=null;fmsg='';GM.rc=0;keys.l=keys.r=0;ah=0;ar=0;$('pn').hidden=false;renderP()}
 function closeP(){pn=null;fmsg='';$('pn').hidden=true;save()}
 function toggleP(n){if(pn==n)closeP();else{if(pn)closeP();openP(n)}}
-function renderP(){$('pn').innerHTML=pn=='sign'?rSign():pn=='set'?rSet():pn=='shop'?rShop():pn=='forge'?rForge():pn=='fuse'?rFuse():pn=='quest'?rQuest():pn=='mall'?rMall():pn=='book'?rBook():pn=='wh'?rWh():pn=='spr'?rSpr():pn=='pet'?rPet():pn=='pot'?rPot():rGM()}
+function renderP(){$('pn').innerHTML=pn=='sign'?rSign():pn=='set'?rSet():pn=='shop'?rShop():pn=='forge'?rForge():pn=='fuse'?rFuse():pn=='quest'?rQuest():pn=='mall'?rMall():pn=='book'?rBook():pn=='codex'?rCodex():pn=='wh'?rWh():pn=='spr'?rSpr():pn=='pet'?rPet():pn=='pot'?rPot():rGM()}
 // VIP 说明(商城底栏;第四十三轮起不再单独占一块)
 const VIPB=['击败怪物获得的经验 +10%','通关击杀点 +25%','强化成功率 +10%'];
 // 商城预览图:把角色 / 精灵 / 宠物画到小画布上

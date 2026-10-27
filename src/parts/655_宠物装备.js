@@ -31,6 +31,6 @@ function memStep(dt){const p=MEMP;if(!p||busy()||DLG)return;if(P.sk)return;p.w-=
 // 宠物界面里的「宠物装备」一节
 function rPeq(){const L=R19.peq.on,on=petOn()||hamOn();
   let h=`<h4>宠物装备</h4><div class="tag">在 🏪 商城金币商店购买(💰 ${PEQP} 一件);宠物身上 ${PEQN} 个装备格,钢盔小鸡或仓鼠出战时生效${on?'':' —— <b style="color:#c92a2a">现在没有出战的宠物,装备不生效</b>'}。</div><div class="psk">`;
-  h+=Object.keys(PEQD).map(k=>{const o=peqOwn(k),w=L.includes(k);return `<div${o?'':' class="lk"'}>${mniEm('peq_'+k)}<b>${PEQD[k][0]}</b> ${o?`<button data-p="pqe_${k}" ${w||L.length<PEQN?'':'disabled'}>${w?'✅ 已装备':'装备'}</button>`:'<span class="tag">未拥有</span>'}<br><span class="tag">${PEQD[k][1]}</span></div>`}).join('')+'</div>';
+  h+=Object.keys(PEQD).map(k=>{const o=peqOwn(k),w=L.includes(k);return `<div${o?'':' class="lk"'}>${mniEm('peq_'+k)}<b>${PEQD[k][0]}</b> ${o?`<button data-p="pqe_${k}" ${w||L.length<PEQN?'':'disabled'}>${w?'✅ 已装备':'装备'}</button>`:'<span class="tag">未拥有</span>'}<br><span class="tag">${PEQD[k][1]}</span><br><i class="tag">「${PEQL[k]}」</i></div>`}).join('')+'</div>';
   if(peqOwn('mem')){const m=R19.mem;h+=`<p class="tag">记忆晶片:${m.L.length?'记录了'+lvsName(m.c)+'的 '+m.L.length+' 次技能':'还没有记录(戴着它打一趟关卡)'}${m.ok>=0?' · 下次进入'+lvsName(m.ok)+'伤害 +10%':''}</p>`+(st=='town'&&m.L.length?`<button data-p="pqsim">▶ 模拟战斗</button>`:'')}
   return h}

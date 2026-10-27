@@ -1,4 +1,5 @@
 function mallAct(r){
+  {const b=cxAct(r);if(b)return b}  // 第六十三轮:图鉴
   {const b=bookAct(r);if(b)return b}
   if(mtAct(r))return 1;
   if(peqAct(r))return 1;  // 第四十八轮:宠物装备

@@ -1,3 +1,10 @@
+【v1.68 · 2026-10-27 · 第六十三轮:图鉴、装备介绍文案】
+- 585 图鉴(新分块):右下角 📖(#cxb,MENI 53 = 7Soul1 W_Book04)/ C 键;小怪 46、首领 35、地区 22,左边按地区分组的卡片,右边介绍卡片(sticky);地区卡片里的怪物、怪物卡片里的地区都能点着跳转。
+- 文案全部新写:在女神 / 四位冒险王 / 噬名者 / 司名的设定上延伸(渡名号、城市倒影、钟表匠师兄弟、十二魔 = 十二星灵的影子、炼狱回声与第三十一层、灿灿二号……)。
+- 头像用游戏现成的绘制:drawE 画到小画布再裁边放大(cxPic / cxCrop / CXP 缓存),镜中无名 / 灿灿用纸娃娃;没有新画美术。
+- 装备介绍 eqLore:系列 × 部位 30 条、火之 6、大师 4、大师二阶 4、特性 5、诅咒 12、时装 4、宠物装备 5;tipItem / cosTip / rPeq / 商城卡片显示。
+- 第六十三轮回复:Q1~Q5 全部维持(恶魔强度、路西法跪下、炼狱梯度、称号全部叠加不用佩戴、一千零一夜 = 嗑瓜子 1001 次)。帮助文字 / 设置页快捷键加「C 图鉴」;像素字体重建(+鉴)。冒烟 0 错误。
+
 【v1.67 · 2026-10-23 · 第六十二轮:十二魔 10~12 全开、暗黑炼狱 30 层、称号、Lv4 限购】
 - 571:DMOPEN 12,DMD k = belp / azaz / luci(传说改写);DMHP / DMDM 12 个(二阶 7~9 翻倍 600~660 万 / 250~262,10~12 = 690 / 720 / 800 万、268 / 274 / 290);DM4 一节:dm4Step / dm4Fx / dm4Clr(DMAR 箭 · DMRN 箭雨 · DMOR 追踪法球)、P.slp 怠惰 + dmSlp(叠满睡着)、颜色 sleep;belpStep(nap 回血 / 受伤 ×1.5 / 被吵醒放光束)、azazStep(forge 淬火可打断、guard → counter)、luciStep(pride 跪下 e.kn / 傲慢层 e.pd / 破绽 e.exT;二阶段光圈 e.sfX)。dmBg:MECH / IFN / VOL9 压色;970 lvsArt 同。
 - 图集 DMN:build_dmn.py 加 D3(Leaf Ranger / Ground Monk = chierit CC-BY,Evil Wizard 3 = LuizMelo CC0)+ fx_arw / arwh / shower / beam / orb / orbx;素材 raw/demon/leaf / monk / wiz3。BGM bgm31b~33b(r62)。

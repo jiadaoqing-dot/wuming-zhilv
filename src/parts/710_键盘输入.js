@@ -2,6 +2,7 @@ const KM={ArrowLeft:'l',a:'l',A:'l',ArrowRight:'r',d:'r',D:'r'},JK=['k','K','Arr
 // 双击方向键快跑:280 毫秒内同方向按两次
 function tapDir(k){const t=performance.now();if(t-TAP[k]<280&&(st=='play'||st=='town')){P.run=1;pdMark()}TAP[k]=t}
 // 第二十四轮:用户经常误按,菜单快捷键(B 背包 / T 技能 / Q 任务 / P 商城 / Y 精灵 / G 宠物 / M 声音)全部关掉,改用右下角按钮。Esc(关面板 / 暂停 / 设置)和战斗按键照旧
+// 第六十三轮:C = 图鉴
 // 第四十二轮:恢复菜单快捷键,默认开启;设置页「菜单快捷键」可以关掉(SET.hotk = 0)
 const HOTK_=()=>SET.hotk!==0;
 addEventListener('keydown',e=>{
@@ -19,7 +20,7 @@ addEventListener('keydown',e=>{
   if(HOTK_()&&(e.key=='b'||e.key=='B')){e.preventDefault();toggleBag();return}
   if(HOTK_()&&(e.key=='t'||e.key=='T')){e.preventDefault();toggleSk();return}
   if(HOTK_()&&(e.key=='q'||e.key=='Q')){e.preventDefault();toggleP('quest');return}
-  if(HOTK_()&&!(document.activeElement&&document.activeElement.tagName=='INPUT')){const pk={p:'mall',y:'spr',g:'pet'}[e.key.toLowerCase()];if(pk&&!e.repeat){e.preventDefault();toggleP(pk);return}}
+  if(HOTK_()&&!(document.activeElement&&document.activeElement.tagName=='INPUT')){const pk={p:'mall',y:'spr',g:'pet',c:'codex'}[e.key.toLowerCase()];if(pk&&!e.repeat){e.preventDefault();toggleP(pk);return}}
   if((e.key=='n'||e.key=='N')&&!e.repeat&&st=='play'&&!pn&&!bagOpen&&!skOpen){e.preventDefault();mscCast();return}  // 第四十一轮:怪物技能石
   if(bagOpen&&(e.key=='l'||e.key=='L')&&!e.repeat){P.mode=LMODE=P.mode=='sword'?'staff':'sword';P.ch=0;sel=null;bmsg='已切换为'+SL[P.mode][0];renderBag();return}  // 背包里按 L 也能切换武器,属性和纸娃娃立刻刷新
   if(busy())return;
@@ -39,7 +40,7 @@ cv.addEventListener('pointerdown',cvClick);$('mb').onclick=e=>{e.stopPropagation
 addEventListener('pointerdown',auInit,true);addEventListener('keydown',auInit,true);
 // 右下角按钮 + 设置按钮(点完失去焦点,免得之后按空格又触发按钮)
 // 点到已打开的那个 = 关闭;否则先关掉别的面板再打开
-for(const [id,k] of [['bb','bag'],['sb','sk'],['ib','mall'],['fb','spr'],['pb','pet'],['qb','quest'],['db','sign'],['setb','set']])
+for(const [id,k] of [['bb','bag'],['sb','sk'],['ib','mall'],['fb','spr'],['pb','pet'],['cxb','codex'],['qb','quest'],['db','sign'],['setb','set']])
   $(id).onclick=e=>{e.stopPropagation();e.currentTarget.blur();if(DLG)return;const on=k=='bag'?bagOpen:k=='sk'?skOpen:pn==k;
     if(!$('cm').hidden)closeCM();if(pn)closeP();if(skOpen)toggleSk();if(bagOpen)toggleBag();if(on)return;k=='bag'?toggleBag():k=='sk'?toggleSk():openP(k)};
 // =====================================================================

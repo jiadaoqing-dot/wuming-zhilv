@@ -22,7 +22,11 @@
  旧的云端环境只能访问 GitHub / npm / pypi,opengameart、itch 访问不了。
  素材来源:ULPC 仓库(LPC 人物图层)、series-ai/jam-ready-assets(大量 CC0 素材,LFS 文件用 media 直链下载,见 fetch_assets.sh)。
 
-【当前状态(2026-10-23,v1.67)】
+【当前状态(2026-10-27,v1.68)】
+- v1.68(第六十三轮):图鉴 = 585 分块(pn 'codex',右下角 #cxb 📖 / C 键;CXR 地区 22 条含 m / b 怪物表,CXM 怪物 81 条 [称号, 介绍];rCodex / cxCard / cxAct 挂在 680 mallAct 最前面,返回 2 只重画不存档)。
+  头像 cxPic:用 drawE 把假实体(CXSZ / DMZS 尺寸,小怪走 mk)画到 460×420 小画布(临时换全局 x / cam,画完截回 PT / TX 长度)→ cxCrop 裁边放大 → CXP 缓存;镜中无名 / 灿灿走 HERO().doll(灿灿临时 WEAR.fash = 'can')。新怪物只要进 MN + CXR 的 m / b + CXM,头像自动有。
+  装备介绍 eqLore(it)(EQLS 系列×部位 / EQLF 火之 / EQLM 大师 / EQLM2 二阶 / EQLT 特性 / EQLC 诅咒)接在 600 tipItem;COSL 进 cosTip / 商城卡片,PEQL 进 rPeq / 商城卡片。文案都在 /*NOFONT{*/ 里(面板高清字体)。
+  按钮图标 MENI 53 = W_Book04(build_meni.py PICK 追加,CSS -1802px);「鉴」进了像素字体(重跑 build_font.py)。worktree 里没有 raw/,用目录联接指到主目录的 raw。问题在 docs/下次任务.txt「第六十四轮」。
 - v1.67(第六十二轮):十二魔全开(DMOPEN 12,cur 31 belp / 32 azaz / 33 luci,571 的 DM4 一节:DMAR 箭 / DMRN 箭雨 / DMOR 法球,P.slp 怠惰层数 + dmSlp,颜色 'sleep');二阶 7~9 生命 / 攻击翻倍(DMHP / DMDM)。
   注意:571 里 DMSH 已被恶魔选择页的布局常量占用(箭雨叫 DMRN);dm3Step / dm3Fx / dm4Fx 用 dmFind(k) 在 [B,...E] 里找恶魔(炼狱一层两个时第二个在 E)。e.fa = 首领淡入淡出(DMN.draw 传 alpha),dmEnd 会清。
   炼狱 TWOPEN 30:TWL 17~30、TWHC / TWNM 自动加十二魔、TWLS / TWFX 加 16/18~21 + 恶魔共用 dmStep(twHcs 按 'dm' 分组只推进一次)、twPost(e)(140 init 的 B 和 twInit 的第二个都调用:跑原来的 almInit / rgInit / igInit / dmInit,再恢复炼狱数值 × twK)、千钟之主变身按 e.twH × ALSZ;340 almMorph 也在炼狱生效。
@@ -100,6 +104,7 @@
   测试注意:Playwright 的 keyboard.press 会在同一帧抬起按键,跑步中按攻击要 down → 等 50ms → up 才会触发冲刺直戳。
 
 【下一步】
+  ★ v1.68 的问题在 docs/下次任务.txt「第六十四轮」:图鉴文案的方向、要不要做「击败才解锁」、新剧情线(第五个无名者 / 塞恩 / 灿灿二号 / 第三十一层)要不要接成主线。
   ★ v1.57 的问题在 docs/下次任务.txt「第五十六轮」:三个新恶魔的手感 / 强度、二阶 6 个的强度怎么定、后面 6 个是否继续按每轮 3 个做。
   ★ v1.55 的问题在 docs/下次任务.txt「第五十四轮」:第十七关地图位置、地火 / 首领强度。
   ★ 第四十八轮已完成(2026-10-17,v1.48),用户已回复 docs/下次任务.txt「第四十八轮」并全部处理完(地图位置、小鸡冷却、钟楼背景 / BGM;3 条命 / 无尽 / 怀表维持)。等下一轮任务。

@@ -65,10 +65,10 @@ fx29_atlas.png  817KB  940:15 FX29.D  ← art_src/skfx/build_fx29.py
 gh8_atlas.png  13KB  470:173 GH8.D  ← art_src/city/build_gh8.py
 gp_atlas.png  144KB  520:9 GP.D  ← art_src/myst/build_gp.py
 gsword.png  11KB  350:12 GSW.D  ← art_src/skfx/build_gsword.py
-home_bg.png  24KB  000:190   ← art_src/home/build_home.py
-home_btn.png  0KB  000:199 ; 000:204   ← art_src/home/build_home.py
-home_div.png  0KB  000:194   ← art_src/home/build_home.py
-home_frame.png  0KB  000:192   ← art_src/home/build_home.py
+home_bg.png  24KB  000:198   ← art_src/home/build_home.py
+home_btn.png  0KB  000:207 ; 000:212   ← art_src/home/build_home.py
+home_div.png  0KB  000:202   ← art_src/home/build_home.py
+home_frame.png  0KB  000:200   ← art_src/home/build_home.py
 hsw_atlas.png  6KB  760:154 HSW.D  ← art_src/lpc/build_hsw.py, art_src/ppf/build_ppf.py
 ice6_atlas.png  2KB  840:3 ICE6P.D  ← art_src/lv/build_ice6.py
 ifn_atlas.png  38KB  569:13 IFN.D  ← art_src/fire21/build_fire21.py
@@ -85,9 +85,9 @@ ltl6.png  3KB  860:10 LTL.D  ← art_src/lv/build_ltl.py
 ltl7.png  3KB  860:11 LTL.D  ← art_src/lv/build_ltl.py
 mage_atlas.png  14KB  910:21 BOS.MD  ← art_src/boss/build_mage.py
 mech_atlas.png  47KB  540:10 MECH.D  ← art_src/mech/build_mech.py
-meni_atlas.png  25KB  000:172 ; 000:177 ; 040:41 MENI.D  ← art_src/ui/build_ui.py
+meni_atlas.png  25KB  000:180 ; 000:185 ; 040:41 MENI.D  ← art_src/ui/build_ui.py
 mfx_atlas.png  23KB  900:28 MFXD  ← art_src/mob/build_mfx.py
-mg27_atlas.png  16KB  000:231 ; 940:10 MG27.D  ← art_src/skfx/build_mg27.py
+mg27_atlas.png  16KB  000:239 ; 940:10 MG27.D  ← art_src/skfx/build_mg27.py
 mnt_atlas.png  43KB  910:3 MNT.D  ← art_src/boss/build_mnt.py
 mob_atlas.png  230KB  900:29 MOB.D  ← art_src/boss/build_bos.py, art_src/mob/build_dog2.py, art_src/mob/build_pen.py, art_src/mob/fix_dog2.py
 myst_atlas.png  87KB  560:206 MYST.D  ← art_src/myst/build_myst.py
@@ -117,14 +117,14 @@ town2_forge.png  4KB  880:9 TWN.forge  ← art_src/town/build_town2.py
 town2_hill.png  5KB  880:9 TWN.hill  ← art_src/town/build_town2.py
 town2_main.png  60KB  880:9 TWN.main  ← art_src/town/build_town2.py
 tpx_atlas.png  14KB  880:13 TPX.D  ← art_src/town/build_tpx.py
-ui_btn.png  0KB  000:166 ; 000:169 ; 000:171   ← art_src/ui/build_ui.py
-ui_btn_on.png  0KB  000:167   ← art_src/ui/build_ui.py
-ui_card.png  0KB  000:179 ; 000:224   ← art_src/ui/build_ui.py
-ui_head.png  0KB  000:165   ← art_src/ui/build_ui.py
-ui_panel.png  0KB  000:164   ← art_src/ui/build_ui.py
-ui_slot.png  0KB  000:182   ← art_src/ui/build_ui.py
-ui_tab.png  0KB  000:168 ; 000:178   ← art_src/ui/build_ui.py
-ui_tip.png  0KB  000:185   ← art_src/ui/build_ui.py
+ui_btn.png  0KB  000:174 ; 000:177 ; 000:179   ← art_src/ui/build_ui.py
+ui_btn_on.png  0KB  000:175   ← art_src/ui/build_ui.py
+ui_card.png  0KB  000:187 ; 000:232   ← art_src/ui/build_ui.py
+ui_head.png  0KB  000:173   ← art_src/ui/build_ui.py
+ui_panel.png  0KB  000:172   ← art_src/ui/build_ui.py
+ui_slot.png  0KB  000:190   ← art_src/ui/build_ui.py
+ui_tab.png  0KB  000:176 ; 000:186   ← art_src/ui/build_ui.py
+ui_tip.png  0KB  000:193   ← art_src/ui/build_ui.py
 vfx_atlas.png  174KB  900:51 VFX.D  ← art_src/vfx/build_vfx.py
 vol9_atlas.png  157KB  480:129 VOL9.D  ← art_src/volcano/build_vol9.py
 wing_fly.png  5KB  880:96 PXA.WGD  ← art_src/build_wing.py
@@ -135,7 +135,7 @@ map2_bg.jpg  272KB  960:4 MAPI2.D  ← art_src/map/build_map2.py
 map_bg.jpg  110KB  950:75 MAPI.D  ← art_src/map/build_map.py
 
 == 字体(@@F:)  2 个 ==
-fpx12.woff2  69KB  000:9   ← art_src/font/build_font.py
+fpx12.woff2  70KB  000:9   ← art_src/font/build_font.py
 fpx8.woff2  44KB  000:10   ← art_src/font/build_font.py
 
 == 音频 OGG(@@O:)  150 个 ==
