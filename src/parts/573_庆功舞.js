@@ -4,6 +4,7 @@
 // 剑士和法师 = 主角同一套纸娃娃(LPC.dollDraw,穿当前装备),动作是骨骼姿势(760 的 RIG 关节参数)按拍子算出来的,放大 2 倍画在炼狱塔的场景上
 // 舞台特效全部用 VFX 图集(烟花 = solar-shrapnel / spectral-bloom,光柱 = radiant-heal ……);字幕 DNL 和 build_song64.py 打印的歌词表一致
 // 时间以音乐为准:AU.t0 = bgmPlay 开始播放的时刻;音乐还没解码好时最多等 4 秒,之后按真实时间走
+// 第七十一轮(用户朋友报 bug):原版画风(SET.art = 0)时 LPC.ready() 为假,舞者没画出来 —— 现在只看 LPC 图集是否载入
 // 跳过:Esc 直接跳过;空格 / 回车 / 点画面要按两次(第一次提示「再按一次跳过」)
 const DNSPB=60/128,DNEND=96*4*DNSPB+2.4;
 const DNS=[['intro',0,8],['verse',8,16],['pre',24,8],['chorus',32,16],['break',48,8],['verse2',56,8],['pre2',64,8],['chorus2',72,16],['outro',88,8]];
@@ -90,7 +91,7 @@ function drawDnc(dt){const D=DNC;if(!D)return;
   // 背景:炼狱塔的场景(永夜王城城堡 + 绿光),每拍亮一下
   const c0=cur,k0=cam;cur=TW0;cam=D.cam;try{bg()}finally{cur=c0;cam=k0}
   x.fillStyle='rgba(4,10,14,'+(.34-.12*dnHit(B%1)*(go?1:0))+')';x.fillRect(0,0,VW,VH);
-  const L=VFX.L;VFX.L=D.fx;cam=0;try{VFX.step(dt);PXL.run(()=>{if(LPC.ready())for(const w of [0,1])dnDoll(dnState(w,go?B:0));VFX.draw()})}finally{VFX.L=L;cam=k0}
+  const L=VFX.L;VFX.L=D.fx;cam=0;try{VFX.step(dt);PXL.run(()=>{if(LPC.I)for(const w of [0,1])dnDoll(dnState(w,go?B:0));VFX.draw()})}finally{VFX.L=L;cam=k0}
   const bar=B/4;
   if(!go)CT('音乐加载中……',320,180,12,'#d3f9d8','center',2.4,'#08200e');
   if(bar<4){const a=Math.min(1,bar*2,(4-bar)*2);x.globalAlpha=a;CTG('Nameless Tonight',320,72,24);CT('暗黑炼狱 · 三十层通关庆功舞',320,96,11,'#d3f9d8','center',2.4,'#08200e');x.globalAlpha=1}

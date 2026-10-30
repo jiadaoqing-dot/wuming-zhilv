@@ -22,7 +22,10 @@
  旧的云端环境只能访问 GitHub / npm / pypi,opengameart、itch 访问不了。
  素材来源:ULPC 仓库(LPC 人物图层)、series-ai/jam-ready-assets(大量 CC0 素材,LFS 文件用 media 直链下载,见 fetch_assets.sh)。
 
-【当前状态(2026-10-30,v1.75)】
+【当前状态(2026-10-30,v1.76)】
+- v1.76(第七十一轮):用户把新任务写在主目录(未提交)的 docs/下次任务.txt 里(基于 v1.74 的旧文件),这次已抄进本文件「第七十一轮」。
+  修 275 x-boom / x-star 循环特效没 life(火焰一直在);573 舞者条件 LPC.ready() → LPC.I(原版画风没人)。新分块 276 八门(R 键 bmKey / bmTick / bmStep / bmHud,常量 BM*,P.bm / P.bmC);
+  frun 流星飞膝走 340 原 rstab 分支(P.mode!='staff');格斗家各技能加位移(见更新记录 v1.76)。《无名之书》这轮没写(用户没要求),下次仍是第十五~十七章。
 - v1.75(第七十轮):用户报的「拳套技能图标 / 特效 / 手上拳套不显示、主城还是旧 BGM」= 分享版 index.html 的素材被浏览器缓存(v1.74 换了 eq_atlas / au_bgm0 / 字体但文件名不变);
   build.py 的 link() 现在给每个 assets/ 地址加 ?v=<md5 前 8 位>,以后改素材不用改名。顺带:880 PXA.wpn / 770 drawHero 戴拳套时画 fistGloveImg(Ars 主角、原版画风)。
   330 reJob / RJG(重新转职 50 万金币,技能页 rj_<w>);拳套高级武器:fireW(pick(WMODES),…)(340 MY4 / 536 pfgWin)、RCP.xf_fist、eq_atlas 拳套行第 7 列 = 紫焰魅影(build_eqicon.py 'p')、fistGlove 火苗用 PPF.M.fr、585 EQLF.fist。
@@ -137,6 +140,7 @@
   测试注意:Playwright 的 keyboard.press 会在同一帧抬起按键,跑步中按攻击要 down → 等 50ms → up 才会触发冲刺直戳。
 
 【下一步】
+  ★ v1.76 的问题在 docs/下次任务.txt「第七十二轮」:八门数值 / 按键、上一轮没回复的重新转职价格和《无名之书》设定、主目录旧文件冲突提醒。
   ★ v1.75 的问题在 docs/下次任务.txt「第七十一轮」:浏览器缓存修好没有、重新转职价格、拳套高级武器、格斗家手感、间章三~第十四章设定。下次写《无名之书》第十五~十七章。
   ★ v1.74 的问题在 docs/下次任务.txt「第七十轮」:格斗家转职重置、强度手感、镜像拳击、高级拳套来源、主城新曲、第十~十二章设定。下次写《无名之书》间章三、第十三章、第十四章。
   ★ v1.73 的问题在 docs/下次任务.txt「第六十九轮」:GM 双职业够不够用、称号颜色 / 默认佩戴、星界财宝要不要限购、第八~九章新设定。下次写《无名之书》第 5 次:第十章、第十一章、第十二章。

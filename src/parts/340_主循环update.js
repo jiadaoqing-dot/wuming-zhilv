@@ -14,7 +14,7 @@ function update(dt){
   const S=stats();{const cs=P.cryT>0?.5:1;for(const w in CD)for(let i=0;i<CD[w].length;i++)CD[w][i]=Math.max(0,CD[w][i]-dt*cs)}  // 哭声(第八关首领):技能冷却变慢
   if(P.swT!=null)P.swT+=dt;if(P.mb&&(P.swT==null||P.swT>=P.mb.t||P.mode!='staff'))mbFire();if(P.cs){P.cs.t+=dt;if(P.cs.t>1)P.cs=null}
   // 预备结束、真正挥出去的瞬间,招式带着身体向前冲
-  if(P.mode!='staff'&&P.swT!=null&&!P.lunged&&P.swT>=P.swW){P.lunged=1;if(P.gr&&!P.sk)P.lv=P.f*(P.mode=='fist'?(P.swC==-1?20:FLUNGE[P.swC]):P.swC==-1?LUNGEH:LUNGE[P.swC])*6}
+  if(P.mode!='staff'&&P.swT!=null&&!P.lunged&&P.swT>=P.swW){P.lunged=1;if(P.gr&&!P.sk)P.lv=P.f*(P.mode=='fist'?(P.swC==-1?20:FLUNGE[P.swC])*(P.bm>GT?2.5:1):P.swC==-1?LUNGEH:LUNGE[P.swC])*6}
   P.ar=(P.ar||0)-dt;P.sct=(P.sct||0)-dt;P.frz=Math.max(0,(P.frz||0)-dt);if(P.grab&&(!B||!(B.act=='hug'||(B.act=='bite'&&B.gs=='hold'))))P.grab=0;const stn=P.stun>0||P.frz>0||!!P.grab;if(stn){P.stun-=dt;sq=-1;jq=0;ar=0;lq=0;uq=dq=0;P.ch=0}
   if(sq>=0){useSk(sq,S);sq=-1}
   // 地面攻击时停下脚步:普攻出招到收招、蓄力、施法的前 0.35 秒都不能走动;位移只来自招式自带的前冲
@@ -26,7 +26,7 @@ function update(dt){
   if(P.pdT>0){P.pdT-=dt;if(Math.random()<dt*28)pt({x:P.x+rnd(0,24),y:P.y+rnd(0,32),vx:rnd(-10,10),vy:rnd(-55,-25),c:pick(['#ffd43b','#fff3bf','#ffe066']),sh:1,s:rnd(1.5,2.5),l:.4})}  // 第四十四轮:完美闪避增伤期间身上冒金光
   m2Tick(dt);P.spdT=(P.spdT||0)-dt;P.apen=(P.apen||0)-dt;P.pAtk=(P.pAtk||0)-dt;P.pDef=(P.pDef||0)-dt;P.hshT=(P.hshT||0)-dt;if(P.hshT<=0)P.hdr=0;
   if(P.sk){if(P.run)P.rkT=.35;P.run=0}else if(P.rkT>0){P.rkT-=dt;if(d){P.run=1;P.rkT=0}}if(!d)P.run=0;  // 第五十四轮(用户):放技能(位移技能、冲刺直戳)时先停跑,技能结束后 0.35 秒内还按着方向键就自动接着跑,不用再双击
-  {const mk_=mvK();P.vx=d*170*mk_*(!P.gr&&!P.fly?mk_:1)*sf*(P.run?1.65:1)*(P.spdT>0?1.35:1)*(P.fly?1.1:1)}if(d)P.f=d;  // 第三十三轮:跳在空中时水平速度再乘一次移速倍率 → 移速越快跳得越远
+  {const mk_=mvK();P.vx=d*170*mk_*(!P.gr&&!P.fly?mk_:1)*sf*(P.run?1.65:1)*(P.spdT>0?1.35:1)*(P.bm>GT?BMSP:1)*(P.fly?1.1:1)}if(d)P.f=d;  // 第三十三轮:跳在空中时水平速度再乘一次移速倍率 → 移速越快跳得越远
   // 冰面:摩擦力小,加速慢、松开方向键还会滑一段
   {const onIce=cur==6&&!INTOWN&&P.gr&&!P.fly&&(P.onP&&P.onP.y<GY?P.onP.ice:iceAt(P.x+12));if(onIce&&!P.sk){P.ivx=(P.ivx||0)+(P.vx-(P.ivx||0))*Math.min(1,dt*(d?2.6:1.1));if(Math.abs(P.ivx)>40&&Math.random()<dt*14)pt({x:P.x+12-sgn(P.ivx)*6,y:P.y+P.h-1,vx:-P.ivx*.2,vy:rnd(-30,-10),c:'#e7f5ff',ad:0,s:2,l:.3});P.vx=P.ivx}else P.ivx=P.vx}
   if(P.run&&P.gr&&d){P.dt_=(P.dt_||0)-dt;if(P.dt_<=0){P.dt_=.07;pt({x:P.x+12-P.f*8,y:P.y+P.h-2,vx:-P.f*rnd(30,70),vy:rnd(-40,-10),c:'rgba(205,195,175,.65)',ad:0,s:rnd(3,5),gr:1.2,l:.35})}}
@@ -34,7 +34,7 @@ function update(dt){
   if(P.spdT>0&&d&&Math.random()<dt*20)pt({x:P.x+12-P.f*10,y:P.y+rnd(6,30),vx:-P.f*rnd(60,120),vy:rnd(-10,10),c:pick(['#c3fae8','#e6fcf5']),sh:1,s:1.5,l:.25});
   if(WEAR.fash=='fh'&&Math.random()<dt*5)pt({x:P.x+rnd(0,24),y:P.y+rnd(0,32),vx:rnd(-8,8),vy:rnd(-30,-10),c:pick(['#e6fcf5','#c3fae8','#fff']),s:rnd(1,2),l:rnd(.5,.9)});
   // 冲刺攻击:跑步(双击方向键)时按攻击,立刻变成冲刺直戳——向前冲一段距离,沿途的怪物被刺中并击退
-  if(ah&&P.mode=='sword'&&P.run&&P.gr&&!P.fly&&!P.sk&&P.cd<=0&&!stn){ah=0;P.ch=0;P.run=0;P.sk={id:'rstab',t:0,hit:new Set()};P.cd=.55;P.ct=0;P.swT=null;sfx('dash');sfx('swing');flash('220,235,255',.08)}
+  if(ah&&P.mode!='staff'&&P.run&&P.gr&&!P.fly&&!P.sk&&P.cd<=0&&!stn){ah=0;P.ch=0;P.run=0;P.sk={id:P.mode=='fist'?'frun':'rstab',t:0,hit:new Set()};P.cd=.55;P.ct=0;P.swT=null;sfx('dash');sfx('swing');flash('220,235,255',.08)}
   if(ah)P.ch+=dt;
   if(ar){ar=0;const hv=P.ch>=.7;P.ch=0;if(P.cd<=0&&!P.sk)strike(hv)}
   if(uq||dq){const u=uq;uq=dq=0;if(!stn&&P.cd<=0&&!P.sk)special(u,S)}

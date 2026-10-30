@@ -33,6 +33,7 @@ addEventListener('keydown',e=>{
   if(KM[e.key]){e.preventDefault();if(!e.repeat&&!keys[KM[e.key]])tapDir(KM[e.key]);keys[KM[e.key]]=1}
   else if(JK.includes(e.key)){e.preventDefault();keys.jh=1;if(!e.repeat)jq=1}
   else if(e.key=='l'||e.key=='L'){if(!e.repeat)lq=1}
+  else if(e.key=='r'||e.key=='R'){if(!e.repeat)bmKey()}  // 第七十一轮:格斗家八门 / 终式(276)
   else if('hHuUiIoO'.includes(e.key)&&e.key.length==1){if(!e.repeat)sq='hHuUiIoO'.indexOf(e.key)>>1}
   else if(AK.includes(e.key)){e.preventDefault();if(!e.repeat){if(keys.u)uq=1;else if(keys.dn)dq=1;else ah=1}}});
 addEventListener('keyup',e=>{if(KM[e.key])keys[KM[e.key]]=0;if(JK.includes(e.key))keys.jh=0;if(UK.includes(e.key)){keys.u=0;keys.ww=0}if(DK.includes(e.key))keys.dn=0;if(AK.includes(e.key)&&ah){ah=0;ar=1}});

@@ -8,14 +8,14 @@
 const FSPMX=10,FSPK=.02,FBKT=5,FBKK=1.15;
 const WMODES=['sword','staff','fist'],nextMode=m=>WMODES[(WMODES.indexOf(m)+1)%WMODES.length];  // Q 键 / 背包 L 键:剑 → 法杖 → 拳套 轮换
 // 普攻四段 [伤害倍率 m, 预备 W, 出手 S, 攻击间隔 cd, 判定 w / h / y];比剑出手快、距离短,每秒伤害略高一点
-const FSW=[{m:.75,W:.05,S:.06,cd:.2,w:36,h:22,y:2},{m:.75,W:.05,S:.06,cd:.2,w:40,h:22,y:2},{m:.95,W:.07,S:.07,cd:.25,w:38,h:26,y:0},{m:1.5,W:.1,S:.08,cd:.42,w:36,h:44,y:-14}],FLUNGE=[10,10,14,16];
+const FSW=[{m:.75,W:.05,S:.06,cd:.2,w:36,h:22,y:2},{m:.75,W:.05,S:.06,cd:.2,w:40,h:22,y:2},{m:.95,W:.07,S:.07,cd:.25,w:38,h:26,y:0},{m:1.5,W:.1,S:.08,cd:.42,w:36,h:44,y:-14}],FLUNGE=[12,12,16,20];
 SKD.fist=[['刺拳突进','向前高速滑步,连打 3 记刺拳,最后一记直拳把敌人打退。突进途中无敌,是格斗家的起手和追击',5,5],
-  ['百裂拳','原地站稳(霸体)对身前疯狂连打 16 拳,拳影把小怪钉在原地,最后一记重拳把敌人轰飞',10,9],
+  ['百裂拳','站稳下盘(霸体)一边向前推进一边疯狂连打 16 拳,拳影把小怪钉在原地一路推着走,最后一记重拳把敌人轰飞',10,9],
   ['升龙拳','压低身体后跃起一记燃烧的上勾拳,把身前的敌人打上天空(首领不会被击飞);上升途中无敌,最高点再炸开一圈火焰',8,8],
-  ['摇闪反击','举起双拳左右摇闪 1.2 秒(无敌):这期间只要有攻击打过来,立刻看穿并打出一记反击重拳,眩晕敌人 1.5 秒;没人出手的话,结束时打出一记直拳',15,18],
+  ['摇闪反击','举起双拳左右摇闪 1.2 秒(无敌):这期间只要有攻击打过来,立刻看穿并打出一记反击重拳,眩晕敌人 1.5 秒;没人出手的话,结束时向前冲刺打出一记直拳',15,18],
   ['迪普西摇摆','上身画着横 8 字左右摇摆、一路向前推进,左右勾拳连打 10 下,最后一记上勾拳把敌人打飞。全程无敌',20,16],
-  ['破城重拳','蓄力 0.5 秒(霸体)后打出一记超重直拳,拳风沿地面向前推进 300 像素,路上的敌人全部受到重创并「破防」6 秒(受到的拳套伤害 +15%)',22,20],
-  ['震地重锤','跳起后双拳砸向地面,以自己为中心震开大范围冲击波并把小怪震上天,随后左右地面再连续爆开 3 次余震。全程无敌',25,22],
+  ['破城重拳','蓄力 0.5 秒(霸体)后踏步打出一记超重直拳,拳风沿地面向前推进 300 像素,路上的敌人全部受到重创并「破防」6 秒(受到的拳套伤害 +15%)',22,20],
+  ['震地重锤','向前跃起后双拳砸向地面,以自己为中心震开大范围冲击波并把小怪震上天,随后左右地面再连续爆开 3 次余震。全程无敌',25,22],
   ['终结 K.O.','锁定附近最近的敌人瞬间冲到它面前,画面一暗,连续 12 记组合拳,最后一记超级上勾拳把它打飞(首领僵直 2 秒)。全程无敌',28,30]];
 // 技能倍率 [基础伤害, 攻击倍率, 每级基础 +, 每级倍率 +](= 一个「单位」,各招按单位乘段数):
 // H 3 刺拳 + 直拳 2 单位 ≈ 2.0 · U 16 拳 + 终结 6 单位 ≈ 6.6 · I 上勾拳 2.6 + 火焰 0.4 单位 · O 反击 4.5(没反击 0.6 单位)· 空 10 勾拳 + 上勾拳 5.5 单位 ≈ 7
@@ -27,19 +27,21 @@ function fistStrike(heavy){sfx(heavy?'heavy':'swing');{const dk=keys.r-keys.l;if
   if(heavy){P.cmb=-1;P.hbW=.1;P.at=.22;P.cd=.55;P.hb={w:44,h:28,y:0,m:3.2,brk:1}}
   else{P.cmb=P.ct>0?(P.cmb+1)%4:0;const c=FSW[P.cmb];P.hbW=c.W;P.at=c.W+c.S+.02;P.cd=c.cd;P.ct=.7;P.hb=c}
   P.swT=0;P.swC=P.cmb;P.swW=P.hbW;P.swD=P.hbW+(heavy?.1:FSW[P.cmb].S);P.swR=P.cd-P.swD;P.lunged=0;P.swFrom=null;P.hit=new Set();
-  if(heavy)burst(P.x+12+P.f*24,P.y+14,10,['#ffa94d','#fff3bf'],260,{sh:1,s:2,l:.25,dr:4})}
+  if(heavy)burst(P.x+12+P.f*24,P.y+14,10,['#ffa94d','#fff3bf'],260,{sh:1,s:2,l:.25,dr:4});
+  {const hv=heavy||P.cmb==3;msAfter(P.hbW,()=>{if(P.mode!='fist')return;const hx=fCX()+P.f*(hv?40:32),hy=P.y+(P.cmb==3&&!heavy?4:14);  // 第七十一轮:每一拳出手都有拳风(打空也有);八门中每拳再打出一道气拳(276)
+    VFX.spawn('w-ring',hx,hy,{s:hv?.55:.35,f:P.f,a:.8,add:1});if(hv)VFX.spawn('x-boom',hx+P.f*8,hy,{s:.45,life:.3,add:1,fps:40});if(bmOn())bmqGo(hv)})}}
 function fistSpecial(up){if(up){if(P.ujc>0){tx('上勾拳冷却 '+P.ujc.toFixed(1),P.x-16,P.y-14,'#adb5bd');return}P.ujc=UJC;P.sk={id:'fup',t:0,hit:new Set()};P.cd=.4;sfx('swing')}
   else{if(P.sjc>0){tx('肝脏拳冷却 '+P.sjc.toFixed(1),P.x-16,P.y-14,'#adb5bd');return}P.sjc=SJC;P.sk={id:'fbody',t:0,hit:new Set()};P.cd=.5;sfx('swing')}}
 // ---------- 斗志 / 破防(dealt 里调用;四星 c4Out 里也调用) ----------
-function fistDealt(e,dm,nc){if(P.mode!='fist'||st!='play')return dm;if(e.fbk>GT)dm*=FBKK;dm*=1+FSPK*(P.fsp|0);
+function fistDealt(e,dm,nc){if(P.mode!='fist'||st!='play')return dm;if(e.fbk>GT)dm*=FBKK;if(bmOn())dm*=1+BMK;dm*=1+FSPK*(P.fsp|0);
   if(!nc){P.fspH=GT;if(GT-(P.fspT||0)>.15){P.fspT=GT;P.fsp=Math.min(FSPMX,(P.fsp|0)+1)}}return Math.round(dm)}
-function fistTick(dt){if(P.fsp>0&&GT-(P.fspH||0)>2.5){P.fspD=(P.fspD||0)-dt;if(P.fspD<=0){P.fspD=.3;P.fsp--}}}
+function fistTick(dt){bmTick(dt);if(P.fsp>0&&GT-(P.fspH||0)>2.5){P.fspD=(P.fspD||0)-dt;if(P.fspD<=0){P.fspD=.3;P.fsp--}}}
 const fBrk=e=>{if(!e||e.hp<=0)return;if(!(e.fbk>GT))tx('破防',e.x+e.w/2,e.y-22,'#ffa94d');e.fbk=GT+FBKT};
 // ---------- 技能 ----------
 const fCX=()=>P.x+12,fMove=(d)=>{P.x=Math.max(bossOn?2570:pLo(),Math.min(xMax(),P.x+d))};
 const fBox=(w,y,h,back)=>({x:P.f>0?P.x+P.w-(back||0):P.x-w+(back||0),y:P.y+y,w:w+(back||0),h});
 const fU=(i,S,n)=>Math.round(skD('fist',i,S)*(n||1)*rnd(.9,1.1));
-function fHit(e,dm,fx){hitFx='punch';dealt(e,dm);hitFx=null;if(fx)VFX.spawn(fx,e.x+e.w/2+rnd(-6,6),e.y+e.h/2+rnd(-8,8),{s:rnd(.8,1.1),f:P.f})}
+function fHit(e,dm,fx){hitFx='punch';dealt(e,dm);hitFx=null;if(fx)VFX.spawn(fx,e.x+e.w/2+rnd(-6,6),e.y+e.h/2+rnd(-8,8),{s:rnd(.8,1.1),f:P.f});if(bmOn())bmHitFx(e)}
 function fkoTg(){const cx=fCX();return allTg().filter(e=>Math.abs(e.x+e.w/2-cx)<340&&Math.abs(e.y+e.h/2-(P.y+16))<160).sort((a,b)=>Math.abs(a.x+a.w/2-cx)-Math.abs(b.x+b.w/2-cx))[0]||null}
 function fistStart(i,S){const f=P.f,cx=fCX(),cy=P.y+16;
   if(i==0){P.sk={id:'fjab',t:0,inv:1,n:0,hit:new Set()};flash('255,220,170',.1);burst(cx-f*8,P.y+P.h-2,8,['#e9ecef','#ced4da'],140,{s:3,l:.3,g:200})}
@@ -57,7 +59,7 @@ function fcntGo(){const k=P.sk;if(!k||k.id!='fcnt'||k.c)return;k.c=1;k.ct=k.t;co
   flash('200,230,255',.3);hitstop(.1);shake=Math.max(shake,.35);tx('看穿!',P.x-6,P.y-34,'#ffe066');psx('blink','heavy');ghost('rgba(165,216,255,.8)',.3);
   const hb=fBox(64,-14,48,10);for(const q of allTg())if(ov(hb,q)){fHit(q,fU(3,S),'resonant-break');bigStun(q,1.5);knock(q,P.f)}
   ring(fCX()+P.f*30,P.y+14,6,54,'#ffe066',.35,5)}
-function fistStep(k,dt,S,all){if(!k.id||k.id[0]!='f'||!SKD.fist)return false;const f=P.f,t=k.t;
+function fistStep(k,dt,S,all){if(!k.id||k.id[0]!='f'||!SKD.fist)return false;const f=P.f,t=k.t;if(bmStep(k,dt,S,all))return true;  // 第七十一轮:开八门 / 终式 / 流星飞膝(276)
   if(k.id=='fup'){if(t<.06&&P.gr)P.vy=-160;if(t>=.06&&t<.2){const hb=fBox(38,-26,52,6);for(const e of all)if(!k.hit.has(e)&&ov(hb,e)){k.hit.add(e);fHit(e,Math.round(S.atk*1.2*rnd(.9,1.1)));launch(e)}}if(t>.36)P.sk=null;return true}
   if(k.id=='fbody'){if(t>=.1&&!k.d){k.d=1;sfx('heavy');const hb=fBox(40,4,26,6);for(const e of all)if(ov(hb,e)){fHit(e,Math.round(S.atk*1.8*rnd(.9,1.1)),'resonant-break');fBrk(e);if(!isBig(e))bigStun(e,.6)}}if(t>.42)P.sk=null;return true}
   if(k.id=='fjab'){// 刺拳突进:0.36 秒滑步(约 130 像素),途中 3 记刺拳;0.4 秒直拳收尾
@@ -65,11 +67,12 @@ function fistStep(k,dt,S,all){if(!k.id||k.id[0]!='f'||!SKD.fist)return false;con
     if(k.n<3&&t>=.06+k.n*.1){k.n++;psx('dash');k.hit=new Set();const hb=fBox(44,0,26,10);for(const e of all)if(ov(hb,e)){fHit(e,fU(0,S));if(!isBig(e))e.kbv=f*90}}
     if(k.n==3&&t>=.4){k.n=4;k.inv=0;psx('heavy');const hb=fBox(52,-2,30,10);let h=0;for(const e of all)if(ov(hb,e)){h=1;fHit(e,fU(0,S,2),'resonant-break');knock(e,f)}if(h){hitstop(.05);shake=Math.max(shake,.15)}}
     if(t>.58)P.sk=null;return true}
-  if(k.id=='frush'){// 百裂拳:0.1 ~ 0.98 秒每 0.055 秒一拳(16 拳),1.0 秒终结重拳
+  if(k.id=='frush'){// 百裂拳:0.1 ~ 0.98 秒每 0.055 秒一拳(16 拳),边打边以 80 像素 / 秒向前推进(第七十一轮);1.0 秒终结重拳
+    if(t<1){fMove(f*80*dt);k.gt=(k.gt||0)-dt;if(k.gt<=0){k.gt=.12;ghost('rgba(255,224,102,.45)',.18)}}
     if(k.n<16){k.tk-=dt;if(k.tk<=0){k.tk=.055;k.n++;const hb=fBox(60,-8,38,10);
         VFX.spawn('m-spark',fCX()+f*rnd(26,58),P.y+rnd(2,24),{s:rnd(.5,.8),f});if(k.n%3==0)psx('dash');
         for(const e of all)if(ov(hb,e)){fHit(e,fU(1,S),0);if(!isBig(e)){e.kbv=0;e.st=Math.max(e.st||0,.15)}}}}
-    else if(!k.d&&t>=1){k.d=1;psx('heavy','boom');hitstop(.08);shake=Math.max(shake,.3);const hb=fBox(64,-12,46,10);VFX.spawn('x-boom',fCX()+f*44,P.y+14,{s:.9});ring(fCX()+f*40,P.y+14,6,50,'#ffd43b',.3,5);
+    else if(!k.d&&t>=1){k.d=1;psx('heavy','boom');hitstop(.08);shake=Math.max(shake,.3);const hb=fBox(64,-12,46,10);VFX.spawn('x-boom',fCX()+f*44,P.y+14,{s:.9,life:.5,add:1});ring(fCX()+f*40,P.y+14,6,50,'#ffd43b',.3,5);
       for(const e of all)if(ov(hb,e)){fHit(e,fU(1,S,6),'resonant-break');knock(e,f)}}
     if(t>1.22)P.sk=null;return true}
   if(k.id=='fupc'){// 升龙拳:0.12 秒蓄势 → 跳起(0.12 ~ 0.45 判定)→ 最高点火焰炸开 → 落地收招
@@ -82,10 +85,12 @@ function fistStep(k,dt,S,all){if(!k.id||k.id[0]!='f'||!SKD.fist)return false;con
   if(k.id=='fcnt'){// 摇闪反击:1.2 秒内挨打 → fcntGo 反击;没挨打 → 1.2 秒时自动直拳
     if(!k.c&&Math.random()<dt*14)ghost('rgba(165,216,255,.45)',.15);
     if(k.c){k.inv=1;if(t-k.ct>.45)P.sk=null;return true}
-    if(t>=1.2&&!k.d){k.d=1;k.inv=0;psx('heavy');const hb=fBox(56,-4,32,10);for(const e of all)if(ov(hb,e)){fHit(e,fU(3,S,.6),'resonant-break');knock(e,f)}}
+    if(t>=1.2&&t<1.4){fMove(f*620*dt);k.gt=(k.gt||0)-dt;if(k.gt<=0){k.gt=.03;ghost('rgba(165,216,255,.7)',.2)}}  // 第七十一轮:没人出手就向前冲刺约 120 像素,沿路打一记直拳
+    if(t>=1.2&&!k.d){k.d=1;k.inv=0;k.hit=new Set();psx('dash','heavy')}
+    if(k.d&&t<1.42){const hb=fBox(56,-4,32,10);for(const e of all)if(!k.hit.has(e)&&ov(hb,e)){k.hit.add(e);fHit(e,fU(3,S,.6),'resonant-break');knock(e,f)}}
     if(t>1.42)P.sk=null;return true}
   if(k.id=='fdem'){// 迪普西摇摆:0.1 ~ 1.5 秒每 0.14 秒一记勾拳(10 下),边摇边往前推进;1.55 秒上勾拳终结
-    if(t<1.5){fMove(f*85*dt);k.gt=(k.gt||0)-dt;if(k.gt<=0){k.gt=.06;ghost('rgba(255,146,43,.55)',.18)}}
+    if(t<1.5){fMove(f*150*dt);k.gt=(k.gt||0)-dt;if(k.gt<=0){k.gt=.06;ghost('rgba(255,146,43,.55)',.18)}}
     if(k.n<10&&t>=.1+k.n*.14){k.n++;psx('dash');const side=k.n%2?1:-1,hb=fBox(52,-10,38,10);VFX.spawn('dw-wind',fCX()+f*30,P.y+8+side*5,{s:.55,f,life:.25});
       for(const e of all)if(ov(hb,e)){fHit(e,fU(4,S));if(!isBig(e)){e.kbv=f*60;e.st=Math.max(e.st||0,.2)}}}
     if(k.n>=10&&!k.d&&t>=1.55){k.d=1;psx('heavy','boom');hitstop(.08);shake=Math.max(shake,.3);flash('255,190,120',.18);const hb=fBox(48,-36,66,10);VFX.spawn('earth-rupture',fCX()+f*30,GY,{s:.8});
@@ -93,11 +98,13 @@ function fistStep(k,dt,S,all){if(!k.id||k.id[0]!='f'||!SKD.fist)return false;con
     if(t>1.85)P.sk=null;return true}
   if(k.id=='fsieg'){// 破城重拳:0.5 秒蓄力 → 直拳 + 拳风沿地面推进 300 像素
     if(t<.5&&Math.random()<dt*30){const a=rnd(0,6.283),r=rnd(26,40),hx=fCX()+f*10,hy=P.y+12;pt({x:hx+Math.cos(a)*r,y:hy+Math.sin(a)*r,vx:-Math.cos(a)*70,vy:-Math.sin(a)*70,c:pick(['#ffa94d','#ffe066','#fff']),sh:2,s:rnd(2,4),l:.35})}
+    if(t>=.5&&t<.62){fMove(f*380*dt);ghost('rgba(255,169,77,.6)',.18)}  // 第七十一轮:出拳时踏前一步
     if(t>=.5&&!k.d){k.d=1;psx('boom','heavy');hitstop(.12);shake=Math.max(shake,.5);flash('255,210,150',.25);const x0=fCX(),y0=P.y+14;
-      VFX.spawn('x-boom',x0+f*28,y0,{s:1.2});for(let d=40;d<=300;d+=52)msAfter((d-40)/1300,()=>{VFX.spawn('w-ring',x0+f*d,y0,{s:.9,f});burst(x0+f*d,GY-4,6,['#ced4da','#ffe066'],160,{s:3,l:.35,g:400})});
+      VFX.spawn('x-boom',x0+f*28,y0,{s:1.2,life:.55,add:1});for(let d=40;d<=300;d+=52)msAfter((d-40)/1300,()=>{VFX.spawn('w-ring',x0+f*d,y0,{s:.9,f});burst(x0+f*d,GY-4,6,['#ced4da','#ffe066'],160,{s:3,l:.35,g:400})});
       const lo=Math.min(x0,x0+f*310),hi=Math.max(x0,x0+f*310);for(const e of all)if(e.x+e.w>lo&&e.x<hi&&e.y+e.h>P.y-30&&e.y<P.y+P.h+20){fHit(e,fU(5,S),'resonant-break');fBrk(e);knock(e,f)}}
     if(t>.85)P.sk=null;return true}
   if(k.id=='fquake'){// 震地重锤:跳起 0.3 秒 → 高速砸下 → 落地冲击波 → 3 次余震(每 0.28 秒)
+    if(k.ph<2){fMove(f*(k.ph?260:380)*dt);if(Math.random()<dt*30)ghost('rgba(232,194,122,.5)',.16)}  // 第七十一轮:向前跃起(约 130 像素)
     if(k.ph==0&&t>=.3){k.ph=1;P.vy=900}
     if(k.ph==1&&(P.gr||t>1.2)){k.ph=2;k.lt=t;psx('boom','slam');hitstop(.1);shake=Math.max(shake,.55);flash('230,200,160',.2);const cx=fCX();
       VFX.spawn('earth-rupture',cx,GY,{s:1.6});ring(cx,GY-4,8,180,'#e8c27a',.45,7,.3);crack(cx,6,150);
@@ -111,7 +118,7 @@ function fistStep(k,dt,S,all){if(!k.id||k.id[0]!='f'||!SKD.fist)return false;con
     if(k.n<12&&t>=.15+k.n*.1){k.n++;psx('dash');const tg=e?[e]:[];const hb=fBox(56,-10,40,10);for(const q of all)if(q!==e&&ov(hb,q))tg.push(q);
       if(k.n%3==0)ghost('rgba(255,169,77,.6)',.2);for(const q of tg){fHit(q,fU(7,S),k.n%2?'m-spark':'resonant-break');if(!isBig(q)){q.kbv=0;q.st=Math.max(q.st||0,.3)}}}
     if(k.n>=12&&!k.d&&t>=1.45){k.d=1;FX.dk=0;flash('255,255,255',.45);hitstop(.2);shake=Math.max(shake,.7);psx('boom','thunder');const cx=fCX()+f*20,cy=P.y+8;
-      VFX.spawn('x-star',cx,cy,{s:1.6});VFX.spawn('solar-shrapnel',cx,cy,{s:1.4});ring(cx,cy,8,90,'#ffd43b',.45,7);pillar(cx,22,'rgba(255,212,59,.8)',.4);
+      VFX.spawn('x-star',cx,cy,{s:1.6,life:.6,add:1,gr:.4});VFX.spawn('solar-shrapnel',cx,cy,{s:1.4});ring(cx,cy,8,90,'#ffd43b',.45,7);pillar(cx,22,'rgba(255,212,59,.8)',.4);
       const tg=e?[e]:[];const hb=fBox(56,-30,62,10);for(const q of all)if(q!==e&&ov(hb,q))tg.push(q);
       for(const q of tg){fHit(q,fU(7,S,20),'warm-explosion');if(isBig(q))bigStun(q,2);else launch(q,.6)}FKO=performance.now()/1000+1.4}
     if(t>1.95){FX.dk=0;P.sk=null}return true}
@@ -144,14 +151,15 @@ function fistRig(base,k,tm,mv){const G=rP(base,FGUARD,mv=='still'?{y:(base.y||0)
     else if(k.id=='fdem'){glow='rgba(255,146,43,.8)';if(t<1.55){const a=t/.28*Math.PI,w=Math.sin(a),hit=Math.abs(Math.cos(a))>.6;p=rP(G,{x:w*3,lean:.32+Math.cos(a*2)*.08,head:w*.1,y:-Math.abs(w)*.8,sq:.1,hF:.55,kF:.75,hB:-.5,kB:.65},hit?(w>0?{gx:11,gy:-13}:{aB:1.5,eB:.4}):{})}else p=seq([[0,UPw],[.06,UP],[.3,UP]],t-1.55)}
     else if(k.id=='fsieg'){glow='rgba(255,169,77,.9)';p=t<.5?rP(G,HVw,{y:Math.sin(tm*60)*.35}):seq([[0,HV],[.3,HV]],t-.5)}
     else if(k.id=='fquake'){glow='rgba(232,194,122,.85)';const D={gx:9,gy:2,aB:1.2,eB:.3,lean:.75,head:.2,x:2,sq:.3,hF:1.2,kF:1.7,hB:-.5,kB:1};p=k.ph==0?rP(G,{gx:2,gy:-24,aB:2.9,eB:.3,lean:-.2,head:-.12,hF:.8,kF:1.3,hB:.3,kB:1.1}):k.ph==1?rP(G,{gx:8,gy:-2,aB:1.6,eB:.2,lean:.4,hF:.6,kF:.9,hB:-.2,kB:.6}):rP(G,D)}
+    else if(k.id[1]=='g'||k.id=='frun'){const r=bmRig(G,k,tm,{J,C,HK,UP,UPw,HV,HVw});p=r.p;glow=r.glow}  // 第七十一轮(276)
     else if(k.id=='fko'){glow='rgba(255,212,59,.9)';if(t<1.45){const q=Math.floor((t-.15)/.1)%3;p=t<.15?rP(G,HVw):q==0?rP(G,J,{lean:.34}):q==1?rP(G,C):rP(G,HK)}else p=seq([[0,UPw],[.06,UP],[.4,UP]],t-1.45)}
-    return {p,glow,mouth}}
+    return {p,glow:glow||bmGlow(),mouth}}
   if(P.ch>.15){const q=eo(Math.min(1,(P.ch-.15)/.25));p=rMix(G,rP(G,HVw),q);glow=P.ch>=.7?'rgba(255,169,77,.95)':'rgba(255,255,255,.5)';if(P.ch>=.7)p.y+=Math.sin(tm*70)*.45}
   else if(P.swT!=null&&P.swT<P.swD+P.swR+.12){const c=P.swC,W=P.swW||.05,D=P.swD,T=P.swT;mouth='o';
     const L=c==0?[[0,G],[W,{gx:5,gy:-12.5}],[D,J],[D+.04,J]]:c==1?[[0,G],[W,{lean:.05,x:-.5}],[D,C],[D+.04,C]]:c==2?[[0,G],[W,HKw],[D,HK],[D+.05,HK]]:c==3?[[0,G],[W,UPw],[D,UP],[D+.07,UP]]:[[0,G],[W,HVw],[D,HV],[D+.08,HV]];
     L.push([D+P.swR+.1,G]);p=seq(L,T);if(c==-1||c==3)glow='rgba(255,169,77,.7)'}
   else if(mv=='run')p=base;  // 跑步时双臂照常摆动
-  return {p,glow,mouth}}
+  return {p,glow:glow||bmGlow(),mouth}}
 // ---------- 纸娃娃上的拳套:eq_atlas 第 7 行的图标缩小成 12 像素(按系列缓存),沿前臂方向旋转画在手上 ----------
 const FGC={};
 function fistGloveImg(){const it=EQ.fist,g=Math.min(7,wG(it)),k=g;if(FGC[k])return FGC[k];if(!EQPX.I)return null;const N=12,cv=document.createElement('canvas');cv.width=cv.height=N;const c=cv.getContext('2d');

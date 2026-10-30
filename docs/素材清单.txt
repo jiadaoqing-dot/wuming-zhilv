@@ -135,7 +135,7 @@ map2_bg.jpg  272KB  960:4 MAPI2.D  ← art_src/map/build_map2.py
 map_bg.jpg  110KB  950:75 MAPI.D  ← art_src/map/build_map.py
 
 == 字体(@@F:)  2 个 ==
-fpx12.woff2  70KB  000:9   ← art_src/font/build_font.py
+fpx12.woff2  71KB  000:9   ← art_src/font/build_font.py
 fpx8.woff2  44KB  000:10   ← art_src/font/build_font.py
 
 == 音频 OGG(@@O:)  151 个 ==
