@@ -10,7 +10,7 @@ function bDodge(e,dt,lo,a,b,hop){e.dgc=(e.dgc||0)-dt;
 const SW=[{m:1,W:.09,S:.08,cd:.3,w:56,h:60,y:-22},{m:1,W:.08,S:.08,cd:.28,w:50,h:62,y:-28},{m:1.2,W:.1,S:.06,cd:.3,w:72,h:22,y:2},{m:1.7,W:.15,S:.1,cd:.5,w:60,h:62,y:-22}];  // W 预备(不造成伤害)、S 出手(有判定)
 const LUNGE=[18,12,26,22],LUNGEH=28;  // 出手瞬间招式带着身体往前冲的距离
 const KBV=170;  // 普攻击退初速度(前三段相同,第四段和蓄力重击加倍);第二十一轮起不再附带僵直  // 每段招式自带的前冲距离(攻击时脚步停下,由招式带动身体)
-function strike(heavy){
+function strike(heavy){if(P.mode=='fist'){fistStrike(heavy);return}  // 第六十九轮:格斗家(275)
   if(P.mode=='sword'){
     sfx(heavy?'heavy':'swing');
     {const dk=keys.r-keys.l;if(dk)P.f=dk}  // 出招时可以转身

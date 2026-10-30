@@ -160,7 +160,7 @@ const PXA={I:{},HI:{},HN:0,LK:{},
       c.globalAlpha=.9;for(const [dx,dy] of [[-1,0],[1,0],[0,-1],[0,1]])c.drawImage(t,dx,dy);c.globalAlpha=1}
     c.drawImage(this.WI,d*S,row*S,S,S,0,0,S,S);return this.WC[key]=cv},
   // 画手里的武器:c 已经平移到脚底中心并按朝向翻转;wa 是骨骼动画里武器的角度(朝前为 0),吸附到 16 个方向
-  wpn(c,m,fr,wa,tier){if(!this.WI)return;const h=this.HA[fr]||[30,28];c.drawImage(this.wc(this.wrow(m),this.wdir(wa),tier),h[0]-23-28,h[1]-48-28)},
+  wpn(c,m,fr,wa,tier){if(!this.WI||m=='fist')return;const h=this.HA[fr]||[30,28];c.drawImage(this.wc(this.wrow(m),this.wdir(wa),tier),h[0]-23-28,h[1]-48-28)},
   // 武器的几何信息(主角坐标,和几何主角 drawHero 的返回值同一格式),给剑光 / 直戳剑气用
   wgeo(){const h=this.HA[this.LF||0]||[30,28],wa=P.rc?P.rc.wa:0,L=P.mode=='staff'?30:31,c=Math.cos(wa),s=Math.sin(wa),hx=(h[0]-23)/HSC,hy=(h[1]-48)/HSC,q=v=>[hx+c*v/HSC,hy+s*v/HSC];
     return {h:[hx,hy],b:q(4),m:q(16),tip:q(L),wa,px:1,b0:4,t0:L}},

@@ -36,4 +36,4 @@ function drawSk(){const m=P.mode,k=P.sk;
   if(CL)drawCloud(CL);else if(CL2)drawCloud(CL2);  // 云铺满天空,两朵只画一层
   for(const z of Z){const a=(z.t/z.m)*rnd(.65,1);x.save();x.globalCompositeOperation='lighter';x.globalAlpha=a*.35;poly(z.p,z.big?16:11,'#4dabf7');x.globalAlpha=a*.75;poly(z.p,z.big?6:4,'#a5d8ff');for(const b of z.br)poly(b,2,'#74c0fc');x.globalAlpha=a;poly(z.p,2,'#fff');x.restore()}
 }
-function toggleSk(){if((st!='play'&&st!='town')||bagOpen||pn)return;skOpen=!skOpen;hideTip();keys.l=keys.r=0;ah=0;ar=0;$('sk').hidden=!skOpen;if(skOpen){if(skTab<2){skTab=P.mode=='staff'?1:0;skSel=null}renderSk()}else save()}
+function toggleSk(){if((st!='play'&&st!='town')||bagOpen||pn)return;skOpen=!skOpen;hideTip();keys.l=keys.r=0;ah=0;ar=0;$('sk').hidden=!skOpen;if(skOpen){if(skTab!=2){skTab=P.mode=='staff'?1:P.mode=='fist'?3:0;skSel=null}renderSk()}else save()}

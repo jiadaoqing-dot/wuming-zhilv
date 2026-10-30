@@ -4,10 +4,10 @@
 // 强化:每级按部位加固定数值(EQE:武器攻击 / 头饰魔力 / 战甲生命 / 项链防御 / 戒指暴击;时装防御 / 翅膀暴击),强化石品质决定加多少,Lv2 强化石(+4~+6)×EQE2;累计在 it.ev
 // 增幅宝石:it.amp = cr / atk / hp / def,按百分比加在基础数值上(AMP);时装 / 翅膀的数据在 R19.cen[id](cosIt)
 // 系数:hp / mp / atk = 品质 × 系列 m,def = 品质 × 系列 d,cr / dg = 原来的暴击闪避词条基准 b × CRPT / DGPT
-const EQW={head:{hp:6,mp:6,atk:1,def:1.5},body:{hp:10,def:4},ear:{dg:.75,def:1.5},ring:{hp:6,atk:2},sword:{atk:5},staff:{atk:6.5}};  // 法杖攻击 = 剑 ×1.3(法师玻璃大炮)
+const EQW={head:{hp:6,mp:6,atk:1,def:1.5},body:{hp:10,def:4},ear:{dg:.75,def:1.5},ring:{hp:6,atk:2},sword:{atk:5},staff:{atk:6.5},fist:{atk:4.6,dg:.5}};  // 第六十九轮:拳套攻击略低,带一点闪避(格斗家靠摇闪)  // 法杖攻击 = 剑 ×1.3(法师玻璃大炮)
 const EQG={hp:[2,4],mp:[2,4],atk:[.4,.8],def:[.4,.8],cr:[.25,.5],dg:[.2,.4]};
 // 第三十四轮:用户说强化固定值偏低,全部约 ×1.6(EQE16;老存档 it.ev / 时装 c.ev 在 migIt / cosIt 里按 v9 一次性 ×1.6)
-const EQE={sword:['atk',[6,8,10,13]],staff:['atk',[6,8,10,13]],head:['mp',[20,24,30,40]],body:['hp',[40,48,60,80]],ear:['def',[6,8,10,13]],ring:['cr',[16,20,24,32]],fash:['def',[6,8,10,13]],wing:['cr',[16,20,24,32]]},EQE2=2.5,EQE16=1.6;
+const EQE={sword:['atk',[6,8,10,13]],fist:['atk',[6,8,10,13]],staff:['atk',[6,8,10,13]],head:['mp',[20,24,30,40]],body:['hp',[40,48,60,80]],ear:['def',[6,8,10,13]],ring:['cr',[16,20,24,32]],fash:['def',[6,8,10,13]],wing:['cr',[16,20,24,32]]},EQE2=2.5,EQE16=1.6;
 const FGK=.1,FGMX=5,WPN5=5,MSK=1.2;  // 锻造每级白字 +10%,最高 5 级;所有武器白字攻击 +5;大师装备白字 ×1.2
 const AMP={cr:['暴击宝石',.15,'暴击率'],atk:['攻击宝石',.03,'攻击力'],hp:['HP宝石',.06,'生命值'],def:['防御宝石',.04,'防御力']};
 // 时装 / 翅膀白字(百分比,加在基础数值上)
@@ -17,9 +17,9 @@ const cosV=(t,k,fg)=>COSW[t][k]*(1+FGK*(fg||0));
 const SLR=[['发型','头饰'],['铠甲','战甲'],['耳坠','项链']],slRen=n=>SLR.reduce((s,[a,b])=>s.split(a).join(b),n);
 function eqK(tier,g,ms){if(ms)g=Math.max(g||0,SER.length-1);const t=TR[tier][2],S=SER[g||0],b=[.5,.75,1,1.25][tier]*[1,1.3,1.6,1.9,2.2][g||0];return {hp:t*S.m,mp:t*S.m,atk:t*S.m,def:t*S.d,cr:b*CRPT,dg:b*DGPT}}
 // 第四十二轮:火之武器 it.fw(1 火之大剑 / 火之法杖:机械系列 ×1.1,神秘副本 4 首领掉落 · 2 真~火之:再 ×1.2,击杀点制作书 + 熔炉制作);白字 / 绿字都乘 FWK
-const FWK=[1,1.1,1.32,1.32*2.2],FWN={sword:['','火之大剑','真~火之大剑','紫焰魅影大剑'],staff:['','火之法杖','真~火之法杖','紫焰魅影法杖']};  // 第五十九轮:3 紫焰魅影(神秘副本 5 三星掉落)= 真~火之 ×2.2(白字攻击连 WPN5 一起 ×2.2),拿着放技能时技能范围增幅(ampRun)
+const FWK=[1,1.1,1.32,1.32*2.2],FWN={sword:['','火之大剑','真~火之大剑','紫焰魅影大剑'],staff:['','火之法杖','真~火之法杖','紫焰魅影法杖'],fist:['','火之拳套','真~火之拳套','紫焰魅影拳套']};  // 第五十九轮:3 紫焰魅影(神秘副本 5 三星掉落)= 真~火之 ×2.2(白字攻击连 WPN5 一起 ×2.2),拿着放技能时技能范围增幅(ampRun)
 const wG=it=>it?(it.fw?4+it.fw:it.g||0):0;  // 图标 / 手持武器用第几套外观(5 火之 / 6 真~火之 / 7 紫焰魅影 = PPF 图集)
-function eqWhite(slot,tier,g,ms,fw){if(fw==3){const s=eqWhite(slot,tier,g,ms,2);for(const k in s)s[k]=Math.round(s[k]*2.2);return s}const K=eqK(tier,g,ms),s={};for(const [k,c] of Object.entries(EQW[slot]))s[k]=Math.max(1,Math.round(c*K[k]*(ms?MSK:1)*FWK[fw|0]))+(k=='atk'&&(slot=='sword'||slot=='staff')?WPN5:0);return s}
+function eqWhite(slot,tier,g,ms,fw){if(fw==3){const s=eqWhite(slot,tier,g,ms,2);for(const k in s)s[k]=Math.round(s[k]*2.2);return s}const K=eqK(tier,g,ms),s={};for(const [k,c] of Object.entries(EQW[slot]))s[k]=Math.max(1,Math.round(c*K[k]*(ms?MSK:1)*FWK[fw|0]))+(k=='atk'&&(slot=='sword'||slot=='staff'||slot=='fist')?WPN5:0);return s}
 // 第五十八轮(用户):3 条绿字各自随机,可以重复(比如 3 条都是攻击);掉落 / 制作 / 洗练都一样
 function greenRoll(it){const K=eqK(it.tier,it.g,it.ms),G=Object.keys(EQG),ks=[0,1,2].map(()=>pick(G));it.gr=ks.map(k=>{const [a,b]=EQG[k];return [k,Math.max(1,Math.round(K[k]*(a+Math.random()*(b-a))*(it.ms?MSK:1)*FWK[it.fw|0]*(it.m2?M2W:1)))]})}  // 第五十七轮:大师二阶绿字 ×3
 const gRng=(it,k)=>{const K=eqK(it.tier,it.g,it.ms),[a,b]=EQG[k],m=(it.ms?MSK:1)*FWK[it.fw|0]*(it.m2?M2W:1);return [Math.max(1,Math.round(K[k]*a*m)),Math.max(1,Math.round(K[k]*b*m))]};
@@ -37,7 +37,7 @@ function gen(slot,tier,name,g,tr,fix,ms,fw){g=g||0;const s=eqWhite(slot,tier,g,m
 function migIt(it){if(it&&it.v8&&!it.v9){it.ev=Math.round((it.ev||0)*EQE16);it.v9=1}if(it&&it.ms&&it.v8&&it.ms!=2){const o=it.s,K0=eqK(it.tier,it.g),K1=eqK(it.tier,it.g,1);it.s=eqWhite(it.slot,it.tier,it.g,1);it.gr=(it.gr||[]).map(([k,v])=>[k,Math.max(1,Math.round(v*K1[k]/K0[k]))]);it.ms=2;it.pr=eqPr(it)}/* 第四十一轮:大师装备按最高系列重算(ms=2 = 已重算)*/if(!it||it.v8)return;const en=Math.min(ENMX,it.en||0);it.s=eqWhite(it.slot,it.tier,it.g);it.fg=0;greenRoll(it);it.ev=0;for(let l=1;l<=en;l++)it.ev+=enV(it.slot,l,0);it.en=en;delete it.eb;it.pr=eqPr(it);if(it.n)it.n=slRen(it.n);it.v8=1;it.v9=1}
 const curSer=()=>cur>=14?4:cur<=2?0:cur<=4?1:cur<=7?2:3;  // 第四十轮:第十一关掉机械系列  // 第六、七关也掉荒漠系列;第八关起掉雪原系列
 // 掉落:按当前关卡掉对应系列;第五关的发型/铠甲/戒指/耳坠随机带 5 种特性之一,武器没有特性
-function rollItem(t,g){const ks=Object.keys(SL),sl=ks[Math.random()*6|0];g=g!=null?g:curSer();
+function rollItem(t,g){const ks=Object.keys(SL),sl=ks[Math.random()*7|0];g=g!=null?g:curSer();
   return gen(sl,t!=null?t:rollQ(STK().tq),null,g,g>=2&&LVSTAR>=3&&BODY.includes(sl)?TRK[Math.random()*5|0]:null)}  // 第四十四轮:特性件只在三星掉  // 第十六轮:品质概率按星级(STARK.tq)
 function setTr(){const c={};for(const k of TRS){const it=EQ[k];if(it&&it.tr)c[it.tr]=(c[it.tr]||0)+1}return c}
 function trv(k,c){const n=(c||setTr())[k]||0,q=TRT[k];return (n>=4?q[3]+q[4]:n>=2?q[3]:0)*trMul(k)}

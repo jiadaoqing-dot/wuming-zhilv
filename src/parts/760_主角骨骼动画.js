@@ -46,7 +46,7 @@ function atkKeys(c,W,E,R,from){const f0=from?{...from,__f:1}:null,K=[[0,f0]];
 // 站姿:剑 = 双臂自然下垂,双手握剑柄在下体前,剑身朝前、略微向下倾斜,长剑柄露在身后;法杖 = 单手斜握
 // 第二十六轮:法师普攻的两个关键姿势(双手横握法杖中段):STFR 收回贴胸、重心在后腿;STFT 双臂伸直前推、前腿弓步
 const STFR={gx:-1.5,gy:-9.5,wa:-.06,two:1,lean:-.15,x:-1.8,head:-.06,hF:.2,kF:.4,hB:-.2,kB:.5,sq:.04},STFT={gx:15,gy:-8.5,wa:0,two:1,lean:.32,x:3.5,head:.08,hF:.95,kF:.3,hB:-.85,kB:.15,sq:.05};
-const STANCE={sword:{gx:3.6,gy:-.6,wa:.13,two:1,aB:.12,eB:.5},staff:{gx:9,gy:-2.2,wa:-1.05,two:0,aB:.25,eB:.45}};
+const STANCE={sword:{gx:3.6,gy:-.6,wa:.13,two:1,aB:.12,eB:.5},staff:{gx:9,gy:-2.2,wa:-1.05,two:0,aB:.25,eB:.45},fist:FGUARD};  // 第六十九轮:格斗家 = 拳击架势(275 FGUARD)
 // 剑的四段普攻 + 蓄力重击(双手持巨剑,剑和身体高度重合):w = 预备,s = 出手结束
 const SWK={
   // ① 下劈:剑举到脑后 → 向前下方劈到贴地水平,身体压低前扑(剑光是从头顶划到前方地面的大月牙)
@@ -94,7 +94,8 @@ function heroRig(){const k=P.sk,m=P.mode,tm=performance.now()/1000,sw0=STANCE.sw
   else if(run)po=m=='staff'?rP(po,{y:-9+Math.sin(tm*3.2)*1.2,lean:.16,head:.04,hF:.28,kF:.7,hB:.08,kB:.85,gx:8,gy:-4,wa:FLYWA,aB:-.55,eB:.35}):rP(po,rigCycle('run',P.an*1.45,m));
   else if(walk)po=rP(po,rigCycle('walk',P.an*1.55,'sword'));
   const base=po;
-  if(m=='staff'){const cs=P.cs,sw=P.swT!=null&&P.swT<P.swR+.15?P.swT:null;
+  if(m=='fist'){const r=fistRig(base,k,tm,P.fly||air?'air':run?'run':walk?'walk':'still');po=r.p;glow=r.glow;mouth=r.mouth}  // 第六十九轮:格斗家(275)
+  else if(m=='staff'){const cs=P.cs,sw=P.swT!=null&&P.swT<P.swR+.15?P.swT:null;
     if(k&&k.id=='mc'){const r=mcPose(base,k);po=r.p;glow=r.g}
     else if(cs&&cs.t<.8){const t=cs.t;glow='rgba(229,153,247,.95)';
       if(cs.id=='staff1')po=rSeq(base,[[0,{lean:.38,gx:-2,gy:-3,wa:2.6,aB:2.3,eB:.3,hF:1,kF:.4,hB:-.8,kB:.5}],[.3,null]],t);

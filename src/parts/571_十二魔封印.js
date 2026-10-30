@@ -470,7 +470,7 @@ function dmDrop(e){const id='cz'+dmI();if(!MISC[id])return;gdDrop(e,{k:'gc',id,n
 // 第五十六轮(用户):数值固定(= 精良 +12 满值,旧存档里随机出来的低值也按满值算 cuV);刷出新属性后让玩家选「换成新的 / 保留原来的」(R19.cuP 记着没选完的那次)
 //   部位:wpn = 武器(剑 / 法杖各自可以诅咒)· cos = 时装 / 翅膀共用一个部位(同一时间只有一件带诅咒,诅咒另一件会把这件的诅咒移走)· 其余 = 头饰 / 战甲 / 项链 / 戒指
 const CUNM={atk:'攻击',def:'防御',hp:'生命',mp:'魔力',cr:'暴击',dg:'闪避'},CUV={atk:204,def:204,hp:1224,mp:612,cr:510,dg:90},CUW=[['atk',20],['cr',18],['def',18],['hp',18],['mp',16],['dg',10]],CUN=['','一阶','二阶'],CUK=[0,1,1.5];
-const CUG={wpn:['sword','staff'],cos:['fash','wing']},cuTs=g=>CUG[g]||[g],cuSN=g=>g=='wpn'?'武器':g=='cos'?'时装 / 翅膀':SL[g][0],cuTN=t=>SL[t]?SL[t][0]:t=='fash'?'时装':'翅膀';
+const CUG={wpn:['sword','staff','fist'],cos:['fash','wing']},cuTs=g=>CUG[g]||[g],cuSN=g=>g=='wpn'?'武器':g=='cos'?'时装 / 翅膀':SL[g][0],cuTN=t=>SL[t]?SL[t][0]:t=='fash'?'时装':'翅膀';
 const cuV=c=>Math.round(CUV[c.k]*CUK[c.t]);
 const cuIt=t=>SL[t]?EQ[t]:WEAR[t]&&cosIt(WEAR[t]);  // 诅咒的对象:装备 = 身上穿着的那件;时装 / 翅膀 = 穿着的那件的强化数据(R19.cen,存档里一直跟着这件时装)
 function cuRoll(t,not){let k='atk';for(let n=0;n<20;n++){let r=Math.random()*100;k='atk';for(const [q,w] of CUW){if(r<w){k=q;break}r-=w}if(k!=not)break}return {k,v:Math.round(CUV[k]*CUK[t])}}

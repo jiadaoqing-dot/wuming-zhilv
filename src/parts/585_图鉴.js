@@ -171,3 +171,11 @@ function rCodex(){const L=cxList(CXT);if(!L.includes(CXK))CXK=L[0];
 function cxAct(r){if(r.startsWith('cxt_')){CXT=r.slice(4);CXK=null}else if(r.startsWith('cxk_'))CXK=r.slice(4);
   else if(r.startsWith('cxj_')){const k=r.slice(4);CXT=cxRg(k)?'a':cxBoss(k)?'b':'m';CXK=k}else return 0;renderP();return 2}
 /*}NOFONT*/
+/*NOFONT{*/
+// 第六十九轮:格斗家拳套的介绍(五个系列;火之拳套暂时没有来源,用系列文案)
+['晨曦镇的老拳师留下的一副红色皮手套,内衬被汗水磨得发亮。戴上它的第一件事,是学会护住自己的下巴。',
+ '用林王领地的藤皮编成的布拳套,打中敌人时会落下几片带露水的叶子。',
+ '拳面嵌着一排沙漠铁钉的拳套,据说是商队护卫的旧物——他们说,一拳打退沙暴比一剑劈开沙暴容易。',
+ '包着一层冰蓝拳甲的手套,出拳时手背会冒出白色的寒气,打中的地方结一层薄霜。',
+ '指虎里藏着小小的弹簧和齿轮,每一拳打出去都会「咔嗒」一声自己回弹。'].forEach((s,i)=>{if(EQLS[i])EQLS[i].fist=s});
+/*}NOFONT*/

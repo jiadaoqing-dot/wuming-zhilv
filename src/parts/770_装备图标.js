@@ -1,7 +1,7 @@
 // ===== 装备图标:用和角色身上同一套绘制函数画出来(发型 = 头部、铠甲 = 躯干 + 肩甲、武器 = 武器本体),按 部位 + 系列 + 品质 缓存 =====
 const EQIC={},EQIM={};
 // 像素美术下的装备图标(第十八轮):7Soul1 的 496 RPG icons + CC0 Jewelry Icons,每个系列一件不同造型(art_src/eqicon/build_eqicon.py);行 = 部位,列 = 系列,每格 34×34;品质轮廓在这里加(精良起,史诗再加一圈斜角光晕)
-const EQPX={I:null,D:'@@A:eq_atlas@@',C:34,R:{sword:0,staff:1,head:2,body:3,ring:4,ear:5}};{const im=new Image();im.onload=()=>{EQPX.I=im};im.src=EQPX.D}
+const EQPX={I:null,D:'@@A:eq_atlas@@',C:34,R:{sword:0,staff:1,head:2,body:3,ring:4,ear:5,fist:6}};{const im=new Image();im.onload=()=>{EQPX.I=im;fistIcons()};im.src=EQPX.D}
 const eqKey=it=>(SET.art!==0&&EQPX.I&&EQPX.R[it.slot]!=null?'p':'')+it.slot+wG(it)+'_'+it.tier;
 function eqIconPx(c,it,col){const C=EQPX.C,pp=wG(it)==7&&PPF.I&&(it.slot=='sword'||it.slot=='staff'),SI=pp?PPF.I:EQPX.I,sx=pp?PPF.M.ic[0]+(it.slot=='staff'?C:0):Math.min(6,wG(it))*C,sy=pp?PPF.M.ic[1]:EQPX.R[it.slot]*C,S=2,N=C*2,o=(96-N)/2;c.imageSmoothingEnabled=false;  // 第五十九轮:紫焰魅影的图标在 PPF 图集
   if(it.tier>0){const t=document.createElement('canvas');t.width=t.height=C;const q=t.getContext('2d');q.drawImage(SI,sx,sy,C,C,0,0,C,C);q.globalCompositeOperation='source-in';q.fillStyle=col;q.fillRect(0,0,C,C);
@@ -9,7 +9,7 @@ function eqIconPx(c,it,col){const C=EQPX.C,pp=wG(it)==7&&PPF.I&&(it.slot=='sword
     for(const [dx,dy] of [[-1,0],[1,0],[0,-1],[0,1]])c.drawImage(t,o+dx*S,o+dy*S,N,N)}
   c.drawImage(SI,sx,sy,C,C,o,o,N,N)}
 function eqIcon(it){const g=it.g||0,k=eqKey(it);if(EQIC[k])return EQIC[k];const N=96,cv=document.createElement('canvas');cv.width=cv.height=N;const c=cv.getContext('2d');c.lineJoin='round';c.lineCap='round';const col=TR[it.tier][1],ff=FLW;FLW=0;
-  if(k[0]=='p'){FLW=ff;eqIconPx(c,it,col);EQIC[k]=cv.toDataURL();const im=new Image();im.src=EQIC[k];EQIM[k]=im;return EQIC[k]}
+  if(k[0]=='p'||(it.slot=='fist'&&EQPX.I)){FLW=ff;eqIconPx(c,it,col);EQIC[k]=cv.toDataURL();const im=new Image();im.src=EQIC[k];EQIM[k]=im;return EQIC[k]}
   try{c.translate(N/2,N/2);
     if(it.slot=='sword'||it.slot=='staff'){c.rotate(-Math.PI/4);c.scale(1.45,1.45);c.translate(it.slot=='sword'?-18.5:-14,0);drawWpn(c,it.slot,it.tier,null,0,g)}
     else if(it.slot=='head'){const H=HAIRS[g];c.scale(1.75,1.75);c.translate(4,40);chibiHead(c,{hero:1,hl:H[2],eye:'#2f7fd6',hg:g,helm:col},0,null,'#ffdcb8',H[1],H[0])}

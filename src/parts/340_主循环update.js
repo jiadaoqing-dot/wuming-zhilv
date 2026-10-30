@@ -14,7 +14,7 @@ function update(dt){
   const S=stats();{const cs=P.cryT>0?.5:1;for(const w in CD)for(let i=0;i<CD[w].length;i++)CD[w][i]=Math.max(0,CD[w][i]-dt*cs)}  // 哭声(第八关首领):技能冷却变慢
   if(P.swT!=null)P.swT+=dt;if(P.mb&&(P.swT==null||P.swT>=P.mb.t||P.mode!='staff'))mbFire();if(P.cs){P.cs.t+=dt;if(P.cs.t>1)P.cs=null}
   // 预备结束、真正挥出去的瞬间,招式带着身体向前冲
-  if(P.mode=='sword'&&P.swT!=null&&!P.lunged&&P.swT>=P.swW){P.lunged=1;if(P.gr&&!P.sk)P.lv=P.f*(P.swC==-1?LUNGEH:LUNGE[P.swC])*6}
+  if(P.mode!='staff'&&P.swT!=null&&!P.lunged&&P.swT>=P.swW){P.lunged=1;if(P.gr&&!P.sk)P.lv=P.f*(P.mode=='fist'?(P.swC==-1?20:FLUNGE[P.swC]):P.swC==-1?LUNGEH:LUNGE[P.swC])*6}
   P.ar=(P.ar||0)-dt;P.sct=(P.sct||0)-dt;P.frz=Math.max(0,(P.frz||0)-dt);if(P.grab&&(!B||!(B.act=='hug'||(B.act=='bite'&&B.gs=='hold'))))P.grab=0;const stn=P.stun>0||P.frz>0||!!P.grab;if(stn){P.stun-=dt;sq=-1;jq=0;ar=0;lq=0;uq=dq=0;P.ch=0}
   if(sq>=0){useSk(sq,S);sq=-1}
   // 地面攻击时停下脚步:普攻出招到收招、蓄力、施法的前 0.35 秒都不能走动;位移只来自招式自带的前冲
@@ -38,7 +38,7 @@ function update(dt){
   if(ah)P.ch+=dt;
   if(ar){ar=0;const hv=P.ch>=.7;P.ch=0;if(P.cd<=0&&!P.sk)strike(hv)}
   if(uq||dq){const u=uq;uq=dq=0;if(!stn&&P.cd<=0&&!P.sk)special(u,S)}
-  if(lq){lq=0;P.mode=LMODE=P.mode=='sword'?'staff':'sword';P.ch=0}
+  if(lq){lq=0;P.mode=LMODE=nextMode(P.mode);P.ch=0}  // 第六十九轮:Q 在 剑 → 法杖 → 拳套 之间轮换
   P.kbx=(P.kbx||0)*Math.max(0,1-dt*7);flyPhys(dt,S);if(P.lv){if(!P.gr||P.sk)P.lv=0;else{P.lv*=Math.exp(-6*dt);if(Math.abs(P.lv)<6)P.lv=0}}P.x+=(P.vx+P.kbx+(P.lv||0))*dt;P.x=Math.max(bossOn?2570:0,Math.min(xMax(),P.x));
   P.py=P.y;P.y+=P.vy*dt;P.gr=false;if(P.fly){const top=cur==5&&bossOn?CY+4:6;if(P.y<top){P.y=top;P.vy=0}}
   P.onP=null;for(const p of PL)if(!p.gone&&P.vy>=0&&P.py+P.h<=p.y+1&&P.y+P.h>=p.y&&P.x+P.w>p.x&&P.x<p.x+p.w){P.y=p.y-P.h;P.vy=0;P.gr=true;P.dj=0;P.fly=0;P.onP=p}
@@ -49,9 +49,9 @@ function update(dt){
   waveStep(dt);{const z=gateZ();if(z>GZ&&st=='play'){tx(z>=ZB.length?'前往首领的巢穴!':'区域已清除!继续前进 →',P.x-30,P.y-40,'#d0bfff');sfx('buff');flash('200,180,255',.15)}GZ=z}
   if(P.x>2700&&!RTP)bossOn=true;
   const all=bossOn&&B.hp>0?[...E,B]:E;
-  skStep(dt,S,all);zStep(dt,S,all);smStep(dt,all);godTick(dt);mscStep(dt);palStep(dt,all);fashStep(dt,S,all);petStep(dt,S,all);hamPetStep(dt,S,all);sprStep(dt);starStep(dt);
-  if(P.mode=='sword'&&P.at>0&&P.hb&&!(P.swT!=null&&P.swT<P.hbW)){const h=P.hb,hb={x:P.f>0?P.x-6:P.x-h.w,y:P.y+h.y,w:h.w+P.w+6,h:h.h};  // 第二十九轮:判定框往后盖住主角身体,和主角重叠的怪也打得到(原来从身体前沿才开始算)
-    for(const e of all)if(!P.hit.has(e)&&ov(hb,e)){P.hit.add(e);hitFx=P.cmb==-1?'heavy':null;NRMH=1;dealt(e,Math.round(S.atk*h.m*(.9+Math.random()*.2)));NRMH=0;hitFx=null;if(!isBig(e)&&!e.ug){const K=P.cmb==3||P.cmb==-1?2:1;e.kbv=P.f*KBV*K*(iceAt(e.x+e.w/2)?1.6:1)}}}  // 击退(第四段 / 重击加倍);第二十一轮:每下 0.32 秒僵直取消,僵直改走小怪韧性 mobPz(和法师一样),击退只推开怪物、不打断它的动作
+  skStep(dt,S,all);fistTick(dt);zStep(dt,S,all);smStep(dt,all);godTick(dt);mscStep(dt);palStep(dt,all);fashStep(dt,S,all);petStep(dt,S,all);hamPetStep(dt,S,all);sprStep(dt);starStep(dt);
+  if(P.mode!='staff'&&P.at>0&&P.hb&&!(P.swT!=null&&P.swT<P.hbW)){const h=P.hb,hb={x:P.f>0?P.x-6:P.x-h.w,y:P.y+h.y,w:h.w+P.w+6,h:h.h};  // 第二十九轮:判定框往后盖住主角身体,和主角重叠的怪也打得到(原来从身体前沿才开始算)
+    for(const e of all)if(!P.hit.has(e)&&ov(hb,e)){P.hit.add(e);hitFx=P.mode=='fist'?'punch':P.cmb==-1?'heavy':null;NRMH=1;dealt(e,Math.round(S.atk*h.m*(.9+Math.random()*.2)));NRMH=0;hitFx=null;if(h.brk)fBrk(e);if(!isBig(e)&&!e.ug){const K=P.cmb==3||P.cmb==-1?2:1;e.kbv=P.f*KBV*K*(iceAt(e.x+e.w/2)?1.6:1)}}}  // 击退(第四段 / 重击加倍);第二十一轮:每下 0.32 秒僵直取消,僵直改走小怪韧性 mobPz(和法师一样),击退只推开怪物、不打断它的动作
   pbStep(dt,all,S);  // 第四十五轮:主角飞弹循环改成独立的 pbStep(镜中无名的飞弹也用它)
   for(const e of all){SFXB=e.max?1:0;  // 首领 AI 里的音效走外部素材
     if(e.k=='mir'){e.st=0;e.sl=0;e.ms=0;e.air=0;e.kbv=0;e.ca=0;e.ug=0}  // 第四十三轮:镜中无名不吃任何僵直 / 减速 / 控制

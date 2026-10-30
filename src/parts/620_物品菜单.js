@@ -7,7 +7,7 @@ function cmItems(r){if(r=='ttl'){const L=TTLO.filter(ttlHas),w=ttlWorn();return 
   if(/^e:/.test(r)&&it)return [['📤 卸下','un'],['💰 出售 +'+sellPr(it)+' 金币','sell'],...mx];
   const id=cosId(r);if(id){const on=WEAR[COSD[id].t]==id;return [[on?'📤 卸下':'👘 穿戴',on?'cu':'cw'],['💰 出售 +'+COSSELL+' 金币','csell']]}
   if(r&&r.startsWith('p:')){const k=r.slice(2);if(!POT[k])return null;const L=POTD[k][2]=='rev'?[]:[['🧪 使用','pu']];for(let i=0;i<3;i++)L.push(['⌨️ 放到快捷栏 '+(i+1)+(QS[i]==k?' ✓':''),'q'+i]);L.push(['💰 出售 1 瓶 +'+Math.floor(POTD[k][4]/2),'ps1']);return L}
-  if(r&&r.startsWith('i:')&&/^ms\d+$/.test(r.slice(2))&&MSS[r.slice(4)])return [...['sword','staff'].filter(k=>EQ[k]).map(k=>['💎 嵌入'+SL[k][0]+(EQ[k].mss?'(替换「'+MSS[EQ[k].mss.slice(2)][0]+'」)':''),'ms_'+k]),...itSellL(r.slice(2))];  // 第四十二轮:怪物技能石
+  if(r&&r.startsWith('i:')&&/^ms\d+$/.test(r.slice(2))&&MSS[r.slice(4)])return [...WMODES.filter(k=>EQ[k]).map(k=>['💎 嵌入'+SL[k][0]+(EQ[k].mss?'(替换「'+MSS[EQ[k].mss.slice(2)][0]+'」)':''),'ms_'+k]),...itSellL(r.slice(2))];  // 第四十二轮:怪物技能石
   if(r&&r.startsWith('i:')&&/^cz\d+$/.test(r.slice(2))&&MISC[r.slice(2)]){const id=r.slice(2),L=cuMenu(id);return L[0][1]=='czy'?L:[...L,...itSellL(id)]}  // 第五十五轮:诅咒之力
   if(r&&r.startsWith('i:')){const id=r.slice(2);return [...(MISC[id]&&MISC[id][4]?[[MISC[id][4],'iu']]:[]),...itSellL(id)]}  // 第五十二轮修:原来只有出售,售价 0 的道具(上帝卡牌、双倍爆率卡、饲料)点了没反应、用不了
   return null}

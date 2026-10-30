@@ -38,7 +38,7 @@ const MSS={1:['铁角牛魔','跃起震地','以自己为中心 260 像素内的
  15:['夜王','王威震慑','屏幕里所有敌人眩晕 2.5 秒并受到 攻击×4','stunall',4,2.5,'mass-release'],
  16:['焚天炎君','陨火雨','10 颗火球砸向屏幕里的敌人,每颗 攻击×2.8(小范围)','meteor',2.8,10,'warm-explosion']};  // 第四十二轮
 for(const k in MSS){const d=MSS[k];MISC['ms'+k]=['怪物技能石 · '+d[0],`在背包里左键点它,选择嵌入剑或法杖(每把武器嵌 1 颗,两把武器各自蓄力)。用嵌着它的武器攻击敌人蓄力 ${MSCN} 次后按 <b>N</b>:召唤「${d[0]}」的虚影放出「${d[1]}」——${d[2]}。${k<=10?'第 '+k+' 关':'第 '+(k-3)+' 关'}首领 ${MSDR*100}% 掉落。`,'',0];MENI.P['ms'+k]=41}
-let MSTC={sword:0,staff:0},MSCT=0,MSQ=[],MSG=null,MSH=null,MSV=null;  // MSH / MSV = 灿灿技能石的黑洞 / 无敌空间(第四十七轮)  // 两把武器各自的蓄力次数 / 上次蓄力时间 / 排队的伤害事件 / 虚影
+let MSTC={sword:0,staff:0,fist:0},MSCT=0,MSQ=[],MSG=null,MSH=null,MSV=null;  // MSH / MSV = 灿灿技能石的黑洞 / 无敌空间(第四十七轮)  // 两把武器各自的蓄力次数 / 上次蓄力时间 / 排队的伤害事件 / 虚影
 function msMig(){if(!R19.mse)return;const id=R19.mse,w=EQ.sword;R19.mse='';if(w&&!w.mss&&MAT[id]>0){w.mss=id;MAT[id]--}}
 const msOf=it=>it&&it.mss&&MSS[it.mss.slice(2)]?MSS[it.mss.slice(2)]:null;
 const msOn=()=>{msMig();return msOf(EQ[P.mode])};
@@ -48,21 +48,23 @@ function msOff(it){if(!it||!it.mss)return '';const id=it.mss;delete it.mss;MAT[i
 function mscAdd(){const s=P.mode;if(!msOn()||st!='play'||MSTC[s]>=MSCN||GT-MSCT<.1)return;MSCT=GT;MSTC[s]++;if(MSTC[s]>=MSCN){tx('技能石蓄力完成!按 N',P.x-30,P.y-40,'#ffe066');sfx('buff')}}
 const msTg=()=>allTg().filter(e=>e.x+e.w>cam&&e.x<cam+VW),msAt=m=>Math.max(1,Math.round(stats().atk*m*rnd(.9,1.1)));
 const msAfter=(t,f)=>MSQ.push({t,f});
+// 第六十九轮修:循环特效(第八关 x-midnight 等)不设 life 会一直留在画面上,技能石的特效统一按 1.2 秒收掉
+const msFx=(k,x0,y0,o)=>{const m=VFX.M&&VFX.M[k];return VFX.spawn(k,x0,y0,Object.assign(m&&m.loop?{life:1.2}:{},o))};
 function mscCast(){const d=msOn(),s=P.mode;if(!d){tx('当前武器没有嵌入怪物技能石',P.x-30,P.y-30,'#adb5bd','m');return}if(MSTC[s]<MSCN){tx('技能石蓄力 '+MSTC[s]+' / '+MSCN,P.x-30,P.y-30,'#adb5bd','m');return}
   MSTC[s]=0;const n=+EQ[s].mss.slice(2),[nm_,sk,,ty,m,a,fx]=d,f=P.f,cx=P.x+12;MSG={n,t:0,x:cx-f*46,f};banner(nm_+' · '+sk);sfx('buff');flash('230,210,255',.2);
-  const hit=(e,k,v)=>{if(!e||e.hp<=0||e.ug)return;VFX.spawn(k||fx,e.x+e.w/2,e.y+e.h/2,{f,s:1.4});sDeal(e,msAt(v||m))};
-  const boom=(px,r)=>{VFX.spawn(fx,px,GY-14,{s:1.5});shake=Math.max(shake,.15);for(const e of msTg())if(Math.abs(e.x+e.w/2-px)<e.w/2+r)sDeal(e,msAt(m))};
-  if(ty=='aoe')msAfter(.45,()=>{VFX.spawn(fx,cx,GY,{s:2.2});shake=.4;for(const e of allTg())if(Math.abs(e.x+e.w/2-cx)<a+e.w/2){sDeal(e,msAt(m));bigStun(e,1)}});
+  const hit=(e,k,v)=>{if(!e||e.hp<=0||e.ug)return;msFx(k||fx,e.x+e.w/2,e.y+e.h/2,{f,s:1.4});sDeal(e,msAt(v||m))};
+  const boom=(px,r)=>{msFx(fx,px,GY-14,{s:1.5});shake=Math.max(shake,.15);for(const e of msTg())if(Math.abs(e.x+e.w/2-px)<e.w/2+r)sDeal(e,msAt(m))};
+  if(ty=='aoe')msAfter(.45,()=>{msFx(fx,cx,GY,{s:2.2});shake=.4;for(const e of allTg())if(Math.abs(e.x+e.w/2-cx)<a+e.w/2){sDeal(e,msAt(m));bigStun(e,1)}});
   else if(ty=='multi'){const L=msTg().sort((p,q)=>Math.abs(p.x-cx)-Math.abs(q.x-cx));for(let i=0;i<a;i++){const e=L[i%Math.max(1,L.length)];if(e)msAfter(.4+i*.12,()=>hit(e))}}
   else if(ty=='chain'){for(let i=0;i<a;i++)msAfter(.4+i*.15,()=>{const e=msTg().sort((p,q)=>Math.abs(p.x-cx)-Math.abs(q.x-cx))[0];hit(e)})}
   else if(ty=='line'){for(let i=0;i<a;i++)msAfter(.4+i*.1,()=>boom(cx+f*(60+i*70),40))}
   else if(ty=='meteor'){for(let i=0;i<a;i++)msAfter(.4+i*.13,()=>{const L=msTg(),e=L.length?pick(L):null;boom(e?e.x+e.w/2:cx+f*rnd(60,360),50)})}
-  else if(ty=='zone'){const x0=f>0?cx:cx-a;for(let i=0;i<10;i++)msAfter(.4+i*.4,()=>{VFX.spawn(fx,x0+rnd(20,a-20),GY-20,{s:1.4});for(const e of msTg())if(e.x+e.w>x0&&e.x<x0+a)sDeal(e,msAt(m))})}
-  else if(ty=='storm'){for(let i=0;i<a;i++)msAfter(.4+i*.3,()=>{VFX.spawn(fx,cam+rnd(40,VW-40),rnd(80,GY-40),{s:1.2});for(const e of msTg()){sDeal(e,msAt(m));e.ms=Math.max(e.ms||0,.5)}})}
-  else if(ty=='stunall')msAfter(.5,()=>{VFX.spawn(fx,cx,P.y+P.h/2,{s:2.6});flash('200,180,255',.3);for(const e of msTg()){sDeal(e,msAt(m));bigStun(e,a)}});
+  else if(ty=='zone'){const x0=f>0?cx:cx-a;for(let i=0;i<10;i++)msAfter(.4+i*.4,()=>{msFx(fx,x0+rnd(20,a-20),GY-20,{s:1.4});for(const e of msTg())if(e.x+e.w>x0&&e.x<x0+a)sDeal(e,msAt(m))})}
+  else if(ty=='storm'){for(let i=0;i<a;i++)msAfter(.4+i*.3,()=>{msFx(fx,cam+rnd(40,VW-40),rnd(80,GY-40),{s:1.2});for(const e of msTg()){sDeal(e,msAt(m));e.ms=Math.max(e.ms||0,.5)}})}
+  else if(ty=='stunall')msAfter(.5,()=>{msFx(fx,cx,P.y+P.h/2,{s:2.6});flash('200,180,255',.3);for(const e of msTg()){sDeal(e,msAt(m));bigStun(e,a)}});
   else if(ty=='hole'){const L=msTg().sort((p,q)=>Math.abs(p.x-cx)-Math.abs(q.x-cx)),e=L[0];MSH={x:e?e.x+e.w/2:cx+f*150,y:GY-60,t:-.4,tk:0,m,a};psx('cloud')}  // 第四十七轮:灿灿的技能石(535)
   else if(ty=='inv'){MSV={t:0,T:a};P.inv=Math.max(P.inv,a);psx('buff');flash('110,170,255',.2)}
-  else if(ty=='dash')for(let i=0;i<6;i++)msAfter(.3+i*.08,()=>{VFX.spawn(fx,cam+(f>0?i:5-i)*VW/5,P.y,{f,s:1.6});if(i==5)for(const e of msTg())sDeal(e,msAt(m))})}
+  else if(ty=='dash')for(let i=0;i<6;i++)msAfter(.3+i*.08,()=>{msFx(fx,cam+(f>0?i:5-i)*VW/5,P.y,{f,s:1.6});if(i==5)for(const e of msTg())sDeal(e,msAt(m))})}
 function mscStep(dt){if(MSG){MSG.t+=dt;if(MSG.t>1.6)MSG=null}canMsStep(dt);for(const q of MSQ){q.t-=dt;if(q.t<=0&&!q.d){q.d=1;try{q.f()}catch(err){}}}MSQ=MSQ.filter(q=>!q.d)}
 function mscDraw(){canMsDraw();if(!MSG)return;const g=MSG,t=performance.now()/1000,a=g.t<.3?g.t/.3:g.t>1.2?Math.max(0,(1.6-g.t)/.4):1;x.save();x.globalAlpha=.75*a;x.translate(Math.round(g.x-cam),GY);x.scale(g.f*.8,.8);try{lvsBoss(g.n,0,0,t)}catch(err){}x.restore()}
 // 第四十六轮(用户):蓄力显示移到左上状态栏下面(金币右边),不写数字:三个从小到大的菱形格(PUI 图集 dia0 缩小 + 染色),

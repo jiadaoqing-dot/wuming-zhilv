@@ -59,7 +59,7 @@ book_atlas.png  4KB  580:6 BOOK.D  ← art_src/book/build_book.py
 city8_atlas.png  128KB  470:138 CITY8.D  ← art_src/city/build_city8.py
 cst_atlas.png  155KB  550:10 CST.D  ← art_src/castle/build_castle.py
 dmn_atlas.png  653KB  571:34 DMN.D  ← art_src/ppf/build_ppf.py
-eq_atlas.png  17KB  770:4 EQPX.D  ← art_src/eqicon/build_eqicon.py, art_src/ppf/build_ppf.py
+eq_atlas.png  25KB  770:4 EQPX.D  ← art_src/eqicon/build_eqicon.py, art_src/ppf/build_ppf.py
 fire13_atlas.png  160KB  560:8 FIRE.D  ← art_src/fire13/build_fire13.py
 fx29_atlas.png  817KB  940:15 FX29.D  ← art_src/skfx/build_fx29.py
 gh8_atlas.png  13KB  470:173 GH8.D  ← art_src/city/build_gh8.py
@@ -69,7 +69,7 @@ home_bg.png  24KB  000:199   ← art_src/home/build_home.py
 home_btn.png  0KB  000:208 ; 000:213   ← art_src/home/build_home.py
 home_div.png  0KB  000:203   ← art_src/home/build_home.py
 home_frame.png  0KB  000:201   ← art_src/home/build_home.py
-hsw_atlas.png  6KB  760:154 HSW.D  ← art_src/lpc/build_hsw.py, art_src/ppf/build_ppf.py
+hsw_atlas.png  6KB  760:155 HSW.D  ← art_src/lpc/build_hsw.py, art_src/ppf/build_ppf.py
 ice6_atlas.png  2KB  840:3 ICE6P.D  ← art_src/lv/build_ice6.py
 ifn_atlas.png  38KB  569:13 IFN.D  ← art_src/fire21/build_fire21.py
 kb_atlas.png  16KB  920:4 KB.D  ← art_src/boss/build_kb.py
@@ -87,7 +87,7 @@ mage_atlas.png  14KB  910:21 BOS.MD  ← art_src/boss/build_mage.py
 mech_atlas.png  47KB  540:10 MECH.D  ← art_src/mech/build_mech.py
 meni_atlas.png  25KB  000:181 ; 000:186 ; 040:42 MENI.D  ← art_src/ui/build_ui.py
 mfx_atlas.png  23KB  900:28 MFXD  ← art_src/mob/build_mfx.py
-mg27_atlas.png  16KB  000:240 ; 940:10 MG27.D  ← art_src/skfx/build_mg27.py
+mg27_atlas.png  16KB  000:241 ; 940:10 MG27.D  ← art_src/skfx/build_mg27.py
 mnt_atlas.png  43KB  910:3 MNT.D  ← art_src/boss/build_mnt.py
 mob_atlas.png  230KB  900:29 MOB.D  ← art_src/boss/build_bos.py, art_src/mob/build_dog2.py, art_src/mob/build_pen.py, art_src/mob/fix_dog2.py
 myst_atlas.png  87KB  560:206 MYST.D  ← art_src/myst/build_myst.py
@@ -107,7 +107,7 @@ scob_atlas.png  8KB  910:21 BOS.SD  ← art_src/boss/build_scob.py
 ship10_atlas.png  84KB  490:102 SHIP10.D  ← art_src/ship/build_ship10.py
 skfx_atlas.png  305KB  940:7 SKFX.D  ← art_src/skfx/build_skfx.py
 smn_atlas.png  16KB  780:83 SMN.D  ← art_src/summon/build_smn.py
-stf_atlas.png  6KB  760:158 STF.D  ← art_src/lpc/build_staff.py, art_src/ppf/build_ppf.py
+stf_atlas.png  6KB  760:159 STF.D  ← art_src/lpc/build_staff.py, art_src/ppf/build_ppf.py
 stn_atlas.png  1KB  060:15 STNI.D  ← art_src/stone/build_stone.py
 totem_atlas.png  2KB  537:4 TOTEM.D  ← art_src/totem/build_totem.py
 town2_back.png  24KB  880:9 TWN.back  ← art_src/town/build_town2.py
@@ -119,7 +119,7 @@ town2_main.png  60KB  880:9 TWN.main  ← art_src/town/build_town2.py
 tpx_atlas.png  14KB  880:13 TPX.D  ← art_src/town/build_tpx.py
 ui_btn.png  0KB  000:175 ; 000:178 ; 000:180   ← art_src/ui/build_ui.py
 ui_btn_on.png  0KB  000:176   ← art_src/ui/build_ui.py
-ui_card.png  0KB  000:188 ; 000:233   ← art_src/ui/build_ui.py
+ui_card.png  0KB  000:188 ; 000:234   ← art_src/ui/build_ui.py
 ui_head.png  0KB  000:174   ← art_src/ui/build_ui.py
 ui_panel.png  0KB  000:173   ← art_src/ui/build_ui.py
 ui_slot.png  0KB  000:191   ← art_src/ui/build_ui.py
@@ -148,7 +148,7 @@ au_b_moo.ogg  9KB  020:7 AUD.b_moo  ← art_src/audio/build_audio.py  [moo-notif
 au_b_ram.ogg  10KB  020:7 AUD.b_ram  ← art_src/audio/build_audio.py  [crack04.mp3.flac, explosion.ogg, moo-death.wav]
 au_b_stomp.ogg  6KB  020:7 AUD.b_stomp  ← art_src/audio/build_audio.py  [explosion.ogg, slam_05.ogg]
 au_b_throw.ogg  5KB  020:7 AUD.b_throw  ← art_src/audio/build_audio.py
-au_bgm0.ogg  3.2MB  020:9 AUD.bgm0  ← art_src/audio/build_audio.py
+au_bgm0.ogg  3.1MB  020:9 AUD.bgm0  ← art_src/audio/build_song69.py
 au_bgm1.ogg  303KB  020:9 AUD.bgm1  ← art_src/audio/build_audio.py
 au_bgm10.ogg  730KB  020:12 AUD.bgm10  ← art_src/audio/build_audio.py  [thunderchild.ogg, Blackmoor Tides.mp3]
 au_bgm10b.ogg  785KB  020:12 AUD.bgm10b  ← art_src/audio/build_audio.py
@@ -310,6 +310,14 @@ au_zap.ogg  9KB  020:5 AUD.zap  ← art_src/audio/build_audio.py
    输出 raw/audio/bgm/r64/nameless_dance.wav(32 kHz 立体声),再由 build_audio.py 转成 assets/au_bgmD.ogg:
    python art_src/audio/build_song64.py  →  python art_src/audio/build_audio.py bgmD
    小节表(SEC)和歌词表要和 src/parts/573_庆功舞.js 的 DNS / DNL 对得上(脚本最后会打印 DNL)
+-- art_src/audio/build_song69.py
+   第六十九轮(用户):重新给主城编一首 BGM —— 没有人声,只有器乐;活泼、欢快、充满幻想,流行 / 儿童向热血流行曲,节奏明快、旋律朗朗上口
+   曲名《晨曦镇的早晨》(Morning in Daybreak Town)。全部由本脚本合成(没有用任何外部音乐素材):
+   钟琴(非谐波分音)· 方波 + 长笛混合的主旋律 · 马林巴反拍和弦 · 弦乐铺底(超级锯齿低通)· 跳跃贝斯 · 底鼓 / 拍手 / 铃鼓 / 沙锤 · 魔法闪光音效(钟琴上行刮奏)
+   126 BPM、C 大调、80 小节 ≈ 2 分 32 秒,首尾无缝循环(混响尾巴绕回开头,没有淡出):
+   前奏 4 · 主歌 8 · 导歌 4 · 副歌 16 · 主歌二 8 · 导歌二 4 · 副歌二 8 · 间奏(幻想段)8 · 副歌三 16 · 回旋 4
+   输出 raw/audio/bgm/r69/town_theme.wav(32 kHz 立体声),再由 build_audio.py 转成 assets/au_bgm0.ogg:
+   python art_src/audio/build_song69.py  →  python art_src/audio/build_audio.py bgm0
 -- art_src/bfx/build_bfx.py
    怪物 / 首领特效图集(第三张特效图,VFX 里 im:3)
    素材:Magic Pack 9(ansimuz,可商用、可修改、可再分发,署名非必须)· Pixel Art Spells(DevWizard,CC0)
@@ -425,7 +433,7 @@ au_zap.ogg  9KB  020:5 AUD.zap  ← art_src/audio/build_audio.py
    素材:496 pixel art icons for medieval/fantasy RPG(Henrique Lazarini / 7Soul1,CC0,https://opengameart.org/node/39455,raw/icons/7soul1/x)
    CC0 Jewelry Icons(AntumDeluge 整理,CC0,https://opengameart.org/content/cc0-jewelry-icons,raw/icons/jewelry):
    其中 7Soul1 的戒指 / 项链,和 Dungeon Crawl Stone Soup 的两枚戒指(urand_octoring 火焰戒、urand_robustness 银纹戒)
-   行 = 部位(sword staff head body ring ear),列 = 系列(0 旅者 1 林王 2 荒漠 3 雪原 4 机械,第四十轮),每格 34×34(图标居中);品质轮廓在运行时加
+   行 = 部位(sword staff head body ring ear,第六十九轮在最后加了 fist 拳套,最后一行是格斗家技能图标),列 = 系列(0 旅者 1 林王 2 荒漠 3 雪原 4 机械,第四十轮),每格 34×34(图标居中);品质轮廓在运行时加
    改动:机械系列(第四十轮)五件换成钢青色;林王的雷光剑 / 尖帽从金色 / 紫色换成翠绿;雪原的骑士盔 / 全身甲稍微偏冰蓝;其余保持原色
    用法:python art_src/eqicon/build_eqicon.py → assets/eq_atlas.png
 -- art_src/fire13/build_fire13.py

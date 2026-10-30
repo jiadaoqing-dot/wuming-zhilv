@@ -223,6 +223,7 @@ body.px .eqi,body.px .eqs,body.px .eqt,body.px #dg img{image-rendering:pixelated
 .bhon .bhl{display:inline-block;padding:3px 9px;font-size:11px;line-height:1.25;font-weight:900;color:#fff;text-align:center;background:linear-gradient(180deg,#4dabf7,#1864ab);border:2px solid #0b3d6e;border-radius:10px;text-shadow:0 1px 0 #0b3d6e}
 #bag .bw2 .pd{display:flex;justify-content:space-between;align-items:center;gap:6px;padding:8px}
 .pcol{display:flex;flex-direction:column;gap:6px}
+.pcol5{zoom:.86}  /* 第六十九轮:右边一列多了拳套(5 格),缩小一点装进人物栏 */
 #bag .bw2 .pd .cl{width:50px;height:50px;font-size:22px}
 .pmid{flex:1;display:flex;flex-direction:column;align-items:center;min-width:0}
 .plv{display:flex;align-items:flex-end;gap:6px;justify-content:center}.plv i{font-style:normal;font-weight:900;color:#8a6a4a;font-size:15px}.plv big{font-size:30px;font-weight:900;color:#f59f00;line-height:1;text-shadow:0 2px 0 #7a3a08}.plv span{font-size:11px;line-height:1.35}
@@ -280,5 +281,5 @@ body.px .at2{border:2px solid transparent;border-image:url(@@A:ui_card@@) 6 fill
 <div id="wrap"><canvas id="c" width="640" height="360"></canvas><div id="tb"><button id="bb" data-l="背包" title="背包">🎒</button><button id="sb" data-l="技能" title="技能">🌟</button><button id="ib" data-l="商城" title="商城">🏪</button><button id="fb" data-l="精灵" title="精灵">🧚</button><button id="pb" data-l="宠物" title="宠物">🐤</button><button id="cxb" data-l="图鉴" title="图鉴 (C)">📖</button><button id="qb" data-l="任务" title="任务" hidden>📜</button><button id="db" data-l="签到" title="每日签到">📅<i class="rd" id="dbd"></i></button><button id="mb" data-l="声音" title="声音">🔊</button></div><div id="bag" hidden></div><div id="tip" hidden></div><div id="sk" hidden></div><div id="pn" hidden></div><div id="home" hidden></div><input type="file" id="homeF" accept=".json,application/json" hidden></div>
 <div id="cm" hidden></div><div id="dg" class="cl" hidden></div>
 <div class="sbar"><span id="fpsT" class="tag" style="margin-right:auto;align-self:center"></span><button id="setb" title="设置 (Esc)">⚙️ 设置</button></div>
-<p class="tip">← → / A D 移动(连按两次快跑) · K / ↑ 跳跃 · W+J / S+J 特殊普攻(学会二段跳后空中再按) · J 攻击(下劈 → 上挑 → 直戳 → 下劈 循环,按住蓄力重击;跑步中按 J = 冲刺直戳) · L 换武器 · H U I O 技能 · 空格 / W+空格 / S+空格 / WW+空格 剑士进阶技能(转职后) · 1 2 3 喝药水 · S 捡起地上的掉落物 · 背包 / 技能 / 商城 / 精灵 / 宠物 / 任务 / 声音:点右下角按钮(也可以用快捷键 B 背包 / T 技能 / Q 任务 / P 商城 / Y 精灵 / G 宠物 / C 图鉴 / M 声音,设置里可以关闭) · N 释放武器上的怪物技能石(背包里左键点物品弹出菜单,装备可拖动穿戴) · 装备翅膀后空中再按跳跃=飞行(W/S 升降、A/D 方向) · Esc / ⚙️ 设置(暂停、返回城镇、帧数、全屏)</p>
+<p class="tip">← → / A D 移动(连按两次快跑) · K / ↑ 跳跃 · W+J / S+J 特殊普攻(学会二段跳后空中再按) · J 攻击(下劈 → 上挑 → 直戳 → 下劈 循环,按住蓄力重击;跑步中按 J = 冲刺直戳) · L 换武器(剑 → 法杖 → 拳套) · H U I O 技能 · 空格 / W+空格 / S+空格 / WW+空格 进阶技能(转职后) · 1 2 3 喝药水 · S 捡起地上的掉落物 · 背包 / 技能 / 商城 / 精灵 / 宠物 / 任务 / 声音:点右下角按钮(也可以用快捷键 B 背包 / T 技能 / Q 任务 / P 商城 / Y 精灵 / G 宠物 / C 图鉴 / M 声音,设置里可以关闭) · N 释放武器上的怪物技能石(背包里左键点物品弹出菜单,装备可拖动穿戴) · 装备翅膀后空中再按跳跃=飞行(W/S 升降、A/D 方向) · Esc / ⚙️ 设置(暂停、返回城镇、帧数、全屏)</p>
 <script>

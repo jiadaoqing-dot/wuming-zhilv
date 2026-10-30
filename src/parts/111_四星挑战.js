@@ -8,7 +8,7 @@
 // 没有经验 / 金币 / 击杀点 / 掉落;首领倒下给「挑战积分」R19.c4p:每关第一次 C4P1 + 关卡序号 × 3(R19.c4c 记首通),之后每次 C4P2。积分在村长那里换《无名之书》(581 分块)
 STARK[4]={n:'四星',hp:1,atk:1,def:0,sp:1.12,xp:0,gd:0,dr:0,tq:[1,0,0,0],bq:[1,0,0,0],sq:[1,0,0,0],c:'#cc5de8'};
 const C4LV=[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,35,22,23,24,25,26,27,28,29,30,31,32,33];  // 第六十六轮:11~13 / 17 / 35 = 神秘副本 1~5,22~33 = 十二魔
-const C4IN=1/120,C4HC=.34,C4R=4,C4SK={sword:.3,staff:.2},C4PS=.04,C4U={m:.2,b:.01},C4C={m:.5,b:.03},C4CR=.1,C4CK=1.5,C4Q=3,C4P1=40,C4P2=8;
+const C4IN=1/120,C4HC=.34,C4R=4,C4SK={sword:.3,staff:.2,fist:.3},C4PS=.04,C4U={m:.2,b:.01},C4C={m:.5,b:.03},C4CR=.1,C4CK=1.5,C4Q=3,C4P1=40,C4P2=8;
 const isC4=()=>LVSTAR==4&&!INTOWN;
 // 第六十六轮:首领自身倍率 c4n —— 第八关以后的首领(bLate)、十二魔 / 擎天魔神 / 千钟之主等固定攻击的首领,攻击不等于 LDM,
 //   按「首领攻击 ÷ LDM」归一,招式系数才和第一~七关一样落在 14~34;镜中无名 / 灿灿用主角的攻击 matk,按 C4MW(普攻一下约 7%)归一
@@ -20,6 +20,7 @@ const c4H=e=>e.max||e.h4||(e.h4=Math.max(1,e.hp));  // 小怪没有 e.max:第一
 function c4Hurt(b,S){const n=bossOn&&B&&B.hp>0?(B.c4n??(B.c4n=c4N(B))):1,k=b/(EATK*BDMK()*Math.max(1,LDM)*n);return Math.max(1,Math.round(S.hp*Math.min(C4HC,k*C4IN)))}
 function c4Out(e,dm){const bo=!!e.max,h=c4H(e);let r=Math.min(C4R,dm/Math.max(1,stats().atk))*(NRMH?1:C4SK[P.mode]||.3),cr=0;  /* 校准(Playwright,首领冻结 7 秒 / 招):普攻一下 1%;一整套技能 剑 9%~14%、法 14%~21%(每秒上限之前) */if(Math.random()<C4CR){r*=C4CK;cr=1}
   if(P.mode=='sword'&&st=='play'&&!noCombo&&GT-(P.qiT||0)>.2){P.qiT=GT;P.qi=Math.min(QIMAX,(P.qi|0)+1)}  // 剑势照常累积
+  if(P.mode=='fist'&&st=='play'&&!noCombo){P.fspH=GT;if(GT-(P.fspT||0)>.15){P.fspT=GT;P.fsp=Math.min(FSPMX,(P.fsp|0)+1)}}  // 第六十九轮:斗志照常累积
   let d=Math.min(h*r*(bo?C4U.b:C4U.m),h*(bo?C4C.b:C4C.m));if(e.dmK)d*=e.dmK(e);if(e.fsh>0){d*=.5;heatAdd(5)}
   if(bo){if(!(GT-(e.c4s??-9)<1)){e.c4s=GT;e.c4a=0}d=Math.min(d,Math.max(0,h*C4PS-e.c4a));e.c4a+=d}return [Math.max(1,Math.round(d)),cr]}
 const c4M2=(q,d)=>isC4()?Math.round(c4H(q)*(q.max?C4C.b:C4C.m)*.66):d;

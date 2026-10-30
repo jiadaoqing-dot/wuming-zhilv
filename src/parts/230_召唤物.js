@@ -12,7 +12,7 @@ function launch(e,hang){if(isBig(e)||e.ug)return;if(!e.air){e.ay0=e.y;e.air=1;e.
 function knock(e,f){if(isBig(e)||e.ug)return;e.kbv=f*460;e.s=null;e.lg=0}
 // 剑士 W+J(上挑,击飞)和 S+J(重击)的内置冷却:要比敌人浮空 + 落地硬直的时间长,不能无限连
 const UJC=1.2,SJC=1.0;
-function special(up,S){const f=P.f;
+function special(up,S){const f=P.f;if(P.mode=='fist'){fistSpecial(up);return}
   if(P.mode=='sword'){
     if(up){if(P.ujc>0){tx('上挑冷却 '+P.ujc.toFixed(1),P.x-16,P.y-14,'#adb5bd');return}P.ujc=UJC;P.sk={id:'up',t:0,inv:0,hit:new Set()};P.cd=.45;if(P.gr)P.vy=-200;slash(P.x+12+f*8,P.y+16,36,1.3,-1.6,f,'#74c0fc',.24,5);burst(P.x+12+f*20,P.y+30,8,['#d0ebff','#fff'],200,{sh:1,s:2,l:.25,dr:4})}
     else{if(P.sjc>0){tx('重击冷却 '+P.sjc.toFixed(1),P.x-16,P.y-14,'#adb5bd');return}P.sjc=SJC;P.sk={id:'smash',t:0,inv:0,hit:new Set()};P.cd=.7}}

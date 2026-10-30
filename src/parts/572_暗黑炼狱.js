@@ -45,6 +45,8 @@ function twOver(){for(const e of twAll()){if(e.hc==6)twAs(e,blizDraw);if(e.hc==9
     if(e.hc==5&&e.stm>0){const k=e.stm,t=performance.now()/1000;x.fillStyle='rgba(222,160,60,'+.38*k+')';x.fillRect(0,0,VW,VH);x.fillStyle='rgba(255,236,190,'+.5*k+')';for(let i=0;i<28;i++)x.fillRect(((i*97+t*520)%(VW+80))-80,(i*37)%GY,40+(i%3)*20,2)}}}  // 沙渊古神的沙暴(原来只在第五关画)
 const twDE=e=>e.twb&&isTw(cur)?twAs(e,()=>drawE(e)):drawE(e);
 // 首领倒下(update 里代替普通关卡的通关流程)
+// 第六十九轮(用户):每层宝箱里的东西都先掉在地上(和首领掉落一样落地 1.5 秒后飞到身上);TWGD[i] 对应 537 ASTRR[i],击杀点没有实物,照旧直接加
+const TWGD=[()=>({k:'stn',lv:1,q:0,n:3}),()=>({k:'stn',lv:2,q:0,n:2}),()=>({k:'stn',lv:3,q:0,n:1}),()=>({k:'stn',lv:4,q:0,n:1}),()=>({k:'add',n:1}),()=>({k:'gc',id:'b360',n:1}),()=>({k:'ats',it:atsNew(2)}),()=>({k:'gc',id:'wash',n:1}),()=>({k:'luck',n:1}),null];
 let TWA=0;const TWAT=3.5;  // 第五十七轮(用户):打完自动进下一层(TWA 倒计时,期间掉落物飞到身上)
 function twChk(dt){if(DNA>0){DNA-=dt;if(DNA<=0&&st=='play')dncGo('play')}  // 第六十四轮:第 30 层通关 → 庆功舞(573)
   if(endT&&TWA>0){TWA-=dt;if(TWA<=0){TWA=0;pickUp(1);twNext()}return}if(!bossOn||endT||B.hp>0)return;
@@ -53,7 +55,7 @@ function twChk(dt){if(DNA>0){DNA-=dt;if(DNA<=0&&st=='play')dncGo('play')}  // �
   endT=-1;CLRP=TWF>=TWOPEN?1:0;if(TWF<TWOPEN)TWA=TWAT;sfxAll();B.sh=null;B.gl=null;sfx('win');F=[];TOR=[];LCK=null;twClean();if(isC4()){c4Tw();return}
   {const g=kpGain(Math.round((KPCL+KPLV*16)*(1+(STK().gd-1)*.5)));KP+=g;tx('+'+g+' 击杀点'+(isVip()?'(VIP)':''),P.x-14,P.y-76,'#ff8787')}
   const S=stats();P.hp=Math.min(S.hp,P.hp+S.hp*TWHL);P.mp=Math.min(S.mp,P.mp+S.mp*TWHL);VFX.spawn('radiant-heal',P.x+12,P.y+P.h,{s:1.3});tx('生命 / 魔力大量回复',P.x-30,P.y-48,'#69db7c');
-  const n2=3+(Math.random()<.5?1:0),got=[];for(let i=0;i<n2;i++){const r=ASTRR[Math.random()*ASTRR.length|0];r[1]();got.push(r[0])}if(TWF>=8||Math.random()<.3){STN[4][0]++;got.push('普通 Lv4 强化石 ×1')}sfx('coin');  // 第六十一轮:Lv4 强化石
+  const n2=3+(Math.random()<.5?1:0),got=[];for(let i=0;i<n2;i++){const j=Math.random()*ASTRR.length|0,r=ASTRR[j],d=TWGD[j];if(d)gdDrop(B,d());else r[1]();got.push(r[0])}if(TWF>=8||Math.random()<.3){gdDrop(B,{k:'stn',lv:4,q:0,n:1});got.push('普通 Lv4 强化石 ×1')}sfx('coin');  // 第六十一轮:Lv4 强化石
   say('🎁 第 '+TWF+' 层的宝箱:'+got.join('、'));got.forEach((g,i)=>tx('🎁 '+g,P.x-40,P.y-90-i*14,'#ffe066'));
   if(TWF==16||TWF==30){let n3=0;for(let i=0;i<M2NN;i++)if(Math.random()<M2DR*DBLK()){gdDrop(B,{k:'eq',it:m2Gen()});n3++}if(n3)say('✨ 第 '+TWF+' 层首领掉落了 '+n3+' 件大师二阶装备!')}  // 第五十七轮:大师二阶
   R19.twr=Math.max(R19.twr|0,TWF);save();ttlChk();if(TWF>=TWNF)DNA=2.5;  // 第六十二轮:第 20 / 30 层称号

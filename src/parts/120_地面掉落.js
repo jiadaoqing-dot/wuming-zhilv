@@ -28,7 +28,7 @@ function drawGD(){const t=performance.now()/1000;let near=null;
     else if(g.k=='job'){RR(x,px-7,iy-8,14,16,3,LG(x,0,iy-8,0,iy+8,['#fff3bf','#f59f00']),1.3);CT('⚜',px,iy+4,10,'#7a3a08','center',0)}
     else if(g.k=='soul')soulDraw(x,px,iy,t)
     else if(g.k=='hegg')MYST.fr(x,'egg',0,px-9,iy-12,1)
-    else if((g.k=='add'||g.k=='gc')&&MENI.I){x.save();x.imageSmoothingEnabled=false;x.drawImage(MENI.I,MENI.P[g.k=='add'?'add':g.id]*34,0,34,34,Math.round(px-9),Math.round(iy-9),18,18);x.restore()}  // 第四十轮:合成添加剂 / 上帝卡牌
+    else if((g.k=='add'||g.k=='gc'||g.k=='ats'||g.k=='luck')&&MENI.I){x.save();x.imageSmoothingEnabled=false;x.drawImage(MENI.I,MENI.P[g.k=='gc'?g.id:g.k=='ats'?'A'+g.it.q:g.k]*34,0,34,34,Math.round(px-9),Math.round(iy-9),18,18);x.restore()}  // 第四十轮:合成添加剂 / 上帝卡牌
     else{CT('🍀',px,iy+4,11,'#fff','center',0)}
     if(g.land&&gdNear(g)&&(!near||Math.abs(g.x-P.x)<Math.abs(near.x-P.x)))near=g}
   GDN=near}

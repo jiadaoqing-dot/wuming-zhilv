@@ -63,7 +63,7 @@ const CHLOG=[
  ['1.15','2026-10-13',['首领韧性条:打空韧性才会破韧僵直','第八~十关首领新招;菜单按钮换成像素图标']],
  ['更早','2026-10-11 ~ 10-13',['第八关 幽魂都市、第九关 火山噩梦、第十关 幽灵船、神秘地带与瓜子大王、宠物仓鼠','全面像素化:界面、主城、关卡地面 / 平台 / 背景、怪物、首领、技能特效','音效与每关 BGM、主城扩建、熔炉、强化石品质']]];
 let HOME=0;const HM={v:'log',cf:0,imp:null,msg:'',fresh:!hasSave};  // fresh:打开游戏时还没有存档(启动时 toTown 会先存一个 1 级档,不算)
-function homeSave(){if(HM.fresh)return null;try{const s=localStorage.getItem(SK_KEY),d=s&&JSON.parse(s);return d&&d.lvl?{s,lv:d.lvl,m:d.pm=='staff'?'法师':'剑士'}:null}catch(e){return null}}
+function homeSave(){if(HM.fresh)return null;try{const s=localStorage.getItem(SK_KEY),d=s&&JSON.parse(s);return d&&d.lvl?{s,lv:d.lvl,m:({staff:'法师',fist:'格斗家'})[d.pm]||'剑士'}:null}catch(e){return null}}
 function rHome(){const sv=homeSave(),esc=s=>String(s).replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));
   const L=HM.v=='help'?'<h3>操作说明</h3><ul>'+document.querySelector('p.tip').textContent.split(' · ').map(s=>'<li>'+esc(s.trim())+'</li>').join('')+'</ul><p><button data-h="log">← 返回更新日志</button></p>'
     :CHLOG.map(([v,d,a])=>`<h3>${/^\d/.test(v)?'v'+v:v}<span>${d}</span></h3><ul>${a.map(s=>'<li>'+esc(s)+'</li>').join('')}</ul>`).join('');
@@ -98,7 +98,7 @@ $('home').addEventListener('click',e=>{const b=e.target.closest('[data-h]');if(b
 $('homeF').addEventListener('change',()=>{const f=$('homeF').files[0];if(!f)return;const r=new FileReader();
   r.onload=()=>{let d=null;try{d=JSON.parse(r.result)}catch(e){}
     if(!d||!d.lvl||!d.EQ){HM.msg='❌ 这个文件不是《无名之旅》的存档';HM.imp=null}
-    else{const sv=homeSave();HM.imp=String(r.result);HM.msg=`读取到存档:Lv ${d.lvl} · ${d.pm=='staff'?'法师':'剑士'}${d.gv?' · 游戏版本 v'+d.gv:''}`+(sv?`<br>⚠️ 导入会覆盖当前存档(Lv ${sv.lv})`:'')}rHome()};
+    else{const sv=homeSave();HM.imp=String(r.result);HM.msg=`读取到存档:Lv ${d.lvl} · ${({staff:'法师',fist:'格斗家'})[d.pm]||'剑士'}${d.gv?' · 游戏版本 v'+d.gv:''}`+(sv?`<br>⚠️ 导入会覆盖当前存档(Lv ${sv.lv})`:'')}rHome()};
   r.readAsText(f)});
 function homeKey(e){if(e.key=='Enter'){e.preventDefault();if(HM.imp)homeAct('impY');else if(HM.cf)homeAct('newY');else homeAct(homeSave()?'cont':'new')}else if(e.key=='Escape'){e.preventDefault();if(HM.imp)homeAct('impN');else if(HM.cf)homeAct('newN');else if(HM.v=='help')homeAct('log')}}
 

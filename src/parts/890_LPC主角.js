@@ -22,7 +22,7 @@ const LPC={I:null,M:null,S:{},LK:{},
     else if(lk=='xy')K.push('hairX','shirt_black','skirt_black','boots_black','cape','hat_black');
     else{K.push('hair'+Math.min(3,Math.max(0,hg)),'boots_brown');
       // 第十八轮:四个系列各自的外观 —— 剑士 板甲 + 桶盔 / 皮甲 + 兜帽 / 军团甲 + 军团盔 / 锁子甲 + 罩袍 + 维京盔;法师 兜帽 / 羽毛皮帽 + 罩袍 / 天月帽 + 腰带 / 星月帽 + 披风
-      if(m=='sword'){K.push('shirt_'+(bg<0?'blue':['navy','forest','maroon','navy','black'][bg]),'pants_'+(bg<0?'navy':['navy','forest','tan','white','navy'][bg]));if(bg>=0)K.push(...[['plate','cape'],['leather','cape'],['legion','cape'],['chain','tabard_sky','cape_navy'],['plate_cu','legs_cu']][bg]);if(hg>=0)K.push('helm'+hg)}
+      if(m!='staff'){K.push('shirt_'+(bg<0?'blue':['navy','forest','maroon','navy','black'][bg]),'pants_'+(bg<0?'navy':['navy','forest','tan','white','navy'][bg]));if(bg>=0)K.push(...[['plate','cape'],['leather','cape'],['legion','cape'],['chain','tabard_sky','cape_navy'],['plate_cu','legs_cu']][bg]);if(hg>=0)K.push('helm'+hg)}
       else{K.push('shirt_'+(bg<0?'white':['blue','green','orange','white','black'][bg]),'skirt_'+(bg<0?'white':['blue','forest','maroon','white','black'][bg]));if(bg>0)K.push(['','tabard_forest','sash_orange','cape_sky','plate_cu'][bg]);if(hg>=0)K.push(...[['hood_navy'],['capf_forest','feather'],['hatm_maroon'],['hat_sky'],['helm5']][hg])}}
     return K.flatMap(k=>this.exp(k)).sort((a,b)=>this.M.layers[a].z-this.M.layers[b].z)},
   // 合成整条动画(缓存):返回 {cv, nos};nos[动画]=1 表示这一身衣服缺这个动画,整个角色改用替代动画
@@ -49,12 +49,13 @@ const LPC={I:null,M:null,S:{},LK:{},
       if(id=='slam'||id=='slam2'||id=='smash')return this.pr('slash',t/.4);
       if(id=='up')return this.pr('backslash',.4+t/.3*.6);
       if(id=='dash'||id=='rstab')return this.pr('halfslash',.4+Math.min(1,t/.3)*.5);
+      if(m=='fist')return this.pr('thrust',.4+(t*3)%1*.6);
       if(m=='staff')return this.pr('spellcast',t/.45);
       return this.pr('slash',(t*2.5)%1)}
     if(P.cs)return this.pr(m=='staff'?'spellcast':'slash',(P.cs.t||0)/.4);
-    if(P.at>0){const w=P.swW||.1,D=P.swD||.3,T=P.swT||0,an=m=='staff'?'thrust':['slash','backslash','halfslash','slash'][Math.abs(P.swC||0)%4],n=this.S[an][1],h=an=='backslash'?6:an=='thrust'?4:an=='halfslash'?2:3;
+    if(P.at>0){const w=P.swW||.1,D=P.swD||.3,T=P.swT||0,an=m!='sword'?'thrust':['slash','backslash','halfslash','slash'][Math.abs(P.swC||0)%4],n=this.S[an][1],h=an=='backslash'?6:an=='thrust'?4:an=='halfslash'?2:3;
       if(T<w)return [an,Math.floor(T/w*h)];return [an,Math.min(n-1,h+Math.floor((T-w)/Math.max(.05,D-w)*(n-h)))]}
-    if(P.ch>.12)return m=='staff'?['spellcast',3]:['slash',2];
+    if(P.ch>.12)return m=='staff'?['spellcast',3]:m=='fist'?['thrust',3]:['slash',2];
     if(P.fly)return ['jump',2];
     if(air)return ['jump',P.vy<-60?2:P.vy<160?3:4];
     if(mv)return P.run?['run',Math.floor(tm*13)%8]:['walk',1+Math.floor(tm*10)%8];
@@ -64,7 +65,7 @@ const LPC={I:null,M:null,S:{},LK:{},
     jump:[[39,48],[37,47],[43,37],[41,38],[45,39]],slash:[[39,48],[43,48],[39,48],[48,44],[51,33],[52,33]],
     backslash:[[41,41],[48,40],[50,40],[49,41],[49,41],[49,41],[48,40],[47,40],[47,42],[42,39],[41,40],[41,40],[41,40]],halfslash:[[41,41],[48,40],[51,44],[55,44],[56,44],[48,40]],
     thrust:[[39,48],[41,46],[41,45],[40,44],[55,43],[55,44],[53,43],[40,45]],spellcast:[[39,48],[40,47],[36,45],[41,43],[42,40],[40,38],[41,43]],combat_idle:[[42,41],[43,42]]},
-  wpn(c,m,f,wa,tier){if(!PXA.WI)return;const h=this.HA[f]||[39,48];c.drawImage(PXA.wc(PXA.wrow(m),PXA.wdir(wa),tier),h[0]-32-28,h[1]-62-28)},
+  wpn(c,m,f,wa,tier){if(!PXA.WI||m=='fist')return;const h=this.HA[f]||[39,48];c.drawImage(PXA.wc(PXA.wrow(m),PXA.wdir(wa),tier),h[0]-32-28,h[1]-62-28)},
   wgeo(){const h=this.DG?[this.DG[0]+32,this.DG[1]+62]:this.HA[this.LF||0]||[39,48],wa=P.rc?P.rc.wa:0,L=P.mode=='staff'?30:this.DG?48:31,c=Math.cos(wa),s=Math.sin(wa),hx=(h[0]-32)/HSC,hy=(h[1]-62)/HSC,q=v=>[hx+c*v/HSC,hy+s*v/HSC];
     return {h:[hx,hy],b:q(4),m:q(16),tip:q(L),wa,px:1,b0:4,t0:L}},
   tint(cv,f,col,mode,t){t=t||this.TT||(this.TT=document.createElement('canvas'));t.width=64;t.height=64;const g=t.getContext('2d');g.imageSmoothingEnabled=false;g.drawImage(cv,f*64,0,64,64,0,0,64,64);
@@ -105,12 +106,12 @@ const LPC={I:null,M:null,S:{},LK:{},
     const blk=(x,y,w,h,col)=>{g.fillStyle=OL;g.fillRect(x-1,y-1,w+2,h+2);g.fillStyle=col;g.fillRect(x,y,w,h)};
     const leg=(hx,h,k,front)=>{const Kn=[hx+Math.sin(h)*R.thigh,hy+Math.cos(h)*R.thigh],A=[Kn[0]+Math.sin(h-k)*R.shin,Kn[1]+Math.cos(h-k)*R.shin];
       limb([[hx,hy],Kn,A],4,front?D.pt:dk(D.pt,.72));blk(X(A)-2,Y(A)-1,6,3,front?D.bt:dk(D.bt,.75))};
-    const arm=(S0,A,front)=>{limb([S0,A.E,A.H],3,front?dk(D.sl,1.18):dk(D.sl,.72));blk(X(A.H)-1,Y(A.H)-1,3,3,D.sk)};
+    const arm=(S0,A,front)=>{limb([S0,A.E,A.H],3,front?dk(D.sl,1.18):dk(D.sl,.72));blk(X(A.H)-1,Y(A.H)-1,3,3,D.sk);if(m=='fist')fistGlove(g,X(A.H),Y(A.H),X(A.E),Y(A.E),front)};  // 第六十九轮:拳套
     // 大剑按任意角度逐像素画(和四肢同一像素密度):剑身约 44 像素(和人差不多高)、宽 7 像素,上半亮下半暗;
     // 剑柄长 22 像素、粗 3 像素(手握在剑柄前端靠近护手,大半截剑柄在手后面),金色宽护手和剑首;剑刃配色按武器品质(WPAL)。法杖仍用像素武器图(16 个方向)
     // 技能 / 蓄力光(heroRig 的 glow):剑身外面一圈半透明光,法杖杖头一团光
     const glow=P.rglow;
-    const wpn=()=>{const hx=X(HF),hy2=Y(HF),c0=Math.cos(p.wa),s0=Math.sin(p.wa);
+    const wpn=()=>{if(m=='fist')return;const hx=X(HF),hy2=Y(HF),c0=Math.cos(p.wa),s0=Math.sin(p.wa);
       const dot=(t,s,col)=>{g.fillStyle=col;g.fillRect(Math.round(hx+c0*t-s0*s),Math.round(hy2+s0*t+c0*s),1,1)};
       const band=(t0,t1,wf,colf)=>{for(let t=t0;t<=t1;t+=.5){const w=wf(t);for(let s=-w;s<=w;s+=.5)dot(t,s,colf(t,s,w))}};
       if(m!='sword'){if(glow){const q=STF.M[Math.min(STF.M.length-1,wG(EQ.staff))],hd=STF.I?(.8-(P.stg==null?.25:P.stg))*Math.hypot(q[2]-q[0],q[3]-q[1]):25;g.globalAlpha=.75;band(hd-6,hd+4,t=>Math.max(.5,4.5-Math.abs(t-hd+1)*.8),()=>glow);g.globalAlpha=1}
@@ -182,7 +183,8 @@ const LPC={I:null,M:null,S:{},LK:{},
       c.save();c.imageSmoothingEnabled=false;c.translate(Math.round(g.x+12-cam),Math.round(g.y+32));if(g.pf.fl<0)c.scale(-1,1);c.drawImage(t,-88,-108);c.restore();return}
     const t=this.tint(g.pf.cv,g.pf.f,g.c,'source-in',this.GT||(this.GT=document.createElement('canvas')));c.save();c.imageSmoothingEnabled=false;c.translate(Math.round(g.x+12-cam),Math.round(g.y+32));if(g.pf.fl<0)c.scale(-1,1);c.drawImage(t,-32,-62);c.restore()},
   // 背包纸娃娃:法师静态图(c 已经平移到脚底)
-  doll(c,L){const m=P.mode,lo=this.look(m);c.imageSmoothingEnabled=false;c.drawImage(lo.cv,0,0,64,64,-32,-62,64,64);this.wpn(c,m,0,STANCE[m].wa,this.tier())},
+  doll(c,L){const m=P.mode;if(m=='fist'){const d=this.dollDraw(rP(STANCE.fist),m,heroLook().look||'',this.tier());c.imageSmoothingEnabled=false;c.drawImage(d.cv,-88,-108);return}  // 第六十九轮:格斗家用骨骼纸娃娃画拳击架势(手上有拳套)
+    const lo=this.look(m);c.imageSmoothingEnabled=false;c.drawImage(lo.cv,0,0,64,64,-32,-62,64,64);this.wpn(c,m,0,STANCE[m].wa,this.tier())},
   // 商城预览:翅膀 = 主角 + 像素挂件;时装 = 穿上时装的主角
   pv(c,id,t){const lo=this.look(P.mode,'');c.imageSmoothingEnabled=false;c.drawImage(lo.cv,0,0,64,64,-32,-62,64,64);this.wpn(c,P.mode,0,STANCE[P.mode].wa,this.tier());PEND.draw(c,id=='xyw'?1:0,-11,-42,t,1)},
   pvF(c,id,t){const lo=this.look(P.mode,id);c.imageSmoothingEnabled=false;c.drawImage(lo.cv,0,0,64,64,-32,-62,64,64);this.wpn(c,P.mode,0,STANCE[P.mode].wa,this.tier())}};

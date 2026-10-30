@@ -64,6 +64,7 @@ const VFX={I:null,D:'@@A:vfx_atlas@@',M:{"crescent-slash":{"y":0,"w":72,"h":36,"
     else if(k=='heavy'||k=='slam'){this.spawn('earth-rupture',cx,Math.min(GY,e.y+e.h),{s:.8});this.spawn('crescent-slash',cx,cy,{s:1,f,r:.6*f})}
     else if(k=='wave')this.spawn('leaf-gust',cx,cy,{s:.8,f});
     else if(k=='dash')this.spawn('crescent-slash',cx,cy,{s:1.1,f});
+    else if(k=='punch')this.spawn('m-spark',cx,cy,{s:.9,f});  // 第六十九轮:格斗家的拳
     else if(P.mode=='sword')this.spawn('crescent-slash',cx,cy,{s:.8,f,r:rnd(-.5,.5)});
     else this.spawn('spectral-bloom',cx,cy,{s:.6});
     if(cr)this.spawn('solar-shrapnel',cx,cy,{s:.7})},

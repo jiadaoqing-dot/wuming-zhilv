@@ -53,7 +53,7 @@ function gmAct2(a){const it=gmEq();
   if(a=='i_pot'){for(const k of POTK)POT[k]=(POT[k]|0)+20;fmsg='药水各 +20(超过药水背包上限也照给)';return 1}
   if(a=='i_clr'){for(const [id] of gmItems())gmItemSet(id,0);fmsg='道具已清零';return 1}
   if(a=='i_gk'){gold=Math.max(0,gmN('gmG'));KP=Math.max(0,gmN('gmK'));fmsg='金币 '+gold+' · 击杀点 '+KP;return 1}
-  if(a=='e_gen'){if(BAG.length>=BAGN){fmsg='背包已满';return 1}const s=gmV('gnS'),ty=gmV('gnT'),r=gmV('gnR')||null,wp=s=='sword'||s=='staff';GM.gs=s;GM.gt=ty;GM.gr=r||'';let n;
+  if(a=='e_gen'){if(BAG.length>=BAGN){fmsg='背包已满';return 1}const s=gmV('gnS'),ty=gmV('gnT'),r=gmV('gnR')||null,wp=s=='sword'||s=='staff'||s=='fist';GM.gs=s;GM.gt=ty;GM.gr=r||'';let n;
     if(ty=='f1'||ty=='f2'||ty=='f3'){if(!wp){fmsg='火之武器只有剑和法杖';return 1}n=fireW(s,ty=='f1'?1:ty=='f2'?2:3)}
     else if(ty=='m2'){if(wp){fmsg='大师二阶只有头饰 / 战甲 / 项链 / 指环';return 1}n=m2Gen(s,r||undefined)}
     else if(ty=='ms'){if(wp){fmsg='大师装备只有头饰 / 战甲 / 项链 / 指环';return 1}n=gen(s,3,'大师'+MSN[s]+(r?'·'+TRT[r][0]:''),3,r,0,1)}
@@ -74,7 +74,7 @@ function gmAct2(a){const it=gmEq();
   if(a=='b_peq'){for(const k in PEQD)if(!R19.peq.own.includes(k))R19.peq.own.push(k);fmsg='已获得全部宠物装备,去 🐤 宠物界面装上(宠物出战时才生效)';return 1}
   if(a=='b_dice'){const n=+gmV('gb5')|0;if(n){DICEN=n;DICEB=DICEV[n-1]/100;fmsg='骰子设为 '+n+' 点'+(st=='play'?'':'(进关卡会重新摇,要在关卡里设置)')}return 1}
   if(a=='b_clr'){for(let n=1;n<=40;n++)if(!CLR.includes(n))CLR.push(n);fmsg='全部关卡已标记通关';return 1}
-  if(a=='b_cd'){CD.sword.fill(0);CD.staff.fill(0);fmsg='技能冷却已清零';return 1}
+  if(a=='b_cd'){for(const w in CD)CD[w].fill(0);fmsg='技能冷却已清零';return 1}
   if(a=='b_lv'){lvl=LVMAX;exp=0;for(const w in LN)LN[w]=LN[w].map((v,i)=>i<4||jobOk(w)?LNMAX:v);for(const q of PSD)PS[q[0]]=q[3];gmFull();fmsg='Lv'+LVMAX+',技能 / 被动全满'+(JOB?'':'(还没转职:进阶技能没加)');return 1}
   if(a=='b_hp'){gmFull();fmsg='已回满';return 1}
   return 0}

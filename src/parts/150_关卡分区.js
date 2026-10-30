@@ -1,6 +1,7 @@
 // 第五十轮(用户要求):删除受击后的无敌(原来 1.2 秒),只留 HITI 0.1 秒,防止同一下攻击在连续几帧里重复判定;身体碰撞伤害每只怪单独 0.6 秒冷却(update 里 e.bcT)
 const HITI=.1;
-function hurt(b,o){if(DECOY||GM.god)return false;if(pdChk())return false;if(P.inv>0||(P.sk&&P.sk.inv))return false;const S=stats();
+function hurt(b,o){if(DECOY||GM.god)return false;if(pdChk())return false;if(P.sk&&P.sk.id=='fcnt'&&!P.sk.c&&!P.sk.d){fcntGo();return false}  // 第六十九轮:格斗家摇闪中挨打 → 反击
+  if(P.inv>0||(P.sk&&P.sk.inv))return false;const S=stats();
   // 闪避:按闪避率完全躲开这次伤害(不清连击),之后 0.4 秒无敌,避免贴身判定连续触发
   if(!isC4()&&Math.random()<S.dg/100){P.inv=.4;tx('闪避成功!',P.x-8,P.y-10,'#a5d8ff');ghost('#a5d8ff',.3);syn('blink');return false}
   let d=isC4()?c4Hurt(b*EATK*BDMK(),S):dmgIn(b*EATK*BDMK(),S.def);if(P.rot>0&&isDm(cur))d=Math.round(d*(1+.06*P.rot));  // 第五十六轮:阿斯塔罗特的腐蚀层数,每层受伤 +6%  // BDMK:第八~十关首领战 ×1.35 ×1.35(第十五轮)

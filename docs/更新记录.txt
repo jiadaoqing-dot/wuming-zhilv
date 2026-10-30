@@ -1,3 +1,11 @@
+【v1.74 · 2026-10-30 · 第六十九轮:新职业格斗家、主城新 BGM、技能石特效 bug、炼狱掉落上地、《无名之书》第十~十二章】
+- 275 新分块「格斗家」:P.mode 'fist' + EQ.fist(拳套)+ SKD / SKM / SKMP.fist;fistStrike(普攻四段 FSW / 重拳 brk)、fistSpecial(W+J fup / S+J fbody)、fistStart / fistStep(P.sk.id f*:fjab frush fupc fcnt fdem fsieg fquake fko)、fistRig(拳击姿势,FGUARD = STANCE.fist)、斗志 P.fsp(fistDealt 在 190 / 111)、破防 e.fbk(fBrk)、摇闪反击 fcntGo(150 hurt 开头)、K.O. 大字 fkoDraw、fspHud。
+- 接入:020 SL.fist / TRS · 030 EQW / EQE / FWN / rollItem 7 部位 · 140 / 210 新档 / 老档补新手拳套、LN.fist / CD.fist · 330 JOBN.fist / 'all'、jobOk、技能页第 4 个标签(skTab 3)· 340 / 710 nextMode(WMODES)· 240 / 260 / 200 / 230 分派 · 760 heroRig · 890 拳套画在手上(fistGlove)+ 背包纸娃娃 · 770 EQPX.R.fist 6 + fistIcons(eq_atlas 第 8 行)· 530 镜像遇到拳套照搬剑士 · 610 人物栏 pcol5。
+- art_src/eqicon/build_eqicon.py:eq_atlas 加 fist 一行(7Soul1 W_Fist001~005,'r' 红色拳击手套)和格斗家技能图标一行(8 列宽)。
+- 主城 bgm0 = art_src/audio/build_song69.py 合成的《晨曦镇的早晨》(raw/audio/bgm/r69/town_theme.wav,循环卷积混响首尾无缝)。
+- 090 修:技能石特效 msFx(循环动画给 life 1.2,第八关 x-midnight 不再常驻)。572 炼狱宝箱 TWGD → gdDrop 上地(120 drawGD 支持 ats / luck 图标)。
+- 581《无名之书》第十 / 十一 / 十二章(4214 / 3048 / 3152 字);tests/smoke.py 加拳套;像素字体重跑(勾弦擅琴稳肝迪)。
+
 【v1.73 · 2026-10-27 · 第六十八轮:挑战模式记住开关、佩戴称号、GM 转职 / 双职业、积分换星界财宝、《无名之书》第八章~第九章】
 - 111:C4M 存进 R19.c4m(c4Tog 时 save),210 读档 C4M = R19.c4m,140 新档清零。
 - 065:佩戴称号 R19.ttw(undefined = 自动戴「天下第一」,'' = 不戴)、ttlWorn / ttlWear、TTLC 头顶渐变色;ttlHead 画佩戴的那个。610 人物栏「称号」data-r 'ttl' → 630 lcm → 620 cmItems('ttl') 菜单 → bagAct 'tw_<id>'。

@@ -23,7 +23,7 @@ addEventListener('keydown',e=>{
   if(HOTK_()&&(e.key=='q'||e.key=='Q')){e.preventDefault();toggleP('quest');return}
   if(HOTK_()&&!(document.activeElement&&document.activeElement.tagName=='INPUT')){const pk={p:'mall',y:'spr',g:'pet',c:'codex'}[e.key.toLowerCase()];if(pk&&!e.repeat){e.preventDefault();toggleP(pk);return}}
   if((e.key=='n'||e.key=='N')&&!e.repeat&&st=='play'&&!pn&&!bagOpen&&!skOpen){e.preventDefault();mscCast();return}  // 第四十一轮:怪物技能石
-  if(bagOpen&&(e.key=='l'||e.key=='L')&&!e.repeat){P.mode=LMODE=P.mode=='sword'?'staff':'sword';P.ch=0;sel=null;bmsg='已切换为'+SL[P.mode][0];renderBag();return}  // 背包里按 L 也能切换武器,属性和纸娃娃立刻刷新
+  if(bagOpen&&(e.key=='l'||e.key=='L')&&!e.repeat){P.mode=LMODE=nextMode(P.mode);P.ch=0;sel=null;bmsg='已切换为'+SL[P.mode][0];renderBag();return}  // 背包里按 L 也能切换武器,属性和纸娃娃立刻刷新
   if(busy())return;
   if((st=='play'||st=='dead')&&e.key.length==1&&'123'.includes(e.key)&&!e.repeat&&!(document.activeElement&&document.activeElement.tagName=='INPUT')){e.preventDefault();potQuick(+e.key-1);return}  // 1 2 3:快捷栏药水
   if(chOn()&&chKey(e))return;
