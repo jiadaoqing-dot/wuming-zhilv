@@ -1,7 +1,7 @@
 assets/ 素材清单(tools/assets_index.py 自动生成,build.py 每次构建时更新;不要手改)
 格式:文件  大小  源码引用(src/parts 分块序号:该文件里的行号 所在函数/对象.键)  ← 生成脚本  [音频:用到的原始素材]
 
-== 图片 PNG(@@A:)  127 个 ==
+== 图片 PNG(@@A:)  128 个 ==
 alc_atlas.png  40KB  567:13 ALC.D  ← art_src/clock19/build_clock19.py
 ars_ar1.png  4KB  880:44 PXA.ar1  ← 无脚本:Hero spritesheets - Ars Notoria(Balmer,CC0)换色分层,旧主角选项,见源码 PXA 注释
 ars_ar2.png  4KB  880:45 PXA.ar2  ← 无脚本:Hero spritesheets - Ars Notoria(Balmer,CC0)换色分层,旧主角选项,见源码 PXA 注释
@@ -60,6 +60,7 @@ city8_atlas.png  128KB  470:138 CITY8.D  ← art_src/city/build_city8.py
 cst_atlas.png  155KB  550:10 CST.D  ← art_src/castle/build_castle.py
 dmn_atlas.png  653KB  571:34 DMN.D  ← art_src/ppf/build_ppf.py
 eq_atlas.png  25KB  770:4 EQPX.D  ← art_src/eqicon/build_eqicon.py, art_src/ppf/build_ppf.py
+fhand.png  1KB  275:82 FHD.D  ← art_src/fist/build_fhand.py
 fire13_atlas.png  160KB  560:8 FIRE.D  ← art_src/fire13/build_fire13.py
 fx29_atlas.png  817KB  940:15 FX29.D  ← art_src/skfx/build_fx29.py
 gh8_atlas.png  13KB  470:173 GH8.D  ← art_src/city/build_gh8.py
@@ -459,6 +460,13 @@ au_zap.ogg  9KB  020:5 AUD.zap  ← art_src/audio/build_audio.py
    场景:Warped Caves Pixel Art Pack(ansimuz,CC0,https://opengameart.org/content/warped-caves-pixel-art-pack,raw/fire21/caves)
    background / middleground-no-fungus 两层 + tilesets 里的岩块,按亮度映射成熔岩洞配色(远景橙黄火光、岩壁焦黑暗红)
    用法:python art_src/fire21/build_fire21.py <raw> <输出 png>   打印 M(贴进 src/parts/569_第十七关炎狱熔渊.js 的 IFN.M)
+-- art_src/fist/build_fhand.py
+   格斗家 I「鬼手」的魔力假肢(第七十二轮):Demon hand animation(cptx032,CC0)
+   https://opengameart.org/content/demon-hand-animation(raw/fhand/demonhand.png,15 帧 100×88 的黑色手臂剪影)
+   改动:只取两帧 —— 第 4 帧(张开的手)和第 7 帧(握拳);裁掉手肘以下,转正成「手朝上、手臂竖直」;
+   透明度二值化,外面加 1 像素暗紫色描边(游戏里背景偏暗,纯黑看不清);不改形状
+   游戏里把手腕以下的那段沿手臂方向拉长(手本身不拉伸),画成从主角手上伸出去的长胳膊
+   用法:python art_src/fist/build_fhand.py → assets/fhand.png(两帧横排)+ 打印 meta [帧宽, 帧高, 手腕 y, 手臂中线 x](贴进源码 FHD.M)
 -- art_src/font/build_font.py
    中文像素字体:Fusion Pixel Font(缝合像素字体,TakWolf,SIL OFL 1.1,https://github.com/TakWolf/fusion-pixel-font)
    只保留游戏源码里出现过的字(+ 全部 ASCII),输出 woff2,由 build.py 的 @@F:名字@@ 内嵌。

@@ -2,8 +2,8 @@ function useSk(i,S){const m=P.mode,df=SKD[m][i];if(i>=4&&!jobOk(m)){tx('转职�
   if(m=='sword'&&i==2&&P.gd2>0){if(!P.sk)gdPull();return}  // 天崩地裂第二段
   if(m=='staff'){if(i==4&&CLN&&!CLN.sw){cloneSwap();return}}
   // 剑士 U(雷霆连斩)可以取消 W+J 上挑 / S+J 重击的收招,直接接上(击飞时间很短,不取消就来不及)
+  if(m=='fist'&&i==7&&bmOn()){bmKey7();return}  // 第七十二轮:八门中再按 WW+空格 = 终式(不看冷却,276)
   if(CD[m][i]>0||(P.sk&&!(m=='sword'&&i==1&&(P.sk.id=='up'||P.sk.id=='smash'))))return;
-  if(m=='fist'&&i==7&&!fkoTg()){tx('附近没有敌人',P.x-20,P.y-30,'#ffa94d');return}
   if(m=='sword'&&i==5&&!lsTargets().length){tx('附近没有浮空的敌人或大型敌人(先用疾风踏斩等把敌人击飞)',P.x-80,P.y-30,'#a5d8ff');return}
   const mc=skMp(m,i,S.mp);if(P.mp<mc){tx('魔力不足',P.x-10,P.y-8,'#74c0fc');return}
   P.mp-=mc;CD[m][i]=skCdA(m,i);P.ch=0;ah=0;const f=P.f;P.cs={id:m+i,t:0};P.swT=null;fashCast(S);

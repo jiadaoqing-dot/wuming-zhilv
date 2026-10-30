@@ -39,7 +39,8 @@ def load(n):
             r2, g2, b2 = colorsys.hsv_to_rgb(h % 1, s, v); px[i, j] = (int(r2 * 255), int(g2 * 255), int(b2 * 255), a)
     return im
 # 第六十九轮:最后一行 = 格斗家 8 个技能图标(7Soul1 的技能图标 S_*,不改色):刺拳突进 / 百裂拳 / 升龙拳 / 摇闪反击 / 迪普西摇摆 / 破城重拳 / 震地重锤 / 终结 K.O.
-FSK = ['S_Physic02', 'S_Physic01', 'S_Fire01', 'S_Buff02', 'S_Wind02', 'S_Buff07', 'S_Earth02', 'S_Buff08']
+# 第七十二轮:H 闪避步 = S_Wind07、U 炎柱崩拳 = S_Fire04、I 鬼手 = S_Shadow09、空格 雷火瞬身 = S_Thunder07、WW+空格 八门 = S_Buff11(绿色气焰)
+FSK = ['S_Wind07', 'S_Fire04', 'S_Shadow09', 'S_Buff02', 'S_Thunder07', 'S_Buff07', 'S_Earth02', 'S_Buff11']
 out = Image.new('RGBA', (C * 8, C * (len(PICK) + 1)))
 for g, n in enumerate(FSK):
     im = load(n); out.alpha_composite(im, (g * C + (C - im.width) // 2, len(PICK) * C + (C - im.height) // 2))

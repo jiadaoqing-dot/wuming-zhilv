@@ -32,7 +32,7 @@ function drawCloud(CL){const t=performance.now()/1000,a=Math.max(0,Math.min(1,CL
 function drawSk(){const m=P.mode,k=P.sk;
   if(k&&k.id=='bolt'){x.save();x.globalCompositeOperation='lighter';const g=x.createRadialGradient(P.x+12-cam,P.y+16,4,P.x+12-cam,P.y+16,44);g.addColorStop(0,'rgba(165,216,255,.75)');g.addColorStop(1,'rgba(0,0,0,0)');x.fillStyle=g;x.fillRect(P.x-cam-34,P.y-30,92,92);
     for(let i=0;i<3;i++){let ax=P.x+12+rnd(-50,50)+P.f*30,ay=P.y-72+rnd(0,40);const pts=[[ax,ay]];for(let j=0;j<4;j++){ax+=rnd(-22,22);ay+=rnd(16,28);pts.push([ax,ay])}x.globalAlpha=.45;poly(pts,8,'#4dabf7');x.globalAlpha=1;poly(pts,2,'#e7f5ff')}x.restore()}
-  drawGiant();drawGd();drawAdv();drawMag();drawMg();if(k&&k.id=='zap'){if(k.fs)drawZapFs(k);else drawZapCloud(k.bx,k.n|0)}
+  drawGiant();drawGd();drawAdv();fistDraw();drawMag();drawMg();if(k&&k.id=='zap'){if(k.fs)drawZapFs(k);else drawZapCloud(k.bx,k.n|0)}
   if(CL)drawCloud(CL);else if(CL2)drawCloud(CL2);  // 云铺满天空,两朵只画一层
   for(const z of Z){const a=(z.t/z.m)*rnd(.65,1);x.save();x.globalCompositeOperation='lighter';x.globalAlpha=a*.35;poly(z.p,z.big?16:11,'#4dabf7');x.globalAlpha=a*.75;poly(z.p,z.big?6:4,'#a5d8ff');for(const b of z.br)poly(b,2,'#74c0fc');x.globalAlpha=a;poly(z.p,2,'#fff');x.restore()}
 }

@@ -1,3 +1,10 @@
+【v1.77 · 2026-10-30 · 第七十二轮:格斗家 H / U / I / 空格 重做、八门改到 WW+空格、拳套放大】
+- 275:H = fdod 闪避步(无敌滑步,SKM 为 null = 无伤害,冷却 1.5);U = fpil 炎柱崩拳(砸地 → FPL 火柱,fplTick 灼烧 / 托住空中敌人,fplDraw 用 VOL9 'pillar' ×1.3,在 360 draw 的怪物之前画);
+  I = fhand 鬼手(fhTg 优先 e.air,手臂 FHD = assets/fhand.png ← art_src/fist/build_fhand.py,Demon hand / cptx032 / CC0;抓住后 e.hold 跟着手走,拉回 FHP 秒后 bigStun 1.5);
+  空格 = fblk 雷火瞬身(fBlink 闪到敌人另一边,8 次 m-bolt / electric-impact / warm-explosion,P.fdg → fdgB() +25% 闪避,150 hurt 里加)。删 fjab / frush / fupc / fdem / fko 和 FKO / fkoDraw。
+- 276:八门 = 技能 7(bmGo,fistStart 调用;CD 走 skCdA,bmTick 冷却加倍只到 6);八门中 useSk(7) → bmKey7 终式(240,不看冷却);删 R 键(710)、P.bmC / BMCD;伤害改用 skD('fist',7)。
+- 拳套 FGSZ = 16(注意 FGN 已被 100 制作材料占用);eq_atlas 格斗家技能图标换 5 个(build_eqicon.py FSK);GAMEV 1.77。
+
 【v1.76 · 2026-10-30 · 第七十一轮:格斗家「八门」+ 位移技能、格斗家火焰特效不消失、原版画风庆功舞没有人】
 - bug:275 百裂拳收尾 / 破城重拳 / K.O. 用的 FX29 x-boom / x-star 是 loop 动画却没给 life → 永远留在 VFX.L(用户看到「画面一直有火焰」);补 life。
 - bug:573 drawDnc 用 LPC.ready()(要求 SET.art!==0)才画舞者 → 原版画风下庆功舞没有人;改成 LPC.I(图集载入即可)。
