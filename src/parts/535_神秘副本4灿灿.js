@@ -66,7 +66,7 @@ const CANQ=[['a',10,90,'黑洞技能石'],['b',30,91,'无敌空间技能石']],C
 const canQ=()=>R19.canq||(R19.canq={k:0,a:0,b:0}),canQN=q=>Math.floor(canQ().k/q[1])-canQ()[q[0]];
 MSS[90]=['人造人·灿灿一号','黑洞','最近的敌人头顶出现黑洞 3 秒,把周围的敌人往中心拉,中心附近每 0.5 秒受到 攻击×1.5','hole',1.5,120,'void-implosion'];
 MSS[91]=['人造人·灿灿一号','无敌空间','脚下展开蓝色领域,主角 3 秒内不受任何伤害','inv',0,3,'mc-blue'];
-for(const k of [90,91]){const d=MSS[k];MISC['ms'+k]=['怪物技能石 · '+d[1],`在背包里左键点它,选择嵌入剑或法杖(每把武器嵌 1 颗,两把武器各自蓄力)。用嵌着它的武器攻击敌人蓄力 ${MSCN} 次后按 <b>N</b>:召唤「${d[0]}」的虚影放出「${d[1]}」——${d[2]}。任务栏循环任务「讨伐灿灿一号」领取。`,'',0];MENI.P['ms'+k]=41}
+for(const k of [90,91]){const d=MSS[k];MISC['ms'+k]=['怪物技能石 · '+d[1],`在背包里左键点它,选择嵌入剑、法杖或拳套(每把武器嵌 1 颗,各自蓄力)。用嵌着它的武器攻击敌人蓄力 ${MSCN} 次后按 <b>N</b>:召唤「${d[0]}」的虚影放出「${d[1]}」——${d[2]}。任务栏循环任务「讨伐灿灿一号」领取。`,'',0];MENI.P['ms'+k]=41}
 function canQHtml(bar){const Q=canQ();let h=`<h4>循环任务 <span class="tag">不刷新,可以一直做</span></h4>`;
   for(const q of CANQ){const n=canQN(q),p=Q.k%q[1];h+=`<div class="qc"><b>🤖 讨伐灿灿一号(${q[1]} 次)</b><div class="tag">在神秘副本 4 击败隐藏首领「人造人·灿灿一号」,每 ${q[1]} 次可以领取 1 颗「${q[3]}」。累计击败 ${Q.k} 次</div>${bar(n>0?q[1]:p,q[1])}<div class="row" style="border:0"><span class="tag">进度 ${n>0?q[1]:p}/${q[1]} · 奖励:${q[3]} ×1(怪物技能石,嵌在武器上按 N)${n>1?' · 可领取 '+n+' 次':''}</span><span style="margin-left:auto">${n>0?`<button data-p="cq${q[0]}">🎁 领取奖励</button>`:'<button disabled>进行中</button>'}</span></div></div>`}
   return h}

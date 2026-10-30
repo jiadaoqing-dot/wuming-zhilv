@@ -8,7 +8,9 @@ sys.path.insert(0,D+'/tools');import srcparts
 src,SPANS=srcparts.load()
 MIME={'A':('png','image/png'),'J':('jpg','image/jpeg'),'F':('woff2','font/woff2'),'O':('ogg','audio/ogg')}
 def inline(m):e,mt=MIME[m.group(1)];return f'data:{mt};base64,'+base64.b64encode(open(f'{D}/assets/{m.group(2)}.{e}','rb').read()).decode()
-def link(m):return f'assets/{m.group(2)}.{MIME[m.group(1)][0]}'
+# 分享版的素材地址带上内容哈希(?v=…):素材换了内容但文件名不变时(第七十轮:主城新 BGM、拳套图标、字体),浏览器缓存不会继续用旧文件
+import hashlib
+def link(m):f=f'assets/{m.group(2)}.{MIME[m.group(1)][0]}';return f+'?v='+hashlib.md5(open(D+'/'+f,'rb').read()).hexdigest()[:8]
 PH=r'@@([AJFO]):([\w$]+)@@'
 out=re.sub(PH,inline,src)
 # 像素字体是按源码用字裁剪的:源码里出现了字体里没有的字就提醒(要重新运行 art_src/font/build_font.py)

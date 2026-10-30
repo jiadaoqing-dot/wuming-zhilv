@@ -16,7 +16,7 @@ PICK = {
   'body':  ['A_Armor04', 'A_Armour01', 'A_Armour03', 'A_Armour02:i', 'A_Armor05:m', 'A_Armor05:m', 'A_Armor05:m'],        # 板甲 / 皮甲 / 金甲 / 全身甲
   'ring':  ['J:x7/32x32/ring_02', 'J:x7/32x32/ring_03_green', 'J:xd/32x32/ring/urand_octoring', 'J:xd/32x32/ring/urand_robustness', 'J:xd/32x32/ring/ring_07_silver:m', 'J:xd/32x32/ring/ring_07_silver:m', 'J:xd/32x32/ring/ring_07_silver:m'],
   'ear':   ['J:x7/32x32/necklace_08', 'J:x7/32x32/necklace_06', 'J:x7/32x32/necklace_01', 'J:x7/32x32/necklace_03', 'J:x7/32x32/necklace_05:m', 'J:x7/32x32/necklace_05:m', 'J:x7/32x32/necklace_05:m'],
-  'fist':  ['W_Fist001:r', 'W_Fist002:g', 'W_Fist003', 'W_Fist004:i', 'W_Fist005:m', 'W_Fist001:f', 'W_Fist003:b'],  # 第六十九轮:格斗家拳套 —— 红色拳击手套 / 翠绿布拳套 / 尖刺铁拳套 / 冰蓝拳甲 / 钢青指虎;5 / 6 火之
+  'fist':  ['W_Fist001:r', 'W_Fist002:g', 'W_Fist003', 'W_Fist004:i', 'W_Fist005:m', 'W_Fist001:f', 'W_Fist003:b', 'W_Fist003:p'],  # 第七十轮:7 紫焰魅影拳套(紫色);第六十九轮:格斗家拳套 —— 红色拳击手套 / 翠绿布拳套 / 尖刺铁拳套 / 冰蓝拳甲 / 钢青指虎;5 / 6 火之
 }
 C = 34
 def load(n):
@@ -33,6 +33,7 @@ def load(n):
             elif fx == 'm': h, s = .47, min(1, s * .45 + .12)                        # 机械系列:钢青色
             elif fx == 'f': h, s = .98 + .09 * v ** 4, min(1, s * .7 + .5)          # 火之:赤红烈焰(亮处金黄)
             elif fx == 'r' and s > .08: h, s = .99, min(1, s * .8 + .35)                # 拳击手套:蓝紫 → 红
+            elif fx == 'p': h, s = .80 - .06 * v ** 2, min(1, s * .6 + .45)          # 第七十轮:紫焰魅影(紫焰,亮处偏粉)
             elif fx == 'b': h, s = .62 - .1 * v ** 2, min(1, s * .6 + .4)           # 真~火之:蓝焰
             else: continue
             r2, g2, b2 = colorsys.hsv_to_rgb(h % 1, s, v); px[i, j] = (int(r2 * 255), int(g2 * 255), int(b2 * 255), a)

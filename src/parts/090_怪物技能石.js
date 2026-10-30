@@ -37,12 +37,12 @@ const MSS={1:['铁角牛魔','跃起震地','以自己为中心 260 像素内的
  14:['钢铁暴君','导弹齐射','10 枚导弹砸向屏幕里的敌人,每枚 攻击×2.5(小范围)','meteor',2.5,10,'x-boom'],
  15:['夜王','王威震慑','屏幕里所有敌人眩晕 2.5 秒并受到 攻击×4','stunall',4,2.5,'mass-release'],
  16:['焚天炎君','陨火雨','10 颗火球砸向屏幕里的敌人,每颗 攻击×2.8(小范围)','meteor',2.8,10,'warm-explosion']};  // 第四十二轮
-for(const k in MSS){const d=MSS[k];MISC['ms'+k]=['怪物技能石 · '+d[0],`在背包里左键点它,选择嵌入剑或法杖(每把武器嵌 1 颗,两把武器各自蓄力)。用嵌着它的武器攻击敌人蓄力 ${MSCN} 次后按 <b>N</b>:召唤「${d[0]}」的虚影放出「${d[1]}」——${d[2]}。${k<=10?'第 '+k+' 关':'第 '+(k-3)+' 关'}首领 ${MSDR*100}% 掉落。`,'',0];MENI.P['ms'+k]=41}
+for(const k in MSS){const d=MSS[k];MISC['ms'+k]=['怪物技能石 · '+d[0],`在背包里左键点它,选择嵌入剑、法杖或拳套(每把武器嵌 1 颗,各自蓄力)。用嵌着它的武器攻击敌人蓄力 ${MSCN} 次后按 <b>N</b>:召唤「${d[0]}」的虚影放出「${d[1]}」——${d[2]}。${k<=10?'第 '+k+' 关':'第 '+(k-3)+' 关'}首领 ${MSDR*100}% 掉落。`,'',0];MENI.P['ms'+k]=41}
 let MSTC={sword:0,staff:0,fist:0},MSCT=0,MSQ=[],MSG=null,MSH=null,MSV=null;  // MSH / MSV = 灿灿技能石的黑洞 / 无敌空间(第四十七轮)  // 两把武器各自的蓄力次数 / 上次蓄力时间 / 排队的伤害事件 / 虚影
 function msMig(){if(!R19.mse)return;const id=R19.mse,w=EQ.sword;R19.mse='';if(w&&!w.mss&&MAT[id]>0){w.mss=id;MAT[id]--}}
 const msOf=it=>it&&it.mss&&MSS[it.mss.slice(2)]?MSS[it.mss.slice(2)]:null;
 const msOn=()=>{msMig();return msOf(EQ[P.mode])};
-function msEquip(id,sl){msMig();if(!sl)return '在背包里左键点技能石,选择嵌入剑或法杖';const w=EQ[sl];if(!w)return '还没有装备'+SL[sl][0];if(!(MAT[id]>0))return '';if(w.mss==id)return '这把'+SL[sl][0]+'已经嵌着它了';
+function msEquip(id,sl){msMig();if(!sl)return '在背包里左键点技能石,选择嵌入剑、法杖或拳套';const w=EQ[sl];if(!w)return '还没有装备'+SL[sl][0];if(!(MAT[id]>0))return '';if(w.mss==id)return '这把'+SL[sl][0]+'已经嵌着它了';
   const old=w.mss;MAT[id]--;if(old)MAT[old]=(MAT[old]|0)+1;w.mss=id;MSTC[sl]=0;sfx('fuse');save();return '💎 '+MISC[id][0]+' 嵌入了'+SL[sl][0]+(old?'(换下的「'+MISC[old][0]+'」放回了背包)':'')+':用'+SL[sl][0]+'攻击敌人蓄力 '+MSCN+' 次后按 N 释放'}
 function msOff(it){if(!it||!it.mss)return '';const id=it.mss;delete it.mss;MAT[id]=(MAT[id]|0)+1;for(const k in MSTC)if(EQ[k]===it)MSTC[k]=0;return '取下了 '+MISC[id][0]+',放回背包'}
 function mscAdd(){const s=P.mode;if(!msOn()||st!='play'||MSTC[s]>=MSCN||GT-MSCT<.1)return;MSCT=GT;MSTC[s]++;if(MSTC[s]>=MSCN){tx('技能石蓄力完成!按 N',P.x-30,P.y-40,'#ffe066');sfx('buff')}}

@@ -1,3 +1,10 @@
+【v1.75 · 2026-10-30 · 第七十轮:拳套 / 主城 BGM 显示旧素材(缓存)、重新转职、拳套高级武器、《无名之书》间章三~第十四章】
+- 用户说「拳的技能 UI / 特效 / 拳套不显示、主城还是旧 BGM」:单文件版测下来都正常;原因是 v1.74 换了内容但文件名没变的素材(eq_atlas.png = 拳套 + 技能图标、au_bgm0.ogg、像素字体)被浏览器缓存。tools/build.py 的 link() 给分享版每个素材地址加 ?v=内容哈希。
+- 顺带修:880 PXA.wpn(Ars 主角)戴拳套时在手上画 fistGloveImg;770 drawHero(原版画风)wk==fist 不再画剑,改画拳套。
+- 330 重新转职 reJob(w) / RJG = 50 万金币:技能页转职框多一行「重新转职为 X」(data-s rj_<w>,点两次确认),进阶技能等级保留。
+- 拳套高级武器:340 神秘副本 4 / 536 pfgWin 掉落改 pick(WMODES);970 选关页预览列三种;100 RCP.xf_fist 真~火之拳套制作书;eq_atlas 拳套行加第 7 列紫焰魅影(build_eqicon.py 'p' 紫色);770 / 275 拳套 Math.min 6 → 7;275 fistGlove 火之系拳头上画 PPF N64 Fire 火苗;585 EQLF.fist;700 / 705 GM 支持拳套。
+- 581《无名之书》间章三「灿灿的名单」/ 第十三章「没有锈的齿轮」/ 第十四章「永夜与焚天」(3183 / 3264 / 3426 字);1000 CHLOG 补 1.74 和 1.75。
+
 【v1.74 · 2026-10-30 · 第六十九轮:新职业格斗家、主城新 BGM、技能石特效 bug、炼狱掉落上地、《无名之书》第十~十二章】
 - 275 新分块「格斗家」:P.mode 'fist' + EQ.fist(拳套)+ SKD / SKM / SKMP.fist;fistStrike(普攻四段 FSW / 重拳 brk)、fistSpecial(W+J fup / S+J fbody)、fistStart / fistStep(P.sk.id f*:fjab frush fupc fcnt fdem fsieg fquake fko)、fistRig(拳击姿势,FGUARD = STANCE.fist)、斗志 P.fsp(fistDealt 在 190 / 111)、破防 e.fbk(fBrk)、摇闪反击 fcntGo(150 hurt 开头)、K.O. 大字 fkoDraw、fspHud。
 - 接入:020 SL.fist / TRS · 030 EQW / EQE / FWN / rollItem 7 部位 · 140 / 210 新档 / 老档补新手拳套、LN.fist / CD.fist · 330 JOBN.fist / 'all'、jobOk、技能页第 4 个标签(skTab 3)· 340 / 710 nextMode(WMODES)· 240 / 260 / 200 / 230 分派 · 760 heroRig · 890 拳套画在手上(fistGlove)+ 背包纸娃娃 · 770 EQPX.R.fist 6 + fistIcons(eq_atlas 第 8 行)· 530 镜像遇到拳套照搬剑士 · 610 人物栏 pcol5。

@@ -154,10 +154,11 @@ function fistRig(base,k,tm,mv){const G=rP(base,FGUARD,mv=='still'?{y:(base.y||0)
   return {p,glow,mouth}}
 // ---------- 纸娃娃上的拳套:eq_atlas 第 7 行的图标缩小成 12 像素(按系列缓存),沿前臂方向旋转画在手上 ----------
 const FGC={};
-function fistGloveImg(){const it=EQ.fist,g=Math.min(6,wG(it)),k=g;if(FGC[k])return FGC[k];if(!EQPX.I)return null;const N=12,cv=document.createElement('canvas');cv.width=cv.height=N;const c=cv.getContext('2d');
+function fistGloveImg(){const it=EQ.fist,g=Math.min(7,wG(it)),k=g;if(FGC[k])return FGC[k];if(!EQPX.I)return null;const N=12,cv=document.createElement('canvas');cv.width=cv.height=N;const c=cv.getContext('2d');
   c.imageSmoothingEnabled=true;c.imageSmoothingQuality='high';c.drawImage(EQPX.I,g*EQPX.C+3,EQPX.R.fist*EQPX.C+3,EQPX.C-6,EQPX.C-6,0,0,N,N);
   const d=c.getImageData(0,0,N,N),a=d.data;for(let i=3;i<a.length;i+=4)a[i]=a[i]>110?255:0;c.putImageData(d,0,0);return FGC[k]=cv}
-function fistGlove(g,hx,hy,ex,ey,front){const im=fistGloveImg();if(!im)return;const an=Math.atan2(hy-ey,hx-ex);g.save();g.translate(hx,hy);g.rotate(an+Math.PI*.75);if(!front)g.globalAlpha=.85;g.drawImage(im,-7,-7);g.restore()}
+function fistGlove(g,hx,hy,ex,ey,front){const im=fistGloveImg();if(!im)return;const an=Math.atan2(hy-ey,hx-ex);g.save();g.translate(hx,hy);g.rotate(an+Math.PI*.75);if(!front)g.globalAlpha=.85;g.drawImage(im,-7,-7);g.restore();
+  const fw=EQ.fist&&EQ.fist.fw;if(fw&&PPF.I){const f=PPF.M.fr,t=PPFT(),fi=(Math.floor(t*15)+(front?0:3))%f[4],sz=fw==3?12:9;g.save();g.globalCompositeOperation='lighter';if(fw<3)g.filter=fw==1?'hue-rotate(110deg) saturate(1.4)':'hue-rotate(-60deg)';g.drawImage(PPF.I,f[0]+fi*16,f[1],16,16,Math.round(hx-sz/2),Math.round(hy-sz*.95),sz,sz);g.restore()}}  // 第七十轮:火之 / 真~火之 / 紫焰魅影拳套的拳头上冒火苗(N64 Fire 的紫色火焰,火之 / 真~火之改成红 / 蓝)
 // ---------- 技能图标:eq_atlas 最后一行(图集载入后生成 ICON.fist0~7)----------
 function fistIcons(){if(!EQPX.I)return;const C=EQPX.C,y=7*C;for(let i=0;i<8;i++){const cv=document.createElement('canvas');cv.width=cv.height=96;const c=cv.getContext('2d');c.imageSmoothingEnabled=false;
     const g=c.createLinearGradient(0,0,96,96);g.addColorStop(0,'#2a1408');g.addColorStop(1,i<4?'#a8431a':'#c2410c');c.fillStyle=g;c.beginPath();c.roundRect?c.roundRect(0,0,96,96,18):c.rect(0,0,96,96);c.fill();

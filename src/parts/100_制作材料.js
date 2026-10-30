@@ -6,7 +6,7 @@ const FGN=['','一','二','三','四','五'];
 for(const k in MATD)MISC[k]=[MATD[k][0],`装备和其他道具的制作材料,在 🔥 熔炉制作时使用。在 🏪 商城的${MATD[k][1]=='g'?'金币':'击杀点'}商店购买。`,'',MATD[k][1]=='g'?Math.floor(MATD[k][2]/4):0];
 // 第四十二轮:360 小鸟碎片(第十三关首领掉落,真~火之武器的材料)· 武器幻化券(熔炉「武器幻化」:给剑 / 法杖加一种特性,只算套装件数,不加属性)
 MISC.b360=['360小鸟碎片','第十三关「熔心火山」首领 35% 掉落(双倍爆率卡翻倍)。制作「真~火之大剑 / 真~火之法杖」的材料。','',0];
-MISC.hwq=['武器幻化券','在 🔥 熔炉「武器幻化」里使用:给剑或法杖加上一种特性(怒雷 / 圣愈 / 邪灵 / 神技 / 热血,自己选),只算套装件数、不增加属性;已经有特性的武器会换成新的。用「武器幻化券」制作书在熔炉「道具制作」页制作。','',0];
+MISC.hwq=['武器幻化券','在 🔥 熔炉「武器幻化」里使用:给剑、法杖或拳套加上一种特性(怒雷 / 圣愈 / 邪灵 / 神技 / 热血,自己选),只算套装件数、不增加属性;已经有特性的武器会换成新的。用「武器幻化券」制作书在熔炉「道具制作」页制作。','',0];
 MISC.wash=['洗脸券','在 🔥 熔炉「洗练」里使用:把一件装备的 3 条绿字全部重新随机一次(种类和数值都重新随机)。击杀点商店购买。','',0];
 for(const k in AMP)MISC['amp_'+k]=[AMP[k][0],`增幅宝石:在 🔥 熔炉「增幅宝石」里镶嵌到装备、时装或翅膀上(8 个部位都能用),${AMP[k][2]} +${Math.round(AMP[k][1]*100)}%(加在基础数值上)。每件只能镶 1 颗,新的会覆盖旧的,不能拆下。击杀点商店购买。`,'',0];
 for(let k=1;k<=FGMX;k++)MISC['fg'+k]=[FGN[k]+'级锻造石',`在 🔥 熔炉「锻造」里使用:把锻造 ${k-1} 级的装备提升到 ${k} 级(白字 +${k*FGK*100}%)。用「${FGN[k]}级锻造」制作书在熔炉制作。`,'',0];
@@ -15,7 +15,7 @@ KPFIX.push('flax','glue','wash','amp_cr','amp_atk','amp_hp','amp_def');
 // 制作书(买一次永久学会,存在 R19.rc):大师头饰 / 战甲 / 项链 / 指环 × 五种特性;一~五级锻造
 const MSL=['head','body','ear','ring'],MSN={head:'头饰',body:'战甲',ear:'项链',ring:'指环'};
 const RCP={};for(const s of MSL)for(const t of TRK)RCP['m'+s+'_'+t]={n:'大师'+MSN[s]+' · '+TRT[t][0],kp:400,s,t};for(let k=1;k<=FGMX;k++)RCP['f'+k]={n:FGN[k]+'级锻造',kp:150*k,k};  // 第四十五轮:制作书 150 → 400,锻造书 60k → 150k
-RCP.xf_sword={n:'真~火之大剑',kp:800,fw:'sword'};RCP.xf_staff={n:'真~火之法杖',kp:800,fw:'staff'};RCP.hw={n:'武器幻化券',kp:320,hw:1};  // 第四十二轮
+RCP.xf_sword={n:'真~火之大剑',kp:800,fw:'sword'};RCP.xf_staff={n:'真~火之法杖',kp:800,fw:'staff'};RCP.xf_fist={n:'真~火之拳套',kp:800,fw:'fist'};RCP.hw={n:'武器幻化券',kp:320,hw:1};  // 第四十二轮
 // 配方:材料数量 + 金币(add = 合成添加剂)
 // 第四十五轮(用户:一个特性的大师套要三星刷 30~40 遍):制作金币 ×20(头饰 / 项链 / 指环 60 万,战甲 80 万),一套 4 件合计约 273 万金币 + 2580 击杀点 + 4 瓶添加剂
 const MREC={head:{steel:2,silk:3,gthr:2,flax:4,glue:2,add:1,gold:600000},body:{steel:4,rhino:3,gthr:1,flax:3,glue:3,add:1,gold:800000},ear:{steel:1,silk:2,gthr:4,flax:2,glue:2,add:1,gold:600000},ring:{steel:3,silk:1,gthr:3,flax:2,glue:2,add:1,gold:600000}};
@@ -28,7 +28,7 @@ function rcBuy(id){const r=RCP[id];if(!r||rcOwn(id))return '';if(KP<r.kp)return 
 function matBuy(k,n){const d=MATD[k];if(!d||d[1]!='g')return '';const c=d[2]*n;if(gold<c)return '金币不足';gold-=c;MAT[k]=(MAT[k]|0)+n;sfx('coin');save();return '购买了 '+d[0]+' ×'+n+',放进背包「📦 道具」页'}
 // 制作书在商城表格里的一行说明:做什么 + 材料
 function rcDesc(id){const r=RCP[id];
-  return (r.s?'熔炉制作「大师'+MSN[r.s]+'」(史诗,带'+TRT[r.t][0]+'特性)':r.fw?'把「火之'+(r.fw=='sword'?'大剑':'法杖')+'」升级成真~版本(强 20%)':r.hw?'制作武器幻化券(给剑 / 法杖加特性)':'制作'+FGN[r.k]+'级锻造石(锻造 '+(r.k-1)+' → '+r.k+' 级)')+'<br><span class="tag">买一次永久学会;材料在熔炉里看</span>'}
+  return (r.s?'熔炉制作「大师'+MSN[r.s]+'」(史诗,带'+TRT[r.t][0]+'特性)':r.fw?'把「'+FWN[r.fw][1]+'」升级成真~版本(强 20%)':r.hw?'制作武器幻化券(给剑 / 法杖 / 拳套加特性)':'制作'+FGN[r.k]+'级锻造石(锻造 '+(r.k-1)+' → '+r.k+' 级)')+'<br><span class="tag">买一次永久学会;材料在熔炉里看</span>'}
 // 熔炉界面状态:t 页签 · rc 选中的配方 · e 选中的装备(b序号 / e:部位 / k:时装id)· a 选中的增幅宝石 · pg 配方页码 · ok 覆盖确认
 const FZ={t:0,rc:null,e:null,a:null,pg:0,ok:0},FZT=['装备制作','道具制作','锻造','洗练','增幅宝石','属性石','强化石合成','武器幻化'];
 function fzAct(r){if(!/^z[a-z]/.test(r))return 0;
@@ -39,7 +39,7 @@ function fzAct(r){if(!/^z[a-z]/.test(r))return 0;
   else if(r=='zgo')fmsg=fzGo();return 1}
 function fzGo(){const t=FZ.t;
   if(t<=1){const id=FZ.rc,R=id&&RCP[id];if(!R)return '先在右边选一个配方';if(!rcOwn(id))return '还没学会「'+R.n+'」(在 🏪 商城击杀点商店购买制作书)';const q=recOf(id);for(const k in q)if(matHave(k)<q[k])return matName(k=='gold'?'':k)+(k=='gold'?'金币':'')+'不足';
-    const fw0=R.fw?fwSrc(R.fw):null;if(R.fw&&!fw0)return '需要一把「火之'+(R.fw=='sword'?'大剑':'法杖')+'」(神秘副本 4 首领掉落;背包里或身上的都行)';
+    const fw0=R.fw?fwSrc(R.fw):null;if(R.fw&&!fw0)return '需要一把「'+FWN[R.fw][1]+'」(神秘副本 4 首领掉落;背包里或身上的都行)';
     if(R.s&&BAG.length>=BAGN)return '背包已满';for(const k in q){if(k=='gold')gold-=q[k];else MAT[k]-=q[k]}
     if(R.fw){const o=fw0.it,it=fireW(R.fw,2);for(const k of ['en','ev','gem','mss','fg','amp','tr'])if(o[k]!=null)it[k]=o[k];if(fw0.b>=0)BAG[fw0.b]=it;else EQ[R.fw]=it;sfx('fuse');save();return '🔥 升级成功:'+o.n+' → '+it.n+'(强化 / 锻造 / 镶嵌 / 技能石都保留)'}
     if(R.hw){MAT.hwq=(MAT.hwq|0)+1;sfx('fuse');save();return '🔥 制作成功:武器幻化券(在「武器幻化」页使用)'}
@@ -69,7 +69,7 @@ function rFuse(){const t=FZ.t;let h=hd('🔥 熔炉')+fm()+`<div class="fzt">${F
     const wOK=q=>t!=7||q.slot=='sword'||q.slot=='staff'||q.slot=='fist';  // 武器幻化:只列剑 / 法杖
     R=`<div class="tag">已穿戴</div><div class="row" style="border:0">${ALL.map(k=>EQ[k]&&wOK(EQ[k])?pk(EQ[k],'e:'+k):'').join('')||'<span class="tag">无</span>'}</div>`+(t==4||t==2?`<div class="tag">时装 / 翅膀</div><div class="row" style="border:0">${OWN.map(id=>pk(cosIt(id),'k:'+id)).join('')||'<span class="tag">无</span>'}</div>`:'')+`<div class="tag">背包</div><div class="row" style="border:0">${BAG.map((q,i)=>wOK(q)?pk(q,'b'+i):'').join('')||'<span class="tag">空</span>'}</div>`+(it?`<p><b style="color:${it.cos?'#f783ac':TR[it.tier][1]}">${nm(it)}</b><br>${ST(it)}</p>`:'');
     if(t==7){const a=FZ.a,w=it&&!it.cos&&(it.slot=='sword'||it.slot=='staff'||it.slot=='fist');R=`<div class="row" style="border:0">${TRK.map(k=>`<button class="${a==k?'on':''}" data-p="za_${k}"><b style="color:${TRT[k][1]}">${TRT[k][0]}</b></button>`).join('')} <span class="tag">选一种特性</span></div>`+(a&&TRT[a]?`<div class="tag">${trDesc(a)}</div>`:'')+R;
-      L=ring(w?eqImg(it):'',w?[{ic:mniEm('hwq'),n:'武器幻化券',have:MAT.hwq|0,need:1}]:[],0,`<button data-p="zgo" ${w&&a&&MAT.hwq>0?'':'disabled'}>${w&&it.tr&&FZ.ok?'确定替换':'✨ 幻化'}</button>`,w&&it.tr&&FZ.ok?`<b style="color:#c92a2a">这把武器已经是「${TRT[it.tr][0]}」,幻化后会换成新的特性,确定吗?</b>`:'给剑或法杖加上一种特性:只算套装件数(头饰 / 战甲 / 戒指 / 项链 + 剑 + 法杖,最多 6 件),不增加任何属性。武器幻化券用制作书在「道具制作」页制作。')}
+      L=ring(w?eqImg(it):'',w?[{ic:mniEm('hwq'),n:'武器幻化券',have:MAT.hwq|0,need:1}]:[],0,`<button data-p="zgo" ${w&&a&&MAT.hwq>0?'':'disabled'}>${w&&it.tr&&FZ.ok?'确定替换':'✨ 幻化'}</button>`,w&&it.tr&&FZ.ok?`<b style="color:#c92a2a">这把武器已经是「${TRT[it.tr][0]}」,幻化后会换成新的特性,确定吗?</b>`:'给剑、法杖或拳套加上一种特性:只算套装件数(头饰 / 战甲 / 戒指 / 项链 + 剑 + 法杖,最多 6 件),不增加任何属性。武器幻化券用制作书在「道具制作」页制作。')}
     if(t==2){const k=it?(it.fg||0)+1:0,ok=k&&k<=FGMX;L=ring(it?(it.cos?'<span style="font-size:30px">'+COSD[it.cos].ic+'</span>':eqImg(it)):'',ok?[{ic:mniEm('fg'+k),n:MISC['fg'+k][0],have:MAT['fg'+k]|0,need:1}]:[],0,`<button data-p="zgo" ${ok&&MAT['fg'+k]>0?'':'disabled'}>🔨 锻造</button>`,it?(it.cos&&ok?`锻造 ${k-1} → ${k} 级:白字百分比 ×${(1+k*FGK).toFixed(1)}(${cosW(it.slot,k)};最高 ${FGMX} 级)。`:ok?`锻造 ${k-1} → ${k} 级:白字 +${k*FGK*100}%(最高 ${FGMX} 级)。锻造石在「锻造石制作」页制作。`:'已经锻造到最高级。'):'在右边选一件装备 / 时装 / 翅膀。锻造只提升白字,每级 +10%,最高 5 级(时装 / 翅膀:10% → 15%)。')}
     if(t==3)L=ring(it&&!it.cos?eqImg(it):'',it&&!it.cos?[{ic:mniEm('wash'),n:'洗脸券',have:MAT.wash|0,need:1}]:[],0,`<button data-p="zgo" ${it&&!it.cos&&MAT.wash>0?'':'disabled'}>🧼 洗练</button>`,it?(it.cos?'时装 / 翅膀没有绿字。':'消耗 1 张洗脸券,3 条绿字的种类和数值全部重新随机(不能只刷一条;每条单独随机,可能出现相同的属性)。'):'在右边选一件装备。洗脸券在 🏪 商城击杀点商店购买。');
     if(t==4){const a=FZ.a;R=`<div class="row" style="border:0">${Object.keys(AMP).map(k=>`<button class="pk${a==k?' on':''}" data-p="za_${k}" title="${AMP[k][0]}">${mniEm('amp_'+k)}<i class="cn">${MAT['amp_'+k]|0}</i></button>`).join('')} <span class="tag">选一种增幅宝石</span></div>`+R;

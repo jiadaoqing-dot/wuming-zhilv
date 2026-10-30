@@ -32,7 +32,7 @@ function gmAct(a){fmsg='';const full=()=>{const S=stats();P.hp=S.hp;P.mp=S.mp};i
   else if(a=='lv1'||a=='lv10'||a=='lvset'){const n=a=='lvset'?Math.max(1,Math.min(99,(+$('gml').value|0)||1)):Math.min(99,lvl+(a=='lv1'?1:10));sp+=Math.max(0,n-lvl);lvl=n;exp=0;full();fmsg='等级已设为 Lv'+lvl}
   else if(a=='give'){if(BAG.length>=BAGN)fmsg='背包已满';else{const sl=$('gms').value,g=+$('gmg').value,r=$('gmr').value;const it=gen(sl,+$('gmt').value,null,g,g==2&&BODY.includes(sl)&&r?r:null);it.en=+$('gme').value||0;BAG.push(it);fmsg='已放入背包:'+nm(it)}}
   else if(a=='bagclr'){BAG=[];fmsg='背包已清空'}
-  else if(a=='firew'){for(const s of ['sword','staff'])for(const f of [1,2])BAG.push(fireW(s,f));MAT.b360=(MAT.b360|0)+5;MAT.hwq=(MAT.hwq|0)+5;fmsg='火之武器 4 把放进背包;360 小鸟碎片、武器幻化券各 +5'}
+  else if(a=='firew'){for(const s of WMODES)for(const f of [1,2])BAG.push(fireW(s,f));MAT.b360=(MAT.b360|0)+5;MAT.hwq=(MAT.hwq|0)+5;fmsg='火之武器 6 把放进背包;360 小鸟碎片、武器幻化券各 +5'}
   else if(a=='epic5'){const r=$('gmr').value;BODY.forEach((k,i)=>EQ[k]=gen(k,3,null,2,r||(i<2?'lei':'xue')));EQ.sword=gen('sword',3,null,2);EQ.staff=gen('staff',3,null,2);EQ.fist=gen('fist',3,null,2);full();fmsg='已换成史诗荒漠套 '+(r?TRT[r][0]+'×4':'怒雷×2 + 热血×2')}
   else if(a=='epic'){for(const k of ALL)EQ[k]=gen(k,3);full();fmsg='全身已换成史诗装备'}
   else if(a=='enall'){const n=+$('gmn').value;for(const k of ALL)if(EQ[k]){EQ[k].en=n;EQ[k].ev=0;for(let l=1;l<=n;l++)EQ[k].ev+=enV(k,l,0)}full();fmsg='已穿戴装备全部设为 +'+n}
