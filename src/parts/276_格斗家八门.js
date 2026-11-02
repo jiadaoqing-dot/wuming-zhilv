@@ -7,7 +7,7 @@
 // 八门中再按 WW+空格(开门 1 秒后,240 useSk 里判断,不看冷却)= 终式「天崩连舞」(fgfin):在附近的敌人之间瞬移连打 6 次(敌人少就轮流打),最后跃起砸地炸开,八门随之关闭
 // 跑步中按攻击 = 流星飞膝(frun,340 调用):高速前冲约 135 像素,沿路的敌人被膝撞击飞;八门中冲得更远,结尾再打出一道气拳
 // 冷却走技能栏(CD.fist[7],八门中这一格不加倍恢复);伤害按技能 7 的倍率(skD,1 级 = 3 倍攻击);美术全部用已有图集:气焰 = FX29 x-fel / x-flame,冲击 = BFX2 w-ring / VFX mass-release / earth-rupture
-const BMT=15,BMK=.4,BMSP=1.3,BMHP=.15,BMR=230,BMV=620,BMN='休生伤杜景死惊开';
+const BMT=15,BMK=.4,BMSP=1.3,BMHP=.3,BMR=230,BMV=620,BMN='休生伤杜景死惊开';
 let BMQ=[],BMH=0,BMF=0;  // 气拳;HUD 开门字幕 / 终式字幕开始的时刻(performance.now 秒)
 const bmOn=()=>P.bm>GT,bmGlow=()=>P.bm>GT?'rgba(140,233,154,.85)':null;
 // 开门(275 fistStart 7 调用);八门中再按 = 终式(240 useSk 调用 bmKey7)

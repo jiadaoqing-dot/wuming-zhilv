@@ -17,10 +17,10 @@ SKD.fist=[['闪避步','向按住的方向(不按方向键就向后)快速滑开
   ['炎柱崩拳','一拳砸向地面(霸体),身前的地面裂开、升起一道巨大的火柱,把敌人高高击飞;火柱烧约 0.7 秒,困在里面的敌人不断受到灼烧(首领不会被击飞)。之后接 I 鬼手',10,9],
   ['鬼手','向空中伸手,魔力凝成很长很粗的黑色手臂:附近最多 6 个敌人每个都被一只手抓住(被击飞在空中的优先),全部拉回到自己身前同一个位置并僵直 1.5 秒,对空中的敌人伤害 +30%(首领拉不动,只受伤害和短暂僵直)',8,8],
   ['摇闪反击','举起双拳左右摇闪 1.2 秒(无敌):这期间只要有攻击打过来,立刻看穿并打出一记反击重拳,眩晕敌人 1.5 秒;没人出手的话,结束时向前冲刺打出一记直拳',15,18],
-  ['莲华','冲到最近的敌人面前一脚把它踢上天,跟着跳起在空中连打 4 下(里莲华),到最高点抱住它,旋转着头朝下砸回地面(表莲华),落地炸开冲击波波及周围的敌人。首领抱不动:照样跳起连打,最后砸在它身上让它僵直。全程无敌',20,16],
+  ['莲华','冲到最近的敌人面前一脚把它踢上天,跟着跳起在空中连打 4 下(里莲华,上升时不造成伤害),到最高点抱住它,翻转成头朝下砸回地面(表莲华),落地炸开冲击波,伤害全部在这一下,波及周围的敌人。首领抱不动:照样跳起连打,最后砸在它身上让它僵直。全程无敌',20,16],
   ['破城重拳','蓄力 0.5 秒(霸体)后踏步打出一记超重直拳,拳风沿地面向前推进 300 像素,路上的敌人全部受到重创并「破防」6 秒(受到的拳套伤害 +15%)',22,20],
   ['震地重锤','向前跃起后双拳砸向地面,以自己为中心震开大范围冲击波并把小怪震上天,随后左右地面再连续爆开 3 次余震。全程无敌',25,22],
-  ['八门','依次打开「休 生 伤 杜 景 死 惊 开」八道门(无敌,消耗 15% 当前生命),最后一道门打开时炸开一圈斗气冲击;之后 15 秒:拳套伤害 +40%、移速 ×1.3、其他技能冷却加倍恢复、普攻突进更远,每一拳都打出穿透的气拳。八门中再按 WW+空格 = 终式「天崩连舞」:在附近敌人之间瞬移连打 6 次后砸地,八门随之关闭',28,30]];
+  ['八门','依次打开「休 生 伤 杜 景 死 惊 开」八道门(无敌,消耗 30% 当前生命),最后一道门打开时炸开一圈斗气冲击;之后 15 秒:拳套伤害 +40%、移速 ×1.3、其他技能冷却加倍恢复、普攻突进更远,每一拳都打出穿透的气拳。八门中再按 WW+空格 = 终式「天崩连舞」:在附近敌人之间瞬移连打 6 次后砸地,八门随之关闭',28,30]];
 // 技能倍率 [基础伤害, 攻击倍率, 每级基础 +, 每级倍率 +](= 一个「单位」,各招按单位乘段数):
 // H 闪避无伤害 · U 火柱升起 4 单位 + 灼烧 6 次 × 0.5 ≈ 7 · I 抓住 1 + 拉回 1.2 单位(空中 ×1.3)· O 反击 4.5(没反击 0.6 单位)· 空 踢起 1.5 + 空中 4 拳 + 砸地 7 单位 ≈ 12.5(周围的敌人 2.5)
 // W空 一拳 8 · S空 砸地 3.75 单位 + 3 次余震 ≈ 8.1 · WW空 八门:开门冲击 1 单位(1 级 = 3 倍攻击),终式按开门冲击的倍数算
@@ -139,20 +139,20 @@ function fistStep(k,dt,S,all){if(!k.id||k.id[0]!='f'||!SKD.fist)return false;con
     if(t>1.42)P.sk=null;return true}
   if(k.id=='flot'){// 莲华:0.1 秒踢起(ph 1)→ 跳起、0.18 ~ 0.42 秒空中 4 拳(里莲华)→ 0.5 秒抱住旋转(ph 2)→ 0.62 秒头朝下砸下(ph 3)→ 落地炸开(ph 4)
     // k.c = 抱得动(小怪);首领 / 大型敌人只跟着它跳起连打,最后砸在它身上
-    const e=k.tg&&k.tg.hp>0&&!k.tg.ug?k.tg:null,hit=(q,n,fx)=>{fHit(q,fU(4,S,n),fx);if(!isBig(q)){q.kbv=0;q.st=Math.max(q.st||0,.3)}};
+    const e=k.tg&&k.tg.hp>0&&!k.tg.ug?k.tg:null;
     if(k.c&&e&&k.ph>=1&&k.ph<4)fLotusHold(e,k.ph==3);
     if(k.ph==0&&t>=.1){k.ph=1;psx('heavy','jump');hitstop(.06);shake=Math.max(shake,.25);P.vy=-660;P.gr=false;
-      if(e){if(k.c){k.ey=e.air?e.ay0:e.y;if(!e.air){e.air=1;e.ay0=e.y;e.hang=0;e.s=null;e.vy=0}}hit(e,1.5,'resonant-break');VFX.spawn('r-cross',e.x+e.w/2,e.y+e.h/2,{s:.5,f})}
+      if(e){if(k.c){k.ey=e.air?e.ay0:e.y;if(!e.air){e.air=1;e.ay0=e.y;e.hang=0;e.s=null;e.vy=0}}VFX.spawn('r-cross',e.x+e.w/2,e.y+e.h/2,{s:.5,f})}
       burst(fCX(),P.y+P.h,12,['#ff6b6b','#ffc9c9','#e9ecef'],200,{s:3,l:.35,g:300});tx('里莲华!',P.x-8,P.y-30,'#ff8787')}
     if(k.ph==1){k.gt=(k.gt||0)-dt;if(k.gt<=0){k.gt=.035;ghost('rgba(255,107,107,.55)',.2)}
       if(!k.c&&e)fMove((e.x+e.w/2-f*(e.w/2+10)-fCX())*Math.min(1,dt*12));  // 首领:贴着它往上跳
       if(k.n<4&&t>=.18+k.n*.08){k.n++;psx('dash');const hx=e?e.x+e.w/2:fCX()+f*30,hy=e?e.y+e.h/2:P.y;
         VFX.spawn('w-ring',hx,hy,{s:.55,f:k.n%2?f:-f,add:1});burst(hx,hy,8,['#ff6b6b','#fff','#c92a2a'],220,{sh:1,s:2,l:.25,dr:3});
-        if(e)hit(e,1,k.n%2?'m-spark':'resonant-break');const hb=fBox(50,-20,46,10);for(const q of all)if(q!==e&&ov(hb,q))hit(q,.5,'m-spark')}
+        if(e&&!isBig(e)){e.kbv=0;e.st=Math.max(e.st||0,.3)}}  // 第七十四轮(用户):上跳(踢起 + 空中 4 拳)不再造成伤害,只留特效;伤害全在下砸落地
       if(t>=.5){k.ph=2;k.ht=t;psx('blink');flash('255,140,120',.2);tx('表莲华!',P.x-8,P.y-34,'#ff6b6b');VFX.spawn('r-ring',fCX(),P.y+12,{s:.6});ring(fCX(),P.y+12,4,44,'#ff6b6b',.3,4)}}
     if(k.ph==2){P.vy=Math.min(P.vy,-30);if(Math.random()<dt*40)ghost('rgba(255,107,107,.5)',.15);
       if(Math.random()<dt*50){const a=t*30,r=18;pt({x:fCX()+Math.cos(a)*r,y:P.y+14+Math.sin(a)*r,vx:-Math.sin(a)*120,vy:Math.cos(a)*120,c:pick(['#ff8787','#ffc9c9','#fff']),sh:2,s:rnd(3,5),l:.3})}
-      if(t-k.ht>=.12){k.ph=3;psx('dash');VFX.spawn('dw-wind',fCX(),P.y+16,{s:1.5,f,life:.35,add:1})}}
+      if(t-k.ht>=.12){k.ph=3;k.dt=t;psx('dash');VFX.spawn('dw-wind',fCX(),P.y+16,{s:1.5,f,life:.35,add:1})}}
     if(k.ph==3){P.vy=1300;k.gt=(k.gt||0)-dt;if(k.gt<=0){k.gt=.025;ghost('rgba(255,107,107,.7)',.22)}
       pt({x:fCX()+rnd(-10,10),y:P.y+rnd(0,P.h),vx:rnd(-30,30),vy:-rnd(100,220),c:pick(['#ff6b6b','#ff8787','#fff']),sh:2,s:rnd(3,6),l:.3});
       if(P.gr||t>1.6){k.ph=4;k.lt=t;const cx=fCX();psx('boom','slam');hitstop(.14);shake=Math.max(shake,.75);flash('255,120,100',.35);
@@ -205,10 +205,10 @@ function fistRig(base,k,tm,mv){const G=rP(base,FGUARD,mv=='still'?{y:(base.y||0)
       if(k.c)p=seq([[0,HKw],[.06,{...HK,gx:13,lean:.45}],[.4,{...HK,gx:13,lean:.4}]],t-k.ct);
       else if(t>=1.2)p=seq([[0,HVw],[.06,HV],[.2,HV]],t-1.2);
       else{const w=Math.sin(t*14);p=rP(G,{x:w*2.2,lean:.2+w*.12,head:w*.08,y:-Math.abs(w)*.6,sq:.08,hF:.5,kF:.7,hB:-.45,kB:.7,gy:-14})}}
-    else if(k.id=='flot'){glow='rgba(255,107,107,.9)';  // 莲华:踢腿 → 空中连打 → 双臂前抱 + 身体前倾(抱住)→ 俯冲时整个人往前栽 → 落地蹲伏
+    else if(k.id=='flot'){glow='rgba(255,107,107,.9)';  // 莲华:踢腿 → 空中连打 → 双臂前抱 + 身体前倾(抱住)→ 俯冲时整个人向前翻成头朝下 → 落地倒立
       const HUG={gx:9,gy:-14,aB:1.1,eB:1.6,lean:.5,head:.15,x:1.5,hF:.9,kF:1.2,hB:-.2,kB:1};
       p=k.ph==0?rP(G,HKw):k.ph==1?(t<.18?rP(G,HV,{hF:1.6,kF:.15,hB:-.4,kB:.3,lean:-.1}):[rP(G,J,{lean:.34}),rP(G,HK),rP(G,UP),rP(G,C)][k.n%4]):
-        k.ph==2?rP(G,HUG):k.ph==3?rP(G,HUG,{lean:1.05,head:.3,sq:.12}):rP(G,{gx:9,gy:2,aB:1.2,eB:.3,lean:.75,head:.2,x:2,sq:.3,hF:1.2,kF:1.7,hB:-.5,kB:1})}
+        k.ph==2?rP(G,HUG):k.ph==3?rP(G,HUG,{lean:.3,head:.2}):rP(G,{gx:3,gy:-25,aB:2.9,eB:.3,lean:0,head:-.1,sq:-.06,hF:.08,kF:.1,hB:-.08,kB:.1})}  // 第七十四轮:落地 = 倒立(双臂举过头顶撑地、双腿并拢朝天,fBodyRot 整个翻过来)
     else if(k.id=='fsieg'){glow='rgba(255,169,77,.9)';p=t<.5?rP(G,HVw,{y:Math.sin(tm*60)*.35}):seq([[0,HV],[.3,HV]],t-.5)}
     else if(k.id=='fquake'){glow='rgba(232,194,122,.85)';const D={gx:9,gy:2,aB:1.2,eB:.3,lean:.75,head:.2,x:2,sq:.3,hF:1.2,kF:1.7,hB:-.5,kB:1};p=k.ph==0?rP(G,{gx:2,gy:-24,aB:2.9,eB:.3,lean:-.2,head:-.12,hF:.8,kF:1.3,hB:.3,kB:1.1}):k.ph==1?rP(G,{gx:8,gy:-2,aB:1.6,eB:.2,lean:.4,hF:.6,kF:.9,hB:-.2,kB:.6}):rP(G,D)}
     else if(k.id[1]=='g'||k.id=='frun'){const r=bmRig(G,k,tm,{J,C,HK,UP,UPw,HV,HVw});p=r.p;glow=r.glow}  // 第七十一轮(276)
@@ -219,6 +219,10 @@ function fistRig(base,k,tm,mv){const G=rP(base,FGUARD,mv=='still'?{y:(base.y||0)
     L.push([D+P.swR+.1,G]);p=seq(L,T);if(c==-1||c==3)glow='rgba(255,169,77,.7)'}
   else if(mv=='run')p=base;  // 跑步时双臂照常摆动
   return {p,glow:glow||bmGlow(),mouth}}
+// 第七十四轮(用户:莲华落地改成头朝下):整个人绕身体中心转 → [角度, 转轴 y](770 drawPBody 调用;0 = 不转)
+// 下砸(ph 3)0.12 秒内向前翻成头朝下,落地(ph 4)保持倒立砸进地里,最后 0.15 秒继续向前翻回站立
+function fBodyRot(){const k=P.sk;if(!k||k.id!='flot'||k.ph<3)return 0;const t=k.t,q=k.ph==3?Math.min(1,(t-k.dt)/.12):1+Math.max(0,Math.min(1,(t-k.lt-.3)/.15));
+  return q>=2?0:[P.f*Math.PI*q,P.y+P.h/2]}
 // ---------- 纸娃娃上的拳套:eq_atlas 第 7 行的图标缩小成 FGSZ 像素(按系列缓存),沿前臂方向旋转画在手上 ----------
 // 第七十二轮(用户:拳套看上去小):12 → 16 像素;第七十三轮(用户:再大一点,有力量感):16 → 20 像素
 const FGC={},FGSZ=20;

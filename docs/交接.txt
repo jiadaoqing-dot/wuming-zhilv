@@ -22,7 +22,9 @@
  旧的云端环境只能访问 GitHub / npm / pypi,opengameart、itch 访问不了。
  素材来源:ULPC 仓库(LPC 人物图层)、series-ai/jam-ready-assets(大量 CC0 素材,LFS 文件用 media 直链下载,见 fetch_assets.sh)。
 
-【当前状态(2026-11-02,v1.78)】
+【当前状态(2026-11-02,v1.79)】
+- v1.79(第七十四轮):直接在主目录 main 上做(已和 origin/main 一致)。八门 SKCDFIX fist7 45 + BMHP .3;莲华 ph 1 不伤害、fBodyRot 落地倒立(770 drawPBody bR);571 cuSet 去掉时装 / 翅膀互斥。
+  测试脚本 scratchpad t74.py(逐帧记伤害 + 截图时清 VFX.L / PT 并临时把 drawSkBar 换成空函数,否则主角被技能栏挡住),smoke 0 错误。
 - v1.78(第七十三轮):主目录 main 落后 GitHub(v1.77 只在工作树分支推送),这次已 ff 到 origin/main 再做;用户的新任务抄进「第七十三轮」。
   鬼手群体(fhTgs / fhStep / P.sk.A)、空格 莲华(flot / fLotus / fLotusHold,删雷火瞬身和 P.fdg)、气拳 FQI(assets/fqi.png ← art_src/fist/build_fqi.py,raw/fist72)+ W/S+J 气拳、
   W/S+空格 红色特效、FGSZ 20。截图脚本 scratchpad shot73.py(注意别设 e.max),smoke 0 错误。旧工作树 .claude/worktrees/round-* 都已合并或过时,可以清理。
@@ -146,6 +148,7 @@
   测试注意:Playwright 的 keyboard.press 会在同一帧抬起按键,跑步中按攻击要 down → 等 50ms → up 才会触发冲刺直戳。
 
 【下一步】
+  ★ v1.79 的问题在 docs/下次任务.txt「第七十五轮」:莲华落地倒立的样子、八门 45 秒 / 30% 生命的手感。
   ★ v1.78 的问题在 docs/下次任务.txt「第七十四轮」:鬼手群体 / 莲华手感、红色气拳样子、拳套 20 像素、八门冷却(上一轮 Q3 没回复)。
   ★ v1.77 的问题在 docs/下次任务.txt「第七十三轮」:新 H / U / I / 空格 手感和鬼手外观、拳套大小、八门冷却要不要单独加长、主目录旧文件冲突提醒。
   ★ v1.76 的问题在 docs/下次任务.txt「第七十二轮」:八门数值 / 按键、上一轮没回复的重新转职价格和《无名之书》设定、主目录旧文件冲突提醒。

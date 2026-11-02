@@ -14,7 +14,7 @@
 // 第六十二轮开放 10 ~ 12(十二魔全部开放):贝尔芬格(怠惰 —— 中箭叠「怠惰」越走越慢、叠满睡着;打瞌睡时回血但受伤 ×1.5)· 阿撒兹勒(锻造 —— 岩刺拳、静坐淬火要打断、铁壁反击)·
 //   路西法(傲慢 —— 「跪下」的 3 秒里出手会让他更强,忍住就露出破绽;二阶段晨星坠落:只有光圈里是安全的)
 const DM0=22,DMOPEN=12,isDm=c=>c>=DM0&&c<DM0+12,dmI=()=>cur-DM0;
-// 12 个恶魔:n 名字 · en 原名 · k 图集名(null = 还没做)· sl 诅咒的部位(第五十六轮用户定:武器 / 头饰 / 战甲 / 时装翅膀(共用)/ 项链 / 戒指,前 6 个一阶,后 6 个二阶同样顺序)· lg 传说 + 本作暗线
+// 12 个恶魔:n 名字 · en 原名 · k 图集名(null = 还没做)· sl 诅咒的部位(第五十六轮用户定:武器 / 头饰 / 战甲 / 时装翅膀(第七十四轮起两件各自一个诅咒)/ 项链 / 戒指,前 6 个一阶,后 6 个二阶同样顺序)· lg 传说 + 本作暗线
 const DMD=[
  {n:'巴尔',en:'Baal',k:'baal',sl:'wpn',lg:'所罗门七十二柱的第一位魔王,统领东方的六十六个军团。传说他三首同体,能让人隐身;封印里的他只剩一把烧红的屠刀,一直念叨「我的名字是被拿走的」。'},
  {n:'达贡',en:'Dagon',k:'dagon',sl:'head',lg:'古代海边民族供奉的鱼神,后来被当成地狱的恶魔。它从深海里伸出触手,把潮水卷成柱子;封印松动后,石台下面整夜都能听见浪声。'},
@@ -468,7 +468,7 @@ function dmDrop(e){const id='cz'+dmI();if(!MISC[id])return;gdDrop(e,{k:'gc',id,n
 // 一阶数值 = 精良强化石从 +1 强化到 +12 的累计值(+1~+3 每级 EQE 精良一档,+4~+12 每级 ×EQE2):攻击 / 防御 25.5×8 = 204 · 生命 25.5×48 = 1224 · 魔力 25.5×24 = 612 · 暴击 25.5×20 = 510(8.5%)
 // 闪避单独压低(用户:闪避不能堆太高):90 点 = 3%,出现几率也最低
 // 第五十六轮(用户):数值固定(= 精良 +12 满值,旧存档里随机出来的低值也按满值算 cuV);刷出新属性后让玩家选「换成新的 / 保留原来的」(R19.cuP 记着没选完的那次)
-//   部位:wpn = 武器(剑 / 法杖各自可以诅咒)· cos = 时装 / 翅膀共用一个部位(同一时间只有一件带诅咒,诅咒另一件会把这件的诅咒移走)· 其余 = 头饰 / 战甲 / 项链 / 戒指
+//   部位:wpn = 武器(剑 / 法杖各自可以诅咒)· cos = 时装 / 翅膀(第七十四轮用户:两件各自可以带一个诅咒,不再互相移走)· 其余 = 头饰 / 战甲 / 项链 / 戒指
 const CUNM={atk:'攻击',def:'防御',hp:'生命',mp:'魔力',cr:'暴击',dg:'闪避'},CUV={atk:204,def:204,hp:1224,mp:612,cr:510,dg:90},CUW=[['atk',20],['cr',18],['def',18],['hp',18],['mp',16],['dg',10]],CUN=['','一阶','二阶'],CUK=[0,1,1.5];
 const CUG={wpn:['sword','staff','fist'],cos:['fash','wing']},cuTs=g=>CUG[g]||[g],cuSN=g=>g=='wpn'?'武器':g=='cos'?'时装 / 翅膀':SL[g][0],cuTN=t=>SL[t]?SL[t][0]:t=='fash'?'时装':'翅膀';
 const cuV=c=>Math.round(CUV[c.k]*CUK[c.t]);
@@ -483,7 +483,7 @@ function curseUse(id,t){const i=+id.slice(2),d=DMD[i];if(!d||!(MAT[id]>0))return
   const old=it.cu,r=cuRoll(tr,old&&old.t==tr?old.k:null);MAT[id]--;sfx('fuse');flash('200,30,40',.2);
   if(!old){const m=cuSet(t,{k:r.k,v:r.v,t:tr,d:i});return '😈 '+cuTN(t)+'被「'+d.n+'」诅咒了:'+CUNM[r.k]+' +'+r.v+m}
   R19.cuP={t,k:r.k,v:r.v,tr,d:i};return '😈 刷出了「'+CUNM[r.k]+' +'+r.v+'」—— 换成新的,还是保留原来的「'+CUNM[old.k]+' +'+cuV(old)+'」?'}
-function cuSet(t,c){const it=cuIt(t);if(!it)return '';it.cu=c;if(CUG.cos.includes(t)){const o=cuIt(t=='fash'?'wing':'fash');if(o&&o.cu){delete o.cu;return '(时装和翅膀共用一个诅咒部位,另一件的诅咒移走了)'}}return ''}
+function cuSet(t,c){const it=cuIt(t);if(it)it.cu=c;return ''}  // 第七十四轮(用户):时装 / 翅膀各自一个诅咒
 function cursePick(yes){const q=R19.cuP;R19.cuP=null;if(!q)return '';if(!yes)return '保留了原来的诅咒';const it=cuIt(q.t);if(!it)return '那件'+cuTN(q.t)+'已经脱下了,保留原来的诅咒';
   const m=cuSet(q.t,{k:q.k,v:q.v,t:q.tr,d:q.d});sfx('fuse');return '😈 '+cuTN(q.t)+'的诅咒换成了:'+CUNM[q.k]+' +'+q.v+m}
 // 背包左键菜单(620 cmItems 调用):有没选完的那次 → 两个选项;否则 = 每个可以诅咒的部位一个按钮

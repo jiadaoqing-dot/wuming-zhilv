@@ -125,8 +125,9 @@ function drawPBody(){
   const rg=heroRig(),nowT=performance.now(),rdt=Math.min(.05,(nowT-(P.rT||nowT))/1000);P.rT=nowT;P.rglow=rg.glow;
   P.rc=rigSmooth(P.rc,rg.p,rdt,P.swT!=null&&P.swT<.4||!!P.sk||!!P.cs);
   const tier=EQ[P.mode]?EQ[P.mode].tier:0,L=heroLook();
-  x.save();x.translate(Math.round(cx*RS)/RS,fy);x.scale(P.f*HSC,HSC);
-  const HH=HERO(),pxh=HH.heroOn(L);if(pxh){x.restore();x.save()}
+  const brt=P.mode=='fist'&&fBodyRot(),bR=()=>{if(brt){x.translate(cx,brt[1]);x.rotate(brt[0]);x.translate(-cx,-brt[1])}};  // 第七十四轮:格斗家莲华落地头朝下(275)
+  x.save();bR();x.translate(Math.round(cx*RS)/RS,fy);x.scale(P.f*HSC,HSC);
+  const HH=HERO(),pxh=HH.heroOn(L);if(pxh){x.restore();x.save();bR()}
   let wp;if(pxh){HH.hero(x,cx,fy,tm);wp=HH.wgeo()}else wp=drawHero(x,P.rc,L,{t:tm,wk:P.mode,wg:EQ[P.mode]?EQ[P.mode].g||0:0,glow:rg.glow,tier,wing:L.wing,fly:P.fly,world:1,ps:P.ps>0,mouth:rg.mouth||(P.at>0||P.sk?'o':null),closed:rg.closed,angry:P.at>0||!!P.sk||!!P.cs,spd:P.vx});
   x.restore();
   // 剑光:剑刃转得快 / 移动得快时记录轨迹(世界坐标);拖剑跑时剑尖擦地冒火花
