@@ -3,7 +3,7 @@
 // 开门(fgate,1.5 秒,无敌):依次打开 休 生 伤 杜 景 死 惊 开 八道门(HUD 上一个字一个字亮起),身上的气焰越来越旺;
 //   最后一道门打开时以自己为中心炸开斗气冲击(伤害 + 击飞),消耗当前生命的 BMHP(不会因此倒下)
 // 八门状态(P.bm = 到期的 GT,持续 BMT 秒):拳套伤害 +BMK、移速 ×BMSP、技能冷却恢复 ×2、普攻每段向前突进的距离 ×2.5(340)、
-//   每一拳打出一道「气拳」(bmqGo:拳压沿直线飞 BMR 像素,穿透;重拳 / 第四段更大更痛);身上冒绿色气焰 + 红色蒸汽
+//   每一拳打出一道「气拳」(bmqGo:红色能量团沿直线飞 BMR 像素,穿透;重拳 / 第四段更大更痛;W+J / S+J 也打出,斜上 / 贴地);身上冒绿色气焰 + 红色蒸汽
 // 八门中再按 WW+空格(开门 1 秒后,240 useSk 里判断,不看冷却)= 终式「天崩连舞」(fgfin):在附近的敌人之间瞬移连打 6 次(敌人少就轮流打),最后跃起砸地炸开,八门随之关闭
 // 跑步中按攻击 = 流星飞膝(frun,340 调用):高速前冲约 135 像素,沿路的敌人被膝撞击飞;八门中冲得更远,结尾再打出一道气拳
 // 冷却走技能栏(CD.fist[7],八门中这一格不加倍恢复);伤害按技能 7 的倍率(skD,1 级 = 3 倍攻击);美术全部用已有图集:气焰 = FX29 x-fel / x-flame,冲击 = BFX2 w-ring / VFX mass-release / earth-rupture
@@ -16,16 +16,26 @@ function bmGo(){P.sk={id:'fgate',t:0,inv:1,n:0};P.swT=null;P.ch=0;ah=0;BMH=perfo
 function bmFin(){const cx=fCX(),L=allTg().filter(e=>Math.abs(e.x+e.w/2-cx)<380&&Math.abs(e.y+e.h/2-(P.y+16))<180).sort((a,b)=>Math.abs(a.x+a.w/2-cx)-Math.abs(b.x+b.w/2-cx)).slice(0,6),tg=[];
   for(let i=0;L.length&&i<6;i++)tg.push(L[i%L.length]);
   P.sk={id:'fgfin',t:0,inv:1,n:0,tg};P.swT=null;P.ch=0;ah=0;BMF=performance.now()/1000;flash('140,233,154',.3);hitstop(.08);psx('blink','buff')}
-// 气拳:跟着 q 走的拳压(w-ring 圈 + 风),一路留下绿色气屑
-function bmqGo(big){if(BMQ.length>12)BMQ.shift();const f=P.f,q={x:fCX()+f*30,y:P.y+(big?10:14),w:0,h:0,f,d:0,big:big?1:0,hit:new Set(),tk:0};BMQ.push(q);
-  VFX.spawn('w-ring',0,0,{at:q,s:big?.8:.55,f,add:1});VFX.spawn('dw-wind',0,0,{at:q,s:big?2.6:1.8,f,life:BMR/BMV,add:1,fi:.02})}
+// 气拳(第七十三轮,用户:换新特效,更大、红色、随机不规则):Energy Sprite Sheets(fzeeshan,CC0)的尖刺能量团换成红色(art_src/fist/build_fqi.py),
+//   每 0.05 秒随机换一帧、随机转角 / 翻转 / 拉伸,再叠一层放大的发光;一路留下红色气屑
+// kind:无 = 普攻 / 飞膝(直线飞 BMR);'up' = 八门中 W+J(斜向上飞,击飞);'low' = 八门中 S+J(贴地飞,压扁的样子,破防 + 僵直)
+const FQI={I:null,D:'@@A:fqi@@',N:12,C:48};{const im=new Image();im.onload=()=>{FQI.I=im};im.src=FQI.D}
+function bmqGo(big,kind){if(BMQ.length>12)BMQ.shift();const f=P.f,up=kind=='up',lo=kind=='low';
+  const q={x:fCX()+f*30,y:lo?P.y+P.h-12:P.y+(up?2:big?10:14),f,vy:up?-BMV*.36:0,d:0,R:kind?300:BMR,big:big?1:0,kind:kind||'',hit:new Set(),tk:0,ft:0,fr:0,rot:0,sx:1,sy:1};BMQ.push(q);bmqRoll(q);
+  burst(q.x,q.y,8,['#ff6b6b','#ffc9c9','#c92a2a'],200,{sh:1,s:2.5,l:.25,dr:3})}
+function bmqRoll(q){q.fr=Math.floor(Math.random()*FQI.N);q.rot=rnd(-.6,.6);q.sx=rnd(.85,1.2)*(Math.random()<.5?-1:1);q.sy=rnd(.8,1.15)}
+function bmqDraw(){if(!BMQ.length||!FQI.I)return;const C=FQI.C;
+  for(const q of BMQ){const s=(q.big?2:1.5)*Math.min(1,.5+q.d/60),sy=q.kind=='low'?.6:1,X=Math.round(q.x-cam),Y=Math.round(q.y);
+    x.save();x.imageSmoothingEnabled=false;x.translate(X,Y);x.rotate(q.rot+(q.vy?-.35*q.f:0));x.scale(q.sx*q.f*s,q.sy*sy*s);x.globalAlpha=Math.min(1,(q.R-q.d)/60+.2);
+    x.drawImage(FQI.I,q.fr*C,0,C,C,-C/2,-C/2,C,C);x.globalCompositeOperation='lighter';x.globalAlpha*=.45;x.scale(1.3,1.3);x.drawImage(FQI.I,((q.fr+5)%FQI.N)*C,0,C,C,-C/2,-C/2,C,C);x.restore()}}
 function bmHitFx(e){const cx=e.x+e.w/2,cy=e.y+e.h/2;if(Math.random()<.5)VFX.spawn('x-star',cx+rnd(-8,8),cy+rnd(-8,8),{s:rnd(.35,.55),life:.3,add:1,gr:1});burst(cx,cy,6,['#8ce99a','#e6fcf5','#ff8787'],220,{sh:1,s:2,l:.22,dr:3})}
 function bmTick(dt){
-  if(BMQ.length){const S=stats();for(const q of BMQ){const s=BMV*dt;q.x+=q.f*s;q.d+=s;q.tk-=dt;
-      if(q.tk<=0){q.tk=.025;pt({x:q.x+rnd(-4,4),y:q.y+rnd(-6,6),vx:-q.f*rnd(40,90),vy:rnd(-20,20),c:pick(['#b2f2bb','#e6fcf5','#8ce99a']),sh:2,s:rnd(2,4),l:.25})}
-      const r=q.big?22:15,hb={x:q.x-r,y:q.y-r-6,w:r*2,h:r*2+12};
-      for(const e of allTg())if(!q.hit.has(e)&&!e.ug&&e.hp>0&&ov(hb,e)){q.hit.add(e);hitFx='punch';noCombo=1;dealt(e,Math.round(S.atk*(q.big?.85:.6)*rnd(.9,1.1)));noCombo=0;hitFx=null;if(!isBig(e))e.kbv=q.f*(q.big?260:140)}}
-    BMQ=BMQ.filter(q=>q.d<BMR&&q.x>0&&q.x<xMax()+60)}
+  if(BMQ.length){const S=stats();for(const q of BMQ){const vx=q.vy?BMV*.82:BMV,s=Math.hypot(vx,q.vy)*dt;q.x+=q.f*vx*dt;q.y+=q.vy*dt;q.d+=s;q.tk-=dt;q.ft-=dt;if(q.ft<=0){q.ft=.05;bmqRoll(q)}
+      if(q.tk<=0){q.tk=.02;pt({x:q.x+rnd(-6,6),y:q.y+rnd(-8,8),vx:-q.f*rnd(40,110),vy:rnd(-25,25),c:pick(['#ff6b6b','#ffc9c9','#c92a2a','#ffa94d']),sh:2,s:rnd(2,5),l:.28})}
+      const r=q.big?30:22,hb=q.kind=='low'?{x:q.x-r-6,y:q.y-14,w:r*2+12,h:24}:{x:q.x-r,y:q.y-r-6,w:r*2,h:r*2+12};
+      for(const e of allTg())if(!q.hit.has(e)&&!e.ug&&e.hp>0&&ov(hb,e)){q.hit.add(e);hitFx='punch';noCombo=1;dealt(e,Math.round(S.atk*(q.big?.85:.6)*rnd(.9,1.1)));noCombo=0;hitFx=null;
+        VFX.spawn('r-ball',e.x+e.w/2,e.y+e.h/2,{s:.32});if(q.kind=='up')launch(e,.3);else if(q.kind=='low'){fBrk(e);if(!isBig(e))bigStun(e,.5)}else if(!isBig(e))e.kbv=q.f*(q.big?260:140)}}
+    BMQ=BMQ.filter(q=>q.d<q.R&&q.x>0&&q.x<xMax()+60&&q.y>-40)}
   if(P.bm>0&&(!bmOn()||P.mode!='fist')){P.bm=0;ring(fCX(),P.y+16,30,4,'#8ce99a',.3,3)}  // 八门关闭(换了武器也关)
   if(!bmOn())return;
   for(let i=0;i<7;i++)CD.fist[i]=Math.max(0,CD.fist[i]-dt);P.ujc=Math.max(0,(P.ujc||0)-dt);P.sjc=Math.max(0,(P.sjc||0)-dt);  // 冷却恢复 ×2
